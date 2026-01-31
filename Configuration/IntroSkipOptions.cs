@@ -14,6 +14,10 @@ namespace MediaInfoKeeper.Configuration
         [Description("开启后允许 .strm 参与 Emby 原生片头指纹探测。")]
         public bool UnlockIntroSkip { get; set; } = true;
 
+        [DisplayName("入库时扫描片头")]
+        [Description("新剧集入库时触发片头检测。")]
+        public bool ScanIntroOnItemAdded { get; set; } = false;
+        
         [DisplayName("保护片头标记")]
         [Description("刷新元数据时保护已存在的片头/片尾标记不被清空。")]
         public bool ProtectIntroMarkers { get; set; } = true;

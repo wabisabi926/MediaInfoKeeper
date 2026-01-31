@@ -18,6 +18,7 @@ using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Plugins;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Drawing;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
@@ -40,6 +41,7 @@ namespace MediaInfoKeeper
         public static LibraryService LibraryService { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
+        public static IntroScanService IntroScanService { get; private set; }
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -124,6 +126,7 @@ namespace MediaInfoKeeper
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem);
             MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
+            IntroScanService = new IntroScanService(logManager, libraryManager);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
 
@@ -466,6 +469,18 @@ namespace MediaInfoKeeper
                     _ = MediaInfoService.SerializeMediaInfo(e.Item.InternalId, directoryService, true, "OnItemAdded Overwrite");
                 }
 
+                if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
+                {
+                    if (IntroScanService.HasIntroMarkers(episode))
+                    {
+                        this.logger.Info("入库片头扫描跳过: 已存在片头标记");
+                        return;
+                    }
+
+                    this.logger.Info("入库片头扫描: 触发片头检测");
+                    await IntroScanService.TryDetectIntroAsync(episode, CancellationToken.None).ConfigureAwait(false);
+                }
+
             }
             catch (Exception ex)
             {
@@ -581,5 +596,3 @@ namespace MediaInfoKeeper
         }
     }
 }
-
-

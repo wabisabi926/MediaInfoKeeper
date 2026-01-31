@@ -15,6 +15,7 @@ namespace MediaInfoKeeper.Configuration
         [Browsable(false)]
         public IEnumerable<EditorSelectOption> LibraryList { get; set; }
 
+        // Main page
         [DisplayName("全局设置")]
         public GeneralOptions General { get; set; } = new GeneralOptions();
 
@@ -24,14 +25,15 @@ namespace MediaInfoKeeper.Configuration
         [DisplayName("计划任务参数")]
         public RecentTaskOptions RecentTasks { get; set; } = new RecentTaskOptions();
 
+        // Tab pages (order follows MainPageController)
         [DisplayName("IntroSkip")]
         public IntroSkipOptions IntroSkip { get; set; } = new IntroSkipOptions();
 
-        [DisplayName("Proxy")]
-        public ProxyOptions Proxy { get; set; } = new ProxyOptions();
-
         [DisplayName("Search")]
         public EnhanceChineseSearchOptions EnhanceChineseSearch { get; set; } = new EnhanceChineseSearchOptions();
+
+        [DisplayName("Proxy")]
+        public ProxyOptions Proxy { get; set; } = new ProxyOptions();
 
         [DisplayName("GitHub")]
         public GitHubOptions GitHub { get; set; } = new GitHubOptions();
