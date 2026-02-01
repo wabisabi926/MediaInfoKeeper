@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Common;
 using Emby.Web.GenericEdit.Editors;
+using MediaBrowser.Model.GenericEdit;
 using MediaBrowser.Model.Attributes;
 
 namespace MediaInfoKeeper.Configuration
@@ -91,5 +93,96 @@ namespace MediaInfoKeeper.Configuration
         [EditMultilSelect]
         [SelectItemsSource(nameof(RefreshImageModeOptions))]
         public string RefreshImageMode { get; set; } = "Fill";
+
+        public override IEditObjectContainer CreateEditContainer()
+        {
+            var container = (EditObjectContainer)base.CreateEditContainer();
+            var root = container.EditorRoot;
+            if (root?.EditorItems == null || root.EditorItems.Length == 0)
+            {
+                return container;
+            }
+
+            var itemLookup = new Dictionary<string, EditorBase>(StringComparer.OrdinalIgnoreCase);
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (string.IsNullOrEmpty(key))
+                {
+                    continue;
+                }
+
+                if (!itemLookup.ContainsKey(key))
+                {
+                    itemLookup.Add(key, item);
+                }
+            }
+
+            var groupedItems = new List<EditorBase>();
+            var groupIndex = 0;
+
+            void AddGroup(string title, params string[] propertyNames)
+            {
+                var items = new List<EditorBase>();
+                foreach (var propertyName in propertyNames)
+                {
+                    if (itemLookup.TryGetValue(propertyName, out var item))
+                    {
+                        items.Add(item);
+                        itemLookup.Remove(propertyName);
+                    }
+                }
+
+                if (items.Count == 0)
+                {
+                    return;
+                }
+
+                groupIndex++;
+                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            AddGroup("基本设置",
+                nameof(PersistMediaInfoEnabled),
+                nameof(DeleteMediaInfoJsonOnRemove),
+                nameof(DisableSystemFfprobe),
+                nameof(EnableMetadataProvidersWatcher),
+                nameof(MediaInfoJsonRootFolder),
+                nameof(MaxConcurrentCount));
+
+            AddGroup("媒体库范围",
+                nameof(CatchupLibraries),
+                nameof(ScheduledTaskLibraries));
+
+            AddGroup("计划任务",
+                nameof(RecentItemsDays),
+                nameof(RecentItemsLimit),
+                nameof(RefreshMetadataMode),
+                nameof(RefreshImageMode));
+            
+            var remaining = new List<EditorBase>();
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (!string.IsNullOrEmpty(key) && itemLookup.ContainsKey(key))
+                {
+                    remaining.Add(item);
+                    itemLookup.Remove(key);
+                }
+            }
+
+            if (remaining.Count > 0)
+            {
+                groupIndex++;
+                groupedItems.Add(new EditorGroup("其他", remaining.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            if (groupedItems.Count > 0)
+            {
+                root.EditorItems = groupedItems.ToArray();
+            }
+
+            return container;
+        }
     }
 }

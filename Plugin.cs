@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using Emby.Web.GenericEdit.Common;
@@ -71,11 +72,12 @@ namespace MediaInfoKeeper
         {
             Timeout = TimeSpan.FromSeconds(3)
         };
-        private static readonly object LatestVersionLock = new object();
-        private static DateTimeOffset latestVersionCheckedUtc = DateTimeOffset.MinValue;
         private static string latestReleaseVersionCache;
+        private static readonly object ReleaseHistoryLock = new object();
+        private static DateTimeOffset releaseHistoryCheckedUtc = DateTimeOffset.MinValue;
+        private static string releaseHistoryBodyCache;
         private static readonly TimeSpan LatestVersionCacheDuration = TimeSpan.FromMinutes(30);
-        private const string GitHubLatestReleaseUrl = "https://api.github.com/repos/honue/MediaInfoKeeper/releases/latest";
+        private const string GitHubReleaseHistoryUrl = "https://api.github.com/repos/honue/MediaInfoKeeper/releases?per_page=100&page=";
 
         /// <summary>初始化插件并注册库事件处理。</summary>
         public Plugin(
@@ -221,6 +223,7 @@ namespace MediaInfoKeeper
             options.IntroSkip.LibraryList = list;
             options.GitHub.CurrentVersion = GetCurrentVersion();
             options.GitHub.LatestReleaseVersion = GetLatestReleaseVersion();
+            options.GitHub.ReleaseHistoryBody = GetReleaseHistoryBody();
         }
 
         internal bool HandleOptionsSaving(PluginConfiguration options)
@@ -523,80 +526,162 @@ namespace MediaInfoKeeper
 
         private string GetLatestReleaseVersion()
         {
-            var now = DateTimeOffset.UtcNow;
-            if (now - latestVersionCheckedUtc < LatestVersionCacheDuration && !string.IsNullOrWhiteSpace(latestReleaseVersionCache))
-            {
-                return latestReleaseVersionCache;
-            }
-
-            lock (LatestVersionLock)
-            {
-                if (now - latestVersionCheckedUtc < LatestVersionCacheDuration && !string.IsNullOrWhiteSpace(latestReleaseVersionCache))
-                {
-                    return latestReleaseVersionCache;
-                }
-
-                latestVersionCheckedUtc = now;
-                latestReleaseVersionCache = FetchLatestReleaseVersion();
-                return latestReleaseVersionCache;
-            }
-        }
-
-        private string FetchLatestReleaseVersion()
-        {
-            try
-            {
-                using var request = new HttpRequestMessage(HttpMethod.Get, GitHubLatestReleaseUrl);
-                request.Headers.UserAgent.ParseAdd("MediaInfoKeeper");
-                request.Headers.Accept.ParseAdd("application/vnd.github+json");
-
-                var token = this.Options?.GitHub?.GitHubToken;
-                if (!string.IsNullOrWhiteSpace(token))
-                {
-                    request.Headers.TryAddWithoutValidation("Authorization", $"token {token}");
-                }
-
-                using var response = HttpClient.SendAsync(request).GetAwaiter().GetResult();
-                if (!response.IsSuccessStatusCode)
-                {
-                    this.logger.Info($"获取 GitHub 最新版本失败: {(int)response.StatusCode} {response.ReasonPhrase}");
-                    return "获取失败";
-                }
-
-                var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                using var document = JsonDocument.Parse(json);
-                if (document.RootElement.TryGetProperty("tag_name", out var tagElement))
-                {
-                    var tagName = tagElement.GetString();
-                    if (!string.IsNullOrWhiteSpace(tagName))
-                    {
-                        return tagName.Trim();
-                    }
-                }
-
-                if (document.RootElement.TryGetProperty("name", out var nameElement))
-                {
-                    var releaseName = nameElement.GetString();
-                    if (!string.IsNullOrWhiteSpace(releaseName))
-                    {
-                        return releaseName.Trim();
-                    }
-                }
-
-                return "未知";
-            }
-            catch (Exception ex)
-            {
-                this.logger.Info($"获取 GitHub 最新版本失败: {ex.Message}");
-                this.logger.Debug(ex.StackTrace);
-                return "获取失败";
-            }
+            EnsureReleaseHistoryCache();
+            return latestReleaseVersionCache;
         }
 
         private string GetCurrentVersion()
         {
             var version = this.GetType().Assembly.GetName().Version;
             return version == null ? "未知" : $"v{version.ToString(3)}";
+        }
+
+        private string GetReleaseHistoryBody()
+        {
+            EnsureReleaseHistoryCache();
+            return releaseHistoryBodyCache;
+        }
+
+        private void EnsureReleaseHistoryCache()
+        {
+            var now = DateTimeOffset.UtcNow;
+            if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+                !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
+            {
+                return;
+            }
+
+            lock (ReleaseHistoryLock)
+            {
+                if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+                    !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
+                {
+                    return;
+                }
+
+                releaseHistoryCheckedUtc = now;
+                var historyInfo = FetchReleaseHistoryInfo();
+                releaseHistoryBodyCache = historyInfo.HistoryBody;
+                latestReleaseVersionCache = historyInfo.LatestVersion;
+            }
+        }
+
+        private ReleaseHistoryInfo FetchReleaseHistoryInfo()
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                var page = 1;
+                var latestAssigned = false;
+                var latestVersion = "未知";
+                while (true)
+                {
+                    using var request = new HttpRequestMessage(HttpMethod.Get, $"{GitHubReleaseHistoryUrl}{page}");
+                    request.Headers.UserAgent.ParseAdd("MediaInfoKeeper");
+                    request.Headers.Accept.ParseAdd("application/vnd.github+json");
+
+                    var token = this.Options?.GitHub?.GitHubToken;
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        request.Headers.TryAddWithoutValidation("Authorization", $"token {token}");
+                    }
+
+                    using var response = HttpClient.SendAsync(request).GetAwaiter().GetResult();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        this.logger.Info($"获取 GitHub 历史版本失败: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        return new ReleaseHistoryInfo("获取失败", "获取失败");
+                    }
+
+                    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    using var document = JsonDocument.Parse(json);
+                    if (document.RootElement.ValueKind != JsonValueKind.Array ||
+                        document.RootElement.GetArrayLength() == 0)
+                    {
+                        break;
+                    }
+
+                    foreach (var release in document.RootElement.EnumerateArray())
+                    {
+                        var tag = release.TryGetProperty("tag_name", out var tagElement)
+                            ? tagElement.GetString()
+                            : string.Empty;
+                        var name = release.TryGetProperty("name", out var nameElement)
+                            ? nameElement.GetString()
+                            : string.Empty;
+                        var body = release.TryGetProperty("body", out var bodyElement)
+                            ? bodyElement.GetString()
+                            : string.Empty;
+                        var publishedAt = release.TryGetProperty("published_at", out var publishedElement)
+                            ? publishedElement.GetString()
+                            : string.Empty;
+                        var publishedAtLocal = publishedAt;
+                        if (!string.IsNullOrWhiteSpace(publishedAt) &&
+                            DateTimeOffset.TryParse(publishedAt, out var publishedOffset))
+                        {
+                            publishedAtLocal = publishedOffset
+                                .ToOffset(TimeSpan.FromHours(8))
+                                .ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+
+                        if (string.IsNullOrWhiteSpace(body))
+                        {
+                            body = "无更新说明";
+                        }
+
+                        if (!latestAssigned)
+                        {
+                            latestVersion = !string.IsNullOrWhiteSpace(tag) ? tag.Trim()
+                                : !string.IsNullOrWhiteSpace(name) ? name.Trim()
+                                : "未知";
+                            latestAssigned = true;
+                        }
+
+                        sb.Append(string.IsNullOrWhiteSpace(tag) ? "Release" : tag.Trim());
+                        if (!string.IsNullOrWhiteSpace(name))
+                        {
+                            sb.Append(" - ").Append(name.Trim());
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(publishedAtLocal))
+                        {
+                            sb.Append(" (").Append(publishedAtLocal.Trim()).Append(')');
+                        }
+
+                        sb.AppendLine();
+                        sb.AppendLine(body.Trim());
+                        sb.AppendLine("----");
+                    }
+
+                    page++;
+                }
+
+                if (sb.Length == 0)
+                {
+                    return new ReleaseHistoryInfo("暂无发布记录", latestVersion);
+                }
+
+                return new ReleaseHistoryInfo(sb.ToString().TrimEnd(), latestVersion);
+            }
+            catch (Exception ex)
+            {
+                this.logger.Info($"获取 GitHub 历史版本失败: {ex.Message}");
+                this.logger.Debug(ex.StackTrace);
+                return new ReleaseHistoryInfo("获取失败", "获取失败");
+            }
+        }
+
+        private readonly struct ReleaseHistoryInfo
+        {
+            public ReleaseHistoryInfo(string historyBody, string latestVersion)
+            {
+                HistoryBody = historyBody;
+                LatestVersion = latestVersion;
+            }
+
+            public string HistoryBody { get; }
+
+            public string LatestVersion { get; }
         }
     }
 }

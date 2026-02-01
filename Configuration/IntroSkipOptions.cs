@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Common;
+using Emby.Web.GenericEdit.Editors;
+using MediaBrowser.Model.GenericEdit;
 using MediaBrowser.Model.Attributes;
 
 namespace MediaInfoKeeper.Configuration
@@ -68,6 +71,94 @@ namespace MediaInfoKeeper.Configuration
         [DisplayName("用户范围")]
         [Description("允许触发打标的用户 ID，逗号或分号分隔；留空表示所有用户。")]
         public string UserScope { get; set; } = string.Empty;
+
+        public override IEditObjectContainer CreateEditContainer()
+        {
+            var container = (EditObjectContainer)base.CreateEditContainer();
+            var root = container.EditorRoot;
+            if (root?.EditorItems == null || root.EditorItems.Length == 0)
+            {
+                return container;
+            }
+
+            var itemLookup = new Dictionary<string, EditorBase>(StringComparer.OrdinalIgnoreCase);
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (string.IsNullOrEmpty(key))
+                {
+                    continue;
+                }
+
+                if (!itemLookup.ContainsKey(key))
+                {
+                    itemLookup.Add(key, item);
+                }
+            }
+
+            var groupedItems = new List<EditorBase>();
+            var groupIndex = 0;
+
+            void AddGroup(string title, params string[] propertyNames)
+            {
+                var items = new List<EditorBase>();
+                foreach (var propertyName in propertyNames)
+                {
+                    if (itemLookup.TryGetValue(propertyName, out var item))
+                    {
+                        items.Add(item);
+                        itemLookup.Remove(propertyName);
+                    }
+                }
+
+                if (items.Count == 0)
+                {
+                    return;
+                }
+
+                groupIndex++;
+                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            AddGroup("扫描片头",
+                nameof(UnlockIntroSkip),
+                nameof(ScanIntroOnItemAdded),
+                nameof(ProtectIntroMarkers));
+
+            AddGroup("播放行为打标",
+                nameof(EnableIntroSkip),
+                nameof(MaxIntroDurationSeconds),
+                nameof(MaxCreditsDurationSeconds),
+                nameof(MinOpeningPlotDurationSeconds),
+                nameof(IntroDetectionFingerprintMinutes),
+                nameof(MarkerEnabledLibraryScope),
+                nameof(LibraryScope),
+                nameof(UserScope));
+
+            var remaining = new List<EditorBase>();
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (!string.IsNullOrEmpty(key) && itemLookup.ContainsKey(key))
+                {
+                    remaining.Add(item);
+                    itemLookup.Remove(key);
+                }
+            }
+
+            if (remaining.Count > 0)
+            {
+                groupIndex++;
+                groupedItems.Add(new EditorGroup("其他", remaining.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            if (groupedItems.Count > 0)
+            {
+                root.EditorItems = groupedItems.ToArray();
+            }
+
+            return container;
+        }
 
     }
 }
