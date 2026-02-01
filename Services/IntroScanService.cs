@@ -158,8 +158,8 @@ namespace MediaInfoKeeper.Services
                 return true;
             }
 
-            this.logger.Info("未找到片头检测方法，改为触发刷新以检测片头");
-            return await TryRefreshForMarkerDetectionAsync(episode, cancellationToken).ConfigureAwait(false);
+            this.logger.Info("未找到片头检测方法，取消检测");
+            return false;
         }
 
         private object TryResolveAudioFingerprintManager()
@@ -327,7 +327,7 @@ namespace MediaInfoKeeper.Services
             }
             catch (Exception ex)
             {
-                this.logger.Warn($"枚举类型失败({keyword}): {ex.Message}");
+                this.logger.Debug($"枚举类型失败({keyword}): {ex.Message}");
             }
         }
 
@@ -365,7 +365,7 @@ namespace MediaInfoKeeper.Services
             }
             catch (Exception ex)
             {
-                this.logger.Warn($"全局枚举类型失败({keyword}): {ex.Message}");
+                this.logger.Debug($"全局枚举类型失败({keyword}): {ex.Message}");
             }
 
             if (list.Count > 0)
@@ -374,7 +374,7 @@ namespace MediaInfoKeeper.Services
                     .Distinct()
                     .OrderBy(n => n)
                     .ToList();
-                this.logger.Warn($"全局候选类型({keyword}): {string.Join(", ", names)}");
+                this.logger.Debug($"全局候选类型({keyword}): {string.Join(", ", names)}");
             }
 
             return list;
@@ -400,11 +400,11 @@ namespace MediaInfoKeeper.Services
                     .OrderBy(name => name)
                     .ToList();
 
-                this.logger.Warn($"可用方法({type.FullName}): {string.Join(" | ", list)}");
+                this.logger.Debug($"可用方法({type.FullName}): {string.Join(" | ", list)}");
             }
             catch (Exception ex)
             {
-                this.logger.Warn($"枚举方法失败({type.FullName}): {ex.Message}");
+                this.logger.Debug($"枚举方法失败({type.FullName}): {ex.Message}");
             }
         }
 
@@ -413,29 +413,29 @@ namespace MediaInfoKeeper.Services
             var appHost = Plugin.Instance.AppHost;
             if (appHost == null)
             {
-                this.logger.Warn($"服务解析失败 {serviceType.FullName}: AppHost 为空");
+                this.logger.Debug($"服务解析失败 {serviceType.FullName}: AppHost 为空");
                 return null;
             }
 
             if (appHost is IServiceProvider serviceProvider)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: AppHost 实现 IServiceProvider");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 实现 IServiceProvider");
                 var service = serviceProvider.GetService(serviceType);
                 if (service != null)
                 {
-                    this.logger.Info($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 成功");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 成功");
                     return service;
                 }
 
-                this.logger.Warn($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 返回空");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 返回空");
             }
             else
             {
-                this.logger.Warn($"服务解析 {serviceType.FullName}: AppHost 未实现 IServiceProvider");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 未实现 IServiceProvider");
             }
 
             var hostType = appHost.GetType();
-            this.logger.Info($"服务解析 {serviceType.FullName}: AppHost 类型 {hostType.FullName}");
+            this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 类型 {hostType.FullName}");
             var methods = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             var getExports = methods.FirstOrDefault(m =>
@@ -444,7 +444,7 @@ namespace MediaInfoKeeper.Services
                 m.GetParameters()[0].ParameterType == typeof(Type));
             if (getExports != null)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: 尝试 GetExports(Type)");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetExports(Type)");
                 if (getExports.Invoke(appHost, new object[] { serviceType }) is IEnumerable exports)
                 {
                     var found = false;
@@ -456,17 +456,17 @@ namespace MediaInfoKeeper.Services
 
                     if (!found)
                     {
-                        this.logger.Warn($"服务解析 {serviceType.FullName}: GetExports(Type) 返回空集合");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports(Type) 返回空集合");
                     }
                 }
                 else
                 {
-                    this.logger.Warn($"服务解析 {serviceType.FullName}: GetExports(Type) 返回 null");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports(Type) 返回 null");
                 }
             }
             else
             {
-                this.logger.Warn($"服务解析 {serviceType.FullName}: 未找到 GetExports(Type)");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetExports(Type)");
             }
 
             var getExportsGeneric = methods.FirstOrDefault(m =>
@@ -475,7 +475,7 @@ namespace MediaInfoKeeper.Services
                 m.GetParameters().Length == 0);
             if (getExportsGeneric != null)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: 尝试 GetExports<T>()");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetExports<T>()");
                 var result = getExportsGeneric.MakeGenericMethod(serviceType).Invoke(appHost, null);
                 if (result is IEnumerable exports)
                 {
@@ -488,17 +488,17 @@ namespace MediaInfoKeeper.Services
 
                     if (!found)
                     {
-                        this.logger.Warn($"服务解析 {serviceType.FullName}: GetExports<T>() 返回空集合");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports<T>() 返回空集合");
                     }
                 }
                 else
                 {
-                    this.logger.Warn($"服务解析 {serviceType.FullName}: GetExports<T>() 返回 null");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports<T>() 返回 null");
                 }
             }
             else
             {
-                this.logger.Warn($"服务解析 {serviceType.FullName}: 未找到 GetExports<T>()");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetExports<T>()");
             }
 
             var resolve = methods.FirstOrDefault(m =>
@@ -507,11 +507,11 @@ namespace MediaInfoKeeper.Services
                 m.GetParameters()[0].ParameterType == typeof(Type));
             if (resolve != null)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: 尝试 Resolve(Type)");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 Resolve(Type)");
                 return resolve.Invoke(appHost, new object[] { serviceType });
             }
 
-            this.logger.Warn($"服务解析 {serviceType.FullName}: 未找到 Resolve(Type)");
+            this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 Resolve(Type)");
 
             var getService = methods.FirstOrDefault(m =>
                 m.Name == "GetService" &&
@@ -519,20 +519,20 @@ namespace MediaInfoKeeper.Services
                 m.GetParameters()[0].ParameterType == typeof(Type));
             if (getService != null)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: 尝试 GetService(Type)");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetService(Type)");
                 return getService.Invoke(appHost, new object[] { serviceType });
             }
 
-            this.logger.Warn($"服务解析 {serviceType.FullName}: 未找到 GetService(Type)");
+            this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetService(Type)");
 
             var resolved = TryResolveFromHostContainers(appHost, serviceType);
             if (resolved != null)
             {
-                this.logger.Info($"服务解析 {serviceType.FullName}: 通过内部容器成功");
+                this.logger.Debug($"服务解析 {serviceType.FullName}: 通过内部容器成功");
                 return resolved;
             }
 
-            this.logger.Warn($"服务解析 {serviceType.FullName}: 内部容器解析失败");
+            this.logger.Debug($"服务解析 {serviceType.FullName}: 内部容器解析失败");
             return null;
         }
 
@@ -560,7 +560,7 @@ namespace MediaInfoKeeper.Services
                 var service = serviceProvider.GetService(serviceType);
                 if (service != null)
                 {
-                    this.logger.Info($"服务解析 {serviceType.FullName}: {sourceName} IServiceProvider 成功");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName} IServiceProvider 成功");
                     return service;
                 }
             }
@@ -620,7 +620,7 @@ namespace MediaInfoKeeper.Services
                     {
                         foreach (var item in exports)
                         {
-                            this.logger.Info($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
+                            this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
                             return item;
                         }
 
@@ -629,13 +629,13 @@ namespace MediaInfoKeeper.Services
 
                     if (result != null)
                     {
-                        this.logger.Info($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
                         return result;
                     }
                 }
                 catch (Exception ex)
                 {
-                    this.logger.Warn($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 失败: {ex.Message}");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 失败: {ex.Message}");
                 }
             }
 
@@ -649,7 +649,7 @@ namespace MediaInfoKeeper.Services
                     {
                         foreach (var item in exports)
                         {
-                            this.logger.Info($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
+                            this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
                             return item;
                         }
 
@@ -658,13 +658,13 @@ namespace MediaInfoKeeper.Services
 
                     if (result != null)
                     {
-                        this.logger.Info($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
                         return result;
                     }
                 }
                 catch (Exception ex)
                 {
-                    this.logger.Warn($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 失败: {ex.Message}");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 失败: {ex.Message}");
                 }
             }
 
@@ -776,14 +776,14 @@ namespace MediaInfoKeeper.Services
                     .ConfigureAwait(false);
                 if (supportedResult is bool supported && !supported)
                 {
-                    this.logger.Warn("AudioFingerprintManager.IsIntroDetectionSupported 返回 false");
+                    this.logger.Debug("AudioFingerprintManager.IsIntroDetectionSupported 返回 false");
                     return false;
                 }
             }
 
             if (createTitleFingerprint != null)
             {
-                this.logger.Info("触发 CreateTitleFingerprint 生成指纹");
+                this.logger.Debug("触发 CreateTitleFingerprint 生成指纹");
                 var fingerprintArgs = BuildArguments(createTitleFingerprint, episode, cancellationToken, directoryService);
                 await InvokeWithResultAsync(detector, createTitleFingerprint, fingerprintArgs).ConfigureAwait(false);
             }
@@ -796,7 +796,7 @@ namespace MediaInfoKeeper.Services
             var season = TryGetSeason(episode);
             if (season == null)
             {
-                this.logger.Warn("无法获取 Season，跳过 UpdateSequencesForSeason");
+                this.logger.Debug("无法获取 Season，跳过 UpdateSequencesForSeason");
                 return createTitleFingerprint != null;
             }
 
@@ -805,14 +805,14 @@ namespace MediaInfoKeeper.Services
 
             if (getAllFingerprintFiles != null)
             {
-                this.logger.Info("触发 GetAllFingerprintFilesForSeason 收集指纹");
+                this.logger.Debug("触发 GetAllFingerprintFilesForSeason 收集指纹");
                 var getArgs = BuildArguments(getAllFingerprintFiles, episode, cancellationToken, directoryService, season,
                     seasonEpisodes);
                 seasonFingerprintInfo = await InvokeWithResultAsync(detector, getAllFingerprintFiles, getArgs)
                     .ConfigureAwait(false);
             }
 
-            this.logger.Info("触发 UpdateSequencesForSeason 生成片头序列");
+            this.logger.Debug("触发 UpdateSequencesForSeason 生成片头序列");
             var updateArgs = BuildArguments(updateSequences, episode, cancellationToken, directoryService, season,
                 seasonEpisodes, seasonFingerprintInfo);
             await InvokeWithResultAsync(detector, updateSequences, updateArgs).ConfigureAwait(false);
@@ -939,39 +939,5 @@ namespace MediaInfoKeeper.Services
                 .ToArray();
         }
 
-        private async Task<bool> TryRefreshForMarkerDetectionAsync(Episode episode, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
-                var refreshOptions = new MetadataRefreshOptions(directoryService)
-                {
-                    EnableRemoteContentProbe = false,
-                    MetadataRefreshMode = MetadataRefreshMode.FullRefresh,
-                    ImageRefreshMode = MetadataRefreshMode.ValidationOnly,
-                    ReplaceAllMetadata = false,
-                    ReplaceAllImages = false,
-                    EnableThumbnailImageExtraction = false,
-                    EnableSubtitleDownloading = false
-                };
-
-                var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(episode);
-                var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
-                var dummyLibraryOptions = LibraryService.CopyLibraryOptions(libraryOptions);
-                dummyLibraryOptions.EnableMarkerDetection = true;
-                dummyLibraryOptions.EnableMarkerDetectionDuringLibraryScan = true;
-
-                await Plugin.ProviderManager
-                    .RefreshSingleItem(episode, refreshOptions, collectionFolders, dummyLibraryOptions, cancellationToken)
-                    .ConfigureAwait(false);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                this.logger.Warn($"片头检测刷新失败: {ex.Message}");
-                return false;
-            }
-        }
     }
 }
