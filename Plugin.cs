@@ -485,7 +485,9 @@ namespace MediaInfoKeeper
                     }
 
                     this.logger.Info("入库片头扫描: 触发片头检测");
-                    await IntroScanService.TryDetectIntroAsync(episode, CancellationToken.None).ConfigureAwait(false);
+                    await IntroScanService
+                        .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                        .ConfigureAwait(false);
                 }
 
             }
