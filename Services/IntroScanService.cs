@@ -153,12 +153,7 @@ namespace MediaInfoKeeper.Services
                 this.logger.Warn("未能解析 AudioFingerprintManager");
             }
 
-            if (await TryRunMarkerScheduledTaskAsync(episode, cancellationToken).ConfigureAwait(false))
-            {
-                return true;
-            }
-
-            this.logger.Info("未找到片头检测方法，取消检测");
+            this.logger.Info("未找到片头检测方法，请检查 Emby 版本");
             return false;
         }
 
@@ -169,13 +164,13 @@ namespace MediaInfoKeeper.Services
                 var assembly = Assembly.Load("Emby.Providers");
                 if (assembly != null)
                 {
-                    this.logger.Info($"Emby.Providers 已加载: {assembly.FullName}");
+                    this.logger.Debug($"Emby.Providers 已加载: {assembly.FullName}");
                 }
 
                 var markerAssembly = Assembly.Load("Emby.Server.Implementations");
                 if (markerAssembly != null)
                 {
-                    this.logger.Info($"Emby.Server.Implementations 已加载: {markerAssembly.FullName}");
+                    this.logger.Debug($"Emby.Server.Implementations 已加载: {markerAssembly.FullName}");
                 }
 
                 var managerType = assembly?.GetType("Emby.Providers.Markers.AudioFingerprintManager");
