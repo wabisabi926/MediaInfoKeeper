@@ -70,6 +70,11 @@ namespace MediaInfoKeeper.Services
                     else if (HasIntroMarkers(episode))
                     {
                         this.logger.Info($"片头检测完成: {displayName}");
+                        _ = Plugin.MediaInfoService.SerializeMediaInfo(
+                            episode.InternalId,
+                            new DirectoryService(this.logger, Plugin.FileSystem),
+                            true,
+                            "IntroScan Persist");
                     }
                     else
                     {
@@ -112,14 +117,14 @@ namespace MediaInfoKeeper.Services
                     return true;
                 }
 
-                this.logger.Warn($"AudioFingerprintManager 执行失败: {detector.GetType().FullName}");
+                this.logger.Debug($"AudioFingerprintManager 执行失败: {detector.GetType().FullName}");
             }
             else
             {
-                this.logger.Warn("未能解析 AudioFingerprintManager");
+                this.logger.Debug("未能解析 AudioFingerprintManager");
             }
 
-            this.logger.Info("未找到片头检测方法，请检查 Emby 版本");
+            this.logger.Info("探测失败，可能尚未获取strm文件内容，请稍后再试，未找到片头检测方法，请检查 Emby 版本");
             return false;
         }
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using Emby.Web.GenericEdit.Common;
 using MediaInfoKeeper.Configuration;
 using MediaInfoKeeper.Options.Store;
@@ -43,6 +44,10 @@ namespace MediaInfoKeeper
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
         public static IntroScanService IntroScanService { get; private set; }
+
+        private static readonly SemaphoreSlim IntroScanSemaphore = new SemaphoreSlim(1, 1);
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, DateTimeOffset> IntroScanQueueTimes
+            = new System.Collections.Concurrent.ConcurrentDictionary<Guid, DateTimeOffset>();
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -382,13 +387,12 @@ namespace MediaInfoKeeper
                     if (restoreResult == MediaInfoService.MediaInfoRestoreResult.Failed)
                     {
                         // 恢复失败时先触发媒体信息提取，再写入 JSON。
-                        this.logger.Info("恢复失败，开始提取 MediaInfo");
+                        this.logger.Info("恢复失败，初次入库，开始提取媒体信息");
 
                         // 触发一次刷新以提取 MediaInfo。
                         e.Item.DateLastRefreshed = new DateTimeOffset();
                         using (FfprobeGuard.Allow())
                         {
-                            this.logger.Info("恢复失败，是初次入库，进行下载元数据");
                             // 构建用于媒体信息提取的刷新参数与库选项。
                             var metadataRefreshOptions = new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
                             {
@@ -476,6 +480,7 @@ namespace MediaInfoKeeper
                     _ = MediaInfoService.SerializeMediaInfo(e.Item.InternalId, directoryService, true, "OnItemAdded Overwrite");
                 }
 
+                // 扫描片头
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
                     if (IntroScanService.HasIntroMarkers(episode))
@@ -484,10 +489,68 @@ namespace MediaInfoKeeper
                         return;
                     }
 
-                    this.logger.Info("入库片头扫描: 触发片头检测");
-                    await IntroScanService
-                        .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                        .ConfigureAwait(false);
+                    var episodeId = episode.Id;
+                    IntroScanQueueTimes.TryAdd(episodeId, DateTimeOffset.UtcNow);
+                    _ = Task.Run(async () =>
+                    {
+                        await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
+                        try
+                        {
+                            this.logger.Info("新的扫描任务");
+                            if (IntroScanService.HasIntroMarkers(episode))
+                            {
+                                this.logger.Info("入库片头扫描跳过: 已存在片头标记");
+                                return;
+                            }
+                            var enqueueTime = IntroScanQueueTimes.TryGetValue(episodeId, out var storedTime)
+                                ? storedTime
+                                : DateTimeOffset.UtcNow;
+                            var elapsed = DateTimeOffset.UtcNow - enqueueTime;
+                            var remainingDelay = TimeSpan.FromMinutes(2) - elapsed;
+                            if (remainingDelay > TimeSpan.Zero)
+                            {
+                                this.logger.Info($"入库片头扫描: 延迟 {Math.Ceiling(remainingDelay.TotalSeconds)} 秒后触发片头检测，等待Emby读取Strm文件内容  {episode.Path} InternalId: {episode.InternalId}");
+                                await Task.Delay(remainingDelay, CancellationToken.None).ConfigureAwait(false);
+                            }
+                            else
+                            {
+                                this.logger.Info($"入库片头扫描: 已排队 {Math.Floor(elapsed.TotalSeconds)} 秒，直接触发片头检测  {episode.Path} InternalId: {episode.InternalId}");
+                            }
+                            String originalEpisodePath = episode.Path;
+                            episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
+                            if (episode == null)
+                            {
+                                this.logger.Warn($"入库片头扫描: 重新获取 {originalEpisodePath} Episode 失败，放弃扫描");
+                                return;
+                            }
+                            this.logger.Info("入库片头扫描: 触发片头检测");
+                            await IntroScanService
+                                .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                                .ConfigureAwait(false);
+
+                            if (!IntroScanService.HasIntroMarkers(episode))
+                            {
+                                this.logger.Info("入库片头扫描: 未生成标记，5 分钟后重试 1 次");
+                                await Task.Delay(TimeSpan.FromMinutes(5), CancellationToken.None)
+                                    .ConfigureAwait(false);
+                                episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
+                                await IntroScanService
+                                    .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                                    .ConfigureAwait(false);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            this.logger.Error("入库片头扫描任务异常");
+                            this.logger.Error(ex.Message);
+                            this.logger.Debug(ex.StackTrace);
+                        }
+                        finally
+                        {
+                            IntroScanQueueTimes.TryRemove(episodeId, out _);
+                            IntroScanSemaphore.Release();
+                        }
+                    });
                 }
 
             }
