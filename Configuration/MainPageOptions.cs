@@ -15,7 +15,7 @@ namespace MediaInfoKeeper.Configuration
 
         public override string EditorDescription => "将媒体信息与章节保存为 JSON，并在需要时从 JSON 恢复。";
 
-        [DisplayName("启用 MediaInfoKeeper 插件")]
+        [DisplayName("启用插件")]
         [Description("启用后优先从 JSON 恢复，提取后再写入 JSON。")]
         public bool PersistMediaInfoEnabled { get; set; } = true;
 
@@ -141,9 +141,11 @@ namespace MediaInfoKeeper.Configuration
                 groupIndex++;
                 groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
             }
-
+            
+            AddGroup("全局开关",
+                nameof(PersistMediaInfoEnabled));
+            
             AddGroup("基本设置",
-                nameof(PersistMediaInfoEnabled),
                 nameof(DeleteMediaInfoJsonOnRemove),
                 nameof(DisableSystemFfprobe),
                 nameof(EnableMetadataProvidersWatcher),
