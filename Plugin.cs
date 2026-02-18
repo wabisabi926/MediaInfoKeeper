@@ -1,12 +1,12 @@
-﻿﻿﻿using System;
+﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Emby.Web.GenericEdit.Common;
 using MediaInfoKeeper.Configuration;
 using MediaInfoKeeper.Options.Store;
 using MediaInfoKeeper.Options.View;
@@ -22,6 +22,7 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Drawing;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Plugins;
@@ -58,6 +59,7 @@ namespace MediaInfoKeeper
         private readonly IItemRepository itemRepository;
         private readonly IFileSystem fileSystem;
         private readonly IUserManager userManager;
+        private readonly IUserDataManager userDataManager;
         private readonly ISessionManager sessionManager;
         private readonly IApplicationHost applicationHost;
 
@@ -66,7 +68,7 @@ namespace MediaInfoKeeper
         internal static ILibraryManager LibraryManager { get; private set; }
         internal IApplicationHost AppHost => this.applicationHost;
 
-        private bool currentPersistMediaInfo;
+        private bool PlugginEnabled;
         internal readonly PluginOptionsStore OptionsStore;
         internal readonly MainPageOptionsStore MainPageOptionsStore;
         internal readonly GitHubOptionsStore GitHubOptionsStore;
@@ -92,6 +94,7 @@ namespace MediaInfoKeeper
             IProviderManager providerManager,
             IItemRepository itemRepository,
             IUserManager userManager,
+            IUserDataManager userDataManager,
             ISessionManager sessionManager,
             IJsonSerializer jsonSerializer,
             IFileSystem fileSystem)
@@ -106,6 +109,7 @@ namespace MediaInfoKeeper
             this.itemRepository = itemRepository;
             this.fileSystem = fileSystem;
             this.userManager = userManager;
+            this.userDataManager = userDataManager;
             this.sessionManager = sessionManager;
             ProviderManager = providerManager;
             FileSystem = fileSystem;
@@ -128,9 +132,9 @@ namespace MediaInfoKeeper
             SearchScopeUtility.UpdateSearchScope(this.Options.EnhanceChineseSearch?.SearchScope);
             EnhanceChineseSearch.Initialize(this.logger, this.Options.EnhanceChineseSearch);
 
-            this.currentPersistMediaInfo = this.Options.MainPage?.PersistMediaInfoEnabled ?? true;
+            this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
 
-            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem);
+            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager);
             MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
             IntroScanService = new IntroScanService(logManager, libraryManager);
@@ -146,6 +150,7 @@ namespace MediaInfoKeeper
 
             this.libraryManager.ItemAdded += this.OnItemAdded;
             this.libraryManager.ItemRemoved += this.OnItemRemoved;
+            this.userDataManager.UserDataSaved += this.OnUserDataSaved;
             this.logger.Info($"插件 {this.Name} 加载完成");
         }
 
@@ -207,23 +212,7 @@ namespace MediaInfoKeeper
             options.EnhanceChineseSearch ??= new EnhanceChineseSearchOptions();
             options.EnhanceChineseSearch.Initialize();
 
-            var list = new List<EditorSelectOption>();
-            foreach (var folder in this.libraryManager.GetVirtualFolders())
-            {
-                if (folder == null)
-                {
-                    continue;
-                }
-
-                var name = string.IsNullOrWhiteSpace(folder.Name) ? folder.ItemId : folder.Name;
-                list.Add(new EditorSelectOption
-                {
-                    Value = folder.ItemId,
-                    Name = name,
-                    IsEnabled = true
-                });
-            }
-
+            var list = LibraryService.BuildLibrarySelectOptions();
             options.MainPage.LibraryList = list;
             options.IntroSkip.LibraryList = list;
             options.GitHub.CurrentVersion = GetCurrentVersion();
@@ -260,11 +249,12 @@ namespace MediaInfoKeeper
             options.IntroSkip ??= new IntroSkipOptions();
             options.EnhanceChineseSearch ??= new EnhanceChineseSearchOptions();
 
-            this.currentPersistMediaInfo = options.MainPage.PersistMediaInfoEnabled;
+            this.PlugginEnabled = options.MainPage.PlugginEnabled;
 
             this.logger.Info($"{this.Name} 配置已更新。");
-            this.logger.Info($"PersistMediaInfoEnabled 设置为 {options.MainPage.PersistMediaInfoEnabled}");
+            this.logger.Info($"PersistMediaInfoEnabled 设置为 {options.MainPage.PlugginEnabled}");
             this.logger.Info($"ExtractMediaInfoOnItemAdded 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
+            this.logger.Info($"ExtractMediaInfoOnFavorite 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
             this.logger.Info($"MediaInfoJsonRootFolder 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "EMPTY" : options.MainPage.MediaInfoJsonRootFolder)}");
             this.logger.Info($"DeleteMediaInfoJsonOnRemove 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
             this.logger.Info($"CatchupLibraries 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "EMPTY" : options.MainPage.CatchupLibraries)}");
@@ -298,7 +288,7 @@ namespace MediaInfoKeeper
 
             IntroMarkerProtect.Configure(options.IntroSkip.ProtectIntroMarkers);
         }
-
+        
         private string NormalizeScopedLibraries(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw))
@@ -355,7 +345,7 @@ namespace MediaInfoKeeper
             try
             {
                 this.logger.Info($"{e.Item.Path} 新增剧集事件");
-                if (!this.currentPersistMediaInfo)
+                if (!this.PlugginEnabled)
                 {
                     // 未启用持久化，直接跳过。
                     return;
@@ -487,77 +477,9 @@ namespace MediaInfoKeeper
                     _ = MediaInfoService.SerializeMediaInfo(e.Item.InternalId, directoryService, true, "OnItemAdded Overwrite");
                 }
 
-                // 扫描片头
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
-                    if (IntroScanService.HasIntroMarkers(episode))
-                    {
-                        this.logger.Info("入库片头扫描跳过: 已存在片头标记");
-                        return;
-                    }
-
-                    var episodeId = episode.Id;
-                    IntroScanQueueTimes.TryAdd(episodeId, DateTimeOffset.UtcNow);
-                    _ = Task.Run(async () =>
-                    {
-                        await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
-                        try
-                        {
-                            this.logger.Info("新的扫描任务");
-                            if (IntroScanService.HasIntroMarkers(episode))
-                            {
-                                this.logger.Info("入库片头扫描跳过: 已存在片头标记");
-                                return;
-                            }
-                            var enqueueTime = IntroScanQueueTimes.TryGetValue(episodeId, out var storedTime)
-                                ? storedTime
-                                : DateTimeOffset.UtcNow;
-                            var elapsed = DateTimeOffset.UtcNow - enqueueTime;
-                            var remainingDelay = TimeSpan.FromMinutes(2) - elapsed;
-                            if (remainingDelay > TimeSpan.Zero)
-                            {
-                                this.logger.Info($"入库片头扫描: 延迟 {Math.Ceiling(remainingDelay.TotalSeconds)} 秒后触发片头检测，等待Emby读取Strm文件内容  {episode.Path} InternalId: {episode.InternalId}");
-                                await Task.Delay(remainingDelay, CancellationToken.None).ConfigureAwait(false);
-                            }
-                            else
-                            {
-                                this.logger.Info($"入库片头扫描: 已排队 {Math.Floor(elapsed.TotalSeconds)} 秒，直接触发片头检测  {episode.Path} InternalId: {episode.InternalId}");
-                            }
-                            String originalEpisodePath = episode.Path;
-                            episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
-                            if (episode == null)
-                            {
-                                this.logger.Warn($"入库片头扫描: 重新获取 {originalEpisodePath} Episode 失败，放弃扫描");
-                                return;
-                            }
-                            this.logger.Info("入库片头扫描: 触发片头检测");
-                            await IntroScanService
-                                .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                                .ConfigureAwait(false);
-
-                            if (!IntroScanService.HasIntroMarkers(episode))
-                            {
-                                this.logger.Info("入库片头扫描: 未生成标记，5 分钟后重试 1 次");
-                                await Task.Delay(TimeSpan.FromMinutes(5), CancellationToken.None)
-                                    .ConfigureAwait(false);
-                                episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
-                                await IntroScanService
-                                    .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                                    .ConfigureAwait(false);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            this.logger.Error("入库片头扫描任务异常");
-                            this.logger.Error(ex.Message);
-                            this.logger.Debug(ex.StackTrace);
-                        }
-                        finally
-                        {
-                            IntroScanQueueTimes.TryRemove(episodeId, out _);
-                            IntroScanSemaphore.Release();
-                        }
-                    });
+                    QueueIntroScanForEpisode(episode, "OnItemAdded");
                 }
 
             }
@@ -569,14 +491,227 @@ namespace MediaInfoKeeper
             }
         }
 
+        /// <summary> 收藏喜爱事件处 </summary>
+        private void OnUserDataSaved(object sender, UserDataSaveEventArgs e)
+        {
+            try
+            {
+                if (!this.PlugginEnabled)
+                {
+                    return;
+                }
+                
+                var item = e.Item;
+                var userData = e.UserData;
+                if (item == null || userData == null)
+                {
+                    return;
+                }
 
+                if (item.ExtraType != null)
+                {
+                    return;
+                }
+
+                var userName = e.User?.Name ?? "unknown";
+                logger.Info($"收藏事件: 用户={userName}, 条目={(item.Path ?? item.Name ?? item.Id.ToString())}");
+
+                if (!userData.IsFavorite)
+                {
+                    return;
+                }
+
+                var canExtract = this.Options.MainPage?.ExtractMediaInfoOnFavorite == true &&
+                                 (item is Episode || item is Season || item is Series);
+                var canScanIntro = this.Options.IntroSkip?.ScanIntroOnFavorite == true &&
+                                (item is Episode || item is Season || item is Series);
+                
+                if (!canExtract && !canScanIntro)
+                {
+                    return;
+                }
+
+                if (canExtract)
+                {
+                    _ = Task.Run(async () =>
+                    {
+                        var seriesEpisodes = LibraryService.GetSeriesEpisodesFromItem(item);
+                        if (seriesEpisodes.Count > 0)
+                        {
+                            await MediaInfoTaskRunner
+                                .ProcessItemsAsync(
+                                    seriesEpisodes.Cast<BaseItem>().ToList(),
+                                    async target =>
+                                    {
+                                        if (target == null)
+                                        {
+                                            return;
+                                        }
+
+                                        var displayName = target.Path ?? target.Name;
+                                        var directoryService = new DirectoryService(this.logger, this.fileSystem);
+                                        var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
+                                        var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(target);
+                                        var libraryOptions = this.libraryManager.GetLibraryOptions(target);
+
+                                        try
+                                        {
+                                            using (FfprobeGuard.Allow())
+                                            {
+                                                target.DateLastRefreshed = new DateTimeOffset();
+                                                await this.providerManager
+                                                    .RefreshSingleItem(target, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None)
+                                                    .ConfigureAwait(false);
+                                            }
+
+                                            _ = MediaInfoService.SerializeMediaInfo(target.InternalId, directoryService, true, "OnFavorite Extract");
+                                            this.logger.Info($"收藏 媒体信息提取完成: {displayName}");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            this.logger.Error($"收藏 媒体信息提取失败: {displayName}");
+                                            this.logger.Error(ex.Message);
+                                            this.logger.Debug(ex.StackTrace);
+                                        }
+                                    },
+                                    this.logger,
+                                    CancellationToken.None,
+                                    null)
+                                .ConfigureAwait(false);
+                        }
+                    });
+                }
+
+                if (canScanIntro)
+                {
+                    var episodes = LibraryService.GetSeriesEpisodesFromItem(item);
+                    if (episodes.Count > 0)
+                    {
+                        foreach (var seriesEpisode in episodes)
+                        {
+                            QueueIntroScanForEpisode(seriesEpisode, "OnFavorite");
+                        }
+                    }
+                    else
+                    {
+                        this.logger.Info("收藏 片头扫描跳过: 未找到系列条目");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.Error("收藏事件处理异常");
+                this.logger.Error(ex.Message);
+                this.logger.Debug(ex.StackTrace);
+            }
+        }
+        
+        private void QueueIntroScanForEpisode(Episode episode, string source)
+        {
+            if (IntroScanService.HasIntroMarkers(episode))
+            {
+                this.logger.Info($"{source} 片头扫描跳过: {episode.Path} 已存在片头标记");
+                return;
+            }
+
+            var episodeId = episode.Id;
+            IntroScanQueueTimes.TryAdd(episodeId, DateTimeOffset.UtcNow);
+            _ = Task.Run(async () =>
+            {
+                var semaphoreHeld = false;
+                await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
+                semaphoreHeld = true;
+                try
+                {
+                    this.logger.Info($"{source} 片头扫描: 新的扫描任务");
+                    if (IntroScanService.HasIntroMarkers(episode))
+                    {
+                        this.logger.Info($"{source} 片头扫描跳过: {episode.Path} 已存在片头标记");
+                        return;
+                    }
+
+                    var enqueueTime = IntroScanQueueTimes.TryGetValue(episodeId, out var storedTime)
+                        ? storedTime
+                        : DateTimeOffset.UtcNow;
+                    var elapsed = DateTimeOffset.UtcNow - enqueueTime;
+                    var remainingDelay = TimeSpan.FromMinutes(2) - elapsed;
+                    if (remainingDelay > TimeSpan.Zero)
+                    {
+                        this.logger.Info($"{source} 片头扫描: 延迟 {Math.Ceiling(remainingDelay.TotalSeconds)} 秒后触发片头检测，等待Emby读取Strm文件内容  {episode.Path} InternalId: {episode.InternalId}");
+                        // 释放信号量，让后续项目可以先执行。
+                        if (semaphoreHeld)
+                        {
+                            IntroScanSemaphore.Release();
+                            semaphoreHeld = false;
+                        }
+
+                        await Task.Delay(remainingDelay, CancellationToken.None).ConfigureAwait(false);
+
+                        await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
+                        semaphoreHeld = true;
+                    }
+                    else
+                    {
+                        this.logger.Info($"{source} 片头扫描: 已排队 {Math.Floor(elapsed.TotalSeconds)} 秒，直接触发片头检测  {episode.Path} InternalId: {episode.InternalId}");
+                    }
+
+                    var originalEpisodePath = episode.Path;
+                    episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
+                    if (episode == null)
+                    {
+                        this.logger.Warn($"{source} 片头扫描: 重新获取 {originalEpisodePath} Episode 失败，放弃扫描");
+                        return;
+                    }
+
+                    this.logger.Info($"{source} 片头扫描: 触发片头检测");
+                    await IntroScanService
+                        .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                        .ConfigureAwait(false);
+
+                    if (!IntroScanService.HasIntroMarkers(episode))
+                    {
+                        this.logger.Info($"{source} 片头扫描: 未生成标记，5 分钟后重试 1 次");
+                        // 释放信号量，让后续项目可以先执行。
+                        if (semaphoreHeld)
+                        {
+                            IntroScanSemaphore.Release();
+                            semaphoreHeld = false;
+                        }
+
+                        await Task.Delay(TimeSpan.FromMinutes(5), CancellationToken.None)
+                            .ConfigureAwait(false);
+
+                        await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
+                        semaphoreHeld = true;
+                        episode = this.libraryManager.GetItemById(episode.InternalId) as Episode;
+                        await IntroScanService
+                            .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                            .ConfigureAwait(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.logger.Error($"{source} 片头扫描任务异常");
+                    this.logger.Error(ex.Message);
+                    this.logger.Debug(ex.StackTrace);
+                }
+                finally
+                {
+                    IntroScanQueueTimes.TryRemove(episodeId, out _);
+                    if (semaphoreHeld)
+                    {
+                        IntroScanSemaphore.Release();
+                    }
+                }
+            });
+        }
 
         /// <summary>条目移除且非恢复模式时，删除已持久化的 JSON。</summary>
         private void OnItemRemoved(object sender, ItemChangeEventArgs e)
         {
             this.logger.Info($"{e.Item.Path} 删除剧集事件");
             // 未开启删除开关时直接跳过。
-            if (!this.Options.MainPage.DeleteMediaInfoJsonOnRemove || !this.Options.MainPage.PersistMediaInfoEnabled)
+            if (!this.Options.MainPage.DeleteMediaInfoJsonOnRemove || !this.Options.MainPage.PlugginEnabled)
             {
                 return;
             }

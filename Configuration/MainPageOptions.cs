@@ -17,11 +17,15 @@ namespace MediaInfoKeeper.Configuration
 
         [DisplayName("启用插件")]
         [Description("启用后优先从 JSON 恢复，提取后再写入 JSON。")]
-        public bool PersistMediaInfoEnabled { get; set; } = true;
+        public bool PlugginEnabled { get; set; } = true;
 
         [DisplayName("入库时提取媒体信息")]
-        [Description("当 JSON 不存在或恢复失败时，是否提取媒体信息并写入 JSON。")]
+        [Description("入库时若 JSON 不存在或恢复失败，提取媒体信息并写入 JSON。")]
         public bool ExtractMediaInfoOnItemAdded { get; set; } = true;
+
+        [DisplayName("收藏时提取媒体信息")]
+        [Description("收藏时触发提取媒体信息，并写入 JSON。")]
+        public bool ExtractMediaInfoOnFavorite { get; set; } = true;
 
         [DisplayName("条目移除时删除 JSON")]
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
@@ -147,10 +151,11 @@ namespace MediaInfoKeeper.Configuration
             }
             
             AddGroup("插件",
-                nameof(PersistMediaInfoEnabled));
+                nameof(PlugginEnabled));
             
-            AddGroup("基本设置",
+            AddGroup("媒体信息",
                 nameof(ExtractMediaInfoOnItemAdded),
+                nameof(ExtractMediaInfoOnFavorite),
                 nameof(DeleteMediaInfoJsonOnRemove),
                 nameof(DisableSystemFfprobe),
                 nameof(EnableMetadataProvidersWatcher),
