@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -12,12 +13,12 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
-using MediaBrowser.Model.Tasks;
 
 namespace MediaInfoKeeper.Services
 {
     public class IntroScanService
     {
+        private static readonly string[] ResolverNames = { "Resolve", "GetService", "TryResolve", "GetInstance", "GetExport", "GetExports" };
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
 
@@ -41,6 +42,7 @@ namespace MediaInfoKeeper.Services
 
             var total = episodes.Count;
             var current = 0;
+            this.logger.Info($"片头扫描开始，总条目 {total}");
 
             foreach (var episode in episodes)
             {
@@ -51,6 +53,7 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var displayName = episode.Path ?? episode.Name;
+                this.logger.Info($"扫描进度 {current + 1}/{total}: {displayName} (id={episode.InternalId}, parent={episode.ParentId})");
                 if (HasIntroMarkers(episode))
                 {
                     this.logger.Info($"跳过 已存在片头标记: {displayName}");
@@ -62,7 +65,11 @@ namespace MediaInfoKeeper.Services
                 try
                 {
                     this.logger.Info($"开始片头检测: {displayName}");
+                    var stopwatch = Stopwatch.StartNew();
                     var detected = await TryDetectIntroAsync(episode, cancellationToken).ConfigureAwait(false);
+                    stopwatch.Stop();
+                    this.logger.Info($"片头检测返回: detected={detected}, cost={stopwatch.ElapsedMilliseconds}ms, item={displayName}");
+
                     if (!detected)
                     {
                         this.logger.Warn($"片头检测未执行或未命中: {displayName}");
@@ -108,11 +115,11 @@ namespace MediaInfoKeeper.Services
 
         public async Task<bool> TryDetectIntroAsync(Episode episode, CancellationToken cancellationToken)
         {
+            this.logger.Debug($"TryDetectIntroAsync: item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
             var detector = TryResolveAudioFingerprintManager();
             if (detector != null)
             {
-                if (await TryRunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken)
-                        .ConfigureAwait(false))
+                if (await TryRunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken).ConfigureAwait(false))
                 {
                     return true;
                 }
@@ -145,31 +152,28 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var managerType = assembly?.GetType("Emby.Providers.Markers.AudioFingerprintManager");
-                if (managerType != null)
+                if (managerType == null)
                 {
-                    LogMethodCandidates(managerType,
-                        managerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic));
-                    return TryResolveService(managerType);
+                    managerType = AppDomain.CurrentDomain.GetAssemblies()
+                        .SelectMany(SafeGetTypes)
+                        .FirstOrDefault(t => t?.FullName != null &&
+                                             t.FullName.IndexOf("AudioFingerprintManager", StringComparison.OrdinalIgnoreCase) >= 0);
                 }
 
-                var candidates = FindTypeCandidates("AudioFingerprint");
-                if (candidates.Count > 0)
+                if (managerType == null)
                 {
-                    foreach (var type in candidates)
-                    {
-                        var resolved = TryResolveService(type);
-                        if (resolved != null)
-                        {
-                            this.logger.Info($"已解析 AudioFingerprint 类型: {type.FullName}");
-                            LogMethodCandidates(type,
-                                type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic));
-                            return resolved;
-                        }
-                    }
+                    this.logger.Warn("未找到 AudioFingerprintManager 类型");
+                    return null;
                 }
 
-                LogTypeCandidates(assembly, "AudioFingerprintManager");
-                return null;
+                LogMethodCandidates(managerType, managerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic));
+                var detector = TryResolveService(managerType);
+                if (detector == null)
+                {
+                    this.logger.Warn($"AudioFingerprintManager 服务解析失败: {managerType.FullName}");
+                }
+
+                return detector;
             }
             catch (Exception ex)
             {
@@ -178,172 +182,20 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private async Task<bool> TryRunMarkerScheduledTaskAsync(Episode episode, CancellationToken cancellationToken)
-        {
-            var markerTask = TryResolveMarkerScheduledTask();
-            if (markerTask == null)
-            {
-                return false;
-            }
-
-            var taskType = markerTask.GetType();
-            var methods = taskType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            LogMethodCandidates(taskType, methods);
-
-            var candidates = methods
-                .Where(m =>
-                    (m.Name.IndexOf("Intro", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     m.Name.IndexOf("Marker", StringComparison.OrdinalIgnoreCase) >= 0) &&
-                    (m.Name.IndexOf("Detect", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     m.Name.IndexOf("Scan", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     m.Name.IndexOf("Process", StringComparison.OrdinalIgnoreCase) >= 0))
-                .ToList();
-
-            foreach (var method in candidates)
-            {
-                if (!method.GetParameters().Any(p => typeof(Episode).IsAssignableFrom(p.ParameterType) ||
-                                                     typeof(BaseItem).IsAssignableFrom(p.ParameterType)))
-                {
-                    continue;
-                }
-
-                this.logger.Info($"使用 MarkerScheduledTask 方法: {taskType.Name}.{method.Name}");
-                var args = BuildArguments(method, episode, cancellationToken);
-                var result = method.Invoke(markerTask, args);
-                if (result is Task task)
-                {
-                    await task.ConfigureAwait(false);
-                }
-
-                return true;
-            }
-
-            if (markerTask is IScheduledTask scheduledTask)
-            {
-                this.logger.Info("调用 MarkerScheduledTask.Execute 触发片头检测");
-                await scheduledTask.Execute(cancellationToken, new Progress<double>()).ConfigureAwait(false);
-                return true;
-            }
-
-            return false;
-        }
-
-        private object TryResolveMarkerScheduledTask()
+        private IEnumerable<Type> SafeGetTypes(Assembly assembly)
         {
             try
             {
-                var assembly = Assembly.Load("Emby.Providers");
-                var taskType = assembly?.GetType("Emby.Providers.Markers.MarkerScheduledTask");
-                if (taskType != null)
-                {
-                    return TryResolveService(taskType);
-                }
-
-                var candidates = FindTypeCandidates("MarkerScheduledTask");
-                if (candidates.Count == 0)
-                {
-                    candidates = FindTypeCandidates("Marker");
-                }
-
-                if (candidates.Count > 0)
-                {
-                    foreach (var type in candidates)
-                    {
-                        var resolved = TryResolveService(type);
-                        if (resolved != null)
-                        {
-                            this.logger.Info($"已解析 Marker 任务类型: {type.FullName}");
-                            return resolved;
-                        }
-                    }
-                }
-
-                LogTypeCandidates(assembly, "Marker");
-                return null;
+                return assembly.GetTypes();
             }
-            catch (Exception ex)
+            catch (ReflectionTypeLoadException ex)
             {
-                this.logger.Warn($"MarkerScheduledTask 加载失败: {ex.Message}");
-                return null;
+                return ex.Types.Where(t => t != null);
             }
-        }
-
-        private void LogTypeCandidates(Assembly assembly, string keyword)
-        {
-            if (assembly == null)
+            catch
             {
-                return;
+                return Array.Empty<Type>();
             }
-
-            try
-            {
-                var candidates = assembly.GetTypes()
-                    .Where(t => t.FullName != null &&
-                                t.FullName.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .Select(t => t.FullName)
-                    .OrderBy(n => n)
-                    .ToList();
-
-                if (candidates.Count == 0)
-                {
-                    return;
-                }
-
-                this.logger.Warn($"未匹配到目标类型，候选类型({keyword}): {string.Join(", ", candidates)}");
-            }
-            catch (Exception ex)
-            {
-                this.logger.Debug($"枚举类型失败({keyword}): {ex.Message}");
-            }
-        }
-
-        private List<Type> FindTypeCandidates(string keyword)
-        {
-            var list = new List<Type>();
-            try
-            {
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                foreach (var asm in assemblies)
-                {
-                    Type[] types;
-                    try
-                    {
-                        types = asm.GetTypes();
-                    }
-                    catch (ReflectionTypeLoadException ex)
-                    {
-                        types = ex.Types.Where(t => t != null).ToArray();
-                    }
-
-                    foreach (var type in types)
-                    {
-                        if (type?.FullName == null)
-                        {
-                            continue;
-                        }
-
-                        if (type.FullName.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            list.Add(type);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logger.Debug($"全局枚举类型失败({keyword}): {ex.Message}");
-            }
-
-            if (list.Count > 0)
-            {
-                var names = list.Select(t => $"{t.FullName} [{t.Assembly.GetName().Name}]")
-                    .Distinct()
-                    .OrderBy(n => n)
-                    .ToList();
-                this.logger.Debug($"全局候选类型({keyword}): {string.Join(", ", names)}");
-            }
-
-            return list;
         }
 
         private void LogMethodCandidates(Type type, MethodInfo[] methods)
@@ -358,8 +210,7 @@ namespace MediaInfoKeeper.Services
                 var list = methods
                     .Select(m =>
                     {
-                        var parameters = string.Join(", ", m.GetParameters()
-                            .Select(p => $"{p.ParameterType.Name} {p.Name}"));
+                        var parameters = string.Join(", ", m.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}"));
                         return $"{m.Name}({parameters})";
                     })
                     .Distinct()
@@ -385,322 +236,84 @@ namespace MediaInfoKeeper.Services
 
             if (appHost is IServiceProvider serviceProvider)
             {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 实现 IServiceProvider");
                 var service = serviceProvider.GetService(serviceType);
                 if (service != null)
                 {
                     this.logger.Debug($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 成功");
                     return service;
                 }
-
-                this.logger.Debug($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 返回空");
-            }
-            else
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 未实现 IServiceProvider");
             }
 
             var hostType = appHost.GetType();
             this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 类型 {hostType.FullName}");
-            var methods = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-            var getExports = methods.FirstOrDefault(m =>
-                m.Name == "GetExports" &&
-                m.GetParameters().Length == 1 &&
-                m.GetParameters()[0].ParameterType == typeof(Type));
-            if (getExports != null)
+            var genericResolver = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .FirstOrDefault(m => m.IsGenericMethodDefinition &&
+                                     m.GetGenericArguments().Length == 1 &&
+                                     m.GetParameters().Length == 0 &&
+                                     ResolverNames.Contains(m.Name));
+            if (genericResolver != null)
             {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetExports(Type)");
-                if (getExports.Invoke(appHost, new object[] { serviceType }) is IEnumerable exports)
+                try
                 {
-                    var found = false;
-                    foreach (var item in exports)
+                    var result = genericResolver.MakeGenericMethod(serviceType).Invoke(appHost, null);
+                    var resolved = UnwrapExports(result);
+                    if (resolved != null)
                     {
-                        found = true;
-                        return item;
-                    }
-
-                    if (!found)
-                    {
-                        this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports(Type) 返回空集合");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.{genericResolver.Name}<T>() 成功");
+                        return resolved;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports(Type) 返回 null");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.{genericResolver.Name}<T>() 失败: {ex.Message}");
                 }
             }
-            else
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetExports(Type)");
-            }
 
-            var getExportsGeneric = methods.FirstOrDefault(m =>
-                m.Name == "GetExports" &&
-                m.IsGenericMethodDefinition &&
-                m.GetParameters().Length == 0);
-            if (getExportsGeneric != null)
+            var typeResolver = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .FirstOrDefault(m => m.GetParameters().Length == 1 &&
+                                     m.GetParameters()[0].ParameterType == typeof(Type) &&
+                                     ResolverNames.Contains(m.Name));
+            if (typeResolver != null)
             {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetExports<T>()");
-                var result = getExportsGeneric.MakeGenericMethod(serviceType).Invoke(appHost, null);
-                if (result is IEnumerable exports)
+                try
                 {
-                    var found = false;
-                    foreach (var item in exports)
+                    var result = typeResolver.Invoke(appHost, new object[] { serviceType });
+                    var resolved = UnwrapExports(result);
+                    if (resolved != null)
                     {
-                        found = true;
-                        return item;
-                    }
-
-                    if (!found)
-                    {
-                        this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports<T>() 返回空集合");
+                        this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.{typeResolver.Name}(Type) 成功");
+                        return resolved;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetExports<T>() 返回 null");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.{typeResolver.Name}(Type) 失败: {ex.Message}");
                 }
             }
-            else
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetExports<T>()");
-            }
 
-            var resolve = methods.FirstOrDefault(m =>
-                m.Name == "Resolve" &&
-                m.GetParameters().Length == 1 &&
-                m.GetParameters()[0].ParameterType == typeof(Type));
-            if (resolve != null)
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 Resolve(Type)");
-                return resolve.Invoke(appHost, new object[] { serviceType });
-            }
-
-            this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 Resolve(Type)");
-
-            var getService = methods.FirstOrDefault(m =>
-                m.Name == "GetService" &&
-                m.GetParameters().Length == 1 &&
-                m.GetParameters()[0].ParameterType == typeof(Type));
-            if (getService != null)
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 尝试 GetService(Type)");
-                return getService.Invoke(appHost, new object[] { serviceType });
-            }
-
-            this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到 GetService(Type)");
-
-            var resolved = TryResolveFromHostContainers(appHost, serviceType);
-            if (resolved != null)
-            {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: 通过内部容器成功");
-                return resolved;
-            }
-
-            this.logger.Debug($"服务解析 {serviceType.FullName}: 内部容器解析失败");
+            this.logger.Debug($"服务解析 {serviceType.FullName}: 未找到可用解析器");
             return null;
         }
 
-
-        private object TryResolveFromHostContainers(object appHost, Type serviceType)
+        private static object UnwrapExports(object result)
         {
-            var visited = new HashSet<object>();
-            return TryResolveFromObject(appHost, serviceType, "AppHost", visited, 0);
-        }
-
-        private object TryResolveFromObject(
-            object target,
-            Type serviceType,
-            string sourceName,
-            HashSet<object> visited,
-            int depth)
-        {
-            if (target == null || !visited.Add(target) || depth > 2)
+            if (result == null)
             {
                 return null;
             }
 
-            if (target is IServiceProvider serviceProvider)
+            if (result is IEnumerable enumerable && result is not string)
             {
-                var service = serviceProvider.GetService(serviceType);
-                if (service != null)
+                foreach (var item in enumerable)
                 {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName} IServiceProvider 成功");
-                    return service;
+                    return item;
                 }
+
+                return null;
             }
 
-            var targetType = target.GetType();
-
-            var resolved = TryResolveByKnownMethods(target, targetType, serviceType, sourceName);
-            if (resolved != null)
-            {
-                return resolved;
-            }
-
-            foreach (var candidate in GetContainerCandidates(target, targetType))
-            {
-                var child = candidate.Value;
-                if (child == null)
-                {
-                    continue;
-                }
-
-                var childSource = $"{sourceName}.{candidate.Name}";
-                resolved = TryResolveByKnownMethods(child, child.GetType(), serviceType, childSource);
-                if (resolved != null)
-                {
-                    return resolved;
-                }
-
-                resolved = TryResolveFromObject(child, serviceType, childSource, visited, depth + 1);
-                if (resolved != null)
-                {
-                    return resolved;
-                }
-            }
-
-            return null;
-        }
-
-        private object TryResolveByKnownMethods(
-            object target,
-            Type targetType,
-            Type serviceType,
-            string sourceName)
-        {
-            var method = FindMethod(targetType, "Resolve")
-                         ?? FindMethod(targetType, "GetService")
-                         ?? FindMethod(targetType, "TryResolve")
-                         ?? FindMethod(targetType, "GetInstance")
-                         ?? FindMethod(targetType, "GetExport")
-                         ?? FindMethod(targetType, "GetExports");
-
-            if (method != null)
-            {
-                try
-                {
-                    var result = method.Invoke(target, new object[] { serviceType });
-                    if (result is IEnumerable exports)
-                    {
-                        foreach (var item in exports)
-                        {
-                            this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
-                            return item;
-                        }
-
-                        return null;
-                    }
-
-                    if (result != null)
-                    {
-                        this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 成功");
-                        return result;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{method.Name}(Type) 失败: {ex.Message}");
-                }
-            }
-
-            var generic = FindGenericMethod(targetType, new[] { "Resolve", "GetService", "TryResolve", "GetInstance", "GetExport", "GetExports" });
-            if (generic != null)
-            {
-                try
-                {
-                    var result = generic.MakeGenericMethod(serviceType).Invoke(target, null);
-                    if (result is IEnumerable exports)
-                    {
-                        foreach (var item in exports)
-                        {
-                            this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
-                            return item;
-                        }
-
-                        return null;
-                    }
-
-                    if (result != null)
-                    {
-                        this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 成功");
-                        return result;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: {sourceName}.{generic.Name}<T>() 失败: {ex.Message}");
-                }
-            }
-
-            return null;
-        }
-
-        private static MethodInfo FindMethod(Type type, string name)
-        {
-            return type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .FirstOrDefault(m =>
-                    m.Name == name &&
-                    m.GetParameters().Length == 1 &&
-                    m.GetParameters()[0].ParameterType == typeof(Type));
-        }
-
-        private static MethodInfo FindGenericMethod(Type type, string[] names)
-        {
-            return type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .FirstOrDefault(m => m.IsGenericMethodDefinition &&
-                                     m.GetParameters().Length == 0 &&
-                                     names.Contains(m.Name));
-        }
-
-        private static List<(string Name, object Value)> GetContainerCandidates(object host, Type hostType)
-        {
-            var list = new List<(string Name, object Value)>();
-            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-            foreach (var field in hostType.GetFields(flags))
-            {
-                object value = null;
-                try
-                {
-                    value = field.GetValue(host);
-                }
-                catch
-                {
-                    // ignore
-                }
-
-                if (value != null && value != host)
-                {
-                    list.Add((field.Name, value));
-                }
-            }
-
-            foreach (var prop in hostType.GetProperties(flags))
-            {
-                if (prop.GetIndexParameters().Length > 0)
-                {
-                    continue;
-                }
-
-                object value = null;
-                try
-                {
-                    value = prop.GetValue(host);
-                }
-                catch
-                {
-                    // ignore
-                }
-
-                if (value != null && value != host)
-                {
-                    list.Add((prop.Name, value));
-                }
-            }
-
-            return list;
+            return result;
         }
 
         private async Task<bool> TryRunAudioFingerprintWorkflowAsync(
@@ -708,6 +321,7 @@ namespace MediaInfoKeeper.Services
             Episode episode,
             CancellationToken cancellationToken)
         {
+            this.logger.Debug($"AudioFingerprint workflow start: detector={detector.GetType().FullName}, item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
             var managerType = detector.GetType();
             var methods = managerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
@@ -717,7 +331,8 @@ namespace MediaInfoKeeper.Services
 
             var createTitleFingerprint = methods.FirstOrDefault(m =>
                 m.Name == "CreateTitleFingerprint" &&
-                m.GetParameters().Any(p => typeof(Episode).IsAssignableFrom(p.ParameterType)));
+                m.GetParameters().Any(p => typeof(Episode).IsAssignableFrom(p.ParameterType)) &&
+                m.GetParameters().Any(p => p.ParameterType == typeof(IDirectoryService)));
 
             var getAllFingerprintFiles = methods.FirstOrDefault(m =>
                 m.Name == "GetAllFingerprintFilesForSeason" &&
@@ -729,33 +344,41 @@ namespace MediaInfoKeeper.Services
 
             if (isSupported == null && createTitleFingerprint == null && updateSequences == null)
             {
+                this.logger.Warn($"AudioFingerprint workflow未找到关键方法: type={managerType.FullName}");
                 return false;
             }
 
+            this.logger.Debug($"AudioFingerprint methods: IsSupported={isSupported?.Name ?? "null"}, CreateTitleFingerprint={createTitleFingerprint?.Name ?? "null"}, GetAllFingerprintFilesForSeason={getAllFingerprintFiles?.Name ?? "null"}, UpdateSequencesForSeason={updateSequences?.Name ?? "null"}");
+
             var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
-            var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
+            var hasLibraryOptions = this.libraryManager.GetLibraryOptions(episode) != null;
+            this.logger.Debug($"LibraryOptions loaded: null={!hasLibraryOptions}");
 
             if (isSupported != null)
             {
                 var supportedArgs = BuildArguments(isSupported, episode, cancellationToken, directoryService);
-                var supportedResult = await InvokeWithResultAsync(detector, isSupported, supportedArgs)
-                    .ConfigureAwait(false);
+                LogInvocation(isSupported, supportedArgs);
+                var supportedResult = await InvokeWithResultAsync(detector, isSupported, supportedArgs).ConfigureAwait(false);
                 if (supportedResult is bool supported && !supported)
                 {
                     this.logger.Debug("AudioFingerprintManager.IsIntroDetectionSupported 返回 false");
                     return false;
                 }
+
+                this.logger.Debug($"IsIntroDetectionSupported result: {supportedResult ?? "null"}");
             }
 
             if (createTitleFingerprint != null)
             {
                 this.logger.Debug("触发 CreateTitleFingerprint 生成指纹");
                 var fingerprintArgs = BuildArguments(createTitleFingerprint, episode, cancellationToken, directoryService);
+                LogInvocation(createTitleFingerprint, fingerprintArgs);
                 await InvokeWithResultAsync(detector, createTitleFingerprint, fingerprintArgs).ConfigureAwait(false);
             }
 
             if (updateSequences == null)
             {
+                this.logger.Debug($"AudioFingerprint workflow完成（仅生成指纹）: item={episode?.Path ?? episode?.Name}");
                 return createTitleFingerprint != null;
             }
 
@@ -766,24 +389,46 @@ namespace MediaInfoKeeper.Services
                 return createTitleFingerprint != null;
             }
 
+            this.logger.Debug($"Season resolved: {season.Name} (id={season.InternalId})");
             var seasonEpisodes = FetchSeasonEpisodes(season);
-            object seasonFingerprintInfo = null;
+            this.logger.Debug($"Season episodes loaded: count={seasonEpisodes.Length}");
 
+            object seasonFingerprintInfo = null;
             if (getAllFingerprintFiles != null)
             {
                 this.logger.Debug("触发 GetAllFingerprintFilesForSeason 收集指纹");
-                var getArgs = BuildArguments(getAllFingerprintFiles, episode, cancellationToken, directoryService, season,
-                    seasonEpisodes);
-                seasonFingerprintInfo = await InvokeWithResultAsync(detector, getAllFingerprintFiles, getArgs)
-                    .ConfigureAwait(false);
+                var getArgs = BuildArguments(getAllFingerprintFiles, episode, cancellationToken, directoryService, season, seasonEpisodes);
+                LogInvocation(getAllFingerprintFiles, getArgs);
+                seasonFingerprintInfo = await InvokeWithResultAsync(detector, getAllFingerprintFiles, getArgs).ConfigureAwait(false);
+                this.logger.Debug($"GetAllFingerprintFilesForSeason result type: {seasonFingerprintInfo?.GetType().FullName ?? "null"}");
             }
 
             this.logger.Debug("触发 UpdateSequencesForSeason 生成片头序列");
-            var updateArgs = BuildArguments(updateSequences, episode, cancellationToken, directoryService, season,
-                seasonEpisodes, seasonFingerprintInfo);
+            var updateArgs = BuildArguments(updateSequences, episode, cancellationToken, directoryService, season, seasonEpisodes, seasonFingerprintInfo);
+            LogInvocation(updateSequences, updateArgs);
             await InvokeWithResultAsync(detector, updateSequences, updateArgs).ConfigureAwait(false);
+            this.logger.Debug($"AudioFingerprint workflow完成: item={episode?.Path ?? episode?.Name}");
 
             return true;
+        }
+
+        private void LogInvocation(MethodInfo method, object[] args)
+        {
+            if (method == null)
+            {
+                return;
+            }
+
+            var parameters = method.GetParameters();
+            var parts = new List<string>(parameters.Length);
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                var value = i < args.Length ? args[i] : null;
+                var valueType = value?.GetType().Name ?? "null";
+                parts.Add($"{parameters[i].Name}:{parameters[i].ParameterType.Name}={valueType}");
+            }
+
+            this.logger.Debug($"调用 {method.DeclaringType?.Name}.{method.Name} 参数: {string.Join(", ", parts)}");
         }
 
         private object[] BuildArguments(
@@ -899,11 +544,7 @@ namespace MediaInfoKeeper.Services
                 ParentIds = new[] { season.InternalId }
             };
 
-            return this.libraryManager
-                .GetItemList(query)
-                .OfType<Episode>()
-                .ToArray();
+            return this.libraryManager.GetItemList(query).OfType<Episode>().ToArray();
         }
-
     }
 }
