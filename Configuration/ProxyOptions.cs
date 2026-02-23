@@ -27,20 +27,20 @@ namespace MediaInfoKeeper.Configuration
         [Description("允许元数据服务器返回 gzip/deflate/br 压缩内容，并自动解压以减少网络流量。")]
         public bool EnableGzip { get; set; } = true;
 
-        [DisplayName("使用替代 TMDB 配置")]
-        [Description("开启后按域名重写 TMDB 请求：api.themoviedb.org / image.tmdb.org。")]
+        [DisplayName("启用 TMDB 域名替换")]
+        [Description("开启后按替换 TMDB 请求域名，自建反代可参考这个项目：https://github.com/imaliang/tmdb-proxy")]
         public bool EnableAlternativeTmdb { get; set; } = false;
 
-        [DisplayName("替代 TMDB API 地址")]
-        [Description("默认替代地址为 https://api.tmdb.org，留空使用系统默认 https://api.themoviedb.org。")]
-        public string AlternativeTmdbApiUrl { get; set; } = "https://api.tmdb.org";
+        [DisplayName("自定义 TMDB API 域名")]
+        [Description("默认 api.tmdb.org，留空使用系统默认 api.themoviedb.org")]
+        public string AlternativeTmdbApiUrl { get; set; } = "api.tmdb.org";
 
-        [DisplayName("替代 TMDB 图像地址")]
-        [Description("请自备替代地址，留空使用系统默认 https://image.tmdb.org。")]
+        [DisplayName("自定义 TMDB 图像域名")]
+        [Description("留空使用系统默认 image.tmdb.org")]
         public string AlternativeTmdbImageUrl { get; set; } = string.Empty;
 
-        [DisplayName("替代 TMDB API 密钥")]
-        [Description("请自备 API 密钥，留空使用系统默认。")]
+        [DisplayName("自定义 TMDB API 密钥")]
+        [Description("请自备 API 密钥，留空使用Emby默认。")]
         public string AlternativeTmdbApiKey { get; set; } = string.Empty;
     }
 }

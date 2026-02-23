@@ -253,37 +253,56 @@ namespace MediaInfoKeeper
 
             options.MainPage ??= new MainPageOptions();
             options.IntroSkip ??= new IntroSkipOptions();
+            options.Proxy ??= new ProxyOptions();
             options.EnhanceChineseSearch ??= new EnhanceChineseSearchOptions();
             options.MetaData ??= new MetaDataOptions();
 
             this.PlugginEnabled = options.MainPage.PlugginEnabled;
 
             this.logger.Info($"{this.Name} 配置已更新。");
-            this.logger.Info($"PersistMediaInfoEnabled 设置为 {options.MainPage.PlugginEnabled}");
-            this.logger.Info($"ExtractMediaInfoOnItemAdded 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
-            this.logger.Info($"ExtractMediaInfoOnFavorite 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
-            this.logger.Info($"MediaInfoJsonRootFolder 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "EMPTY" : options.MainPage.MediaInfoJsonRootFolder)}");
-            this.logger.Info($"DeleteMediaInfoJsonOnRemove 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
-            this.logger.Info($"CatchupLibraries 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "EMPTY" : options.MainPage.CatchupLibraries)}");
-            this.logger.Info($"ScheduledTaskLibraries 设置为 {(string.IsNullOrEmpty(options.MainPage.ScheduledTaskLibraries) ? "EMPTY" : options.MainPage.ScheduledTaskLibraries)}");
-            this.logger.Info($"EnableMetadataProvidersWatcher 设置为 {options.MetaData.EnableMetadataProvidersWatcher}");
-            this.logger.Info($"MaxConcurrentCount 设置为 {options.MainPage.MaxConcurrentCount}");
-            this.logger.Info($"EnableProxyServer 设置为 {options.Proxy.EnableProxyServer}");
-            this.logger.Info($"ProxyServerUrl 设置为 {(string.IsNullOrEmpty(options.Proxy.ProxyServerUrl) ? "EMPTY" : options.Proxy.ProxyServerUrl)}");
-            this.logger.Info($"IgnoreCertificateValidation 设置为 {options.Proxy.IgnoreCertificateValidation}");
-            this.logger.Info($"WriteProxyEnvVars 设置为 {options.Proxy.WriteProxyEnvVars}");
-            this.logger.Info($"EnableGzip 设置为 {options.Proxy.EnableGzip}");
-            this.logger.Info($"EnableAlternativeTmdb 设置为 {options.Proxy.EnableAlternativeTmdb}");
-            this.logger.Info($"AlternativeTmdbApiUrl 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiUrl) ? "EMPTY" : options.Proxy.AlternativeTmdbApiUrl)}");
-            this.logger.Info($"AlternativeTmdbImageUrl 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbImageUrl) ? "EMPTY" : options.Proxy.AlternativeTmdbImageUrl)}");
-            this.logger.Info($"AlternativeTmdbApiKey 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiKey) ? "EMPTY" : "***")}");
-            this.logger.Info($"EnhanceChineseSearch 设置为 {options.EnhanceChineseSearch.EnhanceChineseSearch}");
-            this.logger.Info($"ExcludeOriginalTitleFromSearch 设置为 {options.EnhanceChineseSearch.ExcludeOriginalTitleFromSearch}");
-            this.logger.Info($"EnableAlternativeTitleFallback 设置为 {options.MetaData.EnableAlternativeTitleFallback}");
-            this.logger.Info($"EnableTvdbFallback 设置为 {options.MetaData.EnableTvdbFallback}");
-            this.logger.Info($"TmdbFallbackLanguages 设置为 {options.MetaData.FallbackLanguages}");
-            this.logger.Info($"TvdbFallbackLanguages 设置为 {options.MetaData.TvdbFallbackLanguages}");
-            this.logger.Info($"TmdbBlockNonFallbackLanguage 设置为 {options.MetaData.BlockNonFallbackLanguage}");
+            this.logger.Info("[Main]");
+            this.logger.Info($"启用插件 设置为 {options.MainPage.PlugginEnabled}");
+            this.logger.Info($"入库时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
+            this.logger.Info($"收藏时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
+            this.logger.Info($"MediaInfo JSON 存储根目录 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "空" : options.MainPage.MediaInfoJsonRootFolder)}");
+            this.logger.Info($"条目移除时删除 JSON 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
+            this.logger.Info($"追更媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "空" : options.MainPage.CatchupLibraries)}");
+            this.logger.Info($"计划任务媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.ScheduledTaskLibraries) ? "空" : options.MainPage.ScheduledTaskLibraries)}");
+            this.logger.Info($"扫描最多并发数 设置为 {options.MainPage.MaxConcurrentCount}");
+
+            this.logger.Info("[IntroSkip]");
+            this.logger.Info($"启用 Strm 片头检测解锁 设置为 {options.IntroSkip.UnlockIntroSkip}");
+            this.logger.Info($"入库时扫描片头 设置为 {options.IntroSkip.ScanIntroOnItemAdded}");
+            this.logger.Info($"收藏时扫描片头 设置为 {options.IntroSkip.ScanIntroOnFavorite}");
+            this.logger.Info($"保护片头标记 设置为 {options.IntroSkip.ProtectIntroMarkers}");
+            this.logger.Info($"启用播放行为打标 设置为 {options.IntroSkip.EnableIntroSkip}");
+            this.logger.Info($"片头检测库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.MarkerEnabledLibraryScope) ? "空" : options.IntroSkip.MarkerEnabledLibraryScope)}");
+            this.logger.Info($"打标库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.LibraryScope) ? "空" : options.IntroSkip.LibraryScope)}");
+            this.logger.Info($"用户范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.UserScope) ? "空" : options.IntroSkip.UserScope)}");
+
+            this.logger.Info("[Search]");
+            this.logger.Info($"启用增强搜索 设置为 {options.EnhanceChineseSearch.EnhanceChineseSearch}");
+            this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.EnhanceChineseSearch.SearchScope) ? "空" : options.EnhanceChineseSearch.SearchScope)}");
+            this.logger.Info($"排除原始标题 设置为 {options.EnhanceChineseSearch.ExcludeOriginalTitleFromSearch}");
+
+            this.logger.Info("[MetaData]");
+            this.logger.Info($"启用剧集元数据变动监听 设置为 {options.MetaData.EnableMetadataProvidersWatcher}");
+            this.logger.Info($"启用 TMDB 中文回退 设置为 {options.MetaData.EnableAlternativeTitleFallback}");
+            this.logger.Info($"启用 TVDB 中文回退 设置为 {options.MetaData.EnableTvdbFallback}");
+            this.logger.Info($"TMDB 备选语言 设置为 {options.MetaData.FallbackLanguages}");
+            this.logger.Info($"TVDB 备选语言 设置为 {options.MetaData.TvdbFallbackLanguages}");
+            this.logger.Info($"屏蔽非备选语言简介 设置为 {options.MetaData.BlockNonFallbackLanguage}");
+
+            this.logger.Info("[Proxy]");
+            this.logger.Info($"启用代理 设置为 {options.Proxy.EnableProxyServer}");
+            this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(options.Proxy.ProxyServerUrl) ? "空" : options.Proxy.ProxyServerUrl)}");
+            this.logger.Info($"忽略证书验证 设置为 {options.Proxy.IgnoreCertificateValidation}");
+            this.logger.Info($"写入环境变量 设置为 {options.Proxy.WriteProxyEnvVars}");
+            this.logger.Info($"启用压缩传输 设置为 {options.Proxy.EnableGzip}");
+            this.logger.Info($"启用 TMDB 域名替换 设置为 {options.Proxy.EnableAlternativeTmdb}");
+            this.logger.Info($"自定义 TMDB API 域名 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiUrl) ? "空" : options.Proxy.AlternativeTmdbApiUrl)}");
+            this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbImageUrl) ? "空" : options.Proxy.AlternativeTmdbImageUrl)}");
+            this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiKey) ? "空" : "***")}");
 
             FfprobeGuard.Configure(options.MainPage.DisableSystemFfprobe);
             MetadataProvidersWatcher.Configure(options.MetaData.EnableMetadataProvidersWatcher);

@@ -12,7 +12,8 @@ MediaInfoKeeper
 - MediaInfo Keeper：将 MediaInfo/章节持久化为 JSON，入库恢复/提取并在刷新后恢复。
 - IntroSkip：解锁 .strm 片头检测、入库扫描片头、播放行为打标，并保护片头/片尾标记。
 - Search：中文模糊与拼音搜索增强，可设置搜索范围。
-- Proxy：全局 HttpClient 代理，支持忽略证书与写入代理环境变量。
+- MetaData：支持剧集元数据变动监听、TMDB/TVDB 使用中文别名，避免出现英文标题的情况。
+- Proxy：全局 HttpClient 代理，支持忽略证书、写入代理环境变量，并支持 TMDB 反代域名替换。
 - GitHub & Update：版本检查与插件自更新。
 
 计划任务
@@ -28,7 +29,8 @@ MediaInfoKeeper
 安装
 ----
 
-**测试版本 4.9.1.90，4.8 系列不支持**
+- 已测试版本：`4.9.3.0` `4.9.1.90`
+- 不支持：`4.8` 系列
 
 1. 下载 `MediaInfoKeeper.dll`：<https://github.com/honue/MediaInfoKeeper/releases>
 2. 放入 Emby 配置目录中的 `plugins` 目录。

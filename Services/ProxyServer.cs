@@ -1,9 +1,8 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using HarmonyLib;
 using MediaBrowser.Model.Logging;
 
@@ -21,8 +20,11 @@ namespace MediaInfoKeeper.Services
         private static Harmony harmony;
         private static ILogger logger;
         private static MethodInfo createHttpClientHandler;
+        private static MethodInfo movieDbGetMovieDbResponse;
         private static bool isEnabled;
         private static bool isPatched;
+        private static bool isMovieDbPatched;
+        private static bool waitingForMovieDbAssembly;
 
         public static void Initialize(ILogger pluginLogger, bool enable)
         {
@@ -51,6 +53,7 @@ namespace MediaInfoKeeper.Services
 
                 harmony = new Harmony("mediainfokeeper.proxy");
                 Patch();
+                TryInstallMovieDbPatch();
             }
             catch (Exception e)
             {
@@ -89,6 +92,74 @@ namespace MediaInfoKeeper.Services
             isPatched = true;
         }
 
+        private static void TryInstallMovieDbPatch()
+        {
+            if (isMovieDbPatched || harmony == null)
+            {
+                return;
+            }
+
+            if (TryGetLoadedMovieDbAssembly(out var movieDbAssembly))
+            {
+                InstallMovieDbPatch(movieDbAssembly);
+                return;
+            }
+
+            if (!waitingForMovieDbAssembly)
+            {
+                AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;
+                waitingForMovieDbAssembly = true;
+            }
+        }
+
+        private static bool TryGetLoadedMovieDbAssembly(out Assembly assembly)
+        {
+            assembly = AppDomain.CurrentDomain.GetAssemblies()
+                .FirstOrDefault(a => string.Equals(a.GetName().Name, "MovieDb", StringComparison.OrdinalIgnoreCase));
+            return assembly != null;
+        }
+
+        private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            var loadedAssembly = args?.LoadedAssembly;
+            if (loadedAssembly == null ||
+                !string.Equals(loadedAssembly.GetName().Name, "MovieDb", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            InstallMovieDbPatch(loadedAssembly);
+        }
+
+        private static void InstallMovieDbPatch(Assembly movieDbAssembly)
+        {
+            if (isMovieDbPatched || harmony == null || movieDbAssembly == null)
+            {
+                return;
+            }
+
+            var movieDbProviderBase = movieDbAssembly.GetType("MovieDb.MovieDbProviderBase", false);
+            movieDbGetMovieDbResponse = movieDbProviderBase?.GetMethod(
+                "GetMovieDbResponse",
+                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+            if (movieDbGetMovieDbResponse == null)
+            {
+                return;
+            }
+
+            harmony.Patch(
+                movieDbGetMovieDbResponse,
+                prefix: new HarmonyMethod(typeof(ProxyServer), nameof(GetMovieDbResponsePrefix)));
+            isMovieDbPatched = true;
+
+            if (waitingForMovieDbAssembly)
+            {
+                AppDomain.CurrentDomain.AssemblyLoad -= OnAssemblyLoad;
+                waitingForMovieDbAssembly = false;
+            }
+        }
+
         [HarmonyPostfix]
         private static void CreateHttpClientHandlerPostfix(ref HttpMessageHandler __result)
         {
@@ -100,11 +171,6 @@ namespace MediaInfoKeeper.Services
 
             var primaryHandler = __result;
             ApplyAutomaticDecompression(primaryHandler, options.EnableGzip);
-
-            if (options.EnableAlternativeTmdb)
-            {
-                __result = new TmdbDomainRewriteHandler(primaryHandler);
-            }
 
             if (!isEnabled)
             {
@@ -144,6 +210,40 @@ namespace MediaInfoKeeper.Services
                 }
             }
 
+        }
+
+        [HarmonyPrefix]
+        private static void GetMovieDbResponsePrefix(object[] __args)
+        {
+            if (__args == null || __args.Length == 0 || __args[0] == null)
+            {
+                return;
+            }
+
+            var options = Plugin.Instance.Options.Proxy;
+            if (options == null || !options.EnableAlternativeTmdb)
+            {
+                return;
+            }
+
+            var requestOptions = __args[0];
+            var urlProperty = requestOptions.GetType().GetProperty("Url", BindingFlags.Instance | BindingFlags.Public);
+            if (urlProperty == null || !urlProperty.CanRead || !urlProperty.CanWrite)
+            {
+                return;
+            }
+
+            var originalUrl = urlProperty.GetValue(requestOptions) as string;
+            if (!Uri.TryCreate(originalUrl, UriKind.Absolute, out var uri))
+            {
+                return;
+            }
+
+            var rewritten = RewriteTmdbUri(uri, options);
+            if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
+            {
+                urlProperty.SetValue(requestOptions, rewritten.ToString());
+            }
         }
 
         private static void ApplyAutomaticDecompression(HttpMessageHandler handler, bool enableGzip)
@@ -208,136 +308,115 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private sealed class TmdbDomainRewriteHandler : DelegatingHandler
+        private static Uri RewriteTmdbUri(Uri uri, Configuration.ProxyOptions options)
         {
-            private static readonly StringComparison IgnoreCase = StringComparison.OrdinalIgnoreCase;
+            var replaced = uri;
 
-            public TmdbDomainRewriteHandler(HttpMessageHandler innerHandler)
-                : base(innerHandler)
+            if (string.Equals(uri.Host, "api.themoviedb.org", StringComparison.OrdinalIgnoreCase))
             {
-            }
-
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                if (request?.RequestUri != null && request.RequestUri.IsAbsoluteUri)
+                if (TryParseDomainEndpoint(options.AlternativeTmdbApiUrl, out var altApiHost, out var altApiPort))
                 {
-                    var options = Plugin.Instance.Options.Proxy;
-                    if (options != null && options.EnableAlternativeTmdb)
-                    {
-                        request.RequestUri = RewriteTmdbUri(request.RequestUri, options);
-                    }
+                    replaced = ReplaceAuthority(replaced, altApiHost, altApiPort);
                 }
 
-                return base.SendAsync(request, cancellationToken);
+                if (!string.IsNullOrWhiteSpace(options.AlternativeTmdbApiKey))
+                {
+                    replaced = ReplaceApiKey(replaced, options.AlternativeTmdbApiKey.Trim());
+                }
+            }
+            else if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
+            {
+                if (TryParseDomainEndpoint(options.AlternativeTmdbImageUrl, out var altImageHost, out var altImagePort))
+                {
+                    replaced = ReplaceAuthority(replaced, altImageHost, altImagePort);
+                }
             }
 
-            private static Uri RewriteTmdbUri(Uri uri, Configuration.ProxyOptions options)
+            return replaced;
+        }
+
+        private static bool TryParseDomainEndpoint(string raw, out string host, out int port)
+        {
+            host = null;
+            port = -1;
+
+            if (string.IsNullOrWhiteSpace(raw))
             {
-                var replaced = uri;
-
-                if (string.Equals(uri.Host, "api.themoviedb.org", IgnoreCase))
-                {
-                    var altApi = ParseAbsoluteUri(options.AlternativeTmdbApiUrl);
-                    if (altApi != null)
-                    {
-                        replaced = ReplaceAuthority(replaced, altApi);
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(options.AlternativeTmdbApiKey))
-                    {
-                        replaced = ReplaceApiKey(replaced, options.AlternativeTmdbApiKey.Trim());
-                    }
-                }
-                else if (string.Equals(uri.Host, "image.tmdb.org", IgnoreCase))
-                {
-                    var altImage = ParseAbsoluteUri(options.AlternativeTmdbImageUrl);
-                    if (altImage != null)
-                    {
-                        replaced = ReplaceAuthority(replaced, altImage);
-                    }
-                }
-
-                return replaced;
+                return false;
             }
 
-            private static Uri ParseAbsoluteUri(string raw)
-            {
-                if (string.IsNullOrWhiteSpace(raw))
-                {
-                    return null;
-                }
+            var value = raw.Trim();
 
-                return Uri.TryCreate(raw.Trim(), UriKind.Absolute, out var uri) ? uri : null;
+            if (Uri.TryCreate(value, UriKind.Absolute, out var absoluteUri))
+            {
+                host = absoluteUri.Host;
+                port = absoluteUri.IsDefaultPort ? -1 : absoluteUri.Port;
+                return !string.IsNullOrWhiteSpace(host);
             }
 
-            private static Uri ReplaceAuthority(Uri source, Uri targetBase)
+            if (Uri.TryCreate("https://" + value, UriKind.Absolute, out var domainUri))
             {
-                var builder = new UriBuilder(source)
-                {
-                    Scheme = targetBase.Scheme,
-                    Host = targetBase.Host,
-                    Port = targetBase.IsDefaultPort ? -1 : targetBase.Port,
-                    Path = JoinPaths(targetBase.AbsolutePath, source.AbsolutePath)
-                };
-
-                return builder.Uri;
+                host = domainUri.Host;
+                port = domainUri.IsDefaultPort ? -1 : domainUri.Port;
+                return !string.IsNullOrWhiteSpace(host);
             }
 
-            private static Uri ReplaceApiKey(Uri source, string apiKey)
+            return false;
+        }
+
+        private static Uri ReplaceAuthority(Uri source, string host, int port)
+        {
+            var builder = new UriBuilder(source)
             {
-                var builder = new UriBuilder(source);
-                var query = builder.Query;
-                if (query.StartsWith("?", StringComparison.Ordinal))
+                Host = host,
+                Port = port
+            };
+
+            return builder.Uri;
+        }
+
+        private static Uri ReplaceApiKey(Uri source, string apiKey)
+        {
+            var builder = new UriBuilder(source);
+            var query = builder.Query;
+            if (query.StartsWith("?", StringComparison.Ordinal))
+            {
+                query = query.Substring(1);
+            }
+
+            var pairs = string.IsNullOrEmpty(query)
+                ? Array.Empty<string>()
+                : query.Split('&', StringSplitOptions.RemoveEmptyEntries);
+
+            var rewritten = false;
+            for (var i = 0; i < pairs.Length; i++)
+            {
+                var segment = pairs[i];
+                var index = segment.IndexOf('=');
+                var key = index >= 0 ? segment.Substring(0, index) : segment;
+                if (!string.Equals(key, "api_key", StringComparison.OrdinalIgnoreCase))
                 {
-                    query = query.Substring(1);
+                    continue;
                 }
 
-                var pairs = string.IsNullOrEmpty(query)
-                    ? Array.Empty<string>()
-                    : query.Split('&', StringSplitOptions.RemoveEmptyEntries);
+                pairs[i] = "api_key=" + Uri.EscapeDataString(apiKey);
+                rewritten = true;
+            }
 
-                var rewritten = false;
+            if (!rewritten)
+            {
+                var expanded = new string[pairs.Length + 1];
                 for (var i = 0; i < pairs.Length; i++)
                 {
-                    var segment = pairs[i];
-                    var index = segment.IndexOf('=');
-                    var key = index >= 0 ? segment.Substring(0, index) : segment;
-                    if (!string.Equals(key, "api_key", IgnoreCase))
-                    {
-                        continue;
-                    }
-
-                    pairs[i] = "api_key=" + Uri.EscapeDataString(apiKey);
-                    rewritten = true;
+                    expanded[i] = pairs[i];
                 }
 
-                if (!rewritten)
-                {
-                    var expanded = new string[pairs.Length + 1];
-                    for (var i = 0; i < pairs.Length; i++)
-                    {
-                        expanded[i] = pairs[i];
-                    }
-
-                    expanded[pairs.Length] = "api_key=" + Uri.EscapeDataString(apiKey);
-                    pairs = expanded;
-                }
-
-                builder.Query = string.Join("&", pairs);
-                return builder.Uri;
+                expanded[pairs.Length] = "api_key=" + Uri.EscapeDataString(apiKey);
+                pairs = expanded;
             }
 
-            private static string JoinPaths(string prefixPath, string suffixPath)
-            {
-                var prefix = string.IsNullOrEmpty(prefixPath) ? string.Empty : prefixPath.TrimEnd('/');
-                if (string.IsNullOrEmpty(prefix) || prefix == "/")
-                {
-                    return string.IsNullOrEmpty(suffixPath) ? "/" : suffixPath;
-                }
-
-                var suffix = string.IsNullOrEmpty(suffixPath) ? string.Empty : suffixPath.TrimStart('/');
-                return "/" + prefix.TrimStart('/') + "/" + suffix;
-            }
+            builder.Query = string.Join("&", pairs);
+            return builder.Uri;
         }
     }
 }
