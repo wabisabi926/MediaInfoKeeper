@@ -8,6 +8,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
@@ -75,24 +76,65 @@ namespace MediaInfoKeeper.Services
         {
             var jsonRootFolder = Plugin.Instance.Options.MainPage.MediaInfoJsonRootFolder;
 
-            var relativePath = item.ContainingFolderPath;
-            if (!string.IsNullOrEmpty(jsonRootFolder) && Path.IsPathRooted(item.ContainingFolderPath))
-            {
-                relativePath = GetRelativePathCompat(Path.GetPathRoot(item.ContainingFolderPath),
-                    item.ContainingFolderPath);
-            }
-
+            var mediaInfoFileName = GetMediaInfoFileName(item);
             var mediaInfoJsonPath = !string.IsNullOrEmpty(jsonRootFolder)
-                ? Path.Combine(jsonRootFolder, relativePath, item.FileNameWithoutExtension + MediaInfoFileExtension)
-                : Path.Combine(item.ContainingFolderPath, item.FileNameWithoutExtension + MediaInfoFileExtension);
+                ? Path.Combine(jsonRootFolder, mediaInfoFileName)
+                : Path.Combine(item.ContainingFolderPath, mediaInfoFileName);
 
             return mediaInfoJsonPath;
+        }
+
+        private static bool TryGetTmdbId(BaseItem item, out string tmdbId)
+        {
+            tmdbId = item.GetProviderId(MetadataProviders.Tmdb);
+            if (!string.IsNullOrWhiteSpace(tmdbId) &&
+                !string.Equals(tmdbId, "None", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (item is Episode episodeWithSeries && Plugin.LibraryManager != null)
+            {
+                var series = Plugin.LibraryManager.GetItemById(episodeWithSeries.SeriesId);
+                tmdbId = series?.GetProviderId(MetadataProviders.Tmdb);
+            }
+
+            return !string.IsNullOrWhiteSpace(tmdbId) &&
+                   !string.Equals(tmdbId, "None", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string GetMediaInfoFileName(BaseItem item)
+        {
+            if (!TryGetTmdbId(item, out var tmdbId))
+            {
+                return item.FileNameWithoutExtension + MediaInfoFileExtension;
+            }
+
+            string episodeSegment = null;
+            if (item is Episode episode)
+            {
+                var seasonNumber = episode.ParentIndexNumber;
+                var episodeNumber = episode.IndexNumber;
+                if (seasonNumber.HasValue && episodeNumber.HasValue)
+                {
+                    episodeSegment = $"-S{seasonNumber.Value:D2}E{episodeNumber.Value:D2}";
+                }
+            }
+
+            var typeSegment = item is Episode || item is Season || item is Series ? "tv" : "movie";
+            return $"[tmdbid={tmdbId};type={typeSegment}]{episodeSegment}{MediaInfoFileExtension}";
         }
 
         /// <summary>将媒体条目的 MediaInfo 与章节序列化到 JSON。</summary>
         private bool SerializeMediaInfo(BaseItem item, IDirectoryService directoryService, bool overwrite,
             string source)
         {
+            if (!TryGetTmdbId(item, out var tmdbId))
+            {
+                this.logger.Info($"{source} 跳过保存 - 无 TMDB ID: {item.Path ?? item.Name ?? item.Id.ToString()}");
+                return false;
+            }
+
             var mediaInfoJsonPath = GetMediaInfoJsonPath(item);
             var file = directoryService.GetFile(mediaInfoJsonPath);
 
@@ -239,6 +281,10 @@ namespace MediaInfoKeeper.Services
                     this.logger.Debug(e.StackTrace);
                 }
             }
+            else
+            {
+                this.logger.Info($"{source} 未找到 JSON: {mediaInfoJsonPath}");
+            }
 
             return MediaInfoRestoreResult.Failed;
         }
@@ -288,12 +334,3 @@ namespace MediaInfoKeeper.Services
         }
     }
 }
-
-
-
-
-
-
-
-
-
