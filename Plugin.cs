@@ -557,7 +557,7 @@ namespace MediaInfoKeeper
                 }
 
                 var userName = e.User?.Name ?? "unknown";
-                logger.Info($"收藏事件: 用户={userName}, 条目={(item.Path ?? item.Name ?? item.Id.ToString())}");
+                logger.Info($"收藏事件: 用户={userName}, 条目={(item.FileName ?? item.Path ?? item.Id.ToString())}");
                 
                 var canExtract = this.Options.MainPage?.ExtractMediaInfoOnFavorite == true &&
                                  (item is Episode || item is Season || item is Series);

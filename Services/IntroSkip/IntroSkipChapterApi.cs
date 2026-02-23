@@ -95,7 +95,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
             }
 
             logger.Info("片头标记已更新，用户: " + session.UserName + "，条目: " +
-                        (item.Path ?? item.Name));
+                        (item.FileName ?? item.Path));
         }
 
         public void UpdateCredits(Episode item, SessionInfo session, long creditsDurationTicks)
@@ -138,7 +138,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
             }
 
             logger.Info("片尾标记已更新，用户: " + session.UserName + "，条目: " +
-                        (item.Path ?? item.Name));
+                        (item.FileName ?? item.Path));
         }
 
         private static bool IsMarkerAddedByMik(ChapterInfo chapter)

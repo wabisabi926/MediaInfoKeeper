@@ -102,7 +102,7 @@ namespace MediaInfoKeeper.Services
 
             if (IsVideoImageProviderWithEpisode(__args, out var item))
             {
-                logger?.Info($"MetadataProvidersWatcher 检测到元数据变动 InternalId:{item.InternalId},Name:{item.Name ?? string.Empty}");
+                logger?.Info($"MetadataProvidersWatcher 检测到元数据变动 InternalId:{item.InternalId},Name:{item.FileName ?? item.Path}");
                 TriggerMediaInfoRestore(item);
             }
             return true;
@@ -143,7 +143,7 @@ namespace MediaInfoKeeper.Services
             {
                 try
                 {
-                    logger?.Info($"{item.Path ?? string.Empty} 10s之后开始恢复媒体信息");
+                    logger?.Info($"{item.FileName ?? item.Path} 10s之后开始恢复媒体信息");
                     await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
                     var directoryService = new DirectoryService(logger, fileSystem);
                     await mediaInfoService

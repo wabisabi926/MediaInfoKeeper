@@ -417,7 +417,7 @@ namespace MediaInfoKeeper.Services
                 var item = resultItem.Item;
                 logger?.Debug(
                     "TMDB Movie ProcessMainInfo: item={0}, firstLanguage={1}, preferredCountry={2}, currentName='{3}'",
-                    item.Path ?? item.Name ?? item.Id.ToString(),
+                    item.FileName ?? item.Path ?? item.Id.ToString(),
                     isFirstLanguage,
                     preferredCountryCode ?? string.Empty,
                     item.Name ?? string.Empty);
@@ -524,13 +524,13 @@ namespace MediaInfoKeeper.Services
             if (BlockMovieDbNonFallbackLanguage(item.Overview))
             {
                 item.Overview = null;
-                logger?.Debug("TMDB IsCompletePostfix: 清空非回退语言简介 item={0}", item.Path ?? item.Name ?? item.Id.ToString());
+                logger?.Debug("TMDB IsCompletePostfix: 清空非回退语言简介 item={0}", item.FileName ?? item.Path ?? item.Id.ToString());
             }
 
             if (!string.IsNullOrWhiteSpace(item.Tagline))
             {
                 item.Tagline = null;
-                logger?.Debug("TMDB IsCompletePostfix: 清空 Tagline item={0}", item.Path ?? item.Name ?? item.Id.ToString());
+                logger?.Debug("TMDB IsCompletePostfix: 清空 Tagline item={0}", item.FileName ?? item.Path ?? item.Id.ToString());
             }
         }
 
@@ -552,7 +552,7 @@ namespace MediaInfoKeeper.Services
                 var item = seriesResult.Item;
                 logger?.Debug(
                     "TMDB Series ImportData: item={0}, firstLanguage={1}, preferredCountry={2}, currentName='{3}'",
-                    item.Path ?? item.Name ?? item.Id.ToString(),
+                    item.FileName ?? item.Path ?? item.Id.ToString(),
                     isFirstLanguage,
                     preferredCountryCode ?? string.Empty,
                     item.Name ?? string.Empty);
@@ -738,7 +738,7 @@ namespace MediaInfoKeeper.Services
             {
                 logger?.Debug(
                     "TMDB Season ImportData: item={0}, season={1}, firstLanguage={2}, currentName='{3}'",
-                    item.Path ?? item.Name ?? item.Id.ToString(),
+                    item.FileName ?? item.Path ?? item.Id.ToString(),
                     seasonNumber,
                     isFirstLanguage,
                     item.Name ?? string.Empty);
@@ -786,7 +786,7 @@ namespace MediaInfoKeeper.Services
                 var item = result.Item;
                 logger?.Debug(
                     "TMDB Episode ImportData: item={0}, firstLanguage={1}, currentName='{2}'",
-                    item.Path ?? item.Name ?? item.Id.ToString(),
+                    item.FileName ?? item.Path ?? item.Id.ToString(),
                     isFirstLanguage,
                     item.Name ?? string.Empty);
 

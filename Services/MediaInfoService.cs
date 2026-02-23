@@ -131,7 +131,7 @@ namespace MediaInfoKeeper.Services
         {
             if (!TryGetTmdbId(item, out var tmdbId))
             {
-                this.logger.Info($"{source} 跳过保存 - 无 TMDB ID: {item.Path ?? item.Name ?? item.Id.ToString()}");
+                this.logger.Info($"{source} 跳过保存 - 无 TMDB ID: {item.FileName ?? item.Path ?? item.Id.ToString()}");
                 return false;
             }
 
@@ -283,7 +283,7 @@ namespace MediaInfoKeeper.Services
             }
             else
             {
-                this.logger.Info($"{source} 未找到 JSON: {item.Name ?? item.Path}");
+                this.logger.Info($"{source} 未找到 JSON: {item.FileName ?? item.Path}");
             }
 
             return MediaInfoRestoreResult.Failed;

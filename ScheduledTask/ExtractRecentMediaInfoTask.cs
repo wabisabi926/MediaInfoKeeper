@@ -78,7 +78,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private async Task ProcessItemAsync(BaseItem item, string source, CancellationToken cancellationToken)
         {
-            var displayName = item.Path ?? item.Name;
+            var displayName = item.FileName ?? item.Path;
 
             if (!Plugin.LibraryService.IsItemInScope(item))
             {
