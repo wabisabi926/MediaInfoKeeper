@@ -99,6 +99,14 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 var remoteVersion = ParseVersion(apiResult?.tag_name);
                 var compatibility = await FetchCompatibilityManifest(cancellationToken, authHeader).ConfigureAwait(false);
+                var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
+                logger.Info(
+                    "版本信息：最新插件={0}，当前插件={1}，当前Emby={2}，兼容Emby版本区间=[{3},{4}]",
+                    remoteVersion,
+                    currentVersion,
+                    embyVersion,
+                    minVersion?.ToString() ?? "*",
+                    maxVersion?.ToString() ?? "*");
 
                 if (!IsEmbyVersionCompatible(compatibility, embyVersion, out var incompatibleReason))
                 {
@@ -115,10 +123,10 @@ namespace MediaInfoKeeper.ScheduledTask
                     return;
                 }
 
+                logger.Info("版本校验通过：允许检查并更新插件。");
+
                 if (currentVersion.CompareTo(remoteVersion) < 0)
                 {
-                    logger.Info("发现新插件版本：当前={0}，远端={1}", currentVersion, remoteVersion);
-
                     var url = (apiResult?.assets ?? new List<ApiAssetInfo>())
                         .FirstOrDefault(asset => asset.name == PluginAssemblyFilename)
                         ?.browser_download_url;
@@ -161,9 +169,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     }
 
                     logger.Info(
-                        "插件更新完成：版本={0}，文件={1}，重启后生效",
-                        remoteVersion,
-                        Path.Combine(applicationPaths.PluginsPath, PluginAssemblyFilename));
+                        "插件更新完成：版本={0}，重启后生效", remoteVersion);
 
                     activityManager.Create(new ActivityLogEntry
                     {
@@ -177,7 +183,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
                 else
                 {
-                    logger.Info("无需更新：当前版本={0}，远端版本={1}", currentVersion, remoteVersion);
+                    logger.Info("无需更新：最新版本={0}，当前版本={1}", remoteVersion, currentVersion);
                 }
             }
             catch (Exception ex)
@@ -234,11 +240,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 var compatibility = manifest?.latest;
                 if (compatibility != null)
                 {
-                    logger.Debug(
-                        "Version.json 已加载：url={0}, min={1}, max={2}",
-                        RepoVersionUrl,
-                        compatibility.minEmbyVersion ?? compatibility.embyMinVersion ?? compatibility.min_version ?? "<none>",
-                        compatibility.maxEmbyVersion ?? compatibility.embyMaxVersion ?? compatibility.max_version ?? "<none>");
                     return compatibility;
                 }
             }
@@ -249,6 +250,24 @@ namespace MediaInfoKeeper.ScheduledTask
 
             logger.Info("未获取到 Version.json 兼容信息，默认允许更新。");
             return null;
+        }
+
+        private static (Version minVersion, Version maxVersion) GetEmbyVersionRange(PluginCompatibilityInfo compatibility)
+        {
+            if (compatibility == null)
+            {
+                return (null, null);
+            }
+
+            var minVersion = ParseOptionalVersion(
+                compatibility.minEmbyVersion ??
+                compatibility.embyMinVersion ??
+                compatibility.min_version);
+            var maxVersion = ParseOptionalVersion(
+                compatibility.maxEmbyVersion ??
+                compatibility.embyMaxVersion ??
+                compatibility.max_version);
+            return (minVersion, maxVersion);
         }
 
         private static bool IsEmbyVersionCompatible(
@@ -267,14 +286,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return true;
             }
 
-            var minVersion = ParseOptionalVersion(
-                compatibility.minEmbyVersion ??
-                compatibility.embyMinVersion ??
-                compatibility.min_version);
-            var maxVersion = ParseOptionalVersion(
-                compatibility.maxEmbyVersion ??
-                compatibility.embyMaxVersion ??
-                compatibility.max_version);
+            var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
 
             if (minVersion != null && currentEmbyVersion < minVersion)
             {
