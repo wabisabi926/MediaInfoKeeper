@@ -75,7 +75,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     // strm会丢失信息，所以重新恢复
                     var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
                     _ = await Plugin.MediaInfoService
-                        .DeserializeMediaInfo(item, directoryService, "Recent Metadata Task Restore", true)
+                        .DeserializeMediaInfo(item, directoryService, "Recent Metadata Task Restore")
                         .ConfigureAwait(false);
                 }
                 catch (OperationCanceledException)

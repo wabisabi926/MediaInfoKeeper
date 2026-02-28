@@ -74,21 +74,6 @@ namespace MediaInfoKeeper.Services
             return item.GetMediaStreams().Any(i => i.Type == MediaStreamType.Video || i.Type == MediaStreamType.Audio);
         }
 
-        /// <summary>检测底层文件是否发生变化。</summary>
-        public bool HasFileChanged(BaseItem item, IDirectoryService directoryService)
-        {
-            if (item.IsFileProtocol)
-            {
-                var file = directoryService.GetFile(item.Path);
-                if (file != null && item.HasDateModifiedChanged(file.LastWriteTimeUtc))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         /// <summary>根据配置判断条目是否属于选定媒体库。</summary>
         public bool IsItemInScope(BaseItem item)
         {

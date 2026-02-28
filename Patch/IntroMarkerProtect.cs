@@ -9,7 +9,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services.IntroSkip
+namespace MediaInfoKeeper.Patch
 {
     public static class IntroMarkerProtect
     {
@@ -20,6 +20,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
         private static MethodInfo deleteChapters;
         private static bool isEnabled;
         private static bool isPatched;
+        public static bool IsReady => harmony != null && (!isEnabled || isPatched);
 
         public static void Initialize(ILogger pluginLogger, bool enable)
         {
@@ -37,13 +38,47 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 var embyServerImplementationsAssembly = Assembly.Load("Emby.Server.Implementations");
                 var sqliteItemRepository =
                     embyServerImplementationsAssembly.GetType("Emby.Server.Implementations.Data.SqliteItemRepository");
-                saveChapters = FindMethod(sqliteItemRepository, "SaveChapters",
-                    m => m.GetParameters().Length >= 3 && m.GetParameters()[0].ParameterType == typeof(long));
-                deleteChapters = FindMethod(sqliteItemRepository, "DeleteChapters");
+                var version = embyServerImplementationsAssembly.GetName().Version;
+                saveChapters = VersionedMethodResolver.Resolve(
+                    sqliteItemRepository,
+                    version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "sqliteitemrepository-savechapters-exact",
+                            MethodName = "SaveChapters",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                           BindingFlags.NonPublic,
+                            Predicate = m =>
+                            {
+                                var p = m.GetParameters();
+                                return p.Length >= 3 && p[0].ParameterType == typeof(long);
+                            }
+                        }
+                    },
+                    logger,
+                    "IntroMarkerProtect.SaveChapters");
+                deleteChapters = VersionedMethodResolver.Resolve(
+                    sqliteItemRepository,
+                    version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "sqliteitemrepository-deletechapters-exact",
+                            MethodName = "DeleteChapters",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                           BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(long), typeof(MarkerType[]) }
+                        }
+                    },
+                    logger,
+                    "IntroMarkerProtect.DeleteChapters");
 
                 if (saveChapters == null || deleteChapters == null)
                 {
-                    logger?.Warn("IntroMarkerProtect 初始化失败：目标方法缺失。");
+                    PatchLog.InitFailed(logger, nameof(IntroMarkerProtect), "目标方法缺失");
                     return;
                 }
 
@@ -81,8 +116,6 @@ namespace MediaInfoKeeper.Services.IntroSkip
             {
                 Unpatch();
             }
-
-            logger?.Info("IntroMarkerProtect " + (isEnabled ? "已启用" : "已禁用"));
         }
 
         public static IDisposable AllowSave(long itemId)

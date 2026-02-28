@@ -232,8 +232,7 @@ namespace MediaInfoKeeper.Services
         }
 
         /// <summary>从 JSON 恢复 MediaInfo，并在有效时更新条目。</summary>
-        public async Task<MediaInfoRestoreResult> DeserializeMediaInfo(BaseItem item, IDirectoryService directoryService, string source,
-            bool ignoreFileChange)
+        public async Task<MediaInfoRestoreResult> DeserializeMediaInfo(BaseItem item, IDirectoryService directoryService, string source)
         {
             var workItem = this.libraryManager.GetItemById(item.InternalId);
             if (workItem == null)
@@ -260,8 +259,7 @@ namespace MediaInfoKeeper.Services
                             .ConfigureAwait(false))
                         .ToArray()[0];
 
-                    if (mediaSourceWithChapters?.MediaSourceInfo?.RunTimeTicks.HasValue is true &&
-                        (ignoreFileChange || !Plugin.LibraryService.HasFileChanged(workItem, ds)))
+                    if (mediaSourceWithChapters?.MediaSourceInfo?.RunTimeTicks.HasValue is true)
                     {
                         foreach (var subtitle in mediaSourceWithChapters.MediaSourceInfo.MediaStreams.Where(m =>
                                      m.IsExternal && m.Type == MediaStreamType.Subtitle &&

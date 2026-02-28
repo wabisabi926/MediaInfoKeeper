@@ -7,6 +7,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.ScheduledTask
@@ -125,7 +126,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 var deserializeResult = await Plugin.MediaInfoService
-                    .DeserializeMediaInfo(item, directoryService, source, false)
+                    .DeserializeMediaInfo(item, directoryService, source)
                     .ConfigureAwait(false);
 
                 if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.Restored)

@@ -1,0 +1,6 @@
+{
+  "latest": {
+    "minEmbyVersion": "4.9.1.90",
+    "maxEmbyVersion": "4.9.99.99"
+  }
+}

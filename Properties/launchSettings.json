@@ -3,7 +3,7 @@
     "EmbyPlugin": {
       "commandName": "Executable",
       "executablePath": "sh",
-      "commandLineArgs": "./restart_emby.sh",
+      "commandLineArgs": "./Scripts/restart_emby.sh",
       "workingDirectory": ".",
       "_comment_windows": "Windows: powershell -ExecutionPolicy Bypass -File restart_emby.ps1"
     },

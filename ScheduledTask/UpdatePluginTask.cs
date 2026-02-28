@@ -29,6 +29,7 @@ namespace MediaInfoKeeper.ScheduledTask
         private readonly IServerApplicationHost serverApplicationHost;
         private static string PluginAssemblyFilename => Assembly.GetExecutingAssembly().GetName().Name + ".dll";
         private static string RepoReleaseUrl => "https://api.github.com/repos/honue/MediaInfoKeeper/releases/latest";
+        private static string RepoVersionUrl => "https://raw.githubusercontent.com/honue/MediaInfoKeeper/master/Version.json";
 
         public string Key => "UpdatePluginTask";
 
@@ -60,9 +61,8 @@ namespace MediaInfoKeeper.ScheduledTask
         {
             yield return new TaskTriggerInfo
             {
-                Type = TaskTriggerInfo.TriggerWeekly,
-                DayOfWeek = (DayOfWeek)new Random().Next(7),
-                TimeOfDayTicks = TimeSpan.FromMinutes(new Random().Next(24 * 4) * 15).Ticks
+                Type = TaskTriggerInfo.TriggerInterval,
+                IntervalTicks = TimeSpan.FromDays(3).Ticks
             };
         }
 
@@ -76,6 +76,10 @@ namespace MediaInfoKeeper.ScheduledTask
                 var githubOptions = Plugin.Instance.Options.GitHub;
                 var githubToken = githubOptions?.GitHubToken;
                 var authHeader = string.IsNullOrWhiteSpace(githubToken) ? null : $"token {githubToken}";
+                var currentVersion = ParseVersion(GetCurrentVersion());
+                var embyVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
+
+                logger.Info("开始检查插件更新：当前插件版本={0}，当前Emby版本={1}", currentVersion, embyVersion);
 
                 using var response = await httpClient.SendAsync(new HttpRequestOptions
                 {
@@ -93,20 +97,37 @@ namespace MediaInfoKeeper.ScheduledTask
                 await using var contentStream = response.Content;
                 var apiResult = jsonSerializer.DeserializeFromStream<ApiResponseInfo>(contentStream);
 
-                var currentVersion = ParseVersion(GetCurrentVersion());
                 var remoteVersion = ParseVersion(apiResult?.tag_name);
+                var compatibility = await FetchCompatibilityManifest(cancellationToken, authHeader).ConfigureAwait(false);
+
+                if (!IsEmbyVersionCompatible(compatibility, embyVersion, out var incompatibleReason))
+                {
+                    logger.Warn("跳过插件更新：{0}", incompatibleReason);
+                    activityManager.Create(new ActivityLogEntry
+                    {
+                        Name = Plugin.Instance.Name + " update skipped on " + serverApplicationHost.FriendlyName,
+                        Type = "PluginUpdateSkipped",
+                        Overview = incompatibleReason,
+                        Severity = LogSeverity.Info
+                    });
+
+                    progress.Report(100);
+                    return;
+                }
 
                 if (currentVersion.CompareTo(remoteVersion) < 0)
                 {
-                    logger.Info("Found new plugin version: {0}", remoteVersion);
+                    logger.Info("发现新插件版本：当前={0}，远端={1}", currentVersion, remoteVersion);
 
                     var url = (apiResult?.assets ?? new List<ApiAssetInfo>())
                         .FirstOrDefault(asset => asset.name == PluginAssemblyFilename)
                         ?.browser_download_url;
                     if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
                     {
-                        throw new Exception("Invalid download url");
+                        throw new Exception("下载地址无效");
                     }
+
+                    logger.Info("开始下载插件：版本={0}", remoteVersion);
 
                     await using (var responseStream = await httpClient.Get(new HttpRequestOptions
                                      {
@@ -139,7 +160,10 @@ namespace MediaInfoKeeper.ScheduledTask
                         }
                     }
 
-                    logger.Info("Plugin update complete");
+                    logger.Info(
+                        "插件更新完成：版本={0}，文件={1}，重启后生效",
+                        remoteVersion,
+                        Path.Combine(applicationPaths.PluginsPath, PluginAssemblyFilename));
 
                     activityManager.Create(new ActivityLogEntry
                     {
@@ -153,7 +177,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
                 else
                 {
-                    logger.Info("No need to update");
+                    logger.Info("无需更新：当前版本={0}，远端版本={1}", currentVersion, remoteVersion);
                 }
             }
             catch (Exception ex)
@@ -166,7 +190,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     Severity = LogSeverity.Error
                 });
 
-                logger.Error("Update error: {0}", ex.Message);
+                logger.Error("插件更新失败：{0}", ex.Message);
                 logger.Debug(ex.StackTrace);
             }
 
@@ -186,6 +210,106 @@ namespace MediaInfoKeeper.ScheduledTask
             return new Version(normalized);
         }
 
+        private async Task<PluginCompatibilityInfo> FetchCompatibilityManifest(
+            CancellationToken cancellationToken,
+            string authHeader)
+        {
+            try
+            {
+                using var response = await httpClient.SendAsync(new HttpRequestOptions
+                {
+                    Url = RepoVersionUrl,
+                    CancellationToken = cancellationToken,
+                    AcceptHeader = "application/json",
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    RequestHeaders =
+                    {
+                        ["Authorization"] = authHeader
+                    }
+                }, "GET").ConfigureAwait(false);
+
+                await using var stream = response.Content;
+                var manifest = jsonSerializer.DeserializeFromStream<PluginManifestInfo>(stream);
+                var compatibility = manifest?.latest;
+                if (compatibility != null)
+                {
+                    logger.Debug(
+                        "Version.json 已加载：url={0}, min={1}, max={2}",
+                        RepoVersionUrl,
+                        compatibility.minEmbyVersion ?? compatibility.embyMinVersion ?? compatibility.min_version ?? "<none>",
+                        compatibility.maxEmbyVersion ?? compatibility.embyMaxVersion ?? compatibility.max_version ?? "<none>");
+                    return compatibility;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Debug("加载 Version.json 失败：url={0}, error={1}", RepoVersionUrl, ex.Message);
+            }
+
+            logger.Info("未获取到 Version.json 兼容信息，默认允许更新。");
+            return null;
+        }
+
+        private static bool IsEmbyVersionCompatible(
+            PluginCompatibilityInfo compatibility,
+            Version currentEmbyVersion,
+            out string reason)
+        {
+            reason = null;
+            if (currentEmbyVersion == null)
+            {
+                currentEmbyVersion = new Version(0, 0, 0, 0);
+            }
+
+            if (compatibility == null)
+            {
+                return true;
+            }
+
+            var minVersion = ParseOptionalVersion(
+                compatibility.minEmbyVersion ??
+                compatibility.embyMinVersion ??
+                compatibility.min_version);
+            var maxVersion = ParseOptionalVersion(
+                compatibility.maxEmbyVersion ??
+                compatibility.embyMaxVersion ??
+                compatibility.max_version);
+
+            if (minVersion != null && currentEmbyVersion < minVersion)
+            {
+                reason = string.Format(
+                    "当前 Emby 版本 {0} 低于插件要求的最小版本 {1}",
+                    currentEmbyVersion,
+                    minVersion);
+                return false;
+            }
+
+            if (maxVersion != null && currentEmbyVersion > maxVersion)
+            {
+                reason = string.Format(
+                    "当前 Emby 版本 {0} 高于插件支持的最大版本 {1}",
+                    currentEmbyVersion,
+                    maxVersion);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static Version ParseOptionalVersion(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            var normalized = value.StartsWith("v", StringComparison.OrdinalIgnoreCase)
+                ? value.Substring(1)
+                : value;
+            return Version.TryParse(normalized, out var version) ? version : null;
+        }
+
         private static string GetCurrentVersion()
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -197,6 +321,26 @@ namespace MediaInfoKeeper.ScheduledTask
             public string tag_name { get; set; }
 
             public List<ApiAssetInfo> assets { get; set; }
+        }
+
+        internal class PluginManifestInfo
+        {
+            public PluginCompatibilityInfo latest { get; set; }
+        }
+
+        internal class PluginCompatibilityInfo
+        {
+            public string minEmbyVersion { get; set; }
+
+            public string maxEmbyVersion { get; set; }
+
+            public string embyMinVersion { get; set; }
+
+            public string embyMaxVersion { get; set; }
+
+            public string min_version { get; set; }
+
+            public string max_version { get; set; }
         }
 
         internal class ApiAssetInfo

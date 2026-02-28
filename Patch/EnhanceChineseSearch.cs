@@ -1,6 +1,11 @@
 using HarmonyLib;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Movies;
+using MediaBrowser.Controller.Entities.TV;
+using MediaBrowser.Controller.LiveTv;
+using MediaBrowser.Controller.Playlists;
 using MediaInfoKeeper.Configuration;
+using MediaInfoKeeper.Patch;
 using SQLitePCL.pretty;
 using System;
 using System.Collections.Generic;
@@ -13,7 +18,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
     public static class EnhanceChineseSearch
     {
@@ -33,10 +38,12 @@ namespace MediaInfoKeeper.Services
 
         private static readonly object InitLock = new object();
         private static readonly object PhaseLock = new object();
+        private static string[] includeItemTypes = Array.Empty<string>();
         private static bool isInitialized;
         private static bool isConnectionPatched;
         private static bool areSearchFunctionsPatched;
         private static bool patchPhase2Initialized;
+        public static bool IsReady => isInitialized;
 
         private static ILogger logger;
         private static Harmony harmony;
@@ -74,6 +81,7 @@ namespace MediaInfoKeeper.Services
 
                 try
                 {
+                    var resolverVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
                     var sqlitePclEx = Assembly.Load("SQLitePCLRawEx.core");
                     raw = sqlitePclEx.GetType("SQLitePCLEx.raw");
                     sqlite3_enable_load_extension = raw?.GetMethod(
@@ -127,18 +135,49 @@ namespace MediaInfoKeeper.Services
                             typeof(bool)
                         },
                         null);
-                    createSearchTerm = sqliteItemRepository?.GetMethod(
-                        "CreateSearchTerm",
-                        BindingFlags.NonPublic | BindingFlags.Static);
-                    cacheIdsFromTextParams = sqliteItemRepository?.GetMethod(
-                        "CacheIdsFromTextParams",
-                        BindingFlags.Instance | BindingFlags.NonPublic);
+                    createSearchTerm = VersionedMethodResolver.Resolve(
+                        sqliteItemRepository,
+                        resolverVersion,
+                        new[]
+                        {
+                            new MethodSignatureProfile
+                            {
+                                Name = "sqliteitemrepository-createsearchterm-exact",
+                                MethodName = "CreateSearchTerm",
+                                BindingFlags = BindingFlags.NonPublic | BindingFlags.Static,
+                                ParameterTypes = new[] { typeof(string), typeof(bool) },
+                                ReturnType = typeof(string),
+                                IsStatic = true
+                            }
+                        },
+                        logger,
+                        "EnhanceChineseSearch.CreateSearchTerm");
+                    if (createSearchTerm == null)
+                    {
+                        LogMethodCandidates(sqliteItemRepository, "CreateSearchTerm");
+                    }
+                    cacheIdsFromTextParams = VersionedMethodResolver.Resolve(
+                        sqliteItemRepository,
+                        resolverVersion,
+                        new[]
+                        {
+                            new MethodSignatureProfile
+                            {
+                                Name = "sqliteitemrepository-cacheidsfromtextparams-exact",
+                                MethodName = "CacheIdsFromTextParams",
+                                BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic,
+                                ParameterTypes = new[] { typeof(InternalItemsQuery), typeof(IDatabaseConnection) },
+                                IsStatic = false
+                            }
+                        },
+                        logger,
+                        "EnhanceChineseSearch.CacheIdsFromTextParams");
 
                     if (createConnection == null || dbFilePath == null || getJoinCommandText == null ||
-                        createSearchTerm == null || cacheIdsFromTextParams == null || sqlite3_db == null ||
+                        cacheIdsFromTextParams == null || sqlite3_db == null ||
                         sqlite3_enable_load_extension == null)
                     {
-                        logger?.Warn("增强搜索初始化失败：缺少反射目标。");
+                        PatchLog.InitFailed(logger, nameof(EnhanceChineseSearch), "缺少反射目标");
                         return;
                     }
 
@@ -174,6 +213,57 @@ namespace MediaInfoKeeper.Services
             {
                 ResetOptions();
             }
+        }
+
+        public static void UpdateSearchScope(string currentScope)
+        {
+            var searchScope = currentScope?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries) ??
+                              Array.Empty<string>();
+
+            var includeTypes = new List<string>();
+            foreach (var scope in searchScope)
+            {
+                if (Enum.TryParse(scope, true, out EnhanceChineseSearchOptions.SearchItemType type))
+                {
+                    switch (type)
+                    {
+                        case EnhanceChineseSearchOptions.SearchItemType.Collection:
+                            includeTypes.AddRange(new[] { nameof(BoxSet) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Episode:
+                            includeTypes.AddRange(new[] { nameof(Episode) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.LiveTv:
+                            includeTypes.AddRange(new[] { nameof(LiveTvChannel), nameof(LiveTvProgram), "LiveTVSeries" });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Movie:
+                            includeTypes.AddRange(new[] { nameof(Movie) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Person:
+                            includeTypes.AddRange(new[] { nameof(Person) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Playlist:
+                            includeTypes.AddRange(new[] { nameof(Playlist) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Series:
+                            includeTypes.AddRange(new[] { nameof(Series) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Season:
+                            includeTypes.AddRange(new[] { nameof(Season) });
+                            break;
+                        case EnhanceChineseSearchOptions.SearchItemType.Video:
+                            includeTypes.AddRange(new[] { nameof(Video) });
+                            break;
+                    }
+                }
+            }
+
+            includeItemTypes = includeTypes.ToArray();
+        }
+
+        public static string[] GetSearchScope()
+        {
+            return includeItemTypes;
         }
 
         private static string ResolveTokenizerPath()
@@ -315,7 +405,6 @@ namespace MediaInfoKeeper.Services
                             if (rebuildFtsResult)
                             {
                                 CurrentTokenizerName = "simple";
-                                logger?.Info("增强搜索 - 加载成功");
                             }
                         }
                     }
@@ -529,8 +618,15 @@ namespace MediaInfoKeeper.Services
             {
                 harmony.Patch(getJoinCommandText,
                     postfix: new HarmonyMethod(typeof(EnhanceChineseSearch), nameof(GetJoinCommandTextPostfix)));
-                harmony.Patch(createSearchTerm,
-                    prefix: new HarmonyMethod(typeof(EnhanceChineseSearch), nameof(CreateSearchTermPrefix)));
+                if (createSearchTerm != null)
+                {
+                    harmony.Patch(createSearchTerm,
+                        prefix: new HarmonyMethod(typeof(EnhanceChineseSearch), nameof(CreateSearchTermPrefix)));
+                }
+                else
+                {
+                    logger?.Warn("增强搜索 - 未安装 CreateSearchTerm patch：目标方法未找到。");
+                }
                 harmony.Patch(cacheIdsFromTextParams,
                     prefix: new HarmonyMethod(typeof(EnhanceChineseSearch), nameof(CacheIdsFromTextParamsPrefix)));
 
@@ -700,10 +796,36 @@ namespace MediaInfoKeeper.Services
         }
 
         [HarmonyPrefix]
-        private static bool CreateSearchTermPrefix(string searchTerm, ref string __result)
+        private static bool CreateSearchTermPrefix(object[] __args, ref string __result)
         {
+            if (__args == null || __args.Length == 0 || !(__args[0] is string searchTerm))
+            {
+                return true;
+            }
+
             __result = searchTerm.Replace(".", string.Empty).Replace("'", string.Empty);
             return false;
+        }
+
+        private static void LogMethodCandidates(Type type, string methodName)
+        {
+            try
+            {
+                var candidates = type?.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                                  BindingFlags.NonPublic)
+                    .Where(m => string.Equals(m.Name, methodName, StringComparison.Ordinal))
+                    .Select(m =>
+                        $"{m.Name}({string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name))}) -> {m.ReturnType?.Name}");
+
+                PatchLog.Candidates(
+                    logger,
+                    string.Format("{0}.{1}", type?.FullName ?? "<null>", methodName ?? "<null>"),
+                    string.Join("; ", candidates ?? Enumerable.Empty<string>()));
+            }
+            catch (Exception e)
+            {
+                logger?.Debug(e.Message);
+            }
         }
 
         [HarmonyPrefix]
@@ -721,7 +843,7 @@ namespace MediaInfoKeeper.Services
                 var searchTerm = query.SearchTerm;
                 if (query.IncludeItemTypes.Length == 0 && !string.IsNullOrEmpty(searchTerm))
                 {
-                    query.IncludeItemTypes = SearchScopeUtility.GetSearchScope();
+                    query.IncludeItemTypes = GetSearchScope();
                 }
 
                 if (!string.IsNullOrEmpty(searchTerm))

@@ -4,9 +4,10 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using HarmonyLib;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
     public static class ProxyServer
     {
@@ -25,6 +26,8 @@ namespace MediaInfoKeeper.Services
         private static bool isPatched;
         private static bool isMovieDbPatched;
         private static bool waitingForMovieDbAssembly;
+        public static bool IsReady => harmony != null && isPatched;
+        public static bool IsMovieDbHookReady => isMovieDbPatched || waitingForMovieDbAssembly;
 
         public static void Initialize(ILogger pluginLogger, bool enable)
         {
@@ -42,12 +45,32 @@ namespace MediaInfoKeeper.Services
                 var embyServerImplementationsAssembly = Assembly.Load("Emby.Server.Implementations");
                 var applicationHost =
                     embyServerImplementationsAssembly.GetType("Emby.Server.Implementations.ApplicationHost");
-                createHttpClientHandler = applicationHost?.GetMethod("CreateHttpClientHandler",
-                    BindingFlags.NonPublic | BindingFlags.Instance);
+                createHttpClientHandler = VersionedMethodResolver.Resolve(
+                    applicationHost,
+                    embyServerImplementationsAssembly.GetName().Version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "applicationhost-createhttpclienthandler-exact",
+                            MethodName = "CreateHttpClientHandler",
+                            BindingFlags = BindingFlags.NonPublic | BindingFlags.Instance,
+                            IsStatic = false,
+                            Predicate = m =>
+                            {
+                                var p = m.GetParameters();
+                                return p.Length == 1 &&
+                                       string.Equals(p[0].ParameterType.Name, "HttpMessageHandlerOptions", StringComparison.Ordinal) &&
+                                       typeof(HttpMessageHandler).IsAssignableFrom(m.ReturnType);
+                            }
+                        }
+                    },
+                    logger,
+                    "ProxyServer.CreateHttpClientHandler");
 
                 if (createHttpClientHandler == null)
                 {
-                    logger?.Warn("代理服务器初始化失败：CreateHttpClientHandler 未找到。");
+                    PatchLog.InitFailed(logger, nameof(ProxyServer), "CreateHttpClientHandler 未找到");
                     return;
                 }
 
@@ -76,8 +99,6 @@ namespace MediaInfoKeeper.Services
 
             ApplyProxyEnvironmentVariables();
             Patch();
-
-            logger?.Info("代理服务器 " + (isEnabled ? "已启用" : "已禁用"));
         }
 
         private static void Patch()
@@ -139,9 +160,20 @@ namespace MediaInfoKeeper.Services
             }
 
             var movieDbProviderBase = movieDbAssembly.GetType("MovieDb.MovieDbProviderBase", false);
-            movieDbGetMovieDbResponse = movieDbProviderBase?.GetMethod(
-                "GetMovieDbResponse",
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            movieDbGetMovieDbResponse = VersionedMethodResolver.Resolve(
+                movieDbProviderBase,
+                movieDbAssembly.GetName().Version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "moviedbproviderbase-getmoviedbresponse-exact",
+                        MethodName = "GetMovieDbResponse",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+                    }
+                },
+                logger,
+                "ProxyServer.GetMovieDbResponse");
 
             if (movieDbGetMovieDbResponse == null)
             {

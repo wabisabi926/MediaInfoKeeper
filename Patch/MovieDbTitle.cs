@@ -10,18 +10,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using MediaInfoKeeper.Configuration;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
     /// <summary>
     /// TMDB metadata fallback patch adapted from StrmAssistant ChineseMovieDb.
     /// </summary>
-    public static class MovieDbTitlePatch
+    public static class MovieDbTitle
     {
         private static readonly object InitLock = new object();
         private static readonly AsyncLocal<string> CurrentLookupLanguageCountryCode = new AsyncLocal<string>();
@@ -48,8 +49,11 @@ namespace MediaInfoKeeper.Services
         private static bool isEnabled = true;
         private static bool waitingForMovieDbAssembly;
         private static bool patchesInstalled;
+        public static bool IsReady => patchesInstalled;
+        public static bool IsWaiting => waitingForMovieDbAssembly && !patchesInstalled;
 
         private static Assembly movieDbAssembly;
+        private static Version movieDbAssemblyVersion;
 
         private static MethodInfo genericMovieDbInfoProcessMainInfoMovie;
         private static MethodInfo genericMovieDbInfoIsCompleteMovie;
@@ -79,13 +83,12 @@ namespace MediaInfoKeeper.Services
             {
                 if (patchesInstalled)
                 {
-                    logger?.Debug("TMDB fallback patch already initialized.");
                     return;
                 }
 
                 if (TryGetLoadedMovieDbAssembly(out var assembly))
                 {
-                    TryInstallPatches(assembly, "startup");
+                    TryInstallPatches(assembly);
                     return;
                 }
 
@@ -93,7 +96,7 @@ namespace MediaInfoKeeper.Services
                 {
                     AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;
                     waitingForMovieDbAssembly = true;
-                    logger?.Info("TMDB fallback patch delayed: waiting for MovieDb assembly. Enabled={0}", isEnabled);
+                    PatchLog.Waiting(logger, nameof(MovieDbTitle), "MovieDb", isEnabled);
                 }
             }
         }
@@ -106,7 +109,6 @@ namespace MediaInfoKeeper.Services
             }
 
             isEnabled = enable;
-            logger?.Info("TMDB fallback patch {0}", isEnabled ? "enabled" : "disabled");
         }
 
         private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
@@ -130,7 +132,7 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                TryInstallPatches(loadedAssembly, "assembly-load");
+                TryInstallPatches(loadedAssembly);
             }
         }
 
@@ -141,47 +143,46 @@ namespace MediaInfoKeeper.Services
             return assembly != null;
         }
 
-        private static void TryInstallPatches(Assembly assembly, string source)
+        private static void TryInstallPatches(Assembly assembly)
         {
             try
             {
                 movieDbAssembly = assembly;
                 ResolveMethods(assembly);
-                logger?.Debug("TMDB Patch 安装来源={0}, MovieDb={1}", source, assembly.GetName().Version);
 
                 harmony ??= new Harmony("mediainfokeeper.moviedb.chinesefallback");
 
                 var patchCount = 0;
                 patchCount += PatchMethod(genericMovieDbInfoProcessMainInfoMovie,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(ProcessMainInfoMoviePrefix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(ProcessMainInfoMoviePrefix)));
                 patchCount += PatchMethod(genericMovieDbInfoIsCompleteMovie,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePrefix)),
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePostfix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePrefix)),
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePostfix)));
 
                 patchCount += PatchMethod(getMovieDbMetadataLanguages,
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(MetadataLanguagesPostfix)));
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(MetadataLanguagesPostfix)));
                 patchCount += PatchMethod(getImageLanguagesParam,
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(GetImageLanguagesParamPostfix)));
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(GetImageLanguagesParamPostfix)));
 
                 patchCount += PatchMethod(movieDbSeriesProviderIsComplete,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePrefix)),
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePostfix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePrefix)),
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePostfix)));
                 patchCount += PatchMethod(movieDbSeriesProviderImportData,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(SeriesImportDataPrefix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(SeriesImportDataPrefix)));
                 patchCount += PatchMethod(ensureSeriesInfo,
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(EnsureSeriesInfoPostfix)));
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(EnsureSeriesInfoPostfix)));
 
                 patchCount += PatchMethod(movieDbSeasonProviderIsComplete,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePrefix)),
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePostfix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePrefix)),
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePostfix)));
                 patchCount += PatchMethod(movieDbSeasonProviderImportData,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(SeasonImportDataPrefix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(SeasonImportDataPrefix)));
 
                 patchCount += PatchMethod(movieDbEpisodeProviderIsComplete,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePrefix)),
-                    postfix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(IsCompletePostfix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePrefix)),
+                    postfix: new HarmonyMethod(typeof(MovieDbTitle), nameof(IsCompletePostfix)));
                 patchCount += PatchMethod(movieDbEpisodeProviderImportData,
-                    prefix: new HarmonyMethod(typeof(MovieDbTitlePatch), nameof(EpisodeImportDataPrefix)));
+                    prefix: new HarmonyMethod(typeof(MovieDbTitle), nameof(EpisodeImportDataPrefix)));
 
                 patchesInstalled = patchCount > 0;
 
@@ -191,19 +192,18 @@ namespace MediaInfoKeeper.Services
                     waitingForMovieDbAssembly = false;
                 }
 
-                logger?.Info(
-                    "TMDB Patch 初始化完成，补丁方法数={0}",
-                    patchCount);
             }
             catch (Exception ex)
             {
-                logger?.Error("TMDB fallback patch init failed: {0}", ex);
+                PatchLog.InitFailed(logger, nameof(MovieDbTitle), ex.Message);
+                logger?.Error("补丁异常：模块={0}，详情={1}", nameof(MovieDbTitle), ex);
                 harmony = null;
             }
         }
 
         private static void ResolveMethods(Assembly assembly)
         {
+            movieDbAssemblyVersion = assembly.GetName().Version;
             var genericMovieDbInfo = assembly.GetType("MovieDb.GenericMovieDbInfo`1", false);
             if (genericMovieDbInfo != null)
             {
@@ -369,22 +369,22 @@ namespace MediaInfoKeeper.Services
                 return null;
             }
 
-            var methods = type
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => string.Equals(m.Name, name, StringComparison.Ordinal))
-                .ToArray();
-
-            if (methods.Length == 0)
-            {
-                return null;
-            }
-
-            if (predicate == null)
-            {
-                return methods.FirstOrDefault();
-            }
-
-            return methods.FirstOrDefault(predicate);
+            return VersionedMethodResolver.Resolve(
+                type,
+                movieDbAssemblyVersion,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = string.Format("{0}.{1}.exact", type.Name, name),
+                        MethodName = name,
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                        IsStatic = false,
+                        Predicate = predicate
+                    }
+                },
+                logger,
+                string.Format("MovieDbTitle.{0}.{1}", type.Name, name));
         }
 
         private static int PatchMethod(MethodInfo method, HarmonyMethod prefix = null, HarmonyMethod postfix = null)
@@ -395,7 +395,7 @@ namespace MediaInfoKeeper.Services
             }
 
             harmony.Patch(method, prefix: prefix, postfix: postfix);
-            logger?.Debug("Patched {0}.{1}", method.DeclaringType?.FullName, method.Name);
+            PatchLog.Patched(logger, nameof(MovieDbTitle), method);
             return 1;
         }
 
