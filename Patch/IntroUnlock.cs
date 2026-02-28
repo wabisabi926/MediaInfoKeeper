@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using HarmonyLib;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
@@ -12,9 +13,9 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
-    public static class UnlockIntroSkip
+    public static class IntroUnlock
     {
         private static readonly AsyncLocal<BaseItem> ShortcutItem = new AsyncLocal<BaseItem>();
         private static Harmony harmony;
@@ -25,6 +26,7 @@ namespace MediaInfoKeeper.Services
         private static bool isEnabled;
         private static bool isPatched;
         private static List<string> libraryPathsInScope = new List<string>();
+        public static bool IsReady => harmony != null && (!isEnabled || isPatched);
 
         public static void Initialize(ILogger pluginLogger, bool enable)
         {
@@ -41,20 +43,45 @@ namespace MediaInfoKeeper.Services
             {
                 var embyProviders = Assembly.Load("Emby.Providers");
                 var audioFingerprintManager = embyProviders?.GetType("Emby.Providers.Markers.AudioFingerprintManager");
-                isIntroDetectionSupported = audioFingerprintManager?.GetMethod("IsIntroDetectionSupported",
-                    BindingFlags.Public | BindingFlags.Instance);
+                var providersVersion = embyProviders?.GetName().Version;
+                isIntroDetectionSupported = VersionedMethodResolver.Resolve(
+                    audioFingerprintManager,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-isintrodetectionsupported-exact",
+                            MethodName = "IsIntroDetectionSupported",
+                            BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                            ParameterTypes = new[] { typeof(Episode), typeof(LibraryOptions) }
+                        }
+                    },
+                    logger,
+                    "UnlockIntroSkip.IsIntroDetectionSupported");
 
                 var markerScheduledTask = embyProviders?.GetType("Emby.Providers.Markers.MarkerScheduledTask");
-                createQueryForEpisodeIntroDetection = markerScheduledTask?.GetMethod(
-                    "CreateQueryForEpisodeIntroDetection",
-                    BindingFlags.Public | BindingFlags.Static);
+                createQueryForEpisodeIntroDetection = VersionedMethodResolver.Resolve(
+                    markerScheduledTask,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "markerscheduledtask-createqueryforepisodeintrodetection-exact",
+                            MethodName = "CreateQueryForEpisodeIntroDetection",
+                            BindingFlags = BindingFlags.Public | BindingFlags.Static
+                        }
+                    },
+                    logger,
+                    "UnlockIntroSkip.CreateQueryForEpisodeIntroDetection");
 
                 isShortcutGetter = typeof(BaseItem).GetProperty("IsShortcut", BindingFlags.Instance | BindingFlags.Public)
                     ?.GetGetMethod();
 
                 if (isIntroDetectionSupported == null || createQueryForEpisodeIntroDetection == null || isShortcutGetter == null)
                 {
-                    logger?.Warn("UnlockIntroSkip 初始化失败：目标方法缺失。");
+                    PatchLog.InitFailed(logger, nameof(IntroUnlock), "目标方法缺失");
                     return;
                 }
 
@@ -92,8 +119,6 @@ namespace MediaInfoKeeper.Services
             {
                 Unpatch();
             }
-
-            logger?.Info("UnlockIntroSkip " + (isEnabled ? "已启用" : "已禁用"));
         }
 
         public static void Configure(MediaInfoKeeper.Configuration.PluginConfiguration options)
@@ -116,12 +141,12 @@ namespace MediaInfoKeeper.Services
             }
 
             harmony.Patch(isShortcutGetter,
-                prefix: new HarmonyMethod(typeof(UnlockIntroSkip), nameof(IsShortcutPrefix)));
+                prefix: new HarmonyMethod(typeof(IntroUnlock), nameof(IsShortcutPrefix)));
             harmony.Patch(isIntroDetectionSupported,
-                prefix: new HarmonyMethod(typeof(UnlockIntroSkip), nameof(IsIntroDetectionSupportedPrefix)),
-                postfix: new HarmonyMethod(typeof(UnlockIntroSkip), nameof(IsIntroDetectionSupportedPostfix)));
+                prefix: new HarmonyMethod(typeof(IntroUnlock), nameof(IsIntroDetectionSupportedPrefix)),
+                postfix: new HarmonyMethod(typeof(IntroUnlock), nameof(IsIntroDetectionSupportedPostfix)));
             harmony.Patch(createQueryForEpisodeIntroDetection,
-                postfix: new HarmonyMethod(typeof(UnlockIntroSkip), nameof(CreateQueryForEpisodeIntroDetectionPostfix)));
+                postfix: new HarmonyMethod(typeof(IntroUnlock), nameof(CreateQueryForEpisodeIntroDetectionPostfix)));
 
             isPatched = true;
         }

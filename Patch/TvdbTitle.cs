@@ -10,16 +10,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using MediaInfoKeeper.Configuration;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
     /// <summary>
     /// TVDB metadata fallback patch adapted from StrmAssistant ChineseTvdb.
     /// </summary>
-    public static class TvdbTitlePatch
+    public static class TvdbTitle
     {
         private static readonly object InitLock = new object();
         private static readonly ThreadLocal<bool?> ConsiderJapanese = new ThreadLocal<bool?>();
@@ -40,6 +41,8 @@ namespace MediaInfoKeeper.Services
         private static bool isEnabled = true;
         private static bool waitingForTvdbAssembly;
         private static bool patchesInstalled;
+        public static bool IsReady => patchesInstalled;
+        public static bool IsWaiting => waitingForTvdbAssembly && !patchesInstalled;
         private static Assembly tvdbAssembly;
 
         private static MethodInfo convertToTvdbLanguages;
@@ -59,13 +62,12 @@ namespace MediaInfoKeeper.Services
             {
                 if (patchesInstalled)
                 {
-                    logger?.Debug("TVDB fallback patch already initialized.");
                     return;
                 }
 
                 if (TryGetLoadedTvdbAssembly(out var assembly))
                 {
-                    TryInstallPatches(assembly, "startup");
+                    TryInstallPatches(assembly);
                     return;
                 }
 
@@ -73,7 +75,7 @@ namespace MediaInfoKeeper.Services
                 {
                     AppDomain.CurrentDomain.AssemblyLoad += OnAssemblyLoad;
                     waitingForTvdbAssembly = true;
-                    logger?.Info("TVDB fallback patch delayed: waiting for Tvdb assembly. Enabled={0}", isEnabled);
+                    PatchLog.Waiting(logger, nameof(TvdbTitle), "Tvdb", isEnabled);
                 }
             }
         }
@@ -86,7 +88,6 @@ namespace MediaInfoKeeper.Services
             }
 
             isEnabled = enable;
-            logger?.Info("TVDB fallback patch {0}", isEnabled ? "enabled" : "disabled");
         }
 
         private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
@@ -110,7 +111,7 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                TryInstallPatches(loadedAssembly, "assembly-load");
+                TryInstallPatches(loadedAssembly);
             }
         }
 
@@ -121,7 +122,7 @@ namespace MediaInfoKeeper.Services
             return assembly != null;
         }
 
-        private static void TryInstallPatches(Assembly assembly, string source)
+        private static void TryInstallPatches(Assembly assembly)
         {
             try
             {
@@ -132,26 +133,26 @@ namespace MediaInfoKeeper.Services
                 var patchCount = 0;
                 patchCount += PatchMethod(
                     convertToTvdbLanguages,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(ConvertToTvdbLanguagesPostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(ConvertToTvdbLanguagesPostfix)));
                 patchCount += PatchMethod(
                     getTranslation,
-                    prefix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(GetTranslationPrefix)),
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(GetTranslationPostfix)));
+                    prefix: new HarmonyMethod(typeof(TvdbTitle), nameof(GetTranslationPrefix)),
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(GetTranslationPostfix)));
                 patchCount += PatchMethod(
                     addMovieInfo,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(AddInfoPostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(AddInfoPostfix)));
                 patchCount += PatchMethod(
                     addSeriesInfo,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(AddInfoPostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(AddInfoPostfix)));
                 patchCount += PatchMethod(
                     getTvdbSeason,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(GetTvdbSeasonPostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(GetTvdbSeasonPostfix)));
                 patchCount += PatchMethod(
                     findEpisode,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(FindEpisodePostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(FindEpisodePostfix)));
                 patchCount += PatchMethod(
                     getEpisodeData,
-                    postfix: new HarmonyMethod(typeof(TvdbTitlePatch), nameof(GetEpisodeDataPostfix)));
+                    postfix: new HarmonyMethod(typeof(TvdbTitle), nameof(GetEpisodeDataPostfix)));
 
                 patchesInstalled = patchCount > 0;
 
@@ -161,13 +162,11 @@ namespace MediaInfoKeeper.Services
                     waitingForTvdbAssembly = false;
                 }
 
-                logger?.Info(
-                    "TVDB Patch 初始化完成，补丁方法数={0}",
-                    patchCount);
             }
             catch (Exception ex)
             {
-                logger?.Error("TVDB fallback patch init failed: {0}", ex);
+                PatchLog.InitFailed(logger, nameof(TvdbTitle), ex.Message);
+                logger?.Error("补丁异常：模块={0}，详情={1}", nameof(TvdbTitle), ex);
                 harmony = null;
             }
         }
@@ -180,49 +179,127 @@ namespace MediaInfoKeeper.Services
             }
 
             harmony.Patch(method, prefix: prefix, postfix: postfix);
-            logger?.Debug("Patched {0}.{1}", method.DeclaringType?.FullName, method.Name);
+            PatchLog.Patched(logger, nameof(TvdbTitle), method);
             return 1;
         }
 
         private static void ResolveMethods(Assembly assembly)
         {
+            var version = assembly.GetName().Version;
             var entryPoint = assembly.GetType("Tvdb.EntryPoint", false);
-            convertToTvdbLanguages = entryPoint?.GetMethod(
-                "ConvertToTvdbLanguages",
-                BindingFlags.Instance | BindingFlags.Public,
-                binder: null,
-                types: new[] { typeof(ItemLookupInfo) },
-                modifiers: null);
+            convertToTvdbLanguages = VersionedMethodResolver.Resolve(
+                entryPoint,
+                version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "entrypoint-converttotvdblanguages-exact",
+                        MethodName = "ConvertToTvdbLanguages",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public,
+                        ParameterTypes = new[] { typeof(ItemLookupInfo) }
+                    }
+                },
+                logger,
+                "TvdbTitle.ConvertToTvdbLanguages");
 
             var translations = assembly.GetType("Tvdb.Translations", false);
-            getTranslation = translations?.GetMethod(
-                "GetTranslation",
-                BindingFlags.Instance | BindingFlags.NonPublic);
+            getTranslation = VersionedMethodResolver.Resolve(
+                translations,
+                version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "translations-gettranslation-exact",
+                        MethodName = "GetTranslation",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic
+                    }
+                },
+                logger,
+                "TvdbTitle.GetTranslation");
 
             var tvdbMovieProvider = assembly.GetType("Tvdb.TvdbMovieProvider", false);
-            addMovieInfo = tvdbMovieProvider?.GetMethod(
-                "AddMovieInfo",
-                BindingFlags.Instance | BindingFlags.NonPublic);
+            addMovieInfo = VersionedMethodResolver.Resolve(
+                tvdbMovieProvider,
+                version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "tvdbmovieprovider-addmovieinfo-exact",
+                        MethodName = "AddMovieInfo",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic
+                    }
+                },
+                logger,
+                "TvdbTitle.AddMovieInfo");
 
             var tvdbSeriesProvider = assembly.GetType("Tvdb.TvdbSeriesProvider", false);
-            addSeriesInfo = tvdbSeriesProvider?.GetMethod(
-                "AddSeriesInfo",
-                BindingFlags.Instance | BindingFlags.NonPublic);
+            addSeriesInfo = VersionedMethodResolver.Resolve(
+                tvdbSeriesProvider,
+                version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "tvdbseriesprovider-addseriesinfo-exact",
+                        MethodName = "AddSeriesInfo",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic
+                    }
+                },
+                logger,
+                "TvdbTitle.AddSeriesInfo");
 
             var tvdbSeasonProvider = assembly.GetType("Tvdb.TvdbSeasonProvider", false);
-            getTvdbSeason = tvdbSeasonProvider?.GetMethod(
-                "GetTvdbSeason",
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            getTvdbSeason = VersionedMethodResolver.Resolve(
+                tvdbSeasonProvider,
+                version,
+                new[]
+                {
+                    new MethodSignatureProfile
+                    {
+                        Name = "tvdbseasonprovider-gettvdbseason-exact",
+                        MethodName = "GetTvdbSeason",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                    }
+                },
+                logger,
+                "TvdbTitle.GetTvdbSeason");
 
             var tvdbEpisodeProvider = assembly.GetType("Tvdb.TvdbEpisodeProvider", false);
             if (tvdbEpisodeProvider != null)
             {
-                findEpisode = tvdbEpisodeProvider.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                    .FirstOrDefault(m => m.Name == "FindEpisode" && m.GetParameters().Length == 3);
+                findEpisode = VersionedMethodResolver.Resolve(
+                    tvdbEpisodeProvider,
+                    version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "tvdbepisodeprovider-findepisode-exact",
+                            MethodName = "FindEpisode",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic,
+                            Predicate = m => m.GetParameters().Length == 3
+                        }
+                    },
+                    logger,
+                    "TvdbTitle.FindEpisode");
 
-                getEpisodeData = tvdbEpisodeProvider.GetMethod(
-                    "GetEpisodeData",
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                getEpisodeData = VersionedMethodResolver.Resolve(
+                    tvdbEpisodeProvider,
+                    version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "tvdbepisodeprovider-getepisodedata-exact",
+                            MethodName = "GetEpisodeData",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                        }
+                    },
+                    logger,
+                    "TvdbTitle.GetEpisodeData");
             }
         }
 

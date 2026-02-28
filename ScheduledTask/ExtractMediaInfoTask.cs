@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.ScheduledTask

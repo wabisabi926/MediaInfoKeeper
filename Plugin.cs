@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MediaInfoKeeper.Configuration;
 using MediaInfoKeeper.Options.Store;
 using MediaInfoKeeper.Options.View;
+using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Services.IntroSkip;
 using MediaBrowser.Common;
@@ -125,16 +126,7 @@ namespace MediaInfoKeeper
             EnhanceChineseSearchOptionsStore = new EnhanceChineseSearchOptionsStore(OptionsStore);
             MetaDataOptionsStore = new MetaDataOptionsStore(OptionsStore);
 
-            FfprobeGuard.Initialize(this.logger, this.Options.MainPage?.DisableSystemFfprobe ?? true);
-            MetadataProvidersWatcher.Initialize(this.logger, this.Options.MetaData?.EnableMetadataProvidersWatcher ?? true);
-            MovieDbTitlePatch.Initialize(this.logger, this.Options.MetaData?.EnableAlternativeTitleFallback ?? true);
-            TvdbTitlePatch.Initialize(this.logger, this.Options.MetaData?.EnableTvdbFallback ?? true);
-            UnlockIntroSkip.Initialize(this.logger, this.Options.IntroSkip?.UnlockIntroSkip ?? false);
-            UnlockIntroSkip.Configure(this.Options);
-            IntroMarkerProtect.Initialize(this.logger, this.Options.IntroSkip?.ProtectIntroMarkers ?? true);
-            ProxyServer.Initialize(this.logger, this.Options.Proxy?.EnableProxyServer ?? false);
-            SearchScopeUtility.UpdateSearchScope(this.Options.EnhanceChineseSearch?.SearchScope);
-            EnhanceChineseSearch.Initialize(this.logger, this.Options.EnhanceChineseSearch);
+            PatchManager.Initialize(this.logger, this.Options);
 
             this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
 
@@ -304,14 +296,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbImageUrl) ? "空" : options.Proxy.AlternativeTmdbImageUrl)}");
             this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiKey) ? "空" : "***")}");
 
-            FfprobeGuard.Configure(options.MainPage.DisableSystemFfprobe);
-            MetadataProvidersWatcher.Configure(options.MetaData.EnableMetadataProvidersWatcher);
-            UnlockIntroSkip.Configure(options);
-            ProxyServer.Configure(options.Proxy.EnableProxyServer);
-            SearchScopeUtility.UpdateSearchScope(options.EnhanceChineseSearch.SearchScope);
-            EnhanceChineseSearch.Configure(options.EnhanceChineseSearch);
-            MovieDbTitlePatch.Configure(options.MetaData.EnableAlternativeTitleFallback);
-            TvdbTitlePatch.Configure(options.MetaData.EnableTvdbFallback);
+            PatchManager.Configure(options);
 
             if (options.IntroSkip.EnableIntroSkip)
             {
@@ -324,7 +309,6 @@ namespace MediaInfoKeeper
                 IntroSkipPlaySessionMonitor.Dispose();
             }
 
-            IntroMarkerProtect.Configure(options.IntroSkip.ProtectIntroMarkers);
         }
         
         private string NormalizeScopedLibraries(string raw)

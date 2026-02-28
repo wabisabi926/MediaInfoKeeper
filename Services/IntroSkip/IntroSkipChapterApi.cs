@@ -6,6 +6,7 @@ using MediaBrowser.Controller.Session;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Querying;
+using MediaInfoKeeper.Patch;
 using System;
 using System.Collections.Generic;
 using System.Linq;

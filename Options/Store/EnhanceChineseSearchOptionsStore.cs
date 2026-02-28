@@ -1,8 +1,8 @@
 namespace MediaInfoKeeper.Options.Store
 {
     using System;
+    using MediaInfoKeeper.Patch;
     using MediaInfoKeeper.Configuration;
-    using MediaInfoKeeper.Services;
 
     internal class EnhanceChineseSearchOptionsStore
     {
@@ -29,7 +29,7 @@ namespace MediaInfoKeeper.Options.Store
 
             if (!string.Equals(current.SearchScope, next.SearchScope, StringComparison.Ordinal))
             {
-                SearchScopeUtility.UpdateSearchScope(next.SearchScope);
+                EnhanceChineseSearch.UpdateSearchScope(next.SearchScope);
             }
 
             var isSimpleTokenizer =

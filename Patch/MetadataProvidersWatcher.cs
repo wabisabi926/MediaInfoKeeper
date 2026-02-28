@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HarmonyLib;
 using MediaInfoKeeper;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
@@ -12,7 +13,7 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Patch
 {
     /// <summary>
     /// 控制 Emby ProviderManager 的元数据刷新，仅在显式作用域内放行。
@@ -24,6 +25,7 @@ namespace MediaInfoKeeper.Services
         private static MethodInfo instanceCanRefresh;
         private static ILogger logger;
         private static bool isEnabled;
+        public static bool IsReady => harmony != null && (staticCanRefresh != null || instanceCanRefresh != null);
         public static void Initialize(ILogger pluginLogger, bool enableWatcher)
         {
             if (harmony != null) return;
@@ -37,7 +39,7 @@ namespace MediaInfoKeeper.Services
                 var providerManager = embyProviders?.GetType("Emby.Providers.Manager.ProviderManager");
                 if (providerManager == null)
                 {
-                    logger.Warn("MetadataProvidersWatcher 初始化跳过：未找到 ProviderManager");
+                    PatchLog.InitFailed(logger, nameof(MetadataProvidersWatcher), "未找到 ProviderManager");
                     return;
                 }
 
@@ -46,7 +48,7 @@ namespace MediaInfoKeeper.Services
 
                 if (staticCanRefresh == null && instanceCanRefresh == null)
                 {
-                    logger.Warn("MetadataProvidersWatcher 初始化失败：未找到 CanRefresh 重载");
+                    PatchLog.InitFailed(logger, nameof(MetadataProvidersWatcher), "未找到 CanRefresh 重载");
                     return;
                 }
 
@@ -56,14 +58,20 @@ namespace MediaInfoKeeper.Services
                 {
                 if (staticCanRefresh != null)
                 {
-                    logger.Info($"MetadataProvidersWatcher 目标静态方法: {staticCanRefresh.DeclaringType?.FullName}.{staticCanRefresh.Name}({string.Join(",", staticCanRefresh.GetParameters().Select(p => p.ParameterType.Name))})");
+                    PatchLog.Patched(
+                        logger,
+                        nameof(MetadataProvidersWatcher),
+                        staticCanRefresh);
                     harmony.Patch(staticCanRefresh,
                         prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
                 }
 
                 if (instanceCanRefresh != null)
                 {
-                    logger.Info($"MetadataProvidersWatcher 目标实例方法: {instanceCanRefresh.DeclaringType?.FullName}.{instanceCanRefresh.Name}({string.Join(",", instanceCanRefresh.GetParameters().Select(p => p.ParameterType.Name))})");
+                    PatchLog.Patched(
+                        logger,
+                        nameof(MetadataProvidersWatcher),
+                        instanceCanRefresh);
                     harmony.Patch(instanceCanRefresh,
                         prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
                 }
@@ -76,8 +84,6 @@ namespace MediaInfoKeeper.Services
                     harmony = null;
                     return;
                 }
-
-                logger.Info("MetadataProvidersWatcher 已安装");
             }
             catch (Exception e)
             {
@@ -176,20 +182,30 @@ namespace MediaInfoKeeper.Services
         {
             try
             {
-                var paramTypes = new[]
-                {
-                    typeof(IMetadataProvider),
-                    typeof(BaseItem),
-                    typeof(LibraryOptions),
-                    typeof(bool),
-                    typeof(bool),
-                    typeof(bool)
-                };
-                return providerManager.GetMethod("CanRefresh",
-                    BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic,
-                    null,
-                    paramTypes,
-                    null) ?? FindMethod(providerManager, "CanRefresh", m => m.IsStatic);
+                var embyProvidersVersion = providerManager.Assembly.GetName().Version;
+                return VersionedMethodResolver.Resolve(
+                    providerManager,
+                    embyProvidersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "static-canrefresh-exact",
+                            MethodName = "CanRefresh",
+                            BindingFlags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[]
+                            {
+                                typeof(IMetadataProvider),
+                                typeof(BaseItem),
+                                typeof(LibraryOptions),
+                                typeof(bool),
+                                typeof(bool),
+                                typeof(bool)
+                            }
+                        }
+                    },
+                    logger,
+                    "MetadataProvidersWatcher.StaticCanRefresh");
             }
             catch
             {
@@ -201,20 +217,30 @@ namespace MediaInfoKeeper.Services
         {
             try
             {
-                var paramTypes = new[]
-                {
-                    typeof(IImageProvider),
-                    typeof(BaseItem),
-                    typeof(LibraryOptions),
-                    typeof(ImageRefreshOptions),
-                    typeof(bool),
-                    typeof(bool)
-                };
-                return providerManager.GetMethod("CanRefresh",
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-                    null,
-                    paramTypes,
-                    null) ?? FindMethod(providerManager, "CanRefresh", m => !m.IsStatic);
+                var embyProvidersVersion = providerManager.Assembly.GetName().Version;
+                return VersionedMethodResolver.Resolve(
+                    providerManager,
+                    embyProvidersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "instance-canrefresh-exact",
+                            MethodName = "CanRefresh",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[]
+                            {
+                                typeof(IImageProvider),
+                                typeof(BaseItem),
+                                typeof(LibraryOptions),
+                                typeof(ImageRefreshOptions),
+                                typeof(bool),
+                                typeof(bool)
+                            }
+                        }
+                    },
+                    logger,
+                    "MetadataProvidersWatcher.InstanceCanRefresh");
             }
             catch
             {
