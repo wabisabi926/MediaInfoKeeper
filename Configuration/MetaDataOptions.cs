@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Common;
+using Emby.Web.GenericEdit.Editors;
 using MediaBrowser.Model.Attributes;
+using MediaBrowser.Model.GenericEdit;
 
 namespace MediaInfoKeeper.Configuration
 {
@@ -59,6 +61,14 @@ namespace MediaInfoKeeper.Configuration
         [Description("开启后，TMDB/TVDB 的电影/剧集/季/集简介若不在备选语言范围（如英文）将被置空。")]
         public bool BlockNonFallbackLanguage { get; set; } = false;
 
+        [DisplayName("启用 TMDB 剧集组刮削")]
+        [Description("开启后支持按 TMDB 剧集组映射刮削剧集元数据（需在剧集外部ID中填写 TmdbEg，或启用本地剧集组文件）。")]
+        public bool EnableMovieDbEpisodeGroup { get; set; } = true;
+
+        [DisplayName("启用本地剧集组文件")]
+        [Description("开启后在剧集目录读取 episodegroup.json；当在线剧集组可用时会自动写入本地文件用于后续复用。")]
+        public bool EnableLocalEpisodeGroup { get; set; } = false;
+
         public void Initialize()
         {
             FallbackLanguageList.Clear();
@@ -82,6 +92,93 @@ namespace MediaInfoKeeper.Configuration
                     IsEnabled = true
                 });
             }
+        }
+
+        public override IEditObjectContainer CreateEditContainer()
+        {
+            var container = (EditObjectContainer)base.CreateEditContainer();
+            var root = container.EditorRoot;
+            if (root?.EditorItems == null || root.EditorItems.Length == 0)
+            {
+                return container;
+            }
+
+            var itemLookup = new Dictionary<string, EditorBase>(StringComparer.OrdinalIgnoreCase);
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (string.IsNullOrEmpty(key))
+                {
+                    continue;
+                }
+
+                if (!itemLookup.ContainsKey(key))
+                {
+                    itemLookup.Add(key, item);
+                }
+            }
+
+            var groupedItems = new List<EditorBase>();
+            var groupIndex = 0;
+
+            void AddGroup(string title, params string[] propertyNames)
+            {
+                var items = new List<EditorBase>();
+                foreach (var propertyName in propertyNames)
+                {
+                    if (itemLookup.TryGetValue(propertyName, out var item))
+                    {
+                        items.Add(item);
+                        itemLookup.Remove(propertyName);
+                    }
+                }
+
+                if (items.Count == 0)
+                {
+                    return;
+                }
+
+                groupIndex++;
+                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            AddGroup("",
+                nameof(EnableMetadataProvidersWatcher));
+
+            AddGroup("标题中文别名",
+                nameof(EnableAlternativeTitleFallback),
+                nameof(EnableTvdbFallback),
+                nameof(FallbackLanguages),
+                nameof(TvdbFallbackLanguages),
+                nameof(BlockNonFallbackLanguage));
+
+            AddGroup("剧集组刮削",
+                nameof(EnableMovieDbEpisodeGroup),
+                nameof(EnableLocalEpisodeGroup));
+
+            var remaining = new List<EditorBase>();
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (!string.IsNullOrEmpty(key) && itemLookup.ContainsKey(key))
+                {
+                    remaining.Add(item);
+                    itemLookup.Remove(key);
+                }
+            }
+
+            if (remaining.Count > 0)
+            {
+                groupIndex++;
+                groupedItems.Add(new EditorGroup("未分组", remaining.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            if (groupedItems.Count > 0)
+            {
+                root.EditorItems = groupedItems.ToArray();
+            }
+
+            return container;
         }
     }
 }

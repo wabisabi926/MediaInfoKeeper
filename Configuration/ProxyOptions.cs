@@ -1,5 +1,10 @@
 using System.ComponentModel;
 using Emby.Web.GenericEdit;
+using Emby.Web.GenericEdit.Common;
+using Emby.Web.GenericEdit.Editors;
+using MediaBrowser.Model.GenericEdit;
+using System;
+using System.Collections.Generic;
 
 namespace MediaInfoKeeper.Configuration
 {
@@ -41,6 +46,92 @@ namespace MediaInfoKeeper.Configuration
 
         [DisplayName("自定义 TMDB API 密钥")]
         [Description("请自备 API 密钥，留空使用Emby默认。")]
-        public string AlternativeTmdbApiKey { get; set; } = string.Empty;
+        public string AlternativeTmdbApiKey { get; set; } = "db55323b8d3e4154498498a75642b381";
+
+        public override IEditObjectContainer CreateEditContainer()
+        {
+            var container = (EditObjectContainer)base.CreateEditContainer();
+            var root = container.EditorRoot;
+            if (root?.EditorItems == null || root.EditorItems.Length == 0)
+            {
+                return container;
+            }
+
+            var itemLookup = new Dictionary<string, EditorBase>(StringComparer.OrdinalIgnoreCase);
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (string.IsNullOrEmpty(key))
+                {
+                    continue;
+                }
+
+                if (!itemLookup.ContainsKey(key))
+                {
+                    itemLookup.Add(key, item);
+                }
+            }
+
+            var groupedItems = new List<EditorBase>();
+            var groupIndex = 0;
+
+            void AddGroup(string title, params string[] propertyNames)
+            {
+                var items = new List<EditorBase>();
+                foreach (var propertyName in propertyNames)
+                {
+                    if (itemLookup.TryGetValue(propertyName, out var item))
+                    {
+                        items.Add(item);
+                        itemLookup.Remove(propertyName);
+                    }
+                }
+
+                if (items.Count == 0)
+                {
+                    return;
+                }
+
+                groupIndex++;
+                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            AddGroup("代理",
+                nameof(EnableProxyServer),
+                nameof(ProxyServerUrl),
+                nameof(IgnoreCertificateValidation),
+                nameof(WriteProxyEnvVars),
+                nameof(EnableGzip));
+
+            AddGroup("TMDB 替换",
+                nameof(EnableAlternativeTmdb),
+                nameof(AlternativeTmdbApiUrl),
+                nameof(AlternativeTmdbImageUrl),
+                nameof(AlternativeTmdbApiKey));
+
+            var remaining = new List<EditorBase>();
+            foreach (var item in root.EditorItems)
+            {
+                var key = item.Name ?? item.Id;
+                if (!string.IsNullOrEmpty(key) && itemLookup.ContainsKey(key))
+                {
+                    remaining.Add(item);
+                    itemLookup.Remove(key);
+                }
+            }
+
+            if (remaining.Count > 0)
+            {
+                groupIndex++;
+                groupedItems.Add(new EditorGroup("未分组", remaining.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            if (groupedItems.Count > 0)
+            {
+                root.EditorItems = groupedItems.ToArray();
+            }
+
+            return container;
+        }
     }
 }

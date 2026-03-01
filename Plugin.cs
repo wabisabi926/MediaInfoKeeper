@@ -284,6 +284,8 @@ namespace MediaInfoKeeper
             this.logger.Info($"TMDB 备选语言 设置为 {options.MetaData.FallbackLanguages}");
             this.logger.Info($"TVDB 备选语言 设置为 {options.MetaData.TvdbFallbackLanguages}");
             this.logger.Info($"屏蔽非备选语言简介 设置为 {options.MetaData.BlockNonFallbackLanguage}");
+            this.logger.Info($"启用 TMDB 剧集组刮削 设置为 {options.MetaData.EnableMovieDbEpisodeGroup}");
+            this.logger.Info($"启用本地剧集组文件 设置为 {options.MetaData.EnableLocalEpisodeGroup}");
 
             this.logger.Info("[Proxy]");
             this.logger.Info($"启用代理 设置为 {options.Proxy.EnableProxyServer}");

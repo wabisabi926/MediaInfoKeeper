@@ -12,7 +12,7 @@ MediaInfoKeeper
 - MediaInfo Keeper：将 MediaInfo/章节持久化为 JSON，入库恢复/提取并在刷新后恢复。
 - IntroSkip：解锁 .strm 片头检测、入库扫描片头、播放行为打标，并保护片头/片尾标记。
 - Search：中文模糊与拼音搜索增强，可设置搜索范围。
-- MetaData：支持剧集元数据变动监听、TMDB/TVDB 使用中文别名，避免出现英文标题的情况。
+- MetaData：支持剧集元数据变动监听、TMDB/TVDB 使用中文别名，避免出现英文标题的情况、支持剧集组刮削。
 - Proxy：全局 HttpClient 代理，支持忽略证书、写入代理环境变量，并支持 TMDB 反代域名替换。
 - GitHub & Update：版本检查与插件自更新。
 
@@ -29,16 +29,33 @@ MediaInfoKeeper
 安装
 ----
 
-- 已测试版本：`4.9.3.0` `4.9.1.90`
-- 不支持：`4.8` 系列
+安装步骤
+--------
 
 1. 下载 `MediaInfoKeeper.dll`：<https://github.com/honue/MediaInfoKeeper/releases>
 2. 放入 Emby 配置目录中的 `plugins` 目录。
 3. 重启 Emby，在插件页面完成配置。
 
-感谢
+兼容性
+-----------
+
+- 版本说明：本仓库最新代码始终以支持 Emby 最新 release 为目标，开发过程中可能出现阶段性兼容问题。
+- 当前 `latest` 的适配区间为 Emby `4.9.1.90 ~ 4.9.99.99`。
+- 自动更新限制：更新任务已按版本区间限制，不会更新到当前 Emby 不支持的插件版本。
+- 使用建议：如果您的 Emby 版本在上述区间内，一般可直接使用自动更新；不在区间内请先选择对应历史版本。
+- 已测试版本：`4.9.3.0`、`4.9.1.90`
+- 不支持：`4.8` 系列
+
+致谢
 ----
 
-<https://github.com/sjtuross/StrmAssistant>
+本项目在部分功能设计与架构思路上参考了开源项目：
 
-<https://github.com/xinjiawei/StrmAssistant_less>
+- StrmAssistant https://github.com/sjtuross/StrmAssistant
+
+如果您认可 StrmAssistant 项目的功能与理念，
+也可以关注其官方发布版本并支持原作者。
+
+感谢原作者对社区的贡献。
+
+本项目主要针对 Emby 较新版本进行适配与支持。

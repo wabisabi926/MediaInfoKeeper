@@ -736,7 +736,7 @@ namespace MediaInfoKeeper.Patch
                 if (IsUpdateNeeded(item.Name, nameValue) && !string.IsNullOrWhiteSpace(nameValue))
                 {
                     item.Name = nameValue;
-                    logger?.Debug("TMDB Episode 标题更新: '{0}'", nameValue);
+                    logger?.Info("TMDB Episode 标题更新: '{0}'", nameValue);
                 }
 
                 if (IsUpdateNeeded(item.Overview))
@@ -745,7 +745,17 @@ namespace MediaInfoKeeper.Patch
                     if (!string.IsNullOrWhiteSpace(overview))
                     {
                         item.Overview = DecodeOverview(overview);
-                        logger?.Debug("TMDB Episode 简介更新: len={0}", item.Overview?.Length ?? 0);
+                        var preview = item.Overview ?? string.Empty;
+                        if (preview.Length > 20)
+                        {
+                            preview = preview.Substring(0, 20) + "...";
+                        }
+                        else
+                        {
+                            preview += "...";
+                        }
+
+                        logger?.Info("TMDB Episode 简介更新: '{0}'", preview);
                     }
                 }
             }

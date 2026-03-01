@@ -55,6 +55,18 @@ namespace MediaInfoKeeper.Patch
                     TvdbTitle.IsWaiting ? "waiting for Tvdb assembly" : null,
                     TvdbTitle.IsWaiting);
 
+                Register("MovieDbEpisodeGroup");
+                MovieDbEpisodeGroup.Initialize(
+                    logger,
+                    safeOptions.MetaData.EnableMovieDbEpisodeGroup,
+                    safeOptions.MetaData.EnableLocalEpisodeGroup);
+                UpdateTracker(
+                    "MovieDbEpisodeGroup",
+                    safeOptions.MetaData.EnableMovieDbEpisodeGroup,
+                    MovieDbEpisodeGroup.IsReady,
+                    MovieDbEpisodeGroup.IsWaiting ? "waiting for MovieDb assembly" : null,
+                    MovieDbEpisodeGroup.IsWaiting);
+
                 Register("UnlockIntroSkip");
                 IntroUnlock.Initialize(logger, safeOptions.IntroSkip.UnlockIntroSkip);
                 IntroUnlock.Configure(safeOptions);
@@ -98,6 +110,7 @@ namespace MediaInfoKeeper.Patch
             EnhanceChineseSearch.Configure(safeOptions.EnhanceChineseSearch);
             MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
+            MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
             IntroMarkerProtect.Configure(safeOptions.IntroSkip.ProtectIntroMarkers);
 
             UpdateTracker("FfprobeGuard", safeOptions.MainPage.DisableSystemFfprobe, FfprobeGuard.IsReady, null);
@@ -107,6 +120,8 @@ namespace MediaInfoKeeper.Patch
                 MovieDbTitle.IsWaiting ? "waiting for MovieDb assembly" : null, MovieDbTitle.IsWaiting);
             UpdateTracker("TvdbTitle", safeOptions.MetaData.EnableTvdbFallback, TvdbTitle.IsReady,
                 TvdbTitle.IsWaiting ? "waiting for Tvdb assembly" : null, TvdbTitle.IsWaiting);
+            UpdateTracker("MovieDbEpisodeGroup", safeOptions.MetaData.EnableMovieDbEpisodeGroup, MovieDbEpisodeGroup.IsReady,
+                MovieDbEpisodeGroup.IsWaiting ? "waiting for MovieDb assembly" : null, MovieDbEpisodeGroup.IsWaiting);
             UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
             UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
             UpdateTracker("ProxyServer", safeOptions.Proxy.EnableProxyServer, ProxyServer.IsReady,
