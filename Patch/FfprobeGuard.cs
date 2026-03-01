@@ -48,9 +48,7 @@ namespace MediaInfoKeeper.Patch
                     return;
                 }
 
-                // Resolve targets before creating Harmony so we can log candidate signatures
-                runFfProcess = ResolveRunFfProcess(mediaEncoding, mediaProbeManager) ??
-                               FindMethod(mediaProbeManager, "RunFfProcess");
+                runFfProcess = ResolveRunFfProcess(mediaEncoding, mediaProbeManager);
 
                 var processRun = Assembly.Load("Emby.ProcessRun");
                 var processResult = processRun?.GetType("Emby.ProcessRun.Common.ProcessResult");
@@ -197,32 +195,19 @@ namespace MediaInfoKeeper.Patch
             return null;
         }
 
-        private static MethodInfo FindMethod(Type type, string methodName, Func<MethodInfo, bool> predicate = null)
-        {
-            if (type == null) return null;
-
-            var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                          BindingFlags.NonPublic)
-                .Where(m => m.Name == methodName);
-
-            if (predicate != null) methods = methods.Where(predicate);
-
-            var methodInfo = methods.FirstOrDefault();
-            if (methodInfo == null)
-            {
-                LogCandidates(type, methodName);
-            }
-
-            return methodInfo;
-        }
-
         private static MethodInfo ResolveRunFfProcess(Assembly mediaEncoding, Type mediaProbeManager)
         {
             try
             {
-                var ffRunType = mediaEncoding
-                    .GetTypes()
-                    .FirstOrDefault(t => string.Equals(t.Name, "FfRunType", StringComparison.Ordinal));
+                var ffRunType = mediaEncoding.GetType("Emby.Server.MediaEncoding.Unified.Ffmpeg.FfRunType");
+                if (ffRunType == null)
+                {
+                    PatchLog.Candidates(
+                        logger,
+                        "FfprobeGuard.FfRunType",
+                        "未找到类型 Emby.Server.MediaEncoding.Unified.Ffmpeg.FfRunType");
+                    return null;
+                }
 
                 var assemblyVersion = mediaEncoding.GetName().Version;
                 var exactProfiles = new[]
@@ -233,9 +218,7 @@ namespace MediaInfoKeeper.Patch
                         MethodName = "RunFfProcess",
                         BindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
                                        BindingFlags.NonPublic,
-                        ParameterTypes = ffRunType == null
-                            ? null
-                            : new[] { ffRunType, typeof(string), typeof(string), typeof(int), typeof(CancellationToken) }
+                        ParameterTypes = new[] { ffRunType, typeof(string), typeof(string), typeof(int), typeof(CancellationToken) }
                     }
                 };
 
@@ -262,28 +245,6 @@ namespace MediaInfoKeeper.Patch
             }
 
             return property;
-        }
-
-        private static void LogCandidates(Type type, string methodName)
-        {
-            try
-            {
-                var candidates = type?.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                                  BindingFlags.NonPublic)
-                    .Where(m => m.Name == methodName)
-                    .Select(m =>
-                        $"{m.Name}({string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name))}) -> {m.ReturnType?.Name}");
-
-                PatchLog.Candidates(
-                    logger,
-                    string.Format("{0}.{1}", type?.FullName ?? "<null>", methodName ?? "<null>"),
-                    string.Join("; ", candidates ?? Enumerable.Empty<string>()));
-            }
-            catch (Exception e)
-            {
-                logger?.Debug(e.Message);
-                logger?.Debug(e.StackTrace);
-            }
         }
 
         private static void LogPropertyCandidates(Type type, string propertyName)

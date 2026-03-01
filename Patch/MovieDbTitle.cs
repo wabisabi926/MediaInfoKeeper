@@ -204,167 +204,108 @@ namespace MediaInfoKeeper.Patch
         private static void ResolveMethods(Assembly assembly)
         {
             movieDbAssemblyVersion = assembly.GetName().Version;
+            var tmdbSettingsResult = assembly.GetType("MovieDb.TmdbSettingsResult", false);
             var genericMovieDbInfo = assembly.GetType("MovieDb.GenericMovieDbInfo`1", false);
+            var genericMovieDbInfoMovie = genericMovieDbInfo?.MakeGenericType(typeof(Movie));
             if (genericMovieDbInfo != null)
             {
-                var genericMovieDbInfoMovie = genericMovieDbInfo.MakeGenericType(typeof(Movie));
                 genericMovieDbInfoIsCompleteMovie = FindInstanceMethod(
                     genericMovieDbInfoMovie,
                     "IsComplete",
-                    m =>
-                    {
-                        var p = m.GetParameters();
-                        return m.ReturnType == typeof(bool) &&
-                               p.Length == 1 &&
-                               typeof(BaseItem).IsAssignableFrom(p[0].ParameterType);
-                    });
-                genericMovieDbInfoProcessMainInfoMovie = FindInstanceMethod(
-                    genericMovieDbInfoMovie,
-                    "ProcessMainInfo",
-                    m =>
-                    {
-                        var p = m.GetParameters();
-                        return p.Length == 5 &&
-                               p[0].ParameterType == typeof(MetadataResult<Movie>) &&
-                               p[2].ParameterType == typeof(string) &&
-                               p[4].ParameterType == typeof(bool);
-                    });
+                    new[] { typeof(Movie) },
+                    typeof(bool));
             }
 
             var movieDbProvider = assembly.GetType("MovieDb.MovieDbProvider", false);
             var completeMovieData = movieDbProvider?.GetNestedType("CompleteMovieData", BindingFlags.NonPublic);
+            var completeMovieDataParams = completeMovieData == null || tmdbSettingsResult == null
+                ? null
+                : new[] { typeof(MetadataResult<Movie>), tmdbSettingsResult, typeof(string), completeMovieData, typeof(bool) };
+            if (completeMovieDataParams != null)
+            {
+                genericMovieDbInfoProcessMainInfoMovie = FindInstanceMethod(
+                    genericMovieDbInfoMovie,
+                    "ProcessMainInfo",
+                    completeMovieDataParams);
+            }
             getTitleMovieData = FindInstanceMethod(
                 completeMovieData,
                 "GetTitle",
-                m => m.ReturnType == typeof(string) && m.GetParameters().Length == 0);
+                Type.EmptyTypes,
+                typeof(string));
 
             var movieDbProviderBase = assembly.GetType("MovieDb.MovieDbProviderBase", false);
+            var episodeRootObject = movieDbProviderBase?.GetNestedType("EpisodeRootObject", BindingFlags.Public | BindingFlags.NonPublic);
             getMovieDbMetadataLanguages = FindInstanceMethod(
                 movieDbProviderBase,
                 "GetMovieDbMetadataLanguages",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(string[]) &&
-                           p.Length == 2 &&
-                           p[0].ParameterType == typeof(ItemLookupInfo) &&
-                           p[1].ParameterType == typeof(string[]);
-                });
+                new[] { typeof(ItemLookupInfo), typeof(string[]) },
+                typeof(string[]));
             mapLanguageToProviderLanguage = FindInstanceMethod(
                 movieDbProviderBase,
                 "MapLanguageToProviderLanguage",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(string) &&
-                           p.Length == 4 &&
-                           p[0].ParameterType == typeof(string) &&
-                           p[1].ParameterType == typeof(string) &&
-                           p[2].ParameterType == typeof(bool) &&
-                           p[3].ParameterType == typeof(string[]);
-                });
+                new[] { typeof(string), typeof(string), typeof(bool), typeof(string[]) },
+                typeof(string));
             getImageLanguagesParam = FindInstanceMethod(
                 movieDbProviderBase,
                 "GetImageLanguagesParam",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(string) &&
-                           p.Length == 1 &&
-                           p[0].ParameterType == typeof(string[]);
-                });
+                new[] { typeof(string[]) },
+                typeof(string));
 
             var movieDbSeriesProvider = assembly.GetType("MovieDb.MovieDbSeriesProvider", false);
+            var seriesRootObject = movieDbSeriesProvider?.GetNestedType("SeriesRootObject", BindingFlags.Public | BindingFlags.NonPublic);
             movieDbSeriesProviderIsComplete = FindInstanceMethod(
                 movieDbSeriesProvider,
                 "IsComplete",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(bool) &&
-                           p.Length == 1 &&
-                           typeof(BaseItem).IsAssignableFrom(p[0].ParameterType);
-                });
+                new[] { typeof(Series) },
+                typeof(bool));
             movieDbSeriesProviderImportData = FindInstanceMethod(
                 movieDbSeriesProvider,
                 "ImportData",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return p.Length == 5 &&
-                           p[0].ParameterType == typeof(MetadataResult<Series>) &&
-                           p[2].ParameterType == typeof(string) &&
-                           p[4].ParameterType == typeof(bool);
-                });
+                seriesRootObject == null || tmdbSettingsResult == null
+                    ? null
+                    : new[] { typeof(MetadataResult<Series>), seriesRootObject, typeof(string), tmdbSettingsResult, typeof(bool) });
             ensureSeriesInfo = FindInstanceMethod(
                 movieDbSeriesProvider,
                 "EnsureSeriesInfo",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return p.Length == 3 &&
-                           p[0].ParameterType == typeof(string) &&
-                           p[1].ParameterType == typeof(string) &&
-                           p[2].ParameterType == typeof(CancellationToken);
-                });
-
-            var seriesRootObject = movieDbSeriesProvider?.GetNestedType("SeriesRootObject", BindingFlags.Public);
+                new[] { typeof(string), typeof(string), typeof(CancellationToken) });
             getTitleSeriesInfo = FindInstanceMethod(
                 seriesRootObject,
                 "GetTitle",
-                m => m.ReturnType == typeof(string) && m.GetParameters().Length == 0);
+                Type.EmptyTypes,
+                typeof(string));
 
             var movieDbSeasonProvider = assembly.GetType("MovieDb.MovieDbSeasonProvider", false);
+            var seasonRootObject = movieDbSeasonProvider?.GetNestedType("SeasonRootObject", BindingFlags.Public | BindingFlags.NonPublic);
             movieDbSeasonProviderIsComplete = FindInstanceMethod(
                 movieDbSeasonProvider,
                 "IsComplete",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(bool) &&
-                           p.Length == 1 &&
-                           typeof(BaseItem).IsAssignableFrom(p[0].ParameterType);
-                });
+                new[] { typeof(Season) },
+                typeof(bool));
             movieDbSeasonProviderImportData = FindInstanceMethod(
                 movieDbSeasonProvider,
                 "ImportData",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return p.Length == 5 &&
-                           p[0].ParameterType == typeof(Season) &&
-                           p[2].ParameterType == typeof(string) &&
-                           p[3].ParameterType == typeof(int) &&
-                           p[4].ParameterType == typeof(bool);
-                });
+                seasonRootObject == null
+                    ? null
+                    : new[] { typeof(Season), seasonRootObject, typeof(string), typeof(int), typeof(bool) });
 
             var movieDbEpisodeProvider = assembly.GetType("MovieDb.MovieDbEpisodeProvider", false);
             movieDbEpisodeProviderIsComplete = FindInstanceMethod(
                 movieDbEpisodeProvider,
                 "IsComplete",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return m.ReturnType == typeof(bool) &&
-                           p.Length == 1 &&
-                           typeof(BaseItem).IsAssignableFrom(p[0].ParameterType);
-                });
+                new[] { typeof(Episode) },
+                typeof(bool));
             movieDbEpisodeProviderImportData = FindInstanceMethod(
                 movieDbProviderBase,
                 "ImportData",
-                m =>
-                {
-                    var p = m.GetParameters();
-                    return p.Length == 5 &&
-                           p[0].ParameterType == typeof(MetadataResult<Episode>) &&
-                           p[1].ParameterType == typeof(EpisodeInfo) &&
-                           p[4].ParameterType == typeof(bool);
-                });
+                episodeRootObject == null || tmdbSettingsResult == null
+                    ? null
+                    : new[] { typeof(MetadataResult<Episode>), typeof(EpisodeInfo), episodeRootObject, tmdbSettingsResult, typeof(bool) });
         }
 
-        private static MethodInfo FindInstanceMethod(Type type, string name, Func<MethodInfo, bool> predicate)
+        private static MethodInfo FindInstanceMethod(Type type, string name, Type[] parameterTypes, Type returnType = null)
         {
-            if (type == null || string.IsNullOrWhiteSpace(name))
+            if (type == null || string.IsNullOrWhiteSpace(name) || parameterTypes == null)
             {
                 return null;
             }
@@ -380,7 +321,8 @@ namespace MediaInfoKeeper.Patch
                         MethodName = name,
                         BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
                         IsStatic = false,
-                        Predicate = predicate
+                        ParameterTypes = parameterTypes,
+                        ReturnType = returnType
                     }
                 },
                 logger,

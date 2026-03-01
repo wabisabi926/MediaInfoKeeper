@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
@@ -19,8 +20,10 @@ namespace MediaInfoKeeper.Services
     public class IntroScanService
     {
         private static readonly string[] ResolverNames = { "Resolve", "GetService", "TryResolve", "GetInstance", "GetExport", "GetExports" };
+        private readonly object runtimeLock = new object();
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
+        private AudioFingerprintRuntime audioFingerprintRuntime;
 
         public IntroScanService(ILogManager logManager, ILibraryManager libraryManager)
         {
@@ -139,38 +142,17 @@ namespace MediaInfoKeeper.Services
         {
             try
             {
-                var assembly = Assembly.Load("Emby.Providers");
-                if (assembly != null)
-                {
-                    this.logger.Debug($"Emby.Providers 已加载: {assembly.FullName}");
-                }
-
-                var markerAssembly = Assembly.Load("Emby.Server.Implementations");
-                if (markerAssembly != null)
-                {
-                    this.logger.Debug($"Emby.Server.Implementations 已加载: {markerAssembly.FullName}");
-                }
-
-                var managerType = assembly?.GetType("Emby.Providers.Markers.AudioFingerprintManager");
-                if (managerType == null)
-                {
-                    managerType = AppDomain.CurrentDomain.GetAssemblies()
-                        .SelectMany(SafeGetTypes)
-                        .FirstOrDefault(t => t?.FullName != null &&
-                                             t.FullName.IndexOf("AudioFingerprintManager", StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-
-                if (managerType == null)
+                var runtime = EnsureAudioFingerprintRuntime();
+                if (runtime?.ManagerType == null)
                 {
                     this.logger.Warn("未找到 AudioFingerprintManager 类型");
                     return null;
                 }
 
-                LogMethodCandidates(managerType, managerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic));
-                var detector = TryResolveService(managerType);
+                var detector = TryResolveService(runtime.ManagerType);
                 if (detector == null)
                 {
-                    this.logger.Warn($"AudioFingerprintManager 服务解析失败: {managerType.FullName}");
+                    this.logger.Warn($"AudioFingerprintManager 服务解析失败: {runtime.ManagerType.FullName}");
                 }
 
                 return detector;
@@ -182,46 +164,127 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private IEnumerable<Type> SafeGetTypes(Assembly assembly)
+        private AudioFingerprintRuntime EnsureAudioFingerprintRuntime()
         {
-            try
+            if (audioFingerprintRuntime != null)
             {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                return ex.Types.Where(t => t != null);
-            }
-            catch
-            {
-                return Array.Empty<Type>();
-            }
-        }
-
-        private void LogMethodCandidates(Type type, MethodInfo[] methods)
-        {
-            if (type == null || methods == null || methods.Length == 0)
-            {
-                return;
+                return audioFingerprintRuntime;
             }
 
-            try
+            lock (runtimeLock)
             {
-                var list = methods
-                    .Select(m =>
+                if (audioFingerprintRuntime != null)
+                {
+                    return audioFingerprintRuntime;
+                }
+
+                var providersAssembly = Assembly.Load("Emby.Providers");
+                if (providersAssembly == null)
+                {
+                    return null;
+                }
+
+                var providersVersion = providersAssembly.GetName().Version;
+                var managerType = providersAssembly.GetType("Emby.Providers.Markers.AudioFingerprintManager");
+                var seasonFingerprintInfoType = providersAssembly.GetType("Emby.Providers.Markers.SeasonFingerprintInfo");
+                if (managerType == null || seasonFingerprintInfoType == null)
+                {
+                    this.logger.Warn("AudioFingerprintManager 关键类型缺失");
+                    return null;
+                }
+
+                var createTitleFingerprintAsync = VersionedMethodResolver.Resolve(
+                    managerType,
+                    providersVersion,
+                    new[]
                     {
-                        var parameters = string.Join(", ", m.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}"));
-                        return $"{m.Name}({parameters})";
-                    })
-                    .Distinct()
-                    .OrderBy(name => name)
-                    .ToList();
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-createtitlefingerprint-async",
+                            MethodName = "CreateTitleFingerprint",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(Episode), typeof(LibraryOptions), typeof(IDirectoryService), typeof(CancellationToken) }
+                        }
+                    },
+                    this.logger,
+                    "IntroScanService.CreateTitleFingerprint");
+                var createTitleFingerprintSync = VersionedMethodResolver.Resolve(
+                    managerType,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-createtitlefingerprint-sync",
+                            MethodName = "CreateTitleFingerprint",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(Episode), typeof(LibraryOptions), typeof(string), typeof(CancellationToken) }
+                        }
+                    },
+                    this.logger,
+                    "IntroScanService.CreateTitleFingerprintSync");
+                var isIntroDetectionSupported = VersionedMethodResolver.Resolve(
+                    managerType,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-isintrodetectionsupported",
+                            MethodName = "IsIntroDetectionSupported",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(Episode), typeof(LibraryOptions) }
+                        }
+                    },
+                    this.logger,
+                    "IntroScanService.IsIntroDetectionSupported");
+                var getAllFingerprintFilesForSeason = VersionedMethodResolver.Resolve(
+                    managerType,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-getallfingerprintfilesforseason",
+                            MethodName = "GetAllFingerprintFilesForSeason",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(Season), typeof(Episode[]), typeof(LibraryOptions), typeof(IDirectoryService), typeof(CancellationToken) }
+                        }
+                    },
+                    this.logger,
+                    "IntroScanService.GetAllFingerprintFilesForSeason");
+                var updateSequencesForSeason = VersionedMethodResolver.Resolve(
+                    managerType,
+                    providersVersion,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "audiofingerprintmanager-updatesequencesforseason",
+                            MethodName = "UpdateSequencesForSeason",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(Season), seasonFingerprintInfoType, typeof(Episode), typeof(LibraryOptions), typeof(IDirectoryService), typeof(CancellationToken) }
+                        }
+                    },
+                    this.logger,
+                    "IntroScanService.UpdateSequencesForSeason");
 
-                this.logger.Debug($"可用方法({type.FullName}): {string.Join(" | ", list)}");
-            }
-            catch (Exception ex)
-            {
-                this.logger.Debug($"枚举方法失败({type.FullName}): {ex.Message}");
+                if (isIntroDetectionSupported == null || updateSequencesForSeason == null ||
+                    (createTitleFingerprintAsync == null && createTitleFingerprintSync == null))
+                {
+                    this.logger.Warn("AudioFingerprintManager 关键方法缺失");
+                    return null;
+                }
+
+                audioFingerprintRuntime = new AudioFingerprintRuntime(
+                    managerType,
+                    seasonFingerprintInfoType,
+                    isIntroDetectionSupported,
+                    createTitleFingerprintAsync,
+                    createTitleFingerprintSync,
+                    getAllFingerprintFilesForSeason,
+                    updateSequencesForSeason);
+                return audioFingerprintRuntime;
             }
         }
 
@@ -247,13 +310,21 @@ namespace MediaInfoKeeper.Services
             var hostType = appHost.GetType();
             this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost 类型 {hostType.FullName}");
 
-            var genericResolver = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .FirstOrDefault(m => m.IsGenericMethodDefinition &&
-                                     m.GetGenericArguments().Length == 1 &&
-                                     m.GetParameters().Length == 0 &&
-                                     ResolverNames.Contains(m.Name));
-            if (genericResolver != null)
+            var hostMethods = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            foreach (var resolverName in ResolverNames)
             {
+                var genericResolver = hostMethods
+                    .Where(m => string.Equals(m.Name, resolverName, StringComparison.Ordinal) &&
+                                m.IsGenericMethodDefinition &&
+                                m.GetGenericArguments().Length == 1 &&
+                                m.GetParameters().Length == 0)
+                    .OrderBy(m => m.IsPublic ? 0 : 1)
+                    .FirstOrDefault();
+                if (genericResolver == null)
+                {
+                    continue;
+                }
+
                 try
                 {
                     var result = genericResolver.MakeGenericMethod(serviceType).Invoke(appHost, null);
@@ -270,12 +341,22 @@ namespace MediaInfoKeeper.Services
                 }
             }
 
-            var typeResolver = hostType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .FirstOrDefault(m => m.GetParameters().Length == 1 &&
-                                     m.GetParameters()[0].ParameterType == typeof(Type) &&
-                                     ResolverNames.Contains(m.Name));
-            if (typeResolver != null)
+            foreach (var resolverName in ResolverNames)
             {
+                var typeResolver = hostMethods
+                    .Where(m => string.Equals(m.Name, resolverName, StringComparison.Ordinal))
+                    .Where(m =>
+                    {
+                        var p = m.GetParameters();
+                        return p.Length == 1 && p[0].ParameterType == typeof(Type);
+                    })
+                    .OrderBy(m => m.IsPublic ? 0 : 1)
+                    .FirstOrDefault();
+                if (typeResolver == null)
+                {
+                    continue;
+                }
+
                 try
                 {
                     var result = typeResolver.Invoke(appHost, new object[] { serviceType });
@@ -322,43 +403,23 @@ namespace MediaInfoKeeper.Services
             CancellationToken cancellationToken)
         {
             this.logger.Debug($"AudioFingerprint workflow start: detector={detector.GetType().FullName}, item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
-            var managerType = detector.GetType();
-            var methods = managerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-            var isSupported = methods.FirstOrDefault(m =>
-                m.Name == "IsIntroDetectionSupported" &&
-                m.GetParameters().Any(p => typeof(Episode).IsAssignableFrom(p.ParameterType)));
-
-            var createTitleFingerprint = methods.FirstOrDefault(m =>
-                m.Name == "CreateTitleFingerprint" &&
-                m.GetParameters().Any(p => typeof(Episode).IsAssignableFrom(p.ParameterType)) &&
-                m.GetParameters().Any(p => p.ParameterType == typeof(IDirectoryService)));
-
-            var getAllFingerprintFiles = methods.FirstOrDefault(m =>
-                m.Name == "GetAllFingerprintFilesForSeason" &&
-                m.GetParameters().Any(p => typeof(Season).IsAssignableFrom(p.ParameterType)));
-
-            var updateSequences = methods.FirstOrDefault(m =>
-                m.Name == "UpdateSequencesForSeason" &&
-                m.GetParameters().Any(p => typeof(Season).IsAssignableFrom(p.ParameterType)));
-
-            if (isSupported == null && createTitleFingerprint == null && updateSequences == null)
+            var runtime = EnsureAudioFingerprintRuntime();
+            if (runtime == null)
             {
-                this.logger.Warn($"AudioFingerprint workflow未找到关键方法: type={managerType.FullName}");
+                this.logger.Warn("AudioFingerprint workflow未完成方法初始化");
                 return false;
             }
 
-            this.logger.Debug($"AudioFingerprint methods: IsSupported={isSupported?.Name ?? "null"}, CreateTitleFingerprint={createTitleFingerprint?.Name ?? "null"}, GetAllFingerprintFilesForSeason={getAllFingerprintFiles?.Name ?? "null"}, UpdateSequencesForSeason={updateSequences?.Name ?? "null"}");
-
             var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
-            var hasLibraryOptions = this.libraryManager.GetLibraryOptions(episode) != null;
+            var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
+            var hasLibraryOptions = libraryOptions != null;
             this.logger.Debug($"LibraryOptions loaded: null={!hasLibraryOptions}");
 
-            if (isSupported != null)
+            if (runtime.IsIntroDetectionSupported != null)
             {
-                var supportedArgs = BuildArguments(isSupported, episode, cancellationToken, directoryService);
-                LogInvocation(isSupported, supportedArgs);
-                var supportedResult = await InvokeWithResultAsync(detector, isSupported, supportedArgs).ConfigureAwait(false);
+                var supportedArgs = new object[] { episode, libraryOptions };
+                LogInvocation(runtime.IsIntroDetectionSupported, supportedArgs);
+                var supportedResult = await InvokeWithResultAsync(detector, runtime.IsIntroDetectionSupported, supportedArgs).ConfigureAwait(false);
                 if (supportedResult is bool supported && !supported)
                 {
                     this.logger.Debug("AudioFingerprintManager.IsIntroDetectionSupported 返回 false");
@@ -368,25 +429,32 @@ namespace MediaInfoKeeper.Services
                 this.logger.Debug($"IsIntroDetectionSupported result: {supportedResult ?? "null"}");
             }
 
-            if (createTitleFingerprint != null)
+            if (runtime.CreateTitleFingerprintAsync != null)
             {
                 this.logger.Debug("触发 CreateTitleFingerprint 生成指纹");
-                var fingerprintArgs = BuildArguments(createTitleFingerprint, episode, cancellationToken, directoryService);
-                LogInvocation(createTitleFingerprint, fingerprintArgs);
-                await InvokeWithResultAsync(detector, createTitleFingerprint, fingerprintArgs).ConfigureAwait(false);
+                var fingerprintArgs = new object[] { episode, libraryOptions, directoryService, cancellationToken };
+                LogInvocation(runtime.CreateTitleFingerprintAsync, fingerprintArgs);
+                await InvokeWithResultAsync(detector, runtime.CreateTitleFingerprintAsync, fingerprintArgs).ConfigureAwait(false);
+            }
+            else if (runtime.CreateTitleFingerprintSync != null)
+            {
+                this.logger.Debug("触发 CreateTitleFingerprint(legacy) 生成指纹");
+                var fingerprintArgs = new object[] { episode, libraryOptions, null, cancellationToken };
+                LogInvocation(runtime.CreateTitleFingerprintSync, fingerprintArgs);
+                await InvokeWithResultAsync(detector, runtime.CreateTitleFingerprintSync, fingerprintArgs).ConfigureAwait(false);
             }
 
-            if (updateSequences == null)
+            if (runtime.UpdateSequencesForSeason == null)
             {
                 this.logger.Debug($"AudioFingerprint workflow完成（仅生成指纹）: item={episode?.Path ?? episode?.Name}");
-                return createTitleFingerprint != null;
+                return runtime.CreateTitleFingerprintAsync != null || runtime.CreateTitleFingerprintSync != null;
             }
 
             var season = TryGetSeason(episode);
             if (season == null)
             {
                 this.logger.Debug("无法获取 Season，跳过 UpdateSequencesForSeason");
-                return createTitleFingerprint != null;
+                return runtime.CreateTitleFingerprintAsync != null || runtime.CreateTitleFingerprintSync != null;
             }
 
             this.logger.Debug($"Season resolved: {season.Name} (id={season.InternalId})");
@@ -394,19 +462,25 @@ namespace MediaInfoKeeper.Services
             this.logger.Debug($"Season episodes loaded: count={seasonEpisodes.Length}");
 
             object seasonFingerprintInfo = null;
-            if (getAllFingerprintFiles != null)
+            if (runtime.GetAllFingerprintFilesForSeason != null)
             {
                 this.logger.Debug("触发 GetAllFingerprintFilesForSeason 收集指纹");
-                var getArgs = BuildArguments(getAllFingerprintFiles, episode, cancellationToken, directoryService, season, seasonEpisodes);
-                LogInvocation(getAllFingerprintFiles, getArgs);
-                seasonFingerprintInfo = await InvokeWithResultAsync(detector, getAllFingerprintFiles, getArgs).ConfigureAwait(false);
+                var getArgs = new object[] { season, seasonEpisodes, libraryOptions, directoryService, cancellationToken };
+                LogInvocation(runtime.GetAllFingerprintFilesForSeason, getArgs);
+                seasonFingerprintInfo = await InvokeWithResultAsync(detector, runtime.GetAllFingerprintFilesForSeason, getArgs).ConfigureAwait(false);
                 this.logger.Debug($"GetAllFingerprintFilesForSeason result type: {seasonFingerprintInfo?.GetType().FullName ?? "null"}");
             }
 
             this.logger.Debug("触发 UpdateSequencesForSeason 生成片头序列");
-            var updateArgs = BuildArguments(updateSequences, episode, cancellationToken, directoryService, season, seasonEpisodes, seasonFingerprintInfo);
-            LogInvocation(updateSequences, updateArgs);
-            await InvokeWithResultAsync(detector, updateSequences, updateArgs).ConfigureAwait(false);
+            if (seasonFingerprintInfo == null && runtime.SeasonFingerprintInfoType != null && runtime.SeasonFingerprintInfoType.IsClass)
+            {
+                this.logger.Debug("SeasonFingerprintInfo 为空，跳过 UpdateSequencesForSeason");
+                return false;
+            }
+
+            var updateArgs = new[] { season, seasonFingerprintInfo, (object)episode, libraryOptions, directoryService, cancellationToken };
+            LogInvocation(runtime.UpdateSequencesForSeason, updateArgs);
+            await InvokeWithResultAsync(detector, runtime.UpdateSequencesForSeason, updateArgs).ConfigureAwait(false);
             this.logger.Debug($"AudioFingerprint workflow完成: item={episode?.Path ?? episode?.Name}");
 
             return true;
@@ -429,71 +503,6 @@ namespace MediaInfoKeeper.Services
             }
 
             this.logger.Debug($"调用 {method.DeclaringType?.Name}.{method.Name} 参数: {string.Join(", ", parts)}");
-        }
-
-        private object[] BuildArguments(
-            MethodInfo method,
-            Episode episode,
-            CancellationToken cancellationToken,
-            IDirectoryService directoryService = null,
-            Season season = null,
-            Episode[] seasonEpisodes = null,
-            object extra = null)
-        {
-            var parameters = method.GetParameters();
-            var args = new object[parameters.Length];
-
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                var pType = parameters[i].ParameterType;
-
-                if (typeof(Episode).IsAssignableFrom(pType))
-                {
-                    args[i] = episode;
-                }
-                else if (pType == typeof(Episode[]))
-                {
-                    args[i] = seasonEpisodes;
-                }
-                else if (typeof(Season).IsAssignableFrom(pType))
-                {
-                    args[i] = season;
-                }
-                else if (pType == typeof(CancellationToken))
-                {
-                    args[i] = cancellationToken;
-                }
-                else if (pType == typeof(ILibraryManager))
-                {
-                    args[i] = this.libraryManager;
-                }
-                else if (pType == typeof(ILogger))
-                {
-                    args[i] = this.logger;
-                }
-                else if (pType == typeof(LibraryOptions))
-                {
-                    args[i] = this.libraryManager.GetLibraryOptions(episode);
-                }
-                else if (pType == typeof(IDirectoryService))
-                {
-                    args[i] = directoryService ?? new DirectoryService(this.logger, Plugin.FileSystem);
-                }
-                else if (extra != null && pType.IsInstanceOfType(extra))
-                {
-                    args[i] = extra;
-                }
-                else if (pType.IsValueType)
-                {
-                    args[i] = Activator.CreateInstance(pType);
-                }
-                else
-                {
-                    args[i] = null;
-                }
-            }
-
-            return args;
         }
 
         private static async Task<object> InvokeWithResultAsync(object target, MethodInfo method, object[] args)
@@ -545,6 +554,41 @@ namespace MediaInfoKeeper.Services
             };
 
             return this.libraryManager.GetItemList(query).OfType<Episode>().ToArray();
+        }
+
+        private sealed class AudioFingerprintRuntime
+        {
+            public AudioFingerprintRuntime(
+                Type managerType,
+                Type seasonFingerprintInfoType,
+                MethodInfo isIntroDetectionSupported,
+                MethodInfo createTitleFingerprintAsync,
+                MethodInfo createTitleFingerprintSync,
+                MethodInfo getAllFingerprintFilesForSeason,
+                MethodInfo updateSequencesForSeason)
+            {
+                ManagerType = managerType;
+                SeasonFingerprintInfoType = seasonFingerprintInfoType;
+                IsIntroDetectionSupported = isIntroDetectionSupported;
+                CreateTitleFingerprintAsync = createTitleFingerprintAsync;
+                CreateTitleFingerprintSync = createTitleFingerprintSync;
+                GetAllFingerprintFilesForSeason = getAllFingerprintFilesForSeason;
+                UpdateSequencesForSeason = updateSequencesForSeason;
+            }
+
+            public Type ManagerType { get; }
+
+            public Type SeasonFingerprintInfoType { get; }
+
+            public MethodInfo IsIntroDetectionSupported { get; }
+
+            public MethodInfo CreateTitleFingerprintAsync { get; }
+
+            public MethodInfo CreateTitleFingerprintSync { get; }
+
+            public MethodInfo GetAllFingerprintFilesForSeason { get; }
+
+            public MethodInfo UpdateSequencesForSeason { get; }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MediaInfoKeeper.Patch
         private static readonly AsyncLocal<long> AllowSaveItem = new AsyncLocal<long>();
         private static Harmony harmony;
         private static ILogger logger;
-        private static MethodInfo saveChapters;
+        private static MethodInfo[] saveChapters = Array.Empty<MethodInfo>();
         private static MethodInfo deleteChapters;
         private static bool isEnabled;
         private static bool isPatched;
@@ -39,26 +39,42 @@ namespace MediaInfoKeeper.Patch
                 var sqliteItemRepository =
                     embyServerImplementationsAssembly.GetType("Emby.Server.Implementations.Data.SqliteItemRepository");
                 var version = embyServerImplementationsAssembly.GetName().Version;
-                saveChapters = VersionedMethodResolver.Resolve(
+                var saveChaptersWithClearFlag = VersionedMethodResolver.Resolve(
                     sqliteItemRepository,
                     version,
                     new[]
                     {
                         new MethodSignatureProfile
                         {
-                            Name = "sqliteitemrepository-savechapters-exact",
+                            Name = "sqliteitemrepository-savechapters-with-clear-flag",
                             MethodName = "SaveChapters",
                             BindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
                                            BindingFlags.NonPublic,
-                            Predicate = m =>
-                            {
-                                var p = m.GetParameters();
-                                return p.Length >= 3 && p[0].ParameterType == typeof(long);
-                            }
+                            ParameterTypes = new[] { typeof(long), typeof(bool), typeof(List<ChapterInfo>) }
+                        }
+                    },
+                    logger,
+                    "IntroMarkerProtect.SaveChapters(bool)");
+                var saveChaptersWithoutClearFlag = VersionedMethodResolver.Resolve(
+                    sqliteItemRepository,
+                    version,
+                    new[]
+                    {
+                        new MethodSignatureProfile
+                        {
+                            Name = "sqliteitemrepository-savechapters-without-clear-flag",
+                            MethodName = "SaveChapters",
+                            BindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
+                                           BindingFlags.NonPublic,
+                            ParameterTypes = new[] { typeof(long), typeof(List<ChapterInfo>) }
                         }
                     },
                     logger,
                     "IntroMarkerProtect.SaveChapters");
+                saveChapters = new[] { saveChaptersWithClearFlag, saveChaptersWithoutClearFlag }
+                    .Where(m => m != null)
+                    .Distinct()
+                    .ToArray();
                 deleteChapters = VersionedMethodResolver.Resolve(
                     sqliteItemRepository,
                     version,
@@ -76,7 +92,7 @@ namespace MediaInfoKeeper.Patch
                     logger,
                     "IntroMarkerProtect.DeleteChapters");
 
-                if (saveChapters == null || deleteChapters == null)
+                if (saveChapters.Length == 0 || deleteChapters == null)
                 {
                     PatchLog.InitFailed(logger, nameof(IntroMarkerProtect), "目标方法缺失");
                     return;
@@ -131,8 +147,11 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            harmony.Patch(saveChapters,
-                prefix: new HarmonyMethod(typeof(IntroMarkerProtect), nameof(SaveChaptersPrefix)));
+            foreach (var saveChaptersMethod in saveChapters)
+            {
+                harmony.Patch(saveChaptersMethod,
+                    prefix: new HarmonyMethod(typeof(IntroMarkerProtect), nameof(SaveChaptersPrefix)));
+            }
             harmony.Patch(deleteChapters,
                 prefix: new HarmonyMethod(typeof(IntroMarkerProtect), nameof(DeleteChaptersPrefix)));
             isPatched = true;
@@ -145,14 +164,16 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            harmony.Unpatch(saveChapters, HarmonyPatchType.Prefix, harmony.Id);
+            foreach (var saveChaptersMethod in saveChapters)
+            {
+                harmony.Unpatch(saveChaptersMethod, HarmonyPatchType.Prefix, harmony.Id);
+            }
             harmony.Unpatch(deleteChapters, HarmonyPatchType.Prefix, harmony.Id);
             isPatched = false;
         }
 
         [HarmonyPrefix]
-        private static bool SaveChaptersPrefix(long itemId, bool clearExtractionFailureResult,
-            List<ChapterInfo> chapters)
+        private static bool SaveChaptersPrefix(long itemId, List<ChapterInfo> chapters)
         {
             if (!isEnabled)
             {
@@ -243,19 +264,6 @@ namespace MediaInfoKeeper.Patch
             }
 
             return true;
-        }
-
-        private static MethodInfo FindMethod(Type type, string methodName, Func<MethodInfo, bool> predicate = null)
-        {
-            if (type == null) return null;
-
-            var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                          BindingFlags.NonPublic)
-                .Where(m => m.Name == methodName);
-
-            if (predicate != null) methods = methods.Where(predicate);
-
-            return methods.FirstOrDefault();
         }
 
         private sealed class AllowSaveScope : IDisposable

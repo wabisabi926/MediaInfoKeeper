@@ -164,20 +164,6 @@ namespace MediaInfoKeeper.Patch
             });
         }
 
-        private static MethodInfo FindMethod(Type type, string methodName, Func<MethodInfo, bool> predicate = null)
-        {
-            if (type == null) return null;
-
-            var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                          BindingFlags.NonPublic)
-                .Where(m => m.Name == methodName);
-
-            if (predicate != null) methods = methods.Where(predicate);
-
-            var methodInfo = methods.FirstOrDefault();
-            return methodInfo;
-        }
-
         private static MethodInfo ResolveStaticCanRefresh(Type providerManager)
         {
             try

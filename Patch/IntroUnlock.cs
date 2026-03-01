@@ -70,7 +70,8 @@ namespace MediaInfoKeeper.Patch
                         {
                             Name = "markerscheduledtask-createqueryforepisodeintrodetection-exact",
                             MethodName = "CreateQueryForEpisodeIntroDetection",
-                            BindingFlags = BindingFlags.Public | BindingFlags.Static
+                            BindingFlags = BindingFlags.Public | BindingFlags.Static,
+                            ParameterTypes = new[] { typeof(LibraryOptions) }
                         }
                     },
                     logger,

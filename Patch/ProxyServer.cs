@@ -45,6 +45,13 @@ namespace MediaInfoKeeper.Patch
                 var embyServerImplementationsAssembly = Assembly.Load("Emby.Server.Implementations");
                 var applicationHost =
                     embyServerImplementationsAssembly.GetType("Emby.Server.Implementations.ApplicationHost");
+                var httpMessageHandlerOptions = embyServerImplementationsAssembly.GetType(
+                    "Emby.Server.Implementations.HttpClientManager.HttpMessageHandlerOptions");
+                if (httpMessageHandlerOptions == null)
+                {
+                    PatchLog.InitFailed(logger, nameof(ProxyServer), "HttpMessageHandlerOptions 未找到");
+                    return;
+                }
                 createHttpClientHandler = VersionedMethodResolver.Resolve(
                     applicationHost,
                     embyServerImplementationsAssembly.GetName().Version,
@@ -56,13 +63,8 @@ namespace MediaInfoKeeper.Patch
                             MethodName = "CreateHttpClientHandler",
                             BindingFlags = BindingFlags.NonPublic | BindingFlags.Instance,
                             IsStatic = false,
-                            Predicate = m =>
-                            {
-                                var p = m.GetParameters();
-                                return p.Length == 1 &&
-                                       string.Equals(p[0].ParameterType.Name, "HttpMessageHandlerOptions", StringComparison.Ordinal) &&
-                                       typeof(HttpMessageHandler).IsAssignableFrom(m.ReturnType);
-                            }
+                            ParameterTypes = new[] { httpMessageHandlerOptions },
+                            ReturnType = typeof(HttpMessageHandler)
                         }
                     },
                     logger,
@@ -160,6 +162,13 @@ namespace MediaInfoKeeper.Patch
             }
 
             var movieDbProviderBase = movieDbAssembly.GetType("MovieDb.MovieDbProviderBase", false);
+            var mediaBrowserCommon = Assembly.Load("MediaBrowser.Common");
+            var httpRequestOptions = mediaBrowserCommon?.GetType("MediaBrowser.Common.Net.HttpRequestOptions", false);
+            if (httpRequestOptions == null)
+            {
+                PatchLog.InitFailed(logger, nameof(ProxyServer), "HttpRequestOptions 未找到");
+                return;
+            }
             movieDbGetMovieDbResponse = VersionedMethodResolver.Resolve(
                 movieDbProviderBase,
                 movieDbAssembly.GetName().Version,
@@ -169,7 +178,8 @@ namespace MediaInfoKeeper.Patch
                     {
                         Name = "moviedbproviderbase-getmoviedbresponse-exact",
                         MethodName = "GetMovieDbResponse",
-                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+                        BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                        ParameterTypes = new[] { httpRequestOptions }
                     }
                 },
                 logger,
