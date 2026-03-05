@@ -20,6 +20,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
+using MediaBrowser.Controller.MediaEncoding;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Drawing;
 using MediaBrowser.Model.IO;
@@ -57,6 +58,7 @@ namespace MediaInfoKeeper
         private readonly IUserManager userManager;
         private readonly IUserDataManager userDataManager;
         private readonly ISessionManager sessionManager;
+        private readonly IMediaMountManager mediaMountManager;
         private readonly IApplicationHost applicationHost;
 
         internal static IProviderManager ProviderManager { get; private set; }
@@ -93,6 +95,7 @@ namespace MediaInfoKeeper
             IUserManager userManager,
             IUserDataManager userDataManager,
             ISessionManager sessionManager,
+            IMediaMountManager mediaMountManager,
             IJsonSerializer jsonSerializer,
             IFileSystem fileSystem)
         {
@@ -108,6 +111,7 @@ namespace MediaInfoKeeper
             this.userManager = userManager;
             this.userDataManager = userDataManager;
             this.sessionManager = sessionManager;
+            this.mediaMountManager = mediaMountManager;
             ProviderManager = providerManager;
             FileSystem = fileSystem;
             LibraryManager = libraryManager;
@@ -126,7 +130,7 @@ namespace MediaInfoKeeper
             this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
 
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager);
-            MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer);
+            MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer, mediaMountManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
             IntroScanService = new IntroScanService(logManager, libraryManager);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
@@ -549,8 +553,24 @@ namespace MediaInfoKeeper
                 {
                     return;
                 }
+                
+                if (canScanIntro)
+                {
+                    var episodes = LibraryService.GetSeriesEpisodesFromItem(item);
+                    if (episodes.Count > 0)
+                    {
+                        foreach (var seriesEpisode in episodes)
+                        {
+                            QueueIntroScanForEpisode(seriesEpisode, "OnFavorite");
+                        }
+                    }
+                    else
+                    {
+                        this.logger.Info("OnFavorite 片头扫描跳过: 未找到系列条目");
+                    }
+                }
 
-                if (canExtract)
+                else if (canExtract)
                 {
                     _ = Task.Run(async () =>
                     {
@@ -618,21 +638,7 @@ namespace MediaInfoKeeper
                     });
                 }
 
-                if (canScanIntro)
-                {
-                    var episodes = LibraryService.GetSeriesEpisodesFromItem(item);
-                    if (episodes.Count > 0)
-                    {
-                        foreach (var seriesEpisode in episodes)
-                        {
-                            QueueIntroScanForEpisode(seriesEpisode, "OnFavorite");
-                        }
-                    }
-                    else
-                    {
-                        this.logger.Info("OnFavorite 片头扫描跳过: 未找到系列条目");
-                    }
-                }
+
             }
             catch (Exception ex)
             {
@@ -656,6 +662,7 @@ namespace MediaInfoKeeper
                 try
                 {
                     this.logger.Info($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
+                    var directoryService = new DirectoryService(this.logger, this.fileSystem);
 
                     if (IntroScanService.HasIntroMarkers(episode))
                     {
@@ -663,19 +670,14 @@ namespace MediaInfoKeeper
                         return;
                     }
 
-                    if (!LibraryService.IsItemRefreshedRecently(episode))
+                    episode = await MediaInfoService
+                        .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "Pre")
+                        .ConfigureAwait(false);
+                    if (episode == null)
                     {
-                        this.logger.Info($"{source} 片头扫描: 条目10分钟内未刷新，先执行刷新 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
-                        episode = await MediaInfoService.TryRefreshEpisodeForIntroScanAsync(episode, source + "Pre").ConfigureAwait(false);
-                        if (episode == null)
-                        {
-                            return;
-                        }
+                        return;
                     }
-                    else
-                    {
-                        this.logger.Info($"{source} 片头扫描: 条目10分钟内已刷新已刷新，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
-                    }
+                    this.logger.Info($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
 
                     await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
                     semaphoreHeld = true;
@@ -697,6 +699,14 @@ namespace MediaInfoKeeper
 
                         await Task.Delay(TimeSpan.FromMinutes(2), CancellationToken.None)
                             .ConfigureAwait(false);
+
+                        episode = await MediaInfoService
+                            .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "RetryPre")
+                            .ConfigureAwait(false);
+                        if (episode == null)
+                        {
+                            return;
+                        }
 
                         await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
                         semaphoreHeld = true;

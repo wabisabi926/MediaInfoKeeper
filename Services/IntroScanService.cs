@@ -73,15 +73,17 @@ namespace MediaInfoKeeper.Services
                     var stopwatch = Stopwatch.StartNew();
                     var detected = await TryDetectIntroAsync(episode, cancellationToken).ConfigureAwait(false);
                     stopwatch.Stop();
-                    this.logger.Info($"片头检测返回: detected={detected}, cost={stopwatch.ElapsedMilliseconds}ms, item={displayName}");
+                    var hasMarkersAfterDetect = HasIntroMarkers(episode);
+                    this.logger.Info(
+                        $"片头检测结果: status={(detected && hasMarkersAfterDetect ? "SUCCESS" : "FAIL")}, detected={detected}, hasMarkers={hasMarkersAfterDetect}, cost={stopwatch.ElapsedMilliseconds}ms, item={displayName}");
 
                     if (!detected)
                     {
-                        this.logger.Warn($"片头检测未执行或未命中: {displayName}");
+                        this.logger.Warn($"片头检测失败: reason=DetectorReturnedFalse, item={displayName}");
                     }
-                    else if (HasIntroMarkers(episode))
+                    else if (hasMarkersAfterDetect)
                     {
-                        this.logger.Info($"片头检测完成: {displayName}");
+                        this.logger.Info($"片头检测成功: marker 已写入, item={displayName}");
                         _ = Plugin.MediaInfoService.SerializeMediaInfo(
                             episode.InternalId,
                             new DirectoryService(this.logger, Plugin.FileSystem),
@@ -90,7 +92,7 @@ namespace MediaInfoKeeper.Services
                     }
                     else
                     {
-                        this.logger.Warn($"片头检测完成但未生成标记: {displayName}");
+                        this.logger.Warn($"片头检测失败: reason=NoMarkerGenerated, item={displayName}");
                     }
                 }
                 catch (OperationCanceledException)
