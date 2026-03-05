@@ -103,8 +103,12 @@ namespace MediaInfoKeeper.Patch
 
             if (IsVideoImageProviderWithEpisode(__args, out var item))
             {
-                logger?.Info($"MetadataProvidersWatcher 检测到元数据变动 InternalId:{item.InternalId},Name:{item.FileName ?? item.Path}");
-                TriggerMediaInfoRestore(item);
+                var latestItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
+                if (Plugin.LibraryService?.HasMediaInfo(latestItem) == true && latestItem.IsShortcut)
+                {
+                    logger?.Info($"MetadataProvidersWatcher 检测到元数据刷新，刷新前 {latestItem.FileName ?? latestItem.Path} 存在 MediaInfo，已加入延迟恢复队列 InternalId:{latestItem.InternalId}");
+                    TriggerMediaInfoRestore(item);
+                }
             }
             return true;
         }
