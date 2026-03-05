@@ -225,6 +225,11 @@ namespace MediaInfoKeeper.Services
             return mediaInfoJsonPath;
         }
 
+        private static string GetMediaInfoFileName(BaseItem item)
+        {
+            return item.FileNameWithoutExtension + MediaInfoFileExtension;
+        }
+        
         private static bool IsValidTmdbId(string tmdbId)
         {
             return !string.IsNullOrWhiteSpace(tmdbId) &&
@@ -267,28 +272,6 @@ namespace MediaInfoKeeper.Services
 
             tmdbId = item.GetProviderId(MetadataProviders.Tmdb);
             return IsValidTmdbId(tmdbId);
-        }
-
-        private static string GetMediaInfoFileName(BaseItem item)
-        {
-            if (!TryGetTmdbId(item, out var tmdbId))
-            {
-                return item.FileNameWithoutExtension + MediaInfoFileExtension;
-            }
-
-            string episodeSegment = null;
-            if (item is Episode episode)
-            {
-                var seasonNumber = episode.ParentIndexNumber;
-                var episodeNumber = episode.IndexNumber;
-                if (seasonNumber.HasValue && episodeNumber.HasValue)
-                {
-                    episodeSegment = $"-S{seasonNumber.Value:D2}E{episodeNumber.Value:D2}";
-                }
-            }
-
-            var typeSegment = item is Episode || item is Season || item is Series ? "tv" : "movie";
-            return $"[tmdbid={tmdbId};type={typeSegment}]{episodeSegment}{MediaInfoFileExtension}";
         }
 
         /// <summary>将媒体条目的 MediaInfo 与章节序列化到 JSON。</summary>
