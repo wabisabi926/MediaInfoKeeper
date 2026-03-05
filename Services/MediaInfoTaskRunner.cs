@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
@@ -28,7 +27,7 @@ namespace MediaInfoKeeper.Services
             using var semaphore = new SemaphoreSlim(maxConcurrent, maxConcurrent);
             var tasks = new List<Task>(items.Count);
             var total = items.Count;
-            var completed = 0;
+            var completed = new Counter();
 
             foreach (var item in items)
             {
@@ -48,39 +47,60 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var taskItem = item;
-                var task = Task.Run(async () =>
-                {
-                    try
-                    {
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            return;
-                        }
-
-                        await processor(taskItem).ConfigureAwait(false);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        // ignore
-                    }
-                    catch (Exception ex)
-                    {
-                        logger?.Error($"任务执行失败: {taskItem.Path ?? taskItem.Name}");
-                        logger?.Error(ex.Message);
-                        logger?.Debug(ex.StackTrace);
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                        var done = Interlocked.Increment(ref completed);
-                        progress?.Report(done / (double)total * 100);
-                    }
-                }, cancellationToken);
-
-                tasks.Add(task);
+                tasks.Add(ProcessSingleItemAsync(
+                    semaphore,
+                    taskItem,
+                    processor,
+                    logger,
+                    cancellationToken,
+                    progress,
+                    total,
+                    completed));
             }
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
+        }
+
+        private static async Task ProcessSingleItemAsync(
+            SemaphoreSlim semaphore,
+            BaseItem taskItem,
+            Func<BaseItem, Task> processor,
+            ILogger logger,
+            CancellationToken cancellationToken,
+            IProgress<double> progress,
+            int total,
+            Counter completed)
+        {
+            try
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                await processor(taskItem).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                // ignore
+            }
+            catch (Exception ex)
+            {
+                logger?.Error($"任务执行失败: {taskItem.Path ?? taskItem.Name}");
+                logger?.Error(ex.Message);
+                logger?.Debug(ex.StackTrace);
+            }
+            finally
+            {
+                semaphore.Release();
+                var done = Interlocked.Increment(ref completed.Value);
+                progress?.Report(done / (double)total * 100);
+            }
+        }
+
+        private sealed class Counter
+        {
+            public int Value;
         }
     }
 }

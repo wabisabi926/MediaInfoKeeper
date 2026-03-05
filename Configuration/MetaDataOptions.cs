@@ -160,7 +160,7 @@ namespace MediaInfoKeeper.Configuration
             AddGroup("TVDB",
                 nameof(EnableTvdbFallback),
                 nameof(TvdbFallbackLanguages));
-            
+
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)
             {

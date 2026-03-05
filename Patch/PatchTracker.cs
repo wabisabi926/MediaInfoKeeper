@@ -1,5 +1,3 @@
-using System;
-
 namespace MediaInfoKeeper.Patch
 {
     public enum PatchHealth

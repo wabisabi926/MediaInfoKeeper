@@ -1,16 +1,11 @@
 using System;
-using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using HarmonyLib;
-using MediaInfoKeeper;
-using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
-using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
@@ -56,25 +51,25 @@ namespace MediaInfoKeeper.Patch
 
                 try
                 {
-                if (staticCanRefresh != null)
-                {
-                    PatchLog.Patched(
-                        logger,
-                        nameof(MetadataProvidersWatcher),
-                        staticCanRefresh);
-                    harmony.Patch(staticCanRefresh,
-                        prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
-                }
+                    if (staticCanRefresh != null)
+                    {
+                        PatchLog.Patched(
+                            logger,
+                            nameof(MetadataProvidersWatcher),
+                            staticCanRefresh);
+                        harmony.Patch(staticCanRefresh,
+                            prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
+                    }
 
-                if (instanceCanRefresh != null)
-                {
-                    PatchLog.Patched(
-                        logger,
-                        nameof(MetadataProvidersWatcher),
-                        instanceCanRefresh);
-                    harmony.Patch(instanceCanRefresh,
-                        prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
-                }
+                    if (instanceCanRefresh != null)
+                    {
+                        PatchLog.Patched(
+                            logger,
+                            nameof(MetadataProvidersWatcher),
+                            instanceCanRefresh);
+                        harmony.Patch(instanceCanRefresh,
+                            prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
+                    }
                 }
                 catch (Exception patchEx)
                 {

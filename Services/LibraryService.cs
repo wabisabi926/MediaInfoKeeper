@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Emby.Web.GenericEdit.Common;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
@@ -13,7 +11,6 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
-using MediaBrowser.Model.MediaInfo;
 
 namespace MediaInfoKeeper.Services
 {
@@ -254,12 +251,12 @@ namespace MediaInfoKeeper.Services
             var known = new HashSet<long>();
 
             var rootEpisodes = this.libraryManager.GetItemList(new InternalItemsQuery
-                {
-                    IncludeItemTypes = new[] { nameof(Episode) },
-                    HasPath = true,
-                    MediaTypes = new[] { MediaType.Video },
-                    ParentIds = new[] { series.InternalId }
-                })
+            {
+                IncludeItemTypes = new[] { nameof(Episode) },
+                HasPath = true,
+                MediaTypes = new[] { MediaType.Video },
+                ParentIds = new[] { series.InternalId }
+            })
                 .OfType<Episode>();
 
             foreach (var episode in rootEpisodes)
@@ -271,21 +268,21 @@ namespace MediaInfoKeeper.Services
             }
 
             var seasons = this.libraryManager.GetItemList(new InternalItemsQuery
-                {
-                    IncludeItemTypes = new[] { nameof(Season) },
-                    ParentIds = new[] { series.InternalId }
-                })
+            {
+                IncludeItemTypes = new[] { nameof(Season) },
+                ParentIds = new[] { series.InternalId }
+            })
                 .OfType<Season>();
 
             foreach (var season in seasons)
             {
                 var seasonEpisodes = this.libraryManager.GetItemList(new InternalItemsQuery
-                    {
-                        IncludeItemTypes = new[] { nameof(Episode) },
-                        HasPath = true,
-                        MediaTypes = new[] { MediaType.Video },
-                        ParentIds = new[] { season.InternalId }
-                    })
+                {
+                    IncludeItemTypes = new[] { nameof(Episode) },
+                    HasPath = true,
+                    MediaTypes = new[] { MediaType.Video },
+                    ParentIds = new[] { season.InternalId }
+                })
                     .OfType<Episode>();
 
                 foreach (var episode in seasonEpisodes)
@@ -339,16 +336,16 @@ namespace MediaInfoKeeper.Services
             }
 
             return this.libraryManager.GetItemList(new InternalItemsQuery
-                {
-                    IncludeItemTypes = new[] { nameof(Episode) },
-                    HasPath = true,
-                    MediaTypes = new[] { MediaType.Video },
-                    ParentIds = new[] { season.InternalId }
-                })
+            {
+                IncludeItemTypes = new[] { nameof(Episode) },
+                HasPath = true,
+                MediaTypes = new[] { MediaType.Video },
+                ParentIds = new[] { season.InternalId }
+            })
                 .OfType<Episode>()
                 .ToList();
         }
-        
+
         private bool IsFavoriteByAnyUser(BaseItem item)
         {
             var userDataList = this.userDataManager.GetAllUserData(item.InternalId);

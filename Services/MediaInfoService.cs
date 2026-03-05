@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,6 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Entities.TV;
-using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
@@ -92,7 +91,7 @@ namespace MediaInfoKeeper.Services
                     EnableThumbnailImageExtraction = false,
                     EnableSubtitleDownloading = false
                 };
-                var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(episode);
+                var collectionFolders = this.libraryManager.GetCollectionFolders(episode).Cast<BaseItem>().ToArray();
                 var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
                 using (FfprobeGuard.Allow())
                 {

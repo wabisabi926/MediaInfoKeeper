@@ -24,7 +24,7 @@ namespace MediaInfoKeeper.Configuration
         [DisplayName("收藏时扫描片头")]
         [Description("收藏时触发对应媒体片头检测。")]
         public bool ScanIntroOnFavorite { get; set; } = true;
-        
+
         [DisplayName("保护片头标记")]
         [Description("刷新元数据时保护已存在的片头/片尾标记不被清空。")]
         public bool ProtectIntroMarkers { get; set; } = true;

@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
-using MediaInfoKeeper.Patch;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
@@ -150,7 +149,7 @@ namespace MediaInfoKeeper.Patch
                 var message = lines[lines.Length - 1].Trim();
                 if (!string.IsNullOrEmpty(message))
                 {
-                logger.Error("ffprobe 错误: " + message);
+                    logger.Error("ffprobe 错误: " + message);
                 }
             }
         }

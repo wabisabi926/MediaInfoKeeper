@@ -138,17 +138,17 @@ namespace MediaInfoKeeper.ScheduledTask
                     logger.Info("开始下载插件：版本={0}", remoteVersion);
 
                     await using (var responseStream = await httpClient.Get(new HttpRequestOptions
-                                     {
-                                         Url = url,
-                                         CancellationToken = cancellationToken,
-                                         UserAgent = "MediaInfoKeeper",
-                                         EnableDefaultUserAgent = false,
-                                         Progress = progress,
-                                         RequestHeaders =
+                    {
+                        Url = url,
+                        CancellationToken = cancellationToken,
+                        UserAgent = "MediaInfoKeeper",
+                        EnableDefaultUserAgent = false,
+                        Progress = progress,
+                        RequestHeaders =
                                          {
                                              ["Authorization"] = authHeader
                                          }
-                                     })
+                    })
                                      .ConfigureAwait(false))
                     {
                         using (var memoryStream = new MemoryStream())

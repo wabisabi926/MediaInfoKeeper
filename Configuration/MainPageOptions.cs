@@ -145,10 +145,10 @@ namespace MediaInfoKeeper.Configuration
                 groupIndex++;
                 groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
             }
-            
+
             AddGroup("插件",
                 nameof(PlugginEnabled));
-            
+
             AddGroup("媒体信息",
                 nameof(ExtractMediaInfoOnItemAdded),
                 nameof(ExtractMediaInfoOnFavorite),
@@ -166,7 +166,7 @@ namespace MediaInfoKeeper.Configuration
                 nameof(RecentItemsLimit),
                 nameof(RefreshMetadataMode),
                 nameof(RefreshImageMode));
-            
+
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)
             {

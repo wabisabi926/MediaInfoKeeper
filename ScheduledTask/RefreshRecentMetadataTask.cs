@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,8 +8,6 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
-using MediaBrowser.Model.Configuration;
-using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.ScheduledTask
 {
@@ -64,7 +61,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 try
                 {
                     var options = BuildRefreshOptions(replaceMetadata, replaceImages);
-                    var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(item);
+                    var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
                     var libraryOptions = this.libraryManager.GetLibraryOptions(item);
 
                     await Plugin.ProviderManager

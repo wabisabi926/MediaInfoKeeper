@@ -22,7 +22,7 @@ namespace MediaInfoKeeper.Services
         private readonly object runtimeLock = new object();
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
-        private AudioFingerprintRuntime audioFingerprintRuntime;
+        private volatile AudioFingerprintRuntime audioFingerprintRuntime;
 
         public IntroScanService(ILogManager logManager, ILibraryManager libraryManager)
         {
@@ -276,18 +276,19 @@ namespace MediaInfoKeeper.Services
                 return null;
             }
 
-            if (appHost is IServiceProvider serviceProvider)
+            var getServiceMethod = appHost.GetType().GetMethod("GetService", new[] { typeof(Type) });
+            if (getServiceMethod != null)
             {
-                var service = serviceProvider.GetService(serviceType);
+                var service = getServiceMethod.Invoke(appHost, new object[] { serviceType });
                 if (service != null)
                 {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: IServiceProvider.GetService 成功");
+                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetService(Type) 成功");
                     return service;
                 }
             }
             else
             {
-                this.logger.Debug($"服务解析提示 {serviceType.FullName}: AppHost 未实现 IServiceProvider，跳过 GetService");
+                this.logger.Debug($"服务解析提示 {serviceType.FullName}: AppHost 未公开 GetService(Type)，跳过");
             }
 
             var resolvedByAppHost = TryResolveViaAppHost(appHost, serviceType);
@@ -297,7 +298,7 @@ namespace MediaInfoKeeper.Services
                 return resolvedByAppHost;
             }
 
-            this.logger.Debug($"服务解析失败 {serviceType.FullName}: IServiceProvider.GetService 与 AppHost.Resolve<T>() 均返回空");
+            this.logger.Debug($"服务解析失败 {serviceType.FullName}: GetService(Type) 与 AppHost.Resolve<T>() 均返回空");
             return null;
         }
 

@@ -69,7 +69,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
-            
+
             foreach (var dll in allDllFiles)
             {
                 logger.Info("发现 DLL: {0} {1}", dll, ShouldExportDll(dll) ? "(will export)" : "(will skip)");

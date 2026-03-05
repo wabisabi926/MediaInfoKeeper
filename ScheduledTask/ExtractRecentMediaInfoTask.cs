@@ -117,13 +117,10 @@ namespace MediaInfoKeeper.ScheduledTask
                     }
                 }
 
-                var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(item);
+                var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
                 var libraryOptions = this.libraryManager.GetLibraryOptions(item);
 
                 var dummyLibraryOptions = LibraryService.CopyLibraryOptions(libraryOptions);
-                foreach (var option in dummyLibraryOptions.TypeOptions)
-                {
-                }
 
                 var deserializeResult = await Plugin.MediaInfoService
                     .DeserializeMediaInfo(item, directoryService, source)

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -10,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using MediaInfoKeeper.Configuration;
-using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
@@ -225,7 +223,7 @@ namespace MediaInfoKeeper.Patch
                     MethodName = "GetTranslation",
                     BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic,
                     ParameterTypes = new[] { nameTranslationList, typeof(string[]), translationField, typeof(bool) }
-                    },
+                },
                     logger,
                 "TvdbTitle.GetTranslation");
 
@@ -239,7 +237,7 @@ namespace MediaInfoKeeper.Patch
                     MethodName = "AddMovieInfo",
                     BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic,
                     ParameterTypes = new[] { typeof(MetadataResult<Movie>), movieData, typeof(string[]), typeof(string) }
-                    },
+                },
                     logger,
                 "TvdbTitle.AddMovieInfo");
 
@@ -253,7 +251,7 @@ namespace MediaInfoKeeper.Patch
                     MethodName = "AddSeriesInfo",
                     BindingFlags = BindingFlags.Instance | BindingFlags.NonPublic,
                     ParameterTypes = new[] { typeof(MetadataResult<Series>), seriesData, typeof(string[]), typeof(string) }
-                    },
+                },
                     logger,
                 "TvdbTitle.AddSeriesInfo");
 
@@ -267,7 +265,7 @@ namespace MediaInfoKeeper.Patch
                     MethodName = "GetTvdbSeason",
                     BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
                     ParameterTypes = new[] { typeof(SeasonInfo), typeof(IDirectoryService), typeof(CancellationToken) }
-                    },
+                },
                     logger,
                 "TvdbTitle.GetTvdbSeason");
 

@@ -5,7 +5,6 @@ using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.LiveTv;
 using MediaBrowser.Controller.Playlists;
 using MediaInfoKeeper.Configuration;
-using MediaInfoKeeper.Patch;
 using SQLitePCL.pretty;
 using System;
 using System.Collections.Generic;
@@ -366,7 +365,7 @@ namespace MediaInfoKeeper.Patch
                         CurrentTokenizerName = statement.Current?.GetString(0) ?? "unknown";
                     }
                 }
-                
+
                 var options = Plugin.Instance?.Options?.EnhanceChineseSearch;
                 if (options != null && !string.Equals(CurrentTokenizerName, "unknown", StringComparison.Ordinal))
                 {

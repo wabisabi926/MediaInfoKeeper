@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,15 +18,12 @@ using MediaBrowser.Common.Plugins;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
-using MediaBrowser.Controller.Plugins;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Drawing;
-using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
-using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Plugins.UI;
 using MediaBrowser.Model.Serialization;
 
@@ -311,7 +308,7 @@ namespace MediaInfoKeeper
             }
 
         }
-        
+
         private string NormalizeScopedLibraries(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw))
@@ -396,7 +393,7 @@ namespace MediaInfoKeeper
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Info("尝试从 JSON 恢复 MediaInfo");
                     var restoreResult = await MediaInfoService.DeserializeMediaInfo(e.Item, directoryService, "OnItemAdded").ConfigureAwait(false);
-                    
+
                     // 如果不存在Json文件，则使用ffprobe 提取一次
                     if (restoreResult == MediaInfoService.MediaInfoRestoreResult.Failed)
                     {
@@ -422,7 +419,7 @@ namespace MediaInfoKeeper
                                 ReplaceAllImages = false
                             };
 
-                            var itemCollectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(e.Item);
+                            var itemCollectionFolders = this.libraryManager.GetCollectionFolders(e.Item).Cast<BaseItem>().ToArray();
                             var itemLibraryOptions = this.libraryManager.GetLibraryOptions(e.Item);
                             e.Item.DateLastRefreshed = new DateTimeOffset();
                             await this.providerManager
@@ -464,7 +461,7 @@ namespace MediaInfoKeeper
                                     this.logger.Info($"刷新父级条目: {parentPath}");
                                     try
                                     {
-                                        var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(parentFolder);
+                                        var collectionFolders = this.libraryManager.GetCollectionFolders(parentFolder).Cast<BaseItem>().ToArray();
                                         var libraryOptions = this.libraryManager.GetLibraryOptions(parentFolder);
                                         using (FfprobeGuard.Allow())
                                         {
@@ -522,7 +519,7 @@ namespace MediaInfoKeeper
                 {
                     return;
                 }
-                
+
                 var item = e.Item;
                 var userData = e.UserData;
                 if (item == null || userData == null)
@@ -534,7 +531,7 @@ namespace MediaInfoKeeper
                 {
                     return;
                 }
-                
+
                 if (!userData.IsFavorite)
                 {
                     return;
@@ -542,12 +539,12 @@ namespace MediaInfoKeeper
 
                 var userName = e.User?.Name ?? "unknown";
                 logger.Info($"收藏事件: 用户={userName}, 条目={(item.FileName ?? item.Path ?? item.Id.ToString())}");
-                
+
                 var canExtract = this.Options.MainPage?.ExtractMediaInfoOnFavorite == true &&
                                  (item is Episode || item is Season || item is Series);
                 var canScanIntro = this.Options.IntroSkip?.ScanIntroOnFavorite == true &&
                                 (item is Episode || item is Season || item is Series);
-                
+
                 if (!canExtract && !canScanIntro)
                 {
                     return;
@@ -593,7 +590,7 @@ namespace MediaInfoKeeper
                                             }
 
                                             var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
-                                            var collectionFolders = (BaseItem[])this.libraryManager.GetCollectionFolders(workItem);
+                                            var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
                                             var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
                                             using (FfprobeGuard.Allow())
                                             {
@@ -644,7 +641,7 @@ namespace MediaInfoKeeper
                 this.logger.Debug(ex.StackTrace);
             }
         }
-        
+
         private void QueueIntroScanForEpisode(Episode episode, string source)
         {
             if (IntroScanService.HasIntroMarkers(episode))
