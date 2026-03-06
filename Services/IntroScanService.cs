@@ -22,6 +22,7 @@ namespace MediaInfoKeeper.Services
         private readonly object runtimeLock = new object();
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
+        private readonly SemaphoreSlim introScanSemaphore = new SemaphoreSlim(1, 1);
         private volatile AudioFingerprintRuntime audioFingerprintRuntime;
 
         public IntroScanService(ILogManager logManager, ILibraryManager libraryManager)
@@ -121,6 +122,94 @@ namespace MediaInfoKeeper.Services
         {
             return Plugin.IntroSkipChapterApi.GetIntroStart(item).HasValue ||
                    Plugin.IntroSkipChapterApi.GetIntroEnd(item).HasValue;
+        }
+
+        public bool QueueEpisodeScan(Episode episode, string source)
+        {
+            if (episode == null)
+            {
+                return false;
+            }
+
+            if (HasIntroMarkers(episode))
+            {
+                this.logger.Info($"{source} 片头扫描跳过: {episode.Path} 已存在片头标记");
+                return false;
+            }
+
+            _ = Task.Run(async () =>
+            {
+                var semaphoreHeld = false;
+                try
+                {
+                    this.logger.Info($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
+                    var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
+
+                    if (HasIntroMarkers(episode))
+                    {
+                        this.logger.Info($"{source} 片头扫描跳过: {episode.FileName ?? episode.Path} 已存在片头标记");
+                        return;
+                    }
+
+                    episode = await Plugin.MediaInfoService
+                        .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "Pre")
+                        .ConfigureAwait(false);
+                    if (episode == null)
+                    {
+                        return;
+                    }
+
+                    this.logger.Info($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
+
+                    await introScanSemaphore.WaitAsync().ConfigureAwait(false);
+                    semaphoreHeld = true;
+
+                    this.logger.Info($"{source} 片头扫描: 开始片头检测 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
+                    await ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                        .ConfigureAwait(false);
+
+                    if (!HasIntroMarkers(episode))
+                    {
+                        this.logger.Info($"{source} 片头扫描: 未生成标记，2 分钟后重试 1 次");
+                        if (semaphoreHeld)
+                        {
+                            introScanSemaphore.Release();
+                            semaphoreHeld = false;
+                        }
+
+                        await Task.Delay(TimeSpan.FromMinutes(2), CancellationToken.None)
+                            .ConfigureAwait(false);
+
+                        episode = await Plugin.MediaInfoService
+                            .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "RetryPre")
+                            .ConfigureAwait(false);
+                        if (episode == null)
+                        {
+                            return;
+                        }
+
+                        await introScanSemaphore.WaitAsync().ConfigureAwait(false);
+                        semaphoreHeld = true;
+                        await ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
+                            .ConfigureAwait(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.logger.Error($"{source} 片头扫描任务异常");
+                    this.logger.Error(ex.Message);
+                    this.logger.Debug(ex.StackTrace);
+                }
+                finally
+                {
+                    if (semaphoreHeld)
+                    {
+                        introScanSemaphore.Release();
+                    }
+                }
+            });
+
+            return true;
         }
 
         public async Task<bool> TryDetectIntroAsync(Episode episode, CancellationToken cancellationToken)

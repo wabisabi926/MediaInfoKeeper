@@ -461,6 +461,10 @@ namespace MediaInfoKeeper.Services
                     this.logger.Debug(e.StackTrace);
                 }
             }
+            else
+            {
+                this.logger.Info($"MediaInfoKeeper {source} 未找到JSON: {item.FileName ?? item.Path} {mediaInfoJsonPath}");
+            }
         }
 
         /// <summary>获取指定条目的静态媒体源。</summary>

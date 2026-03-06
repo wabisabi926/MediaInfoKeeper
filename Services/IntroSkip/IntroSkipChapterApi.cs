@@ -141,6 +141,37 @@ namespace MediaInfoKeeper.Services.IntroSkip
                         (item.FileName ?? item.Path));
         }
 
+        public void RemoveIntroMarkers(BaseItem item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var chapters = itemRepository.GetChapters(item);
+            if (chapters == null || chapters.Count == 0)
+            {
+                return;
+            }
+
+            var removed = chapters.RemoveAll(c =>
+                c.MarkerType == MarkerType.IntroStart || c.MarkerType == MarkerType.IntroEnd);
+
+            if (removed <= 0)
+            {
+                logger.Info("ShortcutMenu 未发现片头标记: " + (item.FileName ?? item.Path));
+                return;
+            }
+
+            chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
+            using (IntroMarkerProtect.AllowSave(item.InternalId))
+            {
+                itemRepository.SaveChapters(item.InternalId, chapters);
+            }
+
+            logger.Info("ShortcutMenu 清理片头标记: " + (item.FileName ?? item.Path));
+        }
+
         private static bool IsMarkerAddedByMik(ChapterInfo chapter)
         {
             return chapter.Name?.EndsWith(MarkerSuffix, StringComparison.Ordinal) == true;

@@ -15,6 +15,7 @@ using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Services.IntroSkip;
 using MediaBrowser.Common;
 using MediaBrowser.Common.Plugins;
+using MediaBrowser.Controller.Configuration;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
@@ -27,6 +28,7 @@ using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Plugins.UI;
 using MediaBrowser.Model.Serialization;
+using MediaInfoKeeper.Web;
 
 namespace MediaInfoKeeper
 {
@@ -44,8 +46,6 @@ namespace MediaInfoKeeper
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
         public static IntroScanService IntroScanService { get; private set; }
-
-        private static readonly SemaphoreSlim IntroScanSemaphore = new SemaphoreSlim(1, 1);
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -96,6 +96,7 @@ namespace MediaInfoKeeper
             IUserDataManager userDataManager,
             ISessionManager sessionManager,
             IMediaMountManager mediaMountManager,
+            IServerConfigurationManager serverConfigurationManager,
             IJsonSerializer jsonSerializer,
             IFileSystem fileSystem)
         {
@@ -135,6 +136,7 @@ namespace MediaInfoKeeper
             IntroScanService = new IntroScanService(logManager, libraryManager);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
+            ShortcutMenuLoader.Initialize(serverConfigurationManager);
 
             if (this.Options.IntroSkip?.EnableIntroSkip == true)
             {
@@ -502,7 +504,7 @@ namespace MediaInfoKeeper
 
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
-                    QueueIntroScanForEpisode(episode, "OnItemAdded");
+                    IntroScanService.QueueEpisodeScan(episode, "OnItemAdded");
                 }
 
             }
@@ -561,7 +563,7 @@ namespace MediaInfoKeeper
                     {
                         foreach (var seriesEpisode in episodes)
                         {
-                            QueueIntroScanForEpisode(seriesEpisode, "OnFavorite");
+                            IntroScanService.QueueEpisodeScan(seriesEpisode, "OnFavorite");
                         }
                     }
                     else
@@ -646,89 +648,6 @@ namespace MediaInfoKeeper
                 this.logger.Error(ex.Message);
                 this.logger.Debug(ex.StackTrace);
             }
-        }
-
-        private void QueueIntroScanForEpisode(Episode episode, string source)
-        {
-            if (IntroScanService.HasIntroMarkers(episode))
-            {
-                this.logger.Info($"{source} 片头扫描跳过: {episode.Path} 已存在片头标记");
-                return;
-            }
-
-            _ = Task.Run(async () =>
-            {
-                var semaphoreHeld = false;
-                try
-                {
-                    this.logger.Info($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
-                    var directoryService = new DirectoryService(this.logger, this.fileSystem);
-
-                    if (IntroScanService.HasIntroMarkers(episode))
-                    {
-                        this.logger.Info($"{source} 片头扫描跳过: {episode.FileName ?? episode.Path} 已存在片头标记");
-                        return;
-                    }
-
-                    episode = await MediaInfoService
-                        .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "Pre")
-                        .ConfigureAwait(false);
-                    if (episode == null)
-                    {
-                        return;
-                    }
-                    this.logger.Info($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
-
-                    await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
-                    semaphoreHeld = true;
-
-                    this.logger.Info($"{source} 片头扫描: 开始片头检测 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
-                    await IntroScanService
-                        .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                        .ConfigureAwait(false);
-
-                    if (!IntroScanService.HasIntroMarkers(episode))
-                    {
-                        this.logger.Info($"{source} 片头扫描: 未生成标记，2 分钟后重试 1 次");
-                        // 释放信号量，让后续项目可以先执行。
-                        if (semaphoreHeld)
-                        {
-                            IntroScanSemaphore.Release();
-                            semaphoreHeld = false;
-                        }
-
-                        await Task.Delay(TimeSpan.FromMinutes(2), CancellationToken.None)
-                            .ConfigureAwait(false);
-
-                        episode = await MediaInfoService
-                            .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "RetryPre")
-                            .ConfigureAwait(false);
-                        if (episode == null)
-                        {
-                            return;
-                        }
-
-                        await IntroScanSemaphore.WaitAsync().ConfigureAwait(false);
-                        semaphoreHeld = true;
-                        await IntroScanService
-                            .ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                            .ConfigureAwait(false);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.logger.Error($"{source} 片头扫描任务异常");
-                    this.logger.Error(ex.Message);
-                    this.logger.Debug(ex.StackTrace);
-                }
-                finally
-                {
-                    if (semaphoreHeld)
-                    {
-                        IntroScanSemaphore.Release();
-                    }
-                }
-            });
         }
 
         /// <summary>条目移除且非恢复模式时，删除已持久化的 JSON。</summary>
