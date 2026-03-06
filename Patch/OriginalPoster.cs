@@ -211,7 +211,8 @@ namespace MediaInfoKeeper.Patch
                             typeof(RemoteImageQuery),
                             typeof(CancellationToken)
                         },
-                        ReturnType = typeof(IEnumerable<RemoteImageInfo>)
+                        // match by parameters first.
+                        ReturnType = null
                     },
                     logger,
                     "OriginalPoster.ProviderManager.GetAvailableRemoteImages(sync)");
@@ -241,7 +242,7 @@ namespace MediaInfoKeeper.Patch
                 var patched = 0;
                 patched += PatchMethod(providerGetAvailableRemoteImages,
                     prefix: nameof(GetAvailableRemoteImagesPrefix),
-                    postfix: nameof(GetAvailableRemoteImagesPostfix));
+                    postfix: SelectGetAvailableRemoteImagesPostfix(providerGetAvailableRemoteImages));
                 patched += PatchMethod(providerGetAvailableRemoteImagesAsync,
                     prefix: nameof(GetAvailableRemoteImagesPrefix),
                     postfix: nameof(GetAvailableRemoteImagesAsyncPostfix));
@@ -443,6 +444,16 @@ namespace MediaInfoKeeper.Patch
             harmony.Patch(method, prefix: prefixMethod, postfix: postfixMethod);
             PatchLog.Patched(logger, nameof(OriginalPoster), method);
             return 1;
+        }
+
+        private static string SelectGetAvailableRemoteImagesPostfix(MethodInfo method)
+        {
+            if (method?.ReturnType == typeof(Task<IEnumerable<RemoteImageInfo>>))
+            {
+                return nameof(GetAvailableRemoteImagesAsyncPostfix);
+            }
+
+            return nameof(GetAvailableRemoteImagesPostfix);
         }
 
         private static void AddContextItem(string tmdbId, string imdbId, string tvdbId)
