@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "MediaInfoKeeper.csproj"
+  workflow_dispatch:
 
 jobs:
   build:
