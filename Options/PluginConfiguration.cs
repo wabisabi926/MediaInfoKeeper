@@ -23,10 +23,22 @@ namespace MediaInfoKeeper.Options
         [DisplayName("MetaData")]
         public MetaDataOptions MetaData { get; set; } = new MetaDataOptions();
 
-        [DisplayName("Proxy")]
-        public ProxyOptions Proxy { get; set; } = new ProxyOptions();
+        [DisplayName("NetWork")]
+        public NetWorkOptions NetWork { get; set; }
+
+        [Browsable(false)]
+        // TODO: 旧配置兼容字段（历史键名 "Proxy"）；在确认无历史配置迁移需求后可删除。
+        public NetWorkOptions Proxy { get; set; }
 
         [DisplayName("GitHub")]
         public GitHubOptions GitHub { get; set; } = new GitHubOptions();
+
+        public NetWorkOptions GetNetWorkOptions()
+        {
+            // 兼容顺序：NetWork(新) -> Proxy(旧) -> 默认值。
+            var options = NetWork ?? Proxy ?? new NetWorkOptions();
+            NetWork ??= options;
+            return options;
+        }
     }
 }

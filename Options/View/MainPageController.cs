@@ -18,7 +18,7 @@ namespace MediaInfoKeeper.Options.View
             MainPageOptionsStore mainPageOptionsStore,
             GitHubOptionsStore gitHubOptionsStore,
             IntroSkipOptionsStore introSkipOptionsStore,
-            ProxyOptionsStore proxyOptionsStore,
+            NetWorkOptionsStore netWorkOptionsStore,
             EnhanceOptionsStore enhanceOptionsStore,
             MetaDataOptionsStore metaDataOptionsStore)
             : base(pluginInfo.Id)
@@ -41,8 +41,8 @@ namespace MediaInfoKeeper.Options.View
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "MetaData",
                 e => new MetaDataPageView(pluginInfo, metaDataOptionsStore)));
 
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(ProxyPageView), "Proxy",
-                e => new ProxyPageView(pluginInfo, proxyOptionsStore)));
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(NetWorkPageView), "NetWork",
+                e => new NetWorkPageView(pluginInfo, netWorkOptionsStore)));
 
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(EnhancePageView), "Enhance",
                 e => new EnhancePageView(pluginInfo, enhanceOptionsStore)));

@@ -7,7 +7,7 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
-    public static class ProxyServer
+    public static class NetworkServer
     {
         private static readonly string[] BypassAddressList =
         {
@@ -45,7 +45,7 @@ namespace MediaInfoKeeper.Patch
                     "Emby.Server.Implementations.HttpClientManager.HttpMessageHandlerOptions");
                 if (httpMessageHandlerOptions == null)
                 {
-                    PatchLog.InitFailed(logger, nameof(ProxyServer), "HttpMessageHandlerOptions 未找到");
+                    PatchLog.InitFailed(logger, nameof(NetworkServer), "HttpMessageHandlerOptions 未找到");
                     return;
                 }
                 createHttpClientHandler = PatchMethodResolver.Resolve(
@@ -61,11 +61,11 @@ namespace MediaInfoKeeper.Patch
                         ReturnType = typeof(HttpMessageHandler)
                     },
                     logger,
-                    "ProxyServer.CreateHttpClientHandler");
+                    "NetworkServer.CreateHttpClientHandler");
 
                 if (createHttpClientHandler == null)
                 {
-                    PatchLog.InitFailed(logger, nameof(ProxyServer), "CreateHttpClientHandler 未找到");
+                    PatchLog.InitFailed(logger, nameof(NetworkServer), "CreateHttpClientHandler 未找到");
                     return;
                 }
 
@@ -78,7 +78,7 @@ namespace MediaInfoKeeper.Patch
                     false);
                 if (httpRequestOptions == null)
                 {
-                    PatchLog.InitFailed(logger, nameof(ProxyServer), "HttpRequestOptions 未找到");
+                    PatchLog.InitFailed(logger, nameof(NetworkServer), "HttpRequestOptions 未找到");
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace MediaInfoKeeper.Patch
                             ParameterTypes = new[] { httpRequestOptions, typeof(string) }
                         },
                         logger,
-                        "ProxyServer.SendAsyncInternal");
+                        "NetworkServer.SendAsyncInternal");
                 }
 
                 harmony = new Harmony("mediainfokeeper.proxy");
@@ -131,12 +131,12 @@ namespace MediaInfoKeeper.Patch
             }
 
             harmony.Patch(createHttpClientHandler,
-                postfix: new HarmonyMethod(typeof(ProxyServer), nameof(CreateHttpClientHandlerPostfix)));
+                postfix: new HarmonyMethod(typeof(NetworkServer), nameof(CreateHttpClientHandlerPostfix)));
             if (coreHttpClientSendAsyncInternal != null)
             {
                 harmony.Patch(
                     coreHttpClientSendAsyncInternal,
-                    prefix: new HarmonyMethod(typeof(ProxyServer), nameof(SendAsyncInternalPrefix)));
+                    prefix: new HarmonyMethod(typeof(NetworkServer), nameof(SendAsyncInternalPrefix)));
             }
             isPatched = true;
         }
@@ -144,7 +144,7 @@ namespace MediaInfoKeeper.Patch
         [HarmonyPostfix]
         private static void CreateHttpClientHandlerPostfix(ref HttpMessageHandler __result)
         {
-            var options = Plugin.Instance.Options.Proxy;
+            var options = Plugin.Instance.Options.GetNetWorkOptions();
             if (options == null)
             {
                 return;
@@ -210,7 +210,7 @@ namespace MediaInfoKeeper.Patch
                 logger?.Debug("Emby Network Request: {0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, originalUrl);
             }
 
-            var options = Plugin.Instance.Options.Proxy;
+            var options = Plugin.Instance.Options.GetNetWorkOptions();
             if (options == null || !HasAnyTmdbOverride(options))
             {
                 return;
@@ -282,7 +282,7 @@ namespace MediaInfoKeeper.Patch
 
         private static void ApplyProxyEnvironmentVariables()
         {
-            var options = Plugin.Instance.Options.Proxy;
+            var options = Plugin.Instance.Options.GetNetWorkOptions();
             var proxyUrl = options?.ProxyServerUrl?.Trim() ?? string.Empty;
             var writeEnv = options?.WriteProxyEnvVars == true;
 
@@ -296,7 +296,7 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        private static Uri RewriteTmdbUri(Uri uri, Options.ProxyOptions options)
+        private static Uri RewriteTmdbUri(Uri uri, Options.NetWorkOptions options)
         {
             var replaced = uri;
 
@@ -323,7 +323,7 @@ namespace MediaInfoKeeper.Patch
             return replaced;
         }
 
-        private static bool HasAnyTmdbOverride(Options.ProxyOptions options)
+        private static bool HasAnyTmdbOverride(Options.NetWorkOptions options)
         {
             return !string.IsNullOrWhiteSpace(options.AlternativeTmdbApiUrl) ||
                    !string.IsNullOrWhiteSpace(options.AlternativeTmdbImageUrl) ||

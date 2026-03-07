@@ -851,19 +851,19 @@ namespace MediaInfoKeeper.Patch
             }
 
             var options = Plugin.Instance?.Options;
-            var apiKey = options?.Proxy?.AlternativeTmdbApiKey;
+            var apiKey = options?.GetNetWorkOptions()?.AlternativeTmdbApiKey;
             if (string.IsNullOrWhiteSpace(apiKey))
             {
                 if (!warnedMissingApiKey)
                 {
                     warnedMissingApiKey = true;
-                    logger?.Warn("MovieDbEpisodeGroup 在线刮削需要 TMDB API 密钥；请在 Proxy 页设置“自定义 TMDB API 密钥”，或改用本地 episodegroup.json。");
+                    logger?.Warn("MovieDbEpisodeGroup 在线刮削需要 TMDB API 密钥；请在 NetWork 页设置“自定义 TMDB API 密钥”，或改用本地 episodegroup.json。");
                 }
 
                 return null;
             }
 
-            var baseUrl = options?.Proxy?.AlternativeTmdbApiUrl;
+            var baseUrl = options?.GetNetWorkOptions()?.AlternativeTmdbApiUrl;
             if (string.IsNullOrWhiteSpace(baseUrl))
             {
                 baseUrl = "https://api.themoviedb.org";

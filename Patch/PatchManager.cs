@@ -27,6 +27,7 @@ namespace MediaInfoKeeper.Patch
                 }
 
                 var safeOptions = EnsureOptions(options);
+                var netWorkOptions = safeOptions.GetNetWorkOptions();
 
                 Register("FfprobeGuard");
                 FfprobeGuard.Initialize(logger, safeOptions.MainPage.DisableSystemFfprobe);
@@ -85,12 +86,12 @@ namespace MediaInfoKeeper.Patch
                 IntroMarkerProtect.Initialize(logger, safeOptions.IntroSkip.ProtectIntroMarkers);
                 UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
 
-                Register("ProxyServer");
-                ProxyServer.Initialize(logger, safeOptions.Proxy.EnableProxyServer);
+                Register("NetworkServer");
+                NetworkServer.Initialize(logger, netWorkOptions.EnableProxyServer);
                 UpdateTracker(
-                    "ProxyServer",
-                    safeOptions.Proxy.EnableProxyServer,
-                    ProxyServer.IsReady,
+                    "NetworkServer",
+                    netWorkOptions.EnableProxyServer,
+                    NetworkServer.IsReady,
                     BuildProxyNotes(),
                     false);
 
@@ -118,11 +119,12 @@ namespace MediaInfoKeeper.Patch
         public static void Configure(PluginConfiguration options)
         {
             var safeOptions = EnsureOptions(options);
+            var netWorkOptions = safeOptions.GetNetWorkOptions();
 
             FfprobeGuard.Configure(safeOptions.MainPage.DisableSystemFfprobe);
             MetadataProvidersWatcher.Configure(safeOptions.MetaData.EnableMetadataProvidersWatcher);
             IntroUnlock.Configure(safeOptions);
-            ProxyServer.Configure(safeOptions.Proxy.EnableProxyServer);
+            NetworkServer.Configure(netWorkOptions.EnableProxyServer);
             ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
             ChineseSearch.Configure(safeOptions.Enhance);
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
@@ -145,7 +147,7 @@ namespace MediaInfoKeeper.Patch
                 OriginalPoster.IsWaiting ? "waiting for MovieDb assembly" : null, OriginalPoster.IsWaiting);
             UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
             UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
-            UpdateTracker("ProxyServer", safeOptions.Proxy.EnableProxyServer, ProxyServer.IsReady,
+            UpdateTracker("NetworkServer", netWorkOptions.EnableProxyServer, NetworkServer.IsReady,
                 BuildProxyNotes(), false);
             UpdateTracker(
                 "ChineseSearch",
@@ -173,7 +175,7 @@ namespace MediaInfoKeeper.Patch
             var safe = options ?? new PluginConfiguration();
             safe.MainPage ??= new MainPageOptions();
             safe.IntroSkip ??= new IntroSkipOptions();
-            safe.Proxy ??= new ProxyOptions();
+            safe.GetNetWorkOptions();
             safe.Enhance ??= new EnhanceOptions();
             safe.MetaData ??= new MetaDataOptions();
             return safe;
@@ -191,12 +193,12 @@ namespace MediaInfoKeeper.Patch
 
         private static string BuildProxyNotes()
         {
-            if (!ProxyServer.IsReady)
+            if (!NetworkServer.IsReady)
             {
                 return "CreateHttpClientHandler 未命中";
             }
 
-            return ProxyServer.IsHttpClientHookReady ? null : "HttpClientManager hook not ready";
+            return NetworkServer.IsHttpClientHookReady ? null : "HttpClientManager hook not ready";
         }
 
         private static void UpdateTracker(string name, bool enabled, bool success, string notes, bool waiting = false)

@@ -73,7 +73,7 @@ namespace MediaInfoKeeper
         internal readonly MainPageOptionsStore MainPageOptionsStore;
         internal readonly GitHubOptionsStore GitHubOptionsStore;
         internal readonly IntroSkipOptionsStore IntroSkipOptionsStore;
-        internal readonly ProxyOptionsStore ProxyOptionsStore;
+        internal readonly NetWorkOptionsStore NetWorkOptionsStore;
         internal readonly EnhanceOptionsStore EnhanceOptionsStore;
         internal readonly MetaDataOptionsStore MetaDataOptionsStore;
         private static readonly HttpClient HttpClient = new HttpClient
@@ -126,7 +126,7 @@ namespace MediaInfoKeeper
             MainPageOptionsStore = new MainPageOptionsStore(OptionsStore);
             GitHubOptionsStore = new GitHubOptionsStore(OptionsStore);
             IntroSkipOptionsStore = new IntroSkipOptionsStore(OptionsStore);
-            ProxyOptionsStore = new ProxyOptionsStore(OptionsStore);
+            NetWorkOptionsStore = new NetWorkOptionsStore(OptionsStore);
             EnhanceOptionsStore = new EnhanceOptionsStore(OptionsStore);
             MetaDataOptionsStore = new MetaDataOptionsStore(OptionsStore);
 
@@ -191,7 +191,7 @@ namespace MediaInfoKeeper
                     this.pages = new List<IPluginUIPageController>
                     {
                         new MainPageController(this.GetPluginInfo(), this.MainPageOptionsStore,
-                            this.GitHubOptionsStore, this.IntroSkipOptionsStore, this.ProxyOptionsStore,
+                            this.GitHubOptionsStore, this.IntroSkipOptionsStore, this.NetWorkOptionsStore,
                             this.EnhanceOptionsStore, this.MetaDataOptionsStore)
                     };
                 }
@@ -209,7 +209,7 @@ namespace MediaInfoKeeper
 
             options.MainPage ??= new MainPageOptions();
             options.IntroSkip ??= new IntroSkipOptions();
-            options.Proxy ??= new ProxyOptions();
+            options.GetNetWorkOptions();
             options.GitHub ??= new GitHubOptions();
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
@@ -238,6 +238,8 @@ namespace MediaInfoKeeper
                 options.IntroSkip.LibraryScope = NormalizeScopedLibraries(options.IntroSkip.LibraryScope);
                 options.IntroSkip.MarkerEnabledLibraryScope = NormalizeScopedLibraries(options.IntroSkip.MarkerEnabledLibraryScope);
             }
+            options.GetNetWorkOptions();
+            options.Proxy = null;
             return true;
         }
 
@@ -251,9 +253,9 @@ namespace MediaInfoKeeper
 
             options.MainPage ??= new MainPageOptions();
             options.IntroSkip ??= new IntroSkipOptions();
-            options.Proxy ??= new ProxyOptions();
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
+            var netWorkOptions = options.GetNetWorkOptions();
 
             this.PlugginEnabled = options.MainPage.PlugginEnabled;
 
@@ -295,15 +297,15 @@ namespace MediaInfoKeeper
             this.logger.Info($"优先原语言海报 设置为 {options.MetaData.EnableOriginalPoster}");
             this.logger.Info($"启用本地剧集组文件 设置为 {options.MetaData.EnableLocalEpisodeGroup}");
 
-            this.logger.Info("[Proxy]");
-            this.logger.Info($"启用代理 设置为 {options.Proxy.EnableProxyServer}");
-            this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(options.Proxy.ProxyServerUrl) ? "空" : options.Proxy.ProxyServerUrl)}");
-            this.logger.Info($"忽略证书验证 设置为 {options.Proxy.IgnoreCertificateValidation}");
-            this.logger.Info($"写入环境变量 设置为 {options.Proxy.WriteProxyEnvVars}");
-            this.logger.Info($"启用压缩传输 设置为 {options.Proxy.EnableGzip}");
-            this.logger.Info($"自定义 TMDB API 域名 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiUrl) ? "空" : options.Proxy.AlternativeTmdbApiUrl)}");
-            this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbImageUrl) ? "空" : options.Proxy.AlternativeTmdbImageUrl)}");
-            this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(options.Proxy.AlternativeTmdbApiKey) ? "空" : "***")}");
+            this.logger.Info("[NetWork]");
+            this.logger.Info($"启用代理 设置为 {netWorkOptions.EnableProxyServer}");
+            this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.ProxyServerUrl) ? "空" : netWorkOptions.ProxyServerUrl)}");
+            this.logger.Info($"忽略证书验证 设置为 {netWorkOptions.IgnoreCertificateValidation}");
+            this.logger.Info($"写入环境变量 设置为 {netWorkOptions.WriteProxyEnvVars}");
+            this.logger.Info($"启用压缩传输 设置为 {netWorkOptions.EnableGzip}");
+            this.logger.Info($"自定义 TMDB API 域名 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbApiUrl) ? "空" : netWorkOptions.AlternativeTmdbApiUrl)}");
+            this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbImageUrl) ? "空" : netWorkOptions.AlternativeTmdbImageUrl)}");
+            this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbApiKey) ? "空" : "***")}");
 
             PatchManager.Configure(options);
 

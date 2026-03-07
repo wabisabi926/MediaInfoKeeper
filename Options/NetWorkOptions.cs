@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace MediaInfoKeeper.Options
 {
-    public class ProxyOptions : EditableOptionsBase
+    public class NetWorkOptions : EditableOptionsBase
     {
-        public override string EditorTitle => "Proxy";
+        public override string EditorTitle => "NetWork";
 
         [DisplayName("启用代理")]
         [Description("开启后所有 HttpClient 请求将走代理。")]
@@ -96,7 +96,7 @@ namespace MediaInfoKeeper.Options
             }
 
 
-            AddGroup("代理","代理服务器相关设置",
+            AddGroup("Proxy","代理服务器相关设置",
                 nameof(EnableProxyServer),
                 nameof(ProxyServerUrl),
                 nameof(IgnoreCertificateValidation),

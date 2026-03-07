@@ -2,25 +2,25 @@ namespace MediaInfoKeeper.Options.Store
 {
     using MediaInfoKeeper.Options;
 
-    internal class ProxyOptionsStore
+    internal class NetWorkOptionsStore
     {
         private readonly PluginOptionsStore pluginOptionsStore;
 
-        public ProxyOptionsStore(PluginOptionsStore pluginOptionsStore)
+        public NetWorkOptionsStore(PluginOptionsStore pluginOptionsStore)
         {
             this.pluginOptionsStore = pluginOptionsStore;
         }
 
-        public ProxyOptions GetOptions()
+        public NetWorkOptions GetOptions()
         {
             var options = this.pluginOptionsStore.GetOptionsForUi();
-            return options.Proxy ?? new ProxyOptions();
+            return options.GetNetWorkOptions();
         }
 
-        public void SetOptions(ProxyOptions options)
+        public void SetOptions(NetWorkOptions options)
         {
             var pluginOptions = this.pluginOptionsStore.GetOptions();
-            pluginOptions.Proxy = options ?? new ProxyOptions();
+            pluginOptions.NetWork = options ?? new NetWorkOptions();
             this.pluginOptionsStore.SetOptions(pluginOptions);
         }
     }

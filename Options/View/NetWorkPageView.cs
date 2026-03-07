@@ -7,18 +7,18 @@ namespace MediaInfoKeeper.Options.View
     using MediaInfoKeeper.Options.Store;
     using MediaInfoKeeper.Options.UIBaseClasses.Views;
 
-    internal class ProxyPageView : PluginPageView
+    internal class NetWorkPageView : PluginPageView
     {
-        private readonly ProxyOptionsStore store;
+        private readonly NetWorkOptionsStore store;
 
-        public ProxyPageView(PluginInfo pluginInfo, ProxyOptionsStore store)
+        public NetWorkPageView(PluginInfo pluginInfo, NetWorkOptionsStore store)
             : base(pluginInfo.Id)
         {
             this.store = store;
             this.ContentData = store.GetOptions();
         }
 
-        public ProxyOptions Options => this.ContentData as ProxyOptions;
+        public NetWorkOptions Options => this.ContentData as NetWorkOptions;
 
         public override Task<IPluginUIView> OnSaveCommand(string itemId, string commandId, string data)
         {
