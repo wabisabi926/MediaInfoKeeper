@@ -50,7 +50,11 @@ namespace MediaInfoKeeper.Options
 
         [DisplayName("启用深度删除")]
         [Description("删除媒体时，尝试级联删除 STRM 或软链接目标文件及相关文件和空目录。")]
-        public bool EnableDeepDelete { get; set; } = true;
+        public bool EnableDeepDelete { get; set; } = false;
+    
+        [DisplayName("接管系统新入库通知")]
+        [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知，用于配合MP插件——媒体服务器通知，通知新入库；关闭则插件使用 mediainfokeeper.library.new 事件，不影响 Emby 原有的新入库通知。")]
+        public bool TakeOverSystemLibraryNew { get; set; } = false;
 
         public void Initialize()
         {
@@ -125,6 +129,9 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
+
+            AddGroup("通知", "",
+                nameof(TakeOverSystemLibraryNew));
 
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)

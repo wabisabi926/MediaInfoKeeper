@@ -153,6 +153,7 @@ namespace MediaInfoKeeper
             this.libraryManager.ItemAdded += this.OnItemAdded;
             this.libraryManager.ItemRemoved += this.OnItemRemoved;
             this.userDataManager.UserDataSaved += this.OnUserDataSaved;
+
             this.logger.Info($"插件 {this.Name} 加载完成");
         }
 
@@ -283,6 +284,7 @@ namespace MediaInfoKeeper
             this.logger.Info("[Enhance]");
             this.logger.Info($"启用增强搜索 设置为 {options.Enhance.EnhanceChineseSearch}");
             this.logger.Info($"启用深度删除 设置为 {options.Enhance.EnableDeepDelete}");
+            this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
             this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
             this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");
 
@@ -395,6 +397,29 @@ namespace MediaInfoKeeper
                     // 条目不在选定媒体库范围内。
                     this.logger.Info("跳过处理: 不在选定媒体库范围");
                     return;
+                }
+
+                if (e.Item is Episode newEpisode && newEpisode.ExtraType == null)
+                {
+                    var series = LibraryService.GetSeries(newEpisode.SeriesId);
+                    if (series == null)
+                    {
+                        this.logger.Info($"收藏入库通知跳过: 未找到所属剧集，episodeId={newEpisode.InternalId}");
+                    }
+                    else
+                    {
+                        var users = LibraryService.GetFavoriteUsersBySeriesId(series.InternalId);
+                        this.logger.Info($"收藏入库事件: 剧集={series.Name} {newEpisode.Name}, 收藏用户={string.Join(", ", users)}");
+                        var sentCount = NotificationApi.LibraryNewSendNotification(series, newEpisode, users);
+                        if (sentCount > 0)
+                        {
+                            this.logger.Info($"已发送入库通知: 剧集={series.Name} {newEpisode.Name}, 通知用户数={sentCount}");
+                        }
+                        else
+                        {
+                            this.logger.Info($"收藏入库通知跳过: 剧集={series.Name}，无收藏用户");
+                        }
+                    }
                 }
 
                 var directoryService = new DirectoryService(this.logger, this.fileSystem);

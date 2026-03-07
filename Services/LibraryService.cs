@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Emby.Web.GenericEdit.Common;
+using MediaInfoKeeper.Common;
+using Microsoft.Extensions.Caching.Memory;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
@@ -47,6 +49,12 @@ namespace MediaInfoKeeper.Services
         private readonly IProviderManager providerManager;
         private readonly IFileSystem fileSystem;
         private readonly IUserDataManager userDataManager;
+        private readonly MemoryCache favoriteUsersBySeriesIdCache = new MemoryCache(new MemoryCacheOptions());
+        private static readonly TimeSpan FavoriteUsersCacheTtl = TimeSpan.FromSeconds(120);
+        private static readonly MemoryCacheEntryOptions FavoriteUsersCacheEntryOptions = new MemoryCacheEntryOptions
+        {
+            SlidingExpiration = FavoriteUsersCacheTtl
+        };
 
         /// <summary>创建库处理辅助类并注入所需服务。</summary>
         public LibraryService(ILibraryManager libraryManager, IProviderManager providerManager, IFileSystem fileSystem, IUserDataManager userDataManager)
@@ -372,7 +380,7 @@ namespace MediaInfoKeeper.Services
                 .ToList();
         }
 
-        private bool IsFavoriteByAnyUser(BaseItem item)
+        public bool IsFavoriteByAnyUser(BaseItem item)
         {
             var userDataList = this.userDataManager.GetAllUserData(item.InternalId);
             if (userDataList == null || userDataList.Count == 0)
@@ -381,6 +389,88 @@ namespace MediaInfoKeeper.Services
             }
 
             return userDataList.Any(data => data?.IsFavorite == true);
+        }
+
+        public bool IsSeriesFavoriteByAnyUser(Series series)
+        {
+            if (series == null)
+            {
+                return false;
+            }
+
+            if (IsFavoriteByAnyUser(series))
+            {
+                return true;
+            }
+
+            var seasons = this.libraryManager.GetItemList(new InternalItemsQuery
+            {
+                IncludeItemTypes = new[] { nameof(Season) },
+                ParentIds = new[] { series.InternalId }
+            }).OfType<Season>();
+
+            foreach (var season in seasons)
+            {
+                if (IsFavoriteByAnyUser(season))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public IReadOnlyList<User> GetFavoriteUsersBySeriesId(long seriesId)
+        {
+            if (seriesId == 0)
+            {
+                return Array.Empty<User>();
+            }
+
+            var cacheKey = $"favorite-users-series:{seriesId}";
+            if (this.favoriteUsersBySeriesIdCache.TryGetValue(cacheKey, out List<User> cachedUsers))
+            {
+                if (cachedUsers == null)
+                {
+                    return Array.Empty<User>();
+                }
+
+                return cachedUsers.ToList();
+            }
+
+            var series = this.libraryManager.GetItemById(seriesId) as Series;
+            if (series == null)
+            {
+                return Array.Empty<User>();
+            }
+
+            var seasons = this.libraryManager.GetItemList(new InternalItemsQuery
+            {
+                IncludeItemTypes = new[] { nameof(Season) },
+                ParentIds = new[] { seriesId }
+            }).OfType<Season>().ToList();
+
+            LibraryApi.FetchUsers();
+            var users = LibraryApi.AllUsers.Select(e => e.Key);
+            var matched = new List<User>();
+
+            foreach (var user in users)
+            {
+                if (this.userDataManager.GetUserData(user, series)?.IsFavorite == true)
+                {
+                    matched.Add(user);
+                    continue;
+                }
+
+                if (seasons.Any(season => this.userDataManager.GetUserData(user, season)?.IsFavorite == true))
+                {
+                    matched.Add(user);
+                }
+            }
+
+            this.favoriteUsersBySeriesIdCache.Set(cacheKey, matched.ToList(), FavoriteUsersCacheEntryOptions);
+
+            return matched;
         }
 
         private static HashSet<string> ParseScopedLibraryTokens(string raw)

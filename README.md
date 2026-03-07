@@ -16,7 +16,7 @@ MediaInfoKeeper
 - Enhance：中文模糊与拼音搜索增强（可设置搜索范围），并支持深度删除。
 - GitHub & Update：版本检查与插件自更新。
 - Emby Web 右键菜单：提取媒体信息、删除媒体信息、扫描片头、设置片头、清除片头。
-- Emby Notification：支持 Webhook 通知，推送深度删除事件。
+- Emby Notification：支持 Webhook 通知，推送深度删除事件，推送喜爱剧集入库通知。
 
 计划任务
 --------

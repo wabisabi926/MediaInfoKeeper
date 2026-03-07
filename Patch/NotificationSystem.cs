@@ -27,8 +27,36 @@ namespace MediaInfoKeeper.Patch
         private static readonly AsyncLocal<Dictionary<long, List<(int? IndexNumber, int? ParentIndexNumber)>>>
             GroupDetails = new AsyncLocal<Dictionary<long, List<(int? IndexNumber, int? ParentIndexNumber)>>>();
         private static readonly AsyncLocal<string> Description = new AsyncLocal<string>();
+        private static readonly AsyncLocal<bool> AllowCustomLibraryNew = new AsyncLocal<bool>();
+
+        private sealed class ScopeGuard : IDisposable
+        {
+            private readonly Action onDispose;
+
+            public ScopeGuard(Action onDisposeAction)
+            {
+                onDispose = onDisposeAction;
+            }
+
+            public void Dispose()
+            {
+                onDispose?.Invoke();
+            }
+        }
 
         public static bool IsReady => harmony != null && isPatched;
+
+        public static IDisposable BeginCustomLibraryNewScope()
+        {
+            var previous = AllowCustomLibraryNew.Value;
+            AllowCustomLibraryNew.Value = true;
+            return new ScopeGuard(() => AllowCustomLibraryNew.Value = previous);
+        }
+
+        private static bool IsTakeOverLibraryNewEnabled()
+        {
+            return Plugin.Instance?.Options?.Enhance?.TakeOverSystemLibraryNew == true;
+        }
 
         public static void Initialize(ILogger pluginLogger)
         {
@@ -165,9 +193,16 @@ namespace MediaInfoKeeper.Patch
         }
 
         [HarmonyPrefix]
-        private static void SendNotificationPrefix(INotifier notifier, NotificationInfo[] notifications,
+        private static bool SendNotificationPrefix(INotifier notifier, NotificationInfo[] notifications,
             NotificationRequest request, bool enableUserDataInDto)
         {
+            if (IsTakeOverLibraryNewEnabled() &&
+                string.Equals(request?.EventId, "library.new", StringComparison.OrdinalIgnoreCase) &&
+                !AllowCustomLibraryNew.Value)
+            {
+                return false;
+            }
+
             if (notifications.FirstOrDefault()?.GroupItems is true
                 && request.Item is Series series && GroupDetails.Value != null
                 && GroupDetails.Value.TryGetValue(series.InternalId, out var groupDetails))
@@ -230,6 +265,8 @@ namespace MediaInfoKeeper.Patch
 
                 Description.Value = summary;
             }
+
+            return true;
         }
 
         [HarmonyPrefix]

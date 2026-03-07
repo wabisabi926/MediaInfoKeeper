@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Emby.Notifications;
+using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Notifications;
 
 namespace MediaInfoKeeper.Common
@@ -40,7 +42,7 @@ namespace MediaInfoKeeper.Common
                 var request = new NotificationRequest
                 {
                     Title = Plugin.PluginName + " - 深度删除",
-                    EventId = "deep.delete",
+                    EventId = "mediainfokeeper.deep.delete",
                     User = user,
                     Item = item,
                     Description = string.Format(
@@ -53,6 +55,37 @@ namespace MediaInfoKeeper.Common
 
                 this.notificationManager.SendNotification(request);
             }
+        }
+
+        public int LibraryNewSendNotification(Series series, Episode episode, IReadOnlyCollection<User> users)
+        {
+            if (series == null || episode == null || users == null || users.Count == 0)
+            {
+                return 0;
+            }
+
+            var useSystemLibraryNew = Plugin.Instance?.Options?.Enhance?.TakeOverSystemLibraryNew == true;
+            var eventId = useSystemLibraryNew ? "library.new" : "mediainfokeeper.library.new";
+            var sentCount = 0;
+            using (useSystemLibraryNew ? NotificationSystem.BeginCustomLibraryNewScope() : null)
+            {
+                foreach (var user in users)
+                {
+                    var request = new NotificationRequest
+                    {
+                        Date = DateTimeOffset.UtcNow,
+                        EventId = eventId,
+                        User = user,
+                        Item = episode,
+                        Description = series.Name
+                    };
+
+                    this.notificationManager.SendNotification(request);
+                    sentCount++;
+                }
+            }
+
+            return sentCount;
         }
     }
 }
