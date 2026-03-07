@@ -76,6 +76,9 @@ namespace MediaInfoKeeper
         internal readonly NetWorkOptionsStore NetWorkOptionsStore;
         internal readonly EnhanceOptionsStore EnhanceOptionsStore;
         internal readonly MetaDataOptionsStore MetaDataOptionsStore;
+#if DEBUG
+        internal readonly DebugOptionsStore DebugOptionsStore;
+#endif
         private static readonly HttpClient HttpClient = new HttpClient
         {
             Timeout = TimeSpan.FromSeconds(3)
@@ -129,6 +132,9 @@ namespace MediaInfoKeeper
             NetWorkOptionsStore = new NetWorkOptionsStore(OptionsStore);
             EnhanceOptionsStore = new EnhanceOptionsStore(OptionsStore);
             MetaDataOptionsStore = new MetaDataOptionsStore(OptionsStore);
+#if DEBUG
+            DebugOptionsStore = new DebugOptionsStore(OptionsStore);
+#endif
 
             PatchManager.Initialize(this.logger, this.Options);
 
@@ -193,7 +199,11 @@ namespace MediaInfoKeeper
                     {
                         new MainPageController(this.GetPluginInfo(), this.MainPageOptionsStore,
                             this.GitHubOptionsStore, this.IntroSkipOptionsStore, this.NetWorkOptionsStore,
-                            this.EnhanceOptionsStore, this.MetaDataOptionsStore)
+                            this.EnhanceOptionsStore, this.MetaDataOptionsStore
+#if DEBUG
+                            , this.DebugOptionsStore
+#endif
+                            )
                     };
                 }
 
@@ -214,6 +224,9 @@ namespace MediaInfoKeeper
             options.GitHub ??= new GitHubOptions();
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
+#if DEBUG
+            options.Debug ??= new DebugOptions();
+#endif
             options.Enhance.Initialize();
             options.MetaData.Initialize();
 
@@ -256,6 +269,9 @@ namespace MediaInfoKeeper
             options.IntroSkip ??= new IntroSkipOptions();
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
+#if DEBUG
+            options.Debug ??= new DebugOptions();
+#endif
             var netWorkOptions = options.GetNetWorkOptions();
 
             this.PlugginEnabled = options.MainPage.PlugginEnabled;

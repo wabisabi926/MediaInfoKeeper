@@ -33,6 +33,11 @@ namespace MediaInfoKeeper.Options
         [DisplayName("GitHub")]
         public GitHubOptions GitHub { get; set; } = new GitHubOptions();
 
+#if DEBUG
+        [DisplayName("Debug")]
+        public DebugOptions Debug { get; set; } = new DebugOptions();
+#endif
+
         public NetWorkOptions GetNetWorkOptions()
         {
             // 兼容顺序：NetWork(新) -> Proxy(旧) -> 默认值。

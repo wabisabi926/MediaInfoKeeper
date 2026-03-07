@@ -20,8 +20,7 @@ namespace MediaInfoKeeper.ScheduledTask
     {
         private const BindingFlags MethodBindingFlags =
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
-        private static readonly string[] DllNameWhitelistPrefixes = { };
-        private static readonly string[] DllNameBlacklistPrefixes = { "Microsoft.", "System.", "netstandard", "mscorlib" };
+        private static readonly string[] DefaultDllNameBlacklistPrefixes = { "Microsoft.", "System.", "netstandard", "mscorlib" };
 
         private readonly IApplicationHost applicationHost;
         private readonly ILogger logger;
@@ -70,13 +69,16 @@ namespace MediaInfoKeeper.ScheduledTask
                 .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
 
+            var whitelistPrefixes = GetWhitelistPrefixes();
+            var blacklistPrefixes = GetBlacklistPrefixes();
+
             foreach (var dll in allDllFiles)
             {
-                logger.Info("发现 DLL: {0} {1}", dll, ShouldExportDll(dll) ? "(will export)" : "(will skip)");
+                logger.Info("发现 DLL: {0} {1}", dll, ShouldExportDll(dll, whitelistPrefixes, blacklistPrefixes) ? "(will export)" : "(will skip)");
             }
 
             var dllFiles = allDllFiles
-                .Where(ShouldExportDll)
+                .Where(path => ShouldExportDll(path, whitelistPrefixes, blacklistPrefixes))
                 .ToArray();
             var filteredCount = allDllFiles.Length - dllFiles.Length;
 
@@ -120,6 +122,9 @@ namespace MediaInfoKeeper.ScheduledTask
                         var types = SafeGetTypes(assembly)
                             .OrderBy(type => type.FullName ?? type.Name, StringComparer.Ordinal);
                         using var writer = new StreamWriter(outputFilePath, false, new UTF8Encoding(false));
+                        writer.WriteLine($"DLL_NAME: {dllName}");
+                        writer.WriteLine($"DLL_VERSION: {dllVersion}");
+                        writer.WriteLine();
 
                         foreach (var type in types)
                         {
@@ -140,7 +145,7 @@ namespace MediaInfoKeeper.ScheduledTask
                             {
                                 try
                                 {
-                                    WriteMethodBlock(writer, dllName, dllVersion, type, constructor);
+                                    WriteMethodBlock(writer, dllName, type, constructor);
                                     exportedMethods++;
                                 }
                                 catch (Exception ex)
@@ -153,7 +158,7 @@ namespace MediaInfoKeeper.ScheduledTask
                             {
                                 try
                                 {
-                                    WriteMethodBlock(writer, dllName, dllVersion, type, method);
+                                    WriteMethodBlock(writer, dllName, type, method);
                                     exportedMethods++;
                                 }
                                 catch (Exception ex)
@@ -237,7 +242,7 @@ namespace MediaInfoKeeper.ScheduledTask
             }
         }
 
-        private static void WriteMethodBlock(TextWriter writer, string dllName, string dllVersion, Type declaringType, MethodBase method)
+        private static void WriteMethodBlock(TextWriter writer, string dllName, Type declaringType, MethodBase method)
         {
             ParameterInfo[] parameters;
             try
@@ -267,9 +272,6 @@ namespace MediaInfoKeeper.ScheduledTask
             }
 
             writer.WriteLine("====================================================");
-            writer.WriteLine($"DLL_NAME: {dllName}");
-            writer.WriteLine($"DLL_VERSION: {dllVersion}");
-            writer.WriteLine();
             writer.WriteLine($"TYPE: {declaringType.FullName ?? declaringType.Name}");
             writer.WriteLine();
             writer.WriteLine($"METHOD: {method.Name}");
@@ -341,7 +343,7 @@ namespace MediaInfoKeeper.ScheduledTask
             return new string(buffer);
         }
 
-        private static bool IsBlacklistedDll(string dllPath)
+        private static bool IsBlacklistedDll(string dllPath, IReadOnlyList<string> blacklistPrefixes)
         {
             var fileName = Path.GetFileName(dllPath);
             if (string.IsNullOrWhiteSpace(fileName))
@@ -349,7 +351,12 @@ namespace MediaInfoKeeper.ScheduledTask
                 return false;
             }
 
-            foreach (var prefix in DllNameBlacklistPrefixes)
+            if (blacklistPrefixes == null || blacklistPrefixes.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var prefix in blacklistPrefixes)
             {
                 if (fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                 {
@@ -360,9 +367,9 @@ namespace MediaInfoKeeper.ScheduledTask
             return false;
         }
 
-        private static bool IsWhitelistedDll(string dllPath)
+        private static bool IsWhitelistedDll(string dllPath, IReadOnlyList<string> whitelistPrefixes)
         {
-            if (DllNameWhitelistPrefixes == null || DllNameWhitelistPrefixes.Length == 0)
+            if (whitelistPrefixes == null || whitelistPrefixes.Count == 0)
             {
                 return false;
             }
@@ -373,7 +380,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return false;
             }
 
-            foreach (var prefix in DllNameWhitelistPrefixes)
+            foreach (var prefix in whitelistPrefixes)
             {
                 if (!string.IsNullOrWhiteSpace(prefix) &&
                     fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
@@ -385,14 +392,42 @@ namespace MediaInfoKeeper.ScheduledTask
             return false;
         }
 
-        private static bool ShouldExportDll(string dllPath)
+        private static bool ShouldExportDll(string dllPath, IReadOnlyList<string> whitelistPrefixes, IReadOnlyList<string> blacklistPrefixes)
         {
-            var whitelisted = IsWhitelistedDll(dllPath);
+            var whitelisted = IsWhitelistedDll(dllPath, whitelistPrefixes);
             if (whitelisted)
             {
                 return true;
             }
-            return !IsBlacklistedDll(dllPath);
+            return !IsBlacklistedDll(dllPath, blacklistPrefixes);
+        }
+
+        private static string[] GetWhitelistPrefixes()
+        {
+            var raw = Plugin.Instance?.Options?.Debug?.DllNameWhitelistPrefixes;
+            return ParsePrefixList(raw);
+        }
+
+        private static string[] GetBlacklistPrefixes()
+        {
+            var raw = Plugin.Instance?.Options?.Debug?.DllNameBlacklistPrefixes;
+            var parsed = ParsePrefixList(raw);
+            return parsed.Length == 0 ? DefaultDllNameBlacklistPrefixes : parsed;
+        }
+
+        private static string[] ParsePrefixList(string raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return Array.Empty<string>();
+            }
+
+            return raw
+                .Split(new[] { ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(item => item.Trim())
+                .Where(item => !string.IsNullOrWhiteSpace(item))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
         }
 
         private sealed class DllScanLoadContext : AssemblyLoadContext

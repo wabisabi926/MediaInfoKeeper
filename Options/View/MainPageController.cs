@@ -20,7 +20,11 @@ namespace MediaInfoKeeper.Options.View
             IntroSkipOptionsStore introSkipOptionsStore,
             NetWorkOptionsStore netWorkOptionsStore,
             EnhanceOptionsStore enhanceOptionsStore,
-            MetaDataOptionsStore metaDataOptionsStore)
+            MetaDataOptionsStore metaDataOptionsStore
+#if DEBUG
+            , DebugOptionsStore debugOptionsStore
+#endif
+            )
             : base(pluginInfo.Id)
         {
             this.pluginInfo = pluginInfo;
@@ -50,6 +54,10 @@ namespace MediaInfoKeeper.Options.View
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(GitHubPageView), "GitHub & Update",
                 e => new GitHubPageView(pluginInfo, gitHubOptionsStore)));
 
+#if DEBUG
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(DebugPageView), "Debug",
+                e => new DebugPageView(pluginInfo, debugOptionsStore)));
+#endif
         }
 
         public override PluginPageInfo PageInfo { get; }
