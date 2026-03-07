@@ -1,3 +1,4 @@
+#if DEBUG
 namespace MediaInfoKeeper.Options.View
 {
     using System.Threading.Tasks;
@@ -27,4 +28,4 @@ namespace MediaInfoKeeper.Options.View
         }
     }
 }
-
+#endif

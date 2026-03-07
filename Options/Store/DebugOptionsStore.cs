@@ -1,3 +1,4 @@
+#if DEBUG
 namespace MediaInfoKeeper.Options.Store
 {
     using MediaInfoKeeper.Options;
@@ -25,4 +26,4 @@ namespace MediaInfoKeeper.Options.Store
         }
     }
 }
-
+#endif
