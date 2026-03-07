@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Ffmpeg.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Ffmpeg.Common.EscapingHelpers
 
 METHOD: DoubleQuote
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.EscapingHelpers
 
 METHOD: EscapeUnixFilePath
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter
 
 METHOD: ParseAsFlags
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter
 
 METHOD: ToFlagsString
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter+<>c__0`1
 
 METHOD: .cctor
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter+<>c__0`1
 
 METHOD: .ctor
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter+<>c__0`1
 
 METHOD: <ParseAsFlags>b__0_0
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.FlagsConverter+<>c__0`1
 
 METHOD: <ParseAsFlags>b__0_1
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.Globals
 
 METHOD: .cctor
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.Globals
 
 METHOD: get_Format
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: GetConstant
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: GetConstant
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: GetConstant
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: GetConstant
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: ParseDouble
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: ParseFloat
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: ParseInt32
@@ -322,9 +274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.NumericConstants
 
 METHOD: ParseInt64
@@ -341,9 +290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Common.UrlHelpers
 
 METHOD: GetExtensionFromUrl
@@ -360,9 +306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: .ctor
@@ -379,9 +322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: get_EscapingStyle
@@ -398,9 +338,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: get_FeatureSelectors
@@ -417,9 +354,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: get_SpecifyDemuxerFormat
@@ -436,9 +370,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: set_EscapingStyle
@@ -455,9 +386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: set_FeatureSelectors
@@ -474,9 +402,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.CommandConfiguration
 
 METHOD: set_SpecifyDemuxerFormat
@@ -493,9 +418,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: .ctor
@@ -512,9 +434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: get_DemuxerSelector
@@ -531,9 +450,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: get_InputProtocolSelector
@@ -550,9 +466,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: get_MuxerSelector
@@ -569,9 +482,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: get_OutputProtocolSelector
@@ -588,9 +498,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: set_DemuxerSelector
@@ -607,9 +514,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: set_InputProtocolSelector
@@ -626,9 +530,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: set_MuxerSelector
@@ -645,9 +546,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Configuration.SelectorConfiguration
 
 METHOD: set_OutputProtocolSelector
@@ -664,9 +562,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.InputStreamContainer
 
 METHOD: .ctor
@@ -683,9 +578,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.InputStreamContainer
 
 METHOD: .ctor
@@ -702,9 +594,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.InputStreamContainer
 
 METHOD: .ctor
@@ -722,9 +611,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.InputStreamContainer
 
 METHOD: get_Demuxer
@@ -741,9 +627,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.InputStreamContainer
 
 METHOD: set_Demuxer
@@ -760,9 +643,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.OutputStreamContainer
 
 METHOD: .ctor
@@ -779,9 +659,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.OutputStreamContainer
 
 METHOD: .ctor
@@ -798,9 +675,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.OutputStreamContainer
 
 METHOD: .ctor
@@ -818,9 +692,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.OutputStreamContainer
 
 METHOD: get_Muxer
@@ -837,9 +708,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Containers.OutputStreamContainer
 
 METHOD: set_Muxer
@@ -856,9 +724,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultDemuxerSelector
 
 METHOD: .ctor
@@ -875,9 +740,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultDemuxerSelector
 
 METHOD: SelectDemuxer
@@ -895,9 +757,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultInputProtocolSelector
 
 METHOD: .ctor
@@ -914,9 +773,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultInputProtocolSelector
 
 METHOD: GetProtocolFromUrl
@@ -933,9 +789,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultInputProtocolSelector
 
 METHOD: SelectInputProtocol
@@ -953,9 +806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultMuxerSelector
 
 METHOD: .ctor
@@ -972,9 +822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultMuxerSelector
 
 METHOD: SelectMuxer
@@ -992,9 +839,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultOutputProtocolSelector
 
 METHOD: .ctor
@@ -1011,9 +855,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.DefaultSelectors.DefaultOutputProtocolSelector
 
 METHOD: SelectOutputProtocol
@@ -1031,9 +872,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.IDemuxerSelector
 
 METHOD: SelectDemuxer
@@ -1051,9 +889,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.IInputProtocolSelector
 
 METHOD: SelectInputProtocol
@@ -1071,9 +906,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.IMuxerSelector
 
 METHOD: SelectMuxer
@@ -1091,9 +923,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FeatureSelection.IOutputProtocolSelector
 
 METHOD: SelectOutputProtocol
@@ -1111,9 +940,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: .ctor
@@ -1130,9 +956,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: .ctor
@@ -1149,9 +972,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: AddInput
@@ -1168,9 +988,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: AddInput
@@ -1187,9 +1004,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: AddOutput
@@ -1208,9 +1022,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: AddOutput
@@ -1227,9 +1038,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: BuildCommandLine
@@ -1246,9 +1054,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: Connect
@@ -1266,9 +1071,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: Connect
@@ -1286,9 +1088,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: CreatInputFromContainer
@@ -1305,9 +1104,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: Disconnect
@@ -1324,9 +1120,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: FindStreamSource
@@ -1343,9 +1136,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: ToString
@@ -1362,9 +1152,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Configuration
@@ -1381,9 +1168,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Connections
@@ -1400,9 +1184,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Filters
@@ -1419,9 +1200,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Input0
@@ -1438,9 +1216,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Inputs
@@ -1457,9 +1232,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Options
@@ -1476,9 +1248,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Output0
@@ -1495,9 +1264,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand
 
 METHOD: get_Outputs
@@ -1514,9 +1280,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand+<>c
 
 METHOD: .cctor
@@ -1533,9 +1296,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand+<>c
 
 METHOD: .ctor
@@ -1552,9 +1312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand+<>c
 
 METHOD: <Connect>b__28_0
@@ -1571,9 +1328,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand+<>c__DisplayClass28_0
 
 METHOD: .ctor
@@ -1590,9 +1344,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommand+<>c__DisplayClass28_0
 
 METHOD: <Connect>b__1
@@ -1609,9 +1360,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommandBase
 
 METHOD: .ctor
@@ -1628,9 +1376,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FfmpegCommandBase
 
 METHOD: BuildCommandLine
@@ -1647,9 +1392,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: .ctor
@@ -1666,9 +1408,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: AddFilter
@@ -1685,9 +1424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: AddFilter
@@ -1705,9 +1441,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: AddFilterInstance
@@ -1724,9 +1457,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: BuildFilterString
@@ -1743,9 +1473,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: GetEnumerator
@@ -1762,9 +1489,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: System.Collections.IEnumerable.GetEnumerator
@@ -1781,9 +1505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: get_Count
@@ -1800,9 +1521,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FfFilterGraph
 
 METHOD: get_Item
@@ -1819,9 +1537,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: .ctor
@@ -1839,9 +1554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: CreateInputPinInstance
@@ -1858,9 +1570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: CreateOutputPinInstance
@@ -1877,9 +1586,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_Filter
@@ -1896,9 +1602,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_FilterId
@@ -1915,9 +1618,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_FilterName
@@ -1934,9 +1634,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_InputPin0
@@ -1953,9 +1650,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_InputPin1
@@ -1972,9 +1666,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_InputPins
@@ -1991,9 +1682,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_OutputPin0
@@ -2010,9 +1698,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_OutputPin1
@@ -2029,9 +1714,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance
 
 METHOD: get_OutputPins
@@ -2048,9 +1730,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance`1
 
 METHOD: .ctor
@@ -2068,9 +1747,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.FilterInstance`1
 
 METHOD: get_Filter
@@ -2087,9 +1763,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: .ctor
@@ -2107,9 +1780,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSink.get_Feature
@@ -2126,9 +1796,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.get_ConnectedSource
@@ -2145,9 +1812,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.set_ConnectedSource
@@ -2164,9 +1828,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: get_ConnectedSource
@@ -2183,9 +1844,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: get_FilterPin
@@ -2202,9 +1860,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: get_OwnerFilter
@@ -2221,9 +1876,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: get_PinIndex
@@ -2240,9 +1892,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstance
 
 METHOD: set_ConnectedSource
@@ -2259,9 +1908,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.InputPinInstanceVideo
 
 METHOD: .ctor
@@ -2279,9 +1925,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: .ctor
@@ -2299,9 +1942,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSource.get_Feature
@@ -2318,9 +1958,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSourceInternal.get_ConnectedSink
@@ -2337,9 +1974,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSourceInternal.set_ConnectedSink
@@ -2356,9 +1990,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: GetStreamSpecifier
@@ -2375,9 +2006,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: get_ConnectedSink
@@ -2394,9 +2022,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: get_FilterPin
@@ -2413,9 +2038,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: get_OwnerFilter
@@ -2432,9 +2054,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: get_PinIndex
@@ -2451,9 +2070,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.Pins.OutputPinInstance
 
 METHOD: set_ConnectedSink
@@ -2470,9 +2086,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.StreamConnection
 
 METHOD: .ctor
@@ -2491,9 +2104,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.StreamConnection
 
 METHOD: get_Name
@@ -2510,9 +2120,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.StreamConnection
 
 METHOD: get_StreamSink
@@ -2529,9 +2136,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.FilterGraph.StreamConnection
 
 METHOD: get_StreamSource
@@ -2548,9 +2152,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: .ctor
@@ -2569,9 +2170,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: .ctor
@@ -2591,9 +2189,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: .ctor
@@ -2613,9 +2208,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: <set_InputIndex>b__8_0
@@ -2632,9 +2224,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: BuildParameters
@@ -2651,9 +2240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: BuildUrlParam
@@ -2670,9 +2256,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: ToString
@@ -2689,9 +2272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Audio0
@@ -2708,9 +2288,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_AudioStreams
@@ -2727,9 +2304,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Demuxer
@@ -2746,9 +2320,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_InputIndex
@@ -2765,9 +2336,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_InputProtocol
@@ -2784,9 +2352,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Options
@@ -2803,9 +2368,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Streams
@@ -2822,9 +2384,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_SubtitleStreams
@@ -2841,9 +2400,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Subtitles0
@@ -2860,9 +2416,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Url
@@ -2879,9 +2432,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_Video0
@@ -2898,9 +2448,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: get_VideoStreams
@@ -2917,9 +2464,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: set_Demuxer
@@ -2936,9 +2480,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: set_InputIndex
@@ -2955,9 +2496,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: set_InputProtocol
@@ -2974,9 +2512,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputFile
 
 METHOD: set_Url
@@ -2993,9 +2528,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: .ctor
@@ -3013,9 +2545,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_Decoder
@@ -3032,9 +2561,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_DecoderCore
@@ -3051,9 +2577,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_Options
@@ -3070,9 +2593,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_OptionsCore
@@ -3089,9 +2609,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_Stream
@@ -3108,9 +2625,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamAudio
 
 METHOD: get_StreamCore
@@ -3127,9 +2641,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: .ctor
@@ -3146,9 +2657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: BuildParameters
@@ -3167,9 +2675,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSource.get_Feature
@@ -3186,9 +2691,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: FromStream
@@ -3205,9 +2707,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: GetStreamSpecifier
@@ -3224,9 +2723,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: ToString
@@ -3243,9 +2739,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_ConnectedSink
@@ -3262,9 +2755,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_Decoder
@@ -3281,9 +2771,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_DecoderCore
@@ -3300,9 +2787,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_InputIndex
@@ -3319,9 +2803,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_IsAutoDecoder
@@ -3338,9 +2819,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_MediaKind
@@ -3357,9 +2835,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_Options
@@ -3376,9 +2851,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_OptionsCore
@@ -3395,9 +2867,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_Stream
@@ -3414,9 +2883,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: get_StreamCore
@@ -3433,9 +2899,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: set_InputIndex
@@ -3452,9 +2915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamBase
 
 METHOD: set_IsAutoDecoder
@@ -3471,9 +2931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: .ctor
@@ -3491,9 +2948,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_Decoder
@@ -3510,9 +2964,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_DecoderCore
@@ -3529,9 +2980,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_Options
@@ -3548,9 +2996,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_OptionsCore
@@ -3567,9 +3012,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_Stream
@@ -3586,9 +3028,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: get_StreamCore
@@ -3605,9 +3044,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamSubtitle
 
 METHOD: set_Decoder
@@ -3624,9 +3060,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: .ctor
@@ -3644,9 +3077,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_Decoder
@@ -3663,9 +3093,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_DecoderCore
@@ -3682,9 +3109,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_Options
@@ -3701,9 +3125,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_OptionsCore
@@ -3720,9 +3141,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_Stream
@@ -3739,9 +3157,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: get_StreamCore
@@ -3758,9 +3173,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Input.InputStreamVideo
 
 METHOD: set_Decoder
@@ -3777,9 +3189,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.ICommandContext
 
 METHOD: get_Filters
@@ -3796,9 +3205,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.ICommandContext
 
 METHOD: get_Inputs
@@ -3815,9 +3221,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.ICommandContext
 
 METHOD: get_Outputs
@@ -3834,9 +3237,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSink
 
 METHOD: get_ConnectedSource
@@ -3853,9 +3253,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSink
 
 METHOD: get_Feature
@@ -3872,9 +3269,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal
 
 METHOD: get_ConnectedSource
@@ -3891,9 +3285,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal
 
 METHOD: set_ConnectedSource
@@ -3910,9 +3301,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSource
 
 METHOD: GetStreamSpecifier
@@ -3929,9 +3317,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSource
 
 METHOD: get_ConnectedSink
@@ -3948,9 +3333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSource
 
 METHOD: get_Feature
@@ -3967,9 +3349,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSourceInternal
 
 METHOD: get_ConnectedSink
@@ -3986,9 +3365,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Interfaces.IStreamSourceInternal
 
 METHOD: set_ConnectedSink
@@ -4005,9 +3381,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: .ctor
@@ -4026,9 +3399,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: .ctor
@@ -4048,9 +3418,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: AddMapParameters
@@ -4067,9 +3434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: BuildParameters
@@ -4086,9 +3450,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: BuildUrlParam
@@ -4105,9 +3466,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: MapInputStream
@@ -4125,9 +3483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: MapInputStream
@@ -4145,9 +3500,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: MapInputStream
@@ -4165,9 +3517,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: ToString
@@ -4184,9 +3533,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Audio0
@@ -4203,9 +3549,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_AudioStreams
@@ -4222,9 +3565,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Muxer
@@ -4241,9 +3581,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Options
@@ -4260,9 +3597,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_OutputProtocol
@@ -4279,9 +3613,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Streams
@@ -4298,9 +3629,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_SubtitleStreams
@@ -4317,9 +3645,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Subtitles0
@@ -4336,9 +3661,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Url
@@ -4355,9 +3677,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_Video0
@@ -4374,9 +3693,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: get_VideoStreams
@@ -4393,9 +3709,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputFile
 
 METHOD: set_Muxer
@@ -4412,9 +3725,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: .ctor
@@ -4432,9 +3742,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_Encoder
@@ -4451,9 +3758,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_EncoderCore
@@ -4470,9 +3774,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_InputStream
@@ -4489,9 +3790,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_InputStreamCore
@@ -4508,9 +3806,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_Options
@@ -4527,9 +3822,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: get_OptionsCore
@@ -4546,9 +3838,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamAudio
 
 METHOD: set_Encoder
@@ -4565,9 +3854,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: .ctor
@@ -4584,9 +3870,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: BuildParameters
@@ -4605,9 +3888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSink.get_ConnectedSource
@@ -4624,9 +3904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSink.get_Feature
@@ -4643,9 +3920,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: ToString
@@ -4662,9 +3936,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_Encoder
@@ -4681,9 +3952,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_EncoderCore
@@ -4700,9 +3968,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_InputStream
@@ -4719,9 +3984,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_InputStreamCore
@@ -4738,9 +4000,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_MediaKind
@@ -4757,9 +4016,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_Options
@@ -4776,9 +4032,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamBase
 
 METHOD: get_OptionsCore
@@ -4795,9 +4048,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: .ctor
@@ -4815,9 +4065,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.get_ConnectedSource
@@ -4834,9 +4081,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.set_ConnectedSource
@@ -4853,9 +4097,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_Encoder
@@ -4872,9 +4113,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_EncoderCore
@@ -4891,9 +4129,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_InputStream
@@ -4910,9 +4145,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_InputStreamCore
@@ -4929,9 +4161,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_Options
@@ -4948,9 +4177,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: get_OptionsCore
@@ -4967,9 +4193,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: set_Encoder
@@ -4986,9 +4209,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamSubtitle
 
 METHOD: set_InputStream
@@ -5005,9 +4225,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: .ctor
@@ -5025,9 +4242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.get_ConnectedSource
@@ -5044,9 +4258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: Emby.Ffmpeg.Model.Interfaces.IStreamSinkInternal.set_ConnectedSource
@@ -5063,9 +4274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_Encoder
@@ -5082,9 +4290,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_EncoderCore
@@ -5101,9 +4306,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_InputStream
@@ -5120,9 +4322,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_InputStreamCore
@@ -5139,9 +4338,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_Options
@@ -5158,9 +4354,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: get_OptionsCore
@@ -5177,9 +4370,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: set_Encoder
@@ -5196,9 +4386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Output.OutputStreamVideo
 
 METHOD: set_InputStream
@@ -5215,9 +4402,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.CommandElementInfo
 
 METHOD: .ctor
@@ -5234,9 +4418,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: .ctor
@@ -5253,9 +4434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: get_FeatureName
@@ -5272,9 +4450,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: get_FeatureType
@@ -5291,9 +4466,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: get_Options
@@ -5310,9 +4482,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: set_FeatureName
@@ -5329,9 +4498,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: set_FeatureType
@@ -5348,9 +4514,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FeatureInfo
 
 METHOD: set_Options
@@ -5367,9 +4530,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfFilterGraphInfo
 
 METHOD: .ctor
@@ -5386,9 +4546,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfFilterGraphInfo
 
 METHOD: get_Filters
@@ -5405,9 +4562,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfFilterGraphInfo
 
 METHOD: set_Filters
@@ -5424,9 +4578,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: .ctor
@@ -5443,9 +4594,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: get_Filters
@@ -5462,9 +4610,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: get_GlobalOptions
@@ -5481,9 +4626,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: get_Inputs
@@ -5500,9 +4642,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: get_Outputs
@@ -5519,9 +4658,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: set_Filters
@@ -5538,9 +4674,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: set_GlobalOptions
@@ -5557,9 +4690,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: set_Inputs
@@ -5576,9 +4706,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FfmpegCommandInfo
 
 METHOD: set_Outputs
@@ -5595,9 +4722,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: .ctor
@@ -5614,9 +4738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: get_Filter
@@ -5633,9 +4754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: get_FilterId
@@ -5652,9 +4770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: get_InputPins
@@ -5671,9 +4786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: set_Filter
@@ -5690,9 +4802,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: set_FilterId
@@ -5709,9 +4818,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.FilterInstanceInfo
 
 METHOD: set_InputPins
@@ -5728,9 +4834,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: .ctor
@@ -5747,9 +4850,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_Demuxer
@@ -5766,9 +4866,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_InputIndex
@@ -5785,9 +4882,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_InputProtocol
@@ -5804,9 +4898,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_Options
@@ -5823,9 +4914,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_Streams
@@ -5842,9 +4930,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: get_Url
@@ -5861,9 +4946,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_Demuxer
@@ -5880,9 +4962,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_InputIndex
@@ -5899,9 +4978,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_InputProtocol
@@ -5918,9 +4994,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_Options
@@ -5937,9 +5010,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_Streams
@@ -5956,9 +5026,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputFileInfo
 
 METHOD: set_Url
@@ -5975,9 +5042,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputPinInfo
 
 METHOD: .ctor
@@ -5994,9 +5058,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputPinInfo
 
 METHOD: get_ConnectedSourceId
@@ -6013,9 +5074,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputPinInfo
 
 METHOD: get_Index
@@ -6032,9 +5090,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputPinInfo
 
 METHOD: set_ConnectedSourceId
@@ -6051,9 +5106,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputPinInfo
 
 METHOD: set_Index
@@ -6070,9 +5122,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: .ctor
@@ -6089,9 +5138,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_AudioStream
@@ -6108,9 +5154,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_ConnectedSinkId
@@ -6127,9 +5170,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_Decoder
@@ -6146,9 +5186,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_IsAutoDecoder
@@ -6165,9 +5202,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_MediaKind
@@ -6184,9 +5218,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_Options
@@ -6203,9 +5234,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_SubtitleStream
@@ -6222,9 +5250,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: get_VideoStream
@@ -6241,9 +5266,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_AudioStream
@@ -6260,9 +5282,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_ConnectedSinkId
@@ -6279,9 +5298,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_Decoder
@@ -6298,9 +5314,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_IsAutoDecoder
@@ -6317,9 +5330,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_MediaKind
@@ -6336,9 +5346,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_Options
@@ -6355,9 +5362,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_SubtitleStream
@@ -6374,9 +5378,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.InputStreamInfo
 
 METHOD: set_VideoStream
@@ -6393,9 +5394,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionValueInfo
 
 METHOD: .ctor
@@ -6413,9 +5411,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionValueInfo
 
 METHOD: get_Name
@@ -6432,9 +5427,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionValueInfo
 
 METHOD: get_ValueString
@@ -6451,9 +5443,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionValueInfo
 
 METHOD: set_Name
@@ -6470,9 +5459,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionValueInfo
 
 METHOD: set_ValueString
@@ -6489,9 +5475,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionsInfo
 
 METHOD: .ctor
@@ -6508,9 +5491,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionsInfo
 
 METHOD: get_OptionValues
@@ -6527,9 +5507,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OptionsInfo
 
 METHOD: set_OptionValues
@@ -6546,9 +5523,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: .ctor
@@ -6565,9 +5539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: get_Muxer
@@ -6584,9 +5555,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: get_Options
@@ -6603,9 +5571,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: get_OutputProtocol
@@ -6622,9 +5587,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: get_Streams
@@ -6641,9 +5603,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: get_Url
@@ -6660,9 +5619,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: set_Muxer
@@ -6679,9 +5635,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: set_Options
@@ -6698,9 +5651,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: set_OutputProtocol
@@ -6717,9 +5667,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: set_Streams
@@ -6736,9 +5683,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputFileInfo
 
 METHOD: set_Url
@@ -6755,9 +5699,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: .ctor
@@ -6774,9 +5715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: get_ConnectedSourceId
@@ -6793,9 +5731,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: get_Encoder
@@ -6812,9 +5747,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: get_MediaKind
@@ -6831,9 +5763,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: get_Options
@@ -6850,9 +5779,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: get_Stream
@@ -6869,9 +5795,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: set_ConnectedSourceId
@@ -6888,9 +5811,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: set_Encoder
@@ -6907,9 +5827,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: set_MediaKind
@@ -6926,9 +5843,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: set_Options
@@ -6945,9 +5859,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Model.Serialization.OutputStreamInfo
 
 METHOD: set_Stream
@@ -6964,9 +5875,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: .ctor
@@ -6984,9 +5892,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: AppendFilter
@@ -7003,9 +5908,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: get_ChainInput
@@ -7022,9 +5924,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: get_ChainOutput
@@ -7041,9 +5940,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: get_Command
@@ -7060,9 +5956,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Builders.FilterChainBuilder
 
 METHOD: set_ChainOutput
@@ -7079,9 +5972,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.ContainerExtensions
 
 METHOD: AsStreamContainer
@@ -7098,9 +5988,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.ContainerExtensions
 
 METHOD: AsStreamContainer
@@ -7117,9 +6004,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.ContainerExtensions+<>c
 
 METHOD: .cctor
@@ -7136,9 +6020,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.ContainerExtensions+<>c
 
 METHOD: .ctor
@@ -7155,9 +6036,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.ContainerExtensions+<>c
 
 METHOD: <AsStreamContainer>b__1_0
@@ -7174,9 +6052,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.FeatureExtensions
 
 METHOD: Cast
@@ -7193,9 +6068,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Extensions.FeatureExtensions
 
 METHOD: GetAtOrDefault
@@ -7213,9 +6085,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: AddFromSerializationModel
@@ -7233,9 +6102,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: ApplyFromSerializationModel
@@ -7253,9 +6119,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7272,9 +6135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7291,9 +6151,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7311,9 +6168,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7330,9 +6184,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7350,9 +6201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7369,9 +6217,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize
 
 METHOD: CreateFromSerializationModel
@@ -7389,9 +6234,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize+<>c
 
 METHOD: .cctor
@@ -7408,9 +6250,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize+<>c
 
 METHOD: .ctor
@@ -7427,9 +6266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize+<>c
 
 METHOD: <CreateFromSerializationModel>b__1_0
@@ -7446,9 +6282,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize+<>c__DisplayClass2_0
 
 METHOD: .ctor
@@ -7465,9 +6298,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Deserialize+<>c__DisplayClass2_0
 
 METHOD: <CreateFromSerializationModel>b__0
@@ -7484,9 +6314,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7503,9 +6330,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7522,9 +6346,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7541,9 +6362,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7560,9 +6378,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7579,9 +6394,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7598,9 +6410,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7617,9 +6426,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7636,9 +6442,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7655,9 +6458,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize
 
 METHOD: ToSerializationModel
@@ -7674,9 +6474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: .cctor
@@ -7693,9 +6490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: .ctor
@@ -7712,9 +6506,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: <ToSerializationModel>b__0_0
@@ -7731,9 +6522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: <ToSerializationModel>b__0_1
@@ -7750,9 +6538,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: <ToSerializationModel>b__1_0
@@ -7769,9 +6554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Ffmpeg.Operations.Serialization.Serialize+<>c
 
 METHOD: <ToSerializationModel>b__2_0
@@ -7788,9 +6570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -7807,9 +6586,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Ffmpeg.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: System.Runtime.CompilerServices.RefSafetyRulesAttribute
 
 METHOD: .ctor

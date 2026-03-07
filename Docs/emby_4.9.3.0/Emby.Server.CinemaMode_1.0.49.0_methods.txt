@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Server.CinemaMode.dll
 DLL_VERSION: 1.0.49.0
 
+====================================================
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: .ctor
@@ -26,9 +26,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: CheckRegistrationWithServer
@@ -46,9 +43,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: DeleteCachedRecord
@@ -65,9 +59,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: Dispose
@@ -84,9 +75,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: GetCacheFilePath
@@ -103,9 +91,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: GetCacheKey
@@ -122,9 +107,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: GetCachedRegRecord
@@ -141,9 +123,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: GetRegistrationStatus
@@ -161,9 +140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: GetRegistrationStatusInternal
@@ -181,9 +157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: Run
@@ -200,9 +173,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager
 
 METHOD: SaveCachedRecord
@@ -220,9 +190,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetCachedRegRecord>d__17
 
 METHOD: MoveNext
@@ -239,9 +206,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetCachedRegRecord>d__17
 
 METHOD: SetStateMachine
@@ -258,9 +222,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetRegistrationStatus>d__21
 
 METHOD: MoveNext
@@ -277,9 +238,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetRegistrationStatus>d__21
 
 METHOD: SetStateMachine
@@ -296,9 +254,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetRegistrationStatusInternal>d__23
 
 METHOD: MoveNext
@@ -315,9 +270,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.PluginSecurityManager+<GetRegistrationStatusInternal>d__23
 
 METHOD: SetStateMachine
@@ -334,9 +286,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: .ctor
@@ -353,9 +302,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_expDate
@@ -372,9 +318,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_featId
@@ -391,9 +334,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_isTrial
@@ -410,9 +350,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_isValid
@@ -429,9 +366,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_key
@@ -448,9 +382,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_lastChecked
@@ -467,9 +398,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: get_registered
@@ -486,9 +414,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: set_expDate
@@ -505,9 +430,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: set_featId
@@ -524,9 +446,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: set_key
@@ -543,9 +462,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: set_lastChecked
@@ -562,9 +478,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Security.RegRecord
 
 METHOD: set_registered
@@ -581,9 +494,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: .ctor
@@ -600,9 +510,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_CustomIntroPath
@@ -619,9 +526,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosForEpisodes
@@ -638,9 +542,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosForMovies
@@ -657,9 +558,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosForWatchedContent
@@ -676,9 +574,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosFromMoviesInLibrary
@@ -695,9 +590,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosFromSimilarMovies
@@ -714,9 +606,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosFromUpcomingTrailers
@@ -733,9 +622,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_EnableIntrosParentalControl
@@ -752,9 +638,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_MaximizeRandomization
@@ -771,9 +654,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_MediaInfoIntroPath
@@ -790,9 +670,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: get_TrailerLimit
@@ -809,9 +686,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_CustomIntroPath
@@ -828,9 +702,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosForEpisodes
@@ -847,9 +718,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosForMovies
@@ -866,9 +734,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosForWatchedContent
@@ -885,9 +750,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosFromMoviesInLibrary
@@ -904,9 +766,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosFromSimilarMovies
@@ -923,9 +782,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosFromUpcomingTrailers
@@ -942,9 +798,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_EnableIntrosParentalControl
@@ -961,9 +814,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_MaximizeRandomization
@@ -980,9 +830,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_MediaInfoIntroPath
@@ -999,9 +846,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfiguration
 
 METHOD: set_TrailerLimit
@@ -1018,9 +862,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfigurationFactory
 
 METHOD: .ctor
@@ -1037,9 +878,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.CinemaModeConfigurationFactory
 
 METHOD: GetConfigurations
@@ -1056,9 +894,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: .ctor
@@ -1080,9 +915,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: <GetMediaInfoIntrosBy3D>b__14_0
@@ -1099,9 +931,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetAllIntroFiles
@@ -1118,9 +947,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetCustomIntroFiles
@@ -1139,9 +965,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetCustomIntros
@@ -1158,9 +981,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetIntros
@@ -1179,9 +999,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetIntros
@@ -1199,9 +1016,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetMediaInfoIntros
@@ -1219,9 +1033,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetMediaInfoIntrosBy3D
@@ -1239,9 +1050,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetMediaInfoIntrosByAudioStream
@@ -1259,9 +1067,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetMediaInfoIntrosByTags
@@ -1279,9 +1084,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetMediaInfoIntrosByVideoStream
@@ -1299,9 +1101,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetOptions
@@ -1318,9 +1117,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: GetResult
@@ -1339,9 +1135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: IsAudioMatch
@@ -1359,9 +1152,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: IsMatch
@@ -1379,9 +1169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: IsVideoFile
@@ -1398,9 +1185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: Normalize
@@ -1417,9 +1201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider
 
 METHOD: get_Name
@@ -1436,9 +1217,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: .cctor
@@ -1455,9 +1233,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: .ctor
@@ -1474,9 +1249,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetCustomIntros>b__11_0
@@ -1493,9 +1265,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetCustomIntros>b__11_1
@@ -1512,9 +1281,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetIntros>b__7_0
@@ -1531,9 +1297,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntros>b__12_0
@@ -1550,9 +1313,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntros>b__12_1
@@ -1569,9 +1329,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntros>b__12_2
@@ -1588,9 +1345,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntros>b__12_3
@@ -1607,9 +1361,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntros>b__12_4
@@ -1626,9 +1377,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntrosBy3D>b__14_1
@@ -1645,9 +1393,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntrosByAudioStream>b__15_1
@@ -1664,9 +1409,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntrosByTags>b__16_1
@@ -1683,9 +1425,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c
 
 METHOD: <GetMediaInfoIntrosByVideoStream>b__13_1
@@ -1702,9 +1441,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass13_0
 
 METHOD: .ctor
@@ -1721,9 +1457,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass13_0
 
 METHOD: <GetMediaInfoIntrosByVideoStream>b__0
@@ -1740,9 +1473,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass15_0
 
 METHOD: .ctor
@@ -1759,9 +1489,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass15_0
 
 METHOD: <GetMediaInfoIntrosByAudioStream>b__0
@@ -1778,9 +1505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass16_0
 
 METHOD: .ctor
@@ -1797,9 +1521,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass16_0
 
 METHOD: <GetMediaInfoIntrosByTags>b__0
@@ -1816,9 +1537,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass16_1
 
 METHOD: .ctor
@@ -1835,9 +1553,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<>c__DisplayClass16_1
 
 METHOD: <GetMediaInfoIntrosByTags>b__2
@@ -1854,9 +1569,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<GetIntros>d__7
 
 METHOD: MoveNext
@@ -1873,9 +1585,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.DefaultIntroProvider+<GetIntros>d__7
 
 METHOD: SetStateMachine
@@ -1892,9 +1601,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.IntrosEntryPoint
 
 METHOD: .ctor
@@ -1912,9 +1618,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.IntrosEntryPoint
 
 METHOD: Dispose
@@ -1931,9 +1634,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.IntrosEntryPoint
 
 METHOD: Run
@@ -1950,9 +1650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.IntrosEntryPoint
 
 METHOD: _config_NamedConfigurationUpdated
@@ -1970,9 +1667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions
 
 METHOD: DistinctBy
@@ -1990,9 +1684,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions
 
 METHOD: DistinctBy
@@ -2011,9 +1702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions
 
 METHOD: DistinctByImpl
@@ -2032,9 +1720,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions
 
 METHOD: ToArray
@@ -2052,9 +1737,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: .ctor
@@ -2071,9 +1753,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: <>m__Finally1
@@ -2090,9 +1769,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: MoveNext
@@ -2109,9 +1785,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.Collections.Generic.IEnumerable<TSource>.GetEnumerator
@@ -2128,9 +1801,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.Collections.Generic.IEnumerator<TSource>.get_Current
@@ -2147,9 +1817,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.Collections.IEnumerable.GetEnumerator
@@ -2166,9 +1833,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.Collections.IEnumerator.Reset
@@ -2185,9 +1849,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.Collections.IEnumerator.get_Current
@@ -2204,9 +1865,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.LinqExtensions+<DistinctByImpl>d__3`2
 
 METHOD: System.IDisposable.Dispose
@@ -2223,9 +1881,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: .ctor
@@ -2242,9 +1897,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: GetPages
@@ -2261,9 +1913,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: GetThumbImage
@@ -2280,9 +1929,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: GetTranslations
@@ -2299,9 +1945,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: get_Description
@@ -2318,9 +1961,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: get_Id
@@ -2337,9 +1977,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: get_Name
@@ -2356,9 +1993,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin
 
 METHOD: get_ThumbImageFormat
@@ -2375,9 +2009,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin+<>c__DisplayClass8_0
 
 METHOD: .ctor
@@ -2394,9 +2025,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__0
@@ -2413,9 +2041,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Plugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__1
@@ -2432,9 +2057,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask
 
 METHOD: .cctor
@@ -2451,9 +2073,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask
 
 METHOD: .ctor
@@ -2472,9 +2091,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask
 
 METHOD: RefreshIntro
@@ -2492,9 +2108,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask
 
 METHOD: Run
@@ -2512,9 +2125,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask+<Run>d__5
 
 METHOD: MoveNext
@@ -2531,9 +2141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScanTask+<Run>d__5
 
 METHOD: SetStateMachine
@@ -2550,9 +2157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: .ctor
@@ -2571,9 +2175,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: Execute
@@ -2591,9 +2192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: GetDefaultTriggers
@@ -2610,9 +2208,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_Category
@@ -2629,9 +2224,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_Description
@@ -2648,9 +2240,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_IsEnabled
@@ -2667,9 +2256,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_IsHidden
@@ -2686,9 +2272,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_IsLogged
@@ -2705,9 +2288,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_Key
@@ -2724,9 +2304,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.CinemaMode.dll
-DLL_VERSION: 1.0.49.0
-
 TYPE: Emby.Server.CinemaMode.Tasks.RefreshIntrosScheduledTask
 
 METHOD: get_Name

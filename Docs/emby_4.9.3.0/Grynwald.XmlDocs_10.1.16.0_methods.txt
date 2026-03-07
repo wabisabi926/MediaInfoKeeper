@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Grynwald.XmlDocs.dll
 DLL_VERSION: 10.1.16.0
 
+====================================================
 TYPE: Grynwald.XmlDocs.BlockElement
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: .ctor
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: Accept
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: Equals
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: Equals
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: FromXml
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: FromXml
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: GetHashCode
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BoldElement
 
 METHOD: get_Content
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: .ctor
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: Accept
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: Equals
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: Equals
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: FromXml
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: GetHashCode
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.BulletedListElement
 
 METHOD: get_Items
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: .ctor
@@ -322,9 +274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: Accept
@@ -341,9 +290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: Equals
@@ -360,9 +306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: Equals
@@ -379,9 +322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: FromXml
@@ -398,9 +338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: FromXml
@@ -417,9 +354,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: GetHashCode
@@ -436,9 +370,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CElement
 
 METHOD: get_Content
@@ -455,9 +386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: .ctor
@@ -475,9 +403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: Accept
@@ -494,9 +419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: Equals
@@ -513,9 +435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: Equals
@@ -532,9 +451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: FromXml
@@ -551,9 +467,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: FromXml
@@ -570,9 +483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: GetHashCode
@@ -589,9 +499,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: get_Content
@@ -608,9 +515,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.CodeElement
 
 METHOD: get_Language
@@ -627,9 +531,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: .ctor
@@ -647,9 +548,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: Accept
@@ -666,9 +564,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: Equals
@@ -685,9 +580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: Equals
@@ -704,9 +596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: FromXml
@@ -723,9 +612,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: GetHashCode
@@ -742,9 +628,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: get_Description
@@ -761,9 +644,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DefinitionListItem
 
 METHOD: get_Term
@@ -780,9 +660,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationElement
 
 METHOD: .ctor
@@ -799,9 +676,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationElement
 
 METHOD: Accept
@@ -818,9 +692,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: .ctor
@@ -838,9 +709,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: Accept
@@ -857,9 +725,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: FromFile
@@ -876,9 +741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: FromXml
@@ -895,9 +757,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: FromXml
@@ -914,9 +773,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: get_AssemblyName
@@ -933,9 +789,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationFile
 
 METHOD: get_Members
@@ -952,9 +805,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: .ctor
@@ -971,9 +821,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -990,9 +837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1009,9 +853,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1028,9 +869,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1047,9 +885,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1066,9 +901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1085,9 +917,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1104,9 +933,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1123,9 +949,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1142,9 +965,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1161,9 +981,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1180,9 +997,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1199,9 +1013,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1218,9 +1029,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1237,9 +1045,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1256,9 +1061,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1275,9 +1077,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1294,9 +1093,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1313,9 +1109,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1332,9 +1125,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1351,9 +1141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1370,9 +1157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1389,9 +1173,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1408,9 +1189,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1427,9 +1205,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1446,9 +1221,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1465,9 +1237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1484,9 +1253,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1503,9 +1269,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1522,9 +1285,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1541,9 +1301,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1560,9 +1317,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1579,9 +1333,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1598,9 +1349,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1617,9 +1365,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1636,9 +1381,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1655,9 +1397,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1674,9 +1413,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1693,9 +1429,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: Visit
@@ -1712,9 +1445,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: VisitExceptions
@@ -1732,9 +1462,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: VisitParameters
@@ -1752,9 +1479,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: VisitSeeAlso
@@ -1771,9 +1495,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: VisitTypeParameters
@@ -1791,9 +1512,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.DocumentationVisitor
 
 METHOD: VisitUnrecgonizedElements
@@ -1810,9 +1528,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: .ctor
@@ -1829,9 +1544,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: Accept
@@ -1848,9 +1560,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: Equals
@@ -1867,9 +1576,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: Equals
@@ -1886,9 +1592,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: FromXml
@@ -1905,9 +1608,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: FromXml
@@ -1924,9 +1624,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: GetHashCode
@@ -1943,9 +1640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EmphasisElement
 
 METHOD: get_Content
@@ -1962,9 +1656,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EventMemberElement
 
 METHOD: .ctor
@@ -1981,9 +1672,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EventMemberElement
 
 METHOD: Accept
@@ -2000,9 +1688,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EventMemberElement
 
 METHOD: FromXml
@@ -2020,9 +1705,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EventMemberElement
 
 METHOD: get_Exceptions
@@ -2039,9 +1721,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.EventMemberElement
 
 METHOD: set_Exceptions
@@ -2058,9 +1737,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExampleElement
 
 METHOD: .ctor
@@ -2077,9 +1753,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExampleElement
 
 METHOD: Accept
@@ -2096,9 +1769,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExampleElement
 
 METHOD: FromXml
@@ -2115,9 +1785,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExceptionElement
 
 METHOD: .ctor
@@ -2135,9 +1802,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExceptionElement
 
 METHOD: Accept
@@ -2154,9 +1818,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExceptionElement
 
 METHOD: FromXml
@@ -2173,9 +1834,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExceptionElement
 
 METHOD: FromXml
@@ -2192,9 +1850,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ExceptionElement
 
 METHOD: get_Reference
@@ -2211,9 +1866,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.FieldMemberElement
 
 METHOD: .ctor
@@ -2230,9 +1882,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.FieldMemberElement
 
 METHOD: Accept
@@ -2249,9 +1898,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.FieldMemberElement
 
 METHOD: FromXml
@@ -2269,9 +1915,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.FieldMemberElement
 
 METHOD: get_Value
@@ -2288,9 +1931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.FieldMemberElement
 
 METHOD: set_Value
@@ -2307,9 +1947,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2326,9 +1963,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2345,9 +1979,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2364,9 +1995,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2383,9 +2011,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2402,9 +2027,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2421,9 +2043,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2440,9 +2059,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2459,9 +2075,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2478,9 +2091,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2497,9 +2107,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2516,9 +2123,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2535,9 +2139,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2554,9 +2155,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2573,9 +2171,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2592,9 +2187,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2611,9 +2203,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2630,9 +2219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2649,9 +2235,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2668,9 +2251,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2687,9 +2267,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2706,9 +2283,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2725,9 +2299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2744,9 +2315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2763,9 +2331,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2782,9 +2347,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2801,9 +2363,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2820,9 +2379,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2839,9 +2395,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2858,9 +2411,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2877,9 +2427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2896,9 +2443,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2915,9 +2459,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2934,9 +2475,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2953,9 +2491,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2972,9 +2507,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -2991,9 +2523,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -3010,9 +2539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -3029,9 +2555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IDocumentationVisitor
 
 METHOD: Visit
@@ -3048,9 +2571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: .ctor
@@ -3067,9 +2587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: Accept
@@ -3086,9 +2603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: Equals
@@ -3105,9 +2619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: Equals
@@ -3124,9 +2635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: FromXml
@@ -3143,9 +2651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: FromXml
@@ -3162,9 +2667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: GetHashCode
@@ -3181,9 +2683,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.IdiomaticElement
 
 METHOD: get_Content
@@ -3200,9 +2699,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.InlineElement
 
 METHOD: .ctor
@@ -3219,9 +2715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: .ctor
@@ -3238,9 +2731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: GetIndentation
@@ -3257,9 +2747,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: ParseXmlDocument
@@ -3276,9 +2763,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: ParseXmlElement
@@ -3295,9 +2779,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: TrimCode
@@ -3315,9 +2796,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: TrimLines
@@ -3337,9 +2815,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper
 
 METHOD: TrimText
@@ -3357,9 +2832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper+<>c
 
 METHOD: .cctor
@@ -3376,9 +2848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper+<>c
 
 METHOD: .ctor
@@ -3395,9 +2864,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper+<>c
 
 METHOD: <GetIndentation>b__0_0
@@ -3414,9 +2880,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper+<>c__DisplayClass3_0
 
 METHOD: .ctor
@@ -3433,9 +2896,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlContentHelper+<>c__DisplayClass3_0
 
 METHOD: <TrimLines>b__0
@@ -3452,9 +2912,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: EnsureNameIs
@@ -3472,9 +2929,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: EnsureNameIs
@@ -3492,9 +2946,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: GetPositionString
@@ -3511,9 +2962,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: RequireAttribute
@@ -3531,9 +2979,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: RequireElement
@@ -3551,9 +2996,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: RequireRootElement
@@ -3570,9 +3012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: RequireValue
@@ -3589,9 +3028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.Internal.XmlExtensions
 
 METHOD: RequireValue
@@ -3608,9 +3044,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: .ctor
@@ -3627,9 +3060,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: Accept
@@ -3646,9 +3076,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: Equals
@@ -3665,9 +3092,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: Equals
@@ -3684,9 +3108,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: FromXml
@@ -3703,9 +3124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: FromXml
@@ -3722,9 +3140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.LineBreakElement
 
 METHOD: GetHashCode
@@ -3741,9 +3156,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListElement
 
 METHOD: .ctor
@@ -3760,9 +3172,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListElement
 
 METHOD: FromXml
@@ -3779,9 +3188,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListElement
 
 METHOD: FromXml
@@ -3798,9 +3204,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListItem
 
 METHOD: .ctor
@@ -3817,9 +3220,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListItem
 
 METHOD: Equals
@@ -3836,9 +3236,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListItem
 
 METHOD: FromXml
@@ -3855,9 +3252,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListItem
 
 METHOD: FromXml
@@ -3874,9 +3268,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ListItem
 
 METHOD: GetHashCode
@@ -3893,9 +3284,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: .ctor
@@ -3912,9 +3300,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: FromXml
@@ -3931,9 +3316,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: FromXml
@@ -3950,9 +3332,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: GetUnrecognizedElements
@@ -3970,9 +3349,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: TryReadElement
@@ -3991,9 +3367,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_Example
@@ -4010,9 +3383,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_Id
@@ -4029,9 +3399,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_Remarks
@@ -4048,9 +3415,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_SeeAlso
@@ -4067,9 +3431,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_Summary
@@ -4086,9 +3447,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: get_UnrecognizedElements
@@ -4105,9 +3463,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: set_Example
@@ -4124,9 +3479,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: set_Remarks
@@ -4143,9 +3495,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: set_SeeAlso
@@ -4162,9 +3511,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: set_Summary
@@ -4181,9 +3527,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement
 
 METHOD: set_UnrecognizedElements
@@ -4200,9 +3543,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement+<>c
 
 METHOD: .cctor
@@ -4219,9 +3559,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement+<>c
 
 METHOD: .ctor
@@ -4238,9 +3575,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement+<>c
 
 METHOD: <GetUnrecognizedElements>b__27_1
@@ -4257,9 +3591,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement+<>c__DisplayClass27_0
 
 METHOD: .ctor
@@ -4276,9 +3607,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberElement+<>c__DisplayClass27_0
 
 METHOD: <GetUnrecognizedElements>b__0
@@ -4295,9 +3623,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: .ctor
@@ -4316,9 +3641,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: Equals
@@ -4335,9 +3657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: Equals
@@ -4354,9 +3673,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: GetHashCode
@@ -4373,9 +3689,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: Parse
@@ -4392,9 +3705,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: ToString
@@ -4411,9 +3721,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: TryParse
@@ -4431,9 +3738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: get_Id
@@ -4450,9 +3754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: get_Name
@@ -4469,9 +3770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MemberId
 
 METHOD: get_Type
@@ -4488,9 +3786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: .ctor
@@ -4507,9 +3802,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: Accept
@@ -4526,9 +3818,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: FromXml
@@ -4546,9 +3835,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: get_Exceptions
@@ -4565,9 +3851,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: get_Parameters
@@ -4584,9 +3867,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: get_Returns
@@ -4603,9 +3883,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: get_TypeParameters
@@ -4622,9 +3899,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: set_Exceptions
@@ -4641,9 +3915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: set_Parameters
@@ -4660,9 +3931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: set_Returns
@@ -4679,9 +3947,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MethodMemberElement
 
 METHOD: set_TypeParameters
@@ -4698,9 +3963,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NamespaceMemberElement
 
 METHOD: .ctor
@@ -4717,9 +3979,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NamespaceMemberElement
 
 METHOD: Accept
@@ -4736,9 +3995,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NamespaceMemberElement
 
 METHOD: FromXml
@@ -4756,9 +4012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: .ctor
@@ -4775,9 +4028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: Accept
@@ -4794,9 +4044,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: Equals
@@ -4813,9 +4060,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: Equals
@@ -4832,9 +4076,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: FromXml
@@ -4851,9 +4092,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: GetHashCode
@@ -4870,9 +4108,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.NumberedListElement
 
 METHOD: get_Items
@@ -4889,9 +4124,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: .ctor
@@ -4908,9 +4140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: Accept
@@ -4927,9 +4156,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: Equals
@@ -4946,9 +4172,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: Equals
@@ -4965,9 +4188,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: FromXml
@@ -4984,9 +4204,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: FromXml
@@ -5003,9 +4220,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: GetHashCode
@@ -5022,9 +4236,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParagraphElement
 
 METHOD: get_Content
@@ -5041,9 +4252,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterElement
 
 METHOD: .ctor
@@ -5061,9 +4269,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterElement
 
 METHOD: Accept
@@ -5080,9 +4285,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterElement
 
 METHOD: FromXml
@@ -5099,9 +4301,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterElement
 
 METHOD: FromXml
@@ -5118,9 +4317,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterElement
 
 METHOD: get_Name
@@ -5137,9 +4333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: .ctor
@@ -5156,9 +4349,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: Accept
@@ -5175,9 +4365,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: Equals
@@ -5194,9 +4381,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: Equals
@@ -5213,9 +4397,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: FromXml
@@ -5232,9 +4413,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: FromXml
@@ -5251,9 +4429,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: GetHashCode
@@ -5270,9 +4445,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ParameterReferenceElement
 
 METHOD: get_Name
@@ -5289,9 +4461,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: .ctor
@@ -5308,9 +4477,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: Accept
@@ -5327,9 +4493,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: Equals
@@ -5346,9 +4509,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: Equals
@@ -5365,9 +4525,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: GetHashCode
@@ -5384,9 +4541,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PlainTextElement
 
 METHOD: get_Content
@@ -5403,9 +4557,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: .ctor
@@ -5422,9 +4573,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: Accept
@@ -5441,9 +4589,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: FromXml
@@ -5461,9 +4606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: get_Exceptions
@@ -5480,9 +4622,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: get_Parameters
@@ -5499,9 +4638,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: get_Value
@@ -5518,9 +4654,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: set_Exceptions
@@ -5537,9 +4670,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: set_Parameters
@@ -5556,9 +4686,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.PropertyMemberElement
 
 METHOD: set_Value
@@ -5575,9 +4702,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.RemarksElement
 
 METHOD: .ctor
@@ -5594,9 +4718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.RemarksElement
 
 METHOD: Accept
@@ -5613,9 +4734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.RemarksElement
 
 METHOD: FromXml
@@ -5632,9 +4750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ReturnsElement
 
 METHOD: .ctor
@@ -5651,9 +4766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ReturnsElement
 
 METHOD: Accept
@@ -5670,9 +4782,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ReturnsElement
 
 METHOD: FromXml
@@ -5689,9 +4798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SectionElement
 
 METHOD: .ctor
@@ -5708,9 +4814,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SectionElement
 
 METHOD: get_Text
@@ -5727,9 +4830,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoCodeReferenceElement
 
 METHOD: .ctor
@@ -5747,9 +4847,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoCodeReferenceElement
 
 METHOD: Accept
@@ -5766,9 +4863,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoCodeReferenceElement
 
 METHOD: FromXml
@@ -5785,9 +4879,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoCodeReferenceElement
 
 METHOD: get_Reference
@@ -5804,9 +4895,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoElement
 
 METHOD: .ctor
@@ -5823,9 +4911,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoElement
 
 METHOD: FromXml
@@ -5842,9 +4927,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoElement
 
 METHOD: FromXml
@@ -5861,9 +4943,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoUrlReferenceElement
 
 METHOD: .ctor
@@ -5881,9 +4960,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoUrlReferenceElement
 
 METHOD: Accept
@@ -5900,9 +4976,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoUrlReferenceElement
 
 METHOD: FromXml
@@ -5919,9 +4992,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeAlsoUrlReferenceElement
 
 METHOD: get_Link
@@ -5938,9 +5008,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: .ctor
@@ -5958,9 +5025,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: Accept
@@ -5977,9 +5041,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: Equals
@@ -5996,9 +5057,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: Equals
@@ -6015,9 +5073,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: FromXml
@@ -6034,9 +5089,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: GetHashCode
@@ -6053,9 +5105,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeCodeReferenceElement
 
 METHOD: get_Reference
@@ -6072,9 +5121,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeElement
 
 METHOD: .ctor
@@ -6091,9 +5137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeElement
 
 METHOD: FromXml
@@ -6110,9 +5153,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeElement
 
 METHOD: FromXml
@@ -6129,9 +5169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeElement
 
 METHOD: get_Text
@@ -6148,9 +5185,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: .ctor
@@ -6168,9 +5202,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: Accept
@@ -6187,9 +5218,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: Equals
@@ -6206,9 +5234,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: Equals
@@ -6225,9 +5250,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: FromXml
@@ -6244,9 +5266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: GetHashCode
@@ -6263,9 +5282,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SeeUrlReferenceElement
 
 METHOD: get_Link
@@ -6282,9 +5298,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: .ctor
@@ -6301,9 +5314,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: Accept
@@ -6320,9 +5330,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: Equals
@@ -6339,9 +5346,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: Equals
@@ -6358,9 +5362,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: FromXml
@@ -6377,9 +5378,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: GetHashCode
@@ -6396,9 +5394,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SimpleListItem
 
 METHOD: get_Text
@@ -6415,9 +5410,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: .ctor
@@ -6434,9 +5426,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: Accept
@@ -6453,9 +5442,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: Equals
@@ -6472,9 +5458,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: Equals
@@ -6491,9 +5474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: FromXml
@@ -6510,9 +5490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: FromXml
@@ -6529,9 +5506,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: GetHashCode
@@ -6548,9 +5522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.StrongElement
 
 METHOD: get_Content
@@ -6567,9 +5538,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SummaryElement
 
 METHOD: .ctor
@@ -6586,9 +5554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SummaryElement
 
 METHOD: Accept
@@ -6605,9 +5570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.SummaryElement
 
 METHOD: FromXml
@@ -6624,9 +5586,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: .ctor
@@ -6644,9 +5603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: Accept
@@ -6663,9 +5619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: Equals
@@ -6682,9 +5635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: Equals
@@ -6701,9 +5651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: FromXml
@@ -6720,9 +5667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: GetHashCode
@@ -6739,9 +5683,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: get_Header
@@ -6758,9 +5699,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableElement
 
 METHOD: get_Rows
@@ -6777,9 +5715,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: .ctor
@@ -6796,9 +5731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: Accept
@@ -6815,9 +5747,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: Equals
@@ -6834,9 +5763,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: Equals
@@ -6853,9 +5779,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: FromXml
@@ -6872,9 +5795,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: GetHashCode
@@ -6891,9 +5811,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow
 
 METHOD: get_Columns
@@ -6910,9 +5827,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow+<>c
 
 METHOD: .cctor
@@ -6929,9 +5843,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow+<>c
 
 METHOD: .ctor
@@ -6948,9 +5859,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TableRow+<>c
 
 METHOD: <FromXml>b__8_0
@@ -6967,9 +5875,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: .ctor
@@ -6986,9 +5891,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: Accept
@@ -7005,9 +5907,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: Equals
@@ -7024,9 +5923,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: Equals
@@ -7043,9 +5939,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: FromXml
@@ -7062,9 +5955,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: FromXml
@@ -7081,9 +5971,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: FromXmlOrNullIfEmpty
@@ -7100,9 +5987,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: GetHashCode
@@ -7119,9 +6003,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: ReadElements
@@ -7138,9 +6019,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: get_Elements
@@ -7157,9 +6035,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock
 
 METHOD: set_Elements
@@ -7176,9 +6051,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: .ctor
@@ -7195,9 +6067,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: <>m__Finally1
@@ -7214,9 +6083,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: MoveNext
@@ -7233,9 +6099,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.Collections.Generic.IEnumerable<Grynwald.XmlDocs.TextElement>.GetEnumerator
@@ -7252,9 +6115,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.Collections.Generic.IEnumerator<Grynwald.XmlDocs.TextElement>.get_Current
@@ -7271,9 +6131,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.Collections.IEnumerable.GetEnumerator
@@ -7290,9 +6147,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.Collections.IEnumerator.Reset
@@ -7309,9 +6163,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.Collections.IEnumerator.get_Current
@@ -7328,9 +6179,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextBlock+<ReadElements>d__12
 
 METHOD: System.IDisposable.Dispose
@@ -7347,9 +6195,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextElement
 
 METHOD: .ctor
@@ -7366,9 +6211,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextElement
 
 METHOD: Equals
@@ -7385,9 +6227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TextElement
 
 METHOD: GetHashCode
@@ -7404,9 +6243,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeMemberElement
 
 METHOD: .ctor
@@ -7423,9 +6259,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeMemberElement
 
 METHOD: Accept
@@ -7442,9 +6275,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeMemberElement
 
 METHOD: FromXml
@@ -7462,9 +6292,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeMemberElement
 
 METHOD: get_TypeParameters
@@ -7481,9 +6308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeMemberElement
 
 METHOD: set_TypeParameters
@@ -7500,9 +6324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterElement
 
 METHOD: .ctor
@@ -7520,9 +6341,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterElement
 
 METHOD: Accept
@@ -7539,9 +6357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterElement
 
 METHOD: FromXml
@@ -7558,9 +6373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterElement
 
 METHOD: FromXml
@@ -7577,9 +6389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterElement
 
 METHOD: get_Name
@@ -7596,9 +6405,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: .ctor
@@ -7615,9 +6421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: Accept
@@ -7634,9 +6437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: Equals
@@ -7653,9 +6453,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: Equals
@@ -7672,9 +6469,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: FromXml
@@ -7691,9 +6485,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: FromXml
@@ -7710,9 +6501,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: GetHashCode
@@ -7729,9 +6517,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.TypeParameterReferenceElement
 
 METHOD: get_Name
@@ -7748,9 +6533,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedSectionElement
 
 METHOD: .ctor
@@ -7767,9 +6549,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedSectionElement
 
 METHOD: Accept
@@ -7786,9 +6565,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedSectionElement
 
 METHOD: get_Xml
@@ -7805,9 +6581,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: .ctor
@@ -7824,9 +6597,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: Accept
@@ -7843,9 +6613,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: Equals
@@ -7862,9 +6629,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: Equals
@@ -7881,9 +6645,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: GetHashCode
@@ -7900,9 +6661,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.UnrecognizedTextElement
 
 METHOD: get_Xml
@@ -7919,9 +6677,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ValueElement
 
 METHOD: .ctor
@@ -7938,9 +6693,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ValueElement
 
 METHOD: Accept
@@ -7957,9 +6709,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.ValueElement
 
 METHOD: FromXml
@@ -7976,9 +6725,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.XmlDocsException
 
 METHOD: .ctor
@@ -7995,9 +6741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.XmlDocsException
 
 METHOD: .ctor
@@ -8015,9 +6758,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -8034,9 +6774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableAttribute
 
 METHOD: .ctor
@@ -8053,9 +6790,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableAttribute
 
 METHOD: .ctor
@@ -8072,9 +6806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableContextAttribute
 
 METHOD: .ctor
@@ -8091,9 +6822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.RefSafetyRulesAttribute
 
 METHOD: .ctor

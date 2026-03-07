@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Web.GenericUI.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Web.GenericUI.Api.Endpoints.GetUIViewData
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.GetUIViewData
 
 METHOD: get_ClientLocale
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.GetUIViewData
 
 METHOD: get_PageId
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.GetUIViewData
 
 METHOD: set_ClientLocale
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.GetUIViewData
 
 METHOD: set_PageId
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: .ctor
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: get_ClientLocale
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: get_CommandId
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: get_Data
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: get_ItemId
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: get_PageId
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: set_ClientLocale
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: set_CommandId
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: set_Data
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: set_ItemId
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.Endpoints.RunUICommand
 
 METHOD: set_PageId
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService
 
 METHOD: .ctor
@@ -327,9 +279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService
 
 METHOD: Get
@@ -346,9 +295,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService
 
 METHOD: Post
@@ -365,9 +311,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService
 
 METHOD: get_Request
@@ -384,9 +327,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService
 
 METHOD: set_Request
@@ -403,9 +343,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService+<Get>d__11
 
 METHOD: MoveNext
@@ -422,9 +359,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService+<Get>d__11
 
 METHOD: SetStateMachine
@@ -441,9 +375,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService+<Post>d__12
 
 METHOD: MoveNext
@@ -460,9 +391,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Api.GenericUIApiService+<Post>d__12
 
 METHOD: SetStateMachine
@@ -479,9 +407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.ApiHelpers
 
 METHOD: Ellipsis
@@ -499,9 +424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.ApiHelpers
 
 METHOD: GetErrorResponse
@@ -519,9 +441,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.ApiHelpers
 
 METHOD: GetErrorResponse
@@ -538,9 +457,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.ApiHelpers
 
 METHOD: SerializeToJson
@@ -558,9 +474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.CommonBase
 
 METHOD: .ctor
@@ -578,9 +491,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.CommonBase
 
 METHOD: .ctor
@@ -598,9 +508,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.Extensions
 
 METHOD: GetOptions
@@ -617,9 +524,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.Extensions
 
 METHOD: IsNotEmpty
@@ -636,9 +540,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.Extensions
 
 METHOD: ToUiDialogSize
@@ -655,9 +556,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.Extensions
 
 METHOD: ToUiQueryCloseAction
@@ -674,9 +572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.Extensions
 
 METHOD: ToUiWizardHidingBehavior
@@ -693,9 +588,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: .ctor
@@ -713,9 +605,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: Write
@@ -734,9 +623,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: WriteToAsync
@@ -754,9 +640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_ContentType
@@ -773,9 +656,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_Cookies
@@ -792,9 +672,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_Headers
@@ -811,9 +688,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_RequestContext
@@ -830,9 +704,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_Status
@@ -849,9 +720,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_StatusCode
@@ -868,9 +736,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: get_StatusMessage
@@ -887,9 +752,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: set_ContentType
@@ -906,9 +768,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: set_RequestContext
@@ -925,9 +784,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: set_Status
@@ -944,9 +800,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: set_StatusCode
@@ -963,9 +816,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpErrorResult
 
 METHOD: set_StatusMessage
@@ -982,9 +832,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: .ctor
@@ -1001,9 +848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: Write
@@ -1022,9 +866,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: WriteToAsync
@@ -1042,9 +883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_ContentType
@@ -1061,9 +899,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_Cookies
@@ -1080,9 +915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_Headers
@@ -1099,9 +931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_RequestContext
@@ -1118,9 +947,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_Status
@@ -1137,9 +963,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_StatusCode
@@ -1156,9 +979,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: get_StatusMessage
@@ -1175,9 +995,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: set_ContentType
@@ -1194,9 +1011,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: set_RequestContext
@@ -1213,9 +1027,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: set_Status
@@ -1232,9 +1043,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: set_StatusCode
@@ -1251,9 +1059,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult
 
 METHOD: set_StatusMessage
@@ -1270,9 +1075,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult+<Write>d__27
 
 METHOD: MoveNext
@@ -1289,9 +1091,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Common.HttpSuccessResult+<Write>d__27
 
 METHOD: SetStateMachine
@@ -1308,9 +1107,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: .ctor
@@ -1328,9 +1124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: CheckUserAuthorization
@@ -1348,9 +1141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: CreateDefaultPageView
@@ -1367,9 +1157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: CurrentUIViewOnUIViewInfoChanged
@@ -1387,9 +1174,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: Dispose
@@ -1406,9 +1190,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: Dispose
@@ -1425,9 +1206,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: GetOrCreatePageHost
@@ -1446,9 +1224,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: GetUIView
@@ -1465,9 +1240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: Initialize
@@ -1484,9 +1256,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: InitializeCore
@@ -1503,9 +1272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: NotifyPageChangeDelayed
@@ -1522,9 +1288,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: RunCommand
@@ -1544,9 +1307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: SetcurrentView
@@ -1564,9 +1324,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: add_UIPageInfoChanged
@@ -1583,9 +1340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: get_CurrentUIView
@@ -1602,9 +1356,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: get_IsInitialized
@@ -1621,9 +1372,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: get_PageId
@@ -1640,9 +1388,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: remove_UIPageInfoChanged
@@ -1659,9 +1404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: set_CurrentUIView
@@ -1678,9 +1420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase
 
 METHOD: set_IsInitialized
@@ -1697,9 +1436,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<>c__DisplayClass24_0
 
 METHOD: .ctor
@@ -1716,9 +1452,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<>c__DisplayClass24_0
 
 METHOD: <NotifyPageChangeDelayed>b__0
@@ -1735,9 +1468,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<>c__DisplayClass24_0+<<NotifyPageChangeDelayed>b__0>d
 
 METHOD: MoveNext
@@ -1754,9 +1484,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<>c__DisplayClass24_0+<<NotifyPageChangeDelayed>b__0>d
 
 METHOD: SetStateMachine
@@ -1773,9 +1500,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<GetUIView>d__19
 
 METHOD: MoveNext
@@ -1792,9 +1516,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<GetUIView>d__19
 
 METHOD: SetStateMachine
@@ -1811,9 +1532,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<RunCommand>d__20
 
 METHOD: MoveNext
@@ -1830,9 +1548,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<RunCommand>d__20
 
 METHOD: SetStateMachine
@@ -1849,9 +1564,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<SetcurrentView>d__28
 
 METHOD: MoveNext
@@ -1868,9 +1580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PageControllerHostBase+<SetcurrentView>d__28
 
 METHOD: SetStateMachine
@@ -1887,9 +1596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: .ctor
@@ -1908,9 +1614,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: BuildPageId
@@ -1928,9 +1631,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: CheckUserAuthorization
@@ -1948,9 +1648,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: CreateDefaultPageView
@@ -1967,9 +1664,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: GetRegistration
@@ -1986,9 +1680,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: InitializeCore
@@ -2005,9 +1696,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: get_Plugin
@@ -2024,9 +1712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost
 
 METHOD: get_PluginUIPageController
@@ -2043,9 +1728,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost+<CreateDefaultPageView>d__9
 
 METHOD: MoveNext
@@ -2062,9 +1744,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.PageHosts.PluginPageControllerHost+<CreateDefaultPageView>d__9
 
 METHOD: SetStateMachine
@@ -2081,9 +1760,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: .ctor
@@ -2101,9 +1777,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: AddTabPageInformation
@@ -2120,9 +1793,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: Dispose
@@ -2139,9 +1809,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: GetControllerHost
@@ -2158,9 +1825,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: GetPluginUIPageRegistrations
@@ -2177,9 +1841,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: GetUIPage
@@ -2197,9 +1858,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: RegisterPageController
@@ -2216,9 +1874,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: RegisterPageController
@@ -2236,9 +1891,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: RegisterPluginPageControllers
@@ -2255,9 +1907,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: RunUICommand
@@ -2278,9 +1927,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager
 
 METHOD: UpdateTabPageInfo
@@ -2297,9 +1943,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c
 
 METHOD: .cctor
@@ -2316,9 +1959,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c
 
 METHOD: .ctor
@@ -2335,9 +1975,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c
 
 METHOD: <GetPluginUIPageRegistrations>b__11_0
@@ -2354,9 +1991,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c
 
 METHOD: <UpdateTabPageInfo>b__7_0
@@ -2373,9 +2007,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c__DisplayClass7_0
 
 METHOD: .ctor
@@ -2392,9 +2023,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c__DisplayClass7_0
 
 METHOD: <UpdateTabPageInfo>b__1
@@ -2411,9 +2039,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c__DisplayClass9_0
 
 METHOD: .ctor
@@ -2430,9 +2055,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c__DisplayClass9_0
 
 METHOD: <AddTabPageInformation>b__0
@@ -2449,9 +2071,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.UIPagesManager+<>c__DisplayClass9_0
 
 METHOD: <AddTabPageInformation>b__1
@@ -2468,9 +2087,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: .ctor
@@ -2490,9 +2106,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: <>n__0
@@ -2511,9 +2124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: Cancel
@@ -2530,9 +2140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: CreateUIViewHost
@@ -2549,9 +2156,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: IsCommandAllowed
@@ -2568,9 +2172,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: OnCancelCommand
@@ -2587,9 +2188,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: OnDialogResult
@@ -2608,9 +2206,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: OnOkCommand
@@ -2630,9 +2225,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: PluginDialogViewInfoChanged
@@ -2650,9 +2242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: RunCommand
@@ -2671,9 +2260,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: UpdateCommands
@@ -2690,9 +2276,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_ContentData
@@ -2709,9 +2292,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_DialogSize
@@ -2728,9 +2308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_HelpUrl
@@ -2747,9 +2324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_PluginUIView
@@ -2766,9 +2340,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_QueryCloseAction
@@ -2785,9 +2356,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_ShowDialogFullScreen
@@ -2804,9 +2372,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_User
@@ -2823,9 +2388,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: get_ViewId
@@ -2842,9 +2404,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: set_ContentData
@@ -2861,9 +2420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost
 
 METHOD: set_User
@@ -2880,9 +2436,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost+<RunCommand>d__26
 
 METHOD: MoveNext
@@ -2899,9 +2452,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginDialogViewHost+<RunCommand>d__26
 
 METHOD: SetStateMachine
@@ -2918,9 +2468,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: .ctor
@@ -2940,9 +2487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: <>n__0
@@ -2961,9 +2505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: Cancel
@@ -2980,9 +2521,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: CreateUIViewHost
@@ -2999,9 +2537,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: IsCommandAllowed
@@ -3018,9 +2553,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: OnDialogResult
@@ -3039,9 +2571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: OnSaveCommand
@@ -3060,9 +2589,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: PluginDialogViewInfoChanged
@@ -3080,9 +2606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: RunCommand
@@ -3101,9 +2624,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: UpdateCommands
@@ -3120,9 +2640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_ContentData
@@ -3139,9 +2656,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_HelpUrl
@@ -3158,9 +2672,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_PluginUIView
@@ -3177,9 +2688,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_QueryCloseAction
@@ -3196,9 +2704,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_UseAllScreenSpace
@@ -3215,9 +2720,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_User
@@ -3234,9 +2736,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: get_ViewId
@@ -3253,9 +2752,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: set_ContentData
@@ -3272,9 +2768,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost
 
 METHOD: set_User
@@ -3291,9 +2784,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost+<OnSaveCommand>d__22
 
 METHOD: MoveNext
@@ -3310,9 +2800,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost+<OnSaveCommand>d__22
 
 METHOD: SetStateMachine
@@ -3329,9 +2816,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost+<RunCommand>d__24
 
 METHOD: MoveNext
@@ -3348,9 +2832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginPageViewHost+<RunCommand>d__24
 
 METHOD: SetStateMachine
@@ -3367,9 +2848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: .ctor
@@ -3390,9 +2868,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: <>n__0
@@ -3411,9 +2886,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: Cancel
@@ -3430,9 +2902,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: CreateStageHost
@@ -3449,9 +2918,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: IsCommandAllowed
@@ -3468,9 +2934,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: OnCancelCommand
@@ -3487,9 +2950,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: OnDialogResult
@@ -3508,9 +2968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: OnFinishCommand
@@ -3529,9 +2986,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: OnNextCommand
@@ -3550,9 +3004,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: PluginUIViewInfoChanged
@@ -3570,9 +3021,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: RunCommand
@@ -3591,9 +3039,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: UpdateCommands
@@ -3610,9 +3055,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_ContentData
@@ -3629,9 +3071,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_HelpUrl
@@ -3648,9 +3087,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_PluginUIView
@@ -3667,9 +3103,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_User
@@ -3686,9 +3119,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_ViewId
@@ -3705,9 +3135,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: get_WizardHidingBehavior
@@ -3724,9 +3151,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: set_ContentData
@@ -3743,9 +3167,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost
 
 METHOD: set_User
@@ -3762,9 +3183,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<OnFinishCommand>d__25
 
 METHOD: MoveNext
@@ -3781,9 +3199,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<OnFinishCommand>d__25
 
 METHOD: SetStateMachine
@@ -3800,9 +3215,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<OnNextCommand>d__24
 
 METHOD: MoveNext
@@ -3819,9 +3231,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<OnNextCommand>d__24
 
 METHOD: SetStateMachine
@@ -3838,9 +3247,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<RunCommand>d__22
 
 METHOD: MoveNext
@@ -3857,9 +3263,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Control.ViewHosts.PluginWizardViewHost+<RunCommand>d__22
 
 METHOD: SetStateMachine
@@ -3876,9 +3279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIPagesManager
 
 METHOD: AddTabPageInformation
@@ -3895,9 +3295,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIPagesManager
 
 METHOD: GetUIPage
@@ -3915,9 +3312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIPagesManager
 
 METHOD: RegisterPageController
@@ -3934,9 +3328,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIPagesManager
 
 METHOD: RegisterPluginPageControllers
@@ -3953,9 +3344,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIPagesManager
 
 METHOD: RunUICommand
@@ -3976,9 +3364,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: Cancel
@@ -3995,9 +3380,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: IsCommandAllowed
@@ -4014,9 +3396,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: OnDialogResult
@@ -4035,9 +3414,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: RunCommand
@@ -4056,9 +3432,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: add_UIViewInfoChanged
@@ -4075,9 +3448,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_Caption
@@ -4094,9 +3464,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_Commands
@@ -4113,9 +3480,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_ContentData
@@ -4132,9 +3496,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_HelpUrl
@@ -4151,9 +3512,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_IsInSequence
@@ -4170,9 +3528,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_PageId
@@ -4189,9 +3544,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_PluginId
@@ -4208,9 +3560,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_PluginUIView
@@ -4227,9 +3576,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_RedirectViewUrl
@@ -4246,9 +3592,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_ShowDialogFullScreen
@@ -4265,9 +3608,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_SubCaption
@@ -4284,9 +3624,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_User
@@ -4303,9 +3640,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_ViewId
@@ -4322,9 +3656,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: get_ViewType
@@ -4341,9 +3672,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: remove_UIViewInfoChanged
@@ -4360,9 +3688,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: set_ContentData
@@ -4379,9 +3704,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Interfaces.IUIView
 
 METHOD: set_User
@@ -4398,9 +3720,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: .ctor
@@ -4419,9 +3738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: get_Href
@@ -4438,9 +3754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: get_PageId
@@ -4457,9 +3770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: get_PageInfo
@@ -4476,9 +3786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: get_Plugin
@@ -4495,9 +3802,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.PluginUIPageRegistration
 
 METHOD: get_PluginUIPageController
@@ -4514,9 +3818,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: .ctor
@@ -4536,9 +3837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: .ctor
@@ -4558,9 +3856,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: .ctor
@@ -4579,9 +3874,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_Caption
@@ -4598,9 +3890,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_CommandId
@@ -4617,9 +3906,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_CommandType
@@ -4636,9 +3922,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_ConfirmationPrompt
@@ -4655,9 +3938,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_IsEnabled
@@ -4674,9 +3954,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_IsVisible
@@ -4693,9 +3970,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: get_SetFocus
@@ -4712,9 +3986,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_Caption
@@ -4731,9 +4002,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_CommandId
@@ -4750,9 +4018,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_CommandType
@@ -4769,9 +4034,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_ConfirmationPrompt
@@ -4788,9 +4050,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_IsEnabled
@@ -4807,9 +4066,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_IsVisible
@@ -4826,9 +4082,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UICommand
 
 METHOD: set_SetFocus
@@ -4845,9 +4098,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: .ctor
@@ -4866,9 +4116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: .ctor
@@ -4890,9 +4137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_DisplayName
@@ -4909,9 +4153,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_Href
@@ -4928,9 +4169,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_Index
@@ -4947,9 +4185,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_NavKey
@@ -4966,9 +4201,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_PageId
@@ -4985,9 +4217,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: get_PluginId
@@ -5004,9 +4233,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfo
 
 METHOD: set_NavKey
@@ -5023,9 +4249,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UITabPageInfoList
 
 METHOD: .ctor
@@ -5042,9 +4265,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: .ctor
@@ -5061,9 +4281,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_Caption
@@ -5080,9 +4297,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_Commands
@@ -5099,9 +4313,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_EditObjectContainer
@@ -5118,9 +4329,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_IsInSequence
@@ -5137,9 +4345,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_IsPageChangeInfo
@@ -5156,9 +4361,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_PageId
@@ -5175,9 +4377,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_PluginId
@@ -5194,9 +4393,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_RedirectViewUrl
@@ -5213,9 +4409,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_ShowDialogFullScreen
@@ -5232,9 +4425,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_SubCaption
@@ -5251,9 +4441,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_TabPageInfos
@@ -5270,9 +4457,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_ViewId
@@ -5289,9 +4473,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: get_ViewType
@@ -5308,9 +4489,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: set_IsPageChangeInfo
@@ -5327,9 +4505,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.UIViewInfo
 
 METHOD: set_TabPageInfos
@@ -5346,9 +4521,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: .ctor
@@ -5368,9 +4540,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: Cancel
@@ -5387,9 +4556,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: GetDefaultOKButtonCaption
@@ -5406,9 +4572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: GetOKButtonCaption
@@ -5425,9 +4588,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: IsCommandAllowed
@@ -5444,9 +4604,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: OnCancelCommand
@@ -5463,9 +4620,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: OnDialogResult
@@ -5484,9 +4638,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: OnOkCommand
@@ -5506,9 +4657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: RaiseInfoChanged
@@ -5525,9 +4673,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: RunCommand
@@ -5546,9 +4691,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: UpdateCommands
@@ -5565,9 +4707,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: add_UIViewInfoChanged
@@ -5584,9 +4723,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_AllowCancel
@@ -5603,9 +4739,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_AllowOk
@@ -5622,9 +4755,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_Caption
@@ -5641,9 +4771,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_Commands
@@ -5660,9 +4787,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_ContentData
@@ -5679,9 +4803,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_EditObjectContainer
@@ -5698,9 +4819,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_HelpUrl
@@ -5717,9 +4835,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_IsInSequence
@@ -5736,9 +4851,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_OriginalUIView
@@ -5755,9 +4867,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_PageId
@@ -5774,9 +4883,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_PluginId
@@ -5793,9 +4899,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_PluginUIView
@@ -5812,9 +4915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_RedirectViewUrl
@@ -5831,9 +4931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_ShowDialogFullScreen
@@ -5850,9 +4947,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_SubCaption
@@ -5869,9 +4963,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_User
@@ -5888,9 +4979,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_ViewId
@@ -5907,9 +4995,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: get_ViewType
@@ -5926,9 +5011,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: remove_UIViewInfoChanged
@@ -5945,9 +5027,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_AllowCancel
@@ -5964,9 +5043,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_AllowOk
@@ -5983,9 +5059,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_Caption
@@ -6002,9 +5075,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_ContentData
@@ -6021,9 +5091,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_RedirectViewUrl
@@ -6040,9 +5107,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_SubCaption
@@ -6059,9 +5123,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase
 
 METHOD: set_User
@@ -6078,9 +5139,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase+<RunCommand>d__66
 
 METHOD: MoveNext
@@ -6097,9 +5155,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.DialogViewBase+<RunCommand>d__66
 
 METHOD: SetStateMachine
@@ -6116,9 +5171,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: .ctor
@@ -6138,9 +5190,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: Cancel
@@ -6157,9 +5206,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: IsCommandAllowed
@@ -6176,9 +5222,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: OnBackCommand
@@ -6195,9 +5238,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: OnContentDataChanged
@@ -6214,9 +5254,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: OnDialogResult
@@ -6235,9 +5272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: OnSaveCommand
@@ -6256,9 +5290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: RaiseInfoChanged
@@ -6275,9 +5306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: RunCommand
@@ -6296,9 +5324,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: UpdateCommands
@@ -6315,9 +5340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: add_UIViewInfoChanged
@@ -6334,9 +5356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_AllowBack
@@ -6353,9 +5372,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_AllowSave
@@ -6372,9 +5388,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_Caption
@@ -6391,9 +5404,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_Commands
@@ -6410,9 +5420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ContentData
@@ -6429,9 +5436,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_EditObjectContainer
@@ -6448,9 +5452,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_HelpUrl
@@ -6467,9 +5468,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_IsInSequence
@@ -6486,9 +5484,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_PageId
@@ -6505,9 +5500,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_PluginId
@@ -6524,9 +5516,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_PluginUIView
@@ -6543,9 +5532,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_PreviousUIView
@@ -6562,9 +5548,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_RedirectViewUrl
@@ -6581,9 +5564,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ShowBack
@@ -6600,9 +5580,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ShowDialogFullScreen
@@ -6619,9 +5596,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ShowSave
@@ -6638,9 +5612,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_SubCaption
@@ -6657,9 +5628,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_User
@@ -6676,9 +5644,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ViewId
@@ -6695,9 +5660,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: get_ViewType
@@ -6714,9 +5676,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: remove_UIViewInfoChanged
@@ -6733,9 +5692,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_AllowBack
@@ -6752,9 +5708,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_AllowSave
@@ -6771,9 +5724,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_Caption
@@ -6790,9 +5740,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_ContentData
@@ -6809,9 +5756,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_RedirectViewUrl
@@ -6828,9 +5772,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_ShowBack
@@ -6847,9 +5788,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_ShowSave
@@ -6866,9 +5804,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_SubCaption
@@ -6885,9 +5820,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase
 
 METHOD: set_User
@@ -6904,9 +5836,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase+<RunCommand>d__65
 
 METHOD: MoveNext
@@ -6923,9 +5852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PageViewBase+<RunCommand>d__65
 
 METHOD: SetStateMachine
@@ -6942,9 +5868,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: .ctor
@@ -6961,9 +5884,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: Cancel
@@ -6980,9 +5900,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: IsCommandAllowed
@@ -6999,9 +5916,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: OnDialogResult
@@ -7020,9 +5934,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: OnUIViewInfoChanged
@@ -7039,9 +5950,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: RunCommand
@@ -7060,9 +5968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: add_UIViewInfoChanged
@@ -7079,9 +5984,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_Caption
@@ -7098,9 +6000,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_ContentData
@@ -7117,9 +6016,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_PluginId
@@ -7136,9 +6032,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_RedirectViewUrl
@@ -7155,9 +6048,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_SubCaption
@@ -7174,9 +6064,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_UIView
@@ -7193,9 +6080,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: get_User
@@ -7212,9 +6096,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: remove_UIViewInfoChanged
@@ -7231,9 +6112,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: set_ContentData
@@ -7250,9 +6128,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: set_RedirectViewUrl
@@ -7269,9 +6144,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.PluginUIViewPointer
 
 METHOD: set_User
@@ -7288,9 +6160,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: .ctor
@@ -7311,9 +6180,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: Cancel
@@ -7330,9 +6196,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: IsCommandAllowed
@@ -7349,9 +6212,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: OnCancelCommand
@@ -7368,9 +6228,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: OnDialogResult
@@ -7389,9 +6246,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: OnFinishCommand
@@ -7410,9 +6264,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: OnNextCommand
@@ -7431,9 +6282,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: RaiseInfoChanged
@@ -7450,9 +6298,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: RunCommand
@@ -7471,9 +6316,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: UpdateCommands
@@ -7490,9 +6332,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: UpdateVisibility
@@ -7509,9 +6348,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: add_UIViewInfoChanged
@@ -7528,9 +6364,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_AllowBack
@@ -7547,9 +6380,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_AllowCancel
@@ -7566,9 +6396,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_AllowFinish
@@ -7585,9 +6412,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_AllowNext
@@ -7604,9 +6428,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_Caption
@@ -7623,9 +6444,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_Commands
@@ -7642,9 +6460,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_ContentData
@@ -7661,9 +6476,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_EditObjectContainer
@@ -7680,9 +6492,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_FocusFinish
@@ -7699,9 +6508,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_FocusNext
@@ -7718,9 +6524,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_HelpUrl
@@ -7737,9 +6540,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_IsInSequence
@@ -7756,9 +6556,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_OriginalUIView
@@ -7775,9 +6572,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_PageId
@@ -7794,9 +6588,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_PluginId
@@ -7813,9 +6604,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_PluginUIView
@@ -7832,9 +6620,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_PreviousUIView
@@ -7851,9 +6636,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_RedirectViewUrl
@@ -7870,9 +6652,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_ShowDialogFullScreen
@@ -7889,9 +6668,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_SubCaption
@@ -7908,9 +6684,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_User
@@ -7927,9 +6700,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_ViewId
@@ -7946,9 +6716,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: get_ViewType
@@ -7965,9 +6732,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: remove_UIViewInfoChanged
@@ -7984,9 +6748,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_AllowBack
@@ -8003,9 +6764,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_AllowCancel
@@ -8022,9 +6780,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_AllowFinish
@@ -8041,9 +6796,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_AllowNext
@@ -8060,9 +6812,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_Caption
@@ -8079,9 +6828,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_ContentData
@@ -8098,9 +6844,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_FocusFinish
@@ -8117,9 +6860,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_FocusNext
@@ -8136,9 +6876,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_SubCaption
@@ -8155,9 +6892,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase
 
 METHOD: set_User
@@ -8174,9 +6908,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase+<RunCommand>d__75
 
 METHOD: MoveNext
@@ -8193,9 +6924,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Model.Views.WizardViewBase+<RunCommand>d__75
 
 METHOD: SetStateMachine
@@ -8212,9 +6940,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: .ctor
@@ -8231,9 +6956,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Back
@@ -8250,9 +6972,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Cancel
@@ -8269,9 +6988,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Command___0___is_not_allowed_at_this_stage
@@ -8288,9 +7004,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Command___0___is_not_allowed_at_this_stage1
@@ -8307,9 +7020,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Command_is_not_allowed_at_this_stage
@@ -8326,9 +7036,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Command_is_not_implemented
@@ -8345,9 +7052,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Culture
@@ -8364,9 +7068,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Finish
@@ -8383,9 +7084,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Next
@@ -8402,9 +7100,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_No_active_setup_stage
@@ -8421,9 +7116,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_OK
@@ -8440,9 +7132,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_ResourceManager
@@ -8459,9 +7148,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Save
@@ -8478,9 +7164,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get_Unable_to_create_stage_host_for__0_
@@ -8497,9 +7180,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: get__0__is_not_initialized_yet
@@ -8516,9 +7196,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.GenericUI.Properties.Resources
 
 METHOD: set_Culture
@@ -8535,9 +7212,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -8554,9 +7228,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.GenericUI.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: System.Runtime.CompilerServices.RefSafetyRulesAttribute
 
 METHOD: .ctor

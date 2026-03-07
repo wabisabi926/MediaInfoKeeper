@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: MusicBrainz.dll
 DLL_VERSION: 1.0.27.0
 
+====================================================
 TYPE: MusicBrainz.Extensions
 
 METHOD: GetAlbumArtist
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions
 
 METHOD: GetMusicBrainzArtistId
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions
 
 METHOD: GetMusicBrainzArtistId
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions
 
 METHOD: GetReleaseGroupId
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions
 
 METHOD: GetReleaseId
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: .cctor
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: .ctor
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetAlbumArtist>b__0_0
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetAlbumArtist>b__0_1
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetMusicBrainzArtistId>b__3_0
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetMusicBrainzArtistId>b__3_1
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetReleaseGroupId>b__1_0
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetReleaseGroupId>b__1_1
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetReleaseId>b__2_0
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Extensions+<>c
 
 METHOD: <GetReleaseId>b__2_1
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: .ctor
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_approved
@@ -322,9 +274,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_back
@@ -341,9 +290,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_comment
@@ -360,9 +306,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_edit
@@ -379,9 +322,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_front
@@ -398,9 +338,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_id
@@ -417,9 +354,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_image
@@ -436,9 +370,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_thumbnails
@@ -455,9 +386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: get_types
@@ -474,9 +402,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_approved
@@ -493,9 +418,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_back
@@ -512,9 +434,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_comment
@@ -531,9 +450,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_edit
@@ -550,9 +466,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_front
@@ -569,9 +482,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_id
@@ -588,9 +498,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_image
@@ -607,9 +514,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_thumbnails
@@ -626,9 +530,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Image
 
 METHOD: set_types
@@ -645,9 +546,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.ImageResult
 
 METHOD: .ctor
@@ -664,9 +562,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.ImageResult
 
 METHOD: get_images
@@ -683,9 +578,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.ImageResult
 
 METHOD: set_images
@@ -702,9 +594,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: .ctor
@@ -721,9 +610,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: Supports
@@ -740,9 +626,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: get_Key
@@ -759,9 +642,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: get_Name
@@ -778,9 +658,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: get_UrlFormatString
@@ -797,9 +674,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumArtistExternalId
 
 METHOD: get_Website
@@ -816,9 +690,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: .ctor
@@ -835,9 +706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: Supports
@@ -854,9 +722,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: get_Key
@@ -873,9 +738,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: get_Name
@@ -892,9 +754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: get_UrlFormatString
@@ -911,9 +770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumExternalId
 
 METHOD: get_Website
@@ -930,9 +786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: .cctor
@@ -949,9 +802,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: .ctor
@@ -972,9 +822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: EncodeName
@@ -991,9 +838,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetImageResponse
@@ -1011,9 +855,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetMbzUrl
@@ -1030,9 +871,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetMetadata
@@ -1050,9 +888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetMusicBrainzOptions
@@ -1069,9 +904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetMusicBrainzResponse
@@ -1089,9 +921,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetMusicBrainzResponse
@@ -1110,9 +939,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetResultsFromResponse
@@ -1129,9 +955,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetSearchResults
@@ -1149,9 +972,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetSearchResultsByName
@@ -1169,9 +989,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: GetSupportedExternalIdentifiers
@@ -1188,9 +1005,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: ParseArtistArtistCredit
@@ -1208,9 +1022,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: ParseArtistCredit
@@ -1227,9 +1038,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: ParseArtistNameCredit
@@ -1246,9 +1054,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: ToMetadataResult
@@ -1265,9 +1070,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: get_Name
@@ -1284,9 +1086,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider
 
 METHOD: get_Order
@@ -1303,9 +1102,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetMetadata>d__16
 
 METHOD: MoveNext
@@ -1322,9 +1118,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetMetadata>d__16
 
 METHOD: SetStateMachine
@@ -1341,9 +1134,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetMusicBrainzResponse>d__26
 
 METHOD: MoveNext
@@ -1360,9 +1150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetMusicBrainzResponse>d__26
 
 METHOD: SetStateMachine
@@ -1379,9 +1166,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetResultsFromResponse>d__14
 
 METHOD: MoveNext
@@ -1398,9 +1182,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetResultsFromResponse>d__14
 
 METHOD: SetStateMachine
@@ -1417,9 +1198,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetSearchResults>d__12
 
 METHOD: MoveNext
@@ -1436,9 +1214,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetSearchResults>d__12
 
 METHOD: SetStateMachine
@@ -1455,9 +1230,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetSearchResultsByName>d__13
 
 METHOD: MoveNext
@@ -1474,9 +1246,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<GetSearchResultsByName>d__13
 
 METHOD: SetStateMachine
@@ -1493,9 +1262,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistArtistCredit>d__23
 
 METHOD: MoveNext
@@ -1512,9 +1278,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistArtistCredit>d__23
 
 METHOD: SetStateMachine
@@ -1531,9 +1294,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistCredit>d__21
 
 METHOD: MoveNext
@@ -1550,9 +1310,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistCredit>d__21
 
 METHOD: SetStateMachine
@@ -1569,9 +1326,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistNameCredit>d__22
 
 METHOD: MoveNext
@@ -1588,9 +1342,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+<ParseArtistNameCredit>d__22
 
 METHOD: SetStateMachine
@@ -1607,9 +1358,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+MbzUrl
 
 METHOD: .ctor
@@ -1626,9 +1374,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+MbzUrl
 
 METHOD: get_throttleMs
@@ -1645,9 +1390,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+MbzUrl
 
 METHOD: get_url
@@ -1664,9 +1406,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+MbzUrl
 
 METHOD: set_throttleMs
@@ -1683,9 +1422,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+MbzUrl
 
 METHOD: set_url
@@ -1702,9 +1438,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: .ctor
@@ -1721,9 +1454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: Parse
@@ -1740,9 +1470,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: ParseRelation
@@ -1761,9 +1488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: ParseRelationList
@@ -1781,9 +1505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: ParseRelease
@@ -1801,9 +1522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult
 
 METHOD: ParseReleaseList
@@ -1820,9 +1538,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<Parse>d__0
 
 METHOD: MoveNext
@@ -1839,9 +1554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<Parse>d__0
 
 METHOD: SetStateMachine
@@ -1858,9 +1570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelation>d__2
 
 METHOD: MoveNext
@@ -1877,9 +1586,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelation>d__2
 
 METHOD: SetStateMachine
@@ -1896,9 +1602,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelationList>d__3
 
 METHOD: MoveNext
@@ -1915,9 +1618,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelationList>d__3
 
 METHOD: SetStateMachine
@@ -1934,9 +1634,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelease>d__4
 
 METHOD: MoveNext
@@ -1953,9 +1650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseRelease>d__4
 
 METHOD: SetStateMachine
@@ -1972,9 +1666,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseReleaseList>d__1
 
 METHOD: MoveNext
@@ -1991,9 +1682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzAlbumProvider+ReleaseResult+<ParseReleaseList>d__1
 
 METHOD: SetStateMachine
@@ -2010,9 +1698,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: .ctor
@@ -2029,9 +1714,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: Supports
@@ -2048,9 +1730,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: get_Key
@@ -2067,9 +1746,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: get_Name
@@ -2086,9 +1762,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: get_UrlFormatString
@@ -2105,9 +1778,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistExternalId
 
 METHOD: get_Website
@@ -2124,9 +1794,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: .ctor
@@ -2143,9 +1810,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: GetImageResponse
@@ -2163,9 +1827,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: GetMetadata
@@ -2183,9 +1844,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: GetResultsFromResponse
@@ -2202,9 +1860,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: GetSearchResults
@@ -2222,9 +1877,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: GetSupportedExternalIdentifiers
@@ -2241,9 +1893,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: HasDiacritics
@@ -2260,9 +1909,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: ParseArtist
@@ -2280,9 +1926,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: ParseArtistList
@@ -2299,9 +1942,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: ParseRelation
@@ -2320,9 +1960,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: ParseRelationList
@@ -2340,9 +1977,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: ToMetadataResult
@@ -2359,9 +1993,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: UrlEncode
@@ -2378,9 +2009,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider
 
 METHOD: get_Name
@@ -2397,9 +2025,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetMetadata>d__9
 
 METHOD: MoveNext
@@ -2416,9 +2041,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetMetadata>d__9
 
 METHOD: SetStateMachine
@@ -2435,9 +2057,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetResultsFromResponse>d__5
 
 METHOD: MoveNext
@@ -2454,9 +2073,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetResultsFromResponse>d__5
 
 METHOD: SetStateMachine
@@ -2473,9 +2089,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetSearchResults>d__1
 
 METHOD: MoveNext
@@ -2492,9 +2105,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<GetSearchResults>d__1
 
 METHOD: SetStateMachine
@@ -2511,9 +2121,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseArtist>d__7
 
 METHOD: MoveNext
@@ -2530,9 +2137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseArtist>d__7
 
 METHOD: SetStateMachine
@@ -2549,9 +2153,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseArtistList>d__6
 
 METHOD: MoveNext
@@ -2568,9 +2169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseArtistList>d__6
 
 METHOD: SetStateMachine
@@ -2587,9 +2185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseRelation>d__3
 
 METHOD: MoveNext
@@ -2606,9 +2201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseRelation>d__3
 
 METHOD: SetStateMachine
@@ -2625,9 +2217,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseRelationList>d__4
 
 METHOD: MoveNext
@@ -2644,9 +2233,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzArtistProvider+<ParseRelationList>d__4
 
 METHOD: SetStateMachine
@@ -2663,9 +2249,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzConfigStore
 
 METHOD: .ctor
@@ -2682,9 +2265,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzConfigStore
 
 METHOD: GetConfigurations
@@ -2701,9 +2281,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: .ctor
@@ -2722,9 +2299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: GetImageResponse
@@ -2742,9 +2316,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: GetImages
@@ -2763,9 +2334,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: GetSupportedImages
@@ -2782,9 +2350,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: MapImage
@@ -2801,9 +2366,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: Supports
@@ -2820,9 +2382,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider
 
 METHOD: get_Name
@@ -2839,9 +2398,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider+<GetImages>d__8
 
 METHOD: MoveNext
@@ -2858,9 +2414,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzImageProvider+<GetImages>d__8
 
 METHOD: SetStateMachine
@@ -2877,9 +2430,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOptions
 
 METHOD: .ctor
@@ -2896,9 +2446,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOptions
 
 METHOD: get_MusicBrainzUrl
@@ -2915,9 +2462,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOptions
 
 METHOD: set_MusicBrainzUrl
@@ -2934,9 +2478,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: .ctor
@@ -2953,9 +2494,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: Supports
@@ -2972,9 +2510,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: get_Key
@@ -2991,9 +2526,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: get_Name
@@ -3010,9 +2542,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: get_UrlFormatString
@@ -3029,9 +2558,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzOtherArtistExternalId
 
 METHOD: get_Website
@@ -3048,9 +2574,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: .ctor
@@ -3067,9 +2590,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: Supports
@@ -3086,9 +2606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: get_Key
@@ -3105,9 +2622,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: get_Name
@@ -3124,9 +2638,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: get_UrlFormatString
@@ -3143,9 +2654,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzReleaseGroupExternalId
 
 METHOD: get_Website
@@ -3162,9 +2670,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: .ctor
@@ -3181,9 +2686,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: Supports
@@ -3200,9 +2702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: get_Key
@@ -3219,9 +2718,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: get_Name
@@ -3238,9 +2734,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: get_UrlFormatString
@@ -3257,9 +2750,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.MusicBrainzTrackId
 
 METHOD: get_Website
@@ -3276,9 +2766,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: .cctor
@@ -3295,9 +2782,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: .ctor
@@ -3314,9 +2798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: GetPages
@@ -3333,9 +2814,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: GetThumbImage
@@ -3352,9 +2830,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: GetTranslations
@@ -3371,9 +2846,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: get_Description
@@ -3390,9 +2862,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: get_Id
@@ -3409,9 +2878,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: get_Name
@@ -3428,9 +2894,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin
 
 METHOD: get_ThumbImageFormat
@@ -3447,9 +2910,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin+<>c__DisplayClass12_0
 
 METHOD: .ctor
@@ -3466,9 +2926,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin+<>c__DisplayClass12_0
 
 METHOD: <GetTranslations>b__0
@@ -3485,9 +2942,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MusicBrainz.dll
-DLL_VERSION: 1.0.27.0
-
 TYPE: MusicBrainz.Plugin+<>c__DisplayClass12_0
 
 METHOD: <GetTranslations>b__1

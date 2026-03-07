@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.LocalMetadata.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: <>f__AnonymousType0`2
 
 METHOD: .ctor
@@ -19,9 +19,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: <>f__AnonymousType0`2
 
 METHOD: Equals
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: <>f__AnonymousType0`2
 
 METHOD: GetHashCode
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: <>f__AnonymousType0`2
 
 METHOD: ToString
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: <>f__AnonymousType0`2
 
 METHOD: get_file
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: <>f__AnonymousType0`2
 
 METHOD: get_idx
@@ -114,9 +99,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider
 
 METHOD: .ctor
@@ -136,9 +118,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider
 
 METHOD: GetImages
@@ -158,9 +137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider
 
 METHOD: Supports
@@ -177,9 +153,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider
 
 METHOD: get_Name
@@ -196,9 +169,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider
 
 METHOD: get_Order
@@ -215,9 +185,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider+<>c
 
 METHOD: .cctor
@@ -234,9 +201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider+<>c
 
 METHOD: .ctor
@@ -253,9 +217,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.CollectionFolderLocalImageProvider+<>c
 
 METHOD: <GetImages>b__10_0
@@ -272,9 +233,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: .ctor
@@ -291,9 +249,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: GetFilesFromParentFolder
@@ -311,9 +266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: GetImages
@@ -333,9 +285,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: Supports
@@ -352,9 +301,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: get_Name
@@ -371,9 +317,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.EpisodeLocalLocalImageProvider
 
 METHOD: get_Order
@@ -390,9 +333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.InternalMetadataFolderImageProvider
 
 METHOD: .ctor
@@ -413,9 +353,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.InternalMetadataFolderImageProvider
 
 METHOD: GetImages
@@ -435,9 +372,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.InternalMetadataFolderImageProvider
 
 METHOD: Supports
@@ -454,9 +388,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.InternalMetadataFolderImageProvider
 
 METHOD: get_Name
@@ -473,9 +404,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.InternalMetadataFolderImageProvider
 
 METHOD: get_Order
@@ -492,9 +420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: .cctor
@@ -511,9 +436,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: .ctor
@@ -533,9 +455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: AddImage
@@ -558,9 +477,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: AddImage
@@ -580,9 +496,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: AddImage
@@ -603,9 +516,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: GetFiles
@@ -626,9 +536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: GetFiles
@@ -647,9 +554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: GetImage
@@ -668,9 +572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: GetImages
@@ -690,9 +591,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: GetImages
@@ -715,9 +613,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulateBackdrops
@@ -740,9 +635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulateBackdrops
@@ -767,9 +659,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulateBackdropsFromExtraFanart
@@ -788,9 +677,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulateImages
@@ -813,9 +699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulatePrimaryImages
@@ -837,9 +720,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: PopulateSeasonImagesFromSeasonOrSeriesFolder
@@ -861,9 +741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: Supports
@@ -880,9 +757,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: get_Name
@@ -899,9 +773,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider
 
 METHOD: get_Order
@@ -918,9 +789,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: .cctor
@@ -937,9 +805,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: .ctor
@@ -956,9 +821,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <.cctor>b__32_0
@@ -975,9 +837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <.cctor>b__32_1
@@ -994,9 +853,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <.cctor>b__32_2
@@ -1014,9 +870,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_0
@@ -1033,9 +886,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_1
@@ -1052,9 +902,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_2
@@ -1071,9 +918,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_3
@@ -1091,9 +935,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_4
@@ -1110,9 +951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_5
@@ -1129,9 +967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <GetFiles>b__12_6
@@ -1148,9 +983,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <PopulateBackdrops>b__24_0
@@ -1167,9 +999,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c
 
 METHOD: <PopulateBackdropsFromExtraFanart>b__25_1
@@ -1186,9 +1015,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c__DisplayClass25_0
 
 METHOD: .ctor
@@ -1205,9 +1031,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.LocalMetadata.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.LocalMetadata.Images.LocalImageProvider+<>c__DisplayClass25_0
 
 METHOD: <PopulateBackdropsFromExtraFanart>b__0

@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: StudioImages.dll
 DLL_VERSION: 1.0.3.0
 
+====================================================
 TYPE: StudioImages.Plugin
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.Plugin
 
 METHOD: GetThumbImage
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.Plugin
 
 METHOD: get_Description
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.Plugin
 
 METHOD: get_Id
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.Plugin
 
 METHOD: get_Name
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.Plugin
 
 METHOD: get_ThumbImageFormat
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: .ctor
@@ -134,9 +116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: FindMatch
@@ -154,9 +133,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetAvailableImages
@@ -174,9 +150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetComparableName
@@ -193,9 +166,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetImage
@@ -215,9 +185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetImageResponse
@@ -235,9 +202,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetImages
@@ -256,9 +220,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetImages
@@ -278,9 +239,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetList
@@ -300,9 +258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetSupportedImages
@@ -319,9 +274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: GetUrl
@@ -339,9 +291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: Supports
@@ -358,9 +307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: get_Name
@@ -377,9 +323,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider
 
 METHOD: get_Order
@@ -396,9 +339,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<>c__DisplayClass16_0
 
 METHOD: .ctor
@@ -415,9 +355,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<>c__DisplayClass16_0
 
 METHOD: <FindMatch>b__0
@@ -434,9 +371,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetAvailableImages>d__18
 
 METHOD: MoveNext
@@ -453,9 +387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetAvailableImages>d__18
 
 METHOD: SetStateMachine
@@ -472,9 +403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetImage>d__10
 
 METHOD: MoveNext
@@ -491,9 +419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetImage>d__10
 
 METHOD: SetStateMachine
@@ -510,9 +435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetImages>d__9
 
 METHOD: MoveNext
@@ -529,9 +451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: StudioImages.dll
-DLL_VERSION: 1.0.3.0
-
 TYPE: StudioImages.StudiosImageProvider+<GetImages>d__9
 
 METHOD: SetStateMachine

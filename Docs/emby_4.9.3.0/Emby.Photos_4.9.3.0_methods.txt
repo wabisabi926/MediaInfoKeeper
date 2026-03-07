@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Photos.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Photos.PhotoProvider
 
 METHOD: .ctor
@@ -20,9 +20,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Photos.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Photos.PhotoProvider
 
 METHOD: FetchAsync
@@ -42,9 +39,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Photos.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Photos.PhotoProvider
 
 METHOD: HasChanged
@@ -64,9 +58,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Photos.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Photos.PhotoProvider
 
 METHOD: get_Name

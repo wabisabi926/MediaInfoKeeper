@@ -1,0 +1,3 @@
+DLL_NAME: WindowsBase.dll
+DLL_VERSION: 4.0.0.0
+

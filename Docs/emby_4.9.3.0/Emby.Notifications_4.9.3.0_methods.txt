@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Notifications.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_Description
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_DisplayDateTime
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_ImageUrl
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_Level
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_Name
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: get_Url
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_Description
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_DisplayDateTime
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_ImageUrl
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_Level
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_Name
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.AddAdminNotification
 
 METHOD: set_Url
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.DeleteConfiguredNotification
 
 METHOD: .ctor
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.DeleteConfiguredNotification
 
 METHOD: get_Id
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.DeleteConfiguredNotification
 
 METHOD: get_UserId
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.DeleteConfiguredNotification
 
 METHOD: set_Id
@@ -322,9 +274,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.DeleteConfiguredNotification
 
 METHOD: set_UserId
@@ -341,9 +290,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetAllTokens
 
 METHOD: .ctor
@@ -360,9 +306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetConfiguredNotifications
 
 METHOD: .ctor
@@ -379,9 +322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetConfiguredNotifications
 
 METHOD: get_UserId
@@ -398,9 +338,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetConfiguredNotifications
 
 METHOD: set_UserId
@@ -417,9 +354,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetDefaultNotificationInfo
 
 METHOD: .ctor
@@ -436,9 +370,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetDefaultNotificationInfo
 
 METHOD: get_NotifierKey
@@ -455,9 +386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetDefaultNotificationInfo
 
 METHOD: get_UserId
@@ -474,9 +402,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetDefaultNotificationInfo
 
 METHOD: set_NotifierKey
@@ -493,9 +418,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetDefaultNotificationInfo
 
 METHOD: set_UserId
@@ -512,9 +434,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetNotificationTypes
 
 METHOD: .ctor
@@ -531,9 +450,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetNotificationTypes
 
 METHOD: get_UserId
@@ -550,9 +466,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetNotificationTypes
 
 METHOD: set_UserId
@@ -569,9 +482,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetNotifications
 
 METHOD: .ctor
@@ -588,9 +498,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetNotificationsSummary
 
 METHOD: .ctor
@@ -607,9 +514,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetUserNotificationServices
 
 METHOD: .ctor
@@ -626,9 +530,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetUserNotificationServices
 
 METHOD: get_UserId
@@ -645,9 +546,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.GetUserNotificationServices
 
 METHOD: set_UserId
@@ -664,9 +562,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.MarkRead
 
 METHOD: .ctor
@@ -683,9 +578,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.MarkUnread
 
 METHOD: .ctor
@@ -702,9 +594,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: .ctor
@@ -721,9 +610,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: get_Icon
@@ -740,9 +626,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: get_Id
@@ -759,9 +642,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: get_Name
@@ -778,9 +658,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: get_PluginId
@@ -797,9 +674,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: get_SetupModuleUrl
@@ -816,9 +690,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: set_Icon
@@ -835,9 +706,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: set_Id
@@ -854,9 +722,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: set_Name
@@ -873,9 +738,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: set_PluginId
@@ -892,9 +754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationServiceInfo
 
 METHOD: set_SetupModuleUrl
@@ -911,9 +770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: .ctor
@@ -930,9 +786,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: AddNotification
@@ -950,9 +803,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Get
@@ -969,9 +819,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Get
@@ -988,9 +835,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Get
@@ -1007,9 +851,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Get
@@ -1026,9 +867,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Post
@@ -1045,9 +883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Post
@@ -1064,9 +899,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.NotificationsService
 
 METHOD: Post
@@ -1083,9 +915,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.SaveConfiguredNotification
 
 METHOD: .ctor
@@ -1102,9 +931,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.SendTestNotification
 
 METHOD: .ctor
@@ -1121,9 +947,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: .ctor
@@ -1142,9 +965,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Delete
@@ -1161,9 +981,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Get
@@ -1180,9 +997,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Get
@@ -1199,9 +1013,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Get
@@ -1218,9 +1029,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: GetSampleNotificationRequest
@@ -1237,9 +1045,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Post
@@ -1256,9 +1061,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService
 
 METHOD: Post
@@ -1275,9 +1077,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService+<>c__DisplayClass10_0
 
 METHOD: .ctor
@@ -1294,9 +1093,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__0
@@ -1313,9 +1109,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService+<>c__DisplayClass6_0
 
 METHOD: .ctor
@@ -1332,9 +1125,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.Api.UserNotificationsService+<>c__DisplayClass6_0
 
 METHOD: <Delete>b__0
@@ -1351,9 +1141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.CoreNotificationTypeFactory
 
 METHOD: .ctor
@@ -1370,9 +1157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.CoreNotificationTypeFactory
 
 METHOD: GetNotificationTypes
@@ -1389,9 +1173,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFeatures
 
 METHOD: .ctor
@@ -1408,9 +1189,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFeatures
 
 METHOD: GetFeatureInfos
@@ -1427,9 +1205,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: .ctor
@@ -1446,9 +1221,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: FormatValueToString
@@ -1465,9 +1237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetAllTokens
@@ -1484,9 +1253,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetBaseItemDtoTokens
@@ -1503,9 +1269,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetFullTokenName
@@ -1523,9 +1286,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetTokens
@@ -1542,9 +1302,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetValue
@@ -1562,9 +1319,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetValue
@@ -1582,9 +1336,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: GetValueWithReflection
@@ -1602,9 +1353,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: ReplaceTokens
@@ -1622,9 +1370,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter
 
 METHOD: ReplaceTokens
@@ -1643,9 +1388,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter+<>c__DisplayClass5_0
 
 METHOD: .ctor
@@ -1662,9 +1404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter+<>c__DisplayClass5_0
 
 METHOD: <GetTokens>b__0
@@ -1681,9 +1420,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter+<>c__DisplayClass5_1
 
 METHOD: .ctor
@@ -1700,9 +1436,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationFormatter+<>c__DisplayClass5_1
 
 METHOD: <GetTokens>b__1
@@ -1719,9 +1452,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: .ctor
@@ -1742,9 +1472,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: <GetNotificationTypeInfo>b__43_0
@@ -1761,9 +1488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: AddEventListeners
@@ -1780,9 +1504,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: AllowNotificationType
@@ -1800,9 +1521,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: ConvertToGroups
@@ -1819,9 +1537,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: CreateValueString
@@ -1839,9 +1554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: Dispose
@@ -1858,9 +1570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: FilterItem
@@ -1878,9 +1587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetCategoryOrder
@@ -1897,9 +1603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetCategoryOrder
@@ -1916,9 +1619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetCategoryOrder
@@ -1935,9 +1635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetConfiguredNotifications
@@ -1954,9 +1651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetConfiguredNotifications
@@ -1974,9 +1668,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetDtoOptions
@@ -1993,9 +1684,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetLocalizedString
@@ -2012,9 +1700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetNotificationCategories
@@ -2032,9 +1717,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetNotificationTokens
@@ -2051,9 +1733,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetNotificationTypeInfo
@@ -2070,9 +1749,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetNotificationTypes
@@ -2090,9 +1766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetNotificationTypes
@@ -2110,9 +1783,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetRecordingDescription
@@ -2129,9 +1799,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetSeriesTimerDescription
@@ -2148,9 +1815,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GetTimerDescription
@@ -2168,9 +1832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: GroupItemUpdateNotifications
@@ -2187,9 +1848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: ImportDependencies
@@ -2206,9 +1864,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: LibraryUpdateTimerCallback
@@ -2225,9 +1880,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: RemoveEventListeners
@@ -2244,9 +1896,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: ReplaceTokens
@@ -2264,9 +1913,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: Run
@@ -2283,9 +1929,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SaveUserNotification
@@ -2304,9 +1947,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SaveUserNotification
@@ -2324,9 +1964,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendItemAddedNotifications
@@ -2343,9 +1980,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendItemRemovedNotifications
@@ -2362,9 +1996,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendItemUpdatedNotifications
@@ -2381,9 +2012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendNotification
@@ -2400,9 +2028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendNotification
@@ -2420,9 +2045,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendNotification
@@ -2440,9 +2062,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendNotification
@@ -2462,9 +2081,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendPlaybackNotification
@@ -2484,9 +2100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: SendStartupNotification
@@ -2503,9 +2116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: Start
@@ -2522,9 +2132,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: StartTimerForNotification
@@ -2542,9 +2149,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: Stop
@@ -2561,9 +2165,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: ToUserFriendlyString
@@ -2580,9 +2181,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _appHost_ApplicationUpdated
@@ -2600,9 +2198,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _appHost_EnterMaintenanceMode
@@ -2620,9 +2215,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _appHost_ExitMaintenanceMode
@@ -2640,9 +2232,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _appHost_HasPendingRestartChanged
@@ -2660,9 +2249,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _appHost_HasUpdateAvailableChanged
@@ -2680,9 +2266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _deviceManager_CameraImageUploaded
@@ -2700,9 +2283,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _installationManager_PackageInstallationFailed
@@ -2720,9 +2300,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _installationManager_PluginInstalled
@@ -2740,9 +2317,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _installationManager_PluginUninstalled
@@ -2760,9 +2334,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _installationManager_PluginUpdated
@@ -2780,9 +2351,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _libraryManager_ItemAdded
@@ -2800,9 +2368,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _libraryManager_ItemRemoved
@@ -2820,9 +2385,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _libraryManager_ItemUpdated
@@ -2840,9 +2402,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_RecordingEnded
@@ -2860,9 +2419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_RecordingStarted
@@ -2880,9 +2436,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_SeriesTimerCancelled
@@ -2900,9 +2453,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_SeriesTimerCreated
@@ -2920,9 +2470,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_TimerCancelled
@@ -2940,9 +2487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _liveTvManager_TimerCreated
@@ -2960,9 +2504,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _sessionManager_AuthenticationFailed
@@ -2980,9 +2521,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _sessionManager_AuthenticationSucceeded
@@ -3000,9 +2538,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _sessionManager_PlaybackProgress
@@ -3020,9 +2555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _sessionManager_PlaybackStart
@@ -3040,9 +2572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _sessionManager_PlaybackStopped
@@ -3060,9 +2589,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _taskManager_TaskCompleted
@@ -3080,9 +2606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userDataManager_UserDataSaved
@@ -3100,9 +2623,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userManager_UserCreated
@@ -3120,9 +2640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userManager_UserDeleted
@@ -3140,9 +2657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userManager_UserLockedOut
@@ -3160,9 +2674,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userManager_UserPasswordChanged
@@ -3180,9 +2691,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: _userManager_UserPolicyUpdated
@@ -3200,9 +2708,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: get_NotificationQueueManager
@@ -3219,9 +2724,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager
 
 METHOD: set_NotificationQueueManager
@@ -3238,9 +2740,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: .cctor
@@ -3257,9 +2756,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: .ctor
@@ -3276,9 +2772,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <GetNotificationCategories>b__38_0
@@ -3295,9 +2788,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <GetNotificationCategories>b__38_1
@@ -3314,9 +2804,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <GetNotificationCategories>b__38_2
@@ -3333,9 +2820,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <GetNotificationCategories>b__38_3
@@ -3352,9 +2836,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <GetNotificationCategories>b__38_4
@@ -3371,9 +2852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c
 
 METHOD: <SendNotification>b__105_0
@@ -3390,9 +2868,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass105_0
 
 METHOD: .ctor
@@ -3409,9 +2884,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass105_0
 
 METHOD: <SendNotification>b__1
@@ -3428,9 +2900,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass40_0
 
 METHOD: .ctor
@@ -3447,9 +2916,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass40_0
 
 METHOD: <GetNotificationTypes>b__0
@@ -3466,9 +2932,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass40_0
 
 METHOD: <GetNotificationTypes>b__1
@@ -3485,9 +2948,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass75_0
 
 METHOD: .ctor
@@ -3504,9 +2964,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManager+<>c__DisplayClass75_0
 
 METHOD: <GetConfiguredNotifications>b__0
@@ -3523,9 +2980,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManagerEntryPoint
 
 METHOD: .ctor
@@ -3542,9 +2996,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManagerEntryPoint
 
 METHOD: Dispose
@@ -3561,9 +3012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationManagerEntryPoint
 
 METHOD: Run
@@ -3580,9 +3028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: .ctor
@@ -3600,9 +3045,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: Dispose
@@ -3619,9 +3061,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: QueueNotification
@@ -3639,9 +3078,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: QueueNotification
@@ -3660,9 +3096,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: StartProcessingQueue
@@ -3679,9 +3112,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager
 
 METHOD: TryDequeue
@@ -3698,9 +3128,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager+<StartProcessingQueue>d__10
 
 METHOD: MoveNext
@@ -3717,9 +3144,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationQueueManager+<StartProcessingQueue>d__10
 
 METHOD: SetStateMachine
@@ -3736,9 +3160,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.NotificationRequestInfo
 
 METHOD: .ctor
@@ -3755,9 +3176,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: .ctor
@@ -3774,9 +3192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: get_NotifierKey
@@ -3793,9 +3208,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: get_PluginId
@@ -3812,9 +3224,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: get_ServiceName
@@ -3831,9 +3240,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: get_SetupModuleUrl
@@ -3850,9 +3256,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: set_NotifierKey
@@ -3869,9 +3272,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: set_PluginId
@@ -3888,9 +3288,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: set_ServiceName
@@ -3907,9 +3304,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationInfo
 
 METHOD: set_SetupModuleUrl
@@ -3926,9 +3320,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationOptions
 
 METHOD: .ctor
@@ -3945,9 +3336,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationOptions
 
 METHOD: get_Notifications
@@ -3964,9 +3352,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotificationOptions
 
 METHOD: set_Notifications
@@ -3983,9 +3368,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: .ctor
@@ -4004,9 +3386,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: FillServiceInfo
@@ -4024,9 +3403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: FindPlugin
@@ -4043,9 +3419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetAvailableOutputs
@@ -4062,9 +3435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetConfiguredNotifications
@@ -4081,9 +3451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetConfiguredNotifications
@@ -4100,9 +3467,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetConfiguredNotifications
@@ -4119,9 +3483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetFeatureId
@@ -4138,9 +3499,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetServiceOutputs
@@ -4157,9 +3515,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: GetUserNotifications
@@ -4176,9 +3531,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: Run
@@ -4195,9 +3547,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: SendNotification
@@ -4215,9 +3564,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier
 
 METHOD: get_Name
@@ -4234,9 +3580,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c
 
 METHOD: .cctor
@@ -4253,9 +3596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c
 
 METHOD: .ctor
@@ -4272,9 +3612,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c
 
 METHOD: <GetAvailableOutputs>b__15_1
@@ -4291,9 +3628,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass11_0
 
 METHOD: .ctor
@@ -4310,9 +3644,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass11_0
 
 METHOD: <GetUserNotifications>b__0
@@ -4329,9 +3660,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass12_0
 
 METHOD: .ctor
@@ -4348,9 +3676,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass12_0
 
 METHOD: <FindPlugin>b__0
@@ -4367,9 +3692,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass15_0
 
 METHOD: .ctor
@@ -4386,9 +3708,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifier+<>c__DisplayClass15_0
 
 METHOD: <GetAvailableOutputs>b__0
@@ -4405,9 +3724,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifierConfigExtension
 
 METHOD: GetUserNotificationOptions
@@ -4425,9 +3741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifierConfigExtension
 
 METHOD: UpdateUserNotificationOptions
@@ -4446,9 +3759,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifierConfigurationStore
 
 METHOD: .cctor
@@ -4465,9 +3775,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifierConfigurationStore
 
 METHOD: .ctor
@@ -4484,9 +3791,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Notifications.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Notifications.UserNotifierConfigurationStore
 
 METHOD: GetConfigurations

@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: SQLitePCLRawEx.core.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareBuf
 
 METHOD: .ctor
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareBuf
 
 METHOD: Equals
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareBuf
 
 METHOD: GetHashCode
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareFuncName
 
 METHOD: .ctor
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareFuncName
 
 METHOD: Equals
@@ -115,9 +100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.CompareFuncName
 
 METHOD: GetHashCode
@@ -134,9 +116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.FuncName
 
 METHOD: .ctor
@@ -154,9 +133,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.FuncName
 
 METHOD: get_n
@@ -173,9 +149,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.FuncName
 
 METHOD: get_name
@@ -192,9 +165,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.FuncName
 
 METHOD: set_n
@@ -211,9 +181,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.FuncName
 
 METHOD: set_name
@@ -230,9 +197,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: GetNativeLibraryName
@@ -249,9 +213,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3__vfs__delete
@@ -270,9 +231,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_backup_finish
@@ -289,9 +247,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_backup_init
@@ -311,9 +266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_backup_pagecount
@@ -330,9 +282,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_backup_remaining
@@ -349,9 +298,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_backup_step
@@ -369,9 +315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_blob
@@ -390,9 +333,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_double
@@ -411,9 +351,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_int
@@ -432,9 +369,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_int64
@@ -453,9 +387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_null
@@ -473,9 +404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_parameter_count
@@ -492,9 +420,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_parameter_index
@@ -512,9 +437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_parameter_name
@@ -532,9 +454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_text
@@ -553,9 +472,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_text
@@ -574,9 +490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_text16
@@ -595,9 +508,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_bind_zeroblob
@@ -616,9 +526,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_bytes
@@ -635,9 +542,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_close
@@ -654,9 +558,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_open
@@ -679,9 +580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_read
@@ -700,9 +598,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_reopen
@@ -720,9 +615,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_blob_write
@@ -741,9 +633,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_busy_timeout
@@ -761,9 +650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_changes
@@ -780,9 +666,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_clear_bindings
@@ -799,9 +682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_close
@@ -818,9 +698,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_close_v2
@@ -837,9 +714,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_blob
@@ -857,9 +731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_bytes
@@ -877,9 +748,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_count
@@ -896,9 +764,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_database_name
@@ -916,9 +781,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_decltype
@@ -936,9 +798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_double
@@ -956,9 +815,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_int
@@ -976,9 +832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_int64
@@ -996,9 +849,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_name
@@ -1016,9 +866,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_origin_name
@@ -1036,9 +883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_spanchar
@@ -1056,9 +900,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_string
@@ -1076,9 +917,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_table_name
@@ -1096,9 +934,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_text
@@ -1116,9 +951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_column_type
@@ -1136,9 +968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_commit_hook
@@ -1157,9 +986,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_compileoption_get
@@ -1176,9 +1002,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_compileoption_used
@@ -1195,9 +1018,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_complete
@@ -1214,9 +1034,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_config
@@ -1233,9 +1050,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_config
@@ -1253,9 +1067,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_config_log
@@ -1273,9 +1084,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_create_collation
@@ -1295,9 +1103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_create_function
@@ -1319,9 +1124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_create_function
@@ -1344,9 +1146,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_data_count
@@ -1363,9 +1162,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_config
@@ -1384,9 +1180,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_config
@@ -1406,9 +1199,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_config
@@ -1429,9 +1219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_filename
@@ -1449,9 +1236,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_handle
@@ -1468,9 +1252,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_readonly
@@ -1488,9 +1269,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_db_status
@@ -1511,9 +1289,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_enable_load_extension
@@ -1531,9 +1306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_enable_shared_cache
@@ -1550,9 +1322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_errcode
@@ -1569,9 +1338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_errmsg
@@ -1588,9 +1354,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_errstr
@@ -1607,9 +1370,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_exec
@@ -1630,9 +1390,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_extended_errcode
@@ -1649,9 +1406,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_extended_result_codes
@@ -1669,9 +1423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_finalize
@@ -1688,9 +1439,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_free
@@ -1707,9 +1455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_get_autocommit
@@ -1726,9 +1471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_hard_heap_limit64
@@ -1745,9 +1487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_initialize
@@ -1764,9 +1503,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_interrupt
@@ -1783,9 +1519,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_key
@@ -1803,9 +1536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_key_v2
@@ -1824,9 +1554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_keyword_count
@@ -1843,9 +1570,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_keyword_name
@@ -1863,9 +1587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_last_insert_rowid
@@ -1882,9 +1603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_libversion
@@ -1901,9 +1619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_libversion_number
@@ -1920,9 +1635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_limit
@@ -1941,9 +1653,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_load_extension
@@ -1963,9 +1672,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_log
@@ -1983,9 +1689,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_memory_highwater
@@ -2002,9 +1705,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_memory_used
@@ -2021,9 +1721,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_next_stmt
@@ -2041,9 +1738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_open
@@ -2061,9 +1755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_open_v2
@@ -2083,9 +1774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_prepare_v2
@@ -2105,9 +1793,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_prepare_v2
@@ -2127,9 +1812,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_prepare_v3
@@ -2150,9 +1832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_prepare_v3
@@ -2173,9 +1852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_profile
@@ -2194,9 +1870,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_progress_handler
@@ -2216,9 +1889,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_rekey
@@ -2236,9 +1906,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_rekey_v2
@@ -2257,9 +1924,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_reset
@@ -2276,9 +1940,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_blob
@@ -2296,9 +1957,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_double
@@ -2316,9 +1974,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_error
@@ -2336,9 +1991,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_error
@@ -2356,9 +2008,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_error_code
@@ -2376,9 +2025,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_error_nomem
@@ -2395,9 +2041,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_error_toobig
@@ -2414,9 +2057,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_int
@@ -2434,9 +2074,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_int64
@@ -2454,9 +2091,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_null
@@ -2473,9 +2107,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_text
@@ -2493,9 +2124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_text
@@ -2513,9 +2141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_result_zeroblob
@@ -2533,9 +2158,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_rollback_hook
@@ -2554,9 +2176,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_set_authorizer
@@ -2575,9 +2194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_shutdown
@@ -2594,9 +2210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_snapshot_cmp
@@ -2614,9 +2227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_snapshot_free
@@ -2633,9 +2243,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_snapshot_get
@@ -2654,9 +2261,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_snapshot_open
@@ -2675,9 +2279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_snapshot_recover
@@ -2695,9 +2296,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_soft_heap_limit64
@@ -2714,9 +2312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_sourceid
@@ -2733,9 +2328,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_sql
@@ -2752,9 +2344,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_status
@@ -2774,9 +2363,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_step
@@ -2793,9 +2379,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_stmt_busy
@@ -2812,9 +2395,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_stmt_isexplain
@@ -2831,9 +2411,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_stmt_readonly
@@ -2850,9 +2427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_stmt_status
@@ -2871,9 +2445,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_stricmp
@@ -2891,9 +2462,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_strnicmp
@@ -2912,9 +2480,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_table_column_metadata
@@ -2939,9 +2504,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_threadsafe
@@ -2958,9 +2520,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_total_changes
@@ -2977,9 +2536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_trace
@@ -2998,9 +2554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_update_hook
@@ -3019,9 +2572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_blob
@@ -3038,9 +2588,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_bytes
@@ -3057,9 +2604,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_double
@@ -3076,9 +2620,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_int
@@ -3095,9 +2636,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_int64
@@ -3114,9 +2652,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_span_char
@@ -3133,9 +2668,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_string
@@ -3152,9 +2684,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_text
@@ -3171,9 +2700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_value_type
@@ -3190,9 +2716,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_wal_autocheckpoint
@@ -3210,9 +2733,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_wal_checkpoint
@@ -3230,9 +2750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_wal_checkpoint_v2
@@ -3253,9 +2770,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: sqlite3_win32_set_directory
@@ -3273,9 +2787,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.ISQLite3Provider
 
 METHOD: to_bytespan_with_z
@@ -3292,9 +2803,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.MonoPInvokeCallbackAttribute
 
 METHOD: .ctor
@@ -3311,9 +2819,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.PreserveAttribute
 
 METHOD: .ctor
@@ -3330,9 +2835,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.SafeGCHandle
 
 METHOD: .ctor
@@ -3350,9 +2852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.SafeGCHandle
 
 METHOD: ReleaseHandle
@@ -3369,9 +2868,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.SafeGCHandle
 
 METHOD: get_IsInvalid
@@ -3388,9 +2884,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.authorizer_hook_info
 
 METHOD: .ctor
@@ -3408,9 +2901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.authorizer_hook_info
 
 METHOD: call
@@ -3431,9 +2921,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.authorizer_hook_info
 
 METHOD: from_ptr
@@ -3450,9 +2937,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.collation_hook_info
 
 METHOD: .ctor
@@ -3470,9 +2954,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.collation_hook_info
 
 METHOD: call
@@ -3490,9 +2971,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.collation_hook_info
 
 METHOD: from_ptr
@@ -3509,9 +2987,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: .ctor
@@ -3529,9 +3004,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: call
@@ -3548,9 +3020,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: from_ptr
@@ -3567,9 +3036,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: get__func
@@ -3586,9 +3052,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: get__user_data
@@ -3605,9 +3068,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: set__func
@@ -3624,9 +3084,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.commit_hook_info
 
 METHOD: set__user_data
@@ -3643,9 +3100,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_authorizer
 
 METHOD: .ctor
@@ -3663,9 +3117,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_authorizer
 
 METHOD: BeginInvoke
@@ -3689,9 +3140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_authorizer
 
 METHOD: EndInvoke
@@ -3708,9 +3156,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_authorizer
 
 METHOD: Invoke
@@ -3732,9 +3177,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_collation
 
 METHOD: .ctor
@@ -3752,9 +3194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_collation
 
 METHOD: BeginInvoke
@@ -3775,9 +3214,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_collation
 
 METHOD: EndInvoke
@@ -3794,9 +3230,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_collation
 
 METHOD: Invoke
@@ -3815,9 +3248,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_commit
 
 METHOD: .ctor
@@ -3835,9 +3265,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_commit
 
 METHOD: BeginInvoke
@@ -3856,9 +3283,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_commit
 
 METHOD: EndInvoke
@@ -3875,9 +3299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_commit
 
 METHOD: Invoke
@@ -3894,9 +3315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_exec
 
 METHOD: .ctor
@@ -3914,9 +3332,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_exec
 
 METHOD: BeginInvoke
@@ -3937,9 +3352,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_exec
 
 METHOD: EndInvoke
@@ -3956,9 +3368,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_exec
 
 METHOD: Invoke
@@ -3977,9 +3386,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_final
 
 METHOD: .ctor
@@ -3997,9 +3403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_final
 
 METHOD: BeginInvoke
@@ -4019,9 +3422,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_final
 
 METHOD: EndInvoke
@@ -4038,9 +3438,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_final
 
 METHOD: Invoke
@@ -4058,9 +3455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_step
 
 METHOD: .ctor
@@ -4078,9 +3472,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_step
 
 METHOD: BeginInvoke
@@ -4101,9 +3492,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_step
 
 METHOD: EndInvoke
@@ -4120,9 +3508,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_aggregate_step
 
 METHOD: Invoke
@@ -4141,9 +3526,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_scalar
 
 METHOD: .ctor
@@ -4161,9 +3543,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_scalar
 
 METHOD: BeginInvoke
@@ -4184,9 +3563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_scalar
 
 METHOD: EndInvoke
@@ -4203,9 +3579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_function_scalar
 
 METHOD: Invoke
@@ -4224,9 +3597,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_log
 
 METHOD: .ctor
@@ -4244,9 +3614,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_log
 
 METHOD: BeginInvoke
@@ -4267,9 +3634,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_log
 
 METHOD: EndInvoke
@@ -4286,9 +3650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_log
 
 METHOD: Invoke
@@ -4307,9 +3668,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_profile
 
 METHOD: .ctor
@@ -4327,9 +3685,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_profile
 
 METHOD: BeginInvoke
@@ -4350,9 +3705,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_profile
 
 METHOD: EndInvoke
@@ -4369,9 +3721,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_profile
 
 METHOD: Invoke
@@ -4390,9 +3739,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_progress
 
 METHOD: .ctor
@@ -4410,9 +3756,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_progress
 
 METHOD: BeginInvoke
@@ -4431,9 +3774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_progress
 
 METHOD: EndInvoke
@@ -4450,9 +3790,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_progress
 
 METHOD: Invoke
@@ -4469,9 +3806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_rollback
 
 METHOD: .ctor
@@ -4489,9 +3823,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_rollback
 
 METHOD: BeginInvoke
@@ -4510,9 +3841,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_rollback
 
 METHOD: EndInvoke
@@ -4529,9 +3857,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_rollback
 
 METHOD: Invoke
@@ -4548,9 +3873,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_trace
 
 METHOD: .ctor
@@ -4568,9 +3890,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_trace
 
 METHOD: BeginInvoke
@@ -4590,9 +3909,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_trace
 
 METHOD: EndInvoke
@@ -4609,9 +3925,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_trace
 
 METHOD: Invoke
@@ -4629,9 +3942,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_update
 
 METHOD: .ctor
@@ -4649,9 +3959,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_update
 
 METHOD: BeginInvoke
@@ -4674,9 +3981,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_update
 
 METHOD: EndInvoke
@@ -4693,9 +3997,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.delegate_update
 
 METHOD: Invoke
@@ -4716,9 +4017,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.exec_hook_info
 
 METHOD: .ctor
@@ -4736,9 +4034,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.exec_hook_info
 
 METHOD: call
@@ -4757,9 +4052,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.exec_hook_info
 
 METHOD: from_ptr
@@ -4776,9 +4068,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: .ctor
@@ -4797,9 +4086,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: .ctor
@@ -4817,9 +4103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: call_final
@@ -4837,9 +4120,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: call_scalar
@@ -4858,9 +4138,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: call_step
@@ -4880,9 +4157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: from_ptr
@@ -4899,9 +4173,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info
 
 METHOD: get_context
@@ -4919,9 +4190,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info+agg_sqlite3_context
 
 METHOD: .ctor
@@ -4938,9 +4206,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info+agg_sqlite3_context
 
 METHOD: fix_ptr
@@ -4957,9 +4222,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.function_hook_info+scalar_sqlite3_context
 
 METHOD: .ctor
@@ -4977,9 +4239,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handle
 
 METHOD: .ctor
@@ -4996,9 +4255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handle
 
 METHOD: ForDispose
@@ -5015,9 +4271,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: .ctor
@@ -5034,9 +4287,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: AddAggFunction
@@ -5055,9 +4305,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: AddCollation
@@ -5075,9 +4322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: AddScalarFunction
@@ -5096,9 +4340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: Dispose
@@ -5115,9 +4356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: RemoveAggFunction
@@ -5135,9 +4373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: RemoveCollation
@@ -5154,9 +4389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.hook_handles
 
 METHOD: RemoveScalarFunction
@@ -5174,9 +4406,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.log_hook_info
 
 METHOD: .ctor
@@ -5194,9 +4423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.log_hook_info
 
 METHOD: call
@@ -5214,9 +4440,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.log_hook_info
 
 METHOD: from_ptr
@@ -5233,9 +4456,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.profile_hook_info
 
 METHOD: .ctor
@@ -5253,9 +4473,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.profile_hook_info
 
 METHOD: call
@@ -5273,9 +4490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.profile_hook_info
 
 METHOD: from_ptr
@@ -5292,9 +4506,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.progress_hook_info
 
 METHOD: .ctor
@@ -5312,9 +4523,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.progress_hook_info
 
 METHOD: call
@@ -5331,9 +4539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.progress_hook_info
 
 METHOD: from_ptr
@@ -5350,9 +4555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: .cctor
@@ -5369,9 +4571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: FreezeProvider
@@ -5388,9 +4587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: GetNativeLibraryName
@@ -5407,9 +4603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: SetProvider
@@ -5426,9 +4619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: get_Provider
@@ -5445,9 +4635,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_backup_finish
@@ -5464,9 +4651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_blob_close
@@ -5483,9 +4667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_close
@@ -5502,9 +4683,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_close_v2
@@ -5521,9 +4699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_finalize
@@ -5540,9 +4715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: internal_sqlite3_snapshot_free
@@ -5559,9 +4731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3__create_collation_utf8
@@ -5581,9 +4750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3__vfs__delete
@@ -5602,9 +4768,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3__vfs__delete
@@ -5623,9 +4786,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_backup_finish
@@ -5642,9 +4802,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_backup_init
@@ -5664,9 +4821,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_backup_pagecount
@@ -5683,9 +4837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_backup_remaining
@@ -5702,9 +4853,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_backup_step
@@ -5722,9 +4870,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_blob
@@ -5743,9 +4888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_double
@@ -5764,9 +4906,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_int
@@ -5785,9 +4924,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_int64
@@ -5806,9 +4942,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_null
@@ -5826,9 +4959,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_parameter_count
@@ -5845,9 +4975,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_parameter_index
@@ -5865,9 +4992,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_parameter_index
@@ -5885,9 +5009,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_parameter_name
@@ -5905,9 +5026,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_text
@@ -5926,9 +5044,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_text
@@ -5947,9 +5062,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_text
@@ -5968,9 +5080,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_text16
@@ -5989,9 +5098,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_bind_zeroblob
@@ -6010,9 +5116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_bytes
@@ -6029,9 +5132,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_close
@@ -6048,9 +5148,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_open
@@ -6073,9 +5170,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_open
@@ -6098,9 +5192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_read
@@ -6119,9 +5210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_reopen
@@ -6139,9 +5227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_blob_write
@@ -6160,9 +5245,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_busy_timeout
@@ -6180,9 +5262,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_changes
@@ -6199,9 +5278,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_clear_bindings
@@ -6218,9 +5294,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_close
@@ -6237,9 +5310,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_close_v2
@@ -6256,9 +5326,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_blob
@@ -6276,9 +5343,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_bytes
@@ -6296,9 +5360,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_count
@@ -6315,9 +5376,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_database_name
@@ -6335,9 +5393,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_decltype
@@ -6355,9 +5410,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_double
@@ -6375,9 +5427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_int
@@ -6395,9 +5444,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_int64
@@ -6415,9 +5461,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_name
@@ -6435,9 +5478,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_origin_name
@@ -6455,9 +5495,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_spanchar
@@ -6475,9 +5512,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_string
@@ -6495,9 +5529,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_table_name
@@ -6515,9 +5546,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_text
@@ -6535,9 +5563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_column_type
@@ -6555,9 +5580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_commit_hook
@@ -6576,9 +5598,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_compileoption_get
@@ -6595,9 +5614,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_compileoption_used
@@ -6614,9 +5630,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_compileoption_used
@@ -6633,9 +5646,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_complete
@@ -6652,9 +5662,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_complete
@@ -6671,9 +5678,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_config
@@ -6690,9 +5694,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_config
@@ -6710,9 +5711,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_config_log
@@ -6730,9 +5728,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_config_log
@@ -6750,9 +5745,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_create_collation
@@ -6772,9 +5764,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_create_function
@@ -6796,9 +5785,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_create_function
@@ -6821,9 +5807,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_create_function
@@ -6844,9 +5827,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_create_function
@@ -6868,9 +5848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_data_count
@@ -6887,9 +5864,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_config
@@ -6908,9 +5882,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_config
@@ -6930,9 +5901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_config
@@ -6953,9 +5921,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_filename
@@ -6973,9 +5938,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_filename
@@ -6993,9 +5955,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_handle
@@ -7012,9 +5971,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_readonly
@@ -7032,9 +5988,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_readonly
@@ -7052,9 +6005,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_db_status
@@ -7075,9 +6025,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_enable_load_extension
@@ -7095,9 +6042,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_enable_shared_cache
@@ -7114,9 +6058,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_errcode
@@ -7133,9 +6074,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_errmsg
@@ -7152,9 +6090,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_errstr
@@ -7171,9 +6106,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_exec
@@ -7194,9 +6126,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_exec
@@ -7215,9 +6144,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_exec
@@ -7235,9 +6161,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_extended_errcode
@@ -7254,9 +6177,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_extended_result_codes
@@ -7274,9 +6194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_finalize
@@ -7293,9 +6210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_get_autocommit
@@ -7312,9 +6226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_hard_heap_limit64
@@ -7331,9 +6242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_initialize
@@ -7350,9 +6258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_interrupt
@@ -7369,9 +6274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_key
@@ -7389,9 +6291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_key_v2
@@ -7410,9 +6309,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_keyword_count
@@ -7429,9 +6325,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_keyword_name
@@ -7449,9 +6342,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_last_insert_rowid
@@ -7468,9 +6358,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_libversion
@@ -7487,9 +6374,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_libversion_number
@@ -7506,9 +6390,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_limit
@@ -7527,9 +6408,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_load_extension
@@ -7549,9 +6427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_log
@@ -7569,9 +6444,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_log
@@ -7589,9 +6461,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_memory_highwater
@@ -7608,9 +6477,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_memory_used
@@ -7627,9 +6493,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_next_stmt
@@ -7647,9 +6510,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_open
@@ -7667,9 +6527,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_open
@@ -7687,9 +6544,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_open_v2
@@ -7709,9 +6563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_open_v2
@@ -7731,9 +6582,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7752,9 +6600,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7773,9 +6618,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7795,9 +6637,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7817,9 +6656,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7839,9 +6675,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v2
@@ -7861,9 +6694,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7883,9 +6713,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7905,9 +6732,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7927,9 +6751,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7950,9 +6771,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7973,9 +6791,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_prepare_v3
@@ -7996,9 +6811,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_profile
@@ -8017,9 +6829,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_profile
@@ -8038,9 +6847,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_progress_handler
@@ -8060,9 +6866,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_rekey
@@ -8080,9 +6883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_rekey_v2
@@ -8101,9 +6901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_reset
@@ -8120,9 +6917,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_blob
@@ -8140,9 +6934,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_double
@@ -8160,9 +6951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error
@@ -8180,9 +6968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error
@@ -8200,9 +6985,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error
@@ -8220,9 +7002,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error_code
@@ -8240,9 +7019,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error_nomem
@@ -8259,9 +7035,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_error_toobig
@@ -8278,9 +7051,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_int
@@ -8298,9 +7068,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_int64
@@ -8318,9 +7085,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_null
@@ -8337,9 +7101,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_text
@@ -8357,9 +7118,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_text
@@ -8377,9 +7135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_text
@@ -8397,9 +7152,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_result_zeroblob
@@ -8417,9 +7169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_rollback_hook
@@ -8438,9 +7187,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_set_authorizer
@@ -8459,9 +7205,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_set_authorizer
@@ -8480,9 +7223,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_shutdown
@@ -8499,9 +7239,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_snapshot_cmp
@@ -8519,9 +7256,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_snapshot_free
@@ -8538,9 +7272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_snapshot_get
@@ -8559,9 +7290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_snapshot_open
@@ -8580,9 +7308,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_snapshot_recover
@@ -8600,9 +7325,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_soft_heap_limit64
@@ -8619,9 +7341,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_sourceid
@@ -8638,9 +7357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_sql
@@ -8657,9 +7373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_status
@@ -8679,9 +7392,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_step
@@ -8698,9 +7408,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_stmt_busy
@@ -8717,9 +7424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_stmt_isexplain
@@ -8736,9 +7440,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_stmt_readonly
@@ -8755,9 +7456,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_stmt_status
@@ -8776,9 +7474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_table_column_metadata
@@ -8803,9 +7498,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_table_column_metadata
@@ -8830,9 +7522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_threadsafe
@@ -8849,9 +7538,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_total_changes
@@ -8868,9 +7554,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_trace
@@ -8889,9 +7572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_trace
@@ -8910,9 +7590,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_update_hook
@@ -8931,9 +7608,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_update_hook
@@ -8952,9 +7626,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_user_data
@@ -8971,9 +7642,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_blob
@@ -8990,9 +7658,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_bytes
@@ -9009,9 +7674,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_double
@@ -9028,9 +7690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_int
@@ -9047,9 +7706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_int64
@@ -9066,9 +7722,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_span_char
@@ -9085,9 +7738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_string
@@ -9104,9 +7754,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_text
@@ -9123,9 +7770,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_value_type
@@ -9142,9 +7786,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_wal_autocheckpoint
@@ -9162,9 +7803,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_wal_checkpoint
@@ -9182,9 +7820,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_wal_checkpoint_v2
@@ -9205,9 +7840,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: sqlite3_win32_set_directory
@@ -9225,9 +7857,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw
 
 METHOD: utf8_span_to_string
@@ -9244,9 +7873,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass259_0
 
 METHOD: .ctor
@@ -9263,9 +7889,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass259_0
 
 METHOD: <sqlite3_config_log>b__0
@@ -9284,9 +7907,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass265_0
 
 METHOD: .ctor
@@ -9303,9 +7923,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass265_0
 
 METHOD: <sqlite3_trace>b__0
@@ -9323,9 +7940,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass267_0
 
 METHOD: .ctor
@@ -9342,9 +7956,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass267_0
 
 METHOD: <sqlite3_profile>b__0
@@ -9363,9 +7974,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass270_0
 
 METHOD: .ctor
@@ -9382,9 +7990,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass270_0
 
 METHOD: <sqlite3_update_hook>b__0
@@ -9405,9 +8010,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass271_0
 
 METHOD: .ctor
@@ -9424,9 +8026,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass271_0
 
 METHOD: <sqlite3_create_collation>b__0
@@ -9445,9 +8044,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass328_0
 
 METHOD: .ctor
@@ -9464,9 +8060,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass328_0
 
 METHOD: <sqlite3_exec>b__0
@@ -9485,9 +8078,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass429_0
 
 METHOD: .ctor
@@ -9504,9 +8094,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.raw+<>c__DisplayClass429_0
 
 METHOD: <sqlite3_set_authorizer>b__0
@@ -9528,9 +8115,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.rollback_hook_info
 
 METHOD: .ctor
@@ -9548,9 +8132,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.rollback_hook_info
 
 METHOD: call
@@ -9567,9 +8148,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.rollback_hook_info
 
 METHOD: from_ptr
@@ -9586,9 +8164,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: .ctor
@@ -9605,9 +8180,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: GetOrCreateExtra
@@ -9624,9 +8196,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: New
@@ -9643,9 +8212,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: ReleaseHandle
@@ -9662,9 +8228,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: add_stmt
@@ -9681,9 +8244,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: dispose_extra
@@ -9700,9 +8260,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: enable_sqlite3_next_stmt
@@ -9719,9 +8276,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: find_stmt
@@ -9738,9 +8292,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: get_IsInvalid
@@ -9757,9 +8308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: manual_close
@@ -9776,9 +8324,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: manual_close_v2
@@ -9795,9 +8340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3
 
 METHOD: remove_stmt
@@ -9814,9 +8356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_backup
 
 METHOD: .ctor
@@ -9833,9 +8372,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_backup
 
 METHOD: From
@@ -9852,9 +8388,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_backup
 
 METHOD: ReleaseHandle
@@ -9871,9 +8404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_backup
 
 METHOD: get_IsInvalid
@@ -9890,9 +8420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_backup
 
 METHOD: manual_close
@@ -9909,9 +8436,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_blob
 
 METHOD: .ctor
@@ -9928,9 +8452,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_blob
 
 METHOD: From
@@ -9947,9 +8468,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_blob
 
 METHOD: ReleaseHandle
@@ -9966,9 +8484,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_blob
 
 METHOD: get_IsInvalid
@@ -9985,9 +8500,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_blob
 
 METHOD: manual_close
@@ -10004,9 +8516,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_context
 
 METHOD: .ctor
@@ -10023,9 +8532,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_context
 
 METHOD: get_ptr
@@ -10042,9 +8548,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_context
 
 METHOD: get_user_data
@@ -10061,9 +8564,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_context
 
 METHOD: set_context_ptr
@@ -10080,9 +8580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_snapshot
 
 METHOD: .ctor
@@ -10099,9 +8596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_snapshot
 
 METHOD: From
@@ -10118,9 +8612,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_snapshot
 
 METHOD: ReleaseHandle
@@ -10137,9 +8628,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_snapshot
 
 METHOD: get_IsInvalid
@@ -10156,9 +8644,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_snapshot
 
 METHOD: manual_close
@@ -10175,9 +8660,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: .ctor
@@ -10194,9 +8676,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: From
@@ -10214,9 +8693,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: ReleaseHandle
@@ -10233,9 +8709,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: get_IsInvalid
@@ -10252,9 +8725,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: get_db
@@ -10271,9 +8741,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: get_ptr
@@ -10290,9 +8757,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_stmt
 
 METHOD: manual_close
@@ -10309,9 +8773,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: .ctor
@@ -10328,9 +8789,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToBlob
@@ -10347,9 +8805,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToDateTimeOffset
@@ -10366,9 +8821,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToDateTimeOffset
@@ -10385,9 +8837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToDouble
@@ -10404,9 +8853,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToInt
@@ -10423,9 +8869,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToInt64
@@ -10442,9 +8885,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToSpanChar
@@ -10461,9 +8901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: ToString
@@ -10480,9 +8917,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: Toutf8z
@@ -10499,9 +8933,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: get_Length
@@ -10518,9 +8949,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.sqlite3_value
 
 METHOD: get_ptr
@@ -10537,9 +8965,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_authorizer
 
 METHOD: .ctor
@@ -10557,9 +8982,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_authorizer
 
 METHOD: BeginInvoke
@@ -10583,9 +9005,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_authorizer
 
 METHOD: EndInvoke
@@ -10602,9 +9021,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_authorizer
 
 METHOD: Invoke
@@ -10626,9 +9042,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_collation
 
 METHOD: .ctor
@@ -10646,9 +9059,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_collation
 
 METHOD: BeginInvoke
@@ -10669,9 +9079,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_collation
 
 METHOD: EndInvoke
@@ -10688,9 +9095,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_collation
 
 METHOD: Invoke
@@ -10709,9 +9113,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_exec
 
 METHOD: .ctor
@@ -10729,9 +9130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_exec
 
 METHOD: BeginInvoke
@@ -10752,9 +9150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_exec
 
 METHOD: EndInvoke
@@ -10771,9 +9166,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_exec
 
 METHOD: Invoke
@@ -10792,9 +9184,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_log
 
 METHOD: .ctor
@@ -10812,9 +9201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_log
 
 METHOD: BeginInvoke
@@ -10835,9 +9221,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_log
 
 METHOD: EndInvoke
@@ -10854,9 +9237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_log
 
 METHOD: Invoke
@@ -10875,9 +9255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_profile
 
 METHOD: .ctor
@@ -10895,9 +9272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_profile
 
 METHOD: BeginInvoke
@@ -10918,9 +9292,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_profile
 
 METHOD: EndInvoke
@@ -10937,9 +9308,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_profile
 
 METHOD: Invoke
@@ -10958,9 +9326,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_trace
 
 METHOD: .ctor
@@ -10978,9 +9343,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_trace
 
 METHOD: BeginInvoke
@@ -11000,9 +9362,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_trace
 
 METHOD: EndInvoke
@@ -11019,9 +9378,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_trace
 
 METHOD: Invoke
@@ -11039,9 +9395,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_update
 
 METHOD: .ctor
@@ -11059,9 +9412,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_update
 
 METHOD: BeginInvoke
@@ -11084,9 +9434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_update
 
 METHOD: EndInvoke
@@ -11103,9 +9450,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.strdelegate_update
 
 METHOD: Invoke
@@ -11126,9 +9470,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.trace_hook_info
 
 METHOD: .ctor
@@ -11146,9 +9487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.trace_hook_info
 
 METHOD: call
@@ -11165,9 +9503,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.trace_hook_info
 
 METHOD: from_ptr
@@ -11184,9 +9519,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.update_hook_info
 
 METHOD: .ctor
@@ -11204,9 +9536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.update_hook_info
 
 METHOD: call
@@ -11226,9 +9555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.update_hook_info
 
 METHOD: from_ptr
@@ -11245,9 +9571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: .ctor
@@ -11264,9 +9587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: FromIntPtr
@@ -11283,9 +9603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: FromPtr
@@ -11302,9 +9619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: FromPtrLen
@@ -11322,9 +9636,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: FromSpan
@@ -11341,9 +9652,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: FromString
@@ -11360,9 +9668,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: GetPinnableReference
@@ -11379,9 +9684,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: GetRawBytes
@@ -11398,9 +9700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: GetZeroTerminatedUTF8Bytes
@@ -11417,9 +9716,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: find_zero_terminator
@@ -11436,9 +9732,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: get_IsEmpty
@@ -11455,9 +9748,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: my_strlen
@@ -11474,9 +9764,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.utf8z
 
 METHOD: utf8_to_string
@@ -11493,9 +9780,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: from_utf8
@@ -11513,9 +9797,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: from_utf8_z
@@ -11532,9 +9813,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: my_strlen
@@ -11551,9 +9829,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: to_utf8_with_z
@@ -11570,9 +9845,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: to_utf8z
@@ -11589,9 +9861,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: SQLitePCLEx.util
 
 METHOD: to_utf8z
@@ -11608,9 +9877,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: System.Runtime.CompilerServices.IsByRefLikeAttribute
 
 METHOD: .ctor
@@ -11627,9 +9893,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SQLitePCLRawEx.core.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: System.Runtime.CompilerServices.IsReadOnlyAttribute
 
 METHOD: .ctor

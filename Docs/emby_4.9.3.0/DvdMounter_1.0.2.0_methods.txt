@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: DvdMounter.dll
 DLL_VERSION: 1.0.2.0
 
+====================================================
 TYPE: DvdLib.BigEndianBinaryReader
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.BigEndianBinaryReader
 
 METHOD: ReadAndReverseBytes
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.BigEndianBinaryReader
 
 METHOD: ReadUInt16
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.BigEndianBinaryReader
 
 METHOD: ReadUInt32
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.AudioAttributes
 
 METHOD: .ctor
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: .ctor
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: ParsePlayback
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: ParsePosition
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: get_PlaybackInfo
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: get_PositionInfo
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: set_PlaybackInfo
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Cell
 
 METHOD: set_PositionInfo
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.CellPlaybackInfo
 
 METHOD: .ctor
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.CellPositionInfo
 
 METHOD: .ctor
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: .ctor
@@ -286,9 +244,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: get_ChapterNumber
@@ -305,9 +260,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: get_ProgramChainNumber
@@ -324,9 +276,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: get_ProgramNumber
@@ -343,9 +292,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: set_ChapterNumber
@@ -362,9 +308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: set_ProgramChainNumber
@@ -381,9 +324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Chapter
 
 METHOD: set_ProgramNumber
@@ -400,9 +340,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd
 
 METHOD: .ctor
@@ -420,9 +357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd
 
 METHOD: ReadTT_SRPT
@@ -439,9 +373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd
 
 METHOD: ReadVTS
@@ -459,9 +390,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd
 
 METHOD: ReadVTS
@@ -479,9 +407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c
 
 METHOD: .cctor
@@ -498,9 +423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c
 
 METHOD: .ctor
@@ -517,9 +439,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c
 
 METHOD: <.ctor>b__5_0
@@ -536,9 +455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c
 
 METHOD: <.ctor>b__5_1
@@ -555,9 +471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c
 
 METHOD: <.ctor>b__5_2
@@ -574,9 +487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass7_0
 
 METHOD: .ctor
@@ -593,9 +503,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass7_0
 
 METHOD: <ReadVTS>b__0
@@ -612,9 +519,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass7_0
 
 METHOD: <ReadVTS>b__1
@@ -631,9 +535,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass8_0
 
 METHOD: .ctor
@@ -650,9 +551,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass8_1
 
 METHOD: .ctor
@@ -669,9 +567,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass8_1
 
 METHOD: <ReadVTS>b__0
@@ -688,9 +583,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass8_2
 
 METHOD: .ctor
@@ -707,9 +599,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Dvd+<>c__DisplayClass8_2
 
 METHOD: <ReadVTS>b__1
@@ -726,9 +615,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.DvdTime
 
 METHOD: .ctor
@@ -745,9 +631,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.DvdTime
 
 METHOD: GetBCDValue
@@ -764,9 +647,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.DvdTime
 
 METHOD: op_Explicit
@@ -783,9 +663,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.MultiChannelExtension
 
 METHOD: .ctor
@@ -802,9 +679,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Program
 
 METHOD: .ctor
@@ -821,9 +695,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: .ctor
@@ -840,9 +711,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: ParseHeader
@@ -859,9 +727,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_AudioStreamControl
@@ -878,9 +743,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_Palette
@@ -897,9 +759,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_PlaybackMode
@@ -916,9 +775,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_PlaybackTime
@@ -935,9 +791,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_ProgramCount
@@ -954,9 +807,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_ProhibitedUserOperations
@@ -973,9 +823,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_StillTime
@@ -992,9 +839,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: get_SubpictureStreamControl
@@ -1011,9 +855,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_AudioStreamControl
@@ -1030,9 +871,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_Palette
@@ -1049,9 +887,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_PlaybackMode
@@ -1068,9 +903,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_PlaybackTime
@@ -1087,9 +919,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_ProgramCount
@@ -1106,9 +935,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_ProhibitedUserOperations
@@ -1125,9 +951,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_StillTime
@@ -1144,9 +967,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain
 
 METHOD: set_SubpictureStreamControl
@@ -1163,9 +983,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain+<>c__DisplayClass50_0
 
 METHOD: .ctor
@@ -1182,9 +999,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain+<>c__DisplayClass50_1
 
 METHOD: .ctor
@@ -1201,9 +1015,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChain+<>c__DisplayClass50_1
 
 METHOD: <ParseHeader>b__0
@@ -1221,9 +1032,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.ProgramChainCommandTable
 
 METHOD: .ctor
@@ -1240,9 +1048,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: .ctor
@@ -1259,9 +1064,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: AddPgc
@@ -1281,9 +1083,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: IsVTSTitle
@@ -1301,9 +1100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: ParseTT_SRPT
@@ -1320,9 +1116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: get_AngleCount
@@ -1339,9 +1132,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: get_ChapterCount
@@ -1358,9 +1148,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: get_EntryProgramChain
@@ -1377,9 +1164,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: get_TitleNumber
@@ -1396,9 +1180,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: get_VideoTitleSetNumber
@@ -1415,9 +1196,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: set_AngleCount
@@ -1434,9 +1212,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: set_ChapterCount
@@ -1453,9 +1228,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: set_EntryProgramChain
@@ -1472,9 +1244,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: set_TitleNumber
@@ -1491,9 +1260,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.Title
 
 METHOD: set_VideoTitleSetNumber
@@ -1510,9 +1276,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.VideoAttributes
 
 METHOD: .ctor
@@ -1529,9 +1292,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdLib.Ifo.VirtualMachineCommand
 
 METHOD: .ctor
@@ -1548,9 +1308,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: .ctor
@@ -1568,9 +1325,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: CanMount
@@ -1589,9 +1343,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: Dispose
@@ -1608,9 +1359,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: FormatFilePath
@@ -1628,9 +1376,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: GetDvdVobFiles
@@ -1648,9 +1393,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: GetPrimaryPlaylistVobFiles
@@ -1669,9 +1411,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: GetRuntime
@@ -1688,9 +1427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: Mount
@@ -1710,9 +1446,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: Mount
@@ -1733,9 +1466,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter
 
 METHOD: get_Name
@@ -1752,9 +1482,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: .cctor
@@ -1771,9 +1498,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: .ctor
@@ -1790,9 +1514,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_0
@@ -1809,9 +1530,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_1
@@ -1828,9 +1546,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_2
@@ -1847,9 +1562,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_4
@@ -1866,9 +1578,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_5
@@ -1885,9 +1594,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__11_6
@@ -1904,9 +1610,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetRuntime>b__10_0
@@ -1923,9 +1626,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c
 
 METHOD: <GetRuntime>b__10_1
@@ -1942,9 +1642,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass11_0
 
 METHOD: .ctor
@@ -1961,9 +1658,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass11_0
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__7
@@ -1980,9 +1674,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass11_1
 
 METHOD: .ctor
@@ -1999,9 +1690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass11_1
 
 METHOD: <GetPrimaryPlaylistVobFiles>b__3
@@ -2018,9 +1706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass7_0
 
 METHOD: .ctor
@@ -2037,9 +1722,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.DvdMounter+<>c__DisplayClass7_0
 
 METHOD: <Mount>b__0
@@ -2056,9 +1738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: .ctor
@@ -2075,9 +1754,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: GetThumbImage
@@ -2094,9 +1770,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: get_Description
@@ -2113,9 +1786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: get_Id
@@ -2132,9 +1802,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: get_Name
@@ -2151,9 +1818,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: DvdMounter.dll
-DLL_VERSION: 1.0.2.0
-
 TYPE: DvdMounter.Plugin
 
 METHOD: get_ThumbImageFormat

@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Sqlite.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: .cctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: .ctor
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: .ctor
@@ -58,9 +52,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: AddColumn
@@ -81,9 +72,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Append
@@ -102,9 +90,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Append
@@ -123,9 +108,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: BackupToDirectory
@@ -142,9 +124,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: BackupToFile
@@ -161,9 +140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: BackupToFile
@@ -182,9 +158,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: BindParams
@@ -202,9 +175,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: BindParams
@@ -222,9 +192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CheckDisposed
@@ -241,9 +208,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CreateConnection
@@ -260,9 +224,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CreateConnection
@@ -279,9 +240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CreateConnection
@@ -299,9 +257,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CreateException
@@ -319,9 +274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: CreateNewConnection
@@ -338,9 +290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Db_Profile
@@ -357,9 +306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: DisableSharedCache
@@ -376,9 +322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Dispose
@@ -395,9 +338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Dispose
@@ -414,9 +354,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: DisposeConnection
@@ -433,9 +370,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: EncodeUtf8
@@ -453,9 +387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: ExecuteAll
@@ -473,9 +404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: ExecuteAll
@@ -493,9 +421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetCollationFunctions
@@ -512,9 +437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetColumnNames
@@ -532,9 +454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetEquals
@@ -552,9 +471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -572,9 +488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -592,9 +505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -612,9 +522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -632,9 +539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -652,9 +556,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -674,9 +575,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetIndexesInTransaction
@@ -693,9 +591,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetNotInOrEquals
@@ -713,9 +608,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetNotInOrEquals
@@ -733,9 +625,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedCachedStatement
@@ -756,9 +645,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedCachedStatement
@@ -778,9 +664,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedInOrEquals
@@ -798,9 +681,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedInOrEquals
@@ -820,9 +700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedInOrEquals
@@ -842,9 +719,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedNotInOrEquals
@@ -862,9 +736,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedNotInOrEquals
@@ -884,9 +755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetParameterizedNotInOrEquals
@@ -906,9 +774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetScalarFunctions
@@ -925,9 +790,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetTableNames
@@ -944,9 +806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: GetTableNamesInTransaction
@@ -963,9 +822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: LogPrepareTime
@@ -982,9 +838,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: LogQueryTime
@@ -1003,9 +856,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: LogQueryTime
@@ -1024,9 +874,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: OnClosingDbConnection
@@ -1043,9 +890,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: OnOptimizingDb
@@ -1062,9 +906,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareAll
@@ -1082,9 +923,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareAll
@@ -1102,9 +940,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -1122,9 +957,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -1142,9 +974,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -1162,9 +991,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -1182,9 +1008,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: RunForeignKeyCheck
@@ -1202,9 +1025,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: RunIntegrityCheck
@@ -1222,9 +1042,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: SetForeignKeyConstraintsEnabled
@@ -1242,9 +1059,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: SetQueryOnly
@@ -1262,9 +1076,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: Vacuum
@@ -1281,9 +1092,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_CacheSize
@@ -1300,9 +1108,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_ConnectionManager
@@ -1319,9 +1124,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_DbFilePath
@@ -1338,9 +1140,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_EnableForeignKeyEnforcement
@@ -1357,9 +1156,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_EnableProfiling
@@ -1376,9 +1172,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_EnableSingleConnection
@@ -1395,9 +1188,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_IsExternallyOwnedDatabase
@@ -1414,9 +1204,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_Logger
@@ -1433,9 +1220,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_MmioSize
@@ -1452,9 +1236,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_OptimizeOnConnectionClose
@@ -1471,9 +1252,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_PragmaAnalysisLimit
@@ -1490,9 +1268,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_ReadTransactionMode
@@ -1509,9 +1284,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_SqliteThreadSafe
@@ -1528,9 +1300,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_SqliteThreadingMode
@@ -1547,9 +1316,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: get_TransactionMode
@@ -1566,9 +1332,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_ConnectionManager
@@ -1585,9 +1348,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_DbFilePath
@@ -1604,9 +1364,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_EnableSingleConnection
@@ -1623,9 +1380,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_Logger
@@ -1642,9 +1396,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_SqliteThreadSafe
@@ -1661,9 +1412,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository
 
 METHOD: set_SqliteThreadingMode
@@ -1680,9 +1428,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: .cctor
@@ -1699,9 +1444,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: .ctor
@@ -1718,9 +1460,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <DisableSharedCache>b__27_0
@@ -1737,9 +1476,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetInOrEquals>b__64_0
@@ -1756,9 +1492,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetInOrEquals>b__66_0
@@ -1775,9 +1508,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetNotInOrEquals>b__67_0
@@ -1794,9 +1524,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetNotInOrEquals>b__71_0
@@ -1813,9 +1540,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedCachedStatement>b__63_0
@@ -1832,9 +1556,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedCachedStatement>b__63_1
@@ -1851,9 +1572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedInOrEquals>b__57_0
@@ -1870,9 +1588,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedInOrEquals>b__60_0
@@ -1889,9 +1604,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedNotInOrEquals>b__56_0
@@ -1908,9 +1620,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.BaseSqliteRepository+<>c
 
 METHOD: <GetParameterizedNotInOrEquals>b__58_0
@@ -1927,9 +1636,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: .ctor
@@ -1947,9 +1653,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: CheckDisposed
@@ -1966,9 +1669,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: Close
@@ -1985,9 +1685,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: CreateConnection
@@ -2005,9 +1702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: Dispose
@@ -2024,9 +1718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.DatabaseConnectionManager
 
 METHOD: InitConnections
@@ -2043,9 +1734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: .ctor
@@ -2065,9 +1753,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: Clone
@@ -2086,9 +1771,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: Close
@@ -2105,9 +1787,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: CreateConnection
@@ -2125,9 +1804,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: CreateConnectionInfo
@@ -2145,9 +1821,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: InitConnections
@@ -2164,9 +1837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: OnClosed
@@ -2183,9 +1853,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: OnWriteConnectionClosed
@@ -2202,9 +1869,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: RegisterCancellation
@@ -2223,9 +1887,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager
 
 METHOD: WaitForWriteAccess
@@ -2242,9 +1903,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager+<>c__DisplayClass13_0
 
 METHOD: .ctor
@@ -2261,9 +1919,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.PooledDatabaseConnectionManager+<>c__DisplayClass13_0
 
 METHOD: <RegisterCancellation>b__0
@@ -2280,9 +1935,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteDataContext
 
 METHOD: .ctor
@@ -2299,9 +1951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: .cctor
@@ -2318,9 +1967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: CheckName
@@ -2338,9 +1984,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ExecuteQuery
@@ -2357,9 +2000,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: GetDateTimeKindFormat
@@ -2376,9 +2016,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: GetGuid
@@ -2396,9 +2033,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -2416,9 +2050,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -2437,9 +2068,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ReadNullableDateTimeOffset
@@ -2457,9 +2085,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ReadNullableDateTimeOffset
@@ -2478,9 +2103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: SerializeToBytes
@@ -2498,9 +2120,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ToDateTimeParamValue
@@ -2517,9 +2136,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ToGuidBlob
@@ -2536,9 +2152,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: ToGuidBlob
@@ -2555,9 +2168,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2576,9 +2186,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2597,9 +2204,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2618,9 +2222,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2639,9 +2240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2660,9 +2258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2681,9 +2276,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2702,9 +2294,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2723,9 +2312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2744,9 +2330,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2765,9 +2348,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2786,9 +2366,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2807,9 +2384,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2829,9 +2403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2851,9 +2422,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2872,9 +2440,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2893,9 +2458,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2914,9 +2476,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2935,9 +2494,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2956,9 +2512,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2977,9 +2530,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -2998,9 +2548,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -3019,9 +2566,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBind
@@ -3040,9 +2584,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBindNull
@@ -3060,9 +2601,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions
 
 METHOD: TryBindNull
@@ -3080,9 +2618,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: .ctor
@@ -3099,9 +2634,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: MoveNext
@@ -3118,9 +2650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.Collections.Generic.IEnumerable<SQLitePCL.pretty.IResultSet>.GetEnumerator
@@ -3137,9 +2666,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.Collections.Generic.IEnumerator<SQLitePCL.pretty.IResultSet>.get_Current
@@ -3156,9 +2682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.Collections.IEnumerable.GetEnumerator
@@ -3175,9 +2698,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.Collections.IEnumerator.Reset
@@ -3194,9 +2714,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.Collections.IEnumerator.get_Current
@@ -3213,9 +2730,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.SqliteExtensions+<ExecuteQuery>d__39
 
 METHOD: System.IDisposable.Dispose
@@ -3232,9 +2746,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.TransactionDataContext
 
 METHOD: .ctor
@@ -3252,9 +2763,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.TransactionDataContext
 
 METHOD: BeginTransaction
@@ -3271,9 +2779,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.TransactionDataContext
 
 METHOD: CommitTransaction
@@ -3290,9 +2795,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.TransactionDataContext
 
 METHOD: Dispose
@@ -3309,9 +2811,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Sqlite.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Sqlite.TransactionDataContext
 
 METHOD: RollbackTransaction

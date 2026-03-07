@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Drawing.Skia.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: .ctor
@@ -24,9 +24,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: CreateImageCollage
@@ -43,9 +40,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: CropWhiteSpace
@@ -62,9 +56,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: Decode
@@ -84,9 +75,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: EncodeImage
@@ -109,9 +97,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetBitmap
@@ -132,9 +117,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetBitmap
@@ -154,9 +136,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetDestinationImageInfo
@@ -178,9 +157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetDestinationImageInfoByHeightScale
@@ -202,9 +178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetDestinationImageInfoByWidthScale
@@ -226,9 +199,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetImageFormat
@@ -245,9 +215,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetImageOrientation
@@ -264,9 +231,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetImageSize
@@ -283,9 +247,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetInputBitmap
@@ -310,9 +271,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetSKEncodedOrigin
@@ -329,9 +287,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetSKFileStream
@@ -348,9 +303,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetScaledDimensions
@@ -370,9 +322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetSupportedImageFormats
@@ -389,9 +338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetTempFile
@@ -409,9 +355,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: GetVersion
@@ -428,9 +371,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: IsTransparent
@@ -447,9 +387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: IsTransparentColumn
@@ -467,9 +404,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: IsTransparentRow
@@ -487,9 +421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: LogVersion
@@ -506,9 +437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: OrientImage
@@ -526,9 +454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: ReverseOrientHeight
@@ -547,9 +472,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: ReverseOrientWidth
@@ -568,9 +490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: get_Name
@@ -587,9 +506,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: get_SupportedInputFormats
@@ -606,9 +522,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: get_SupportedOutputFormats
@@ -625,9 +538,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: get_SupportsImageCollageCreation
@@ -644,9 +554,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: get_SupportsImageEncoding
@@ -663,9 +570,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.SkiaEncoder
 
 METHOD: set_SupportedInputFormats
@@ -682,9 +586,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: .ctor
@@ -705,9 +606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: BuildPosterCollage
@@ -727,9 +625,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: BuildSquareCollage
@@ -749,9 +644,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: BuildSquareCollageBitmap
@@ -770,9 +662,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: BuildThumbCollage
@@ -792,9 +681,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: BuildThumbCollageBitmap
@@ -813,9 +699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: GetEncodedFormat
@@ -832,9 +715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.Skia.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Skia.StripCollageBuilder
 
 METHOD: GetNextValidImage

@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: SharpDX.DXGI.dll
 DLL_VERSION: 4.2.0.0
 
+====================================================
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: CheckInterfaceSupport
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: GetDescription
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: GetOutput
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: GetOutput
@@ -96,9 +84,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: GetOutputCount
@@ -115,9 +100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: IsInterfaceSupported
@@ -134,9 +116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: IsInterfaceSupported
@@ -153,9 +132,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: IsInterfaceSupported
@@ -172,9 +148,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: IsInterfaceSupported
@@ -192,9 +165,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: get_Description
@@ -211,9 +181,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: get_Outputs
@@ -230,9 +197,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter
 
 METHOD: op_Explicit
@@ -249,9 +213,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter1
 
 METHOD: .ctor
@@ -268,9 +229,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter1
 
 METHOD: GetDescription1
@@ -287,9 +245,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter1
 
 METHOD: get_Description1
@@ -306,9 +261,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter1
 
 METHOD: op_Explicit
@@ -325,9 +277,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter2
 
 METHOD: .ctor
@@ -344,9 +293,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter2
 
 METHOD: GetDescription2
@@ -363,9 +309,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter2
 
 METHOD: get_Description2
@@ -382,9 +325,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter2
 
 METHOD: op_Explicit
@@ -401,9 +341,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: .ctor
@@ -420,9 +357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: QueryVideoMemoryInfo
@@ -440,9 +374,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: RegisterHardwareContentProtectionTeardownStatusEvent
@@ -459,9 +390,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: RegisterVideoMemoryBudgetChangeNotificationEvent
@@ -478,9 +406,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: SetVideoMemoryReservation
@@ -499,9 +424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: UnregisterHardwareContentProtectionTeardownStatus
@@ -518,9 +440,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: UnregisterVideoMemoryBudgetChangeNotification
@@ -537,9 +456,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter3
 
 METHOD: op_Explicit
@@ -556,9 +472,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter4
 
 METHOD: .ctor
@@ -575,9 +488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter4
 
 METHOD: GetDesc3
@@ -594,9 +504,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter4
 
 METHOD: get_Desc3
@@ -613,9 +520,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Adapter4
 
 METHOD: op_Explicit
@@ -632,9 +536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription
 
 METHOD: __MarshalFree
@@ -651,9 +552,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription
 
 METHOD: __MarshalFrom
@@ -670,9 +568,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription
 
 METHOD: __MarshalTo
@@ -689,9 +584,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription1
 
 METHOD: __MarshalFree
@@ -708,9 +600,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription1
 
 METHOD: __MarshalFrom
@@ -727,9 +616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription1
 
 METHOD: __MarshalTo
@@ -746,9 +632,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription2
 
 METHOD: __MarshalFree
@@ -765,9 +648,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription2
 
 METHOD: __MarshalFrom
@@ -784,9 +664,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription2
 
 METHOD: __MarshalTo
@@ -803,9 +680,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription3
 
 METHOD: __MarshalFree
@@ -822,9 +696,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription3
 
 METHOD: __MarshalFrom
@@ -841,9 +712,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AdapterDescription3
 
 METHOD: __MarshalTo
@@ -860,9 +728,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.AssemblyDoc
 
 METHOD: .ctor
@@ -879,9 +744,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGI
 
 METHOD: CreateDXGIFactory1
@@ -899,9 +761,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGI
 
 METHOD: CreateDXGIFactory1_
@@ -919,9 +778,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGI
 
 METHOD: CreateDXGIFactory2
@@ -940,9 +796,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGI
 
 METHOD: CreateDXGIFactory2_
@@ -961,9 +814,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug
 
 METHOD: .ctor
@@ -980,9 +830,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug
 
 METHOD: ReportLiveObjects
@@ -1000,9 +847,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug
 
 METHOD: TryCreate
@@ -1019,9 +863,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug
 
 METHOD: op_Explicit
@@ -1038,9 +879,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: .ctor
@@ -1057,9 +895,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: DisableLeakTrackingForThread
@@ -1076,9 +911,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: EnableLeakTrackingForThread
@@ -1095,9 +927,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: IsLeakTrackingEnabledForThread_
@@ -1114,9 +943,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: TryCreate
@@ -1133,9 +959,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: get_IsLeakTrackingEnabledForThread
@@ -1152,9 +975,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIDebug1
 
 METHOD: op_Explicit
@@ -1171,9 +991,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: .ctor
@@ -1190,9 +1007,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: GetParent
@@ -1209,9 +1023,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: GetParent
@@ -1229,9 +1040,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: GetPrivateData
@@ -1250,9 +1058,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: SetPrivateData
@@ -1271,9 +1076,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: SetPrivateDataInterface
@@ -1291,9 +1093,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DXGIObject
 
 METHOD: op_Explicit
@@ -1310,9 +1109,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugId
 
 METHOD: .cctor
@@ -1329,9 +1125,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface
 
 METHOD: .cctor
@@ -1348,9 +1141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface
 
 METHOD: TryCreateComPtr
@@ -1367,9 +1157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface+GetDebugInterface
 
 METHOD: .ctor
@@ -1387,9 +1174,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface+GetDebugInterface
 
 METHOD: BeginInvoke
@@ -1409,9 +1193,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface+GetDebugInterface
 
 METHOD: EndInvoke
@@ -1430,9 +1211,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DebugInterface+GetDebugInterface
 
 METHOD: Invoke
@@ -1450,9 +1228,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: .ctor
@@ -1469,9 +1244,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: GetColorSpace
@@ -1488,9 +1260,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: GetDestSize
@@ -1508,9 +1277,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: GetSourceRect
@@ -1527,9 +1293,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: GetTargetRect
@@ -1546,9 +1309,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: PresentBuffer
@@ -1567,9 +1327,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: SetColorSpace
@@ -1586,9 +1343,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: SetDestSize
@@ -1606,9 +1360,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: SetSourceRect
@@ -1625,9 +1376,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: SetTargetRect
@@ -1644,9 +1392,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: get_ColorSpace
@@ -1663,9 +1408,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: get_SourceRect
@@ -1682,9 +1424,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: get_TargetRect
@@ -1701,9 +1440,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: op_Explicit
@@ -1720,9 +1456,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: set_ColorSpace
@@ -1739,9 +1472,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: set_SourceRect
@@ -1758,9 +1488,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DecodeSwapChain
 
 METHOD: set_TargetRect
@@ -1777,9 +1504,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: .ctor
@@ -1796,9 +1520,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: CreateSurface
@@ -1819,9 +1540,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: GetAdapter
@@ -1838,9 +1556,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: GetGPUThreadPriority
@@ -1857,9 +1572,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: QueryResourceResidency
@@ -1876,9 +1588,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: QueryResourceResidency
@@ -1897,9 +1606,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: SetGPUThreadPriority
@@ -1916,9 +1622,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: get_Adapter
@@ -1935,9 +1638,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: get_GPUThreadPriority
@@ -1954,9 +1654,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: op_Explicit
@@ -1973,9 +1670,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device
 
 METHOD: set_GPUThreadPriority
@@ -1992,9 +1686,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: .ctor
@@ -2011,9 +1702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: GetMaximumFrameLatency
@@ -2030,9 +1718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: SetMaximumFrameLatency
@@ -2049,9 +1734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: get_MaximumFrameLatency
@@ -2068,9 +1750,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: op_Explicit
@@ -2087,9 +1766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device1
 
 METHOD: set_MaximumFrameLatency
@@ -2106,9 +1782,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: .ctor
@@ -2125,9 +1798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: EnqueueSetEvent
@@ -2144,9 +1814,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: OfferResources
@@ -2165,9 +1832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: OfferResources
@@ -2186,9 +1850,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: OfferResources
@@ -2207,9 +1868,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: ReclaimResources
@@ -2228,9 +1886,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: ReclaimResources
@@ -2249,9 +1904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: ReclaimResources
@@ -2270,9 +1922,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device2
 
 METHOD: op_Explicit
@@ -2289,9 +1938,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device3
 
 METHOD: .ctor
@@ -2308,9 +1954,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device3
 
 METHOD: Trim
@@ -2327,9 +1970,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device3
 
 METHOD: op_Explicit
@@ -2346,9 +1986,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: .ctor
@@ -2365,9 +2002,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: OfferResources1
@@ -2387,9 +2021,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: OfferResources1
@@ -2409,9 +2040,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: OfferResources1
@@ -2431,9 +2059,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: ReclaimResources1
@@ -2452,9 +2077,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: ReclaimResources1
@@ -2473,9 +2095,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: ReclaimResources1
@@ -2494,9 +2113,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Device4
 
 METHOD: op_Explicit
@@ -2513,9 +2129,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: .ctor
@@ -2532,9 +2145,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: GetDevice
@@ -2551,9 +2161,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: GetDevice
@@ -2571,9 +2178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: get_DebugName
@@ -2590,9 +2194,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: op_Explicit
@@ -2609,9 +2210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DeviceChild
 
 METHOD: set_DebugName
@@ -2628,9 +2226,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: .ctor
@@ -2647,9 +2242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: IsStereoEnabled_
@@ -2666,9 +2258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: SetStereoEnabled
@@ -2685,9 +2274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: get_IsStereoEnabled
@@ -2704,9 +2290,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: op_Explicit
@@ -2723,9 +2306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.DisplayControl
 
 METHOD: set_StereoEnabled
@@ -2742,9 +2322,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: .ctor
@@ -2761,9 +2338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: CreateSoftwareAdapter
@@ -2780,9 +2354,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: CreateSwapChain
@@ -2801,9 +2372,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: GetAdapter
@@ -2820,9 +2388,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: GetAdapter
@@ -2840,9 +2405,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: GetAdapterCount
@@ -2859,9 +2421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: GetWindowAssociation
@@ -2878,9 +2437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: MakeWindowAssociation
@@ -2898,9 +2454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: get_Adapters
@@ -2917,9 +2470,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory
 
 METHOD: op_Explicit
@@ -2936,9 +2486,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: .ctor
@@ -2955,9 +2502,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: .ctor
@@ -2974,9 +2518,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: GetAdapter1
@@ -2993,9 +2534,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: GetAdapter1
@@ -3013,9 +2551,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: GetAdapterCount1
@@ -3032,9 +2567,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: IsCurrent_
@@ -3051,9 +2583,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: get_Adapters1
@@ -3070,9 +2599,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: get_IsCurrent
@@ -3089,9 +2615,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory1
 
 METHOD: op_Explicit
@@ -3108,9 +2631,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: .ctor
@@ -3127,9 +2647,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: .ctor
@@ -3146,9 +2663,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: CreateSwapChainForComposition
@@ -3168,9 +2682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: CreateSwapChainForCoreWindow
@@ -3191,9 +2702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: CreateSwapChainForHwnd
@@ -3215,9 +2723,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: GetSharedResourceAdapterLuid
@@ -3235,9 +2740,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: IsWindowedStereoEnabled_
@@ -3254,9 +2756,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: RegisterOcclusionStatusEvent
@@ -3274,9 +2773,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: RegisterOcclusionStatusWindow
@@ -3295,9 +2791,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: RegisterStereoStatusEvent
@@ -3315,9 +2808,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: RegisterStereoStatusWindow
@@ -3336,9 +2826,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: UnregisterOcclusionStatus
@@ -3355,9 +2842,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: UnregisterStereoStatus
@@ -3374,9 +2858,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: get_IsWindowedStereoEnabled
@@ -3393,9 +2874,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory2
 
 METHOD: op_Explicit
@@ -3412,9 +2890,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory3
 
 METHOD: .ctor
@@ -3431,9 +2906,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory3
 
 METHOD: GetCreationFlags
@@ -3450,9 +2922,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory3
 
 METHOD: get_CreationFlags
@@ -3469,9 +2938,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory3
 
 METHOD: op_Explicit
@@ -3488,9 +2954,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: .ctor
@@ -3507,9 +2970,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: .ctor
@@ -3526,9 +2986,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: EnumAdapterByLuid
@@ -3547,9 +3004,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: EnumWarpAdapter
@@ -3567,9 +3021,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: GetAdapterByLuid
@@ -3586,9 +3037,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: GetWarpAdapter
@@ -3605,9 +3053,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory4
 
 METHOD: op_Explicit
@@ -3624,9 +3069,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory5
 
 METHOD: .ctor
@@ -3643,9 +3085,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory5
 
 METHOD: CheckFeatureSupport
@@ -3664,9 +3103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Factory5
 
 METHOD: op_Explicit
@@ -3683,9 +3119,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FactoryMedia
 
 METHOD: .ctor
@@ -3702,9 +3135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FactoryMedia
 
 METHOD: CreateDecodeSwapChainForCompositionSurfaceHandle
@@ -3726,9 +3156,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FactoryMedia
 
 METHOD: CreateSwapChainForCompositionSurfaceHandle
@@ -3749,9 +3176,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FactoryMedia
 
 METHOD: op_Explicit
@@ -3768,9 +3192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: .cctor
@@ -3787,9 +3208,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: ComputeScanlineCount
@@ -3807,9 +3225,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: InitDefaults
@@ -3827,9 +3242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: InitFormat
@@ -3847,9 +3259,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsCompressed
@@ -3866,9 +3275,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsPacked
@@ -3885,9 +3291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsSRgb
@@ -3904,9 +3307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsTypeless
@@ -3923,9 +3323,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsValid
@@ -3942,9 +3339,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: IsVideo
@@ -3961,9 +3355,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: SizeOfInBits
@@ -3980,9 +3371,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.FormatHelper
 
 METHOD: SizeOfInBytes
@@ -3999,9 +3387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControl
 
 METHOD: __MarshalFree
@@ -4018,9 +3403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControl
 
 METHOD: __MarshalFrom
@@ -4037,9 +3419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControl
 
 METHOD: __MarshalTo
@@ -4056,9 +3435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControl
 
 METHOD: get_GammaCurve
@@ -4075,9 +3451,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControl
 
 METHOD: set_GammaCurve
@@ -4094,9 +3467,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControlCapabilities
 
 METHOD: __MarshalFree
@@ -4113,9 +3483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControlCapabilities
 
 METHOD: __MarshalFrom
@@ -4132,9 +3499,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControlCapabilities
 
 METHOD: __MarshalTo
@@ -4151,9 +3515,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControlCapabilities
 
 METHOD: get_ControlPoints
@@ -4170,9 +3531,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.GammaControlCapabilities
 
 METHOD: set_ControlPoints
@@ -4189,9 +3547,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: __MarshalFree
@@ -4208,9 +3563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: __MarshalFrom
@@ -4227,9 +3579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: __MarshalTo
@@ -4246,9 +3595,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: get_BluePrimary
@@ -4265,9 +3611,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: get_GreenPrimary
@@ -4284,9 +3627,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: get_RedPrimary
@@ -4303,9 +3643,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: get_WhitePoint
@@ -4322,9 +3659,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: set_BluePrimary
@@ -4341,9 +3675,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: set_GreenPrimary
@@ -4360,9 +3691,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: set_RedPrimary
@@ -4379,9 +3707,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.HdrMetadataHdr10
 
 METHOD: set_WhitePoint
@@ -4398,9 +3723,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceManagerNative
 
 METHOD: .ctor
@@ -4417,9 +3739,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceManagerNative
 
 METHOD: FlushAllSurfacesWithDevice
@@ -4436,9 +3755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceManagerNative
 
 METHOD: op_Explicit
@@ -4455,9 +3771,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: .ctor
@@ -4474,9 +3787,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: BeginDraw
@@ -4494,9 +3804,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: EndDraw
@@ -4513,9 +3820,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: SetDevice
@@ -4532,9 +3836,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: op_Explicit
@@ -4551,9 +3852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNative
 
 METHOD: set_Device
@@ -4570,9 +3868,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: .ctor
@@ -4589,9 +3884,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: BeginDraw
@@ -4611,9 +3903,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: EndDraw
@@ -4630,9 +3919,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: ResumeDraw
@@ -4649,9 +3935,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: SetDevice
@@ -4668,9 +3951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: SuspendDraw
@@ -4687,9 +3967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: op_Explicit
@@ -4706,9 +3983,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISurfaceImageSourceNativeWithD2D
 
 METHOD: set_Device
@@ -4725,9 +3999,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainBackgroundPanelNative
 
 METHOD: .ctor
@@ -4744,9 +4015,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainBackgroundPanelNative
 
 METHOD: SetSwapChain
@@ -4763,9 +4031,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainBackgroundPanelNative
 
 METHOD: op_Explicit
@@ -4782,9 +4047,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainBackgroundPanelNative
 
 METHOD: set_SwapChain
@@ -4801,9 +4063,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative
 
 METHOD: .ctor
@@ -4820,9 +4079,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative
 
 METHOD: SetSwapChain
@@ -4839,9 +4095,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative
 
 METHOD: op_Explicit
@@ -4858,9 +4111,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative
 
 METHOD: set_SwapChain
@@ -4877,9 +4127,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative2
 
 METHOD: .ctor
@@ -4896,9 +4143,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative2
 
 METHOD: SetSwapChainHandle
@@ -4915,9 +4159,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative2
 
 METHOD: op_Explicit
@@ -4934,9 +4175,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ISwapChainPanelNative2
 
 METHOD: set_SwapChainHandle
@@ -4953,9 +4191,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: .ctor
@@ -4972,9 +4207,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: GetUpdateRectCount
@@ -4991,9 +4223,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: GetUpdateRects
@@ -5011,9 +4240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: GetVisibleBounds
@@ -5030,9 +4256,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: Invalidate
@@ -5049,9 +4272,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: OnUpdatesNeeded
@@ -5068,9 +4288,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: RegisterForUpdatesNeeded
@@ -5087,9 +4304,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: Resize
@@ -5107,9 +4321,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: add_UpdatesNeeded
@@ -5126,9 +4337,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: get_UpdateRectangles
@@ -5145,9 +4353,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: get_VisibleBounds
@@ -5164,9 +4369,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: op_Explicit
@@ -5183,9 +4385,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative
 
 METHOD: remove_UpdatesNeeded
@@ -5202,9 +4401,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative+VirtualSurfaceUpdatesCallbackNativeCallback
 
 METHOD: .ctor
@@ -5221,9 +4417,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceImageSourceNative+VirtualSurfaceUpdatesCallbackNativeCallback
 
 METHOD: UpdatesNeeded
@@ -5240,9 +4433,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceUpdatesCallbackNative
 
 METHOD: UpdatesNeeded
@@ -5259,9 +4449,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceUpdatesCallbackNativeNative
 
 METHOD: .ctor
@@ -5278,9 +4465,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceUpdatesCallbackNativeNative
 
 METHOD: UpdatesNeeded
@@ -5297,9 +4481,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceUpdatesCallbackNativeNative
 
 METHOD: UpdatesNeeded_
@@ -5316,9 +4497,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.IVirtualSurfaceUpdatesCallbackNativeNative
 
 METHOD: op_Explicit
@@ -5335,9 +4513,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: .ctor
@@ -5354,9 +4529,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: AddApplicationMessage
@@ -5374,9 +4546,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: AddMessage
@@ -5397,9 +4566,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: AddRetrievalFilterEntries
@@ -5417,9 +4583,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: AddStorageFilterEntries
@@ -5437,9 +4600,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: ClearRetrievalFilter
@@ -5456,9 +4616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: ClearStorageFilter
@@ -5475,9 +4632,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: ClearStoredMessages
@@ -5494,9 +4648,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetBreakOnCategory
@@ -5514,9 +4665,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetBreakOnID
@@ -5534,9 +4682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetBreakOnSeverity
@@ -5554,9 +4699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetMessage
@@ -5576,9 +4718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetMessageCountLimit
@@ -5595,9 +4734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetMuteDebugOutput
@@ -5614,9 +4750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetNumMessagesAllowedByStorageFilter
@@ -5633,9 +4766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetNumMessagesDeniedByStorageFilter
@@ -5652,9 +4782,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetNumMessagesDiscardedByMessageCountLimit
@@ -5671,9 +4798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetNumStoredMessages
@@ -5690,9 +4814,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetNumStoredMessagesAllowedByRetrievalFilters
@@ -5709,9 +4830,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetRetrievalFilter
@@ -5730,9 +4848,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetRetrievalFilterStackSize
@@ -5749,9 +4864,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetStorageFilter
@@ -5770,9 +4882,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: GetStorageFilterStackSize
@@ -5789,9 +4898,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PopRetrievalFilter
@@ -5808,9 +4914,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PopStorageFilter
@@ -5827,9 +4930,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushCopyOfRetrievalFilter
@@ -5846,9 +4946,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushCopyOfStorageFilter
@@ -5865,9 +4962,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushDenyAllRetrievalFilter
@@ -5884,9 +4978,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushDenyAllStorageFilter
@@ -5903,9 +4994,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushEmptyRetrievalFilter
@@ -5922,9 +5010,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushEmptyStorageFilter
@@ -5941,9 +5026,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushRetrievalFilter
@@ -5961,9 +5043,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: PushStorageFilter
@@ -5981,9 +5060,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: SetBreakOnCategory
@@ -6002,9 +5078,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: SetBreakOnID
@@ -6023,9 +5096,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: SetBreakOnSeverity
@@ -6044,9 +5114,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: SetMessageCountLimit
@@ -6064,9 +5131,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: SetMuteDebugOutput
@@ -6084,9 +5148,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: TryCreate
@@ -6103,9 +5164,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InfoQueue
 
 METHOD: op_Explicit
@@ -6122,9 +5180,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InformationQueueMessage
 
 METHOD: __MarshalFree
@@ -6141,9 +5196,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InformationQueueMessage
 
 METHOD: __MarshalFrom
@@ -6160,9 +5212,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.InformationQueueMessage
 
 METHOD: __MarshalTo
@@ -6179,9 +5228,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: __MarshalFree
@@ -6198,9 +5244,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: __MarshalFrom
@@ -6217,9 +5260,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: __MarshalTo
@@ -6236,9 +5276,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: get_CodeCounts
@@ -6255,9 +5292,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: get_CodeValues
@@ -6274,9 +5308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: set_CodeCounts
@@ -6293,9 +5324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegAcHuffmanTable
 
 METHOD: set_CodeValues
@@ -6312,9 +5340,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: __MarshalFree
@@ -6331,9 +5356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: __MarshalFrom
@@ -6350,9 +5372,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: __MarshalTo
@@ -6369,9 +5388,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: get_CodeCounts
@@ -6388,9 +5404,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: get_CodeValues
@@ -6407,9 +5420,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: set_CodeCounts
@@ -6426,9 +5436,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegDeviceContextHuffmanTable
 
 METHOD: set_CodeValues
@@ -6445,9 +5452,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegQuantizationTable
 
 METHOD: __MarshalFree
@@ -6464,9 +5468,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegQuantizationTable
 
 METHOD: __MarshalFrom
@@ -6483,9 +5484,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegQuantizationTable
 
 METHOD: __MarshalTo
@@ -6502,9 +5500,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegQuantizationTable
 
 METHOD: get_Elements
@@ -6521,9 +5516,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.JpegQuantizationTable
 
 METHOD: set_Elements
@@ -6540,9 +5532,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Kernel32
 
 METHOD: GetModuleHandle
@@ -6559,9 +5548,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Kernel32
 
 METHOD: GetProcAddress
@@ -6579,9 +5565,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Kernel32
 
 METHOD: LoadLibraryEx
@@ -6600,9 +5583,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.KeyedMutex
 
 METHOD: .ctor
@@ -6619,9 +5599,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.KeyedMutex
 
 METHOD: Acquire
@@ -6639,9 +5616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.KeyedMutex
 
 METHOD: Release
@@ -6658,9 +5632,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.KeyedMutex
 
 METHOD: op_Explicit
@@ -6677,9 +5648,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ModeDescription
 
 METHOD: .ctor
@@ -6699,9 +5667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ModeDescription
 
 METHOD: .ctor
@@ -6718,9 +5683,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ModuleInit
 
 METHOD: .ctor
@@ -6737,9 +5699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ModuleInit
 
 METHOD: Setup
@@ -6756,9 +5715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.NamespaceDoc
 
 METHOD: .ctor
@@ -6775,9 +5731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: .ctor
@@ -6794,9 +5747,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: CopyDisplaySurfaceTo
@@ -6813,9 +5763,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: FindClosestMatchingMode
@@ -6834,9 +5781,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetClosestMatchingMode
@@ -6855,9 +5799,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetDescription
@@ -6874,9 +5815,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetDisplayModeList
@@ -6894,9 +5832,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetDisplayModeList
@@ -6916,9 +5851,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetFrameStatistics
@@ -6935,9 +5867,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetGammaControl
@@ -6954,9 +5883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: GetGammaControlCapabilities
@@ -6973,9 +5899,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: ReleaseOwnership
@@ -6992,9 +5915,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: SetDisplaySurface
@@ -7011,9 +5931,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: SetGammaControl
@@ -7030,9 +5947,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: TakeOwnership
@@ -7050,9 +5964,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: WaitForVerticalBlank
@@ -7069,9 +5980,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: get_Description
@@ -7088,9 +5996,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: get_FrameStatistics
@@ -7107,9 +6012,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: get_GammaControl
@@ -7126,9 +6028,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: get_GammaControlCapabilities
@@ -7145,9 +6044,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: op_Explicit
@@ -7164,9 +6060,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output
 
 METHOD: set_GammaControl
@@ -7183,9 +6076,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: .ctor
@@ -7202,9 +6092,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: DuplicateOutput
@@ -7221,9 +6108,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: FindClosestMatchingMode1
@@ -7242,9 +6126,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: GetDisplayModeList1
@@ -7262,9 +6143,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: GetDisplayModeList1
@@ -7284,9 +6162,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: GetDisplaySurfaceData1
@@ -7303,9 +6178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output1
 
 METHOD: op_Explicit
@@ -7322,9 +6194,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output2
 
 METHOD: .ctor
@@ -7341,9 +6210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output2
 
 METHOD: SupportsOverlays_
@@ -7360,9 +6226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output2
 
 METHOD: get_SupportsOverlays
@@ -7379,9 +6242,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output2
 
 METHOD: op_Explicit
@@ -7398,9 +6258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output3
 
 METHOD: .ctor
@@ -7417,9 +6274,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output3
 
 METHOD: CheckOverlaySupport
@@ -7437,9 +6291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output3
 
 METHOD: op_Explicit
@@ -7456,9 +6307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output4
 
 METHOD: .ctor
@@ -7475,9 +6323,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output4
 
 METHOD: CheckOverlayColorSpaceSupport
@@ -7496,9 +6341,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output4
 
 METHOD: op_Explicit
@@ -7515,9 +6357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output5
 
 METHOD: .ctor
@@ -7534,9 +6373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output5
 
 METHOD: DuplicateOutput1
@@ -7556,9 +6392,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output5
 
 METHOD: op_Explicit
@@ -7575,9 +6408,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output6
 
 METHOD: .ctor
@@ -7594,9 +6424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output6
 
 METHOD: CheckHardwareCompositionSupport
@@ -7613,9 +6440,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output6
 
 METHOD: GetDescription1
@@ -7632,9 +6456,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output6
 
 METHOD: get_Description1
@@ -7651,9 +6472,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Output6
 
 METHOD: op_Explicit
@@ -7670,9 +6488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription
 
 METHOD: __MarshalFree
@@ -7689,9 +6504,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription
 
 METHOD: __MarshalFrom
@@ -7708,9 +6520,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription
 
 METHOD: __MarshalTo
@@ -7727,9 +6536,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: __MarshalFree
@@ -7746,9 +6552,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: __MarshalFrom
@@ -7765,9 +6568,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: __MarshalTo
@@ -7784,9 +6584,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: get_BluePrimary
@@ -7803,9 +6600,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: get_GreenPrimary
@@ -7822,9 +6616,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: get_RedPrimary
@@ -7841,9 +6632,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: get_WhitePoint
@@ -7860,9 +6648,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: set_BluePrimary
@@ -7879,9 +6664,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: set_GreenPrimary
@@ -7898,9 +6680,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: set_RedPrimary
@@ -7917,9 +6696,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDescription1
 
 METHOD: set_WhitePoint
@@ -7936,9 +6712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: .ctor
@@ -7955,9 +6728,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: AcquireNextFrame
@@ -7976,9 +6746,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: GetDescription
@@ -7995,9 +6762,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: GetFrameDirtyRects
@@ -8016,9 +6780,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: GetFrameMoveRects
@@ -8037,9 +6798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: GetFramePointerShape
@@ -8059,9 +6817,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: MapDesktopSurface
@@ -8078,9 +6833,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: MapDesktopSurface
@@ -8097,9 +6849,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: ReleaseFrame
@@ -8116,9 +6865,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: TryAcquireNextFrame
@@ -8137,9 +6883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: UnMapDesktopSurface
@@ -8156,9 +6899,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: get_Description
@@ -8175,9 +6915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.OutputDuplication
 
 METHOD: op_Explicit
@@ -8194,9 +6931,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: .cctor
@@ -8213,9 +6947,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: .ctor
@@ -8233,9 +6964,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: Equals
@@ -8252,9 +6980,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: Equals
@@ -8271,9 +6996,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: GetHashCode
@@ -8290,9 +7012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: ToString
@@ -8309,9 +7028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: op_Equality
@@ -8329,9 +7045,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Rational
 
 METHOD: op_Inequality
@@ -8349,9 +7062,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: .ctor
@@ -8368,9 +7078,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: GetEvictionPriority
@@ -8387,9 +7094,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: GetSharedHandle
@@ -8406,9 +7110,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: GetUsage
@@ -8425,9 +7126,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: SetEvictionPriority
@@ -8444,9 +7142,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: get_EvictionPriority
@@ -8463,9 +7158,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: get_SharedHandle
@@ -8482,9 +7174,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: op_Explicit
@@ -8501,9 +7190,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource
 
 METHOD: set_EvictionPriority
@@ -8520,9 +7206,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource1
 
 METHOD: .ctor
@@ -8539,9 +7222,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource1
 
 METHOD: CreateSharedHandle
@@ -8560,9 +7240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource1
 
 METHOD: CreateSharedHandle
@@ -8581,9 +7258,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource1
 
 METHOD: CreateSubresourceSurface
@@ -8601,9 +7275,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Resource1
 
 METHOD: op_Explicit
@@ -8620,9 +7291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ResultCode
 
 METHOD: .cctor
@@ -8639,9 +7307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.ResultCode
 
 METHOD: .ctor
@@ -8658,9 +7323,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SampleDescription
 
 METHOD: .ctor
@@ -8678,9 +7340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SampleDescription
 
 METHOD: ToString
@@ -8697,9 +7356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: .ctor
@@ -8716,9 +7372,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: FromSwapChain
@@ -8736,9 +7389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: GetDescription
@@ -8755,9 +7405,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: Map
@@ -8774,9 +7421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: Map
@@ -8794,9 +7438,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: Map
@@ -8814,9 +7455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: Unmap
@@ -8833,9 +7471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: get_Description
@@ -8852,9 +7487,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface
 
 METHOD: op_Explicit
@@ -8871,9 +7503,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: .ctor
@@ -8890,9 +7519,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: GetDC
@@ -8909,9 +7535,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: ReleaseDC
@@ -8928,9 +7551,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: ReleaseDC
@@ -8947,9 +7567,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: ReleaseDC_
@@ -8966,9 +7583,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface1
 
 METHOD: op_Explicit
@@ -8985,9 +7599,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface2
 
 METHOD: .ctor
@@ -9004,9 +7615,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface2
 
 METHOD: .ctor
@@ -9024,9 +7632,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface2
 
 METHOD: GetResource
@@ -9045,9 +7650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.Surface2
 
 METHOD: op_Explicit
@@ -9064,9 +7666,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: .ctor
@@ -9083,9 +7682,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: .ctor
@@ -9104,9 +7700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetBackBuffer
@@ -9123,9 +7716,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetBuffer
@@ -9144,9 +7734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetContainingOutput
@@ -9163,9 +7750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetDescription
@@ -9182,9 +7766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetFullscreenState
@@ -9202,9 +7783,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: GetLastPresentCount
@@ -9221,9 +7799,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: Present
@@ -9241,9 +7816,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: ResizeBuffers
@@ -9264,9 +7836,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: ResizeTarget
@@ -9283,9 +7852,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: SetFullscreenState
@@ -9303,9 +7869,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: TryGetFrameStatistics
@@ -9322,9 +7885,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: TryPresent
@@ -9342,9 +7902,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: get_ContainingOutput
@@ -9361,9 +7918,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: get_Description
@@ -9380,9 +7934,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: get_FrameStatistics
@@ -9399,9 +7950,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: get_IsFullScreen
@@ -9418,9 +7966,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: get_LastPresentCount
@@ -9437,9 +7982,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: op_Explicit
@@ -9456,9 +7998,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain
 
 METHOD: set_IsFullScreen
@@ -9475,9 +8014,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: .ctor
@@ -9494,9 +8030,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: .ctor
@@ -9518,9 +8051,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: .ctor
@@ -9541,9 +8071,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: .ctor
@@ -9563,9 +8090,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetBackgroundColor
@@ -9582,9 +8106,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetCoreWindow
@@ -9602,9 +8123,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetDescription1
@@ -9621,9 +8139,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetFullscreenDescription
@@ -9640,9 +8155,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetHwnd
@@ -9659,9 +8171,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetRestrictToOutput
@@ -9678,9 +8187,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: GetRotation
@@ -9697,9 +8203,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: IsTemporaryMonoSupported_
@@ -9716,9 +8219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: Present
@@ -9737,9 +8237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: Present1
@@ -9758,9 +8255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: SetBackgroundColor
@@ -9777,9 +8271,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: SetRotation
@@ -9796,9 +8287,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_BackgroundColor
@@ -9815,9 +8303,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_Description1
@@ -9834,9 +8319,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_FullscreenDescription
@@ -9853,9 +8335,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_Hwnd
@@ -9872,9 +8351,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_IsTemporaryMonoSupported
@@ -9891,9 +8367,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_RestrictToOutput
@@ -9910,9 +8383,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: get_Rotation
@@ -9929,9 +8399,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: op_Explicit
@@ -9948,9 +8415,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: set_BackgroundColor
@@ -9967,9 +8431,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain1
 
 METHOD: set_Rotation
@@ -9986,9 +8447,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: .ctor
@@ -10005,9 +8463,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: GetFrameLatencyWaitableObject
@@ -10024,9 +8479,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: GetMatrixTransform
@@ -10043,9 +8495,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: GetMaximumFrameLatency
@@ -10062,9 +8511,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: GetSourceSize
@@ -10082,9 +8528,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: SetMatrixTransform
@@ -10101,9 +8544,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: SetMaximumFrameLatency
@@ -10120,9 +8560,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: SetSourceSize
@@ -10140,9 +8577,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: get_FrameLatencyWaitableObject
@@ -10159,9 +8593,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: get_MatrixTransform
@@ -10178,9 +8609,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: get_MaximumFrameLatency
@@ -10197,9 +8625,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: get_SourceSize
@@ -10216,9 +8641,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: op_Explicit
@@ -10235,9 +8657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: set_MatrixTransform
@@ -10254,9 +8673,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: set_MaximumFrameLatency
@@ -10273,9 +8689,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain2
 
 METHOD: set_SourceSize
@@ -10292,9 +8705,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: .ctor
@@ -10311,9 +8721,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: CheckColorSpaceSupport
@@ -10330,9 +8737,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: GetCurrentBackBufferIndex
@@ -10349,9 +8753,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: ResizeBuffers1
@@ -10374,9 +8775,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: SetColorSpace1
@@ -10393,9 +8791,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: get_CurrentBackBufferIndex
@@ -10412,9 +8807,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: op_Explicit
@@ -10431,9 +8823,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain3
 
 METHOD: set_ColorSpace1
@@ -10450,9 +8839,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain4
 
 METHOD: .ctor
@@ -10469,9 +8855,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain4
 
 METHOD: SetHDRMetaData
@@ -10490,9 +8873,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChain4
 
 METHOD: op_Explicit
@@ -10509,9 +8889,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: .ctor
@@ -10528,9 +8905,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: CheckPresentDurationSupport
@@ -10549,9 +8923,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: GetFrameStatisticsMedia
@@ -10568,9 +8939,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: SetPresentDuration
@@ -10587,9 +8955,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: get_FrameStatisticsMedia
@@ -10606,9 +8971,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: op_Explicit
@@ -10625,9 +8987,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.SwapChainMedia
 
 METHOD: set_PresentDuration
@@ -10644,9 +9003,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow
 
 METHOD: .cctor
@@ -10663,9 +9019,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow
 
 METHOD: .ctor
@@ -10682,9 +9035,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow
 
 METHOD: ToIntPtr
@@ -10701,9 +9051,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow
 
 METHOD: get_GetVtbl
@@ -10720,9 +9067,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl
 
 METHOD: .ctor
@@ -10739,9 +9083,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl
 
 METHOD: UpdatesNeededImpl
@@ -10758,9 +9099,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl+UpdatesNeededDelegate
 
 METHOD: .ctor
@@ -10778,9 +9116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl+UpdatesNeededDelegate
 
 METHOD: BeginInvoke
@@ -10799,9 +9134,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl+UpdatesNeededDelegate
 
 METHOD: EndInvoke
@@ -10818,9 +9150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: SharpDX.DXGI.dll
-DLL_VERSION: 4.2.0.0
-
 TYPE: SharpDX.DXGI.VirtualSurfaceUpdatesCallbackNativeShadow+VirtualSurfaceUpdatesCallbackNativeVtbl+UpdatesNeededDelegate
 
 METHOD: Invoke

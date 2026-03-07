@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Drawing.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: .cctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: DecodeBitmap
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: DecodeGif
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: DecodeJfif
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: DecodePng
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: GetDimensions
@@ -115,9 +100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: GetDimensions
@@ -134,9 +116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: ReadBytes
@@ -155,9 +134,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: ReadLittleEndianInt16
@@ -174,9 +150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: ReadLittleEndianInt32
@@ -193,9 +166,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.Common.ImageHeader
 
 METHOD: Supports
@@ -212,9 +182,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: .ctor
@@ -235,9 +202,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: <GetOutputFormat>b__52_0
@@ -254,9 +218,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: <GetOutputFormat>b__52_1
@@ -273,9 +234,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: AddParts
@@ -292,9 +250,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: CheckDisposed
@@ -311,9 +266,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: ContainerSupportsAnimation
@@ -330,9 +282,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: ContainerSupportsTransparency
@@ -349,9 +298,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: CreateImageCollage
@@ -369,9 +315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: Dispose
@@ -388,9 +331,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: ExecuteImageEnhancers
@@ -412,9 +352,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: FileSupportsTransparency
@@ -431,9 +368,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetCacheFilePath
@@ -460,9 +394,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetCachePath
@@ -481,9 +412,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetCachePath
@@ -501,9 +429,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetConvertedImageCachePath
@@ -520,9 +445,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetEncodersForImage
@@ -539,9 +461,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetEnhancedImage
@@ -561,9 +480,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetEnhancedImage
@@ -586,9 +502,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetEnhancedImageCachePath
@@ -605,9 +518,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetEnhancedImageInternal
@@ -630,9 +540,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageCacheTag
@@ -650,9 +557,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageCacheTag
@@ -670,9 +574,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageCacheTag
@@ -690,9 +591,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageCacheTag
@@ -709,9 +607,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageCacheTag
@@ -730,9 +625,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageData
@@ -749,9 +641,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageFeatures
@@ -768,9 +657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageOutputOrderByPreference
@@ -787,9 +673,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageSize
@@ -807,9 +690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageSize
@@ -826,9 +706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageSize
@@ -846,9 +723,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetImageSizeFromImageEncoders
@@ -867,9 +741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetInputFormat
@@ -886,9 +757,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetMimeType
@@ -906,9 +774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetOutputFormat
@@ -927,9 +792,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetResizedImageCachePath
@@ -946,9 +808,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSizeProviderPriority
@@ -965,9 +824,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSupportedEnhancers
@@ -985,9 +841,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSupportedFileExtensions
@@ -1004,9 +857,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSupportedImage
@@ -1024,9 +874,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSupportedImage
@@ -1046,9 +893,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: GetSupportedImageOutputFormats
@@ -1065,9 +909,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: OnImageSizeObtained
@@ -1086,9 +927,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: ProcessImage
@@ -1107,9 +945,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: ProcessImage
@@ -1127,9 +962,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: SetImageEncoders
@@ -1146,9 +978,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: SupportsOrientation
@@ -1165,9 +994,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: _appPaths_CachePathChanged
@@ -1185,9 +1011,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: get_ImageEncoders
@@ -1204,9 +1027,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: get_ImageEnhancers
@@ -1223,9 +1043,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: get_SupportedFileExtensions
@@ -1242,9 +1059,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: get_SupportsImageCollageCreation
@@ -1261,9 +1075,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: set_ImageEnhancers
@@ -1280,9 +1091,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: set_SupportedFileExtensions
@@ -1299,9 +1107,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor
 
 METHOD: set_SupportsImageCollageCreation
@@ -1318,9 +1123,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: .cctor
@@ -1337,9 +1139,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: .ctor
@@ -1356,9 +1155,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_0
@@ -1375,9 +1171,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_1
@@ -1394,9 +1187,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_2
@@ -1413,9 +1203,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_3
@@ -1432,9 +1219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_4
@@ -1451,9 +1235,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_5
@@ -1470,9 +1251,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c
 
 METHOD: <SetImageEncoders>b__20_6
@@ -1489,9 +1267,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c__DisplayClass50_0
 
 METHOD: .ctor
@@ -1508,9 +1283,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c__DisplayClass50_0
 
 METHOD: <ProcessImage>b__0
@@ -1527,9 +1299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<>c__DisplayClass50_0
 
 METHOD: <ProcessImage>b__1
@@ -1546,9 +1315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<CreateImageCollage>d__74
 
 METHOD: MoveNext
@@ -1565,9 +1331,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<CreateImageCollage>d__74
 
 METHOD: SetStateMachine
@@ -1584,9 +1347,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ExecuteImageEnhancers>d__70
 
 METHOD: MoveNext
@@ -1603,9 +1363,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ExecuteImageEnhancers>d__70
 
 METHOD: SetStateMachine
@@ -1622,9 +1379,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImage>d__67
 
 METHOD: MoveNext
@@ -1641,9 +1395,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImage>d__67
 
 METHOD: SetStateMachine
@@ -1660,9 +1411,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImage>d__68
 
 METHOD: MoveNext
@@ -1679,9 +1427,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImage>d__68
 
 METHOD: SetStateMachine
@@ -1698,9 +1443,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImageInternal>d__69
 
 METHOD: MoveNext
@@ -1717,9 +1459,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<GetEnhancedImageInternal>d__69
 
 METHOD: SetStateMachine
@@ -1736,9 +1475,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ProcessImage>d__40
 
 METHOD: MoveNext
@@ -1755,9 +1491,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ProcessImage>d__40
 
 METHOD: SetStateMachine
@@ -1774,9 +1507,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ProcessImage>d__50
 
 METHOD: MoveNext
@@ -1793,9 +1523,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.ImageProcessor+<ProcessImage>d__50
 
 METHOD: SetStateMachine
@@ -1812,9 +1539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: .ctor
@@ -1831,9 +1555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: CreateImageCollage
@@ -1850,9 +1571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: EncodeImage
@@ -1875,9 +1593,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: GetImageSize
@@ -1894,9 +1609,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: get_Name
@@ -1913,9 +1625,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: get_SupportedInputFormats
@@ -1932,9 +1641,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: get_SupportedOutputFormats
@@ -1951,9 +1657,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: get_SupportsImageCollageCreation
@@ -1970,9 +1673,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Drawing.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Drawing.NullImageEncoder
 
 METHOD: get_SupportsImageEncoding

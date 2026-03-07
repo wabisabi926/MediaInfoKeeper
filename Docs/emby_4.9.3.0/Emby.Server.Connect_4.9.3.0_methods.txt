@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Server.Connect.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Server.Connect.Api.ConnectService
 
 METHOD: .ctor
@@ -19,9 +19,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService
 
 METHOD: Any
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService
 
 METHOD: Get
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService
 
 METHOD: Get
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService
 
 METHOD: Post
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService+<Get>d__6
 
 METHOD: MoveNext
@@ -114,9 +99,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService+<Get>d__6
 
 METHOD: SetStateMachine
@@ -133,9 +115,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService+<Post>d__3
 
 METHOD: MoveNext
@@ -152,9 +131,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.ConnectService+<Post>d__3
 
 METHOD: SetStateMachine
@@ -171,9 +147,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.CreateConnectLink
 
 METHOD: .ctor
@@ -190,9 +163,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.CreateConnectLink
 
 METHOD: get_ConnectUsername
@@ -209,9 +179,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.CreateConnectLink
 
 METHOD: get_Id
@@ -228,9 +195,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.CreateConnectLink
 
 METHOD: set_ConnectUsername
@@ -247,9 +211,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.CreateConnectLink
 
 METHOD: set_Id
@@ -266,9 +227,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.DeleteConnectLink
 
 METHOD: .ctor
@@ -285,9 +243,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.DeleteConnectLink
 
 METHOD: get_Id
@@ -304,9 +259,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.DeleteConnectLink
 
 METHOD: set_Id
@@ -323,9 +275,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.GetLocalUser
 
 METHOD: .ctor
@@ -342,9 +291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.GetLocalUser
 
 METHOD: get_ConnectUserId
@@ -361,9 +307,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.GetLocalUser
 
 METHOD: set_ConnectUserId
@@ -380,9 +323,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.Api.GetPendingGuests
 
 METHOD: .ctor
@@ -399,9 +339,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectAuthenticationExchangeResult
 
 METHOD: .ctor
@@ -418,9 +355,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectAuthenticationExchangeResult
 
 METHOD: get_AccessToken
@@ -437,9 +371,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectAuthenticationExchangeResult
 
 METHOD: get_LocalUserId
@@ -456,9 +387,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectAuthenticationExchangeResult
 
 METHOD: set_AccessToken
@@ -475,9 +403,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectAuthenticationExchangeResult
 
 METHOD: set_LocalUserId
@@ -494,9 +419,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectData
 
 METHOD: .ctor
@@ -513,9 +435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectData
 
 METHOD: get_AccessKey
@@ -532,9 +451,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectData
 
 METHOD: get_ServerId
@@ -551,9 +467,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectData
 
 METHOD: set_AccessKey
@@ -570,9 +483,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectData
 
 METHOD: set_ServerId
@@ -589,9 +499,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectEntryPoint
 
 METHOD: .ctor
@@ -618,9 +525,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectEntryPoint
 
 METHOD: Dispose
@@ -637,9 +541,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectEntryPoint
 
 METHOD: Run
@@ -656,9 +557,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: .ctor
@@ -675,9 +573,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: AnyUsersLinkedToConnect
@@ -694,9 +589,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: Authenticate
@@ -715,9 +607,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: CacheData
@@ -734,9 +623,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: CancelAuthorizationByConnectUserId
@@ -753,9 +639,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: CreateServerRegistration
@@ -774,9 +657,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetConnectReportingIdentifier
@@ -794,9 +674,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetConnectUrl
@@ -813,9 +690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetConnectUser
@@ -833,9 +707,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetExceptionToThrow
@@ -852,9 +723,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetLocalUser
@@ -871,9 +739,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: GetUserFromExchangeToken
@@ -890,9 +755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: IsAuthorizationTokenValid
@@ -910,9 +772,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: LinkUser
@@ -930,9 +789,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: LinkUserInternal
@@ -950,9 +806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: LoadCachedData
@@ -969,9 +822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: NetworkManager_NetworkChanged
@@ -989,9 +839,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: NetworkManager_RemoteAddressesChanged
@@ -1009,9 +856,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: RefreshAuthorizations
@@ -1028,9 +872,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: RefreshAuthorizations
@@ -1047,9 +888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: RefreshAuthorizationsInternal
@@ -1066,9 +904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: RemoveConnect
@@ -1085,9 +920,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: RemoveConnect
@@ -1105,9 +937,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: SetApplicationHeader
@@ -1124,9 +953,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: SetServerAccessToken
@@ -1143,9 +969,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: Start
@@ -1171,9 +994,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: UpdateConnectInfo
@@ -1192,9 +1012,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: UpdateConnectInfoAfterConfigChange
@@ -1211,9 +1028,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: UpdateConnectInfoInternal
@@ -1232,9 +1046,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: UpdateServerRegistration
@@ -1254,9 +1065,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: get_CacheFilePath
@@ -1273,9 +1081,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: get_ConnectAccessKey
@@ -1292,9 +1097,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: get_ConnectServerId
@@ -1311,9 +1113,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager
 
 METHOD: get_XApplicationValue
@@ -1330,9 +1129,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<>c__DisplayClass47_0
 
 METHOD: .ctor
@@ -1349,9 +1145,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<>c__DisplayClass47_0
 
 METHOD: <RefreshAuthorizations>b__0
@@ -1368,9 +1161,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<Authenticate>d__43
 
 METHOD: MoveNext
@@ -1387,9 +1177,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<Authenticate>d__43
 
 METHOD: SetStateMachine
@@ -1406,9 +1193,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<CancelAuthorizationByConnectUserId>d__42
 
 METHOD: MoveNext
@@ -1425,9 +1209,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<CancelAuthorizationByConnectUserId>d__42
 
 METHOD: SetStateMachine
@@ -1444,9 +1225,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<CreateServerRegistration>d__27
 
 METHOD: MoveNext
@@ -1463,9 +1241,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<CreateServerRegistration>d__27
 
 METHOD: SetStateMachine
@@ -1482,9 +1257,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<GetConnectUser>d__39
 
 METHOD: MoveNext
@@ -1501,9 +1273,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<GetConnectUser>d__39
 
 METHOD: SetStateMachine
@@ -1520,9 +1289,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LinkUser>d__35
 
 METHOD: MoveNext
@@ -1539,9 +1305,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LinkUser>d__35
 
 METHOD: SetStateMachine
@@ -1558,9 +1321,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LinkUserInternal>d__36
 
 METHOD: MoveNext
@@ -1577,9 +1337,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LinkUserInternal>d__36
 
 METHOD: SetStateMachine
@@ -1596,9 +1353,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LoadCachedData>d__33
 
 METHOD: MoveNext
@@ -1615,9 +1369,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<LoadCachedData>d__33
 
 METHOD: SetStateMachine
@@ -1634,9 +1385,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RefreshAuthorizations>d__46
 
 METHOD: MoveNext
@@ -1653,9 +1401,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RefreshAuthorizations>d__46
 
 METHOD: SetStateMachine
@@ -1672,9 +1417,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RefreshAuthorizationsInternal>d__45
 
 METHOD: MoveNext
@@ -1691,9 +1433,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RefreshAuthorizationsInternal>d__45
 
 METHOD: SetStateMachine
@@ -1710,9 +1449,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RemoveConnect>d__38
 
 METHOD: MoveNext
@@ -1729,9 +1465,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<RemoveConnect>d__38
 
 METHOD: SetStateMachine
@@ -1748,9 +1481,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateConnectInfo>d__21
 
 METHOD: MoveNext
@@ -1767,9 +1497,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateConnectInfo>d__21
 
 METHOD: SetStateMachine
@@ -1786,9 +1513,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateConnectInfoInternal>d__22
 
 METHOD: MoveNext
@@ -1805,9 +1529,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateConnectInfoInternal>d__22
 
 METHOD: SetStateMachine
@@ -1824,9 +1545,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateServerRegistration>d__28
 
 METHOD: MoveNext
@@ -1843,9 +1561,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectManager+<UpdateServerRegistration>d__28
 
 METHOD: SetStateMachine
@@ -1862,9 +1577,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectUserQuery
 
 METHOD: .ctor
@@ -1881,9 +1593,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectUserQuery
 
 METHOD: get_Email
@@ -1900,9 +1609,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectUserQuery
 
 METHOD: get_Id
@@ -1919,9 +1625,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectUserQuery
 
 METHOD: set_Email
@@ -1938,9 +1641,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ConnectUserQuery
 
 METHOD: set_Id
@@ -1957,9 +1657,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: .ctor
@@ -1976,9 +1673,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: Execute
@@ -1996,9 +1690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: GetDefaultTriggers
@@ -2015,9 +1706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_Category
@@ -2034,9 +1722,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_Description
@@ -2053,9 +1738,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_IsEnabled
@@ -2072,9 +1754,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_IsHidden
@@ -2091,9 +1770,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_IsLogged
@@ -2110,9 +1786,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_Key
@@ -2129,9 +1802,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.RefreshAuthorizationsScheduledTask
 
 METHOD: get_Name
@@ -2148,9 +1818,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerRegistrationResponse
 
 METHOD: .ctor
@@ -2167,9 +1834,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerRegistrationResponse
 
 METHOD: get_AccessKey
@@ -2186,9 +1850,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerRegistrationResponse
 
 METHOD: get_Id
@@ -2205,9 +1866,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerRegistrationResponse
 
 METHOD: set_AccessKey
@@ -2224,9 +1882,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerRegistrationResponse
 
 METHOD: set_Id
@@ -2243,9 +1898,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerUserAuthorizationResponse
 
 METHOD: .ctor
@@ -2262,9 +1914,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerUserAuthorizationResponse
 
 METHOD: get_AcceptStatus
@@ -2281,9 +1930,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerUserAuthorizationResponse
 
 METHOD: get_UserId
@@ -2300,9 +1946,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerUserAuthorizationResponse
 
 METHOD: set_AcceptStatus
@@ -2319,9 +1962,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Server.Connect.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Server.Connect.ServerUserAuthorizationResponse
 
 METHOD: set_UserId

@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
 DLL_VERSION: 10.1.16.0
 
+====================================================
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: AddToCurrentParagraph
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: AppendBlock
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: AppendListItems
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: EndCurrentParagraph
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -114,9 +99,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -133,9 +115,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -152,9 +131,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -171,9 +147,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -190,9 +163,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -209,9 +179,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -228,9 +195,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -247,9 +211,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -266,9 +227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -285,9 +243,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -304,9 +259,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -323,9 +275,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -342,9 +291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -361,9 +307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -380,9 +323,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -399,9 +339,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -418,9 +355,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -437,9 +371,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -456,9 +387,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -475,9 +403,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -494,9 +419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -513,9 +435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -532,9 +451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -551,9 +467,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -570,9 +483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -589,9 +499,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -608,9 +515,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -627,9 +531,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -646,9 +547,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -665,9 +563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -684,9 +579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -703,9 +595,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -722,9 +611,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -741,9 +627,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: Visit
@@ -760,9 +643,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: VisitExceptions
@@ -780,9 +660,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: VisitParameters
@@ -800,9 +677,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: VisitSeeAlso
@@ -819,9 +693,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: VisitTypeParameters
@@ -839,9 +710,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: get_CurrentBlock
@@ -858,9 +726,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor
 
 METHOD: get_Result
@@ -877,9 +742,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c
 
 METHOD: .cctor
@@ -896,9 +758,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c
 
 METHOD: .ctor
@@ -915,9 +774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c
 
 METHOD: <Visit>b__25_1
@@ -934,9 +790,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c
 
 METHOD: <Visit>b__25_3
@@ -953,9 +806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c__DisplayClass25_0
 
 METHOD: .ctor
@@ -972,9 +822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c__DisplayClass25_0
 
 METHOD: <Visit>b__2
@@ -991,9 +838,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c__DisplayClass25_0
 
 METHOD: <Visit>b__4
@@ -1010,9 +854,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToBlockVisitor+<>c__DisplayClass25_0
 
 METHOD: <Visit>g__CreateRow|0
@@ -1030,9 +871,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: .ctor
@@ -1049,9 +887,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: BeginNestedSpan
@@ -1068,9 +903,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: EndNestedSpan
@@ -1087,9 +919,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: ThrowUnsupportedNode
@@ -1106,9 +935,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1125,9 +951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1144,9 +967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1163,9 +983,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1182,9 +999,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1201,9 +1015,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1220,9 +1031,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1239,9 +1047,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1258,9 +1063,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1277,9 +1079,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1296,9 +1095,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1315,9 +1111,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1334,9 +1127,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1353,9 +1143,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1372,9 +1159,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1391,9 +1175,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1410,9 +1191,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1429,9 +1207,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1448,9 +1223,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1467,9 +1239,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1486,9 +1255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1505,9 +1271,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1524,9 +1287,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1543,9 +1303,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1562,9 +1319,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1581,9 +1335,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1600,9 +1351,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1619,9 +1367,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1638,9 +1383,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1657,9 +1399,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1676,9 +1415,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: Visit
@@ -1695,9 +1431,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: get_CurrentSpan
@@ -1714,9 +1447,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.ConvertToSpanVisitor
 
 METHOD: get_Result
@@ -1733,9 +1463,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.IMarkdownConverter
 
 METHOD: ConvertToBlock
@@ -1752,9 +1479,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.IMarkdownConverter
 
 METHOD: ConvertToSpan
@@ -1771,9 +1495,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.MarkdownConverter
 
 METHOD: .ctor
@@ -1790,9 +1511,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.MarkdownConverter
 
 METHOD: ConvertToBlock
@@ -1809,9 +1527,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.MarkdownConverter
 
 METHOD: ConvertToSpan
@@ -1828,9 +1543,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.MarkdownConverter
 
 METHOD: CreateConvertToBlockVisitor
@@ -1847,9 +1559,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Grynwald.XmlDocs.MarkdownRenderer.MarkdownConverter
 
 METHOD: CreateConvertToSpanVisitor
@@ -1866,9 +1575,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -1885,9 +1591,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableAttribute
 
 METHOD: .ctor
@@ -1904,9 +1607,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableAttribute
 
 METHOD: .ctor
@@ -1923,9 +1623,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.NullableContextAttribute
 
 METHOD: .ctor
@@ -1942,9 +1639,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Grynwald.XmlDocs.MarkdownRenderer.dll
-DLL_VERSION: 10.1.16.0
-
 TYPE: System.Runtime.CompilerServices.RefSafetyRulesAttribute
 
 METHOD: .ctor

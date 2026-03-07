@@ -1,0 +1,3 @@
+DLL_NAME: Emby.Resources.resources.dll
+DLL_VERSION: 4.9.3.0
+

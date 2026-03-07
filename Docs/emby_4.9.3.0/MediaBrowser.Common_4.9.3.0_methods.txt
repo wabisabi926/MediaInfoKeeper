@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: MediaBrowser.Common.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: MediaBrowser.Common.Configuration.ConfigurationManagerExtensions
 
 METHOD: GetConfiguration
@@ -19,9 +19,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: .ctor
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: get_ConfigurationType
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: get_Key
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: get_RequiresSerializedTypeInfo
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: set_ConfigurationType
@@ -114,9 +99,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: set_Key
@@ -133,9 +115,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationStore
 
 METHOD: set_RequiresSerializedTypeInfo
@@ -152,9 +131,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationUpdateEventArgs
 
 METHOD: .ctor
@@ -171,9 +147,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationUpdateEventArgs
 
 METHOD: get_Key
@@ -190,9 +163,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationUpdateEventArgs
 
 METHOD: get_NewConfiguration
@@ -209,9 +179,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationUpdateEventArgs
 
 METHOD: set_Key
@@ -228,9 +195,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.ConfigurationUpdateEventArgs
 
 METHOD: set_NewConfiguration
@@ -247,9 +211,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: GetCachePath
@@ -266,9 +227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: GetImageCachePath
@@ -285,9 +243,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: add_CachePathChanged
@@ -304,9 +259,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_CachePath
@@ -323,9 +275,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_ConfigurationDirectoryPath
@@ -342,9 +291,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_DataPath
@@ -361,9 +307,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_ImageCachePath
@@ -380,9 +323,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_LogDirectoryPath
@@ -399,9 +339,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_PluginConfigurationsPath
@@ -418,9 +355,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_PluginsPath
@@ -437,9 +371,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_ProgramDataPath
@@ -456,9 +387,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_ProgramSystemPath
@@ -475,9 +403,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_SystemConfigurationFilePath
@@ -494,9 +419,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_TempDirectory
@@ -513,9 +435,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_TempUpdatePath
@@ -532,9 +451,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: get_VirtualDataPath
@@ -551,9 +467,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IApplicationPaths
 
 METHOD: remove_CachePathChanged
@@ -570,9 +483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationFactory
 
 METHOD: GetConfigurations
@@ -589,9 +499,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: AddParts
@@ -608,9 +515,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: GetConfiguration
@@ -627,9 +531,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: GetConfigurationType
@@ -646,9 +547,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: ReplaceConfiguration
@@ -665,9 +563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: SaveConfiguration
@@ -684,9 +579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: SaveConfiguration
@@ -704,9 +596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: add_ConfigurationUpdated
@@ -723,9 +612,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: add_NamedConfigurationUpdated
@@ -742,9 +628,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: add_NamedConfigurationUpdating
@@ -761,9 +644,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: get_CommonApplicationPaths
@@ -780,9 +660,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: get_CommonConfiguration
@@ -799,9 +676,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: remove_ConfigurationUpdated
@@ -818,9 +692,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: remove_NamedConfigurationUpdated
@@ -837,9 +708,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IConfigurationManager
 
 METHOD: remove_NamedConfigurationUpdating
@@ -856,9 +724,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Configuration.IValidatingConfiguration
 
 METHOD: Validate
@@ -876,9 +741,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: FireEventIfNotNull
@@ -898,9 +760,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: FireEventIfNotNull
@@ -920,9 +779,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: QueueEventIfNotNull
@@ -942,9 +798,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: QueueEventIfNotNull
@@ -964,9 +817,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: TriggerAll
@@ -986,9 +836,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper
 
 METHOD: TriggerAll
@@ -1008,9 +855,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper+<>c__DisplayClass0_0
 
 METHOD: .ctor
@@ -1027,9 +871,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper+<>c__DisplayClass0_0
 
 METHOD: <QueueEventIfNotNull>b__0
@@ -1046,9 +887,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper+<>c__DisplayClass1_0`1
 
 METHOD: .ctor
@@ -1065,9 +903,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Events.EventHelper+<>c__DisplayClass1_0`1
 
 METHOD: <QueueEventIfNotNull>b__0
@@ -1084,9 +919,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.BaseExtensions
 
 METHOD: GetMD5
@@ -1103,9 +935,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.BaseExtensions
 
 METHOD: GetMD5
@@ -1122,9 +951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.BaseExtensions
 
 METHOD: StripHtml
@@ -1141,9 +967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.BaseExtensions
 
 METHOD: get_CryptographyProvider
@@ -1160,9 +983,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.BaseExtensions
 
 METHOD: set_CryptographyProvider
@@ -1179,9 +999,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ConflictException
 
 METHOD: .ctor
@@ -1198,9 +1015,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ConflictException
 
 METHOD: .ctor
@@ -1217,9 +1031,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.DirectoryUnavailableException
 
 METHOD: .ctor
@@ -1237,9 +1048,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.DirectoryUnavailableException
 
 METHOD: get_Path
@@ -1256,9 +1064,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.DirectoryUnavailableException
 
 METHOD: set_Path
@@ -1275,9 +1080,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RangeRequestOutOfRangeException
 
 METHOD: .ctor
@@ -1294,9 +1096,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RangeRequestOutOfRangeException
 
 METHOD: .ctor
@@ -1313,9 +1112,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RateLimitExceededException
 
 METHOD: .ctor
@@ -1332,9 +1128,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RateLimitExceededException
 
 METHOD: .ctor
@@ -1351,9 +1144,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RemoteServiceUnavailableException
 
 METHOD: .ctor
@@ -1370,9 +1160,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.RemoteServiceUnavailableException
 
 METHOD: .ctor
@@ -1389,9 +1176,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: .ctor
@@ -1408,9 +1192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: .ctor
@@ -1428,9 +1209,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: .ctor
@@ -1448,9 +1226,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: .ctor
@@ -1467,9 +1242,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: .ctor
@@ -1488,9 +1260,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: get_ResourceExceptionType
@@ -1507,9 +1276,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: get_ResourceId
@@ -1526,9 +1292,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: set_ResourceExceptionType
@@ -1545,9 +1308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ResourceNotFoundException
 
 METHOD: set_ResourceId
@@ -1564,9 +1324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ServiceUnavailableException
 
 METHOD: .ctor
@@ -1583,9 +1340,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Extensions.ServiceUnavailableException
 
 METHOD: .ctor
@@ -1602,9 +1356,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: CheckForApplicationUpdate
@@ -1623,9 +1374,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: ContainsStartupOption
@@ -1642,9 +1390,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: CreateInstance
@@ -1661,9 +1406,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: GetExports
@@ -1680,9 +1422,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: Init
@@ -1699,9 +1438,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: NotifyPendingRestart
@@ -1718,9 +1454,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: RemovePlugin
@@ -1737,9 +1470,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: Resolve
@@ -1756,9 +1486,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: Restart
@@ -1775,9 +1502,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: Shutdown
@@ -1794,9 +1518,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: TryResolve
@@ -1813,9 +1534,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: UpdateApplication
@@ -1834,9 +1552,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: add_ApplicationUpdated
@@ -1853,9 +1568,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: add_HasPendingRestartChanged
@@ -1872,9 +1584,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_ApplicationVersion
@@ -1891,9 +1600,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_CanSelfRestart
@@ -1910,9 +1616,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_CanSelfUpdate
@@ -1929,9 +1632,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_HasPendingRestart
@@ -1948,9 +1648,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_IsShuttingDown
@@ -1967,9 +1664,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_IsStartupComplete
@@ -1986,9 +1680,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_Name
@@ -2005,9 +1696,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_OperatingSystemDisplayName
@@ -2024,9 +1712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_Plugins
@@ -2043,9 +1728,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_SystemId
@@ -2062,9 +1744,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: get_SystemUpdateLevel
@@ -2081,9 +1760,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: remove_ApplicationUpdated
@@ -2100,9 +1776,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.IApplicationHost
 
 METHOD: remove_HasPendingRestartChanged
@@ -2119,9 +1792,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: .ctor
@@ -2138,9 +1808,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: .ctor
@@ -2157,9 +1824,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: GetHeaderValue
@@ -2176,9 +1840,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: SetHeaderValue
@@ -2196,9 +1857,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: SetPostData
@@ -2215,9 +1873,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_AcceptHeader
@@ -2234,9 +1889,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_AppendCharsetToMimeType
@@ -2253,9 +1905,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_BufferContent
@@ -2272,9 +1921,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_CacheLength
@@ -2291,9 +1937,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_CacheMode
@@ -2310,9 +1953,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_CancellationToken
@@ -2329,9 +1969,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_ConnectionContext
@@ -2348,9 +1985,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_ConvertUrlCredentialsToBasicAuth
@@ -2367,9 +2001,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_DecompressionMethod
@@ -2386,9 +2017,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_DownloadFilePath
@@ -2405,9 +2033,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_EnableAutomaticTimeouts
@@ -2424,9 +2049,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_EnableDefaultUserAgent
@@ -2443,9 +2065,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_EnableHttpCompression
@@ -2462,9 +2081,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_EnableKeepAlive
@@ -2481,9 +2097,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_FileBufferSize
@@ -2500,9 +2113,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_FileOpenOptions
@@ -2519,9 +2129,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_FileShareMode
@@ -2538,9 +2145,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_Host
@@ -2557,9 +2161,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogErrorResponseBody
@@ -2576,9 +2177,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogErrors
@@ -2595,9 +2193,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogRequest
@@ -2614,9 +2209,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogRequestAsDebug
@@ -2633,9 +2225,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogResponse
@@ -2652,9 +2241,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogResponseHeaders
@@ -2671,9 +2257,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogUrl
@@ -2690,9 +2273,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_LogUrlPrefix
@@ -2709,9 +2289,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_Progress
@@ -2728,9 +2305,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_Referer
@@ -2747,9 +2321,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_RequestContent
@@ -2766,9 +2337,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_RequestContentBytes
@@ -2785,9 +2353,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_RequestContentType
@@ -2804,9 +2369,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_RequestHeaders
@@ -2823,9 +2385,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_RequestHttpContent
@@ -2842,9 +2401,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_Sanitation
@@ -2861,9 +2417,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_SingleTcpConnection
@@ -2880,9 +2433,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_ThrowOnErrorResponse
@@ -2899,9 +2449,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_TimeoutMs
@@ -2918,9 +2465,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_Url
@@ -2937,9 +2481,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: get_UserAgent
@@ -2956,9 +2497,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_AcceptHeader
@@ -2975,9 +2513,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_AppendCharsetToMimeType
@@ -2994,9 +2529,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_BufferContent
@@ -3013,9 +2545,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_CacheLength
@@ -3032,9 +2561,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_CacheMode
@@ -3051,9 +2577,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_CancellationToken
@@ -3070,9 +2593,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_ConnectionContext
@@ -3089,9 +2609,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_ConvertUrlCredentialsToBasicAuth
@@ -3108,9 +2625,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_DecompressionMethod
@@ -3127,9 +2641,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_DownloadFilePath
@@ -3146,9 +2657,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_EnableAutomaticTimeouts
@@ -3165,9 +2673,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_EnableDefaultUserAgent
@@ -3184,9 +2689,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_EnableHttpCompression
@@ -3203,9 +2705,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_EnableKeepAlive
@@ -3222,9 +2721,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_FileBufferSize
@@ -3241,9 +2737,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_FileOpenOptions
@@ -3260,9 +2753,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_FileShareMode
@@ -3279,9 +2769,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_Host
@@ -3298,9 +2785,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogErrorResponseBody
@@ -3317,9 +2801,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogErrors
@@ -3336,9 +2817,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogRequest
@@ -3355,9 +2833,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogRequestAsDebug
@@ -3374,9 +2849,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogResponse
@@ -3393,9 +2865,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogResponseHeaders
@@ -3412,9 +2881,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogUrl
@@ -3431,9 +2897,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_LogUrlPrefix
@@ -3450,9 +2913,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_Progress
@@ -3469,9 +2929,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_Referer
@@ -3488,9 +2945,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_RequestContent
@@ -3507,9 +2961,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_RequestContentBytes
@@ -3526,9 +2977,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_RequestContentType
@@ -3545,9 +2993,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_RequestHeaders
@@ -3564,9 +3009,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_RequestHttpContent
@@ -3583,9 +3025,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_SingleTcpConnection
@@ -3602,9 +3041,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_ThrowOnErrorResponse
@@ -3621,9 +3057,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_TimeoutMs
@@ -3640,9 +3073,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_Url
@@ -3659,9 +3089,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions
 
 METHOD: set_UserAgent
@@ -3678,9 +3105,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions+<>c__DisplayClass155_0
 
 METHOD: .ctor
@@ -3697,9 +3121,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpRequestOptions+<>c__DisplayClass155_0
 
 METHOD: <SetPostData>b__0
@@ -3716,9 +3137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: .ctor
@@ -3735,9 +3153,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: .ctor
@@ -3754,9 +3169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: Dispose
@@ -3773,9 +3185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_Content
@@ -3792,9 +3201,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_ContentLength
@@ -3811,9 +3217,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_ContentType
@@ -3830,9 +3233,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_Headers
@@ -3849,9 +3249,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_ResponseUrl
@@ -3868,9 +3265,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_StatusCode
@@ -3887,9 +3281,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: get_TempFilePath
@@ -3906,9 +3297,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_Content
@@ -3925,9 +3313,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_ContentLength
@@ -3944,9 +3329,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_ContentType
@@ -3963,9 +3345,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_Headers
@@ -3982,9 +3361,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_ResponseUrl
@@ -4001,9 +3377,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_StatusCode
@@ -4020,9 +3393,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.HttpResponseInfo
 
 METHOD: set_TempFilePath
@@ -4039,9 +3409,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: Get
@@ -4058,9 +3425,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: GetConnectionContext
@@ -4077,9 +3441,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: GetResponse
@@ -4096,9 +3457,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: GetTempFile
@@ -4115,9 +3473,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: GetTempFileResponse
@@ -4134,9 +3489,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: Post
@@ -4153,9 +3505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.IHttpClient
 
 METHOD: SendAsync
@@ -4173,9 +3522,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetHostAddressesAsync
@@ -4193,9 +3539,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetLocalIpAddresses
@@ -4212,9 +3555,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetLocalIpAddresses
@@ -4231,9 +3571,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetMacAddresses
@@ -4250,9 +3587,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetNetworkDevices
@@ -4269,9 +3603,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetNetworkShares
@@ -4288,9 +3619,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetRandomUnusedTcpPort
@@ -4307,9 +3635,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: GetRandomUnusedUdpPort
@@ -4326,9 +3651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: IsAddressInSubnets
@@ -4346,9 +3668,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: IsInLocalNetwork
@@ -4366,9 +3685,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: IsInLocalNetwork
@@ -4386,9 +3702,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: IsInLocalNetwork
@@ -4405,9 +3718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: IsInPrivateAddressSpace
@@ -4424,9 +3734,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: add_NetworkChanged
@@ -4443,9 +3750,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: add_RemoteAddressesChanged
@@ -4462,9 +3766,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: get_LocalSubnetsFn
@@ -4481,9 +3782,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: get_RemoteApiAddresses
@@ -4500,9 +3798,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: get_RemoteIPAddresses
@@ -4519,9 +3814,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: remove_NetworkChanged
@@ -4538,9 +3830,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: remove_RemoteAddressesChanged
@@ -4557,9 +3846,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Net.INetworkManager
 
 METHOD: set_LocalSubnetsFn
@@ -4576,9 +3862,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: .ctor
@@ -4595,9 +3878,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: GetPluginInfo
@@ -4614,9 +3894,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: GetPluginPageUrl
@@ -4633,9 +3910,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: OnUninstalling
@@ -4652,9 +3926,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: SetAttributes
@@ -4673,9 +3944,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: SetId
@@ -4692,9 +3960,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_AssemblyFilePath
@@ -4711,9 +3976,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_DataFolderPath
@@ -4730,9 +3992,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_Description
@@ -4749,9 +4008,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_Id
@@ -4768,9 +4024,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_Name
@@ -4787,9 +4040,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: get_Version
@@ -4806,9 +4056,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: set_AssemblyFilePath
@@ -4825,9 +4072,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: set_DataFolderPath
@@ -4844,9 +4088,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: set_Id
@@ -4863,9 +4104,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin
 
 METHOD: set_Version
@@ -4882,9 +4120,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: .ctor
@@ -4902,9 +4137,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: GetPluginInfo
@@ -4921,9 +4153,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: LoadConfiguration
@@ -4940,9 +4169,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: MediaBrowser.Common.Plugins.IHasPluginConfiguration.get_Configuration
@@ -4959,9 +4185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: SaveConfiguration
@@ -4978,9 +4201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: SetStartupInfo
@@ -4997,9 +4217,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: UpdateConfiguration
@@ -5016,9 +4233,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_ApplicationPaths
@@ -5035,9 +4249,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_AssemblyFileName
@@ -5054,9 +4265,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_Configuration
@@ -5073,9 +4281,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_ConfigurationFileName
@@ -5092,9 +4297,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_ConfigurationFilePath
@@ -5111,9 +4313,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_ConfigurationType
@@ -5130,9 +4329,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_IsFirstRun
@@ -5149,9 +4345,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: get_XmlSerializer
@@ -5168,9 +4361,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: set_ApplicationPaths
@@ -5187,9 +4377,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: set_Configuration
@@ -5206,9 +4393,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: set_IsFirstRun
@@ -5225,9 +4409,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.BasePlugin`1
 
 METHOD: set_XmlSerializer
@@ -5244,9 +4425,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasPluginConfiguration
 
 METHOD: SetStartupInfo
@@ -5263,9 +4441,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasPluginConfiguration
 
 METHOD: UpdateConfiguration
@@ -5282,9 +4457,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasPluginConfiguration
 
 METHOD: get_Configuration
@@ -5301,9 +4473,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasPluginConfiguration
 
 METHOD: get_ConfigurationType
@@ -5320,9 +4489,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasThumbImage
 
 METHOD: GetThumbImage
@@ -5339,9 +4505,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IHasThumbImage
 
 METHOD: get_ThumbImageFormat
@@ -5358,9 +4521,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: GetPluginInfo
@@ -5377,9 +4537,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: OnUninstalling
@@ -5396,9 +4553,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_AssemblyFilePath
@@ -5415,9 +4569,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_DataFolderPath
@@ -5434,9 +4585,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_Description
@@ -5453,9 +4601,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_Id
@@ -5472,9 +4617,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_Name
@@ -5491,9 +4633,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPlugin
 
 METHOD: get_Version
@@ -5510,9 +4649,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPluginAssembly
 
 METHOD: SetAttributes
@@ -5531,9 +4667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Plugins.IPluginAssembly
 
 METHOD: SetId
@@ -5550,9 +4683,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.ActionableProgress`1
 
 METHOD: .ctor
@@ -5569,9 +4699,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.ActionableProgress`1
 
 METHOD: RegisterAction
@@ -5588,9 +4715,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.ActionableProgress`1
 
 METHOD: Report
@@ -5607,9 +4731,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.ActionableProgress`1
 
 METHOD: add_ProgressChanged
@@ -5626,9 +4747,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.ActionableProgress`1
 
 METHOD: remove_ProgressChanged
@@ -5645,9 +4763,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.SimpleProgress`1
 
 METHOD: .ctor
@@ -5664,9 +4779,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.SimpleProgress`1
 
 METHOD: Report
@@ -5683,9 +4795,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.SimpleProgress`1
 
 METHOD: add_ProgressChanged
@@ -5702,9 +4811,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.SimpleProgress`1
 
 METHOD: remove_ProgressChanged
@@ -5721,9 +4827,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.WrappedProgressDouble
 
 METHOD: .ctor
@@ -5741,9 +4844,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.WrappedProgressDouble
 
 METHOD: .ctor
@@ -5762,9 +4862,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Progress.WrappedProgressDouble
 
 METHOD: Report
@@ -5781,9 +4878,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.IRequiresRegistration
 
 METHOD: LoadRegistrationInfoAsync
@@ -5800,9 +4894,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: GetRegistrationStatus
@@ -5820,9 +4911,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: IsFeatureAllowed
@@ -5840,9 +4928,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: IsFeatureAllowed
@@ -5861,9 +4946,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: IsSupporter
@@ -5880,9 +4962,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: RegisterAppStoreSale
@@ -5900,9 +4979,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: UpdateSupporterKey
@@ -5919,9 +4995,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.ISecurityManager
 
 METHOD: get_SupporterKey
@@ -5938,9 +5011,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Security.PaymentRequiredException
 
 METHOD: .ctor
@@ -5957,9 +5027,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: .ctor
@@ -5977,9 +5044,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: CheckForUpdateResult
@@ -6005,9 +5069,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: CheckForUpdateResult
@@ -6029,9 +5090,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: CheckForUpdateResult
@@ -6052,9 +5110,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: GetLatestReleases
@@ -6075,9 +5130,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: GetVersion
@@ -6094,9 +5146,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: IsAsset
@@ -6115,9 +5164,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater
 
 METHOD: MatchesUpdateLevel
@@ -6135,9 +5181,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: .cctor
@@ -6154,9 +5197,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: .ctor
@@ -6173,9 +5213,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: <CheckForUpdateResult>b__4_0
@@ -6192,9 +5229,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: <CheckForUpdateResult>b__4_1
@@ -6211,9 +5245,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: <CheckForUpdateResult>b__4_2
@@ -6230,9 +5261,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: <CheckForUpdateResult>b__4_4
@@ -6249,9 +5277,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c
 
 METHOD: <CheckForUpdateResult>b__4_5
@@ -6268,9 +5293,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass4_0
 
 METHOD: .ctor
@@ -6287,9 +5309,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass4_0
 
 METHOD: <CheckForUpdateResult>b__3
@@ -6306,9 +5325,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_0
 
 METHOD: .ctor
@@ -6325,9 +5341,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_0
 
 METHOD: <GetLatestReleases>b__0
@@ -6344,9 +5357,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_0
 
 METHOD: <GetLatestReleases>b__1
@@ -6363,9 +5373,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_0
 
 METHOD: <GetLatestReleases>b__2
@@ -6382,9 +5389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_1
 
 METHOD: .ctor
@@ -6401,9 +5405,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass6_1
 
 METHOD: <GetLatestReleases>b__3
@@ -6420,9 +5421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass8_0
 
 METHOD: .ctor
@@ -6439,9 +5437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<>c__DisplayClass8_0
 
 METHOD: <CheckForUpdateResult>b__0
@@ -6458,9 +5453,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<CheckForUpdateResult>d__3
 
 METHOD: MoveNext
@@ -6477,9 +5469,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<CheckForUpdateResult>d__3
 
 METHOD: SetStateMachine
@@ -6496,9 +5485,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<GetLatestReleases>d__6
 
 METHOD: MoveNext
@@ -6515,9 +5501,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+<GetLatestReleases>d__6
 
 METHOD: SetStateMachine
@@ -6534,9 +5517,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: .ctor
@@ -6553,9 +5533,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_browser_download_url
@@ -6572,9 +5549,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_content_type
@@ -6591,9 +5565,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_created_at
@@ -6610,9 +5581,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_download_count
@@ -6629,9 +5597,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_id
@@ -6648,9 +5613,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_label
@@ -6667,9 +5629,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_name
@@ -6686,9 +5645,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_size
@@ -6705,9 +5661,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_state
@@ -6724,9 +5677,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_updated_at
@@ -6743,9 +5693,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_uploader
@@ -6762,9 +5709,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: get_url
@@ -6781,9 +5725,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_browser_download_url
@@ -6800,9 +5741,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_content_type
@@ -6819,9 +5757,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_created_at
@@ -6838,9 +5773,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_download_count
@@ -6857,9 +5789,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_id
@@ -6876,9 +5805,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_label
@@ -6895,9 +5821,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_name
@@ -6914,9 +5837,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_size
@@ -6933,9 +5853,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_state
@@ -6952,9 +5869,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_updated_at
@@ -6971,9 +5885,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_uploader
@@ -6990,9 +5901,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Asset
 
 METHOD: set_url
@@ -7009,9 +5917,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: .ctor
@@ -7028,9 +5933,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_avatar_url
@@ -7047,9 +5949,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_events_url
@@ -7066,9 +5965,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_followers_url
@@ -7085,9 +5981,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_following_url
@@ -7104,9 +5997,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_gists_url
@@ -7123,9 +6013,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_gravatar_id
@@ -7142,9 +6029,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_html_url
@@ -7161,9 +6045,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_id
@@ -7180,9 +6061,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_login
@@ -7199,9 +6077,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_organizations_url
@@ -7218,9 +6093,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_received_events_url
@@ -7237,9 +6109,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_repos_url
@@ -7256,9 +6125,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_site_admin
@@ -7275,9 +6141,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_starred_url
@@ -7294,9 +6157,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_subscriptions_url
@@ -7313,9 +6173,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_type
@@ -7332,9 +6189,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: get_url
@@ -7351,9 +6205,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_avatar_url
@@ -7370,9 +6221,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_events_url
@@ -7389,9 +6237,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_followers_url
@@ -7408,9 +6253,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_following_url
@@ -7427,9 +6269,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_gists_url
@@ -7446,9 +6285,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_gravatar_id
@@ -7465,9 +6301,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_html_url
@@ -7484,9 +6317,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_id
@@ -7503,9 +6333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_login
@@ -7522,9 +6349,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_organizations_url
@@ -7541,9 +6365,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_received_events_url
@@ -7560,9 +6381,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_repos_url
@@ -7579,9 +6397,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_site_admin
@@ -7598,9 +6413,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_starred_url
@@ -7617,9 +6429,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_subscriptions_url
@@ -7636,9 +6445,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_type
@@ -7655,9 +6461,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Author
 
 METHOD: set_url
@@ -7674,9 +6477,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: .ctor
@@ -7693,9 +6493,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_assets
@@ -7712,9 +6509,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_assets_url
@@ -7731,9 +6525,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_author
@@ -7750,9 +6541,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_body
@@ -7769,9 +6557,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_created_at
@@ -7788,9 +6573,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_draft
@@ -7807,9 +6589,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_html_url
@@ -7826,9 +6605,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_id
@@ -7845,9 +6621,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_name
@@ -7864,9 +6637,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_prerelease
@@ -7883,9 +6653,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_published_at
@@ -7902,9 +6669,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_tag_name
@@ -7921,9 +6685,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_tarball_url
@@ -7940,9 +6701,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_target_commitish
@@ -7959,9 +6717,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_upload_url
@@ -7978,9 +6733,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_url
@@ -7997,9 +6749,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: get_zipball_url
@@ -8016,9 +6765,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_assets
@@ -8035,9 +6781,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_assets_url
@@ -8054,9 +6797,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_author
@@ -8073,9 +6813,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_body
@@ -8092,9 +6829,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_created_at
@@ -8111,9 +6845,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_draft
@@ -8130,9 +6861,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_html_url
@@ -8149,9 +6877,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_id
@@ -8168,9 +6893,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_name
@@ -8187,9 +6909,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_prerelease
@@ -8206,9 +6925,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_published_at
@@ -8225,9 +6941,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_tag_name
@@ -8244,9 +6957,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_tarball_url
@@ -8263,9 +6973,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_target_commitish
@@ -8282,9 +6989,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_upload_url
@@ -8301,9 +7005,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_url
@@ -8320,9 +7021,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+RootObject
 
 METHOD: set_zipball_url
@@ -8339,9 +7037,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: .ctor
@@ -8358,9 +7053,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_avatar_url
@@ -8377,9 +7069,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_events_url
@@ -8396,9 +7085,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_followers_url
@@ -8415,9 +7101,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_following_url
@@ -8434,9 +7117,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_gists_url
@@ -8453,9 +7133,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_gravatar_id
@@ -8472,9 +7149,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_html_url
@@ -8491,9 +7165,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_id
@@ -8510,9 +7181,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_login
@@ -8529,9 +7197,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_organizations_url
@@ -8548,9 +7213,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_received_events_url
@@ -8567,9 +7229,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_repos_url
@@ -8586,9 +7245,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_site_admin
@@ -8605,9 +7261,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_starred_url
@@ -8624,9 +7277,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_subscriptions_url
@@ -8643,9 +7293,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_type
@@ -8662,9 +7309,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: get_url
@@ -8681,9 +7325,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_avatar_url
@@ -8700,9 +7341,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_events_url
@@ -8719,9 +7357,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_followers_url
@@ -8738,9 +7373,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_following_url
@@ -8757,9 +7389,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_gists_url
@@ -8776,9 +7405,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_gravatar_id
@@ -8795,9 +7421,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_html_url
@@ -8814,9 +7437,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_id
@@ -8833,9 +7453,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_login
@@ -8852,9 +7469,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_organizations_url
@@ -8871,9 +7485,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_received_events_url
@@ -8890,9 +7501,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_repos_url
@@ -8909,9 +7517,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_site_admin
@@ -8928,9 +7533,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_starred_url
@@ -8947,9 +7549,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_subscriptions_url
@@ -8966,9 +7565,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_type
@@ -8985,9 +7581,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.GithubUpdater+Uploader
 
 METHOD: set_url
@@ -9004,9 +7597,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: GetAvailablePackages
@@ -9026,9 +7616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: GetAvailablePluginUpdates
@@ -9046,9 +7633,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: GetAvailablePluginUpdates
@@ -9067,9 +7651,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: GetLatestCompatibleVersion
@@ -9090,9 +7671,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: GetPackage
@@ -9113,9 +7691,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: InstallPackage
@@ -9135,9 +7710,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: UninstallPlugin
@@ -9154,9 +7726,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PackageInstallationCancelled
@@ -9173,9 +7742,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PackageInstallationCompleted
@@ -9192,9 +7758,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PackageInstallationFailed
@@ -9211,9 +7774,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PackageInstalling
@@ -9230,9 +7790,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PluginInstalled
@@ -9249,9 +7806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PluginUninstalled
@@ -9268,9 +7822,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: add_PluginUpdated
@@ -9287,9 +7838,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: get_CompletedInstallations
@@ -9306,9 +7854,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: get_CurrentInstallations
@@ -9325,9 +7870,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PackageInstallationCancelled
@@ -9344,9 +7886,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PackageInstallationCompleted
@@ -9363,9 +7902,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PackageInstallationFailed
@@ -9382,9 +7918,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PackageInstalling
@@ -9401,9 +7934,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PluginInstalled
@@ -9420,9 +7950,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PluginUninstalled
@@ -9439,9 +7966,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: remove_PluginUpdated
@@ -9458,9 +7982,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.IInstallationManager
 
 METHOD: set_CurrentInstallations
@@ -9477,9 +7998,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationEventArgs
 
 METHOD: .ctor
@@ -9496,9 +8014,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationEventArgs
 
 METHOD: get_InstallationInfo
@@ -9515,9 +8030,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationEventArgs
 
 METHOD: get_PackageVersionInfo
@@ -9534,9 +8046,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationEventArgs
 
 METHOD: set_InstallationInfo
@@ -9553,9 +8062,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationEventArgs
 
 METHOD: set_PackageVersionInfo
@@ -9572,9 +8078,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationFailedEventArgs
 
 METHOD: .ctor
@@ -9591,9 +8094,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationFailedEventArgs
 
 METHOD: get_Exception
@@ -9610,9 +8110,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: MediaBrowser.Common.Updates.InstallationFailedEventArgs
 
 METHOD: set_Exception
@@ -9629,9 +8126,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Microsoft.CodeAnalysis.EmbeddedAttribute
 
 METHOD: .ctor
@@ -9648,9 +8142,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MediaBrowser.Common.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: System.Runtime.CompilerServices.RefSafetyRulesAttribute
 
 METHOD: .ctor

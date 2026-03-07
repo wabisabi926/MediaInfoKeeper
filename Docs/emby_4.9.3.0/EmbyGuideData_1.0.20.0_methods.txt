@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: EmbyGuideData.dll
 DLL_VERSION: 1.0.20.0
 
+====================================================
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: GetPages
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: GetThumbImage
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: GetTranslations
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: get_Description
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: get_Id
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: get_Name
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin
 
 METHOD: get_ThumbImageFormat
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin+<>c__DisplayClass8_0
 
 METHOD: .ctor
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__0
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.EmbyGuideDataPlugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__1
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: .ctor
@@ -231,9 +198,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: EnsurePremiere
@@ -250,9 +214,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: EnsureRatings
@@ -269,9 +230,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: FillRatingCountryCode
@@ -288,9 +246,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: FilterLineup
@@ -307,9 +262,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: FindBestRating
@@ -327,9 +279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: FormatDate
@@ -346,9 +295,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetChannels
@@ -366,9 +312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetCountries
@@ -385,9 +328,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetLineups
@@ -407,9 +347,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetLogoVariant
@@ -428,9 +365,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetProgramsAsync
@@ -451,9 +385,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetProgramsAsync
@@ -476,9 +407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetUrl
@@ -495,9 +423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: GetUrlToLog
@@ -514,9 +439,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: LoadRatings
@@ -533,9 +455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: ToChannelInfo
@@ -552,9 +471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: ToLineupInfo
@@ -571,9 +487,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: ToProgramInfo
@@ -594,9 +507,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: Validate
@@ -615,9 +525,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: get_Name
@@ -634,9 +541,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: get_SetupUrl
@@ -653,9 +557,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote
 
 METHOD: get_Type
@@ -672,9 +573,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<>c
 
 METHOD: .cctor
@@ -691,9 +589,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<>c
 
 METHOD: .ctor
@@ -710,9 +605,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<>c
 
 METHOD: <GetProgramsAsync>b__29_0
@@ -729,9 +621,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<>c__DisplayClass30_0
 
 METHOD: .ctor
@@ -748,9 +637,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<>c__DisplayClass30_0
 
 METHOD: <GetProgramsAsync>b__0
@@ -767,9 +653,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<EnsurePremiere>d__18
 
 METHOD: MoveNext
@@ -786,9 +669,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<EnsurePremiere>d__18
 
 METHOD: SetStateMachine
@@ -805,9 +685,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetChannels>d__21
 
 METHOD: MoveNext
@@ -824,9 +701,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetChannels>d__21
 
 METHOD: SetStateMachine
@@ -843,9 +717,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetLineups>d__25
 
 METHOD: MoveNext
@@ -862,9 +733,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetLineups>d__25
 
 METHOD: SetStateMachine
@@ -881,9 +749,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetProgramsAsync>d__29
 
 METHOD: MoveNext
@@ -900,9 +765,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetProgramsAsync>d__29
 
 METHOD: SetStateMachine
@@ -919,9 +781,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetProgramsAsync>d__30
 
 METHOD: MoveNext
@@ -938,9 +797,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.Gracenote+<GetProgramsAsync>d__30
 
 METHOD: SetStateMachine
@@ -957,9 +813,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: .ctor
@@ -976,9 +829,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_affiliateCallSign
@@ -995,9 +845,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_affiliateId
@@ -1014,9 +861,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_callSign
@@ -1033,9 +877,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_channel
@@ -1052,9 +893,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_preferredImage
@@ -1071,9 +909,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: get_stationId
@@ -1090,9 +925,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_affiliateCallSign
@@ -1109,9 +941,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_affiliateId
@@ -1128,9 +957,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_callSign
@@ -1147,9 +973,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_channel
@@ -1166,9 +989,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_preferredImage
@@ -1185,9 +1005,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannel
 
 METHOD: set_stationId
@@ -1204,9 +1021,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: .ctor
@@ -1223,9 +1037,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: get_category
@@ -1242,9 +1053,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: get_height
@@ -1261,9 +1069,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: get_primary
@@ -1280,9 +1085,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: get_uri
@@ -1299,9 +1101,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: get_width
@@ -1318,9 +1117,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: set_category
@@ -1337,9 +1133,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: set_height
@@ -1356,9 +1149,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: set_primary
@@ -1375,9 +1165,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: set_uri
@@ -1394,9 +1181,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteChannelPreferredImage
 
 METHOD: set_width
@@ -1413,9 +1197,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: .ctor
@@ -1432,9 +1213,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_device
@@ -1451,9 +1229,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_lineupId
@@ -1470,9 +1245,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_location
@@ -1489,9 +1261,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_mso
@@ -1508,9 +1277,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_name
@@ -1527,9 +1293,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: get_type
@@ -1546,9 +1309,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_device
@@ -1565,9 +1325,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_lineupId
@@ -1584,9 +1341,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_location
@@ -1603,9 +1357,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_mso
@@ -1622,9 +1373,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_name
@@ -1641,9 +1389,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineup
 
 METHOD: set_type
@@ -1660,9 +1405,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineupMso
 
 METHOD: .ctor
@@ -1679,9 +1421,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineupMso
 
 METHOD: get_id
@@ -1698,9 +1437,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineupMso
 
 METHOD: get_name
@@ -1717,9 +1453,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineupMso
 
 METHOD: set_id
@@ -1736,9 +1469,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteLineupMso
 
 METHOD: set_name
@@ -1755,9 +1485,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: .ctor
@@ -1774,9 +1501,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_channels
@@ -1793,9 +1517,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_duration
@@ -1812,9 +1533,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_endTime
@@ -1831,9 +1549,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_program
@@ -1850,9 +1565,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_qualifiers
@@ -1869,9 +1581,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_ratings
@@ -1888,9 +1597,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_startTime
@@ -1907,9 +1613,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: get_station
@@ -1926,9 +1629,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_channels
@@ -1945,9 +1645,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_duration
@@ -1964,9 +1661,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_endTime
@@ -1983,9 +1677,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_program
@@ -2002,9 +1693,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_qualifiers
@@ -2021,9 +1709,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_ratings
@@ -2040,9 +1725,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_startTime
@@ -2059,9 +1741,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgram
 
 METHOD: set_station
@@ -2078,9 +1757,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: .ctor
@@ -2097,9 +1773,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_audience
@@ -2116,9 +1789,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_descriptionLang
@@ -2135,9 +1805,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_entityType
@@ -2154,9 +1821,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_episodeNum
@@ -2173,9 +1837,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_episodeTitle
@@ -2192,9 +1853,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_eventTitle
@@ -2211,9 +1869,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_genres
@@ -2230,9 +1885,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_longDescription
@@ -2249,9 +1901,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_origAirDate
@@ -2268,9 +1917,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_preferredImage
@@ -2287,9 +1933,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_ratings
@@ -2306,9 +1949,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_releaseDate
@@ -2325,9 +1965,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_releaseYear
@@ -2344,9 +1981,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_rootId
@@ -2363,9 +1997,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_seasonNum
@@ -2382,9 +2013,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_seriesId
@@ -2401,9 +2029,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_shortDescription
@@ -2420,9 +2045,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_subType
@@ -2439,9 +2061,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_title
@@ -2458,9 +2077,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_titleLang
@@ -2477,9 +2093,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_tmsId
@@ -2496,9 +2109,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: get_topCast
@@ -2515,9 +2125,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_audience
@@ -2534,9 +2141,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_descriptionLang
@@ -2553,9 +2157,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_entityType
@@ -2572,9 +2173,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_episodeNum
@@ -2591,9 +2189,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_episodeTitle
@@ -2610,9 +2205,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_eventTitle
@@ -2629,9 +2221,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_genres
@@ -2648,9 +2237,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_longDescription
@@ -2667,9 +2253,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_origAirDate
@@ -2686,9 +2269,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_preferredImage
@@ -2705,9 +2285,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_ratings
@@ -2724,9 +2301,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_releaseDate
@@ -2743,9 +2317,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_releaseYear
@@ -2762,9 +2333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_rootId
@@ -2781,9 +2349,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_seasonNum
@@ -2800,9 +2365,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_seriesId
@@ -2819,9 +2381,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_shortDescription
@@ -2838,9 +2397,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_subType
@@ -2857,9 +2413,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_title
@@ -2876,9 +2429,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_titleLang
@@ -2895,9 +2445,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_tmsId
@@ -2914,9 +2461,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramInfo
 
 METHOD: set_topCast
@@ -2933,9 +2477,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: .ctor
@@ -2952,9 +2493,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_category
@@ -2971,9 +2509,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_height
@@ -2990,9 +2525,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_primary
@@ -3009,9 +2541,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_text
@@ -3028,9 +2557,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_tier
@@ -3047,9 +2573,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_uri
@@ -3066,9 +2589,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: get_width
@@ -3085,9 +2605,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_category
@@ -3104,9 +2621,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_height
@@ -3123,9 +2637,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_primary
@@ -3142,9 +2653,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_text
@@ -3161,9 +2669,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_tier
@@ -3180,9 +2685,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_uri
@@ -3199,9 +2701,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage
 
 METHOD: set_width
@@ -3218,9 +2717,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: .ctor
@@ -3237,9 +2733,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: get_category
@@ -3256,9 +2749,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: get_height
@@ -3275,9 +2765,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: get_primary
@@ -3294,9 +2781,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: get_uri
@@ -3313,9 +2797,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: get_width
@@ -3332,9 +2813,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: set_category
@@ -3351,9 +2829,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: set_height
@@ -3370,9 +2845,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: set_primary
@@ -3389,9 +2861,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: set_uri
@@ -3408,9 +2877,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramPreferredImage2
 
 METHOD: set_width
@@ -3427,9 +2893,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: .ctor
@@ -3446,9 +2909,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: get_body
@@ -3465,9 +2925,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: get_code
@@ -3484,9 +2941,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: get_countryCode
@@ -3503,9 +2957,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: get_subRating
@@ -3522,9 +2973,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: set_body
@@ -3541,9 +2989,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: set_code
@@ -3560,9 +3005,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: set_countryCode
@@ -3579,9 +3021,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramRating
 
 METHOD: set_subRating
@@ -3598,9 +3037,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: .ctor
@@ -3617,9 +3053,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_affiliateCallSign
@@ -3636,9 +3069,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_affiliateId
@@ -3655,9 +3085,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_callSign
@@ -3674,9 +3101,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_channel
@@ -3693,9 +3117,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_preferredImage
@@ -3712,9 +3133,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: get_stationId
@@ -3731,9 +3149,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_affiliateCallSign
@@ -3750,9 +3165,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_affiliateId
@@ -3769,9 +3181,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_callSign
@@ -3788,9 +3197,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_channel
@@ -3807,9 +3213,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_preferredImage
@@ -3826,9 +3229,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.GracenoteProgramStation
 
 METHOD: set_stationId
@@ -3845,9 +3245,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.StringCompatibility
 
 METHOD: Contains
@@ -3866,9 +3263,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.StringCompatibility
 
 METHOD: Contains
@@ -3887,9 +3281,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.StringCompatibility
 
 METHOD: IndexOf
@@ -3908,9 +3299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.StringCompatibility
 
 METHOD: Replace
@@ -3930,9 +3318,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: EmbyGuideData.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: EmbyGuideData.StringCompatibility
 
 METHOD: StartsWith

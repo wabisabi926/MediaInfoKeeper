@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: AudioDb.dll
 DLL_VERSION: 1.0.20.0
 
+====================================================
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: Supports
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: get_Key
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: get_Name
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: get_UrlFormatString
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumExternalId
 
 METHOD: get_Website
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: .ctor
@@ -134,9 +116,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: GetImageResponse
@@ -154,9 +133,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: GetImages
@@ -174,9 +150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: GetImages
@@ -195,9 +168,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: GetImages
@@ -214,9 +184,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: GetSupportedImages
@@ -233,9 +200,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: Supports
@@ -252,9 +216,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: get_Name
@@ -271,9 +232,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider
 
 METHOD: get_Order
@@ -290,9 +248,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider+<GetImages>d__5
 
 METHOD: MoveNext
@@ -309,9 +264,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumImageProvider+<GetImages>d__5
 
 METHOD: SetStateMachine
@@ -328,9 +280,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: .ctor
@@ -350,9 +299,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: EnsureInfo
@@ -371,9 +317,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetAlbumDataPath
@@ -391,9 +334,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetAlbumDataPath
@@ -410,9 +350,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetAlbumInfoPath
@@ -430,9 +367,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetImageResponse
@@ -450,9 +384,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetMetadata
@@ -470,9 +401,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetMetadata
@@ -490,9 +418,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetSearchResults
@@ -510,9 +435,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: GetSupportedExternalIdentifiers
@@ -529,9 +451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: ProcessResult
@@ -550,9 +469,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: get_Name
@@ -569,9 +485,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider
 
 METHOD: get_Order
@@ -588,9 +501,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+<EnsureInfo>d__14
 
 METHOD: MoveNext
@@ -607,9 +517,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+<EnsureInfo>d__14
 
 METHOD: SetStateMachine
@@ -626,9 +533,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+<GetMetadata>d__9
 
 METHOD: MoveNext
@@ -645,9 +549,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+<GetMetadata>d__9
 
 METHOD: SetStateMachine
@@ -664,9 +565,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: .ctor
@@ -683,9 +581,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_idAlbum
@@ -702,9 +597,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_idArtist
@@ -721,9 +613,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_intLoved
@@ -740,9 +629,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_intSales
@@ -759,9 +645,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_intScore
@@ -778,9 +661,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_intYearReleased
@@ -797,9 +677,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strAlbum
@@ -816,9 +693,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strAlbumCDart
@@ -835,9 +709,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strAlbumThumb
@@ -854,9 +725,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strAmazonID
@@ -873,9 +741,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strArtist
@@ -892,9 +757,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionCN
@@ -911,9 +773,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionDE
@@ -930,9 +789,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionEN
@@ -949,9 +805,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionES
@@ -968,9 +821,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionFR
@@ -987,9 +837,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionHU
@@ -1006,9 +853,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionIL
@@ -1025,9 +869,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionIT
@@ -1044,9 +885,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionJP
@@ -1063,9 +901,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionNL
@@ -1082,9 +917,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionNO
@@ -1101,9 +933,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionPL
@@ -1120,9 +949,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionPT
@@ -1139,9 +965,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionRU
@@ -1158,9 +981,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strDescriptionSE
@@ -1177,9 +997,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strGenre
@@ -1196,9 +1013,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strItunesID
@@ -1215,9 +1029,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strLocation
@@ -1234,9 +1045,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strLocked
@@ -1253,9 +1061,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strMood
@@ -1272,9 +1077,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strMusicBrainzArtistID
@@ -1291,9 +1093,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strMusicBrainzID
@@ -1310,9 +1109,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strReleaseFormat
@@ -1329,9 +1125,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strReview
@@ -1348,9 +1141,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strSpeed
@@ -1367,9 +1157,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strSubGenre
@@ -1386,9 +1173,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: get_strTheme
@@ -1405,9 +1189,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_idAlbum
@@ -1424,9 +1205,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_idArtist
@@ -1443,9 +1221,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_intLoved
@@ -1462,9 +1237,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_intSales
@@ -1481,9 +1253,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_intScore
@@ -1500,9 +1269,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_intYearReleased
@@ -1519,9 +1285,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strAlbum
@@ -1538,9 +1301,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strAlbumCDart
@@ -1557,9 +1317,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strAlbumThumb
@@ -1576,9 +1333,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strAmazonID
@@ -1595,9 +1349,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strArtist
@@ -1614,9 +1365,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionCN
@@ -1633,9 +1381,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionDE
@@ -1652,9 +1397,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionEN
@@ -1671,9 +1413,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionES
@@ -1690,9 +1429,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionFR
@@ -1709,9 +1445,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionHU
@@ -1728,9 +1461,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionIL
@@ -1747,9 +1477,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionIT
@@ -1766,9 +1493,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionJP
@@ -1785,9 +1509,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionNL
@@ -1804,9 +1525,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionNO
@@ -1823,9 +1541,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionPL
@@ -1842,9 +1557,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionPT
@@ -1861,9 +1573,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionRU
@@ -1880,9 +1589,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strDescriptionSE
@@ -1899,9 +1605,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strGenre
@@ -1918,9 +1621,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strItunesID
@@ -1937,9 +1637,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strLocation
@@ -1956,9 +1653,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strLocked
@@ -1975,9 +1669,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strMood
@@ -1994,9 +1685,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strMusicBrainzArtistID
@@ -2013,9 +1701,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strMusicBrainzID
@@ -2032,9 +1717,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strReleaseFormat
@@ -2051,9 +1733,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strReview
@@ -2070,9 +1749,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strSpeed
@@ -2089,9 +1765,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strSubGenre
@@ -2108,9 +1781,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+Album
 
 METHOD: set_strTheme
@@ -2127,9 +1797,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+RootObject
 
 METHOD: .ctor
@@ -2146,9 +1813,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+RootObject
 
 METHOD: get_album
@@ -2165,9 +1829,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbAlbumProvider+RootObject
 
 METHOD: set_album
@@ -2184,9 +1845,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: .ctor
@@ -2203,9 +1861,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: Supports
@@ -2222,9 +1877,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: get_Key
@@ -2241,9 +1893,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: get_Name
@@ -2260,9 +1909,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: get_UrlFormatString
@@ -2279,9 +1925,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistExternalId
 
 METHOD: get_Website
@@ -2298,9 +1941,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: .ctor
@@ -2319,9 +1959,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: GetImageResponse
@@ -2339,9 +1976,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: GetImages
@@ -2359,9 +1993,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: GetImages
@@ -2380,9 +2011,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: GetImages
@@ -2399,9 +2027,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: GetSupportedImages
@@ -2418,9 +2043,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: Supports
@@ -2437,9 +2059,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: get_Name
@@ -2456,9 +2075,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider
 
 METHOD: get_Order
@@ -2475,9 +2091,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider+<GetImages>d__5
 
 METHOD: MoveNext
@@ -2494,9 +2107,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistImageProvider+<GetImages>d__5
 
 METHOD: SetStateMachine
@@ -2513,9 +2123,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: .ctor
@@ -2535,9 +2142,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: EnsureArtistInfo
@@ -2556,9 +2160,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetArtistDataPath
@@ -2576,9 +2177,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetArtistDataPath
@@ -2595,9 +2193,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetArtistInfoPath
@@ -2615,9 +2210,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetImageResponse
@@ -2635,9 +2227,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetMetadata
@@ -2655,9 +2244,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetMetadata
@@ -2675,9 +2261,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetSearchResults
@@ -2695,9 +2278,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: GetSupportedExternalIdentifiers
@@ -2714,9 +2294,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: ProcessResult
@@ -2735,9 +2312,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: get_Name
@@ -2754,9 +2328,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider
 
 METHOD: get_Order
@@ -2773,9 +2344,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+<EnsureArtistInfo>d__15
 
 METHOD: MoveNext
@@ -2792,9 +2360,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+<EnsureArtistInfo>d__15
 
 METHOD: SetStateMachine
@@ -2811,9 +2376,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+<GetMetadata>d__10
 
 METHOD: MoveNext
@@ -2830,9 +2392,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+<GetMetadata>d__10
 
 METHOD: SetStateMachine
@@ -2849,9 +2408,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: .ctor
@@ -2868,9 +2424,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_idArtist
@@ -2887,9 +2440,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_idLabel
@@ -2906,9 +2456,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_intBornYear
@@ -2925,9 +2472,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_intDiedYear
@@ -2944,9 +2488,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_intFormedYear
@@ -2963,9 +2504,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_intMembers
@@ -2982,9 +2520,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtist
@@ -3001,9 +2536,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistAlternate
@@ -3020,9 +2552,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistBanner
@@ -3039,9 +2568,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistFanart
@@ -3058,9 +2584,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistFanart2
@@ -3077,9 +2600,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistFanart3
@@ -3096,9 +2616,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistLogo
@@ -3115,9 +2632,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strArtistThumb
@@ -3134,9 +2648,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyCN
@@ -3153,9 +2664,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyDE
@@ -3172,9 +2680,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyEN
@@ -3191,9 +2696,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyES
@@ -3210,9 +2712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyFR
@@ -3229,9 +2728,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyHU
@@ -3248,9 +2744,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyIL
@@ -3267,9 +2760,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyIT
@@ -3286,9 +2776,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyJP
@@ -3305,9 +2792,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyNL
@@ -3324,9 +2808,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyNO
@@ -3343,9 +2824,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyPL
@@ -3362,9 +2840,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyPT
@@ -3381,9 +2856,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographyRU
@@ -3400,9 +2872,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strBiographySE
@@ -3419,9 +2888,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strCountry
@@ -3438,9 +2904,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strCountryCode
@@ -3457,9 +2920,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strDisbanded
@@ -3476,9 +2936,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strFacebook
@@ -3495,9 +2952,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strGender
@@ -3514,9 +2968,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strGenre
@@ -3533,9 +2984,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strLastFMChart
@@ -3552,9 +3000,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strLocked
@@ -3571,9 +3016,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strMusicBrainzID
@@ -3590,9 +3032,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strSubGenre
@@ -3609,9 +3048,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strTwitter
@@ -3628,9 +3064,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: get_strWebsite
@@ -3647,9 +3080,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_idArtist
@@ -3666,9 +3096,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_idLabel
@@ -3685,9 +3112,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_intBornYear
@@ -3704,9 +3128,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_intDiedYear
@@ -3723,9 +3144,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_intFormedYear
@@ -3742,9 +3160,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_intMembers
@@ -3761,9 +3176,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtist
@@ -3780,9 +3192,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistAlternate
@@ -3799,9 +3208,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistBanner
@@ -3818,9 +3224,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistFanart
@@ -3837,9 +3240,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistFanart2
@@ -3856,9 +3256,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistFanart3
@@ -3875,9 +3272,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistLogo
@@ -3894,9 +3288,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strArtistThumb
@@ -3913,9 +3304,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyCN
@@ -3932,9 +3320,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyDE
@@ -3951,9 +3336,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyEN
@@ -3970,9 +3352,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyES
@@ -3989,9 +3368,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyFR
@@ -4008,9 +3384,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyHU
@@ -4027,9 +3400,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyIL
@@ -4046,9 +3416,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyIT
@@ -4065,9 +3432,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyJP
@@ -4084,9 +3448,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyNL
@@ -4103,9 +3464,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyNO
@@ -4122,9 +3480,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyPL
@@ -4141,9 +3496,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyPT
@@ -4160,9 +3512,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographyRU
@@ -4179,9 +3528,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strBiographySE
@@ -4198,9 +3544,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strCountry
@@ -4217,9 +3560,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strCountryCode
@@ -4236,9 +3576,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strDisbanded
@@ -4255,9 +3592,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strFacebook
@@ -4274,9 +3608,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strGender
@@ -4293,9 +3624,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strGenre
@@ -4312,9 +3640,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strLastFMChart
@@ -4331,9 +3656,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strLocked
@@ -4350,9 +3672,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strMusicBrainzID
@@ -4369,9 +3688,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strSubGenre
@@ -4388,9 +3704,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strTwitter
@@ -4407,9 +3720,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+Artist
 
 METHOD: set_strWebsite
@@ -4426,9 +3736,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+RootObject
 
 METHOD: .ctor
@@ -4445,9 +3752,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+RootObject
 
 METHOD: get_artists
@@ -4464,9 +3768,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbArtistProvider+RootObject
 
 METHOD: set_artists
@@ -4483,9 +3784,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: .ctor
@@ -4502,9 +3800,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: Supports
@@ -4521,9 +3816,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: get_Key
@@ -4540,9 +3832,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: get_Name
@@ -4559,9 +3848,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: get_UrlFormatString
@@ -4578,9 +3864,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherAlbumExternalId
 
 METHOD: get_Website
@@ -4597,9 +3880,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: .ctor
@@ -4616,9 +3896,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: Supports
@@ -4635,9 +3912,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: get_Key
@@ -4654,9 +3928,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: get_Name
@@ -4673,9 +3944,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: get_UrlFormatString
@@ -4692,9 +3960,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.AudioDbOtherArtistExternalId
 
 METHOD: get_Website
@@ -4711,9 +3976,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions
 
 METHOD: GetMusicBrainzArtistId
@@ -4730,9 +3992,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions
 
 METHOD: GetReleaseGroupId
@@ -4749,9 +4008,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions+<>c
 
 METHOD: .cctor
@@ -4768,9 +4024,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions+<>c
 
 METHOD: .ctor
@@ -4787,9 +4040,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions+<>c
 
 METHOD: <GetReleaseGroupId>b__0_0
@@ -4806,9 +4056,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Extensions+<>c
 
 METHOD: <GetReleaseGroupId>b__0_1
@@ -4825,9 +4072,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: .ctor
@@ -4845,9 +4089,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: GetMonoVersion
@@ -4864,9 +4105,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: GetThumbImage
@@ -4883,9 +4121,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: get_Description
@@ -4902,9 +4137,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: get_Id
@@ -4921,9 +4153,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: get_Name
@@ -4940,9 +4169,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: AudioDb.dll
-DLL_VERSION: 1.0.20.0
-
 TYPE: AudioDb.Plugin
 
 METHOD: get_ThumbImageFormat

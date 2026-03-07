@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Extensions.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Extensions.MemoryExtensions
 
 METHOD: SplitCore
@@ -21,9 +21,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Extensions.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Extensions.MemoryExtensions
 
 METHOD: SplitCore

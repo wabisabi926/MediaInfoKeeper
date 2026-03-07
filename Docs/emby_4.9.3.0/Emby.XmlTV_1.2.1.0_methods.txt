@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.XmlTV.dll
 DLL_VERSION: 1.2.1.0
 
+====================================================
 TYPE: Emby.XmlTV.XmlDataCache
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: .ctor
@@ -37,9 +34,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: Equals
@@ -56,9 +50,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: GetHashCode
@@ -75,9 +66,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: ToString
@@ -94,9 +82,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_AlternateNames
@@ -113,9 +98,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_DisplayName
@@ -132,9 +114,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_Icon
@@ -151,9 +130,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_Id
@@ -170,9 +146,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_Number
@@ -189,9 +162,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: get_Url
@@ -208,9 +178,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_AlternateNames
@@ -227,9 +194,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_DisplayName
@@ -246,9 +210,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_Icon
@@ -265,9 +226,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_Id
@@ -284,9 +242,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_Number
@@ -303,9 +258,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvChannel
 
 METHOD: set_Url
@@ -322,9 +274,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: .ctor
@@ -341,9 +290,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: get_Height
@@ -360,9 +306,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: get_Source
@@ -379,9 +322,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: get_Type
@@ -398,9 +338,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: get_Width
@@ -417,9 +354,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: set_Height
@@ -436,9 +370,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: set_Source
@@ -455,9 +386,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: set_Type
@@ -474,9 +402,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvIcon
 
 METHOD: set_Width
@@ -493,9 +418,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: .ctor
@@ -512,9 +434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: GetPages
@@ -531,9 +450,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: GetThumbImage
@@ -550,9 +466,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: GetTranslations
@@ -569,9 +482,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: get_Description
@@ -588,9 +498,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: get_Id
@@ -607,9 +514,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: get_Name
@@ -626,9 +530,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin
 
 METHOD: get_ThumbImageFormat
@@ -645,9 +546,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin+<>c__DisplayClass8_0
 
 METHOD: .ctor
@@ -664,9 +562,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__0
@@ -683,9 +578,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvPlugin+<>c__DisplayClass8_0
 
 METHOD: <GetTranslations>b__1
@@ -702,9 +594,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: .ctor
@@ -726,9 +615,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: ClearProgramCaches
@@ -745,9 +631,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: ExtractFirstFileFromGz
@@ -764,9 +647,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: ExtractFirstFileFromXZ
@@ -784,9 +664,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: ExtractGz
@@ -803,9 +680,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: FindXmlFile
@@ -822,9 +696,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetChannels
@@ -842,9 +713,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetChannels
@@ -861,9 +729,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetLanguage
@@ -880,9 +745,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetLineups
@@ -902,9 +764,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetPrograms
@@ -927,9 +786,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetProgramsAsync
@@ -950,9 +806,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetXml
@@ -972,9 +825,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetXmlDataCache
@@ -992,9 +842,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: GetXmlDataCacheInternal
@@ -1012,9 +859,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: UnzipIfNeeded
@@ -1033,9 +877,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: Validate
@@ -1054,9 +895,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: get_CachePathFolderName
@@ -1073,9 +911,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: get_Name
@@ -1092,9 +927,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: get_SetupUrl
@@ -1111,9 +943,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: get_Type
@@ -1130,9 +959,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider
 
 METHOD: set_CachePathFolderName
@@ -1149,9 +975,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<>c
 
 METHOD: .cctor
@@ -1168,9 +991,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<>c
 
 METHOD: .ctor
@@ -1187,9 +1007,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<>c
 
 METHOD: <FindXmlFile>b__27_0
@@ -1206,9 +1023,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<>c
 
 METHOD: <FindXmlFile>b__27_1
@@ -1225,9 +1039,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<ExtractFirstFileFromXZ>d__24
 
 METHOD: MoveNext
@@ -1244,9 +1055,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<ExtractFirstFileFromXZ>d__24
 
 METHOD: SetStateMachine
@@ -1263,9 +1071,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetChannels>d__34
 
 METHOD: MoveNext
@@ -1282,9 +1087,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetChannels>d__34
 
 METHOD: SetStateMachine
@@ -1301,9 +1103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetProgramsAsync>d__30
 
 METHOD: MoveNext
@@ -1320,9 +1119,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetProgramsAsync>d__30
 
 METHOD: SetStateMachine
@@ -1339,9 +1135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXml>d__22
 
 METHOD: MoveNext
@@ -1358,9 +1151,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXml>d__22
 
 METHOD: SetStateMachine
@@ -1377,9 +1167,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXmlDataCache>d__29
 
 METHOD: MoveNext
@@ -1396,9 +1183,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXmlDataCache>d__29
 
 METHOD: SetStateMachine
@@ -1415,9 +1199,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXmlDataCacheInternal>d__28
 
 METHOD: MoveNext
@@ -1434,9 +1215,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<GetXmlDataCacheInternal>d__28
 
 METHOD: SetStateMachine
@@ -1453,9 +1231,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<UnzipIfNeeded>d__23
 
 METHOD: MoveNext
@@ -1472,9 +1247,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvProvider+<UnzipIfNeeded>d__23
 
 METHOD: SetStateMachine
@@ -1491,9 +1263,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: .cctor
@@ -1510,9 +1279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: .ctor
@@ -1531,9 +1297,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: AddValuesWithLanguage
@@ -1552,9 +1315,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: CreateStreamReader
@@ -1571,9 +1331,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: CreateXmlTextReader
@@ -1590,9 +1347,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: FillImages
@@ -1612,9 +1366,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetAspectRatio
@@ -1631,9 +1382,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetChannel
@@ -1650,9 +1398,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetChannels
@@ -1669,9 +1414,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetImage
@@ -1690,9 +1432,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetProgramme
@@ -1716,9 +1455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetProgrammes
@@ -1743,9 +1479,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetValueWithLanguage
@@ -1763,9 +1496,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: GetValuesWithLanguage
@@ -1783,9 +1513,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: MakeFullUrl
@@ -1804,9 +1531,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseDate
@@ -1824,9 +1548,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseEpisodeDataForOnScreen
@@ -1844,9 +1565,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseEpisodeDataForProgramId
@@ -1864,9 +1582,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseEpisodeDataForXmlTvNs
@@ -1884,9 +1599,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseImdbSystem
@@ -1904,9 +1616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseMovieDbSystem
@@ -1924,9 +1633,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseSxxExxEpisodeNumberSystem
@@ -1944,9 +1650,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseSxxExxEpisodeNumberSystem
@@ -1964,9 +1667,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseTmsEpisodeSystem
@@ -1984,9 +1684,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ParseTvdbSystem
@@ -2004,9 +1701,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessCopyrightDate
@@ -2025,9 +1719,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessEpisodeNum
@@ -2045,9 +1736,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessIconNode
@@ -2064,9 +1752,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessImageNode
@@ -2083,9 +1768,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessPreviouslyShown
@@ -2104,9 +1786,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessQuality
@@ -2124,9 +1803,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessRating
@@ -2144,9 +1820,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessSeriesId
@@ -2164,9 +1837,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessStarRating
@@ -2184,9 +1854,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: ProcessVideo
@@ -2204,9 +1871,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader
 
 METHOD: SetChannelNumber
@@ -2224,9 +1888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+<>c
 
 METHOD: .cctor
@@ -2243,9 +1904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+<>c
 
 METHOD: .ctor
@@ -2262,9 +1920,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+<>c
 
 METHOD: <GetChannel>b__7_0
@@ -2281,9 +1936,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+ValueWithLanguage
 
 METHOD: .ctor
@@ -2300,9 +1952,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+ValueWithLanguage
 
 METHOD: get_Language
@@ -2319,9 +1968,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+ValueWithLanguage
 
 METHOD: get_Value
@@ -2338,9 +1984,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+ValueWithLanguage
 
 METHOD: set_Language
@@ -2357,9 +2000,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.XmlTV.dll
-DLL_VERSION: 1.2.1.0
-
 TYPE: Emby.XmlTV.XmlTvReader+ValueWithLanguage
 
 METHOD: set_Value

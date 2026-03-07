@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.ActivityLog.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.ActivityLog.ActivityLogNotifier
 
 METHOD: .ctor
@@ -20,9 +20,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityLogNotifier
 
 METHOD: GetConfiguredNotifications
@@ -39,9 +36,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityLogNotifier
 
 METHOD: SendNotification
@@ -59,9 +53,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityLogNotifier
 
 METHOD: get_Name
@@ -78,9 +69,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: .ctor
@@ -99,9 +87,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: Create
@@ -118,9 +103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -140,9 +122,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -161,9 +140,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -184,9 +160,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -206,9 +179,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -230,9 +200,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -253,9 +220,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -276,9 +240,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: GetActivityLogEntries
@@ -298,9 +259,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: add_EntryCreated
@@ -317,9 +275,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityManager
 
 METHOD: remove_EntryCreated
@@ -336,9 +291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: .cctor
@@ -355,9 +307,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: .ctor
@@ -377,9 +326,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: Create
@@ -396,9 +342,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: GetActivityLogEntries
@@ -419,9 +362,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: GetActivityLogEntries
@@ -443,9 +383,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: GetActivityLogTypeId
@@ -464,9 +401,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: GetEntry
@@ -484,9 +418,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: Initialize
@@ -503,9 +434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: InitializeInternal
@@ -522,9 +450,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: ParseItemId
@@ -542,9 +467,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: ParseUserId
@@ -562,9 +484,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: Update
@@ -581,9 +500,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: get_FileSystem
@@ -600,9 +516,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: get_OptimizeOnConnectionClose
@@ -619,9 +532,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: get_PragmaAnalysisLimit
@@ -638,9 +548,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.ActivityRepository
 
 METHOD: set_FileSystem
@@ -657,9 +564,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogService
 
 METHOD: .ctor
@@ -676,9 +580,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogService
 
 METHOD: Get
@@ -695,9 +596,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogService
 
 METHOD: get_Request
@@ -714,9 +612,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogService
 
 METHOD: set_Request
@@ -733,9 +628,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogWebSocketListener
 
 METHOD: .ctor
@@ -753,9 +645,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogWebSocketListener
 
 METHOD: Dispose
@@ -772,9 +661,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogWebSocketListener
 
 METHOD: GetDataToSend
@@ -793,9 +679,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogWebSocketListener
 
 METHOD: _activityManager_EntryCreated
@@ -813,9 +696,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.ActivityLogWebSocketListener
 
 METHOD: get_Name
@@ -832,9 +712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: .ctor
@@ -851,9 +728,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: get_EnableTotalRecordCount
@@ -870,9 +744,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: get_HasUserId
@@ -889,9 +760,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: get_Limit
@@ -908,9 +776,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: get_MinDate
@@ -927,9 +792,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: get_StartIndex
@@ -946,9 +808,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: set_EnableTotalRecordCount
@@ -965,9 +824,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: set_HasUserId
@@ -984,9 +840,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: set_Limit
@@ -1003,9 +856,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: set_MinDate
@@ -1022,9 +872,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.ActivityLog.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.ActivityLog.Api.GetActivityLogs
 
 METHOD: set_StartIndex

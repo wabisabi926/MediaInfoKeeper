@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: Emby.Web.dll
 DLL_VERSION: 4.9.3.0
 
+====================================================
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: .ctor
@@ -19,9 +19,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: .ctor
@@ -38,9 +35,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: .ctor
@@ -57,9 +51,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_ConfigurationPageType
@@ -76,9 +67,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_DisplayName
@@ -95,9 +83,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_EnableInMainMenu
@@ -114,9 +99,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_EnableInUserMenu
@@ -133,9 +115,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_FeatureId
@@ -152,9 +131,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_Href
@@ -171,9 +147,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_MenuIcon
@@ -190,9 +163,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_MenuSection
@@ -209,9 +179,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_Name
@@ -228,9 +195,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_NavMenuId
@@ -247,9 +211,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_Plugin
@@ -266,9 +227,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_PluginId
@@ -285,9 +243,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: get_Translations
@@ -304,9 +259,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_ConfigurationPageType
@@ -323,9 +275,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_DisplayName
@@ -342,9 +291,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_EnableInMainMenu
@@ -361,9 +307,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_EnableInUserMenu
@@ -380,9 +323,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_FeatureId
@@ -399,9 +339,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_Href
@@ -418,9 +355,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_MenuIcon
@@ -437,9 +371,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_MenuSection
@@ -456,9 +387,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_Name
@@ -475,9 +403,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_NavMenuId
@@ -494,9 +419,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_Plugin
@@ -513,9 +435,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_PluginId
@@ -532,9 +451,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.ConfigurationPageInfo
 
 METHOD: set_Translations
@@ -551,9 +467,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetAllPluginStrings
 
 METHOD: .ctor
@@ -570,9 +483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetAllPluginStrings
 
 METHOD: get_PluginId
@@ -589,9 +499,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetAllPluginStrings
 
 METHOD: set_PluginId
@@ -608,9 +515,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPage
 
 METHOD: .ctor
@@ -627,9 +531,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPage
 
 METHOD: get_Name
@@ -646,9 +547,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPage
 
 METHOD: set_Name
@@ -665,9 +563,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: .ctor
@@ -684,9 +579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: get_EnableInMainMenu
@@ -703,9 +595,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: get_EnableInUserMenu
@@ -722,9 +611,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: get_Name
@@ -741,9 +627,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: get_PageType
@@ -760,9 +643,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: get_UserId
@@ -779,9 +659,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: set_EnableInMainMenu
@@ -798,9 +675,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: set_EnableInUserMenu
@@ -817,9 +691,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: set_Name
@@ -836,9 +707,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: set_PageType
@@ -855,9 +723,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardConfigurationPages
 
 METHOD: set_UserId
@@ -874,9 +739,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardResource
 
 METHOD: .ctor
@@ -893,9 +755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardResource
 
 METHOD: get_ResourceName
@@ -912,9 +771,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardResource
 
 METHOD: get_V
@@ -931,9 +787,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardResource
 
 METHOD: set_ResourceName
@@ -950,9 +803,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetDashboardResource
 
 METHOD: set_V
@@ -969,9 +819,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetFavIcon
 
 METHOD: .ctor
@@ -988,9 +835,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetRobotsTxt
 
 METHOD: .ctor
@@ -1007,9 +851,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetStrings
 
 METHOD: .ctor
@@ -1026,9 +867,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetStrings
 
 METHOD: get_Locale
@@ -1045,9 +883,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetStrings
 
 METHOD: get_PluginId
@@ -1064,9 +899,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetStrings
 
 METHOD: set_Locale
@@ -1083,9 +915,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.GetStrings
 
 METHOD: set_PluginId
@@ -1102,9 +931,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: .ctor
@@ -1126,9 +952,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: GetManifestJsonResource
@@ -1148,9 +971,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: GetRawResourceStream
@@ -1168,9 +988,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: GetResource
@@ -1190,9 +1007,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: GetSafeServerFriendlyName
@@ -1209,9 +1023,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: GetServiceWorkerJsResource
@@ -1231,9 +1042,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: IsCoreHtml
@@ -1250,9 +1058,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: IsFormat
@@ -1270,9 +1075,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: ModifyHtml
@@ -1293,9 +1095,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator
 
 METHOD: RemoveValueFromJson
@@ -1314,9 +1113,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<GetManifestJsonResource>d__9
 
 METHOD: MoveNext
@@ -1333,9 +1129,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<GetManifestJsonResource>d__9
 
 METHOD: SetStateMachine
@@ -1352,9 +1145,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<GetServiceWorkerJsResource>d__8
 
 METHOD: MoveNext
@@ -1371,9 +1161,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<GetServiceWorkerJsResource>d__8
 
 METHOD: SetStateMachine
@@ -1390,9 +1177,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<ModifyHtml>d__14
 
 METHOD: MoveNext
@@ -1409,9 +1193,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.PackageCreator+<ModifyHtml>d__14
 
 METHOD: SetStateMachine
@@ -1428,9 +1209,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: .ctor
@@ -1452,9 +1230,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: FindWebResource
@@ -1472,9 +1247,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1491,9 +1263,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1510,9 +1279,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1529,9 +1295,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1548,9 +1311,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1567,9 +1327,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1586,9 +1343,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: Get
@@ -1605,9 +1359,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetConfigPages
@@ -1624,9 +1375,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetContentFactory
@@ -1643,9 +1391,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetFullWebResourceName
@@ -1662,9 +1407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetGenericUIPages
@@ -1681,9 +1423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetManifestJsonResource
@@ -1703,9 +1442,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetPackageCreator
@@ -1722,9 +1458,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetPluginPages
@@ -1741,9 +1474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetResourceStream
@@ -1763,9 +1493,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: GetServiceWorkerJsResource
@@ -1785,9 +1512,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService
 
 METHOD: get_DashboardUIPath
@@ -1804,9 +1528,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: .cctor
@@ -1823,9 +1544,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: .ctor
@@ -1842,9 +1560,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: <Get>b__11_1
@@ -1861,9 +1576,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: <Get>b__11_2
@@ -1880,9 +1592,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: <Get>b__11_8
@@ -1899,9 +1608,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: <Get>b__16_1
@@ -1918,9 +1624,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c
 
 METHOD: <GetGenericUIPages>b__14_0
@@ -1937,9 +1640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: .ctor
@@ -1956,9 +1656,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__0
@@ -1975,9 +1672,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__1
@@ -1996,9 +1690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__2
@@ -2017,9 +1708,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__3
@@ -2038,9 +1726,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__4
@@ -2059,9 +1744,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass10_0
 
 METHOD: <Get>b__5
@@ -2078,9 +1760,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: .ctor
@@ -2097,9 +1776,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: <Get>b__0
@@ -2116,9 +1792,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: <Get>b__3
@@ -2135,9 +1808,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: <Get>b__4
@@ -2154,9 +1824,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: <Get>b__5
@@ -2173,9 +1840,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_0
 
 METHOD: <Get>b__6
@@ -2192,9 +1856,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_1
 
 METHOD: .ctor
@@ -2211,9 +1872,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass11_1
 
 METHOD: <Get>b__7
@@ -2230,9 +1888,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass12_0
 
 METHOD: .ctor
@@ -2249,9 +1904,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass12_0
 
 METHOD: <GetPluginPages>b__0
@@ -2268,9 +1920,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass13_0
 
 METHOD: .ctor
@@ -2287,9 +1936,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass13_0
 
 METHOD: <GetConfigPages>b__0
@@ -2306,9 +1952,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass15_0
 
 METHOD: .ctor
@@ -2325,9 +1968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass15_0
 
 METHOD: <Get>b__0
@@ -2344,9 +1984,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass16_0
 
 METHOD: .ctor
@@ -2363,9 +2000,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass16_0
 
 METHOD: <Get>b__0
@@ -2382,9 +2016,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass18_0
 
 METHOD: .ctor
@@ -2401,9 +2032,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass18_0
 
 METHOD: <Get>b__0
@@ -2422,9 +2050,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass18_0
 
 METHOD: <Get>b__1
@@ -2443,9 +2068,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass18_0
 
 METHOD: <Get>b__2
@@ -2464,9 +2086,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass20_0
 
 METHOD: .ctor
@@ -2483,9 +2102,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass20_0
 
 METHOD: <FindWebResource>b__0
@@ -2502,9 +2118,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass20_0
 
 METHOD: <FindWebResource>b__1
@@ -2521,9 +2134,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass21_0
 
 METHOD: .ctor
@@ -2540,9 +2150,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<>c__DisplayClass21_0
 
 METHOD: <GetContentFactory>b__0
@@ -2561,9 +2168,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<Get>d__18
 
 METHOD: MoveNext
@@ -2580,9 +2184,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: Emby.Web.dll
-DLL_VERSION: 4.9.3.0
-
 TYPE: Emby.Web.Api.WebAppService+<Get>d__18
 
 METHOD: SetStateMachine

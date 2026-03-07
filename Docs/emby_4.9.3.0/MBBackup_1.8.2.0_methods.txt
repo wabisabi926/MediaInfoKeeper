@@ -1,7 +1,7 @@
-====================================================
 DLL_NAME: MBBackup.dll
 DLL_VERSION: 1.8.2.0
 
+====================================================
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: .ctor
@@ -18,9 +18,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: AddColumn
@@ -41,9 +38,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: CheckDisposed
@@ -60,9 +54,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: CreateConnection
@@ -79,9 +70,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: CreateException
@@ -99,9 +87,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: Dispose
@@ -118,9 +103,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: Dispose
@@ -137,9 +119,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: DisposeConnection
@@ -156,9 +135,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetBytes
@@ -175,9 +151,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetColumnNames
@@ -195,9 +168,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetEquals
@@ -215,9 +185,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -235,9 +202,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -255,9 +219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetInOrEquals
@@ -275,9 +236,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetIndexesInTransaction
@@ -294,9 +252,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetNotInOrEquals
@@ -314,9 +269,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetNotInOrEquals
@@ -334,9 +286,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetScalarFunctions
@@ -353,9 +302,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetTableNames
@@ -372,9 +318,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: GetTableNamesInTransaction
@@ -391,9 +334,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: LogPrepareTime
@@ -410,9 +350,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: OnClosing
@@ -429,9 +366,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: PrepareAll
@@ -449,9 +383,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: PrepareAll
@@ -469,9 +400,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -489,9 +417,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -509,9 +434,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: PrepareStatement
@@ -529,9 +451,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: RunDefaultInitialization
@@ -548,9 +467,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: Vacuum
@@ -567,9 +483,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_CacheSize
@@ -586,9 +499,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_DbFilePath
@@ -605,9 +515,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_EnableForeignKeyEnforcement
@@ -624,9 +531,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_EnableSingleConnection
@@ -643,9 +547,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_EnableTempStoreMemory
@@ -662,9 +563,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_IsExternallyOwnedDatabase
@@ -681,9 +579,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_Logger
@@ -700,9 +595,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_MmioSize
@@ -719,9 +611,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_OptimizeOnConnectionClose
@@ -738,9 +627,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_PragmaAnalysisLimit
@@ -757,9 +643,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_ReadTransactionMode
@@ -776,9 +659,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_ThreadSafeMode
@@ -795,9 +675,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: get_TransactionMode
@@ -814,9 +691,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: set_DbFilePath
@@ -833,9 +707,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: set_Logger
@@ -852,9 +723,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository
 
 METHOD: set_ThreadSafeMode
@@ -871,9 +739,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: .cctor
@@ -890,9 +755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: .ctor
@@ -909,9 +771,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: <GetInOrEquals>b__28_0
@@ -928,9 +787,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: <GetInOrEquals>b__29_0
@@ -947,9 +803,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: <GetNotInOrEquals>b__30_0
@@ -966,9 +819,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.BaseSqliteRepository+<>c
 
 METHOD: <GetNotInOrEquals>b__31_0
@@ -985,9 +835,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.ReaderWriterLockSlimExtensions
 
 METHOD: Read
@@ -1004,9 +851,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.ReaderWriterLockSlimExtensions
 
 METHOD: Write
@@ -1023,9 +867,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.ReaderWriterLockSlimExtensions+WriteLockToken
 
 METHOD: .ctor
@@ -1042,9 +883,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.ReaderWriterLockSlimExtensions+WriteLockToken
 
 METHOD: Dispose
@@ -1061,9 +899,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: .cctor
@@ -1080,9 +915,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: CheckName
@@ -1100,9 +932,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ExecuteQuery
@@ -1119,9 +948,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: GetDateTimeKindFormat
@@ -1138,9 +964,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: GetGuid
@@ -1158,9 +981,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -1178,9 +998,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -1199,9 +1016,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -1218,9 +1032,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadDateTimeOffset
@@ -1237,9 +1048,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadNullableDateTimeOffset
@@ -1257,9 +1065,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ReadNullableDateTimeOffset
@@ -1278,9 +1083,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: RunQueries
@@ -1298,9 +1100,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: SerializeToBytes
@@ -1318,9 +1117,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ToDateTimeParamValue
@@ -1337,9 +1133,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ToGuidBlob
@@ -1356,9 +1149,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: ToGuidBlob
@@ -1375,9 +1165,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1396,9 +1183,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1417,9 +1201,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1438,9 +1219,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1459,9 +1237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1480,9 +1255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1501,9 +1273,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1522,9 +1291,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1543,9 +1309,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1564,9 +1327,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1585,9 +1345,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1606,9 +1363,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1627,9 +1381,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1649,9 +1400,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1671,9 +1419,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1692,9 +1437,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1713,9 +1455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1734,9 +1473,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1755,9 +1491,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1776,9 +1509,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1797,9 +1527,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1818,9 +1545,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1839,9 +1563,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBind
@@ -1860,9 +1581,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBindNull
@@ -1880,9 +1598,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions
 
 METHOD: TryBindNull
@@ -1900,9 +1615,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: .ctor
@@ -1919,9 +1631,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: MoveNext
@@ -1938,9 +1647,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.Collections.Generic.IEnumerable<SQLitePCL.pretty.IResultSet>.GetEnumerator
@@ -1957,9 +1663,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.Collections.Generic.IEnumerator<SQLitePCL.pretty.IResultSet>.get_Current
@@ -1976,9 +1679,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.Collections.IEnumerable.GetEnumerator
@@ -1995,9 +1695,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.Collections.IEnumerator.Reset
@@ -2014,9 +1711,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.Collections.IEnumerator.get_Current
@@ -2033,9 +1727,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: Emby.Data.SqliteExtensions+<ExecuteQuery>d__42
 
 METHOD: System.IDisposable.Dispose
@@ -2052,9 +1743,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.AllBackupsInfo
 
 METHOD: .ctor
@@ -2071,9 +1759,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.AllBackupsInfo
 
 METHOD: get_FullBackupInfo
@@ -2090,9 +1775,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.AllBackupsInfo
 
 METHOD: get_LightBackups
@@ -2109,9 +1791,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.AllBackupsInfo
 
 METHOD: set_FullBackupInfo
@@ -2128,9 +1807,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.AllBackupsInfo
 
 METHOD: set_LightBackups
@@ -2147,9 +1823,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.BackupApi
 
 METHOD: .ctor
@@ -2166,9 +1839,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.BackupApi
 
 METHOD: Get
@@ -2185,9 +1855,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.BackupApi
 
 METHOD: Post
@@ -2204,9 +1871,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.BackupApi
 
 METHOD: Post
@@ -2223,9 +1887,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.DataRestoreOptions
 
 METHOD: .ctor
@@ -2242,9 +1903,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.DataRestoreOptions
 
 METHOD: get_Users
@@ -2261,9 +1919,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.DataRestoreOptions
 
 METHOD: set_Users
@@ -2280,9 +1935,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.GetBackupInfo
 
 METHOD: .ctor
@@ -2299,9 +1951,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreDataFromBackup
 
 METHOD: .ctor
@@ -2318,9 +1967,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreFromBackup
 
 METHOD: .ctor
@@ -2337,9 +1983,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreOptions
 
 METHOD: .ctor
@@ -2356,9 +1999,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreOptions
 
 METHOD: get_RestoreServerId
@@ -2375,9 +2015,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreOptions
 
 METHOD: get_UseFiles
@@ -2394,9 +2031,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreOptions
 
 METHOD: set_RestoreServerId
@@ -2413,9 +2047,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.RestoreOptions
 
 METHOD: set_UseFiles
@@ -2432,9 +2063,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.UserRestoreInfo
 
 METHOD: .ctor
@@ -2451,9 +2079,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.UserRestoreInfo
 
 METHOD: get_SourceUserId
@@ -2470,9 +2095,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.UserRestoreInfo
 
 METHOD: get_TargetUserId
@@ -2489,9 +2111,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.UserRestoreInfo
 
 METHOD: set_SourceUserId
@@ -2508,9 +2127,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Api.UserRestoreInfo
 
 METHOD: set_TargetUserId
@@ -2527,9 +2143,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: .ctor
@@ -2546,9 +2159,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_CanRestore
@@ -2565,9 +2175,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_DateCreated
@@ -2584,9 +2191,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_IsFullBackup
@@ -2603,9 +2207,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_Name
@@ -2622,9 +2223,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_PluginVersion
@@ -2641,9 +2239,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_ServerVersion
@@ -2660,9 +2255,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: get_Users
@@ -2679,9 +2271,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_CanRestore
@@ -2698,9 +2287,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_DateCreated
@@ -2717,9 +2303,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_IsFullBackup
@@ -2736,9 +2319,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_Name
@@ -2755,9 +2335,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_PluginVersion
@@ -2774,9 +2351,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_ServerVersion
@@ -2793,9 +2367,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupInfo
 
 METHOD: set_Users
@@ -2812,9 +2383,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupNotificationTypeFactory
 
 METHOD: .ctor
@@ -2832,9 +2400,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.BackupNotificationTypeFactory
 
 METHOD: GetNotificationTypes
@@ -2851,9 +2416,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: .ctor
@@ -2870,9 +2432,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupDirectory
@@ -2889,9 +2448,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupMetadataLibrary
@@ -2908,9 +2464,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupMetadataMusicAlbums
@@ -2927,9 +2480,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupMetadataMusicArtists
@@ -2946,9 +2496,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupMetadataPeople
@@ -2965,9 +2512,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: get_BackupRetention
@@ -2984,9 +2528,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupDirectory
@@ -3003,9 +2544,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupMetadataLibrary
@@ -3022,9 +2560,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupMetadataMusicAlbums
@@ -3041,9 +2576,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupMetadataMusicArtists
@@ -3060,9 +2592,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupMetadataPeople
@@ -3079,9 +2608,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Configuration.PluginConfiguration
 
 METHOD: set_BackupRetention
@@ -3098,9 +2624,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: .cctor
@@ -3117,9 +2640,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: .ctor
@@ -3138,9 +2658,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: GetUser
@@ -3157,9 +2674,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: RetrieveAllUsers
@@ -3176,9 +2690,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: UpdateUser
@@ -3195,9 +2706,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Data.UserRepository
 
 METHOD: get_EnableSingleConnection
@@ -3214,9 +2722,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: .ctor
@@ -3233,9 +2738,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: Execute
@@ -3253,9 +2755,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: GetDefaultTriggers
@@ -3272,9 +2771,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_Category
@@ -3291,9 +2787,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_Description
@@ -3310,9 +2803,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_IsEnabled
@@ -3329,9 +2819,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_IsHidden
@@ -3348,9 +2835,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_IsLogged
@@ -3367,9 +2851,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_Key
@@ -3386,9 +2867,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Entities.ScheduledBackupTask
 
 METHOD: get_Name
@@ -3405,9 +2883,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: .ctor
@@ -3426,9 +2901,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: GetPages
@@ -3445,9 +2917,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: GetThumbImage
@@ -3464,9 +2933,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: GetTranslations
@@ -3483,9 +2949,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: UpdateConfiguration
@@ -3502,9 +2965,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_Description
@@ -3521,9 +2981,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_Id
@@ -3540,9 +2997,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_Instance
@@ -3559,9 +3013,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_Logger
@@ -3578,9 +3029,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_Name
@@ -3597,9 +3045,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: get_ThumbImageFormat
@@ -3616,9 +3061,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: set_Instance
@@ -3635,9 +3077,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin
 
 METHOD: set_Logger
@@ -3654,9 +3093,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin+<>c__DisplayClass15_0
 
 METHOD: .ctor
@@ -3673,9 +3109,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin+<>c__DisplayClass15_0
 
 METHOD: <GetTranslations>b__0
@@ -3692,9 +3125,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Plugin+<>c__DisplayClass15_0
 
 METHOD: <GetTranslations>b__1
@@ -3711,9 +3141,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: .cctor
@@ -3730,9 +3157,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: .ctor
@@ -3762,9 +3186,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: BackupExtraDatabases
@@ -3784,9 +3205,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ClearEmbyConnectData
@@ -3803,9 +3221,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: Dispose
@@ -3822,9 +3237,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ExecuteBackup
@@ -3843,9 +3255,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ExecuteBackupInternal
@@ -3864,9 +3273,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: GetAllBackups
@@ -3883,9 +3289,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: GetBackupFolder
@@ -3903,9 +3306,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: GetBackupInfo
@@ -3922,9 +3322,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: GetLightBackups
@@ -3941,9 +3338,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: GetMetadataFolderFromBackup
@@ -3960,9 +3354,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: OnAppHostDisposed
@@ -3980,9 +3371,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: Restore
@@ -4001,9 +3389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: RestoreData
@@ -4022,9 +3407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: Run
@@ -4041,9 +3423,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: SupportsNotifications
@@ -4060,9 +3439,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ThrowIfRestoreInProgress
@@ -4079,9 +3455,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ValidateBackupDirectory
@@ -4098,9 +3471,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: ValidateBackupDirectory
@@ -4118,9 +3488,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_ApplicationHost
@@ -4137,9 +3504,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_ApplicationPaths
@@ -4156,9 +3520,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_CurrentProgress
@@ -4175,9 +3536,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_FileSystem
@@ -4194,9 +3552,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_Instance
@@ -4213,9 +3568,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_JsonSerializer
@@ -4232,9 +3584,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_LibraryManager
@@ -4251,9 +3600,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_LocalizationManager
@@ -4270,9 +3616,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_NotificationManager
@@ -4289,9 +3632,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_ServerConfigurationManager
@@ -4308,9 +3648,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_UserDataManager
@@ -4327,9 +3664,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_UserManager
@@ -4346,9 +3680,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: get_XmlSerializer
@@ -4365,9 +3696,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_ApplicationHost
@@ -4384,9 +3712,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_ApplicationPaths
@@ -4403,9 +3728,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_CurrentProgress
@@ -4422,9 +3744,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_FileSystem
@@ -4441,9 +3760,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_Instance
@@ -4460,9 +3776,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_JsonSerializer
@@ -4479,9 +3792,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_LibraryManager
@@ -4498,9 +3808,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_LocalizationManager
@@ -4517,9 +3824,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_NotificationManager
@@ -4536,9 +3840,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_ServerConfigurationManager
@@ -4555,9 +3856,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_UserDataManager
@@ -4574,9 +3872,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_UserManager
@@ -4593,9 +3888,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint
 
 METHOD: set_XmlSerializer
@@ -4612,9 +3904,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: .cctor
@@ -4631,9 +3920,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: .ctor
@@ -4650,9 +3936,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: <ExecuteBackupInternal>b__74_0
@@ -4669,9 +3952,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: <ExecuteBackupInternal>b__74_1
@@ -4688,9 +3968,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: <GetBackupInfo>b__75_0
@@ -4707,9 +3984,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c
 
 METHOD: <GetLightBackups>b__76_0
@@ -4726,9 +4000,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass78_0
 
 METHOD: .ctor
@@ -4745,9 +4016,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass78_0
 
 METHOD: <BackupExtraDatabases>b__0
@@ -4764,9 +4032,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass80_0
 
 METHOD: .ctor
@@ -4783,9 +4048,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass80_0
 
 METHOD: <GetBackupFolder>b__0
@@ -4802,9 +4064,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass83_0
 
 METHOD: .ctor
@@ -4821,9 +4080,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<>c__DisplayClass83_0
 
 METHOD: <RestoreData>b__0
@@ -4840,9 +4096,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<ExecuteBackup>d__71
 
 METHOD: MoveNext
@@ -4859,9 +4112,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<ExecuteBackup>d__71
 
 METHOD: SetStateMachine
@@ -4878,9 +4128,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<ExecuteBackupInternal>d__74
 
 METHOD: MoveNext
@@ -4897,9 +4144,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<ExecuteBackupInternal>d__74
 
 METHOD: SetStateMachine
@@ -4916,9 +4160,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<Restore>d__82
 
 METHOD: MoveNext
@@ -4935,9 +4176,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.ServerEntryPoint+<Restore>d__82
 
 METHOD: SetStateMachine
@@ -4954,9 +4192,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: .ctor
@@ -4977,9 +4212,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: get_ChangedFiles
@@ -4996,9 +4228,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: get_LeftOnlyFiles
@@ -5015,9 +4244,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: get_LeftOnlyFolders
@@ -5034,9 +4260,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: get_RightOnlyFiles
@@ -5053,9 +4276,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: get_RightOnlyFolders
@@ -5072,9 +4292,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: set_ChangedFiles
@@ -5091,9 +4308,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: set_LeftOnlyFiles
@@ -5110,9 +4324,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: set_LeftOnlyFolders
@@ -5129,9 +4340,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: set_RightOnlyFiles
@@ -5148,9 +4356,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.FolderDiffResults
 
 METHOD: set_RightOnlyFolders
@@ -5167,9 +4372,6 @@ PROPERTY_ACCESSOR: True
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders
 
 METHOD: .ctor
@@ -5187,9 +4389,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders
 
 METHOD: DiffFolders
@@ -5208,9 +4407,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders
 
 METHOD: GetRelativePathsOfAllFiles
@@ -5230,9 +4426,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders+<>c
 
 METHOD: .cctor
@@ -5249,9 +4442,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders+<>c
 
 METHOD: .ctor
@@ -5268,9 +4458,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Folders+<>c
 
 METHOD: <DiffFolders>b__3_0
@@ -5287,9 +4474,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: .cctor
@@ -5306,9 +4490,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: .ctor
@@ -5327,9 +4508,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: AreContentsIdentical
@@ -5347,9 +4525,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: CopyAll
@@ -5370,9 +4545,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: IgnoreFile
@@ -5390,9 +4562,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: MakeFullPath
@@ -5410,9 +4579,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: SyncDirectories
@@ -5431,9 +4597,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: SyncDirectories
@@ -5453,9 +4616,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: SyncDirectories
@@ -5476,9 +4636,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: SyncDirectories
@@ -5503,9 +4660,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryCopyDirectory
@@ -5526,9 +4680,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryCopyFile
@@ -5549,9 +4700,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryCopyFileIfChanged
@@ -5570,9 +4718,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryCopyFileIfChanged
@@ -5592,9 +4737,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryCreateDirectory
@@ -5611,9 +4753,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryDeleteDirectory
@@ -5630,9 +4769,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync
 
 METHOD: TryDeleteFile
@@ -5649,9 +4785,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync+<>c
 
 METHOD: .cctor
@@ -5668,9 +4801,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync+<>c
 
 METHOD: .ctor
@@ -5687,9 +4817,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync+<>c
 
 METHOD: <.cctor>b__23_0
@@ -5706,9 +4833,6 @@ PROPERTY_ACCESSOR: False
 ====================================================
 
 ====================================================
-DLL_NAME: MBBackup.dll
-DLL_VERSION: 1.8.2.0
-
 TYPE: MBBackup.Sync.Sync+<>c
 
 METHOD: <.cctor>b__23_1
