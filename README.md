@@ -28,10 +28,12 @@ MediaInfoKeeper
 - 备份媒体信息：计划任务范围内已存在 MediaInfo 的条目导出 JSON，无 MediaInfo 则跳过。
 - 更新插件：更新插件至最新版本。
 
-安装
+文档
 ----
 
-安装步骤
+- [Wiki](https://github.com/honue/MediaInfoKeeper/wiki)
+ 
+安装
 --------
 
 1. 下载 `MediaInfoKeeper.dll`：<https://github.com/honue/MediaInfoKeeper/releases/latest>
