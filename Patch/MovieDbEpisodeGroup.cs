@@ -95,6 +95,7 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo seriesGetMetadata;
         private static MethodInfo seasonGetMetadata;
         private static MethodInfo episodeGetMetadata;
+        private static MethodInfo seasonGetImages;
         private static MethodInfo episodeGetImages;
         private static MethodInfo canRefreshMetadata;
 
@@ -186,6 +187,9 @@ namespace MediaInfoKeeper.Patch
                 patchCount += PatchMethod(episodeGetMetadata,
                     prefix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(EpisodeGetMetadataPrefix)),
                     postfix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(EpisodeGetMetadataPostfix)));
+                patchCount += PatchMethod(seasonGetImages,
+                    prefix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(SeasonGetImagesPrefix)),
+                    postfix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(SeasonGetImagesPostfix)));
                 patchCount += PatchMethod(episodeGetImages,
                     prefix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(EpisodeGetImagesPrefix)),
                     postfix: new HarmonyMethod(typeof(MovieDbEpisodeGroup), nameof(EpisodeGetImagesPostfix)));
@@ -244,6 +248,14 @@ namespace MediaInfoKeeper.Patch
                 BindingFlags.Public | BindingFlags.Instance,
                 null,
                 new[] { typeof(RemoteMetadataFetchOptions<EpisodeInfo>), typeof(CancellationToken) },
+                null);
+
+            var movieDbSeasonImageProvider = assembly.GetType("MovieDb.MovieDbSeasonImageProvider", false);
+            seasonGetImages = movieDbSeasonImageProvider?.GetMethod(
+                "GetImages",
+                BindingFlags.Public | BindingFlags.Instance,
+                null,
+                new[] { typeof(RemoteImageFetchOptions), typeof(CancellationToken) },
                 null);
 
             var movieDbEpisodeImageProvider = assembly.GetType("MovieDb.MovieDbEpisodeImageProvider", false);
@@ -586,6 +598,85 @@ namespace MediaInfoKeeper.Patch
             {
                 logger?.Debug("EpisodeGetMetadataPostfix failed: {0}", ex.Message);
             }
+        }
+
+        [HarmonyPrefix]
+        private static bool SeasonGetImagesPrefix(RemoteImageFetchOptions options,
+            CancellationToken cancellationToken, out int? __state)
+        {
+            __state = null;
+
+            if (!isEnabled || !(options?.Item is Season season))
+            {
+                return true;
+            }
+
+            try
+            {
+                var seriesTmdbId = season.Series?.GetProviderId(MetadataProviders.Tmdb);
+                var episodeGroupId = season.Series?.GetProviderId(MovieDbEpisodeGroupExternalId.StaticName)?.Trim();
+                var localEpisodeGroupPath = localEpisodeGroupEnabled && !string.IsNullOrWhiteSpace(season.Series?.ContainingFolderPath)
+                    ? Path.Combine(season.Series.ContainingFolderPath, LocalEpisodeGroupFileName)
+                    : null;
+
+                EpisodeGroupResponse episodeGroup = null;
+                if (localEpisodeGroupEnabled && !string.IsNullOrWhiteSpace(localEpisodeGroupPath))
+                {
+                    episodeGroup = FetchLocalEpisodeGroup(localEpisodeGroupPath);
+                }
+
+                if (episodeGroup == null &&
+                    season.IndexNumber.HasValue &&
+                    season.IndexNumber.Value > 0 &&
+                    !string.IsNullOrWhiteSpace(seriesTmdbId) &&
+                    !string.IsNullOrWhiteSpace(episodeGroupId))
+                {
+                    episodeGroup = FetchOnlineEpisodeGroup(seriesTmdbId, episodeGroupId, null, localEpisodeGroupPath);
+                }
+
+                var mappedSeasonNumber = episodeGroup?.groups?
+                    .FirstOrDefault(g => g.order == season.IndexNumber)?
+                    .episodes?
+                    .GroupBy(e => e.season_number)
+                    .OrderByDescending(g => g.Count())
+                    .ThenBy(g => g.Key)
+                    .FirstOrDefault()
+                    ?.Key;
+
+                var maxSeasonNumber = episodeGroup?.groups?
+                    .SelectMany(g => g.episodes ?? new List<GroupEpisode>())
+                    .Select(e => (int?)e.season_number)
+                    .Max();
+
+                if (mappedSeasonNumber.HasValue &&
+                    season.IndexNumber.HasValue &&
+                    maxSeasonNumber.HasValue &&
+                    season.IndexNumber.Value > maxSeasonNumber.Value)
+                {
+                    __state = season.IndexNumber.Value;
+                    season.IndexNumber = mappedSeasonNumber;
+                    logger?.Info("MovieDbEpisodeGroup 季图片映射命中: S{0:00} -> TMDB S{1:00}",
+                        __state.Value,
+                        mappedSeasonNumber.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.Debug("SeasonGetImagesPrefix failed: {0}", ex.Message);
+            }
+
+            return true;
+        }
+
+        [HarmonyPostfix]
+        private static void SeasonGetImagesPostfix(RemoteImageFetchOptions options, int? __state)
+        {
+            if (!__state.HasValue || !(options?.Item is Season season))
+            {
+                return;
+            }
+
+            season.IndexNumber = __state.Value;
         }
 
         [HarmonyPrefix]
