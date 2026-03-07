@@ -9,13 +9,14 @@ MediaInfoKeeper
 功能
 ----------
 
-- MediaInfo Keeper：将 MediaInfo/章节持久化为 JSON，入库恢复/提取并在刷新后恢复。
-- IntroSkip：解锁 .strm 片头检测、入库扫描片头、播放行为打标，并保护片头/片尾标记。
-- Search：中文模糊与拼音搜索增强，可设置搜索范围。
-- MetaData：支持剧集元数据变动监听、TMDB/TVDB 使用中文别名，避免出现英文标题的情况、支持剧集组刮削、支持优先原语言海报。
-- Proxy：全局 HttpClient 代理，支持忽略证书、写入代理环境变量，并支持 TMDB 反代域名替换。
+- MediaInfo Keeper：将 MediaInfo/章节持久化为 JSON，支持入库恢复、提取与刷新后恢复。
+- IntroSkip：解锁 `.strm` 片头检测，支持入库扫描片头、播放行为打标，并保护片头/片尾标记。
+- MetaData：支持剧集元数据变动监听，TMDB/TVDB 中文别名，剧集组刮削与优先原语言海报。
+- NetWork：全局 HttpClient 代理，支持忽略证书、写入代理环境变量，并支持 TMDB 反代域名替换。
+- Enhance：中文模糊与拼音搜索增强（可设置搜索范围），并支持深度删除。
 - GitHub & Update：版本检查与插件自更新。
-- Emby Web 右键菜单：提取媒体信息、删除媒体信息、扫描片头、设置片头、清除片头
+- Emby Web 右键菜单：提取媒体信息、删除媒体信息、扫描片头、设置片头、清除片头。
+- Emby Notification：支持 Webhook 通知，推送深度删除事件。
 
 计划任务
 --------
@@ -33,7 +34,7 @@ MediaInfoKeeper
 安装步骤
 --------
 
-1. 下载 `MediaInfoKeeper.dll`：<https://github.com/honue/MediaInfoKeeper/releases>
+1. 下载 `MediaInfoKeeper.dll`：<https://github.com/honue/MediaInfoKeeper/releases/latest>
 2. 放入 Emby 配置目录中的 `plugins` 目录。
 3. 重启 Emby，在插件页面完成配置。
 
