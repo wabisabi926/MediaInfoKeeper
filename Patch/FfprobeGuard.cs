@@ -118,6 +118,8 @@ namespace MediaInfoKeeper.Patch
             if (GuardCount.Value == 0)
             {
                 logger?.Info($"拦截 ffprobe {__1} {__2}");
+                // 抑制显示App Error ffprobe Error
+                SystemLog.SuppressNext();
                 __result = emptyResult;
                 return false;
             }

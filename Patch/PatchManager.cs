@@ -112,6 +112,10 @@ namespace MediaInfoKeeper.Patch
                 NotificationSystem.Initialize(logger);
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
 
+                Register("SystemLog");
+                SystemLog.Initialize(logger, true);
+                UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
+
                 LogTrackerSummary();
             }
         }
@@ -156,6 +160,8 @@ namespace MediaInfoKeeper.Patch
                 null);
             UpdateTracker("DeepDelete", safeOptions.Enhance.EnableDeepDelete, DeepDelete.IsReady, null);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
+            SystemLog.Configure(true);
+            UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
             LogTrackerSummary();
         }
