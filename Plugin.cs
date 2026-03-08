@@ -43,6 +43,9 @@ namespace MediaInfoKeeper
 
         public static Plugin Instance { get; private set; }
         public static MediaInfoService MediaInfoService { get; private set; }
+        
+        public static ChaptersJsonStore ChaptersJsonStore { get; private set; }
+        public static MediaSourceInfoJsonStore MediaSourceInfoJsonStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
@@ -142,6 +145,9 @@ namespace MediaInfoKeeper
 
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager);
             MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer, mediaMountManager);
+            ChaptersJsonStore = new ChaptersJsonStore(itemRepository, fileSystem, jsonSerializer);
+            MediaSourceInfoJsonStore = new MediaSourceInfoJsonStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
+
             NotificationApi = new NotificationApi(notificationManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
             IntroScanService = new IntroScanService(logManager, libraryManager);
@@ -446,10 +452,10 @@ namespace MediaInfoKeeper
                 {
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Info("尝试从 JSON 恢复 MediaInfo");
-                    var restoreResult = await MediaInfoService.DeserializeMediaInfo(e.Item, directoryService, "OnItemAdded").ConfigureAwait(false);
+                    var restoreResult = MediaSourceInfoJsonStore.ApplyToItem(e.Item);
 
                     // 如果不存在Json文件，则使用ffprobe 提取一次
-                    if (restoreResult == MediaInfoService.MediaInfoRestoreResult.Failed)
+                    if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Failed)
                     {
                         if (!this.Options.MainPage.ExtractMediaInfoOnItemAdded)
                         {
@@ -481,11 +487,11 @@ namespace MediaInfoKeeper
                                 .ConfigureAwait(false);
                         }
                         // 提取完成后写入 JSON。
-                        this.logger.Info("MediaInfo 提取完成，写入 JSON");
-                        _ = MediaInfoService.SerializeMediaInfo(e.Item.InternalId, directoryService, true, "OnItemAdded WriteNewJson");
+                        this.logger.Info("MediaSourceInfo 提取完成，写入 JSON");
+                        MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
-                    else if (restoreResult == MediaInfoService.MediaInfoRestoreResult.Restored)
+                    else if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
                     {
                         var itemPath = e.Item.Path ?? e.Item.ContainingFolderPath ?? e.Item.Id.ToString();
                         this.logger.Info($"JSON 恢复成功，准备扫描物理路径 item: {itemPath}");
@@ -547,7 +553,7 @@ namespace MediaInfoKeeper
                 else
                 {
                     this.logger.Info("已有 MediaInfo，覆盖写入 JSON");
-                    _ = MediaInfoService.SerializeMediaInfo(e.Item.InternalId, directoryService, true, "OnItemAdded Overwrite");
+                    MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
                 }
 
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
@@ -649,11 +655,10 @@ namespace MediaInfoKeeper
                                                 return;
                                             }
 
-                                            var restoreResult = await MediaInfoService
-                                                .DeserializeMediaInfo(workItem, directoryService, "OnFavorite Restore")
-                                                .ConfigureAwait(false);
-                                            if (restoreResult == MediaInfoService.MediaInfoRestoreResult.Restored ||
-                                                restoreResult == MediaInfoService.MediaInfoRestoreResult.AlreadyExists)
+                                            var restoreResult = MediaSourceInfoJsonStore.ApplyToItem(workItem);
+                                            ChaptersJsonStore.ApplyToItem(workItem);
+                                            if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored ||
+                                                restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
                                             {
                                                 this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
                                                 return;
@@ -669,8 +674,7 @@ namespace MediaInfoKeeper
                                                     .RefreshSingleItem(workItem, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None)
                                                     .ConfigureAwait(false);
                                             }
-
-                                            _ = MediaInfoService.SerializeMediaInfo(workItem.InternalId, directoryService, true, "OnFavorite Extract");
+                                            MediaSourceInfoJsonStore.OverWriteToFile(workItem);
                                             this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
                                         }
                                         catch (Exception ex)
@@ -720,7 +724,7 @@ namespace MediaInfoKeeper
 
             var directoryService = new DirectoryService(this.logger, this.fileSystem);
             logger.Info("同步删除 媒体信息 Json");
-            MediaInfoService.DeleteMediaInfoJson(e.Item, directoryService, "Item Removed Event");
+            MediaInfoJsonDocument.DeleteMediaInfoJson(e.Item, directoryService, "Item Removed Event");
         }
 
         private string GetLatestReleaseVersion()

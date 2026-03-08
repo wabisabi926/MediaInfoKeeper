@@ -25,7 +25,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Category => Plugin.TaskCategoryName;
 
-        public async Task Execute(CancellationToken cancellationToken, IProgress<double> progress)
+        public Task Execute(CancellationToken cancellationToken, IProgress<double> progress)
         {
             this.logger.Info("计划任务执行(仅导出已有 MediaInfo)");
 
@@ -35,7 +35,7 @@ namespace MediaInfoKeeper.ScheduledTask
             {
                 progress.Report(100.0);
                 this.logger.Info("计划任务完成(0 个条目)");
-                return;
+                return Task.CompletedTask;
             }
 
             var current = 0;
@@ -44,7 +44,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 if (cancellationToken.IsCancellationRequested)
                 {
                     this.logger.Info("计划任务已取消");
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 if (!Plugin.LibraryService.HasMediaInfo(item))
@@ -56,14 +56,13 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 try
                 {
-                    await Plugin.MediaInfoService
-                        .SerializeMediaInfo(item.InternalId, null, true, "Export Scheduled Task")
-                        .ConfigureAwait(false);
+                    Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
+                    Plugin.ChaptersJsonStore.OverWriteToFile(item);
                 }
                 catch (OperationCanceledException)
                 {
                     this.logger.Info($"计划任务已取消 {item.Path}");
-                    return;
+                    return Task.CompletedTask;
                 }
                 catch (Exception e)
                 {
@@ -77,6 +76,7 @@ namespace MediaInfoKeeper.ScheduledTask
             }
 
             this.logger.Info("计划任务完成");
+            return Task.CompletedTask;
         }
 
         public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()

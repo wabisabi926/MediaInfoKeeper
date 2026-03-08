@@ -81,10 +81,8 @@ namespace MediaInfoKeeper.Web.Handler
 
                     try
                     {
-                        Plugin.MediaInfoService
-                            .SerializeMediaInfo(episode.InternalId, directoryService, true, "ShortcutMenu SetIntro")
-                            .GetAwaiter()
-                            .GetResult();
+                        // 持久化片头信息
+                        Plugin.ChaptersJsonStore.OverWriteToFile(episode);
                     }
                     catch (Exception ex)
                     {

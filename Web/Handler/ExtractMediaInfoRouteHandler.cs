@@ -112,16 +112,13 @@ namespace MediaInfoKeeper.Web.Handler
                     return false;
                 }
 
-                var deserializeResult = await Plugin.MediaInfoService
-                    .DeserializeMediaInfo(item, directoryService, "ShortcutMenu Restore")
-                    .ConfigureAwait(false);
+                var deserializeResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
+                Plugin.ChaptersJsonStore.ApplyToItem(item);
 
-                if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.Restored ||
-                    deserializeResult == MediaInfoService.MediaInfoRestoreResult.AlreadyExists)
+                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored ||
+                    deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
-                    await Plugin.MediaInfoService
-                        .SerializeMediaInfo(item.InternalId, directoryService, true, "ShortcutMenu Restored")
-                        .ConfigureAwait(false);
+                    Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
                     return true;
                 }
 
@@ -140,9 +137,7 @@ namespace MediaInfoKeeper.Web.Handler
                     return false;
                 }
 
-                await Plugin.MediaInfoService
-                    .SerializeMediaInfo(item.InternalId, directoryService, true, "ShortcutMenu Extract")
-                    .ConfigureAwait(false);
+                Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
                 return true;
             }
         }

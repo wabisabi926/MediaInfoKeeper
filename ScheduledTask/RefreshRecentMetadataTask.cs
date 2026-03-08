@@ -70,11 +70,9 @@ namespace MediaInfoKeeper.ScheduledTask
                         .ConfigureAwait(false);
                     // 刷新完元数据要重新从json恢复媒体信息，
                     // 非strm会重新 ffprobe，但是没有allow所以会拦截，
-                    // strm会丢失信息，所以重新恢复
-                    var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
-                    _ = await Plugin.MediaInfoService
-                        .DeserializeMediaInfo(item, directoryService, "Recent Metadata Task Restore")
-                        .ConfigureAwait(false);
+                    // strm会丢失信息，所以重新恢复，启用元数据变动监听会恢复，不必重复恢复
+                    // Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
+                    // Plugin.ChaptersJsonStore.ApplyToItem(item);
                 }
                 catch (OperationCanceledException)
                 {

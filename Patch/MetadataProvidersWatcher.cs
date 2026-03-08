@@ -150,10 +150,8 @@ namespace MediaInfoKeeper.Patch
                 {
                     logger?.Info($"{item.FileName ?? item.Path} 10s之后开始恢复媒体信息");
                     await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false);
-                    var directoryService = new DirectoryService(logger, fileSystem);
-                    await mediaInfoService
-                        .DeserializeMediaInfo(item, directoryService, "MetadataProvidersWatcher 恢复媒体信息")
-                        .ConfigureAwait(false);
+                    Plugin.ChaptersJsonStore.ApplyToItem(item);
+                    Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
                 }
                 catch (Exception ex)
                 {

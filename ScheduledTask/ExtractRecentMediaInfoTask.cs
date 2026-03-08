@@ -122,17 +122,16 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 var dummyLibraryOptions = LibraryService.CopyLibraryOptions(libraryOptions);
 
-                var deserializeResult = await Plugin.MediaInfoService
-                    .DeserializeMediaInfo(item, directoryService, source)
-                    .ConfigureAwait(false);
+                var deserializeResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
+                Plugin.ChaptersJsonStore.ApplyToItem(item);
 
-                if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.Restored)
+                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
                 {
                     this.logger.Info($"从JSON 恢复成功: {displayName}");
                     return;
                 }
 
-                if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.AlreadyExists)
+                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
                     return;
                 }
@@ -145,8 +144,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     .ConfigureAwait(false);
 
                 this.logger.Info($"写入 JSON: {displayName}");
-                await Plugin.MediaInfoService.SerializeMediaInfo(item.InternalId, directoryService, true, source)
-                    .ConfigureAwait(false);
+                Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
 
                 this.logger.Info($"完成: {displayName}");
             }

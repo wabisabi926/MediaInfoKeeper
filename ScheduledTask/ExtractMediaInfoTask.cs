@@ -73,21 +73,21 @@ namespace MediaInfoKeeper.ScheduledTask
             return items;
         }
 
-        private async Task ProcessItemAsync(BaseItem item, string source, CancellationToken cancellationToken)
+        private Task ProcessItemAsync(BaseItem item, string source, CancellationToken cancellationToken)
         {
             var displayName = item.FileName ?? item.Path;
 
             if (!Plugin.LibraryService.IsItemInScope(item))
             {
                 this.logger.Info($"跳过 不在库范围: {displayName}");
-                return;
+                return Task.CompletedTask;
             }
 
             var persistMediaInfo = item is Video && Plugin.Instance.Options.MainPage.PlugginEnabled;
             if (!persistMediaInfo)
             {
                 this.logger.Info($"跳过 未开启持久化或非视频: {displayName}");
-                return;
+                return Task.CompletedTask;
             }
 
             using (FfprobeGuard.Allow())
@@ -96,7 +96,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 if (string.IsNullOrEmpty(filePath))
                 {
                     this.logger.Info($"跳过 无路径: {displayName}");
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 var refreshOptions = Plugin.MediaInfoService.GetMediaInfoRefreshOptions();
@@ -109,26 +109,25 @@ namespace MediaInfoKeeper.ScheduledTask
                     if (file?.Exists != true)
                     {
                         this.logger.Info($"跳过 文件不存在: {displayName}");
-                        return;
+                        return Task.CompletedTask;
                     }
                 }
 
-                var deserializeResult = await Plugin.MediaInfoService
-                    .DeserializeMediaInfo(item, directoryService, source)
-                    .ConfigureAwait(false);
-
-                if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.Restored)
+                var deserializeResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
+                Plugin.ChaptersJsonStore.ApplyToItem(item);
+                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
                 {
                     this.logger.Info($"从JSON 恢复成功: {displayName}");
-                    return;
+                    return Task.CompletedTask;
                 }
 
-                if (deserializeResult == MediaInfoService.MediaInfoRestoreResult.AlreadyExists)
+                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 this.logger.Info($"无Json媒体信息存在，跳过: {displayName}");
+                return Task.CompletedTask;
             }
         }
 

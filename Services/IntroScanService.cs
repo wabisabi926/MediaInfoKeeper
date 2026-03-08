@@ -85,11 +85,7 @@ namespace MediaInfoKeeper.Services
                     else if (hasMarkersAfterDetect)
                     {
                         this.logger.Info($"片头检测成功: marker 已写入, item={displayName}");
-                        _ = Plugin.MediaInfoService.SerializeMediaInfo(
-                            episode.InternalId,
-                            new DirectoryService(this.logger, Plugin.FileSystem),
-                            true,
-                            "IntroScan Persist");
+                        Plugin.ChaptersJsonStore.OverWriteToFile(episode);
                     }
                     else
                     {

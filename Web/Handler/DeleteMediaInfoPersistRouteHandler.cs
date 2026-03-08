@@ -6,6 +6,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
+using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.Web.Handler
 {
@@ -98,7 +99,7 @@ namespace MediaInfoKeeper.Web.Handler
                 return false;
             }
 
-            Plugin.MediaInfoService.DeleteMediaInfoJson(video, directoryService, "ShortcutMenu");
+            MediaInfoJsonDocument.DeleteMediaInfoJson(video, directoryService, "ShortcutMenu");
 
             _itemRepository.SaveMediaStreams(video.InternalId, new List<MediaStream>(), CancellationToken.None);
             video.MediaStreams = new List<MediaStream>();
