@@ -193,11 +193,6 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            if (!options.EnhanceChineseSearch && !options.EnhanceChineseSearchRestore)
-            {
-                return;
-            }
-
             if (appVer >= Ver4830)
             {
                 PatchPhase1();
@@ -369,7 +364,11 @@ namespace MediaInfoKeeper.Patch
                 var options = Plugin.Instance?.Options?.Enhance;
                 if (options != null && !string.Equals(CurrentTokenizerName, "unknown", StringComparison.Ordinal))
                 {
-                    if (options.EnhanceChineseSearchRestore)
+                    var shouldEnhance = options.EnhanceChineseSearch;
+                    var shouldRestore = options.EnhanceChineseSearchRestore;
+                    var shouldAutoRestore = !shouldEnhance && !shouldRestore;
+
+                    if (shouldRestore)
                     {
                         if (string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
                         {
@@ -384,7 +383,7 @@ namespace MediaInfoKeeper.Patch
 
                         ResetOptions();
                     }
-                    else if (options.EnhanceChineseSearch)
+                    else if (shouldEnhance)
                     {
                         patchSearchFunctionsResult = PatchSearchFunctions();
 
@@ -401,6 +400,15 @@ namespace MediaInfoKeeper.Patch
                             }
                         }
                     }
+                    else if (shouldAutoRestore && string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
+                    {
+                        rebuildFtsResult = RebuildFts(connection, ftsTableName, "unicode61 remove_diacritics 2");
+                        if (rebuildFtsResult)
+                        {
+                            CurrentTokenizerName = "unicode61 remove_diacritics 2";
+                            logger?.Info("增强搜索 - 检测到历史 simple tokenizer，已自动还原");
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -409,8 +417,10 @@ namespace MediaInfoKeeper.Patch
                 logger?.Warn(e.ToString());
             }
 
-            if (!patchSearchFunctionsResult || !rebuildFtsResult ||
-                string.Equals(CurrentTokenizerName, "unknown", StringComparison.Ordinal))
+            var optionsAfterPatch = Plugin.Instance?.Options?.Enhance;
+            var isEnhanceMode = optionsAfterPatch?.EnhanceChineseSearch == true;
+            var hasUnknownTokenizer = string.Equals(CurrentTokenizerName, "unknown", StringComparison.Ordinal);
+            if ((isEnhanceMode && !patchSearchFunctionsResult) || !rebuildFtsResult || hasUnknownTokenizer)
             {
                 ResetOptions();
             }
