@@ -49,13 +49,13 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoJsonDocument();
             if (document.Chapters != null && document.Chapters.Count > 0)
             {
-                this.logger.Info($"ChaptersJsonStore 写入章节信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"ChaptersJsonStore Json写入章节信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
             document.Chapters = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"ChaptersJsonStore 写入章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"ChaptersJsonStore Json写入章节信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 
@@ -66,7 +66,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoJsonDocument();
             document.Chapters = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"ChaptersJsonStore 覆盖写入章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"ChaptersJsonStore 覆盖Json写入章节信息成功: {(item.FileName ?? item.Path)}");
         }
 
         private List<ChapterInfo> CreateForPersist(BaseItem item)
@@ -85,21 +85,21 @@ namespace MediaInfoKeeper.Services
         {
             if (item == null)
             {
-                this.logger.Info("ChaptersJsonStore 应用章节失败: 条目为空");
+                this.logger.Info("ChaptersJsonStore 恢复章节失败: 条目为空");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
             }
 
             var existingChapters = this.itemRepository.GetChapters(item) ?? new List<ChapterInfo>();
             if (existingChapters.Count > 0)
             {
-                this.logger.Info($"ChaptersJsonStore 应用章节跳过: {(item.FileName ?? item.Path)} 已存在章节信息");
+                this.logger.Info($"ChaptersJsonStore 恢复章节跳过: {(item.FileName ?? item.Path)} 已存在章节信息");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists;
             }
 
             var chapters = ReadFromFile(item);
             if (chapters.Count == 0)
             {
-                this.logger.Info($"ChaptersJsonStore 应用章节失败: {(item.FileName ?? item.Path)} JSON 中无章节数据");
+                this.logger.Info($"ChaptersJsonStore 恢复章节失败: {(item.FileName ?? item.Path)} JSON 中无章节数据");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
             }
 
@@ -109,12 +109,12 @@ namespace MediaInfoKeeper.Services
                 {
                     this.itemRepository.SaveChapters(item.InternalId, true, chapters ?? new List<ChapterInfo>());
                 }
-                this.logger.Info($"ChaptersJsonStore 应用章节到条目完成: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"ChaptersJsonStore 恢复章节到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Restored;
             }
             catch (Exception e)
             {
-                this.logger.Error($"ChaptersJsonStore 应用章节失败: {(item.FileName ?? item.Path)}");
+                this.logger.Error($"ChaptersJsonStore 恢复章节失败: {(item.FileName ?? item.Path)}");
                 this.logger.Error(e.Message);
                 this.logger.Debug(e.StackTrace);
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
@@ -128,7 +128,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault();
             if (document?.Chapters == null || document.Chapters.Count == 0)
             {
-                this.logger.Info($"ChaptersJsonStore 删除章节信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"ChaptersJsonStore 删除Json章节信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
@@ -137,12 +137,12 @@ namespace MediaInfoKeeper.Services
             if (document.MediaSourceInfo == null)
             {
                 DeleteJsonFile(mediaInfoJsonPath);
-                this.logger.Info($"ChaptersJsonStore 删除章节信息成功并删除文件: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"ChaptersJsonStore 删除Json章节信息成功并删除文件: {(item.FileName ?? item.Path)}");
                 return true;
             }
 
             this.jsonSerializer.SerializeToFile(documents, mediaInfoJsonPath);
-            this.logger.Info($"ChaptersJsonStore 删除章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"ChaptersJsonStore 删除Json章节信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 

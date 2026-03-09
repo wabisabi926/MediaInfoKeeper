@@ -53,11 +53,9 @@ namespace MediaInfoKeeper.Services
 
         public async Task<MediaSourceInfo> ReadFromFileAsync(BaseItem item)
         {
-            var mediaInfoJsonPath = MediaInfoJsonDocument.GetMediaInfoJsonPath(item);
-            var documents = await this.jsonSerializer
-                .DeserializeFromFileAsync<List<MediaInfoJsonDocument>>(mediaInfoJsonPath)
-                .ConfigureAwait(false);
-            var mediaSourceInfo = documents?.FirstOrDefault()?.MediaSourceInfo;
+            var mediaSourceInfo = (await ReadDocumentsAsync(MediaInfoJsonDocument.GetMediaInfoJsonPath(item)).ConfigureAwait(false))
+                .FirstOrDefault()
+                ?.MediaSourceInfo;
             this.logger.Debug($"MediaSourceInfoJsonStore 异步读取媒体源信息: {(item.FileName ?? item.Path)} 是否存在={mediaSourceInfo != null}");
             return mediaSourceInfo;
         }
@@ -69,13 +67,13 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoJsonDocument();
             if (document.MediaSourceInfo != null)
             {
-                this.logger.Info($"MediaSourceInfoJsonStore 写入媒体源信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"MediaSourceInfoJsonStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
             document.MediaSourceInfo = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"MediaSourceInfoJsonStore 写入媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"MediaSourceInfoJsonStore Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 
@@ -86,7 +84,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoJsonDocument();
             document.MediaSourceInfo = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"MediaSourceInfoJsonStore 覆盖写入媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"MediaSourceInfoJsonStore 覆盖Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
         }
 
         public bool DeleteFromFile(BaseItem item)
@@ -96,7 +94,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault();
             if (document?.MediaSourceInfo == null)
             {
-                this.logger.Info($"MediaSourceInfoJsonStore 删除媒体源信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"MediaSourceInfoJsonStore 删除Json媒体源信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
@@ -105,12 +103,12 @@ namespace MediaInfoKeeper.Services
             if (document.Chapters == null || document.Chapters.Count == 0)
             {
                 DeleteJsonFile(mediaInfoJsonPath);
-                this.logger.Info($"MediaSourceInfoJsonStore 删除媒体源信息成功并删除文件: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"MediaSourceInfoJsonStore 删除Json媒体源信息成功并删除文件: {(item.FileName ?? item.Path)}");
                 return true;
             }
 
             this.jsonSerializer.SerializeToFile(documents, mediaInfoJsonPath);
-            this.logger.Info($"MediaSourceInfoJsonStore 删除媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Info($"MediaSourceInfoJsonStore 删除Json媒体源信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 
@@ -118,27 +116,26 @@ namespace MediaInfoKeeper.Services
         {
             if (item == null)
             {
-                this.logger.Info("MediaSourceInfoJsonStore 应用媒体源信息失败: 条目为空");
+                this.logger.Info("MediaSourceInfoJsonStore 恢复媒体源信息失败: 条目为空");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
             }
 
             if (Plugin.LibraryService?.HasMediaInfo(item) == true)
             {
-                this.logger.Info($"MediaSourceInfoJsonStore 应用媒体源信息跳过: {(item.FileName ?? item.Path)} 已存在媒体信息");
+                this.logger.Info($"MediaSourceInfoJsonStore 恢复媒体源信息跳过: {(item.FileName ?? item.Path)} 已存在媒体信息");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists;
             }
 
             var mediaSourceInfo = ReadFromFile(item);
             if (mediaSourceInfo?.RunTimeTicks.HasValue is not true)
             {
-                this.logger.Info($"MediaSourceInfoJsonStore 应用媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效媒体源信息");
+                this.logger.Info($"MediaSourceInfoJsonStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效媒体源信息");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
             }
 
-            this.logger.Info($"MediaSourceInfoJsonStore 开始应用媒体源信息到条目: {(item.FileName ?? item.Path)}");
             try
             {
-                foreach (var subtitle in mediaSourceInfo.MediaStreams.Where(m =>
+                foreach (var subtitle in (mediaSourceInfo.MediaStreams ?? new List<MediaStream>()).Where(m =>
                              m.IsExternal && m.Type == MediaStreamType.Subtitle &&
                              m.Protocol == MediaProtocol.File))
                 {
@@ -146,14 +143,14 @@ namespace MediaInfoKeeper.Services
                         this.fileSystem.GetFileInfo(subtitle.Path).Name);
                 }
 
-                this.itemRepository.SaveMediaStreams(item.InternalId, mediaSourceInfo.MediaStreams, CancellationToken.None);
+                this.itemRepository.SaveMediaStreams(item.InternalId, mediaSourceInfo.MediaStreams ?? new List<MediaStream>(), CancellationToken.None);
 
                 item.Size = mediaSourceInfo.Size.GetValueOrDefault();
                 item.RunTimeTicks = mediaSourceInfo.RunTimeTicks;
                 item.Container = mediaSourceInfo.Container;
                 item.TotalBitrate = mediaSourceInfo.Bitrate.GetValueOrDefault();
 
-                var videoStream = mediaSourceInfo.MediaStreams
+                var videoStream = (mediaSourceInfo.MediaStreams ?? new List<MediaStream>())
                     .Where(s => s.Type == MediaStreamType.Video && s.Width.HasValue && s.Height.HasValue)
                     .OrderByDescending(s => (long)s.Width.Value * s.Height.Value)
                     .FirstOrDefault();
@@ -163,12 +160,12 @@ namespace MediaInfoKeeper.Services
                     item.Width = videoStream.Width.GetValueOrDefault();
                     item.Height = videoStream.Height.GetValueOrDefault();
                 }
-                this.logger.Info($"MediaSourceInfoJsonStore 应用媒体源信息完成: {(item.FileName ?? item.Path)}");
+                this.logger.Info($"MediaSourceInfoJsonStore 恢复媒体源信息到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Restored;
             }
             catch (Exception e)
             {
-                this.logger.Error($"MediaSourceInfoJsonStore 应用媒体源信息失败: {(item.FileName ?? item.Path)}");
+                this.logger.Error($"MediaSourceInfoJsonStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)}");
                 this.logger.Error(e.Message);
                 this.logger.Debug(e.StackTrace);
                 return MediaInfoJsonDocument.MediaInfoRestoreResult.Failed;
@@ -214,6 +211,20 @@ namespace MediaInfoKeeper.Services
             {
                 return this.jsonSerializer.DeserializeFromFile<List<MediaInfoJsonDocument>>(mediaInfoJsonPath) ??
                        new List<MediaInfoJsonDocument>();
+            }
+            catch
+            {
+                return new List<MediaInfoJsonDocument>();
+            }
+        }
+
+        private async Task<List<MediaInfoJsonDocument>> ReadDocumentsAsync(string mediaInfoJsonPath)
+        {
+            try
+            {
+                return await this.jsonSerializer
+                    .DeserializeFromFileAsync<List<MediaInfoJsonDocument>>(mediaInfoJsonPath)
+                    .ConfigureAwait(false) ?? new List<MediaInfoJsonDocument>();
             }
             catch
             {

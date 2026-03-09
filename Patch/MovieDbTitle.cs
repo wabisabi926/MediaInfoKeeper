@@ -715,59 +715,29 @@ namespace MediaInfoKeeper.Patch
 
 
                 var nameValue = GetPropertyString(response, "name");
-                var shouldUpdateName = IsUpdateNeeded(item.Name, nameValue);
-                if (shouldUpdateName && !string.IsNullOrWhiteSpace(nameValue))
+                if (!string.IsNullOrWhiteSpace(nameValue))
                 {
-                    if (!string.Equals(item.Name, nameValue, StringComparison.Ordinal))
-                    {
-                        item.Name = nameValue;
-                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题更新 '{nameValue}'");
-                    }
-                    else
-                    {
-                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题无更新");
-                    }
-                }
-                else
-                {
-                    logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题无更新");
+                    item.Name = nameValue;
                 }
 
-                if (IsUpdateNeeded(item.Overview))
-                {
-                    var overview = GetPropertyString(response, "overview");
-                    if (!string.IsNullOrWhiteSpace(overview))
-                    {
-                        var decodedOverview = DecodeOverview(overview);
-                        if (!string.Equals(item.Overview, decodedOverview, StringComparison.Ordinal))
-                        {
-                            item.Overview = decodedOverview;
-                            var preview = item.Overview ?? string.Empty;
-                            if (preview.Length > 30)
-                            {
-                                preview = preview.Substring(0, 30) + "...";
-                            }
-                            else
-                            {
-                                preview += "...";
-                            }
+                logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题 '{nameValue ?? string.Empty}'");
 
-                            logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介更新 '{preview}'");
-                        }
-                        else
-                        {
-                            logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
-                        }
-                    }
-                    else
-                    {
-                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
-                    }
-                }
-                else
+                var overview = GetPropertyString(response, "overview");
+                var decodedOverview = string.IsNullOrWhiteSpace(overview)
+                    ? string.Empty
+                    : DecodeOverview(overview);
+                if (!string.IsNullOrWhiteSpace(decodedOverview))
                 {
-                    logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
+                    item.Overview = decodedOverview;
                 }
+
+                var overviewPreview = decodedOverview ?? string.Empty;
+                if (overviewPreview.Length > 30)
+                {
+                    overviewPreview = overviewPreview.Substring(0, 30) + "...";
+                }
+
+                logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介 '{overviewPreview}'");
             }
             catch (Exception ex)
             {
