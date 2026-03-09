@@ -105,7 +105,7 @@ namespace MediaInfoKeeper.Services
 
             try
             {
-                using (IntroMarkerProtect.AllowSave(item.InternalId))
+                using (IntroMarkerProtect.Allow(item.InternalId))
                 {
                     this.itemRepository.SaveChapters(item.InternalId, true, chapters ?? new List<ChapterInfo>());
                 }

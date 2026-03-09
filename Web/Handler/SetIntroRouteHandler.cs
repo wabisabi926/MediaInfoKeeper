@@ -74,7 +74,7 @@ namespace MediaInfoKeeper.Web.Handler
 
                     chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
 
-                    using (Patch.IntroMarkerProtect.AllowSave(episode.InternalId))
+                    using (Patch.IntroMarkerProtect.Allow(episode.InternalId))
                     {
                         _itemRepository.SaveChapters(episode.InternalId, chapters);
                     }

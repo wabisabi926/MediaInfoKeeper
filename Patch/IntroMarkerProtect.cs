@@ -11,7 +11,7 @@ namespace MediaInfoKeeper.Patch
 {
     public static class IntroMarkerProtect
     {
-        private static readonly AsyncLocal<long> AllowSaveItem = new AsyncLocal<long>();
+        private static readonly AsyncLocal<long> AllowItem = new AsyncLocal<long>();
         private static Harmony harmony;
         private static ILogger logger;
         private static MethodInfo saveChapters;
@@ -106,12 +106,6 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        public static IDisposable AllowSave(long itemId)
-        {
-            AllowSaveItem.Value = itemId;
-            return new AllowSaveScope();
-        }
-
         private static void Patch()
         {
             if (isPatched || harmony == null)
@@ -138,6 +132,12 @@ namespace MediaInfoKeeper.Patch
             isPatched = false;
         }
 
+        public static IDisposable Allow(long itemId)
+        {
+            AllowItem.Value = itemId;
+            return new AllowSaveScope();
+        }
+
         [HarmonyPrefix]
         private static bool SaveChaptersPrefix(long itemId, List<ChapterInfo> chapters)
         {
@@ -146,20 +146,27 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            if (AllowSaveItem.Value != 0 && AllowSaveItem.Value == itemId)
+            if (AllowItem.Value != 0 && AllowItem.Value == itemId)
             {
                 return true;
             }
-
-            if (chapters != null && chapters.Any(IsIntroMarker))
+            var item = Plugin.LibraryManager?.GetItemById(itemId);
+            
+            if (chapters == null || chapters.Count == 0 || !chapters.Any(IsIntroMarker))
             {
-                return true;
-            }
+                if (chapters == null || chapters.Count == 0)
+                {
+                    // 避免用空的章节列表覆盖现有章节数据。
+                    logger?.Info($"片头保护 - 拦截 SaveChapters：提交的章节列表为空，禁止清空现有章节。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
+                    return false;
+                }
 
-            if (HasIntroMarkers(itemId))
-            {
-                logger?.Info($"片头保护 - 拦截 SaveChapters，itemId: {itemId}");
-                return false;
+                if (HasIntroMarkers(itemId))
+                {
+                    // 当前已有片头标记时，不允许被一份不含片头标记的结果覆盖。
+                    logger?.Info($"片头保护 - 拦截 SaveChapters：当前已存在片头标记，禁止被不含片头标记的结果覆盖。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
+                    return false;
+                }
             }
 
             return true;
@@ -173,10 +180,11 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            if (AllowSaveItem.Value != 0 && AllowSaveItem.Value == itemId)
+            if (AllowItem.Value != 0 && AllowItem.Value == itemId)
             {
                 return true;
             }
+            var item = Plugin.LibraryManager?.GetItemById(itemId);
 
             if (markerTypes != null && markerTypes.Length > 0 &&
                 !markerTypes.Any(t => t == MarkerType.IntroStart || t == MarkerType.IntroEnd || t == MarkerType.CreditsStart))
@@ -186,7 +194,8 @@ namespace MediaInfoKeeper.Patch
 
             if (HasIntroMarkers(itemId))
             {
-                logger?.Info($"片头保护 - 拦截 DeleteChapters，itemId: {itemId}");
+                // 当前已有片头标记时，不允许删除片头相关标记。
+                logger?.Info($"片头保护 - 拦截 DeleteChapters：当前已存在片头标记，禁止删除片头相关标记。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
                 return false;
             }
 
@@ -195,7 +204,7 @@ namespace MediaInfoKeeper.Patch
 
         private static bool HasIntroMarkers(long itemId)
         {
-            if (Plugin.LibraryManager == null)
+            if (Plugin.LibraryManager == null || Plugin.IntroScanService == null)
             {
                 return false;
             }
@@ -206,13 +215,7 @@ namespace MediaInfoKeeper.Patch
                 return false;
             }
 
-            var chapters = Plugin.IntroSkipChapterApi?.GetChapters(item);
-            if (chapters == null || chapters.Count == 0)
-            {
-                return false;
-            }
-
-            return chapters.Any(IsIntroMarker);
+            return Plugin.IntroScanService.HasIntroMarkers(item);
         }
 
         private static bool IsIntroMarker(ChapterInfo chapter)
@@ -236,7 +239,7 @@ namespace MediaInfoKeeper.Patch
         {
             public void Dispose()
             {
-                AllowSaveItem.Value = 0;
+                AllowItem.Value = 0;
             }
         }
     }

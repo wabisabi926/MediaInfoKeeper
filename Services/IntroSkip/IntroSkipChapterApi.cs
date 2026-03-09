@@ -88,7 +88,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 });
 
                 chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-                using (IntroMarkerProtect.AllowSave(episode.InternalId))
+                using (IntroMarkerProtect.Allow(episode.InternalId))
                 {
                     itemRepository.SaveChapters(episode.InternalId, chapters);
                 }
@@ -131,7 +131,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 });
 
                 chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-                using (IntroMarkerProtect.AllowSave(episode.InternalId))
+                using (IntroMarkerProtect.Allow(episode.InternalId))
                 {
                     itemRepository.SaveChapters(episode.InternalId, chapters);
                 }
@@ -164,7 +164,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
             }
 
             chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-            using (IntroMarkerProtect.AllowSave(item.InternalId))
+            using (IntroMarkerProtect.Allow(item.InternalId))
             {
                 itemRepository.SaveChapters(item.InternalId, chapters);
             }
