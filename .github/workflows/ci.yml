@@ -10,12 +10,8 @@ on:
         description: "Mark this release as pre-release"
         type: boolean
         default: true
-      tag_name:
-        description: "Release tag (leave empty to auto-generate)"
-        required: false
-        type: string
-      release_name:
-        description: "Release name (leave empty to auto-generate)"
+      version:
+        description: "Release version (for example: 1.6.6.10)"
         required: false
         type: string
 
@@ -26,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -47,20 +45,16 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             pre_release="${{ github.event.inputs.pre_release }}"
-            input_tag="${{ github.event.inputs.tag_name }}"
-            input_name="${{ github.event.inputs.release_name }}"
+            input_version="${{ github.event.inputs.version }}"
 
-            if [[ -z "$input_tag" ]]; then
-              release_tag="v${app_version}-pre.${{ github.run_number }}"
+            if [[ -z "$input_version" ]]; then
+              base_tag="${app_version}"
             else
-              release_tag="$input_tag"
+              base_tag="$input_version"
             fi
 
-            if [[ -z "$input_name" ]]; then
-              release_name="MediaInfoKeeper pre v${app_version}"
-            else
-              release_name="$input_name"
-            fi
+            release_tag="v${base_tag}-Pre.${{ github.run_number }}"
+            release_name="MediaInfoKeeper Pre v${base_tag}"
           else
             pre_release="false"
             release_tag="v${app_version}"
@@ -70,6 +64,44 @@ jobs:
           echo "pre_release=$pre_release" >> $GITHUB_ENV
           echo "release_tag=$release_tag" >> $GITHUB_ENV
           echo "release_name=$release_name" >> $GITHUB_ENV
+
+      - name: Generate release notes
+        shell: bash
+        run: |
+          git fetch --force --tags
+
+          previous_tag=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || true)
+          notes_file="release-notes.md"
+
+          {
+            echo "## ${release_name}"
+            echo
+            echo "- Tag: \`${release_tag}\`"
+            echo "- Commit: \`${GITHUB_SHA::7}\`"
+
+            if [[ -n "$previous_tag" ]]; then
+              echo "- Previous tag: \`${previous_tag}\`"
+            else
+              echo "- Previous tag: none"
+            fi
+
+            echo
+            echo "### Changes"
+
+            if [[ -n "$previous_tag" ]]; then
+              git log "${previous_tag}..HEAD" --no-merges --pretty=format:'- %s (`%h`)'
+            else
+              git log --no-merges --pretty=format:'- %s (`%h`)'
+            fi
+
+            echo
+
+            if [[ -n "$previous_tag" ]]; then
+              echo
+              echo "### Full Changelog"
+              echo "https://github.com/${{ github.repository }}/compare/${previous_tag}...${release_tag}"
+            fi
+          } > "$notes_file"
 
       - name: Install ilrepack tool
         run: dotnet tool install -g dotnet-ilrepack --version 2.0.44
@@ -83,7 +115,7 @@ jobs:
           name: ${{ env.release_name }}
           tag_name: ${{ env.release_tag }}
           target_commitish: ${{ github.sha }}
-          generate_release_notes: true
+          body_path: release-notes.md
           overwrite_files: true
           prerelease: ${{ env.pre_release }}
           files: Build/bin/Release/net8.0/MediaInfoKeeper.dll
