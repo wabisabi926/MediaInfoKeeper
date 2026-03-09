@@ -65,6 +65,7 @@ namespace MediaInfoKeeper
         private readonly ISessionManager sessionManager;
         private readonly IMediaMountManager mediaMountManager;
         private readonly IApplicationHost applicationHost;
+        private readonly DirectoryService directoryService;
 
         internal static IProviderManager ProviderManager { get; private set; }
         internal static IFileSystem FileSystem { get; private set; }
@@ -118,6 +119,7 @@ namespace MediaInfoKeeper
             this.providerManager = providerManager;
             this.itemRepository = itemRepository;
             this.fileSystem = fileSystem;
+            this.directoryService = new DirectoryService(this.logger, fileSystem);
             this.userManager = userManager;
             this.userDataManager = userDataManager;
             this.sessionManager = sessionManager;
@@ -421,30 +423,6 @@ namespace MediaInfoKeeper
                     return;
                 }
 
-                if (e.Item is Episode newEpisode && newEpisode.ExtraType == null)
-                {
-                    var series = LibraryService.GetSeries(newEpisode.SeriesId);
-                    if (series == null)
-                    {
-                        this.logger.Info($"收藏入库通知跳过: 未找到所属剧集，episodeId={newEpisode.InternalId}");
-                    }
-                    else
-                    {
-                        var users = LibraryService.GetFavoriteUsersBySeriesId(series.InternalId);
-                        this.logger.Info($"收藏入库事件: 剧集={series.Name} {newEpisode.Name}, 收藏用户={string.Join(", ", users)}");
-                        var sentCount = NotificationApi.LibraryNewSendNotification(series, newEpisode, users);
-                        if (sentCount > 0)
-                        {
-                            this.logger.Info($"已发送入库通知: 剧集={series.Name} {newEpisode.Name}, 通知用户数={sentCount}");
-                        }
-                        else
-                        {
-                            this.logger.Info($"收藏入库通知跳过: 剧集={series.Name}，无收藏用户");
-                        }
-                    }
-                }
-
-                var directoryService = new DirectoryService(this.logger, this.fileSystem);
                 // 判断当前条目是否已有 MediaInfo。
                 var hasMediaInfo = LibraryService.HasMediaInfo(e.Item);
 
@@ -453,6 +431,7 @@ namespace MediaInfoKeeper
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Info("尝试从 JSON 恢复 MediaInfo");
                     var restoreResult = MediaSourceInfoJsonStore.ApplyToItem(e.Item);
+                    ChaptersJsonStore.ApplyToItem(e.Item);
 
                     // 如果不存在Json文件，则使用ffprobe 提取一次
                     if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Failed)
@@ -470,7 +449,7 @@ namespace MediaInfoKeeper
                         using (FfprobeGuard.Allow())
                         {
                             // 构建用于媒体信息提取的刷新参数与库选项。
-                            var metadataRefreshOptions = new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
+                            var metadataRefreshOptions = new MetadataRefreshOptions(this.directoryService)
                             {
                                 EnableRemoteContentProbe = true,
                                 MetadataRefreshMode = MetadataRefreshMode.FullRefresh,
@@ -494,58 +473,54 @@ namespace MediaInfoKeeper
                     else if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
                     {
                         var itemPath = e.Item.Path ?? e.Item.ContainingFolderPath ?? e.Item.Id.ToString();
-                        this.logger.Info($"JSON 恢复成功，准备扫描物理路径 item: {itemPath}");
-                        var scanOptions = new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
-                        {
-                            EnableRemoteContentProbe = false,
-                            MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,
-                            ReplaceAllMetadata = false,
-                            ImageRefreshMode = MetadataRefreshMode.ValidationOnly,
-                            ReplaceAllImages = false,
-                            EnableThumbnailImageExtraction = false,
-                            EnableSubtitleDownloading = false
-                        };
-
                         var parentPath = e.Item.ContainingFolderPath;
-                        if (!string.IsNullOrEmpty(parentPath))
+                        this.logger.Info($"JSON 恢复成功，准备扫描物理路径 item: {itemPath}");
+
+                        if (string.IsNullOrEmpty(parentPath))
                         {
-                            if (!this.fileSystem.DirectoryExists(parentPath))
-                            {
-                                this.logger.Info($"物理路径不存在，跳过扫描: {parentPath}");
-                            }
-                            else
-                            {
-                                var parentFolder = this.libraryManager.FindByPath(parentPath, true) as Folder;
-                                if (parentFolder != null)
-                                {
-                                    this.logger.Info($"刷新父级条目: {parentPath}");
-                                    try
-                                    {
-                                        var collectionFolders = this.libraryManager.GetCollectionFolders(parentFolder).Cast<BaseItem>().ToArray();
-                                        var libraryOptions = this.libraryManager.GetLibraryOptions(parentFolder);
-                                        using (FfprobeGuard.Allow())
-                                        {
-                                            await this.providerManager
-                                            .RefreshSingleItem(parentFolder, scanOptions, collectionFolders, libraryOptions, CancellationToken.None)
-                                            .ConfigureAwait(false);
-                                        }
-                                    }
-                                    catch (Exception refreshEx)
-                                    {
-                                        this.logger.Error($"刷新父级条目失败: {parentPath}");
-                                        this.logger.Error(refreshEx.Message);
-                                        this.logger.Debug(refreshEx.StackTrace);
-                                    }
-                                }
-                                else
-                                {
-                                    this.logger.Info($"未找到物理路径对应的文件夹项，跳过刷新: {parentPath}");
-                                }
-                            }
+                            this.logger.Info($"未找到条目所在物理路径，跳过扫描 item: {itemPath}");
+                        }
+                        else if (!this.fileSystem.DirectoryExists(parentPath))
+                        {
+                            this.logger.Info($"物理路径不存在，跳过扫描: {parentPath}");
                         }
                         else
                         {
-                            this.logger.Info($"未找到条目所在物理路径，跳过扫描 item: {itemPath}");
+                            var parentFolder = this.libraryManager.FindByPath(parentPath, true) as Folder;
+                            if (parentFolder == null)
+                            {
+                                this.logger.Info($"未找到物理路径对应的文件夹项，跳过刷新: {parentPath}");
+                            }
+                            else
+                            {
+                                // 仅触发目录校验/发现，不做元数据覆盖与远端抓取。
+                                var discoverOnlyOptions = new MetadataRefreshOptions(this.directoryService)
+                                {
+                                    EnableRemoteContentProbe = false,
+                                    MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,
+                                    ReplaceAllMetadata = false,
+                                    ImageRefreshMode = MetadataRefreshMode.ValidationOnly,
+                                    ReplaceAllImages = false,
+                                    EnableThumbnailImageExtraction = false,
+                                    EnableSubtitleDownloading = false
+                                };
+
+                                this.logger.Info($"刷新父级条目: {parentPath}");
+                                try
+                                {
+                                    var collectionFolders = this.libraryManager.GetCollectionFolders(parentFolder).Cast<BaseItem>().ToArray();
+                                    var libraryOptions = this.libraryManager.GetLibraryOptions(parentFolder);
+                                    await this.providerManager
+                                        .RefreshSingleItem(parentFolder, discoverOnlyOptions, collectionFolders, libraryOptions, CancellationToken.None)
+                                        .ConfigureAwait(false);
+                                }
+                                catch (Exception refreshEx)
+                                {
+                                    this.logger.Error($"刷新父级条目失败: {parentPath}");
+                                    this.logger.Error(refreshEx.Message);
+                                    this.logger.Debug(refreshEx.StackTrace);
+                                }
+                            }
                         }
                     }
                 }
@@ -554,11 +529,37 @@ namespace MediaInfoKeeper
                 {
                     this.logger.Info("已有 MediaInfo，覆盖写入 JSON");
                     MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
+                    ChaptersJsonStore.OverWriteToFile(e.Item);
                 }
 
+                // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
                     IntroScanService.QueueEpisodeScan(episode, "OnItemAdded");
+                }
+
+                // 收藏入库通知分支
+                if (e.Item is Episode newEpisode && newEpisode.ExtraType == null)
+                {
+                    var series = LibraryService.GetSeries(newEpisode.SeriesId);
+                    if (series == null)
+                    {
+                        this.logger.Info($"收藏入库通知跳过: 未找到所属剧集，episodeId={newEpisode.InternalId}");
+                    }
+                    else
+                    {
+                        var users = LibraryService.GetFavoriteUsersBySeriesId(series.InternalId);
+                        this.logger.Info($"收藏入库事件: 剧集={series.Name} {newEpisode.Name}, 收藏用户={string.Join(", ", users)}");
+                        var sentCount = NotificationApi.LibraryNewSendNotification(series, newEpisode, users);
+                        if (sentCount > 0)
+                        {
+                            this.logger.Info($"已发送入库通知: 剧集={series.Name} {newEpisode.Name}, 通知用户数={sentCount}");
+                        }
+                        else
+                        {
+                            this.logger.Info($"收藏入库通知跳过: 剧集={series.Name}，无收藏用户");
+                        }
+                    }
                 }
 
             }
@@ -644,7 +645,6 @@ namespace MediaInfoKeeper
                                         }
 
                                         var displayName = target.Path ?? target.Name;
-                                        var directoryService = new DirectoryService(this.logger, this.fileSystem);
                                         var workItem = this.libraryManager.GetItemById(target.InternalId) ?? target;
 
                                         try
@@ -722,9 +722,8 @@ namespace MediaInfoKeeper
                 return;
             }
 
-            var directoryService = new DirectoryService(this.logger, this.fileSystem);
             logger.Info("同步删除 媒体信息 Json");
-            MediaInfoJsonDocument.DeleteMediaInfoJson(e.Item, directoryService, "Item Removed Event");
+            MediaInfoJsonDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
         }
 
         private string GetLatestReleaseVersion()
