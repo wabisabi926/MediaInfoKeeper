@@ -112,6 +112,15 @@ namespace MediaInfoKeeper.Patch
                 DeepDelete.Initialize(logger, safeOptions.Enhance.EnableDeepDelete);
                 UpdateTracker("DeepDelete", safeOptions.Enhance.EnableDeepDelete, DeepDelete.IsReady, null);
 
+                Register("NfoMetadataEnhance");
+                NfoMetadataEnhance.Initialize(logger, safeOptions.Enhance.EnableNfoMetadataEnhance);
+                UpdateTracker(
+                    "NfoMetadataEnhance",
+                    safeOptions.Enhance.EnableNfoMetadataEnhance,
+                    NfoMetadataEnhance.IsReady,
+                    NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
+                    NfoMetadataEnhance.IsWaiting);
+
                 Register("NotificationSystem");
                 NotificationSystem.Initialize(logger);
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
@@ -137,6 +146,7 @@ namespace MediaInfoKeeper.Patch
             ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
             ChineseSearch.Configure(safeOptions.Enhance);
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
+            NfoMetadataEnhance.Configure(safeOptions.Enhance.EnableNfoMetadataEnhance);
             MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
             MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
@@ -165,6 +175,12 @@ namespace MediaInfoKeeper.Patch
                 ChineseSearch.IsReady,
                 null);
             UpdateTracker("DeepDelete", safeOptions.Enhance.EnableDeepDelete, DeepDelete.IsReady, null);
+            UpdateTracker(
+                "NfoMetadataEnhance",
+                safeOptions.Enhance.EnableNfoMetadataEnhance,
+                NfoMetadataEnhance.IsReady,
+                NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
+                NfoMetadataEnhance.IsWaiting);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
             SystemLog.Configure(true);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
