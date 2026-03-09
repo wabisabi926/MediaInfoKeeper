@@ -714,25 +714,47 @@ namespace MediaInfoKeeper.Patch
             object settings,
             bool isFirstLanguage)
         {
-            if (!isEnabled || result?.Item == null || response == null)
+            if (!isEnabled || response == null || result?.Item == null)
             {
                 return;
             }
 
             try
             {
-                var item = result.Item;
+                var fallbackItem = result.Item;
+                var item = !string.IsNullOrWhiteSpace(info?.Path)
+                    ? (Plugin.LibraryManager?.FindByPath(info.Path, false) as Episode ?? fallbackItem)
+                    : fallbackItem;
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 logger?.Debug(
                     "TMDB Episode ImportData: item={0}, firstLanguage={1}, currentName='{2}'",
                     item.FileName ?? item.Path ?? item.Id.ToString(),
                     isFirstLanguage,
                     item.Name ?? string.Empty);
 
+
                 var nameValue = GetPropertyString(response, "name");
-                if (IsUpdateNeeded(item.Name, nameValue) && !string.IsNullOrWhiteSpace(nameValue))
+                var shouldUpdateName = IsUpdateNeeded(item.Name, nameValue);
+                if (shouldUpdateName && !string.IsNullOrWhiteSpace(nameValue))
                 {
-                    item.Name = nameValue;
-                    logger?.Info("TMDB Episode 标题更新: '{0}'", nameValue);
+                    if (!string.Equals(item.Name, nameValue, StringComparison.Ordinal))
+                    {
+                        item.Name = nameValue;
+                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题更新 '{nameValue}'");
+                    }
+                    else
+                    {
+                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题无更新");
+                    }
+                }
+                else
+                {
+                    logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题无更新");
                 }
 
                 if (IsUpdateNeeded(item.Overview))
@@ -740,19 +762,35 @@ namespace MediaInfoKeeper.Patch
                     var overview = GetPropertyString(response, "overview");
                     if (!string.IsNullOrWhiteSpace(overview))
                     {
-                        item.Overview = DecodeOverview(overview);
-                        var preview = item.Overview ?? string.Empty;
-                        if (preview.Length > 20)
+                        var decodedOverview = DecodeOverview(overview);
+                        if (!string.Equals(item.Overview, decodedOverview, StringComparison.Ordinal))
                         {
-                            preview = preview.Substring(0, 20) + "...";
+                            item.Overview = decodedOverview;
+                            var preview = item.Overview ?? string.Empty;
+                            if (preview.Length > 30)
+                            {
+                                preview = preview.Substring(0, 30) + "...";
+                            }
+                            else
+                            {
+                                preview += "...";
+                            }
+
+                            logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介更新 '{preview}'");
                         }
                         else
                         {
-                            preview += "...";
+                            logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
                         }
-
-                        logger?.Info("TMDB Episode 简介更新: '{0}'", preview);
                     }
+                    else
+                    {
+                        logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
+                    }
+                }
+                else
+                {
+                    logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介无更新");
                 }
             }
             catch (Exception ex)
