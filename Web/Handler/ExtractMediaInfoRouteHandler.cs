@@ -107,19 +107,19 @@ namespace MediaInfoKeeper.Web.Handler
                     }
                 }
 
-                if (Plugin.LibraryService.HasMediaInfo(item))
+                if (Plugin.MediaInfoService.HasMediaInfo(item))
                 {
                     Plugin.Instance.Logger.Info($"快捷菜单提取媒体信息跳过 已存在MediaInfo: {displayName}");
                     return false;
                 }
 
-                var deserializeResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
-                Plugin.ChaptersJsonStore.ApplyToItem(item);
+                var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
+                Plugin.ChaptersStore.ApplyToItem(item);
 
-                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored ||
-                    deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
+                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                    deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
-                    Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
+                    Plugin.MediaSourceInfoStore.OverWriteToFile(item);
                     return true;
                 }
 
@@ -132,13 +132,13 @@ namespace MediaInfoKeeper.Web.Handler
                     .RefreshSingleItem(item, refreshOptions, collectionFolders, copiedOptions, CancellationToken.None)
                     .ConfigureAwait(false);
 
-                if (!Plugin.LibraryService.HasMediaInfo(item))
+                if (!Plugin.MediaInfoService.HasMediaInfo(item))
                 {
                     Plugin.Instance.Logger.Info($"快捷菜单提取媒体信息失败 无媒体流: {displayName}");
                     return false;
                 }
 
-                Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
+                Plugin.MediaSourceInfoStore.OverWriteToFile(item);
                 return true;
             }
         }

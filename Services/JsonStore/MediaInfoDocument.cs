@@ -8,7 +8,7 @@ using MediaBrowser.Model.Entities;
 
 namespace MediaInfoKeeper.Services
 {
-    public class MediaInfoJsonDocument
+    public class MediaInfoDocument
     {
         [Flags]
         public enum MediaInfoRestoreResult

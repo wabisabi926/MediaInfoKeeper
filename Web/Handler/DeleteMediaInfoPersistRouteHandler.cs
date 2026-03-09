@@ -100,7 +100,7 @@ namespace MediaInfoKeeper.Web.Handler
                 return false;
             }
 
-            MediaInfoJsonDocument.DeleteMediaInfoJson(workItem, directoryService, "ShortcutMenu");
+            MediaInfoDocument.DeleteMediaInfoJson(workItem, directoryService, "ShortcutMenu");
 
             _itemRepository.SaveMediaStreams(workItem.InternalId, new List<MediaStream>(), CancellationToken.None);
             workItem.MediaStreams = new List<MediaStream>();

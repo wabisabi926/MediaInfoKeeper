@@ -31,10 +31,7 @@ namespace MediaInfoKeeper.Services
             this.libraryManager = libraryManager;
         }
 
-        public async Task ScanEpisodesAsync(
-            IReadOnlyList<Episode> episodes,
-            CancellationToken cancellationToken,
-            IProgress<double> progress)
+        public async Task ScanEpisodesAsync(IReadOnlyList<Episode> episodes, CancellationToken cancellationToken, IProgress<double> progress)
         {
             if (episodes == null || episodes.Count == 0)
             {
@@ -85,7 +82,7 @@ namespace MediaInfoKeeper.Services
                     else if (hasMarkersAfterDetect)
                     {
                         this.logger.Info($"片头检测成功: marker 已写入, item={displayName}");
-                        Plugin.ChaptersJsonStore.OverWriteToFile(episode);
+                        Plugin.ChaptersStore.OverWriteToFile(episode);
                     }
                     else
                     {

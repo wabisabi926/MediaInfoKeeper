@@ -105,7 +105,7 @@ namespace MediaInfoKeeper.Patch
             {
                 // 刷新媒体信息时，VideoImageProvider 会调用 EpisodeMetadataProvider 的 CanRefresh 来判断是否需要刷新媒体信息，此时如果 Episode 已经存在 MediaInfo，则说明是刷新后的回调，此时加入延迟恢复队列，10s 后恢复媒体信息，以覆盖可能被刷新掉的 MediaInfo
                 var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-                if (Plugin.LibraryService?.HasMediaInfo(workItem) == true && workItem.IsShortcut)
+                if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true && workItem.IsShortcut)
                 {
                     TriggerMediaInfoRestore(workItem);
                 }
@@ -147,15 +147,15 @@ namespace MediaInfoKeeper.Patch
                     logger?.Debug($"MetadataProvidersWatcher 检测到元数据刷新，刷新前存在 MediaInfo，已加入延迟检查队列 {item.FileName ?? item.Path} InternalId:{item.InternalId}");
                     logger?.Debug($"{item.FileName ?? item.Path} 30s之后检查媒体信息");
                     await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
-                    if (Plugin.LibraryService.HasMediaInfo(item))
+                    if (Plugin.MediaInfoService.HasMediaInfo(item))
                     {
                         // 恢复时再次检查，看看是否fresh导致MediaInfo丢失，没丢失则跳过
                         logger?.Debug($"{item.FileName ?? item.Path} 刷新元数据后，媒体信息仍然存在，跳过恢复");
                         return;
                     }
                     logger?.Info($"{item.FileName ?? item.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
-                    Plugin.ChaptersJsonStore.ApplyToItem(item);
-                    Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
+                    Plugin.ChaptersStore.ApplyToItem(item);
+                    Plugin.MediaSourceInfoStore.ApplyToItem(item);
                 }
                 catch (Exception ex)
                 {

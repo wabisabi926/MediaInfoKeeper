@@ -88,22 +88,6 @@ namespace MediaInfoKeeper.Services
             return list;
         }
 
-        /// <summary>判断条目是否已存在 MediaInfo。</summary>
-        public bool HasMediaInfo(BaseItem item)
-        {
-            if (!item.RunTimeTicks.HasValue)
-            {
-                return false;
-            }
-
-            if (item.Size == 0)
-            {
-                return false;
-            }
-
-            return item.GetMediaStreams().Any(i => i.Type == MediaStreamType.Video || i.Type == MediaStreamType.Audio);
-        }
-
         /// <summary>判断条目是否执行过刷新。</summary>
         public bool IsItemRefreshedRecently(BaseItem item)
         {

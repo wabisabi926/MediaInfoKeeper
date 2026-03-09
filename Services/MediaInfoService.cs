@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
-using MediaBrowser.Model.Serialization;
 
 namespace MediaInfoKeeper.Services
 {
@@ -22,29 +20,35 @@ namespace MediaInfoKeeper.Services
     {
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
-        private readonly IItemRepository itemRepository;
-        private readonly IJsonSerializer jsonSerializer;
         private readonly IFileSystem fileSystem;
         private readonly IMediaMountManager mediaMountManager;
-        private readonly MediaSourceInfoJsonStore mediaSourceInfoJsonStore;
-        private readonly ChaptersJsonStore chaptersJsonStore;
 
         /// <summary>创建 MediaInfo 处理辅助类并注入所需服务。</summary>
         public MediaInfoService(
             ILibraryManager libraryManager,
             IFileSystem fileSystem,
-            IItemRepository itemRepository,
-            IJsonSerializer jsonSerializer,
             IMediaMountManager mediaMountManager)
         {
             this.logger = Plugin.Instance.Logger;
             this.libraryManager = libraryManager;
             this.fileSystem = fileSystem;
-            this.itemRepository = itemRepository;
-            this.jsonSerializer = jsonSerializer;
             this.mediaMountManager = mediaMountManager;
-            this.mediaSourceInfoJsonStore = new MediaSourceInfoJsonStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
-            this.chaptersJsonStore = new ChaptersJsonStore(itemRepository, fileSystem, jsonSerializer);
+        }
+
+        /// <summary>判断条目是否已存在 MediaInfo。</summary>
+        public bool HasMediaInfo(BaseItem item)
+        {
+            if (!item.RunTimeTicks.HasValue)
+            {
+                return false;
+            }
+
+            if (item.Size == 0)
+            {
+                return false;
+            }
+
+            return item.GetMediaStreams().Any(i => i.Type == MediaStreamType.Video || i.Type == MediaStreamType.Audio);
         }
 
         /// <summary>构建 MediaInfo 提取所需的刷新选项。</summary>
@@ -125,13 +129,13 @@ namespace MediaInfoKeeper.Services
             }
 
             var restoreSucceeded = false;
-            if (!Plugin.LibraryService.HasMediaInfo(workEpisode))
+            if (!Plugin.MediaInfoService.HasMediaInfo(workEpisode))
             {
                 logger.Info($"{source} 片头扫描预提取: {workEpisode.FileName} 无 MediaInfo，尝试从 JSON 恢复");
-                var restoreResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(workEpisode);
-                Plugin.ChaptersJsonStore.ApplyToItem(workEpisode);
-                restoreSucceeded = restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored ||
-                                  restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists;
+                var restoreResult = Plugin.MediaSourceInfoStore.ApplyToItem(workEpisode);
+                Plugin.ChaptersStore.ApplyToItem(workEpisode);
+                restoreSucceeded = restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                                  restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists;
 
                 if (!restoreSucceeded)
                 {
@@ -143,15 +147,15 @@ namespace MediaInfoKeeper.Services
                         return null;
                     }
                     // 将扫描后的结果持久化
-                    if (Plugin.LibraryService.HasMediaInfo(workEpisode))
+                    if (Plugin.MediaInfoService.HasMediaInfo(workEpisode))
                     {
-                        this.mediaSourceInfoJsonStore.OverWriteToFile(workEpisode);
+                        Plugin.MediaSourceInfoStore.OverWriteToFile(workEpisode);
                     }
                 }
             }
 
             workEpisode = this.libraryManager.GetItemById(workEpisode.InternalId) as Episode ?? workEpisode;
-            if (!Plugin.LibraryService.HasMediaInfo(workEpisode))
+            if (!Plugin.MediaInfoService.HasMediaInfo(workEpisode))
             {
                 this.logger.Warn($"{source} 片头扫描预提取: {workEpisode.FileName} 提取后仍无 MediaInfo，跳过扫描");
                 return null;

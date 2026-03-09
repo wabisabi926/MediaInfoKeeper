@@ -82,7 +82,7 @@ namespace MediaInfoKeeper.Web.Handler
                     try
                     {
                         // 持久化片头信息
-                        Plugin.ChaptersJsonStore.OverWriteToFile(episode);
+                        Plugin.ChaptersStore.OverWriteToFile(episode);
                     }
                     catch (Exception ex)
                     {

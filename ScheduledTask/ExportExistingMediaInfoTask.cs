@@ -47,7 +47,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     return Task.CompletedTask;
                 }
 
-                if (!Plugin.LibraryService.HasMediaInfo(item))
+                if (!Plugin.MediaInfoService.HasMediaInfo(item))
                 {
                     current++;
                     progress.Report(current / (double)total * 100);
@@ -56,8 +56,8 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 try
                 {
-                    Plugin.MediaSourceInfoJsonStore.OverWriteToFile(item);
-                    Plugin.ChaptersJsonStore.OverWriteToFile(item);
+                    Plugin.MediaSourceInfoStore.OverWriteToFile(item);
+                    Plugin.ChaptersStore.OverWriteToFile(item);
                 }
                 catch (OperationCanceledException)
                 {

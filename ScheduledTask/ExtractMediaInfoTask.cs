@@ -114,15 +114,15 @@ namespace MediaInfoKeeper.ScheduledTask
                     }
                 }
 
-                var deserializeResult = Plugin.MediaSourceInfoJsonStore.ApplyToItem(item);
-                Plugin.ChaptersJsonStore.ApplyToItem(item);
-                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
+                var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
+                Plugin.ChaptersStore.ApplyToItem(item);
+                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                 {
                     this.logger.Info($"从JSON 恢复成功: {displayName}");
                     return Task.CompletedTask;
                 }
 
-                if (deserializeResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
+                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
                     return Task.CompletedTask;
                 }

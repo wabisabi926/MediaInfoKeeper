@@ -45,8 +45,8 @@ namespace MediaInfoKeeper
         public static Plugin Instance { get; private set; }
         public static MediaInfoService MediaInfoService { get; private set; }
         
-        public static ChaptersJsonStore ChaptersJsonStore { get; private set; }
-        public static MediaSourceInfoJsonStore MediaSourceInfoJsonStore { get; private set; }
+        public static ChaptersStore ChaptersStore { get; private set; }
+        public static MediaSourceInfoStore MediaSourceInfoStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
@@ -147,9 +147,9 @@ namespace MediaInfoKeeper
             this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
 
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager);
-            MediaInfoService = new MediaInfoService(libraryManager, fileSystem, itemRepository, jsonSerializer, mediaMountManager);
-            ChaptersJsonStore = new ChaptersJsonStore(itemRepository, fileSystem, jsonSerializer);
-            MediaSourceInfoJsonStore = new MediaSourceInfoJsonStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
+            MediaInfoService = new MediaInfoService(libraryManager, fileSystem, mediaMountManager);
+            ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
+            MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
 
             NotificationApi = new NotificationApi(notificationManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
@@ -425,17 +425,17 @@ namespace MediaInfoKeeper
                 }
 
                 // 判断当前条目是否已有 MediaInfo。
-                var hasMediaInfo = LibraryService.HasMediaInfo(e.Item);
+                var hasMediaInfo = MediaInfoService.HasMediaInfo(e.Item);
 
                 if (!hasMediaInfo)
                 {
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Info("尝试从 JSON 恢复 MediaInfo");
-                    var restoreResult = MediaSourceInfoJsonStore.ApplyToItem(e.Item);
-                    ChaptersJsonStore.ApplyToItem(e.Item);
+                    var restoreResult = MediaSourceInfoStore.ApplyToItem(e.Item);
+                    ChaptersStore.ApplyToItem(e.Item);
 
                     // 如果不存在Json文件，则使用ffprobe 提取一次
-                    if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Failed)
+                    if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Failed)
                     {
                         if (!this.Options.MainPage.ExtractMediaInfoOnItemAdded)
                         {
@@ -468,10 +468,10 @@ namespace MediaInfoKeeper
                         }
                         // 提取完成后写入 JSON。
                         this.logger.Info("MediaSourceInfo 提取完成，写入 JSON");
-                        MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
+                        MediaSourceInfoStore.OverWriteToFile(e.Item);
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
-                    else if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored)
+                    else if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                     {
                         var itemPath = e.Item.Path ?? e.Item.ContainingFolderPath ?? e.Item.Id.ToString();
                         var parentPath = e.Item.ContainingFolderPath;
@@ -529,8 +529,8 @@ namespace MediaInfoKeeper
                 else
                 {
                     this.logger.Info("已有 MediaInfo，覆盖写入 JSON");
-                    MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
-                    ChaptersJsonStore.OverWriteToFile(e.Item);
+                    MediaSourceInfoStore.OverWriteToFile(e.Item);
+                    ChaptersStore.OverWriteToFile(e.Item);
                 }
                 // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
@@ -649,16 +649,16 @@ namespace MediaInfoKeeper
 
                                         try
                                         {
-                                            if (LibraryService.HasMediaInfo(workItem))
+                                            if (MediaInfoService.HasMediaInfo(workItem))
                                             {
                                                 this.logger.Info($"OnFavorite 已存在 MediaInfo，跳过处理: {displayName}");
                                                 return;
                                             }
 
-                                            var restoreResult = MediaSourceInfoJsonStore.ApplyToItem(workItem);
-                                            ChaptersJsonStore.ApplyToItem(workItem);
-                                            if (restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.Restored ||
-                                                restoreResult == MediaInfoJsonDocument.MediaInfoRestoreResult.AlreadyExists)
+                                            var restoreResult = MediaSourceInfoStore.ApplyToItem(workItem);
+                                            ChaptersStore.ApplyToItem(workItem);
+                                            if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                                                restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                                             {
                                                 this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
                                                 return;
@@ -674,7 +674,7 @@ namespace MediaInfoKeeper
                                                     .RefreshSingleItem(workItem, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None)
                                                     .ConfigureAwait(false);
                                             }
-                                            MediaSourceInfoJsonStore.OverWriteToFile(workItem);
+                                            MediaSourceInfoStore.OverWriteToFile(workItem);
                                             this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
                                         }
                                         catch (Exception ex)
@@ -723,7 +723,7 @@ namespace MediaInfoKeeper
             }
 
             logger.Info("同步删除 媒体信息 Json");
-            MediaInfoJsonDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
+            MediaInfoDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
         }
 
         private string GetLatestReleaseVersion()
