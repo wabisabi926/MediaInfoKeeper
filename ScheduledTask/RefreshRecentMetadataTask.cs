@@ -8,6 +8,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Patch;
 using static MediaInfoKeeper.Options.MainPageOptions;
 
 namespace MediaInfoKeeper.ScheduledTask
@@ -114,7 +115,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 ? DateTime.UtcNow.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
                 : (DateTime?)null;
 
-            return Plugin.LibraryService.FetchRecentItems(cutoff, true);
+            return Plugin.LibraryService.FetchRecentItems(cutoff, true, includeAudio: true);
         }
 
         private MetadataRefreshOptions BuildRefreshOptions(bool replaceMetadata, bool replaceImages)
@@ -126,7 +127,8 @@ namespace MediaInfoKeeper.ScheduledTask
                 MetadataRefreshMode = MetadataRefreshMode.FullRefresh,
                 ImageRefreshMode = MetadataRefreshMode.FullRefresh,
                 ReplaceAllMetadata = replaceMetadata,
-                ReplaceAllImages = replaceImages
+                ReplaceAllImages = replaceImages,
+                EnableThumbnailImageExtraction = Plugin.Instance.Options.MetaData.EnableImageCapture
             };
         }
 

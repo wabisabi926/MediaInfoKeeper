@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Net;
@@ -103,6 +104,16 @@ namespace MediaInfoKeeper.Web
                     if (video.ExtraType == null && known.Add(video.InternalId))
                     {
                         targets.Add(video);
+                    }
+
+                    continue;
+                }
+
+                if (item is Audio audio)
+                {
+                    if (audio.ExtraType == null && known.Add(audio.InternalId))
+                    {
+                        targets.Add(audio);
                     }
 
                     continue;

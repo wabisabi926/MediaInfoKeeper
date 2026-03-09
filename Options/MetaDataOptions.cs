@@ -31,6 +31,10 @@ namespace MediaInfoKeeper.Options
         [Description("开启后将监控媒体元数据刷新过程，当剧集触发封面刷新时延迟恢复媒体信息，避免 .strm 刷新后媒体信息丢失。同时，当修改strm文件内容时，emby会触发刷新媒体，所以也会恢复媒体信息。")]
         public bool EnableMetadataProvidersWatcher { get; set; } = true;
 
+        [DisplayName("允许 Strm 提取提取封面")]
+        [Description("为 strm 音视频开启封面/缩略图提取。")]
+        public bool EnableImageCapture { get; set; } = true;
+
         [DisplayName("启用 TMDB 中文回退")]
         [Description("按备选语言顺序补全 TMDB 电影/剧集/季/集元数据，并尽量把英文放到最后。")]
         public bool EnableAlternativeTitleFallback { get; set; } = true;
@@ -148,6 +152,7 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("",
                 nameof(EnableMetadataProvidersWatcher),
+                nameof(EnableImageCapture),
                 nameof(EnableOriginalPoster),
                 nameof(BlockNonFallbackLanguage));
 

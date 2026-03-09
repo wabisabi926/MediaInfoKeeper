@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
@@ -88,28 +89,26 @@ namespace MediaInfoKeeper.Web.Handler
 
         private bool DeleteSingleItemMediaInfo(BaseItem item, DirectoryService directoryService)
         {
-            if (!(item is Video))
+            if (!(item is Video) && !(item is Audio))
             {
                 return false;
             }
 
             var workItem = _libraryManager.GetItemById(item.InternalId);
-            if (!(workItem is Video video))
+            if (!(workItem is Video) && !(workItem is Audio))
             {
                 return false;
             }
 
-            MediaInfoJsonDocument.DeleteMediaInfoJson(video, directoryService, "ShortcutMenu");
+            MediaInfoJsonDocument.DeleteMediaInfoJson(workItem, directoryService, "ShortcutMenu");
 
-            _itemRepository.SaveMediaStreams(video.InternalId, new List<MediaStream>(), CancellationToken.None);
-            video.MediaStreams = new List<MediaStream>();
-            video.RunTimeTicks = null;
-            video.TotalBitrate = 0;
-            video.Container = null;
-            video.Size = 0;
-            video.Width = 0;
-            video.Height = 0;
-            video.UpdateToRepository(ItemUpdateType.MetadataEdit);
+            _itemRepository.SaveMediaStreams(workItem.InternalId, new List<MediaStream>(), CancellationToken.None);
+            workItem.MediaStreams = new List<MediaStream>();
+            workItem.RunTimeTicks = null;
+            workItem.TotalBitrate = 0;
+            workItem.Container = null;
+            workItem.Size = 0;
+            workItem.UpdateToRepository(ItemUpdateType.MetadataEdit);
             return true;
         }
     }

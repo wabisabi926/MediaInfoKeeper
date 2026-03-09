@@ -182,14 +182,14 @@ namespace MediaInfoKeeper.Services
             return NormalizeLibraryPaths(libraries.SelectMany(folder => folder.Locations ?? Array.Empty<string>()));
         }
 
-        /// <summary>按路径范围获取视频条目。</summary>
-        public List<BaseItem> FetchScopedVideoItems(IReadOnlyCollection<string> scopePaths, bool orderByDateCreatedDesc = false, int? take = null)
+        /// <summary>按路径范围获取音视频条目。</summary>
+        public List<BaseItem> FetchScopedVideoItems(IReadOnlyCollection<string> scopePaths, bool orderByDateCreatedDesc = false, int? take = null, bool includeAudio = false)
         {
             var query = new InternalItemsQuery
             {
                 Recursive = true,
                 HasPath = true,
-                MediaTypes = new[] { MediaType.Video }
+                MediaTypes = includeAudio ? new[] { MediaType.Video, MediaType.Audio } : new[] { MediaType.Video }
             };
 
             if (scopePaths != null && scopePaths.Count > 0)
@@ -214,13 +214,13 @@ namespace MediaInfoKeeper.Services
         }
 
         /// <summary>按时间窗口获取最近条目。</summary>
-        public List<BaseItem> FetchRecentItems(DateTime? cutoff, bool orderByDateCreatedDesc = true)
+        public List<BaseItem> FetchRecentItems(DateTime? cutoff, bool orderByDateCreatedDesc = true, bool includeAudio = false)
         {
             var query = new InternalItemsQuery
             {
                 Recursive = true,
                 HasPath = true,
-                MediaTypes = new[] { MediaType.Video }
+                MediaTypes = includeAudio ? new[] { MediaType.Video, MediaType.Audio } : new[] { MediaType.Video }
             };
 
             var items = this.libraryManager.GetItemList(query)

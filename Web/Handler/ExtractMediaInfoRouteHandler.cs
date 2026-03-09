@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 
@@ -77,7 +78,7 @@ namespace MediaInfoKeeper.Web.Handler
 
         private static async Task<bool> ExtractSingleItemAsync(BaseItem item)
         {
-            if (!(item is Video))
+            if (!(item is Video) && !(item is Audio))
             {
                 return false;
             }

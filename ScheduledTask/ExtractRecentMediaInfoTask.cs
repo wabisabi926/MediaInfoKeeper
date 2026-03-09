@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
@@ -72,7 +73,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return new List<BaseItem>();
             }
 
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, true, limit);
+            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, true, limit, includeAudio: true);
             this.logger.Info($"计划任务条目数 {items.Count}");
             return items;
         }
@@ -87,10 +88,10 @@ namespace MediaInfoKeeper.ScheduledTask
                 return;
             }
 
-            var persistMediaInfo = item is Video && Plugin.Instance.Options.MainPage.PlugginEnabled;
+            var persistMediaInfo = (item is Video || item is Audio) && Plugin.Instance.Options.MainPage.PlugginEnabled;
             if (!persistMediaInfo)
             {
-                this.logger.Info($"跳过 未开启持久化或非视频: {displayName}");
+                this.logger.Info($"跳过 未开启持久化或非音视频: {displayName}");
                 return;
             }
 

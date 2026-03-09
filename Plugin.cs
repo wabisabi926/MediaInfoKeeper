@@ -18,6 +18,7 @@ using MediaBrowser.Common;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Controller.Configuration;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Notifications;
@@ -294,7 +295,6 @@ namespace MediaInfoKeeper
             this.logger.Info($"追更媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "空" : options.MainPage.CatchupLibraries)}");
             this.logger.Info($"计划任务媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.ScheduledTaskLibraries) ? "空" : options.MainPage.ScheduledTaskLibraries)}");
             this.logger.Info($"扫描最多并发数 设置为 {options.MainPage.MaxConcurrentCount}");
-
             this.logger.Info("[IntroSkip]");
             this.logger.Info($"启用 Strm 片头检测解锁 设置为 {options.IntroSkip.UnlockIntroSkip}");
             this.logger.Info($"入库时扫描片头 设置为 {options.IntroSkip.ScanIntroOnItemAdded}");
@@ -322,6 +322,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用 TMDB 剧集组刮削 设置为 {options.MetaData.EnableMovieDbEpisodeGroup}");
             this.logger.Info($"优先原语言海报 设置为 {options.MetaData.EnableOriginalPoster}");
             this.logger.Info($"启用本地剧集组文件 设置为 {options.MetaData.EnableLocalEpisodeGroup}");
+            this.logger.Info($"启用图片提取 设置为 {options.MetaData.EnableImageCapture}");
 
             this.logger.Info("[NetWork]");
             this.logger.Info($"启用代理 设置为 {netWorkOptions.EnableProxyServer}");
@@ -403,16 +404,16 @@ namespace MediaInfoKeeper
 
             try
             {
-                this.logger.Info($"{e.Item.Path} 新增剧集事件");
+                this.logger.Info($"{e.Item.Path} 新增媒体事件");
                 if (!this.PlugginEnabled)
                 {
                     // 未启用持久化，直接跳过。
                     return;
                 }
 
-                if (!(e.Item is Video))
+                if (!(e.Item is Video) && !(e.Item is Audio))
                 {
-                    // 仅处理视频条目。
+                    // 仅处理音视频条目。
                     return;
                 }
 
@@ -531,7 +532,6 @@ namespace MediaInfoKeeper
                     MediaSourceInfoJsonStore.OverWriteToFile(e.Item);
                     ChaptersJsonStore.OverWriteToFile(e.Item);
                 }
-
                 // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
@@ -705,14 +705,14 @@ namespace MediaInfoKeeper
         /// <summary>条目移除且非恢复模式时，删除已持久化的 JSON。</summary>
         private void OnItemRemoved(object sender, ItemChangeEventArgs e)
         {
-            this.logger.Info($"{e.Item.Path} 删除剧集事件");
+            this.logger.Info($"{e.Item.Path} 删除媒体事件");
             // 未开启删除开关时直接跳过。
             if (!this.Options.MainPage.DeleteMediaInfoJsonOnRemove || !this.Options.MainPage.PlugginEnabled)
             {
                 return;
             }
 
-            if (!(e.Item is Video))
+            if (!(e.Item is Video) && !(e.Item is Audio))
             {
                 return;
             }

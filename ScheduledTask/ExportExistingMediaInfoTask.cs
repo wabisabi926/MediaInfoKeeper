@@ -100,7 +100,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return new List<BaseItem>();
             }
 
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths);
+            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, includeAudio: true);
             this.logger.Info($"计划任务条目数 {items.Count}");
             return items;
         }
