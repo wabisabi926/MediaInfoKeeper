@@ -153,9 +153,13 @@ namespace MediaInfoKeeper.Patch
                         logger?.Debug($"{item.FileName ?? item.Path} 刷新元数据后，媒体信息仍然存在，跳过恢复");
                         return;
                     }
-                    logger?.Info($"{item.FileName ?? item.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
-                    Plugin.ChaptersStore.ApplyToItem(item);
+                    logger?.Info($"MetadataProvidersWatcher {item.FileName ?? item.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
+                    
                     Plugin.MediaSourceInfoStore.ApplyToItem(item);
+                    if (!Plugin.IntroScanService.HasIntroMarkers(item))
+                    {
+                        Plugin.ChaptersStore.ApplyToItem(item);
+                    }
                 }
                 catch (Exception ex)
                 {

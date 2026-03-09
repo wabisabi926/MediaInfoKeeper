@@ -193,7 +193,7 @@ namespace MediaInfoKeeper.Patch
         }
 
         [HarmonyPostfix]
-        private static void SupportsImageCapturePostfix(bool __state)
+        private static void SupportsImageCapturePostfix(BaseItem item, bool __result, bool __state)
         {
             if (__state)
             {
@@ -204,12 +204,43 @@ namespace MediaInfoKeeper.Patch
         [HarmonyPrefix]
         private static bool GetImagePrefix(ref BaseMetadataResult itemResult)
         {
-            if (itemResult?.MediaStreams == null)
+            var item = Traverse.Create(itemResult).Property("Item").GetValue<BaseItem>();
+            var itemOptions = item == null ? null : Plugin.LibraryManager?.GetLibraryOptions(item);
+            var itemHasMediaInfo = item != null && Plugin.MediaInfoService?.HasMediaInfo(item) == true;
+
+            if (item != null && !itemHasMediaInfo)
+            {
+                Plugin.MediaSourceInfoStore?.ApplyToItem(item);
+            }
+
+            var streams = itemResult?.MediaStreams;
+            if ((streams == null || streams.Length == 0) && item != null)
+            {
+                var restoredStreams = item.GetMediaStreams()?.ToArray();
+                if (restoredStreams != null && restoredStreams.Length > 0)
+                {
+                    itemResult.MediaStreams = restoredStreams;
+                    streams = restoredStreams;
+                }
+            }
+
+            var mediaSource = Traverse.Create(itemResult).Property("MediaSource").GetValue<object>();
+            if (mediaSource == null && item != null)
+            {
+                var restoredMediaSource = item.GetMediaSources(false, false, itemOptions)?.FirstOrDefault();
+                if (restoredMediaSource != null)
+                {
+                    Traverse.Create(itemResult).Property("MediaSource").SetValue(restoredMediaSource);
+                    mediaSource = restoredMediaSource;
+                }
+            }
+
+            if (streams == null)
             {
                 return true;
             }
 
-            itemResult.MediaStreams = itemResult.MediaStreams
+            itemResult.MediaStreams = streams
                 .Where(ms => ms.Type != MediaStreamType.EmbeddedImage)
                 .ToArray();
 
