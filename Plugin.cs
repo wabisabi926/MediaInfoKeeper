@@ -549,11 +549,14 @@ namespace MediaInfoKeeper
                     else
                     {
                         var users = LibraryService.GetFavoriteUsersBySeriesId(series.InternalId);
-                        this.logger.Info($"收藏入库事件: 剧集={series.Name} {newEpisode.Name}, 收藏用户={string.Join(", ", users)}");
-                        var sentCount = NotificationApi.LibraryNewSendNotification(series, newEpisode, users);
-                        if (sentCount > 0)
+                        if (users.Count != 0)
                         {
-                            this.logger.Info($"已发送入库通知: 剧集={series.Name} {newEpisode.Name}, 通知用户数={sentCount}");
+                            this.logger.Info($"收藏入库事件: 剧集={series.Name} {newEpisode.Name}, 收藏用户={string.Join(", ", users)}");
+                            var sentCount = NotificationApi.LibraryNewSendNotification(series, newEpisode, users);
+                            if (sentCount > 0)
+                            {
+                                this.logger.Info($"已发送入库通知: 剧集={series.Name} {newEpisode.Name}, 通知用户数={sentCount}");
+                            }
                         }
                         else
                         {
