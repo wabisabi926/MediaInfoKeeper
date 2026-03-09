@@ -127,58 +127,11 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            // 非 strm 保持系统 ffprobe 正常执行。
-            if (!IsLikelyShortcutProbe(__2))
-            {
-                logger?.Debug($"允许非strm ffprobe {__1} {__2}");
-                __3 = Math.Max(__3, 60000);
-                return true;
-            }
-
             logger?.Info($"拦截 ffprobe {__1} {__2}");
             // 抑制显示App Error ffprobe Error
             SystemLog.SuppressNext();
             __result = emptyResult;
             return false;
-        }
-
-        private static bool IsLikelyShortcutProbe(string args)
-        {
-            if (TryGetInputPath(args, out var inputPath))
-            {
-                return string.Equals(Path.GetExtension(inputPath), ".strm", StringComparison.OrdinalIgnoreCase);
-            }
-
-            return false;
-        }
-
-        private static bool TryGetInputPath(string args, out string inputPath)
-        {
-            inputPath = null;
-            if (string.IsNullOrWhiteSpace(args))
-            {
-                return false;
-            }
-
-            var match = InputArgRegex.Match(args);
-            if (!match.Success)
-            {
-                return false;
-            }
-
-            inputPath = match.Groups["path"].Value?.Trim();
-            if (string.IsNullOrWhiteSpace(inputPath))
-            {
-                return false;
-            }
-
-            var queryIndex = inputPath.IndexOf('?');
-            if (queryIndex >= 0)
-            {
-                inputPath = inputPath.Substring(0, queryIndex);
-            }
-
-            return !string.IsNullOrWhiteSpace(inputPath);
         }
 
         private static void RunFfProcessPostfix(ref object __result)
