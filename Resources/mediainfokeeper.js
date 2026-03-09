@@ -496,7 +496,7 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                             <p style="margin: 0 0 24px 0; color: #ccc; font-size: 14px;">${locale === 'zh-cn' ? '确定要清除选中项目的片头标记吗？' : (['zh-hk', 'zh-tw'].includes(locale) ? '確定要清除選中項目的片頭標記嗎？' : 'Are you sure you want to clear intro markers for selected items?')}</p>
                             <div style="margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="cancelClearIntro" class="emby-button emby-button-cancel" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${globalize.translate('Cancel')}</button>
-                                <button id="confirmClearIntro" class="emby-button emby-button-submit" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #00a4dc; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${commandName}</button>
+                                <button id="confirmClearIntro" class="emby-button emby-button-submit" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #53B54C; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${commandName}</button>
                             </div>
                         </div>
                     </div>
