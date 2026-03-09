@@ -27,19 +27,15 @@ namespace MediaInfoKeeper.Patch
         private static readonly AsyncLocal<string> CurrentLookupLanguageCountryCode = new AsyncLocal<string>();
 
         private static readonly Regex ChineseRegex = new Regex(@"[\u4E00-\u9FFF]", RegexOptions.Compiled);
-        private static readonly Regex JapaneseRegex = new Regex(@"[\u3040-\u30FF]", RegexOptions.Compiled);
         private static readonly Regex DefaultChineseEpisodeNameRegex =
             new Regex(@"^第\s*\d+\s*集$", RegexOptions.Compiled);
-        private static readonly Regex DefaultJapaneseEpisodeNameRegex =
-            new Regex(@"^第\s*\d+\s*話$", RegexOptions.Compiled);
 
         private static readonly string[] SupportedFallbackLanguages =
         {
             "zh-CN",
             "zh-SG",
             "zh-HK",
-            "zh-TW",
-            "ja-JP"
+            "zh-TW"
         };
 
         private static Harmony harmony;
@@ -394,20 +390,16 @@ namespace MediaInfoKeeper.Patch
 
             var name = item.Name ?? string.Empty;
             var overview = item.Overview ?? string.Empty;
-            var isJapaneseFallback = HasMovieDbJapaneseFallback();
 
             if (item is Movie || item is Series || item is Season)
             {
                 __state = true;
-                __result = !isJapaneseFallback
-                    ? IsChinese(name) && IsChinese(overview)
-                    : IsChineseJapanese(name) && IsChineseJapanese(overview);
+                __result = IsChinese(name) && IsChinese(overview);
                 logger?.Debug(
-                    "TMDB IsComplete: type={0}, nameZh={1}, overviewZh={2}, jpFallback={3}, result={4}",
+                    "TMDB IsComplete: type={0}, nameZh={1}, overviewZh={2}, result={3}",
                     item.GetType().Name,
-                    !isJapaneseFallback ? IsChinese(name) : IsChineseJapanese(name),
-                    !isJapaneseFallback ? IsChinese(overview) : IsChineseJapanese(overview),
-                    isJapaneseFallback,
+                    IsChinese(name),
+                    IsChinese(overview),
                     __result);
                 return false;
             }
@@ -415,35 +407,19 @@ namespace MediaInfoKeeper.Patch
             if (item is Episode)
             {
                 __state = true;
-
-                if (!isJapaneseFallback)
+                if (IsDefaultChineseEpisodeName(name))
                 {
-                    if (IsDefaultChineseEpisodeName(name))
-                    {
-                        __result = false;
-                    }
-                    else
-                    {
-                        __result = IsChinese(overview);
-                    }
+                    __result = false;
                 }
                 else
                 {
-                    if (IsDefaultChineseEpisodeName(name) || IsDefaultJapaneseEpisodeName(name))
-                    {
-                        __result = false;
-                    }
-                    else
-                    {
-                        __result = IsChineseJapanese(overview);
-                    }
+                    __result = IsChinese(overview);
                 }
 
                 logger?.Debug(
-                    "TMDB IsComplete Episode: name='{0}', overviewLen={1}, jpFallback={2}, result={3}",
+                    "TMDB IsComplete Episode: name='{0}', overviewLen={1}, result={2}",
                     name,
                     overview.Length,
-                    isJapaneseFallback,
                     __result);
                 return false;
             }
@@ -556,7 +532,7 @@ namespace MediaInfoKeeper.Patch
                 }
 
                 var name = GetPropertyString(seriesInfo, "name");
-                if (!HasMovieDbJapaneseFallback() ? !IsChinese(name) : !IsChineseJapanese(name))
+                if (!IsChinese(name))
                 {
                     var alternativeTitlesRoot = GetPropertyValue(seriesInfo, "alternative_titles");
                     var alternativeTitles = GetPropertyValue(alternativeTitlesRoot, "results") as IEnumerable;
@@ -974,68 +950,25 @@ namespace MediaInfoKeeper.Patch
             }
 
             var isEpisodeName = newEpisodeName != null;
-            var isJapaneseFallback = HasMovieDbJapaneseFallback();
-
             if (!isEpisodeName)
             {
-                return !isJapaneseFallback ? !IsChinese(currentValue) : !IsChineseJapanese(currentValue);
+                return !IsChinese(currentValue);
             }
 
-            if (!isJapaneseFallback)
-            {
-                return IsDefaultChineseEpisodeName(currentValue) &&
-                       IsChinese(newEpisodeName) &&
-                       !IsDefaultChineseEpisodeName(newEpisodeName);
-            }
-
-            if (IsDefaultChineseEpisodeName(currentValue))
-            {
-                if (IsChinese(newEpisodeName) && !IsDefaultChineseEpisodeName(newEpisodeName))
-                {
-                    return true;
-                }
-
-                if (IsJapanese(newEpisodeName) && !IsDefaultJapaneseEpisodeName(newEpisodeName))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return IsDefaultChineseEpisodeName(currentValue) &&
+                   IsChinese(newEpisodeName) &&
+                   !IsDefaultChineseEpisodeName(newEpisodeName);
         }
 
         private static bool IsChinese(string input)
         {
             return !string.IsNullOrEmpty(input) &&
-                   ChineseRegex.IsMatch(input) &&
-                   !JapaneseRegex.IsMatch(input.Replace("\u30FB", string.Empty));
-        }
-
-        private static bool IsJapanese(string input)
-        {
-            return !string.IsNullOrEmpty(input) &&
-                   JapaneseRegex.IsMatch(input.Replace("\u30FB", string.Empty));
-        }
-
-        private static bool IsChineseJapanese(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return false;
-            }
-
-            var normalized = input.Replace("\u30FB", string.Empty);
-            return ChineseRegex.IsMatch(normalized) || JapaneseRegex.IsMatch(normalized);
+                   ChineseRegex.IsMatch(input);
         }
 
         private static bool IsDefaultChineseEpisodeName(string input)
         {
             return !string.IsNullOrEmpty(input) && DefaultChineseEpisodeNameRegex.IsMatch(input);
-        }
-
-        private static bool IsDefaultJapaneseEpisodeName(string input)
-        {
-            return !string.IsNullOrEmpty(input) && DefaultJapaneseEpisodeNameRegex.IsMatch(input);
         }
 
         private static bool BlockMovieDbNonFallbackLanguage(string input)
@@ -1046,13 +979,7 @@ namespace MediaInfoKeeper.Patch
             }
 
             var options = GetTmdbOptions();
-            return options.BlockNonFallbackLanguage &&
-                   (!HasMovieDbJapaneseFallback() || !IsJapanese(input));
-        }
-
-        private static bool HasMovieDbJapaneseFallback()
-        {
-            return GetMovieDbFallbackLanguages().Any(v => string.Equals(v, "ja-jp", StringComparison.OrdinalIgnoreCase));
+            return options.BlockNonFallbackLanguage && !IsChinese(input);
         }
 
         private static List<string> GetMovieDbFallbackLanguages()
