@@ -139,7 +139,6 @@ namespace MediaInfoKeeper.Patch
         public static void Configure(bool enable)
         {
             isEnabled = enable;
-            logger?.Info("OriginalPoster 配置更新: EnableOriginalPoster={0}", enable);
         }
 
         private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)

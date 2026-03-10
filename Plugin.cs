@@ -308,6 +308,8 @@ namespace MediaInfoKeeper
             this.logger.Info("[Enhance]");
             this.logger.Info($"启用增强搜索 设置为 {options.Enhance.EnhanceChineseSearch}");
             this.logger.Info($"启用深度删除 设置为 {options.Enhance.EnableDeepDelete}");
+            this.logger.Info($"启用 NFO 增强 设置为 {options.Enhance.EnableNfoMetadataEnhance}");
+            this.logger.Info($"隐藏无图人物 设置为 {options.Enhance.HidePersonNoImage}");
             this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
             this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
             this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");
