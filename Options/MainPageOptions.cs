@@ -80,13 +80,33 @@ namespace MediaInfoKeeper.Options
         [MaxValue(100000000)]
         public int RecentItemsLimit { get; set; } = 100;
 
-        [DisplayName("元数据刷新模式")]
-        [Description("“补全缺失”或“全部替换”元数据。")]
+        [DisplayName("刷新模式")]
+        [Description("依据 Emby 媒体库中的设置和元数据提供器，用新的数据更新元数据。")]
         public RefreshModeOption RefreshMetadataMode { get; set; } = RefreshModeOption.Fill;
 
-        [DisplayName("图片刷新模式")]
-        [Description("“补全缺失”或“全部替换”图片。")]
+        [DisplayName("替换现有图像")]
+        [Description("基于媒体库选项，将删除全部现有图像，并下载新图像。在某些情况下，这可能会导致可用图像比以前更少。")]
+        public bool ReplaceExistingImages { get; set; } = true;
+
+        [DisplayName("替换现有视频预览缩略图")]
+        [Description("如果在媒体库选项中启用此功能，将删除所有现有视频预览缩略图并生成新缩略图。")]
+        public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = true;
+
+        [Browsable(false)]
         public RefreshModeOption RefreshImageMode { get; set; } = RefreshModeOption.Fill;
+
+        public void NormalizeLegacyRefreshOptions()
+        {
+            if (this.RefreshImageMode == RefreshModeOption.Replace &&
+                !this.ReplaceExistingImages &&
+                !this.ReplaceExistingVideoPreviewThumbnails)
+            {
+                this.ReplaceExistingImages = true;
+                this.ReplaceExistingVideoPreviewThumbnails = true;
+            }
+
+            this.RefreshImageMode = RefreshModeOption.Fill;
+        }
 
         public override IEditObjectContainer CreateEditContainer()
         {
@@ -155,7 +175,8 @@ namespace MediaInfoKeeper.Options
                 nameof(RecentItemsDays),
                 nameof(RecentItemsLimit),
                 nameof(RefreshMetadataMode),
-                nameof(RefreshImageMode));
+                nameof(ReplaceExistingImages),
+                nameof(ReplaceExistingVideoPreviewThumbnails));
 
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)

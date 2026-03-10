@@ -46,7 +46,8 @@ namespace MediaInfoKeeper.ScheduledTask
 
             var replaceMetadata = ShouldReplaceMetadata();
             var replaceImages = ShouldReplaceImages();
-            this.logger.Info($"计划任务条目数{total}，元数据覆盖{replaceMetadata}，图片覆盖{replaceImages}");
+            var replaceThumbnails = ShouldReplaceThumbnails();
+            this.logger.Info($"计划任务条目数{total}，元数据覆盖{replaceMetadata}，图片覆盖{replaceImages}，视频缩略图覆盖{replaceThumbnails}");
 
             var current = 0;
             foreach (var item in items)
@@ -62,7 +63,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 try
                 {
-                    var options = BuildRefreshOptions(replaceMetadata, replaceImages);
+                    var options = BuildRefreshOptions(replaceMetadata, replaceImages, replaceThumbnails);
                     var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
                     var libraryOptions = this.libraryManager.GetLibraryOptions(item);
 
@@ -118,7 +119,7 @@ namespace MediaInfoKeeper.ScheduledTask
             return Plugin.LibraryService.FetchRecentItems(cutoff, true, includeAudio: true);
         }
 
-        private MetadataRefreshOptions BuildRefreshOptions(bool replaceMetadata, bool replaceImages)
+        private MetadataRefreshOptions BuildRefreshOptions(bool replaceMetadata, bool replaceImages, bool replaceThumbnails)
         {
             var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
             return new MetadataRefreshOptions(directoryService)
@@ -128,6 +129,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 ImageRefreshMode = MetadataRefreshMode.FullRefresh,
                 ReplaceAllMetadata = replaceMetadata,
                 ReplaceAllImages = replaceImages,
+                ReplaceThumbnailImages = replaceThumbnails,
                 EnableThumbnailImageExtraction = Plugin.Instance.Options.MetaData.EnableImageCapture
             };
         }
@@ -139,8 +141,12 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private bool ShouldReplaceImages()
         {
-            var mode = Plugin.Instance.Options.MainPage.RefreshImageMode;
-            return mode == RefreshModeOption.Replace;
+            return Plugin.Instance.Options.MainPage.ReplaceExistingImages;
+        }
+
+        private bool ShouldReplaceThumbnails()
+        {
+            return Plugin.Instance.Options.MainPage.ReplaceExistingVideoPreviewThumbnails;
         }
     }
 }
