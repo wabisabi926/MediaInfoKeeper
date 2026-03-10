@@ -14,7 +14,7 @@ namespace MediaInfoKeeper.Options
         public override string EditorTitle => "Enhance";
 
         [DisplayName("启用增强搜索")]
-        [Description("支持中文模糊搜索与拼音搜索，默认关闭。")]
+        [Description("支持中文模糊搜索与拼音搜索，默认关闭。\n\n卸载插件前，请先关闭本功能并保存配置，再移除插件；不要直接在插件页卸载或手动删除 dll，否则可能导致数据库无法读写，并出现以下错误：\n\nSQLitePCL.pretty.SQLiteException: Error: no such tokenizer: simple\n\n如果插件版本更新，出现上述错误，本页面点击一次“保存配置”恢复正常。")]
         public bool EnhanceChineseSearch { get; set; } = false;
 
         [Browsable(false)]
@@ -47,7 +47,10 @@ namespace MediaInfoKeeper.Options
         [Description("从搜索中排除 OriginalTitle 字段，默认关闭。")]
         public bool ExcludeOriginalTitleFromSearch { get; set; } = false;
 
-
+        [DisplayName("接管系统新入库通知")]
+        [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知，用于配合MP插件——媒体服务器通知，通知新入库；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
+        public bool TakeOverSystemLibraryNew { get; set; } = false;
+        
         [DisplayName("启用深度删除")]
         [Description("删除媒体时，尝试级联删除 STRM 或软链接目标文件及相关文件和空目录。")]
         public bool EnableDeepDelete { get; set; } = false;
@@ -59,10 +62,14 @@ namespace MediaInfoKeeper.Options
         [DisplayName("隐藏无图人物")]
         [Description("在电影、剧集、季、集详情页中过滤没有主图的人物。")]
         public bool HidePersonNoImage { get; set; } = false;
-    
-        [DisplayName("接管系统新入库通知")]
-        [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知，用于配合MP插件——媒体服务器通知，通知新入库；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
-        public bool TakeOverSystemLibraryNew { get; set; } = false;
+
+        [DisplayName("禁止自动合集")]
+        [Description("阻止 Emby 自动创建 BoxSets 合集库，并在用户视图中过滤该入口。")]
+        public bool NoBoxsetsAutoCreation { get; set; } = false;
+
+        [DisplayName("统一媒体库顺序")]
+        [Description("让所有用户的媒体库顺序跟随首个管理员的 OrderedViews 配置。")]
+        public bool EnforceLibraryOrder { get; set; } = false;
 
         public void Initialize()
         {
@@ -135,18 +142,24 @@ namespace MediaInfoKeeper.Options
                 nameof(SearchScope),
                 nameof(ExcludeOriginalTitleFromSearch));
 
+            AddGroup("演员人物", "",
+                nameof(HidePersonNoImage));
+
             AddGroup("NFO增强", "",
                 nameof(EnableNfoMetadataEnhance));
 
-            AddGroup("演员人物", "",
-                nameof(HidePersonNoImage));
+            AddGroup("通知", "",
+                nameof(TakeOverSystemLibraryNew));
             
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
-            
-            AddGroup("通知", "",
-                nameof(TakeOverSystemLibraryNew));
 
+            AddGroup("合集", "",
+                nameof(NoBoxsetsAutoCreation));
+
+            AddGroup("媒体库", "",
+                nameof(EnforceLibraryOrder));
+            
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)
             {

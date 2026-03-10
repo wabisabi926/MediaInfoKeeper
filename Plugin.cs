@@ -310,6 +310,8 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用深度删除 设置为 {options.Enhance.EnableDeepDelete}");
             this.logger.Info($"启用 NFO 增强 设置为 {options.Enhance.EnableNfoMetadataEnhance}");
             this.logger.Info($"隐藏无图人物 设置为 {options.Enhance.HidePersonNoImage}");
+            this.logger.Info($"禁止自动合集 设置为 {options.Enhance.NoBoxsetsAutoCreation}");
+            this.logger.Info($"统一媒体库顺序 设置为 {options.Enhance.EnforceLibraryOrder}");
             this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
             this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
             this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");

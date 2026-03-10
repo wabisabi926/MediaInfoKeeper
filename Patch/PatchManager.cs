@@ -125,6 +125,22 @@ namespace MediaInfoKeeper.Patch
                 HidePersonNoImage.Initialize(logger, safeOptions.Enhance.HidePersonNoImage);
                 UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
 
+                Register("NoBoxsetsAutoCreation");
+                NoBoxsetsAutoCreation.Initialize(logger, safeOptions.Enhance.NoBoxsetsAutoCreation);
+                UpdateTracker(
+                    "NoBoxsetsAutoCreation",
+                    safeOptions.Enhance.NoBoxsetsAutoCreation,
+                    NoBoxsetsAutoCreation.IsReady,
+                    null);
+
+                Register("EnforceLibraryOrder");
+                EnforceLibraryOrder.Initialize(logger, safeOptions.Enhance.EnforceLibraryOrder);
+                UpdateTracker(
+                    "EnforceLibraryOrder",
+                    safeOptions.Enhance.EnforceLibraryOrder,
+                    EnforceLibraryOrder.IsReady,
+                    null);
+
                 Register("NotificationSystem");
                 NotificationSystem.Initialize(logger);
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
@@ -152,6 +168,8 @@ namespace MediaInfoKeeper.Patch
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
             NfoMetadataEnhance.Configure(safeOptions.Enhance.EnableNfoMetadataEnhance);
             HidePersonNoImage.Configure(safeOptions.Enhance.HidePersonNoImage);
+            NoBoxsetsAutoCreation.Configure(safeOptions.Enhance.NoBoxsetsAutoCreation);
+            EnforceLibraryOrder.Configure(safeOptions.Enhance.EnforceLibraryOrder);
             MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
             MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
@@ -187,6 +205,16 @@ namespace MediaInfoKeeper.Patch
                 NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
                 NfoMetadataEnhance.IsWaiting);
             UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
+            UpdateTracker(
+                "NoBoxsetsAutoCreation",
+                safeOptions.Enhance.NoBoxsetsAutoCreation,
+                NoBoxsetsAutoCreation.IsReady,
+                null);
+            UpdateTracker(
+                "EnforceLibraryOrder",
+                safeOptions.Enhance.EnforceLibraryOrder,
+                EnforceLibraryOrder.IsReady,
+                null);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
             SystemLog.Configure(true);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");

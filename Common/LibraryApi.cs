@@ -14,6 +14,8 @@ namespace MediaInfoKeeper.Common
         public static Dictionary<User, bool> AllUsers { get; private set; } =
             new Dictionary<User, bool>();
 
+        public static string[] AdminOrderedViews { get; private set; } = Array.Empty<string>();
+
         public static void Initialize(IUserManager manager)
         {
             userManager = manager;
@@ -31,11 +33,20 @@ namespace MediaInfoKeeper.Common
             {
                 var users = userManager.GetUserList(new UserQuery()) ?? Array.Empty<User>();
                 AllUsers = users.ToDictionary(u => u, u => u.Policy?.IsAdministrator == true);
+                AdminOrderedViews = users.FirstOrDefault(u => u.Policy?.IsAdministrator == true)
+                    ?.Configuration?.OrderedViews ?? AdminOrderedViews;
             }
             catch
             {
                 AllUsers = new Dictionary<User, bool>();
+                AdminOrderedViews = Array.Empty<string>();
             }
+        }
+
+        public static string[] FetchAdminOrderedViews()
+        {
+            FetchUsers();
+            return AdminOrderedViews;
         }
     }
 }
