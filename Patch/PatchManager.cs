@@ -121,6 +121,10 @@ namespace MediaInfoKeeper.Patch
                     NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
                     NfoMetadataEnhance.IsWaiting);
 
+                Register("HidePersonNoImage");
+                HidePersonNoImage.Initialize(logger, safeOptions.Enhance.HidePersonNoImage);
+                UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
+
                 Register("NotificationSystem");
                 NotificationSystem.Initialize(logger);
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
@@ -147,6 +151,7 @@ namespace MediaInfoKeeper.Patch
             ChineseSearch.Configure(safeOptions.Enhance);
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
             NfoMetadataEnhance.Configure(safeOptions.Enhance.EnableNfoMetadataEnhance);
+            HidePersonNoImage.Configure(safeOptions.Enhance.HidePersonNoImage);
             MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
             MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
@@ -181,6 +186,7 @@ namespace MediaInfoKeeper.Patch
                 NfoMetadataEnhance.IsReady,
                 NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
                 NfoMetadataEnhance.IsWaiting);
+            UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
             SystemLog.Configure(true);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");

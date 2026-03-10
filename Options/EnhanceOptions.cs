@@ -55,6 +55,10 @@ namespace MediaInfoKeeper.Options
         [DisplayName("启用 NFO 增强")]
         [Description("增强 NFO 人物节点解析，导入使用 actor/director 等人物中的 thumb 图片地址。")]
         public bool EnableNfoMetadataEnhance { get; set; } = true;
+
+        [DisplayName("隐藏无图人物")]
+        [Description("在电影、剧集、季、集详情页中过滤没有主图的人物。")]
+        public bool HidePersonNoImage { get; set; } = false;
     
         [DisplayName("接管系统新入库通知")]
         [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知，用于配合MP插件——媒体服务器通知，通知新入库；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
@@ -133,6 +137,9 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("NFO增强", "",
                 nameof(EnableNfoMetadataEnhance));
+
+            AddGroup("演员人物", "",
+                nameof(HidePersonNoImage));
             
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
