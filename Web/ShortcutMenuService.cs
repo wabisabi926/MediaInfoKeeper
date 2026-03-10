@@ -119,6 +119,19 @@ namespace MediaInfoKeeper.Web
                     continue;
                 }
 
+                if (item is MusicAlbum || item is MusicArtist || item is MusicGenre)
+                {
+                    foreach (var audioItem in ExpandToAudioItems(item))
+                    {
+                        if (audioItem.ExtraType == null && known.Add(audioItem.InternalId))
+                        {
+                            targets.Add(audioItem);
+                        }
+                    }
+
+                    continue;
+                }
+
                 if (!(item is Series || item is Season))
                 {
                     continue;
@@ -135,6 +148,24 @@ namespace MediaInfoKeeper.Web
             }
 
             return targets;
+        }
+
+        private IEnumerable<Audio> ExpandToAudioItems(BaseItem item)
+        {
+            if (item == null)
+            {
+                return Array.Empty<Audio>();
+            }
+
+            return _libraryManager.GetItemList(new InternalItemsQuery
+                {
+                    Recursive = true,
+                    HasPath = true,
+                    MediaTypes = new[] { MediaBrowser.Model.Entities.MediaType.Audio },
+                    IncludeItemTypes = new[] { nameof(Audio) },
+                    ParentIds = new[] { item.InternalId }
+                })
+                .OfType<Audio>();
         }
     }
 }

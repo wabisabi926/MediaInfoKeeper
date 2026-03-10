@@ -20,7 +20,17 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
             return [];
         }
 
-        const supportedTypes = { Movie: true, Episode: true, Season: true, Series: true, Video: true };
+        const supportedTypes = {
+            Movie: true,
+            Episode: true,
+            Season: true,
+            Series: true,
+            Video: true,
+            Audio: true,
+            MusicAlbum: true,
+            MusicArtist: true,
+            MusicGenre: true
+        };
         if (!items.every(item => supportedTypes[item.Type])) {
             return [];
         }
