@@ -1,5 +1,3 @@
-MediaInfoKeeper
-===============
 
 <p align="center">
   <img src="Resources/ThumbImage.png" alt="MediaInfoKeeper" width="320" />

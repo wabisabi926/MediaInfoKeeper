@@ -71,7 +71,14 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            document.MediaSourceInfo = CreateForPersist(item);
+            var mediaSourceInfo = CreateForPersist(item);
+            if (!HasPersistablePrimaryStream(mediaSourceInfo))
+            {
+                this.logger.Info($"MediaSourceInfoStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
+                return false;
+            }
+
+            document.MediaSourceInfo = mediaSourceInfo;
             SaveDocuments(documents, document, mediaInfoJsonPath);
             this.logger.Info($"MediaSourceInfoStore Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
             return true;
@@ -82,7 +89,14 @@ namespace MediaInfoKeeper.Services
             var mediaInfoJsonPath = MediaInfoDocument.GetMediaInfoJsonPath(item);
             var documents = ReadDocuments(mediaInfoJsonPath);
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
-            document.MediaSourceInfo = CreateForPersist(item);
+            var mediaSourceInfo = CreateForPersist(item);
+            if (!HasPersistablePrimaryStream(mediaSourceInfo))
+            {
+                this.logger.Info($"MediaSourceInfoStore 覆盖Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
+                return;
+            }
+
+            document.MediaSourceInfo = mediaSourceInfo;
             SaveDocuments(documents, document, mediaInfoJsonPath);
             this.logger.Info($"MediaSourceInfoStore 覆盖Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
         }
@@ -127,9 +141,9 @@ namespace MediaInfoKeeper.Services
             }
 
             var mediaSourceInfo = ReadFromFile(item);
-            if (mediaSourceInfo?.RunTimeTicks.HasValue is not true)
+            if (!HasPersistablePrimaryStream(mediaSourceInfo))
             {
-                this.logger.Info($"MediaSourceInfoStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效媒体源信息");
+                this.logger.Info($"MediaSourceInfoStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效音视频流");
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
@@ -203,6 +217,17 @@ namespace MediaInfoKeeper.Services
             }
 
             return mediaSource;
+        }
+
+        private static bool HasPersistablePrimaryStream(MediaSourceInfo mediaSourceInfo)
+        {
+            if (mediaSourceInfo?.RunTimeTicks.HasValue is not true)
+            {
+                return false;
+            }
+
+            return (mediaSourceInfo.MediaStreams ?? new List<MediaStream>())
+                .Any(stream => stream.Type == MediaStreamType.Video || stream.Type == MediaStreamType.Audio);
         }
 
         private List<MediaInfoDocument> ReadDocuments(string mediaInfoJsonPath)

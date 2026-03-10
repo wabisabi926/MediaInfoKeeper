@@ -43,11 +43,6 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            if (item.Size == 0)
-            {
-                return false;
-            }
-
             return item.GetMediaStreams().Any(i => i.Type == MediaStreamType.Video || i.Type == MediaStreamType.Audio);
         }
 
