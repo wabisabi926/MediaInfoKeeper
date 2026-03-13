@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using HarmonyLib;
+using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.TV;
@@ -26,8 +27,6 @@ namespace MediaInfoKeeper.Patch
         private static ILogger logger;
         private static bool isEnabled;
         private static IDirectoryService directoryService;
-        private static readonly ConcurrentDictionary<long, long> restoreVersionMap =
-            new ConcurrentDictionary<long, long>();
         public static bool IsReady => harmony != null && (staticCanRefresh != null || instanceCanRefresh != null);
         public static void Initialize(ILogger pluginLogger, bool enableWatcher)
         {
@@ -153,74 +152,7 @@ namespace MediaInfoKeeper.Patch
 
             try
             {
-                var itemId = item.InternalId;
-                var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                restoreVersionMap[itemId] = version;
-
-                logger?.Debug($"MetadataProvidersWatcher 检测到元数据刷新：刷新前已存在 MediaInfo，已加入延迟校验队列 {item.FileName ?? item.Path} InternalId:{item.InternalId}");
-
-                // 刷新前备份下以防万一
-                logger?.Debug($"MetadataProvidersWatcher 检查媒体信息备份 {item.FileName ?? item.Path}");
-
-                if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
-                {
-                    SystemLog.SuppressNext();
-                    Plugin.MediaSourceInfoStore.WriteToFile(item);
-
-                    if (!Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
-                    {
-                        SystemLog.SuppressNext();
-                        Plugin.ChaptersStore.WriteToFile(item);
-                    }
-                }
-
-                logger?.Debug($"{item.FileName ?? item.Path} 30s之后检查媒体信息");
-                _ = Task.Run(async () =>
-                {
-                    try
-                    {
-                        await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
-
-                        if (!restoreVersionMap.TryGetValue(itemId, out var latest) || latest != version)
-                        {
-                            return;
-                        }
-
-                        restoreVersionMap.TryRemove(itemId, out _);
-
-                        var workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? item;
-                        if (workItem == null || workItem.InternalId == 0 || !workItem.IsShortcut)
-                        {
-                            return;
-                        }
-
-                        if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
-                        {
-                            return;
-                        }
-
-                        if (Plugin.MediaInfoService.HasMediaInfo(workItem))
-                        {
-                            // 恢复时再次检查，看看是否fresh导致MediaInfo丢失，没丢失则跳过
-                            logger?.Debug($"{workItem.FileName ?? workItem.Path} 刷新元数据后，媒体信息仍然存在，跳过恢复");
-                            return;
-                        }
-
-                        logger?.Info($"MetadataProvidersWatcher {workItem.FileName ?? workItem.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
-
-                        Plugin.MediaSourceInfoStore.ApplyToItem(workItem);
-                        if (!Plugin.IntroScanService.HasIntroMarkers(workItem))
-                        {
-                            Plugin.ChaptersStore.ApplyToItem(workItem);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logger?.Error("MetadataProvidersWatcher 延迟恢复 MediaInfo 失败");
-                        logger?.Error(ex.Message);
-                    }
-                });
-
+                MediaInfoRestoreService.QueueRestore("MetadataProvidersWatcher", item, 30);
             }
             catch (Exception ex)
             {

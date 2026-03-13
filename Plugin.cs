@@ -361,7 +361,12 @@ namespace MediaInfoKeeper
 
         private void ConfigureStrmFileWatcher()
         {
-            StrmFileWatcher?.Configure(this.PlugginEnabled);
+            var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();
+            safeOptions.MainPage ??= new MainPageOptions();
+            safeOptions.MetaData ??= new MetaDataOptions();
+
+            StrmFileWatcher?.Configure(
+                this.PlugginEnabled && safeOptions.MetaData.EnableMetadataProvidersWatcher);
         }
 
         private string NormalizeScopedLibraries(string raw)

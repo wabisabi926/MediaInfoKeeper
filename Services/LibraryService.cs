@@ -166,6 +166,24 @@ namespace MediaInfoKeeper.Services
             return NormalizeLibraryPaths(libraries.SelectMany(folder => folder.Locations ?? Array.Empty<string>()));
         }
 
+        /// <summary>获取所有媒体库的物理根路径。</summary>
+        public List<string> GetAllLibraryPaths(bool existingOnly = true)
+        {
+            var paths = NormalizeLibraryPaths(
+                this.libraryManager.GetVirtualFolders()
+                    .Where(folder => folder?.Locations != null)
+                    .SelectMany(folder => folder.Locations ?? Array.Empty<string>()));
+
+            if (!existingOnly)
+            {
+                return paths;
+            }
+
+            return paths
+                .Where(path => Directory.Exists(path))
+                .ToList();
+        }
+
         /// <summary>按路径范围获取音视频条目。</summary>
         public List<BaseItem> FetchScopedVideoItems(IReadOnlyCollection<string> scopePaths, bool orderByDateCreatedDesc = false, int? take = null, bool includeAudio = false)
         {
