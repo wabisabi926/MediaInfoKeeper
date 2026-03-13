@@ -136,7 +136,7 @@ namespace MediaInfoKeeper.Services
                 }
 
                 this.pathVersionMap.TryRemove(path, out _);
-                this.logger?.Info($"StrmFileWatcher 检测到 strm 内容变更: {path} => {TryReadItemPathContent(path)}");
+                this.logger?.Info($"StrmFileWatcher 检测到 strm 内容变更: {path}");
                 QueueRestore(path);
             });
         }

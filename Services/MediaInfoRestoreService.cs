@@ -41,7 +41,7 @@ namespace MediaInfoKeeper.Services
                 var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 restoreVersionMap[itemId] = version;
 
-                logger?.Debug($"{source} 已加入媒体信息延迟校验队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                logger?.Info($"{source} 已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
 
                 _ = Task.Run(async () =>
                 {
@@ -73,7 +73,7 @@ namespace MediaInfoKeeper.Services
                             return;
                         }
 
-                        logger?.Info($"{source} {workItem.FileName ?? workItem.Path} 延迟检查后媒体信息缺失，开始尝试恢复媒体信息");
+                        logger?.Info($"{source} {workItem.FileName ?? workItem.Path} 延迟检查结束，媒体信息缺失，开始尝试恢复媒体信息");
 
                         var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
                             ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
@@ -110,12 +110,10 @@ namespace MediaInfoKeeper.Services
 
             if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
             {
-                SystemLog.SuppressNext();
                 Plugin.MediaSourceInfoStore.WriteToFile(item);
 
                 if (!Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
                 {
-                    SystemLog.SuppressNext();
                     Plugin.ChaptersStore.WriteToFile(item);
                 }
             }

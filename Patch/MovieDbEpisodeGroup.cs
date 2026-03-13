@@ -554,7 +554,7 @@ namespace MediaInfoKeeper.Patch
                 __state = mapped;
                 episode.ParentIndexNumber = mapped.MappedSeasonNumber;
                 episode.IndexNumber = mapped.MappedEpisodeNumber;
-                logger?.Info("MovieDbEpisodeGroup 集映射命中: S{0:00}E{1:00} -> TMDB S{2:00}E{3:00}",
+                logger?.Debug("MovieDbEpisodeGroup 集映射命中: S{0:00}E{1:00} -> TMDB S{2:00}E{3:00}",
                     mapped.LookupSeasonNumber ?? 0,
                     mapped.LookupEpisodeNumber ?? 0,
                     mapped.MappedSeasonNumber ?? 0,
@@ -655,7 +655,7 @@ namespace MediaInfoKeeper.Patch
                 {
                     __state = season.IndexNumber.Value;
                     season.IndexNumber = mappedSeasonNumber;
-                    logger?.Info("MovieDbEpisodeGroup 季图片映射命中: S{0:00} -> TMDB S{1:00}",
+                    logger?.Debug("MovieDbEpisodeGroup 季图片映射命中: S{0:00} -> TMDB S{1:00}",
                         __state.Value,
                         mappedSeasonNumber.Value);
                 }
@@ -717,7 +717,7 @@ namespace MediaInfoKeeper.Patch
                 __state = mapped;
                 episode.ParentIndexNumber = mapped.MappedSeasonNumber;
                 episode.IndexNumber = mapped.MappedEpisodeNumber;
-                logger?.Info("MovieDbEpisodeGroup 图片映射命中: S{0:00}E{1:00} -> TMDB S{2:00}E{3:00}",
+                logger?.Debug("MovieDbEpisodeGroup 图片映射命中: S{0:00}E{1:00} -> TMDB S{2:00}E{3:00}",
                     mapped.LookupSeasonNumber ?? 0,
                     mapped.LookupEpisodeNumber ?? 0,
                     mapped.MappedSeasonNumber ?? 0,
@@ -819,7 +819,7 @@ namespace MediaInfoKeeper.Patch
                 if (data != null)
                 {
                     LocalCache[localEpisodeGroupPath] = (lastWrite, data);
-                    logger?.Info("MovieDbEpisodeGroup 已加载本地剧集组: file={0}, id={1}",
+                    logger?.Debug("MovieDbEpisodeGroup 已加载本地剧集组: file={0}, id={1}",
                         localEpisodeGroupPath,
                         data.id ?? string.Empty);
                 }
@@ -882,7 +882,7 @@ namespace MediaInfoKeeper.Patch
                 }
 
                 OnlineCache[cacheKey] = (DateTimeOffset.UtcNow, data);
-                logger?.Info("MovieDbEpisodeGroup 已加载在线剧集组: tmdb={0}, id={1}, groups={2}",
+                logger?.Debug("MovieDbEpisodeGroup 已加载在线剧集组: tmdb={0}, id={1}, groups={2}",
                     seriesTmdbId,
                     data.id ?? episodeGroupId,
                     data.groups?.Count ?? 0);
@@ -918,7 +918,7 @@ namespace MediaInfoKeeper.Patch
                 File.WriteAllText(localEpisodeGroupPath, raw);
                 var lastWrite = File.GetLastWriteTimeUtc(localEpisodeGroupPath);
                 LocalCache[localEpisodeGroupPath] = (lastWrite, data);
-                logger?.Info("MovieDbEpisodeGroup 已写入本地剧集组: file={0}, id={1}",
+                logger?.Debug("MovieDbEpisodeGroup 已写入本地剧集组: file={0}, id={1}",
                     localEpisodeGroupPath,
                     data?.id ?? string.Empty);
             }

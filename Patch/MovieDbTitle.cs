@@ -720,7 +720,7 @@ namespace MediaInfoKeeper.Patch
                     item.Name = nameValue;
                 }
 
-                logger?.Info($"TMDB: {item.FileName ?? item.Path} 标题 '{nameValue ?? string.Empty}'");
+                logger?.Debug($"TMDB: {item.FileName ?? item.Path} 标题 '{nameValue ?? string.Empty}'");
 
                 var overview = GetPropertyString(response, "overview");
                 var decodedOverview = string.IsNullOrWhiteSpace(overview)
@@ -737,7 +737,7 @@ namespace MediaInfoKeeper.Patch
                     overviewPreview = overviewPreview.Substring(0, 30) + "...";
                 }
 
-                logger?.Info($"TMDB: {item.FileName ?? item.Path} 简介 '{overviewPreview}'");
+                logger?.Debug($"TMDB: {item.FileName ?? item.Path} 简介 '{overviewPreview}'");
             }
             catch (Exception ex)
             {

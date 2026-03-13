@@ -67,13 +67,13 @@ namespace MediaInfoKeeper.Services
 
                 try
                 {
-                    this.logger.Info($"开始片头检测: {displayName}");
+                    this.logger.Debug($"开始片头检测: {displayName}");
                     var stopwatch = Stopwatch.StartNew();
                     var detected = await TryDetectIntroAsync(episode, cancellationToken).ConfigureAwait(false);
                     stopwatch.Stop();
                     var hasMarkersAfterDetect = HasIntroMarkers(episode);
                     this.logger.Info(
-                        $"片头检测结果: status={(detected && hasMarkersAfterDetect ? "SUCCESS" : "FAIL")}, detected={detected}, hasMarkers={hasMarkersAfterDetect}, cost={stopwatch.ElapsedMilliseconds}ms, item={displayName}");
+                        $"片头检测结果: 状态={(detected && hasMarkersAfterDetect ? "成功" : "失败")}, 已检测到={(detected ? "是" : "否")}, 已写入标记={(hasMarkersAfterDetect ? "是" : "否")}, 耗时={stopwatch.ElapsedMilliseconds}ms, 条目={displayName}");
 
                     if (!detected)
                     {
@@ -81,7 +81,7 @@ namespace MediaInfoKeeper.Services
                     }
                     else if (hasMarkersAfterDetect)
                     {
-                        this.logger.Info($"片头检测成功: marker 已写入, item={displayName}");
+                        this.logger.Debug($"片头检测成功: marker 已写入, item={displayName}");
                         Plugin.ChaptersStore.OverWriteToFile(episode);
                     }
                     else
@@ -135,7 +135,7 @@ namespace MediaInfoKeeper.Services
                 var semaphoreHeld = false;
                 try
                 {
-                    this.logger.Info($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
+                    this.logger.Debug($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
                     var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
 
                     if (HasIntroMarkers(episode))
@@ -152,12 +152,12 @@ namespace MediaInfoKeeper.Services
                         return;
                     }
 
-                    this.logger.Info($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
+                    this.logger.Debug($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
 
                     await introScanSemaphore.WaitAsync().ConfigureAwait(false);
                     semaphoreHeld = true;
 
-                    this.logger.Info($"{source} 片头扫描: 开始片头检测 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
+                    this.logger.Debug($"{source} 片头扫描: 开始片头检测 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
                     await ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
                         .ConfigureAwait(false);
 

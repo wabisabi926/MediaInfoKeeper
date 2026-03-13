@@ -67,20 +67,20 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
             if (document.MediaSourceInfo != null)
             {
-                this.logger.Info($"MediaSourceInfoStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Debug($"MediaSourceInfoStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
             var mediaSourceInfo = CreateForPersist(item);
             if (!HasPersistablePrimaryStream(mediaSourceInfo))
             {
-                this.logger.Info($"MediaSourceInfoStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
+                this.logger.Debug($"MediaSourceInfoStore Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
                 return false;
             }
 
             document.MediaSourceInfo = mediaSourceInfo;
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"MediaSourceInfoStore Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"MediaSourceInfoStore Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 
@@ -92,13 +92,13 @@ namespace MediaInfoKeeper.Services
             var mediaSourceInfo = CreateForPersist(item);
             if (!HasPersistablePrimaryStream(mediaSourceInfo))
             {
-                this.logger.Info($"MediaSourceInfoStore 覆盖Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
+                this.logger.Debug($"MediaSourceInfoStore 覆盖Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
                 return;
             }
 
             document.MediaSourceInfo = mediaSourceInfo;
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"MediaSourceInfoStore 覆盖Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"MediaSourceInfoStore 覆盖Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
         }
 
         public bool DeleteFromFile(BaseItem item)
@@ -130,20 +130,20 @@ namespace MediaInfoKeeper.Services
         {
             if (item == null)
             {
-                this.logger.Info("MediaSourceInfoStore 恢复媒体源信息失败: 条目为空");
+                this.logger.Debug("MediaSourceInfoStore 恢复媒体源信息失败: 条目为空");
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
             if (Plugin.MediaInfoService?.HasMediaInfo(item) == true)
             {
-                this.logger.Info($"MediaSourceInfoStore 恢复媒体源信息跳过: {(item.FileName ?? item.Path)} 已存在媒体信息");
+                this.logger.Debug($"MediaSourceInfoStore 恢复媒体源信息跳过: {(item.FileName ?? item.Path)} 已存在媒体信息");
                 return MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists;
             }
 
             var mediaSourceInfo = ReadFromFile(item);
             if (!HasPersistablePrimaryStream(mediaSourceInfo))
             {
-                this.logger.Info($"MediaSourceInfoStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效音视频流");
+                this.logger.Debug($"MediaSourceInfoStore 恢复媒体源信息失败: {(item.FileName ?? item.Path)} JSON 中无有效音视频流");
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
@@ -174,7 +174,7 @@ namespace MediaInfoKeeper.Services
                     item.Width = videoStream.Width.GetValueOrDefault();
                     item.Height = videoStream.Height.GetValueOrDefault();
                 }
-                this.logger.Info($"MediaSourceInfoStore 恢复媒体源信息到条目完成: {(item.FileName ?? item.Path)}");
+                this.logger.Debug($"MediaSourceInfoStore 恢复媒体源信息到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
             }
             catch (Exception e)

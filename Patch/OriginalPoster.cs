@@ -654,7 +654,7 @@ namespace MediaInfoKeeper.Patch
                     var reordered = ApplyBackdropLanguageAndOrder(task.Result, libraryOptions, originalLanguage).ToList();
                     var afterFirst = reordered.FirstOrDefault(i => i != null && i.Type == ImageType.Primary);
 
-                    logger?.Info(
+                    logger?.Debug(
                         "OriginalPoster 原语言图片优先完成: item={0}, 原语言={1}, 原首图语言={2}, 优先原语言={3}, total={4}",
                         GetItemLabel(item),
                         originalLanguage,

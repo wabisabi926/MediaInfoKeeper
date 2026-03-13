@@ -450,7 +450,7 @@ namespace MediaInfoKeeper
                 if (!hasMediaInfo)
                 {
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
-                    this.logger.Info("尝试从 JSON 恢复 MediaInfo");
+                    this.logger.Debug("尝试从 JSON 恢复 MediaInfo");
                     var restoreResult = MediaSourceInfoStore.ApplyToItem(e.Item);
                     ChaptersStore.ApplyToItem(e.Item);
 
@@ -464,7 +464,7 @@ namespace MediaInfoKeeper
                         }
 
                         // 恢复失败时先触发媒体信息提取，再写入 JSON。
-                        this.logger.Info("恢复失败，初次入库，开始提取媒体信息");
+                        this.logger.Info($"入库媒体信息: JSON 恢复失败，开始提取 item={e.Item.FileName ?? e.Item.Path}");
 
                         // 触发一次刷新以提取 MediaInfo。
                         using (FfprobeGuard.Allow())
@@ -487,7 +487,7 @@ namespace MediaInfoKeeper
                                 .ConfigureAwait(false);
                         }
                         // 提取完成后写入 JSON。
-                        this.logger.Info("MediaSourceInfo 提取完成，写入 JSON");
+                        this.logger.Info($"入库媒体信息: 提取完成并写入 JSON item={e.Item.FileName ?? e.Item.Path}");
                         MediaSourceInfoStore.OverWriteToFile(e.Item);
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
@@ -495,7 +495,7 @@ namespace MediaInfoKeeper
                     {
                         var itemPath = e.Item.Path ?? e.Item.ContainingFolderPath ?? e.Item.Id.ToString();
                         var parentPath = e.Item.ContainingFolderPath;
-                        this.logger.Info($"JSON 恢复成功，准备扫描物理路径 item: {itemPath}");
+                        this.logger.Info($"入库媒体信息: JSON 恢复成功 item={itemPath}");
 
                         if (string.IsNullOrEmpty(parentPath))
                         {
@@ -548,7 +548,7 @@ namespace MediaInfoKeeper
                 // 已有 MediaInfo 时，直接用媒体信息覆盖写入 JSON，保持最新。
                 else
                 {
-                    this.logger.Info("已有 MediaInfo，覆盖写入 JSON");
+                    this.logger.Debug("已有 MediaInfo，覆盖写入 JSON");
                     MediaSourceInfoStore.OverWriteToFile(e.Item);
                     ChaptersStore.OverWriteToFile(e.Item);
                 }

@@ -122,7 +122,8 @@ namespace MediaInfoKeeper.Patch
 
             if (GuardCount.Value > 0)
             {
-                logger?.Info($"允许执行 ffprobe {__1} {__2}");
+                logger?.Info($"允许 ffprobe {__1} {__2}");
+                SystemLog.SuppressNext();
                 __3 = Math.Max(__3, 60000);
                 return true;
             }

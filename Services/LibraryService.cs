@@ -760,8 +760,8 @@ namespace MediaInfoKeeper.Services
             {
                 try
                 {
-                    this.logger.Info("DeepDelete - 尝试删除文件: " + path.FullName);
                     this.fileSystem.DeleteFile(path.FullName, true);
+                    this.logger.Info("DeepDelete - 删除文件成功: " + path.FullName);
                 }
                 catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException)
                 {

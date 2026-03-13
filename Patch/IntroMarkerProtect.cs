@@ -157,14 +157,14 @@ namespace MediaInfoKeeper.Patch
                 if (chapters == null || chapters.Count == 0)
                 {
                     // 避免用空的章节列表覆盖现有章节数据。
-                    logger?.Info($"片头保护 - 拦截 SaveChapters：提交的章节列表为空，禁止清空现有章节。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
+                    logger?.Debug($"片头保护 - 拦截 SaveChapters：提交的章节列表为空，禁止清空现有章节。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
                     return false;
                 }
 
                 if (HasIntroMarkers(itemId))
                 {
                     // 当前已有片头标记时，不允许被一份不含片头标记的结果覆盖。
-                    logger?.Info($"片头保护 - 拦截 SaveChapters：当前已存在片头标记，禁止被不含片头标记的结果覆盖。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
+                    logger?.Debug($"片头保护 - 拦截 SaveChapters：当前已存在片头标记，禁止被不含片头标记的结果覆盖。item: {item?.FileName ?? item?.Path ?? itemId.ToString()}, itemId: {itemId}");
                     return false;
                 }
             }

@@ -49,13 +49,13 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
             if (document.Chapters != null && document.Chapters.Count > 0)
             {
-                this.logger.Info($"ChaptersStore Json写入章节信息跳过: {(item.FileName ?? item.Path)}");
+                this.logger.Debug($"ChaptersStore Json写入章节信息跳过: {(item.FileName ?? item.Path)}");
                 return false;
             }
 
             document.Chapters = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"ChaptersStore Json写入章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"ChaptersStore Json写入章节信息成功: {(item.FileName ?? item.Path)}");
             return true;
         }
 
@@ -66,7 +66,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
             document.Chapters = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Info($"ChaptersStore 覆盖Json写入章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"ChaptersStore 覆盖Json写入章节信息成功: {(item.FileName ?? item.Path)}");
         }
 
         private List<ChapterInfo> CreateForPersist(BaseItem item)
@@ -85,21 +85,21 @@ namespace MediaInfoKeeper.Services
         {
             if (item == null)
             {
-                this.logger.Info("ChaptersStore 恢复章节失败: 条目为空");
+                this.logger.Debug("ChaptersStore 恢复章节失败: 条目为空");
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
             var existingChapters = this.itemRepository.GetChapters(item) ?? new List<ChapterInfo>();
             if (existingChapters.Count > 0)
             {
-                this.logger.Info($"ChaptersStore 恢复章节跳过: {(item.FileName ?? item.Path)} 已存在章节信息");
+                this.logger.Debug($"ChaptersStore 恢复章节跳过: {(item.FileName ?? item.Path)} 已存在章节信息");
                 return MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists;
             }
 
             var chapters = ReadFromFile(item);
             if (chapters.Count == 0)
             {
-                this.logger.Info($"ChaptersStore 恢复章节失败: {(item.FileName ?? item.Path)} JSON 中无章节数据");
+                this.logger.Debug($"ChaptersStore 恢复章节失败: {(item.FileName ?? item.Path)} JSON 中无章节数据");
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
@@ -109,7 +109,7 @@ namespace MediaInfoKeeper.Services
                 {
                     this.itemRepository.SaveChapters(item.InternalId, true, chapters ?? new List<ChapterInfo>());
                 }
-                this.logger.Info($"ChaptersStore 恢复章节到条目完成: {(item.FileName ?? item.Path)}");
+                this.logger.Debug($"ChaptersStore 恢复章节到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
             }
             catch (Exception e)
