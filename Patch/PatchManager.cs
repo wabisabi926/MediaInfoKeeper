@@ -146,7 +146,7 @@ namespace MediaInfoKeeper.Patch
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
 
                 Register("SystemLog");
-                SystemLog.Initialize(logger, true);
+                SystemLog.Initialize(logger, true, safeOptions.Enhance.SystemLogNameBlacklist);
                 UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
                 LogTrackerSummary();
@@ -216,7 +216,7 @@ namespace MediaInfoKeeper.Patch
                 EnforceLibraryOrder.IsReady,
                 null);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
-            SystemLog.Configure(true);
+            SystemLog.Configure(true, safeOptions.Enhance.SystemLogNameBlacklist);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
             LogTrackerSummary();

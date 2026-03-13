@@ -319,6 +319,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
             this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
             this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");
+            this.logger.Info($"日志来源黑名单 设置为 {(string.IsNullOrWhiteSpace(options.Enhance.SystemLogNameBlacklist) ? "空" : options.Enhance.SystemLogNameBlacklist)}");
 
             this.logger.Info("[MetaData]");
             this.logger.Info($"启用剧集元数据变动监听 设置为 {options.MetaData.EnableMetadataProvidersWatcher}");
