@@ -166,7 +166,7 @@ namespace MediaInfoKeeper.Services
             return workEpisode;
         }
 
-        private async Task<string> GetStrmMountPathAsync(string strmPath)
+        public async Task<string> GetStrmMountPathAsync(string strmPath)
         {
             if (string.IsNullOrWhiteSpace(strmPath))
             {
@@ -175,7 +175,7 @@ namespace MediaInfoKeeper.Services
 
             if (this.mediaMountManager == null)
             {
-                this.logger.Warn("片头扫描预提取: IMediaMountManager 为空，无法解析 strm 挂载路径");
+                this.logger.Warn("MediaMountManager 为空，无法解析 strm 挂载路径");
                 return null;
             }
 
@@ -187,7 +187,7 @@ namespace MediaInfoKeeper.Services
             }
             catch (Exception ex)
             {
-                this.logger.Warn($"片头扫描预提取: strm 挂载路径解析异常 {strmPath}");
+                this.logger.Warn($"strm 挂载路径解析异常 {strmPath}");
                 this.logger.Warn(ex.Message);
                 return null;
             }

@@ -52,6 +52,7 @@ namespace MediaInfoKeeper
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
         public static IntroScanService IntroScanService { get; private set; }
+        public static StrmFileWatcher StrmFileWatcher { get; private set; }
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -156,6 +157,7 @@ namespace MediaInfoKeeper
             IntroScanService = new IntroScanService(logManager, libraryManager);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
+            StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
             ShortcutMenuLoader.Initialize(serverConfigurationManager);
 
             if (this.Options.IntroSkip?.EnableIntroSkip == true)
@@ -164,6 +166,8 @@ namespace MediaInfoKeeper
                 IntroSkipPlaySessionMonitor.UpdateLibraryPathsInScope(this.Options.IntroSkip.LibraryScope);
                 IntroSkipPlaySessionMonitor.UpdateUsersInScope(this.Options.IntroSkip.UserScope);
             }
+
+            ConfigureStrmFileWatcher();
 
             this.libraryManager.ItemAdded += this.OnItemAdded;
             this.libraryManager.ItemRemoved += this.OnItemRemoved;
@@ -351,6 +355,13 @@ namespace MediaInfoKeeper
                 IntroSkipPlaySessionMonitor.Dispose();
             }
 
+            ConfigureStrmFileWatcher();
+
+        }
+
+        private void ConfigureStrmFileWatcher()
+        {
+            StrmFileWatcher?.Configure(this.PlugginEnabled);
         }
 
         private string NormalizeScopedLibraries(string raw)

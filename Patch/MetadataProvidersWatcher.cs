@@ -1,12 +1,17 @@
 using System;
+using System.Collections.Concurrent;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using HarmonyLib;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.TV;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Logging;
+using MediaInfoKeeper.Common;
 
 namespace MediaInfoKeeper.Patch
 {
@@ -20,6 +25,9 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo instanceCanRefresh;
         private static ILogger logger;
         private static bool isEnabled;
+        private static IDirectoryService directoryService;
+        private static readonly ConcurrentDictionary<long, long> restoreVersionMap =
+            new ConcurrentDictionary<long, long>();
         public static bool IsReady => harmony != null && (staticCanRefresh != null || instanceCanRefresh != null);
         public static void Initialize(ILogger pluginLogger, bool enableWatcher)
         {
@@ -27,6 +35,7 @@ namespace MediaInfoKeeper.Patch
 
             logger = pluginLogger;
             isEnabled = enableWatcher;
+            directoryService = new DirectoryService(pluginLogger, Plugin.FileSystem);
 
             try
             {
@@ -101,9 +110,8 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            if (IsVideoImageProviderWithEpisode(__args, out var item))
+            if (TryGetWatchedShortcutItem(__args, out var item))
             {
-                // 刷新媒体信息时，VideoImageProvider 会调用 EpisodeMetadataProvider 的 CanRefresh 来判断是否需要刷新媒体信息，此时如果 Episode 已经存在 MediaInfo，则说明是刷新后的回调，此时加入延迟恢复队列，10s 后恢复媒体信息，以覆盖可能被刷新掉的 MediaInfo
                 var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
                 if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true && workItem.IsShortcut)
                 {
@@ -113,7 +121,7 @@ namespace MediaInfoKeeper.Patch
             return true;
         }
 
-        private static bool IsVideoImageProviderWithEpisode(object[] args, out BaseItem item)
+        private static bool TryGetWatchedShortcutItem(object[] args, out BaseItem item)
         {
             item = null;
             if (args == null || args.Length < 2) return false;
@@ -127,7 +135,10 @@ namespace MediaInfoKeeper.Patch
                 return false;
             }
 
-            if (args[1] is Episode baseItem && baseItem.InternalId != 0)
+            if (args[1] is BaseItem baseItem &&
+                baseItem.InternalId != 0 &&
+                baseItem.IsShortcut &&
+                (baseItem is Video || baseItem is Audio))
             {
                 item = baseItem;
                 return true;
@@ -136,37 +147,86 @@ namespace MediaInfoKeeper.Patch
             return false;
         }
 
-        private static void TriggerMediaInfoRestore(BaseItem item)
+        private static void TriggerMediaInfoRestore(BaseItem item,bool force = false)
         {
             if (item == null) return;
 
-            Task.Run(async () =>
+            try
             {
-                try
+                var itemId = item.InternalId;
+                var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                restoreVersionMap[itemId] = version;
+
+                logger?.Debug($"MetadataProvidersWatcher 检测到元数据刷新：刷新前已存在 MediaInfo，已加入延迟校验队列 {item.FileName ?? item.Path} InternalId:{item.InternalId}");
+
+                // 刷新前备份下以防万一
+                logger?.Debug($"MetadataProvidersWatcher 检查媒体信息备份 {item.FileName ?? item.Path}");
+
+                if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
                 {
-                    logger?.Debug($"MetadataProvidersWatcher 检测到元数据刷新，刷新前存在 MediaInfo，已加入延迟检查队列 {item.FileName ?? item.Path} InternalId:{item.InternalId}");
-                    logger?.Debug($"{item.FileName ?? item.Path} 30s之后检查媒体信息");
-                    await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
-                    if (Plugin.MediaInfoService.HasMediaInfo(item))
+                    SystemLog.SuppressNext();
+                    Plugin.MediaSourceInfoStore.WriteToFile(item);
+
+                    if (!Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
                     {
-                        // 恢复时再次检查，看看是否fresh导致MediaInfo丢失，没丢失则跳过
-                        logger?.Debug($"{item.FileName ?? item.Path} 刷新元数据后，媒体信息仍然存在，跳过恢复");
-                        return;
-                    }
-                    logger?.Info($"MetadataProvidersWatcher {item.FileName ?? item.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
-                    
-                    Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                    if (!Plugin.IntroScanService.HasIntroMarkers(item))
-                    {
-                        Plugin.ChaptersStore.ApplyToItem(item);
+                        SystemLog.SuppressNext();
+                        Plugin.ChaptersStore.WriteToFile(item);
                     }
                 }
-                catch (Exception ex)
+
+                logger?.Debug($"{item.FileName ?? item.Path} 30s之后检查媒体信息");
+                _ = Task.Run(async () =>
                 {
-                    logger?.Error("MetadataProvidersWatcher 恢复 MediaInfo 失败");
-                    logger?.Error(ex.Message);
-                }
-            });
+                    try
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
+
+                        if (!restoreVersionMap.TryGetValue(itemId, out var latest) || latest != version)
+                        {
+                            return;
+                        }
+
+                        restoreVersionMap.TryRemove(itemId, out _);
+
+                        var workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? item;
+                        if (workItem == null || workItem.InternalId == 0 || !workItem.IsShortcut)
+                        {
+                            return;
+                        }
+
+                        if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
+                        {
+                            return;
+                        }
+
+                        if (Plugin.MediaInfoService.HasMediaInfo(workItem))
+                        {
+                            // 恢复时再次检查，看看是否fresh导致MediaInfo丢失，没丢失则跳过
+                            logger?.Debug($"{workItem.FileName ?? workItem.Path} 刷新元数据后，媒体信息仍然存在，跳过恢复");
+                            return;
+                        }
+
+                        logger?.Info($"MetadataProvidersWatcher {workItem.FileName ?? workItem.Path} 刷新元数据后，媒体信息丢失，开始尝试恢复媒体信息");
+
+                        Plugin.MediaSourceInfoStore.ApplyToItem(workItem);
+                        if (!Plugin.IntroScanService.HasIntroMarkers(workItem))
+                        {
+                            Plugin.ChaptersStore.ApplyToItem(workItem);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger?.Error("MetadataProvidersWatcher 延迟恢复 MediaInfo 失败");
+                        logger?.Error(ex.Message);
+                    }
+                });
+
+            }
+            catch (Exception ex)
+            {
+                logger?.Error("MetadataProvidersWatcher 恢复 MediaInfo 失败");
+                logger?.Error(ex.Message);
+            }
         }
 
         private static MethodInfo ResolveStaticCanRefresh(Type providerManager)

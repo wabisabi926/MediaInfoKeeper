@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
+using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Querying;
 
 namespace MediaInfoKeeper.Common
@@ -47,6 +48,20 @@ namespace MediaInfoKeeper.Common
         {
             FetchUsers();
             return AdminOrderedViews;
+        }
+
+        public static bool HasFileChanged(BaseItem item, IDirectoryService directoryService)
+        {
+            if (item?.IsFileProtocol == true)
+            {
+                var file = directoryService.GetFile(item.Path);
+                if (file != null && item.HasDateModifiedChanged(file.LastWriteTimeUtc))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
