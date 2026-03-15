@@ -4,8 +4,8 @@
     <Description>MediaInfoKeeper Emby plugin</Description>
     <PackageTags>emby;plugin;pms;media;server;</PackageTags>
     <BaseOutputPath>Build\bin\</BaseOutputPath>
-    <AssemblyVersion>1.6.7.3</AssemblyVersion>
-    <FileVersion>1.6.7.3</FileVersion>
+    <AssemblyVersion>1.6.7.4</AssemblyVersion>
+    <FileVersion>1.6.7.4</FileVersion>
     <Version>1.6.7</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>

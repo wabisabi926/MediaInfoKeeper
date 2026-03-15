@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -122,13 +121,12 @@ namespace MediaInfoKeeper.Patch
 
             if (GuardCount.Value > 0)
             {
-                logger?.Info($"允许 ffprobe {__1} {__2}");
+                logger?.Info($"""允许 ffprobe {Regex.Match(__2, @"-i\s+file:""[^""]+""").Value}""");
                 SystemLog.SuppressNext();
                 __3 = Math.Max(__3, 60000);
                 return true;
             }
-
-            logger?.Info($"拦截 ffprobe {__1} {__2}");
+            logger?.Info($"""拦截 ffprobe {Regex.Match(__2, @"-i\s+file:""[^""]+""").Value}""");
             // 抑制显示App Error ffprobe Error
             SystemLog.SuppressNext();
             __result = emptyResult;
