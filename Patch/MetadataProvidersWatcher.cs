@@ -112,7 +112,8 @@ namespace MediaInfoKeeper.Patch
             if (TryGetWatchedShortcutItem(__args, out var item))
             {
                 var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-                if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true && workItem.IsShortcut)
+                if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true &&
+                    LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
                 {
                     TriggerMediaInfoRestore(workItem);
                 }
@@ -136,7 +137,7 @@ namespace MediaInfoKeeper.Patch
 
             if (args[1] is BaseItem baseItem &&
                 baseItem.InternalId != 0 &&
-                baseItem.IsShortcut &&
+                LibraryService.IsFileShortcut(baseItem.Path ?? baseItem.FileName) &&
                 (baseItem is Video || baseItem is Audio))
             {
                 item = baseItem;

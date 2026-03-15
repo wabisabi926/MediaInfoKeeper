@@ -25,7 +25,9 @@ namespace MediaInfoKeeper.Services
             try
             {
                 var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-                if (workItem == null || workItem.InternalId == 0 || !workItem.IsShortcut)
+                if (workItem == null ||
+                    workItem.InternalId == 0 ||
+                    !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
                 {
                     return;
                 }
@@ -57,7 +59,9 @@ namespace MediaInfoKeeper.Services
                         restoreVersionMap.TryRemove(itemId, out _);
 
                         workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? workItem;
-                        if (workItem == null || workItem.InternalId == 0 || !workItem.IsShortcut)
+                        if (workItem == null ||
+                            workItem.InternalId == 0 ||
+                            !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
                         {
                             return;
                         }

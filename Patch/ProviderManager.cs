@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
+using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Providers;
@@ -216,7 +217,7 @@ namespace MediaInfoKeeper.Patch
             }
 
             // 允许 所有本地文件 ffprobe
-            if (!Plugin.LibraryService.IsShortcut(item))
+            if (!LibraryService.IsFileShortcut(item.Path ?? item.FileName))
             {
                 FfprobeGuard.BeginAllow();
                 return true;

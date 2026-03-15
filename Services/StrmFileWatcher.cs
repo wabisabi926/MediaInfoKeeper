@@ -162,7 +162,7 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                if (!item.IsShortcut)
+                if (!LibraryService.IsFileShortcut(item.Path ?? item.FileName))
                 {
                     return;
                 }

@@ -113,7 +113,7 @@ namespace MediaInfoKeeper.Services
             var workEpisode = this.libraryManager.GetItemById(episode.InternalId) as Episode ?? episode;
             var ds = directoryService ?? new DirectoryService(this.logger, this.fileSystem);
 
-            if (workEpisode.IsShortcut)
+            if (LibraryService.IsFileShortcut(workEpisode.Path ?? workEpisode.FileName))
             {
                 var mountedPath = await GetStrmMountPathAsync(workEpisode.Path).ConfigureAwait(false);
                 if (string.IsNullOrEmpty(mountedPath))
