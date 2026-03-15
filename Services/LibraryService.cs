@@ -1027,5 +1027,27 @@ namespace MediaInfoKeeper.Services
 
             return targetOptions;
         }
+
+        public bool IsShortcut(BaseItem item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            var path = item.Path;
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                return path.EndsWith(".strm", StringComparison.OrdinalIgnoreCase);
+            }
+
+            var fileName = item.FileName;
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                return fileName.EndsWith(".strm", StringComparison.OrdinalIgnoreCase);
+            }
+
+            return false;
+        }
     }
 }

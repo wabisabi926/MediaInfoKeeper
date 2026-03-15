@@ -33,6 +33,11 @@ namespace MediaInfoKeeper.Patch
                 FfprobeGuard.Initialize(logger, safeOptions.MainPage.DisableSystemFfprobe);
                 UpdateTracker("FfprobeGuard", safeOptions.MainPage.DisableSystemFfprobe, FfprobeGuard.IsReady, null);
 
+                Register("ProviderManager");
+                ProviderManager.Initialize(logger, safeOptions.MainPage.DisableSystemFfprobe);
+                UpdateTracker("ProviderManager", safeOptions.MainPage.DisableSystemFfprobe,
+                    ProviderManager.IsReady, null);
+
                 Register("ImageCapture");
                 ImageCapture.Initialize(logger, safeOptions.MetaData.EnableImageCapture);
                 UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
@@ -159,6 +164,7 @@ namespace MediaInfoKeeper.Patch
             var netWorkOptions = safeOptions.GetNetWorkOptions();
 
             FfprobeGuard.Configure(safeOptions.MainPage.DisableSystemFfprobe);
+            ProviderManager.Configure(safeOptions.MainPage.DisableSystemFfprobe);
             ImageCapture.Configure(safeOptions.MetaData.EnableImageCapture);
             MetadataProvidersWatcher.Configure(safeOptions.MetaData.EnableMetadataProvidersWatcher);
             IntroUnlock.Configure(safeOptions);
@@ -177,6 +183,8 @@ namespace MediaInfoKeeper.Patch
             IntroMarkerProtect.Configure(safeOptions.IntroSkip.ProtectIntroMarkers);
 
             UpdateTracker("FfprobeGuard", safeOptions.MainPage.DisableSystemFfprobe, FfprobeGuard.IsReady, null);
+            UpdateTracker("ProviderManager", safeOptions.MainPage.DisableSystemFfprobe,
+                ProviderManager.IsReady, null);
             UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
             UpdateTracker("MetadataProvidersWatcher", safeOptions.MetaData.EnableMetadataProvidersWatcher,
                 MetadataProvidersWatcher.IsReady, null);

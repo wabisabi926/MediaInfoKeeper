@@ -1,0 +1,296 @@
+using System;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using HarmonyLib;
+using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Providers;
+using MediaBrowser.Model.Configuration;
+using MediaBrowser.Model.Logging;
+
+namespace MediaInfoKeeper.Patch
+{
+    /// <summary>
+    /// 在 ProviderManager 刷新音频条目时临时放行 ffprobe，覆盖音频封面提取路径。
+    /// </summary>
+    public static class ProviderManager
+    {
+        private static Harmony harmony;
+        private static MethodInfo refreshItem;
+        private static MethodInfo refreshItemByNameChildren;
+        private static MethodInfo refreshSingleItem;
+        private static ILogger logger;
+
+        public static bool IsReady => harmony != null && (refreshItem != null || refreshItemByNameChildren != null || refreshSingleItem != null);
+
+        public static void Initialize(ILogger pluginLogger, bool enabled)
+        {
+            if (harmony != null)
+            {
+                return;
+            }
+
+            logger = pluginLogger;
+            if (!enabled)
+            {
+                return;
+            }
+
+            try
+            {
+                var embyProviders = Assembly.Load("Emby.Providers");
+                var providerManagerType = embyProviders?.GetType("Emby.Providers.Manager.ProviderManager");
+                if (providerManagerType == null)
+                {
+                    PatchLog.InitFailed(logger, nameof(ProviderManager), "未找到 ProviderManager 类型");
+                    return;
+                }
+
+                var assemblyVersion = embyProviders.GetName().Version;
+                refreshItem = ResolveMethod(
+                    providerManagerType,
+                    assemblyVersion,
+                    "refresh-item-exact",
+                    "RefreshItem",
+                    new[]
+                    {
+                        typeof(BaseItem),
+                        typeof(MetadataRefreshOptions),
+                        typeof(CancellationToken)
+                    },
+                    typeof(Task),
+                    "ProviderManager.RefreshItem");
+                refreshItemByNameChildren = ResolveMethod(
+                    providerManagerType,
+                    assemblyVersion,
+                    "refresh-item-by-name-children-exact",
+                    "RefreshItemByNameChildren",
+                    new[]
+                    {
+                        typeof(MusicAlbum),
+                        typeof(MetadataRefreshOptions),
+                        typeof(IProgress<double>),
+                        typeof(CancellationToken)
+                    },
+                    typeof(Task),
+                    "ProviderManager.RefreshItemByNameChildren");
+                refreshSingleItem = ResolveRefreshSingleItem(providerManagerType, assemblyVersion);
+
+                if (refreshItem == null && refreshItemByNameChildren == null && refreshSingleItem == null)
+                {
+                    PatchLog.InitFailed(logger, nameof(ProviderManager), "未命中任何 Refresh 方法");
+                    return;
+                }
+
+                harmony = new Harmony("mediainfokeeper.providermanager");
+                PatchMethod(refreshItem, nameof(RefreshItemPrefix), nameof(RefreshItemPostfix));
+                PatchMethod(refreshItemByNameChildren, nameof(RefreshItemByNameChildrenPrefix), nameof(RefreshItemByNameChildrenPostfix));
+                PatchMethod(refreshSingleItem, nameof(RefreshSingleItemPrefix), nameof(RefreshSingleItemPostfix));
+            }
+            catch (Exception ex)
+            {
+                logger?.Error("ProviderManager patch 初始化失败");
+                logger?.Error(ex.Message);
+                logger?.Error(ex.ToString());
+                harmony = null;
+            }
+        }
+
+        public static void Configure(bool enabled)
+        {
+            // 跟随 FfprobeGuard 启用状态，当前实现为一次性安装。
+        }
+
+        private static MethodInfo ResolveMethod(
+            Type providerManagerType,
+            Version assemblyVersion,
+            string profileName,
+            string methodName,
+            Type[] parameterTypes,
+            Type returnType,
+            string context)
+        {
+            return PatchMethodResolver.Resolve(
+                providerManagerType,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = profileName,
+                    MethodName = methodName,
+                    BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                    ParameterTypes = parameterTypes,
+                    ReturnType = returnType
+                },
+                logger,
+                context);
+        }
+
+        private static MethodInfo ResolveRefreshSingleItem(Type providerManagerType, Version assemblyVersion)
+        {
+            var itemUpdateType = Assembly.Load("MediaBrowser.Controller")
+                ?.GetType("MediaBrowser.Controller.Library.ItemUpdateType");
+            if (itemUpdateType == null)
+            {
+                PatchLog.InitFailed(logger, nameof(ProviderManager), "未找到 ItemUpdateType");
+                return null;
+            }
+
+            return ResolveMethod(
+                providerManagerType,
+                assemblyVersion,
+                "refresh-single-item-exact",
+                "RefreshSingleItem",
+                new[]
+                {
+                    typeof(BaseItem),
+                    typeof(MetadataRefreshOptions),
+                    typeof(BaseItem[]),
+                    typeof(LibraryOptions),
+                    typeof(CancellationToken)
+                },
+                typeof(Task<>).MakeGenericType(itemUpdateType),
+                "ProviderManager.RefreshSingleItem");
+        }
+
+        private static void PatchMethod(MethodInfo method, string prefix, string postfix)
+        {
+            if (method == null)
+            {
+                return;
+            }
+
+            PatchLog.Patched(logger, nameof(ProviderManager), method);
+            harmony.Patch(
+                method,
+                prefix: new HarmonyMethod(typeof(ProviderManager), prefix),
+                postfix: new HarmonyMethod(typeof(ProviderManager), postfix));
+        }
+
+        private static void RefreshItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out bool __state)
+        {
+            __state = BeginRefreshFfprobeAllowance(__0);
+        }
+
+        private static void RefreshItemPostfix(ref Task __result, bool __state)
+        {
+            CompleteRefreshFfprobeAllowance(ref __result, __state);
+        }
+
+        private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out bool __state)
+        {
+            __state = BeginRefreshFfprobeAllowance(__0);
+        }
+
+        private static void RefreshItemByNameChildrenPostfix(ref Task __result, bool __state)
+        {
+            CompleteRefreshFfprobeAllowance(ref __result, __state);
+        }
+
+        private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out bool __state)
+        {
+            __state = BeginRefreshFfprobeAllowance(__0);
+        }
+
+        private static void RefreshSingleItemPostfix(ref object __result, bool __state)
+        {
+            if (!__state)
+            {
+                return;
+            }
+
+            if (__result is Task task)
+            {
+                __result = AwaitWithScope(task);
+                return;
+            }
+
+            FfprobeGuard.EndAllow();
+        }
+
+        private static bool BeginRefreshFfprobeAllowance(BaseItem item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            // 允许 所有本地文件 ffprobe
+            if (!Plugin.LibraryService.IsShortcut(item))
+            {
+                FfprobeGuard.BeginAllow();
+                return true;
+            }
+
+            // shortcut 音频封面特例子放行 ffprobe
+            if (item is Audio or MusicAlbum)
+            {
+                var libraryOptions = Plugin.LibraryManager?.GetLibraryOptions(item);
+                var allowEmbeddedAudioImages = libraryOptions?.ShareEmbeddedMusicAlbumImages == true;
+                if (!allowEmbeddedAudioImages) return false;
+                FfprobeGuard.BeginAllow();
+                return true;
+            }
+            
+            return false;
+        }
+
+        private static void CompleteRefreshFfprobeAllowance(ref Task task, bool enabled)
+        {
+            if (!enabled)
+            {
+                return;
+            }
+
+            task = task == null ? null : AwaitTask(task);
+            if (task == null)
+            {
+                FfprobeGuard.EndAllow();
+            }
+        }
+
+        private static object AwaitWithScope(Task task)
+        {
+            var taskType = task.GetType();
+            if (taskType == typeof(Task))
+            {
+                return AwaitTask(task);
+            }
+
+            if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<>))
+            {
+                var resultType = taskType.GetGenericArguments()[0];
+                var method = typeof(ProviderManager)
+                    .GetMethod(nameof(AwaitGenericTask), BindingFlags.Static | BindingFlags.NonPublic)
+                    ?.MakeGenericMethod(resultType);
+                return method?.Invoke(null, new object[] { task }) ?? task;
+            }
+
+            return task;
+        }
+
+        private static async Task AwaitTask(Task task)
+        {
+            try
+            {
+                await task.ConfigureAwait(false);
+            }
+            finally
+            {
+                FfprobeGuard.EndAllow();
+            }
+        }
+
+        private static async Task<T> AwaitGenericTask<T>(Task<T> task)
+        {
+            try
+            {
+                return await task.ConfigureAwait(false);
+            }
+            finally
+            {
+                FfprobeGuard.EndAllow();
+            }
+        }
+    }
+}

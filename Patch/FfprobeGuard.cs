@@ -18,7 +18,6 @@ namespace MediaInfoKeeper.Patch
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private static readonly AsyncLocal<int> GuardCount = new AsyncLocal<int>();
-
         private static Harmony harmony;
         private static MethodInfo runFfProcess;
         private static PropertyInfo standardOutput;
@@ -109,6 +108,19 @@ namespace MediaInfoKeeper.Patch
         {
             GuardCount.Value = GuardCount.Value + 1;
             return new GuardScope();
+        }
+
+        public static void BeginAllow()
+        {
+            GuardCount.Value = GuardCount.Value + 1;
+        }
+
+        public static void EndAllow()
+        {
+            if (GuardCount.Value > 0)
+            {
+                GuardCount.Value--;
+            }
         }
 
         private static bool RunFfProcessPrefix(object __instance, object __0, string __1, string __2,
@@ -274,11 +286,7 @@ namespace MediaInfoKeeper.Patch
         {
             public void Dispose()
             {
-                if (GuardCount.Value > 0)
-                {
-                    GuardCount.Value--;
-                }
-
+                EndAllow();
             }
         }
     }
