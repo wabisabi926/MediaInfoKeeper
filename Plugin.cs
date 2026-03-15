@@ -580,7 +580,7 @@ namespace MediaInfoKeeper
                         }
                         else
                         {
-                            this.logger.Info($"收藏入库通知跳过: 剧集={series.Name}，无收藏用户");
+                            this.logger.Debug($"收藏入库通知跳过: 剧集={series.Name}，无收藏用户");
                         }
                     }
                 }

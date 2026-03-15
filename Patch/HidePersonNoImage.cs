@@ -165,7 +165,7 @@ namespace MediaInfoKeeper.Patch
                 ? "[]"
                 : "[" + string.Join(", ", removedNames) + (filteredOutPeople.Length > 10 ? ", ..." : string.Empty) + "]";
 
-            logger?.Info(
+            logger?.Debug(
                 "HidePersonNoImage - 条目=\"{0}\" 类型={1} 人物过滤：过滤前={2}，过滤后={3}，移除={4}，移除人物={5}",
                 item.Name ?? string.Empty,
                 item.GetType().Name,

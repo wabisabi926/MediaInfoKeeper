@@ -207,7 +207,7 @@ namespace MediaInfoKeeper.Patch
             var originalUrl = urlProperty?.CanRead == true ? urlProperty.GetValue(requestOptions) as string : null;
             if (!string.IsNullOrWhiteSpace(originalUrl))
             {
-                logger?.Info("Emby {0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, originalUrl);
+                logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, originalUrl);
             }
 
             var options = Plugin.Instance.Options.GetNetWorkOptions();
