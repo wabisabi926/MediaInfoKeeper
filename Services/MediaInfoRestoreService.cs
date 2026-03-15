@@ -41,7 +41,7 @@ namespace MediaInfoKeeper.Services
                 var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 restoreVersionMap[itemId] = version;
 
-                logger?.Info($"{source} 已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                logger?.Debug($"{source} 已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
 
                 _ = Task.Run(async () =>
                 {

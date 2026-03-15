@@ -35,6 +35,10 @@ namespace MediaInfoKeeper.Options
         [Description("收藏时触发提取媒体信息，并写入 JSON。")]
         public bool ExtractMediaInfoOnFavorite { get; set; } = true;
 
+        [DisplayName("启用 Strm 内容修改监听")]
+        [Description("开启后监听媒体库内 .strm 文件内容变更，并独立排队恢复媒体信息。")]
+        public bool EnableStrmFileWatcher { get; set; } = true;
+
         [DisplayName("条目移除时删除 JSON")]
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
@@ -162,6 +166,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("媒体信息",
                 nameof(ExtractMediaInfoOnItemAdded),
                 nameof(ExtractMediaInfoOnFavorite),
+                nameof(EnableStrmFileWatcher),
                 nameof(DeleteMediaInfoJsonOnRemove),
                 nameof(DisableSystemFfprobe),
                 nameof(MediaInfoJsonRootFolder),

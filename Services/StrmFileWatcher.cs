@@ -172,7 +172,7 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                MediaInfoRestoreService.QueueRestore("StrmFileWatcher", item, 30);
+                MediaInfoRestoreService.QueueRestore("StrmFileWatcher", item, 10);
             }
             catch (Exception ex)
             {

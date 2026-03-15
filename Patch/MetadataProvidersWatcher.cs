@@ -152,7 +152,7 @@ namespace MediaInfoKeeper.Patch
 
             try
             {
-                MediaInfoRestoreService.QueueRestore("MetadataProvidersWatcher", item, 30);
+                MediaInfoRestoreService.QueueRestore("MetadataProvidersWatcher", item, 10);
             }
             catch (Exception ex)
             {

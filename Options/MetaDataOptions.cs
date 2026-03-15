@@ -28,7 +28,7 @@ namespace MediaInfoKeeper.Options
         public override string EditorTitle => "MetaData";
 
         [DisplayName("启用剧集元数据变动监听")]
-        [Description("开启后将监控媒体元数据刷新过程，当剧集触发封面刷新时延迟恢复媒体信息，避免 .strm 刷新后媒体信息丢失。同时，当修改strm文件内容时，emby会触发刷新媒体，所以也会恢复媒体信息。")]
+        [Description("开启后将监控剧集元数据刷新过程，当剧集触发封面刷新时延迟恢复媒体信息，避免刷新后媒体信息丢失。")]
         public bool EnableMetadataProvidersWatcher { get; set; } = true;
 
         [DisplayName("允许提取 Strm 封面")]

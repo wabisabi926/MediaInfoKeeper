@@ -294,6 +294,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用插件 设置为 {options.MainPage.PlugginEnabled}");
             this.logger.Info($"入库时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
             this.logger.Info($"收藏时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
+            this.logger.Info($"启用 Strm 内容修改监听 设置为 {options.MainPage.EnableStrmFileWatcher}");
             this.logger.Info($"MediaInfo JSON 存储根目录 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "空" : options.MainPage.MediaInfoJsonRootFolder)}");
             this.logger.Info($"条目移除时删除 JSON 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
             this.logger.Info($"追更媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "空" : options.MainPage.CatchupLibraries)}");
@@ -364,10 +365,8 @@ namespace MediaInfoKeeper
         {
             var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();
             safeOptions.MainPage ??= new MainPageOptions();
-            safeOptions.MetaData ??= new MetaDataOptions();
 
-            StrmFileWatcher?.Configure(
-                this.PlugginEnabled && safeOptions.MetaData.EnableMetadataProvidersWatcher);
+            StrmFileWatcher?.Configure(this.PlugginEnabled && safeOptions.MainPage.EnableStrmFileWatcher);
         }
 
         private string NormalizeScopedLibraries(string raw)
