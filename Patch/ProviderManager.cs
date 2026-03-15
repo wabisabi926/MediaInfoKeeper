@@ -168,94 +168,98 @@ namespace MediaInfoKeeper.Patch
                 postfix: new HarmonyMethod(typeof(ProviderManager), postfix));
         }
 
-        private static void RefreshItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out bool __state)
+        private static void RefreshItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
         {
             __state = BeginRefreshFfprobeAllowance(__0);
         }
 
-        private static void RefreshItemPostfix(ref Task __result, bool __state)
+        private static void RefreshItemPostfix(ref Task __result, FfprobeGuard.AllowanceHandle __state)
         {
             CompleteRefreshFfprobeAllowance(ref __result, __state);
         }
 
-        private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out bool __state)
+        private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
         {
             __state = BeginRefreshFfprobeAllowance(__0);
         }
 
-        private static void RefreshItemByNameChildrenPostfix(ref Task __result, bool __state)
+        private static void RefreshItemByNameChildrenPostfix(ref Task __result, FfprobeGuard.AllowanceHandle __state)
         {
             CompleteRefreshFfprobeAllowance(ref __result, __state);
         }
 
-        private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out bool __state)
+        private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
         {
             __state = BeginRefreshFfprobeAllowance(__0);
         }
 
-        private static void RefreshSingleItemPostfix(ref object __result, bool __state)
+        private static void RefreshSingleItemPostfix(ref object __result, FfprobeGuard.AllowanceHandle __state)
         {
-            if (!__state)
+            if (__state == null)
             {
                 return;
             }
 
             if (__result is Task task)
             {
-                __result = AwaitWithScope(task);
+                __result = AwaitWithScope(task, __state);
                 return;
             }
 
-            FfprobeGuard.EndAllow();
+            FfprobeGuard.EndAllow(__state);
         }
 
-        private static bool BeginRefreshFfprobeAllowance(BaseItem item)
+        private static FfprobeGuard.AllowanceHandle BeginRefreshFfprobeAllowance(BaseItem item)
         {
             if (item == null)
             {
-                return false;
+                return null;
             }
 
-            // 允许 所有本地文件 ffprobe
-            if (!LibraryService.IsFileShortcut(item.Path ?? item.FileName))
-            {
-                FfprobeGuard.BeginAllow();
-                return true;
-            }
+            var itemPath = item.Path ?? item.FileName;
+            var hasPath = !string.IsNullOrWhiteSpace(itemPath);
+            var isShortcut = LibraryService.IsFileShortcut(itemPath);
+            var isAudioOrMusicAlbum = item is Audio or MusicAlbum;
 
-            // shortcut 音频封面特例子放行 ffprobe
-            if (item is Audio or MusicAlbum)
+            logger.Info($"{itemPath} {isShortcut}");
+
+            var allowFfprobe = hasPath && !isShortcut;
+            if (hasPath && isShortcut && isAudioOrMusicAlbum)
             {
                 var libraryOptions = Plugin.LibraryManager?.GetLibraryOptions(item);
-                var allowEmbeddedAudioImages = libraryOptions?.ShareEmbeddedMusicAlbumImages == true;
-                if (!allowEmbeddedAudioImages) return false;
-                FfprobeGuard.BeginAllow();
-                return true;
+                allowFfprobe = libraryOptions?.ShareEmbeddedMusicAlbumImages == true;
             }
-            
-            return false;
+
+            return FfprobeGuard.BeginAllow(new FfprobeGuard.AllowanceContext
+            {
+                ItemInternalId = item.InternalId,
+                ItemPath = itemPath,
+                IsShortcut = isShortcut,
+                IsAudioOrMusicAlbum = isAudioOrMusicAlbum,
+                AllowFfprobe = allowFfprobe
+            });
         }
 
-        private static void CompleteRefreshFfprobeAllowance(ref Task task, bool enabled)
+        private static void CompleteRefreshFfprobeAllowance(ref Task task, FfprobeGuard.AllowanceHandle allowance)
         {
-            if (!enabled)
+            if (allowance == null)
             {
                 return;
             }
 
-            task = task == null ? null : AwaitTask(task);
+            task = task == null ? null : AwaitTask(task, allowance);
             if (task == null)
             {
-                FfprobeGuard.EndAllow();
+                FfprobeGuard.EndAllow(allowance);
             }
         }
 
-        private static object AwaitWithScope(Task task)
+        private static object AwaitWithScope(Task task, FfprobeGuard.AllowanceHandle allowance)
         {
             var taskType = task.GetType();
             if (taskType == typeof(Task))
             {
-                return AwaitTask(task);
+                return AwaitTask(task, allowance);
             }
 
             if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<>))
@@ -264,13 +268,13 @@ namespace MediaInfoKeeper.Patch
                 var method = typeof(ProviderManager)
                     .GetMethod(nameof(AwaitGenericTask), BindingFlags.Static | BindingFlags.NonPublic)
                     ?.MakeGenericMethod(resultType);
-                return method?.Invoke(null, new object[] { task }) ?? task;
+                return method?.Invoke(null, new object[] { task, allowance }) ?? task;
             }
 
             return task;
         }
 
-        private static async Task AwaitTask(Task task)
+        private static async Task AwaitTask(Task task, FfprobeGuard.AllowanceHandle allowance)
         {
             try
             {
@@ -278,11 +282,11 @@ namespace MediaInfoKeeper.Patch
             }
             finally
             {
-                FfprobeGuard.EndAllow();
+                FfprobeGuard.EndAllow(allowance);
             }
         }
 
-        private static async Task<T> AwaitGenericTask<T>(Task<T> task)
+        private static async Task<T> AwaitGenericTask<T>(Task<T> task, FfprobeGuard.AllowanceHandle allowance)
         {
             try
             {
@@ -290,7 +294,7 @@ namespace MediaInfoKeeper.Patch
             }
             finally
             {
-                FfprobeGuard.EndAllow();
+                FfprobeGuard.EndAllow(allowance);
             }
         }
     }

@@ -14,10 +14,29 @@ namespace MediaInfoKeeper.Patch
     /// </summary>
     public static class FfprobeGuard
     {
+        public sealed class AllowanceContext
+        {
+            public long? ItemInternalId { get; set; }
+            public string ItemPath { get; set; }
+            public bool IsShortcut { get; set; }
+            public bool IsAudioOrMusicAlbum { get; set; }
+            public bool AllowFfprobe { get; set; }
+        }
+
+        public sealed class AllowanceHandle
+        {
+            internal AllowanceHandle(AllowanceContext context)
+            {
+                Context = context;
+            }
+
+            internal AllowanceContext Context { get; }
+        }
+
         private static readonly Regex InputArgRegex = new Regex(@"(?:^|\s)-i\s+(?:""(?<path>[^""]+)""|'(?<path>[^']+)'|(?<path>\S+))",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        private static readonly AsyncLocal<int> GuardCount = new AsyncLocal<int>();
+        private static readonly AsyncLocal<ScopeFrame> CurrentScope = new AsyncLocal<ScopeFrame>();
         private static Harmony harmony;
         private static MethodInfo runFfProcess;
         private static PropertyInfo standardOutput;
@@ -106,20 +125,28 @@ namespace MediaInfoKeeper.Patch
         /// </summary>
         public static IDisposable Allow()
         {
-            GuardCount.Value = GuardCount.Value + 1;
-            return new GuardScope();
+            return new GuardScope(BeginAllow());
         }
 
-        public static void BeginAllow()
+        public static AllowanceHandle BeginAllow(AllowanceContext context = null)
         {
-            GuardCount.Value = GuardCount.Value + 1;
+            var previous = CurrentScope.Value;
+            var handle = new AllowanceHandle(context);
+            CurrentScope.Value = new ScopeFrame(handle, previous);
+            return handle;
         }
 
-        public static void EndAllow()
+        public static void EndAllow(AllowanceHandle handle = null)
         {
-            if (GuardCount.Value > 0)
+            var current = CurrentScope.Value;
+            if (current == null)
             {
-                GuardCount.Value--;
+                return;
+            }
+
+            if (handle == null || ReferenceEquals(current.Handle, handle))
+            {
+                CurrentScope.Value = current.Previous;
             }
         }
 
@@ -131,8 +158,17 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            if (GuardCount.Value > 0)
+            var scope = CurrentScope.Value;
+            if (scope != null)
             {
+                if (scope.Handle?.Context?.AllowFfprobe == false)
+                {
+                    logger?.Info($"""拦截 ffprobe {Regex.Match(__2, @"-i\s+file:""[^""]+""").Value}""");
+                    SystemLog.SuppressNext();
+                    __result = emptyResult;
+                    return false;
+                }
+
                 logger?.Info($"""允许 ffprobe {Regex.Match(__2, @"-i\s+file:""[^""]+""").Value}""");
                 SystemLog.SuppressNext();
                 __3 = Math.Max(__3, 60000);
@@ -282,11 +318,30 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
+        private sealed class ScopeFrame
+        {
+            public ScopeFrame(AllowanceHandle handle, ScopeFrame previous)
+            {
+                Handle = handle;
+                Previous = previous;
+            }
+
+            public AllowanceHandle Handle { get; }
+            public ScopeFrame Previous { get; }
+        }
+
         private sealed class GuardScope : IDisposable
         {
+            private readonly AllowanceHandle handle;
+
+            public GuardScope(AllowanceHandle handle)
+            {
+                this.handle = handle;
+            }
+
             public void Dispose()
             {
-                EndAllow();
+                EndAllow(this.handle);
             }
         }
     }
