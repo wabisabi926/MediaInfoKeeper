@@ -221,7 +221,7 @@ namespace MediaInfoKeeper.Patch
             var isShortcut = LibraryService.IsFileShortcut(itemPath);
             var isAudioOrMusicAlbum = item is Audio or MusicAlbum;
 
-            logger.Info($"{itemPath} {isShortcut}");
+            // logger.Info($"{itemPath} {isShortcut}");
 
             var allowFfprobe = hasPath && !isShortcut;
             if (hasPath && isShortcut && isAudioOrMusicAlbum)
