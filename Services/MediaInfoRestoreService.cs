@@ -9,11 +9,12 @@ namespace MediaInfoKeeper.Services
 {
     internal static class MediaInfoRestoreService
     {
+        private const int MaxRestoreAttempts = 3;
         private static ILogger logger;
         private static readonly ConcurrentDictionary<long, long> restoreVersionMap =
             new ConcurrentDictionary<long, long>();
 
-        public static void QueueRestore(string source, BaseItem item, int delaySeconds)
+        public static void QueueRestore(BaseItem item, int delaySeconds)
         {
             logger ??= Plugin.Instance?.Logger;
 
@@ -37,13 +38,13 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                BackupIfNeeded(workItem, source);
+                BackupIfNeeded(workItem);
 
                 var itemId = workItem.InternalId;
                 var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 restoreVersionMap[itemId] = version;
 
-                logger?.Debug($"{source} 已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                logger?.Debug($"已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
 
                 _ = Task.Run(async () =>
                 {
@@ -51,66 +52,82 @@ namespace MediaInfoKeeper.Services
                     {
                         await Task.Delay(TimeSpan.FromSeconds(delaySeconds)).ConfigureAwait(false);
 
-                        if (!restoreVersionMap.TryGetValue(itemId, out var latest) || latest != version)
+                        for (var attempt = 1; attempt <= MaxRestoreAttempts; attempt++)
                         {
+                            if (!restoreVersionMap.TryGetValue(itemId, out var latest) || latest != version)
+                            {
+                                return;
+                            }
+
+                            workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? workItem;
+                            if (workItem == null ||
+                                workItem.InternalId == 0 ||
+                                !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
+                            {
+                                return;
+                            }
+
+                            if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
+                            {
+                                return;
+                            }
+
+                            if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true)
+                            {
+                                if (attempt < MaxRestoreAttempts)
+                                {
+                                    logger?.Debug($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查 MediaInfo 仍存在，继续观察");
+                                    await Task.Delay(TimeSpan.FromSeconds(delaySeconds * attempt * attempt)).ConfigureAwait(false);
+                                    continue;
+                                }
+
+                                logger?.Debug($"{workItem.FileName ?? workItem.Path} 连续检查后 MediaInfo 仍存在，跳过恢复");
+                                restoreVersionMap.TryRemove(itemId, out _);
+                                return;
+                            }
+
+                            logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+
+                            var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
+                                ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                            if (restoreResult != MediaInfoDocument.MediaInfoRestoreResult.Failed)
+                            {
+                                if (Plugin.IntroScanService == null || !Plugin.IntroScanService.HasIntroMarkers(workItem))
+                                {
+                                    Plugin.ChaptersStore?.ApplyToItem(workItem);
+                                }
+
+                                logger?.Info($"恢复媒体信息完成: {workItem.FileName ?? workItem.Path}");
+                                restoreVersionMap.TryRemove(itemId, out _);
+                                return;
+                            }
+
+                            logger?.Warn($"恢复媒体信息失败，不再重试: {workItem.FileName ?? workItem.Path}");
+                            restoreVersionMap.TryRemove(itemId, out _);
                             return;
                         }
 
                         restoreVersionMap.TryRemove(itemId, out _);
-
-                        workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? workItem;
-                        if (workItem == null ||
-                            workItem.InternalId == 0 ||
-                            !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
-                        {
-                            return;
-                        }
-
-                        if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
-                        {
-                            return;
-                        }
-
-                        if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true)
-                        {
-                            logger?.Debug($"{source} {workItem.FileName ?? workItem.Path} 延迟检查后 MediaInfo 仍存在，跳过恢复");
-                            return;
-                        }
-
-                        logger?.Info($"{source} {workItem.FileName ?? workItem.Path} 延迟检查结束，媒体信息缺失，开始尝试恢复媒体信息");
-
-                        var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
-                            ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
-                        if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Failed)
-                        {
-                            logger?.Warn($"{source} 恢复媒体信息失败: {workItem.FileName ?? workItem.Path}");
-                            return;
-                        }
-
-                        if (Plugin.IntroScanService == null || !Plugin.IntroScanService.HasIntroMarkers(workItem))
-                        {
-                            Plugin.ChaptersStore?.ApplyToItem(workItem);
-                        }
-
-                        logger?.Info($"{source} 恢复媒体信息完成: {workItem.FileName ?? workItem.Path}");
+                        logger?.Debug($"连续检查结束，未触发恢复: {workItem?.FileName ?? workItem?.Path ?? itemId.ToString()}");
                     }
                     catch (Exception ex)
                     {
-                        logger?.Error($"{source} 延迟恢复 MediaInfo 失败");
+                        restoreVersionMap.TryRemove(itemId, out _);
+                        logger?.Error("延迟恢复 MediaInfo 失败");
                         logger?.Error(ex.Message);
                     }
                 });
             }
             catch (Exception ex)
             {
-                logger?.Error($"{source} 排队恢复 MediaInfo 失败");
+                logger?.Error("排队恢复 MediaInfo 失败");
                 logger?.Error(ex.Message);
             }
         }
 
-        private static void BackupIfNeeded(BaseItem item, string source)
+        private static void BackupIfNeeded(BaseItem item)
         {
-            logger?.Debug($"{source} 检查媒体信息备份: {item.FileName ?? item.Path}");
+            logger?.Debug($"检查媒体信息备份: {item.FileName ?? item.Path}");
 
             if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
             {
