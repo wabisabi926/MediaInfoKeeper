@@ -230,6 +230,11 @@ namespace MediaInfoKeeper.Patch
                 allowFfprobe = libraryOptions?.ShareEmbeddedMusicAlbumImages == true;
             }
 
+            if (!allowFfprobe && FfprobeGuard.HasExplicitAllowance())
+            {
+                allowFfprobe = true;
+            }
+
             return FfprobeGuard.BeginAllow(new FfprobeGuard.AllowanceContext
             {
                 ItemInternalId = item.InternalId,

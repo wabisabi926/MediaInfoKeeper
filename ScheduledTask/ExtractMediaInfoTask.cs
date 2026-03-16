@@ -124,6 +124,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
+                    this.logger.Info($"跳过 已存在MediaInfo: {displayName}");
                     return Task.CompletedTask;
                 }
 

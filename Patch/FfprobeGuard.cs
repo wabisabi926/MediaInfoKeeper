@@ -136,6 +136,22 @@ namespace MediaInfoKeeper.Patch
             return handle;
         }
 
+        public static bool HasExplicitAllowance()
+        {
+            var scope = CurrentScope.Value;
+            while (scope != null)
+            {
+                if (scope.Handle?.Context == null)
+                {
+                    return true;
+                }
+
+                scope = scope.Previous;
+            }
+
+            return false;
+        }
+
         public static void EndAllow(AllowanceHandle handle = null)
         {
             var current = CurrentScope.Value;
