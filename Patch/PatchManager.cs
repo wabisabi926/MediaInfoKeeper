@@ -150,6 +150,10 @@ namespace MediaInfoKeeper.Patch
                 NotificationSystem.Initialize(logger);
                 UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
 
+                Register("DashboardResourcePatch");
+                DashboardResourcePatch.Initialize(logger, safeOptions.Enhance.DisableVideoSubtitleCrossOrigin);
+                UpdateTracker("DashboardResourcePatch", safeOptions.Enhance.DisableVideoSubtitleCrossOrigin, DashboardResourcePatch.IsReady, null);
+
                 Register("SystemLog");
                 SystemLog.Initialize(logger, true, safeOptions.Enhance.SystemLogNameBlacklist);
                 UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
@@ -176,6 +180,7 @@ namespace MediaInfoKeeper.Patch
             HidePersonNoImage.Configure(safeOptions.Enhance.HidePersonNoImage);
             NoBoxsetsAutoCreation.Configure(safeOptions.Enhance.NoBoxsetsAutoCreation);
             EnforceLibraryOrder.Configure(safeOptions.Enhance.EnforceLibraryOrder);
+            DashboardResourcePatch.Configure(safeOptions.Enhance.DisableVideoSubtitleCrossOrigin);
             MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
             MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
@@ -224,6 +229,7 @@ namespace MediaInfoKeeper.Patch
                 EnforceLibraryOrder.IsReady,
                 null);
             UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
+            UpdateTracker("DashboardResourcePatch", safeOptions.Enhance.DisableVideoSubtitleCrossOrigin, DashboardResourcePatch.IsReady, null);
             SystemLog.Configure(true, safeOptions.Enhance.SystemLogNameBlacklist);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
