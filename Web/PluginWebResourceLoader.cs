@@ -5,22 +5,25 @@ using MediaBrowser.Controller.Configuration;
 
 namespace MediaInfoKeeper.Web
 {
-    internal static class ShortcutMenuLoader
+    internal static class PluginWebResourceLoader
     {
         public static string ModifiedShortcutsString { get; private set; }
 
         public static MemoryStream MediaInfoKeeperJs { get; private set; }
+
+        public static MemoryStream EdeJs { get; private set; }
 
         public static void Initialize(IServerConfigurationManager configurationManager)
         {
             try
             {
                 MediaInfoKeeperJs = GetResourceStream("mediainfokeeper.js");
+                EdeJs = GetResourceStream("ede.js");
                 BuildShortcutBootstrap(configurationManager);
             }
             catch (Exception e)
             {
-                Plugin.Instance.Logger.Error($"{nameof(ShortcutMenuLoader)} Init Failed");
+                Plugin.Instance.Logger.Error($"{nameof(PluginWebResourceLoader)} Init Failed");
                 Plugin.Instance.Logger.Error(e.Message);
                 Plugin.Instance.Logger.Debug(e.StackTrace);
             }
@@ -29,7 +32,7 @@ namespace MediaInfoKeeper.Web
         private static MemoryStream GetResourceStream(string resourceName)
         {
             var name = typeof(Plugin).Namespace + ".Resources." + resourceName;
-            var manifestResourceStream = typeof(ShortcutMenuLoader).GetTypeInfo().Assembly.GetManifestResourceStream(name);
+            var manifestResourceStream = typeof(PluginWebResourceLoader).GetTypeInfo().Assembly.GetManifestResourceStream(name);
             var destination = new MemoryStream((int)manifestResourceStream.Length);
             manifestResourceStream.CopyTo(destination);
             destination.Position = 0;

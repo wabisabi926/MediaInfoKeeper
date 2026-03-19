@@ -20,12 +20,15 @@ namespace MediaInfoKeeper.Patch
         private static readonly IReadOnlyDictionary<string, Func<string, string>> RewriteHandlers =
             new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
         {
+            ["index.html"] = RewriteDashboardIndexHtml,
             ["modules/htmlvideoplayer/plugin.js"] = RewriteHtmlVideoPlayerPlugin
         };
 
         private static Harmony harmony;
         private static ILogger logger;
         private static bool isEnabled;
+        private static bool enableCrossOriginPatch;
+        private static bool enableDanmakuJs;
         private static MethodInfo getMethod;
         private static MethodInfo getContentFactoryMethod;
         private static MethodInfo getResourceStreamMethod;
@@ -34,16 +37,18 @@ namespace MediaInfoKeeper.Patch
 
         public static bool IsReady => harmony != null && (!isEnabled || isPatched);
 
-        public static void Initialize(ILogger pluginLogger, bool enable)
+        public static void Initialize(ILogger pluginLogger, bool enableCrossOrigin, bool enableDanmaku)
         {
             if (harmony != null)
             {
-                Configure(enable);
+                Configure(enableCrossOrigin, enableDanmaku);
                 return;
             }
 
             logger = pluginLogger;
-            isEnabled = enable;
+            enableCrossOriginPatch = enableCrossOrigin;
+            enableDanmakuJs = enableDanmaku;
+            isEnabled = enableCrossOriginPatch || enableDanmakuJs;
 
             try
             {
@@ -152,9 +157,11 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        public static void Configure(bool enable)
+        public static void Configure(bool enableCrossOrigin, bool enableDanmaku)
         {
-            isEnabled = enable;
+            enableCrossOriginPatch = enableCrossOrigin;
+            enableDanmakuJs = enableDanmaku;
+            isEnabled = enableCrossOriginPatch || enableDanmakuJs;
 
             if (harmony == null)
             {
@@ -209,6 +216,8 @@ namespace MediaInfoKeeper.Patch
             {
                 return true;
             }
+
+            logger?.Info("DashboardResourcePatch target hit: {0}", path);
 
             try
             {
@@ -355,13 +364,44 @@ namespace MediaInfoKeeper.Patch
             {
                 return content;
             }
-            
-            logger.Info("关闭 Emby Web 跨域校验（crossOrigin）");
+
+            if (!enableCrossOriginPatch)
+            {
+                return content;
+            }
 
             return content.Replace(
                 "&&(elem.crossOrigin=initialSubtitleStream)",
                 string.Empty,
                 StringComparison.Ordinal);
+        }
+
+        private static string RewriteDashboardIndexHtml(string content)
+        {
+            if (string.IsNullOrEmpty(content))
+            {
+                return content;
+            }
+
+            if (!enableDanmakuJs)
+            {
+                return content;
+            }
+
+            const string scriptTag = "<script src=\"components/mediainfokeeper/ede.js\" charset=\"utf-8\"></script>";
+            if (content.Contains(scriptTag, StringComparison.OrdinalIgnoreCase))
+            {
+                return content;
+            }
+
+            var bodyCloseIndex = content.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+            if (bodyCloseIndex < 0)
+            {
+                return content;
+            }
+
+            logger?.Info("注入 Emby Web ede.js");
+            return content.Insert(bodyCloseIndex, scriptTag + Environment.NewLine);
         }
 
         private static T GetPropertyValue<T>(object instance, string propertyName) where T : class

@@ -75,6 +75,10 @@ namespace MediaInfoKeeper.Options
         [Description("修改 htmlvideoplayer/plugin.js，移除 crossOrigin 设置。")]
         public bool DisableVideoSubtitleCrossOrigin { get; set; } = false;
 
+        [DisplayName("加载 dd-danmaku 弹幕功能")]
+        [Description("修改 index.html，在 </body> 前注入 ede.js。")]
+        public bool EnableDanmakuJs { get; set; } = false;
+
         [DisplayName("日志来源黑名单")]
         [Description("按 logger.Name 匹配需要屏蔽的系统日志来源，支持逗号、分号或换行分隔。支持精确匹配；对于带动态后缀的来源可填写前缀，如 SessionsService-。")]
         public string SystemLogNameBlacklist { get; set; } = "HttpClient;TheMovieDb;SessionsService-;PlaystateService-;MediaInfoService-";
@@ -169,7 +173,8 @@ namespace MediaInfoKeeper.Options
                 nameof(EnforceLibraryOrder));
 
             AddGroup("Emby Web", "",
-                nameof(DisableVideoSubtitleCrossOrigin));
+                nameof(DisableVideoSubtitleCrossOrigin),
+                nameof(EnableDanmakuJs));
 
             AddGroup("日志", "",
                 nameof(SystemLogNameBlacklist));

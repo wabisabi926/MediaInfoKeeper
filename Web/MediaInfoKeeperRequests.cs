@@ -12,6 +12,13 @@ namespace MediaInfoKeeper.Web
         public string ResourceName { get; set; }
     }
 
+    [Route("/{Web}/components/mediainfokeeper/ede.js", "GET", IsHidden = true)]
+    [Unauthenticated]
+    public class EdeJsRequest
+    {
+        public string Web { get; set; }
+    }
+
     [Route("/{Web}/modules/shortcuts.js", "GET", IsHidden = true)]
     [Unauthenticated]
     public class ShortcutMenuRequest

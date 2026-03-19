@@ -158,7 +158,7 @@ namespace MediaInfoKeeper
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
             StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
-            ShortcutMenuLoader.Initialize(serverConfigurationManager);
+            PluginWebResourceLoader.Initialize(serverConfigurationManager);
 
             if (this.Options.IntroSkip?.EnableIntroSkip == true)
             {
@@ -318,6 +318,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"禁止自动合集 设置为 {options.Enhance.NoBoxsetsAutoCreation}");
             this.logger.Info($"统一媒体库顺序 设置为 {options.Enhance.EnforceLibraryOrder}");
             this.logger.Info($"关闭 Web 客户端跨域校验 设置为 {options.Enhance.DisableVideoSubtitleCrossOrigin}");
+            this.logger.Info($"加载弹幕 JS 设置为 {options.Enhance.EnableDanmakuJs}");
             this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
             this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
             this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");

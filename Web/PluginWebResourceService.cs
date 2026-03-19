@@ -13,7 +13,7 @@ using MediaInfoKeeper.Web.Handler;
 namespace MediaInfoKeeper.Web
 {
     [Unauthenticated]
-    public class ShortcutMenuService : IService, IRequiresRequest
+    public class PluginWebResourceService : IService, IRequiresRequest
     {
         private readonly IHttpResultFactory _resultFactory;
         private readonly ILibraryManager _libraryManager;
@@ -23,7 +23,7 @@ namespace MediaInfoKeeper.Web
         private readonly SetIntroRouteHandler _setIntroHandler;
         private readonly ClearIntroRouteHandler _clearIntroHandler;
 
-        public ShortcutMenuService(
+        public PluginWebResourceService(
             IHttpResultFactory resultFactory,
             ILibraryManager libraryManager,
             IItemRepository itemRepository)
@@ -42,12 +42,18 @@ namespace MediaInfoKeeper.Web
         public object Get(MediaInfoKeeperJsRequest request)
         {
             return _resultFactory.GetResult(Request,
-                (ReadOnlyMemory<byte>)ShortcutMenuLoader.MediaInfoKeeperJs.GetBuffer(), "application/x-javascript");
+                (ReadOnlyMemory<byte>)PluginWebResourceLoader.MediaInfoKeeperJs.GetBuffer(), "application/x-javascript");
+        }
+
+        public object Get(EdeJsRequest request)
+        {
+            return _resultFactory.GetResult(Request,
+                (ReadOnlyMemory<byte>)PluginWebResourceLoader.EdeJs.GetBuffer(), "application/x-javascript");
         }
 
         public object Get(ShortcutMenuRequest request)
         {
-            return _resultFactory.GetResult(ShortcutMenuLoader.ModifiedShortcutsString.AsSpan(),
+            return _resultFactory.GetResult(PluginWebResourceLoader.ModifiedShortcutsString.AsSpan(),
                 "application/x-javascript");
         }
 
