@@ -205,32 +205,28 @@ namespace MediaInfoKeeper.Patch
             var requestOptions = __args[0];
             var urlProperty = requestOptions.GetType().GetProperty("Url", BindingFlags.Instance | BindingFlags.Public);
             var originalUrl = urlProperty?.CanRead == true ? urlProperty.GetValue(requestOptions) as string : null;
-            if (!string.IsNullOrWhiteSpace(originalUrl))
-            {
-                logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, originalUrl);
-            }
+            var finalUrl = originalUrl;
 
             var options = Plugin.Instance.Options.GetNetWorkOptions();
-            if (options == null || !HasAnyTmdbOverride(options))
+            if (options != null &&
+                HasAnyTmdbOverride(options) &&
+                urlProperty != null &&
+                urlProperty.CanRead &&
+                urlProperty.CanWrite &&
+                Uri.TryCreate(originalUrl, UriKind.Absolute, out var uri))
             {
-                return;
+                var rewritten = RewriteTmdbUri(uri, options);
+                if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
+                {
+                    finalUrl = rewritten.ToString();
+                    logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
+                    urlProperty.SetValue(requestOptions, finalUrl);
+                }
             }
 
-            if (urlProperty == null || !urlProperty.CanRead || !urlProperty.CanWrite)
+            if (!string.IsNullOrWhiteSpace(finalUrl))
             {
-                return;
-            }
-
-            if (!Uri.TryCreate(originalUrl, UriKind.Absolute, out var uri))
-            {
-                return;
-            }
-
-            var rewritten = RewriteTmdbUri(uri, options);
-            if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
-            {
-                logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, rewritten.ToString());
-                urlProperty.SetValue(requestOptions, rewritten.ToString());
+                logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
             }
         }
 
