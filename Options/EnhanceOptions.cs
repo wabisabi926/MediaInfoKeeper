@@ -75,8 +75,8 @@ namespace MediaInfoKeeper.Options
         [Description("修改 htmlvideoplayer/plugin.js，移除 crossOrigin 设置。")]
         public bool DisableVideoSubtitleCrossOrigin { get; set; } = false;
 
-        [DisplayName("加载 dd-danmaku 弹幕功能")]
-        [Description("修改 index.html，在 </body> 前注入 ede.js。")]
+        [DisplayName("加载 dd-danmaku 弹幕")]
+        [Description("修改 index.html，注入 ede.js (目前似乎有点问题，等后续更新)。")]
         public bool EnableDanmakuJs { get; set; } = false;
 
         [DisplayName("日志来源黑名单")]
@@ -153,28 +153,28 @@ namespace MediaInfoKeeper.Options
                 nameof(EnhanceChineseSearch),
                 nameof(SearchScope),
                 nameof(ExcludeOriginalTitleFromSearch));
-
+            
+            AddGroup("Emby Web", "",
+                nameof(DisableVideoSubtitleCrossOrigin),
+                nameof(EnableDanmakuJs));
+            
+            AddGroup("深度删除", "",
+                nameof(EnableDeepDelete));
+            
+            AddGroup("通知", "",
+                nameof(TakeOverSystemLibraryNew));
+            
             AddGroup("演员人物", "",
                 nameof(HidePersonNoImage));
 
             AddGroup("NFO增强", "",
                 nameof(EnableNfoMetadataEnhance));
 
-            AddGroup("通知", "",
-                nameof(TakeOverSystemLibraryNew));
-            
-            AddGroup("深度删除", "",
-                nameof(EnableDeepDelete));
-
             AddGroup("合集", "",
                 nameof(NoBoxsetsAutoCreation));
 
             AddGroup("媒体库", "",
                 nameof(EnforceLibraryOrder));
-
-            AddGroup("Emby Web", "",
-                nameof(DisableVideoSubtitleCrossOrigin),
-                nameof(EnableDanmakuJs));
 
             AddGroup("日志", "",
                 nameof(SystemLogNameBlacklist));
