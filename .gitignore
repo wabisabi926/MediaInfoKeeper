@@ -25,6 +25,7 @@ x86/
 # 其他
 .vs/
 .vscode/
+.idea/
 *.ncb
 *.opendb
 *.opensdf
