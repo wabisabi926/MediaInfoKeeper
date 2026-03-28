@@ -13,6 +13,9 @@ using MediaBrowser.Model.System;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 重写 HTTP 与 UDP 局域网发现响应中的服务器地址，支持自定义或阻断。
+    /// </summary>
     public static class LocalDiscoveryAddress
     {
         private const string BlockedKeyword = "BLOCKED";

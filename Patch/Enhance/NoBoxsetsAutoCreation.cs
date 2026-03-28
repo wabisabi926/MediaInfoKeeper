@@ -12,7 +12,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Prevent automatic BoxSets library creation and hide the BoxSets view entry.
+    /// 阻止系统自动创建 BoxSets 库，并从用户视图中过滤合集入口。
     /// </summary>
     public static class NoBoxsetsAutoCreation
     {

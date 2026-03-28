@@ -19,6 +19,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 为 Emby 搜索加载中文分词能力，并增强检索词处理与匹配范围。
+    /// </summary>
     public static class ChineseSearch
     {
         private static readonly Version Ver4830 = new Version("4.8.3.0");

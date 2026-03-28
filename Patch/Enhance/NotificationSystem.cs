@@ -14,6 +14,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 接管部分库变更通知内容，并在深度删除后补发自定义通知。
+    /// </summary>
     public static class NotificationSystem
     {
         private static Harmony harmony;

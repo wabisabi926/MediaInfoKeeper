@@ -18,7 +18,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// TVDB metadata fallback patch adapted from StrmAssistant ChineseTvdb.
+    /// 为 TVDB 元数据补充中日文翻译回退，并修正剧集季集标题导入。
     /// </summary>
     public static class TvdbTitle
     {

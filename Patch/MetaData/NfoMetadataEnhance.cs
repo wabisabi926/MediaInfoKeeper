@@ -16,7 +16,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Enhance NFO person parsing by importing thumb URL into PersonInfo.ImageUrl.
+    /// 解析 NFO 人物节点时提取 thumb 地址并补充人物图片链接。
     /// </summary>
     public static class NfoMetadataEnhance
     {

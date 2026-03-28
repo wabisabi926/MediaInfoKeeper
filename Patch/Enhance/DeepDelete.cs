@@ -10,6 +10,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 在删除媒体项成功后，按挂载路径执行本地深度清理。
+    /// </summary>
     public static class DeepDelete
     {
         private sealed class DeepDeleteState

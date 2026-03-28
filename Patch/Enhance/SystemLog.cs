@@ -8,6 +8,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 按黑名单和临时抑制标记过滤 NamedLogger 日志输出。
+    /// </summary>
     internal static class SystemLog
     {
         private static int suppressNextGlobalCount;

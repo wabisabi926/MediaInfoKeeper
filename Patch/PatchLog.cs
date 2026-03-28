@@ -4,6 +4,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 封装补丁等待、解析与安装过程的统一日志输出。
+    /// </summary>
     internal static class PatchLog
     {
         public static void Waiting(ILogger logger, string module, string dependency, bool enabled)

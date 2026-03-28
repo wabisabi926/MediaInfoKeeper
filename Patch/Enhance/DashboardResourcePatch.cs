@@ -15,6 +15,9 @@ using MediaBrowser.Model.Services;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 拦截仪表盘资源请求，按配置重写首页和播放器脚本内容。
+    /// </summary>
     public static class DashboardResourcePatch
     {
         private static readonly IReadOnlyDictionary<string, Func<string, string>> RewriteHandlers =

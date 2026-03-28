@@ -11,7 +11,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Force user library order to follow the first administrator's ordered views.
+    /// 在获取用户视图前同步管理员排序，统一媒体库显示顺序。
     /// </summary>
     public static class EnforceLibraryOrder
     {

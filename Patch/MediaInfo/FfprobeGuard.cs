@@ -10,7 +10,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 拦截 Emby 内置 ffprobe，只允许插件显式放行。
+    /// 拦截 Emby 自身的 ffprobe 调用，仅允许插件在作用域内显式放行。
     /// </summary>
     public static class FfprobeGuard
     {

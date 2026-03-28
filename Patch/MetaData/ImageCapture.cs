@@ -12,7 +12,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Enable image capture for shortcut audio/video items during plugin-initiated refresh flows.
+    /// 在刷新快捷方式媒体时临时放开音视频图片抓取能力。
     /// </summary>
     public static class ImageCapture
     {

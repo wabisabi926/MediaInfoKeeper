@@ -6,6 +6,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 集中初始化各补丁，并汇总其启用状态、等待状态与说明信息。
+    /// </summary>
     public static class PatchManager
     {
         private static readonly object InitLock = new object();

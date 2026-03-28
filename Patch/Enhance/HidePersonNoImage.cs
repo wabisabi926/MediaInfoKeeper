@@ -12,7 +12,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Filter people without images from selected item DTOs.
+    /// 在影视条目 DTO 输出时移除没有主图的人物信息。
     /// </summary>
     public static class HidePersonNoImage
     {

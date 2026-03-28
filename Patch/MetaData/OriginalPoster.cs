@@ -20,8 +20,7 @@ using MediaBrowser.Model.Serialization;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// Prefer original-language posters based on metadata language context.
-    /// Logic adapted from StrmAssistant PreferOriginalPoster.
+    /// 记录 TMDB 与 TVDB 元数据上下文，并优先返回原语言海报。
     /// </summary>
     public static class OriginalPoster
     {

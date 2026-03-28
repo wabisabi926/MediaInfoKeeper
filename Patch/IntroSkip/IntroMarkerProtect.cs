@@ -9,6 +9,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 拦截章节保存与删除，保护现有片头片尾标记不被刷新覆盖。
+    /// </summary>
     public static class IntroMarkerProtect
     {
         private static readonly AsyncLocal<long> AllowItem = new AsyncLocal<long>();

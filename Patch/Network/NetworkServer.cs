@@ -7,6 +7,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 为 Emby 内部 HTTP 请求配置代理、解压缩，并重写 TMDB 请求地址。
+    /// </summary>
     public static class NetworkServer
     {
         private static readonly string[] BypassAddressList =

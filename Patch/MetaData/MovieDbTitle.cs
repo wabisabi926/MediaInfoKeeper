@@ -19,7 +19,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// TMDB metadata fallback patch adapted from StrmAssistant ChineseMovieDb.
+    /// 为 TMDB 元数据补充中文回退语言，并修正剧集季集标题导入。
     /// </summary>
     public static class MovieDbTitle
     {

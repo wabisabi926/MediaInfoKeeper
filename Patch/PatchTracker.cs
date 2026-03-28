@@ -9,6 +9,9 @@ namespace MediaInfoKeeper.Patch
         Failed = 4
     }
 
+    /// <summary>
+    /// 保存单个补丁的启用方式、健康状态和备注信息。
+    /// </summary>
     public sealed class PatchTracker
     {
         public PatchTracker(string name)

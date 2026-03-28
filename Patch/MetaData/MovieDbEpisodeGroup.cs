@@ -20,7 +20,7 @@ using MediaInfoKeeper.Provider;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// TMDB episode group mapping patch adapted from StrmAssistant MovieDbEpisodeGroup.
+    /// 按 TMDB 剧集组或本地映射重定向剧集元数据与图片抓取。
     /// </summary>
     public static class MovieDbEpisodeGroup
     {

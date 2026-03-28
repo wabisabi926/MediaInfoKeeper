@@ -5,6 +5,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 定义目标方法名称、参数和返回值等精确签名条件。
+    /// </summary>
     public sealed class MethodSignatureProfile
     {
         public string Name { get; set; }
@@ -23,6 +26,9 @@ namespace MediaInfoKeeper.Patch
         public Func<MethodInfo, bool> Predicate { get; set; }
     }
 
+    /// <summary>
+    /// 根据精确签名解析补丁目标方法，并记录命中或失败日志。
+    /// </summary>
     public static class PatchMethodResolver
     {
         public static MethodInfo Resolve(

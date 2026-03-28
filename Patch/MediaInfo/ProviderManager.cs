@@ -13,7 +13,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 在 ProviderManager 刷新音频条目时临时放行 ffprobe，覆盖音频封面提取路径。
+    /// 在 ProviderManager 刷新媒体项期间按条目类型临时放行 ffprobe。
     /// </summary>
     public static class ProviderManager
     {

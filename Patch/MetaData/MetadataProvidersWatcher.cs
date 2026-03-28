@@ -17,7 +17,7 @@ using MediaInfoKeeper.Common;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 控制 Emby ProviderManager 的元数据刷新，仅在显式作用域内放行。
+    /// 监视快捷方式媒体的图片刷新时机，并触发 MediaInfo 恢复任务。
     /// </summary>
     public static class MetadataProvidersWatcher
     {

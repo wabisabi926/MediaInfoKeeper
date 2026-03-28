@@ -13,6 +13,9 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
+    /// <summary>
+    /// 放宽快捷方式和指定电视剧库的片头检测限制，并同步相关参数。
+    /// </summary>
     public static class IntroUnlock
     {
         private static readonly AsyncLocal<BaseItem> ShortcutItem = new AsyncLocal<BaseItem>();
