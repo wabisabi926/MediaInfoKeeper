@@ -104,6 +104,15 @@ namespace MediaInfoKeeper.Patch
                     BuildProxyNotes(),
                     false);
 
+                Register("LocalDiscoveryAddress");
+                LocalDiscoveryAddress.Initialize(logger, netWorkOptions.CustomLocalDiscoveryAddress);
+                UpdateTracker(
+                    "LocalDiscoveryAddress",
+                    !string.IsNullOrWhiteSpace(netWorkOptions.CustomLocalDiscoveryAddress),
+                    LocalDiscoveryAddress.IsConfiguredBehaviorReady,
+                    BuildLocalDiscoveryNotes(),
+                    false);
+
                 Register("ChineseSearch");
                 ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
                 ChineseSearch.Initialize(logger, safeOptions.Enhance);
@@ -180,6 +189,7 @@ namespace MediaInfoKeeper.Patch
             MetadataProvidersWatcher.Configure(safeOptions.MetaData.EnableMetadataProvidersWatcher);
             IntroUnlock.Configure(safeOptions);
             NetworkServer.Configure(netWorkOptions.EnableProxyServer);
+            LocalDiscoveryAddress.Configure(netWorkOptions.CustomLocalDiscoveryAddress);
             ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
             ChineseSearch.Configure(safeOptions.Enhance);
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
@@ -214,6 +224,12 @@ namespace MediaInfoKeeper.Patch
             UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
             UpdateTracker("NetworkServer", netWorkOptions.EnableProxyServer, NetworkServer.IsReady,
                 BuildProxyNotes(), false);
+            UpdateTracker(
+                "LocalDiscoveryAddress",
+                !string.IsNullOrWhiteSpace(netWorkOptions.CustomLocalDiscoveryAddress),
+                LocalDiscoveryAddress.IsConfiguredBehaviorReady,
+                BuildLocalDiscoveryNotes(),
+                false);
             UpdateTracker(
                 "ChineseSearch",
                 safeOptions.Enhance.EnhanceChineseSearch || safeOptions.Enhance.EnhanceChineseSearchRestore,
@@ -288,6 +304,38 @@ namespace MediaInfoKeeper.Patch
             }
 
             return NetworkServer.IsHttpClientHookReady ? null : "HttpClientManager hook not ready";
+        }
+
+        private static string BuildLocalDiscoveryNotes()
+        {
+            var options = Plugin.Instance?.Options?.GetNetWorkOptions();
+            var configuredValue = LocalDiscoveryAddress.NormalizeConfiguredValue(options?.CustomLocalDiscoveryAddress);
+            if (string.IsNullOrWhiteSpace(configuredValue))
+            {
+                return null;
+            }
+
+            if (string.Equals(configuredValue, "BLOCKED", StringComparison.Ordinal))
+            {
+                return LocalDiscoveryAddress.IsUdpBlockReady ? "udp blocked" : "RespondToMessage 未命中";
+            }
+
+            if (LocalDiscoveryAddress.IsHttpReady && LocalDiscoveryAddress.IsUdpRewriteReady)
+            {
+                return "configured custom address";
+            }
+
+            if (LocalDiscoveryAddress.IsHttpReady && !LocalDiscoveryAddress.IsUdpRewriteReady)
+            {
+                return "http-only active";
+            }
+
+            if (!LocalDiscoveryAddress.IsHttpReady)
+            {
+                return "GetPublicSystemInfo/GetSystemInfo 未完全命中";
+            }
+
+            return "SendMessage/RespondToMessage 未完全命中";
         }
 
         private static void UpdateTracker(string name, bool enabled, bool success, string notes, bool waiting = false)

@@ -11,6 +11,10 @@ namespace MediaInfoKeeper.Options
     {
         public override string EditorTitle => "Network";
 
+        [DisplayName("自定义本地发现地址")]
+        [Description("填写 http(s)://host:port 地址作为家庭（局域网）访问发现入口；留空为默认。填写 BLOCKED 将禁用 Emby UDP 应答。")]
+        public string CustomLocalDiscoveryAddress { get; set; } = string.Empty;
+        
         [DisplayName("启用代理")]
         [Description("开启后所有 HttpClient 请求将走代理。")]
         public bool EnableProxyServer { get; set; } = false;
@@ -30,7 +34,7 @@ namespace MediaInfoKeeper.Options
         [DisplayName("启用压缩传输")]
         [Description("允许元数据服务器返回 gzip/deflate/br 压缩内容，并自动解压以减少网络流量。")]
         public bool EnableGzip { get; set; } = true;
-
+        
         [DisplayName("自定义 TMDB API 域名")]
         [Description("默认 api.tmdb.org，留空使用系统默认 api.themoviedb.org")]
         public string AlternativeTmdbApiUrl { get; set; } = string.Empty;
@@ -95,7 +99,9 @@ namespace MediaInfoKeeper.Options
                 groupedItems.Add(group);
             }
 
-
+            AddGroup("Network", "",
+                nameof(CustomLocalDiscoveryAddress));
+            
             AddGroup("Proxy","代理服务器相关设置",
                 nameof(EnableProxyServer),
                 nameof(ProxyServerUrl),
