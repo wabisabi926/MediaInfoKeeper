@@ -11,6 +11,8 @@ namespace MediaInfoKeeper.Options
     {
         public override string EditorTitle => "Network";
 
+        public override string EditorDescription => "网络相关设置页，用来调整本地发现地址、代理和 TMDB 请求替换。改完记得保存。";
+
         [DisplayName("自定义本地发现地址")]
         [Description("填写 http(s)://host:port 地址作为家庭（局域网）访问发现入口；留空为默认。填写 BLOCKED 将禁用 Emby UDP 应答。")]
         public string CustomLocalDiscoveryAddress { get; set; } = string.Empty;
@@ -28,7 +30,7 @@ namespace MediaInfoKeeper.Options
         public bool IgnoreCertificateValidation { get; set; } = false;
 
         [DisplayName("写入环境变量")]
-        [Description("同步写入 http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY，便于 ffprobe 等外部进程访问需要代理的资源。")]
+        [Description("同步写入 http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY，便于 ffprobe 等外部进程访问需要代理的资源。注意！如果你的代理无法访问strm的http可能会导致无法提取与播放。")]
         public bool WriteProxyEnvVars { get; set; } = true;
 
         [DisplayName("启用压缩传输")]
@@ -74,7 +76,7 @@ namespace MediaInfoKeeper.Options
             var groupedItems = new List<EditorBase>();
             var groupIndex = 0;
 
-            void AddGroup(string title, string description = null, params string[] propertyNames)
+            void AddGroup(string title, string description, params string[] propertyNames)
             {
                 var items = new List<EditorBase>();
                 foreach (var propertyName in propertyNames)

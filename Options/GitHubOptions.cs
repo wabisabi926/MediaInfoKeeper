@@ -11,6 +11,8 @@ namespace MediaInfoKeeper.Options
     {
         public override string EditorTitle => "GitHub";
 
+        public override string EditorDescription => "当前版本、最新发布说明，建议把 GitHub Token 配好，并配置更新版本的计划任务。改完记得保存。";
+
         [DisplayName("GitHub 访问令牌")]
         [Description("设置后使用 Token 获取 Releases，避免未认证请求的限流。")]
         public string GitHubToken { get; set; } = string.Empty;
@@ -40,6 +42,7 @@ namespace MediaInfoKeeper.Options
             }
 
             var items = new List<EditorBase>(root.EditorItems.Length);
+            var itemLookup = new Dictionary<string, EditorBase>(StringComparer.OrdinalIgnoreCase);
             foreach (var item in root.EditorItems)
             {
                 var key = item.Name ?? item.Id;
@@ -66,9 +69,65 @@ namespace MediaInfoKeeper.Options
                 }
 
                 items.Add(item);
+                if (!string.IsNullOrEmpty(key) && !itemLookup.ContainsKey(key))
+                {
+                    itemLookup.Add(key, item);
+                }
             }
 
-            root.EditorItems = items.ToArray();
+            var groupedItems = new List<EditorBase>();
+            var groupIndex = 0;
+
+            void AddGroup(string title, string description, params string[] propertyNames)
+            {
+                var groupItems = new List<EditorBase>();
+                foreach (var propertyName in propertyNames)
+                {
+                    if (itemLookup.TryGetValue(propertyName, out var item))
+                    {
+                        groupItems.Add(item);
+                        itemLookup.Remove(propertyName);
+                    }
+                }
+
+                if (groupItems.Count == 0)
+                {
+                    return;
+                }
+
+                groupIndex++;
+                var group = new EditorGroup(title, groupItems.ToArray(), $"group{groupIndex}", root.Id, null)
+                {
+                    Description = description
+                };
+                groupedItems.Add(group);
+            }
+
+            AddGroup("GitHub", "",
+                nameof(GitHubToken),
+                nameof(ProjectUrl),
+                nameof(CurrentVersion),
+                nameof(LatestReleaseVersion),
+                nameof(ReleaseHistoryBody));
+
+            var remaining = new List<EditorBase>();
+            foreach (var item in items)
+            {
+                var key = item.Name ?? item.Id;
+                if (!string.IsNullOrEmpty(key) && itemLookup.ContainsKey(key))
+                {
+                    remaining.Add(item);
+                    itemLookup.Remove(key);
+                }
+            }
+
+            if (remaining.Count > 0)
+            {
+                groupIndex++;
+                groupedItems.Add(new EditorGroup("未分组", remaining.ToArray(), $"group{groupIndex}", root.Id, null));
+            }
+
+            root.EditorItems = groupedItems.Count > 0 ? groupedItems.ToArray() : items.ToArray();
             return container;
         }
     }

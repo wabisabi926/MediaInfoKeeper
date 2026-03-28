@@ -13,6 +13,8 @@ namespace MediaInfoKeeper.Options
     {
         public override string EditorTitle => "IntroSkip";
 
+        public override string EditorDescription => "片头相关设置都放在这里，包括扫描、标记保护和播放行为打标。改完记得保存。";
+
         [DisplayName("启用 Strm 片头检测解锁")]
         [Description("开启后允许 .strm 参与 Emby 原生片头指纹探测。")]
         public bool UnlockIntroSkip { get; set; } = true;
@@ -103,7 +105,7 @@ namespace MediaInfoKeeper.Options
             var groupedItems = new List<EditorBase>();
             var groupIndex = 0;
 
-            void AddGroup(string title, params string[] propertyNames)
+            void AddGroup(string title, string description, params string[] propertyNames)
             {
                 var items = new List<EditorBase>();
                 foreach (var propertyName in propertyNames)
@@ -121,17 +123,21 @@ namespace MediaInfoKeeper.Options
                 }
 
                 groupIndex++;
-                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+                var group = new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null)
+                {
+                    Description = description
+                };
+                groupedItems.Add(group);
             }
 
-            AddGroup("扫描片头",
+            AddGroup("扫描片头", "",
                 nameof(UnlockIntroSkip),
                 nameof(ScanIntroOnItemAdded),
                 nameof(ScanIntroOnFavorite),
                 nameof(ProtectIntroMarkers),
                 nameof(IntroDetectionFingerprintMinutes));
 
-            AddGroup("播放行为打标",
+            AddGroup("播放行为打标", "",
                 nameof(EnableIntroSkip),
                 nameof(MaxIntroDurationSeconds),
                 nameof(MaxCreditsDurationSeconds),

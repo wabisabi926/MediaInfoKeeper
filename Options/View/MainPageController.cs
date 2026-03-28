@@ -38,18 +38,18 @@ namespace MediaInfoKeeper.Options.View
                 MenuIcon = "video_settings",
                 IsMainConfigPage = true
             };
-
+            
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "MetaData",
+                e => new MetaDataPageView(pluginInfo, metaDataOptionsStore)));
+            
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(IntroSkipPageView), "IntroSkip",
                 e => new IntroSkipPageView(pluginInfo, introSkipOptionsStore)));
 
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "MetaData",
-                e => new MetaDataPageView(pluginInfo, metaDataOptionsStore)));
-
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(NetWorkPageView), "Network",
-                e => new NetWorkPageView(pluginInfo, netWorkOptionsStore)));
-
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(EnhancePageView), "Enhance",
                 e => new EnhancePageView(pluginInfo, enhanceOptionsStore)));
+            
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(NetWorkPageView), "Network",
+                e => new NetWorkPageView(pluginInfo, netWorkOptionsStore)));
 
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(GitHubPageView), "GitHub & Update",
                 e => new GitHubPageView(pluginInfo, gitHubOptionsStore)));

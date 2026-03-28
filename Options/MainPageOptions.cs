@@ -21,7 +21,7 @@ namespace MediaInfoKeeper.Options
 
         public override string EditorTitle => "MediaInfo Keeper";
 
-        public override string EditorDescription => "将媒体信息与章节保存为 JSON，并在需要时从 JSON 恢复。";
+        public override string EditorDescription => "媒体信息处理、媒体库范围和计划任务这些常用设置。改完记得保存。";
 
         [DisplayName("启用插件")]
         [Description("关闭后将不执行任何行为。")]
@@ -35,17 +35,9 @@ namespace MediaInfoKeeper.Options
         [Description("收藏时触发提取媒体信息，并写入 JSON。")]
         public bool ExtractMediaInfoOnFavorite { get; set; } = true;
 
-        [DisplayName("启用 Strm 内容修改监听")]
-        [Description("开启后监听媒体库内 .strm 文件内容变更，并独立排队恢复媒体信息。")]
-        public bool EnableStrmFileWatcher { get; set; } = true;
-
         [DisplayName("条目移除时删除 JSON")]
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
-
-        [DisplayName("禁用 Emby 系统 ffprobe")]
-        [Description("开启后阻止 Emby 自带 ffprobe 运行，仅插件内部允许调用。")]
-        public bool DisableSystemFfprobe { get; set; } = true;
 
         [DisplayName("MediaInfo JSON 存储根目录")]
         [Description("建议配置不要留空,如果留空以后文件夹结构改变，不方便定位json恢复媒体信息。为空时，JSON 保存到媒体文件同目录。填写后会保存在填写的目录下， /your-path/FileNameWithoutExtension-mediainfo.json。")]
@@ -139,7 +131,7 @@ namespace MediaInfoKeeper.Options
             var groupedItems = new List<EditorBase>();
             var groupIndex = 0;
 
-            void AddGroup(string title, params string[] propertyNames)
+            void AddGroup(string title, string description, params string[] propertyNames)
             {
                 var items = new List<EditorBase>();
                 foreach (var propertyName in propertyNames)
@@ -157,26 +149,28 @@ namespace MediaInfoKeeper.Options
                 }
 
                 groupIndex++;
-                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+                var group = new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null)
+                {
+                    Description = description
+                };
+                groupedItems.Add(group);
             }
 
-            AddGroup("插件",
+            AddGroup("插件", "",
                 nameof(PlugginEnabled));
 
-            AddGroup("媒体信息",
+            AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe 运行；仅在插件内部需要提取媒体信息时按需放行。",
                 nameof(ExtractMediaInfoOnItemAdded),
                 nameof(ExtractMediaInfoOnFavorite),
-                nameof(EnableStrmFileWatcher),
                 nameof(DeleteMediaInfoJsonOnRemove),
-                nameof(DisableSystemFfprobe),
                 nameof(MediaInfoJsonRootFolder),
                 nameof(MaxConcurrentCount));
 
-            AddGroup("媒体库范围",
+            AddGroup("媒体库范围", "",
                 nameof(CatchupLibraries),
                 nameof(ScheduledTaskLibraries));
 
-            AddGroup("计划任务",
+            AddGroup("计划任务", "",
                 nameof(RecentItemsDays),
                 nameof(RecentItemsLimit),
                 nameof(RefreshMetadataMode),

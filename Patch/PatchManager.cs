@@ -30,12 +30,12 @@ namespace MediaInfoKeeper.Patch
                 var netWorkOptions = safeOptions.GetNetWorkOptions();
 
                 Register("FfprobeGuard");
-                FfprobeGuard.Initialize(logger, safeOptions.MainPage.DisableSystemFfprobe);
-                UpdateTracker("FfprobeGuard", safeOptions.MainPage.DisableSystemFfprobe, FfprobeGuard.IsReady, null);
+                FfprobeGuard.Initialize(logger, true);
+                UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
 
                 Register("ProviderManager");
-                ProviderManager.Initialize(logger, safeOptions.MainPage.DisableSystemFfprobe);
-                UpdateTracker("ProviderManager", safeOptions.MainPage.DisableSystemFfprobe,
+                ProviderManager.Initialize(logger, true);
+                UpdateTracker("ProviderManager", true,
                     ProviderManager.IsReady, null);
 
                 Register("ImageCapture");
@@ -43,8 +43,8 @@ namespace MediaInfoKeeper.Patch
                 UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
 
                 Register("MetadataProvidersWatcher");
-                MetadataProvidersWatcher.Initialize(logger, safeOptions.MetaData.EnableMetadataProvidersWatcher);
-                UpdateTracker("MetadataProvidersWatcher", safeOptions.MetaData.EnableMetadataProvidersWatcher,
+                MetadataProvidersWatcher.Initialize(logger, true);
+                UpdateTracker("MetadataProvidersWatcher", true,
                     MetadataProvidersWatcher.IsReady, null);
 
                 Register("MovieDbTitle");
@@ -183,10 +183,10 @@ namespace MediaInfoKeeper.Patch
             var safeOptions = EnsureOptions(options);
             var netWorkOptions = safeOptions.GetNetWorkOptions();
 
-            FfprobeGuard.Configure(safeOptions.MainPage.DisableSystemFfprobe);
-            ProviderManager.Configure(safeOptions.MainPage.DisableSystemFfprobe);
+            FfprobeGuard.Configure(true);
+            ProviderManager.Configure(true);
             ImageCapture.Configure(safeOptions.MetaData.EnableImageCapture);
-            MetadataProvidersWatcher.Configure(safeOptions.MetaData.EnableMetadataProvidersWatcher);
+            MetadataProvidersWatcher.Configure(true);
             IntroUnlock.Configure(safeOptions);
             NetworkServer.Configure(netWorkOptions.EnableProxyServer);
             LocalDiscoveryAddress.Configure(netWorkOptions.CustomLocalDiscoveryAddress);
@@ -206,11 +206,11 @@ namespace MediaInfoKeeper.Patch
             OriginalPoster.Configure(safeOptions.MetaData.EnableOriginalPoster);
             IntroMarkerProtect.Configure(safeOptions.IntroSkip.ProtectIntroMarkers);
 
-            UpdateTracker("FfprobeGuard", safeOptions.MainPage.DisableSystemFfprobe, FfprobeGuard.IsReady, null);
-            UpdateTracker("ProviderManager", safeOptions.MainPage.DisableSystemFfprobe,
+            UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
+            UpdateTracker("ProviderManager", true,
                 ProviderManager.IsReady, null);
             UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
-            UpdateTracker("MetadataProvidersWatcher", safeOptions.MetaData.EnableMetadataProvidersWatcher,
+            UpdateTracker("MetadataProvidersWatcher", true,
                 MetadataProvidersWatcher.IsReady, null);
             UpdateTracker("MovieDbTitle", safeOptions.MetaData.EnableAlternativeTitleFallback, MovieDbTitle.IsReady,
                 MovieDbTitle.IsWaiting ? "waiting for MovieDb assembly" : null, MovieDbTitle.IsWaiting);

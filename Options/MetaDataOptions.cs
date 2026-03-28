@@ -27,9 +27,7 @@ namespace MediaInfoKeeper.Options
 
         public override string EditorTitle => "MetaData";
 
-        [DisplayName("启用剧集元数据变动监听")]
-        [Description("开启后将监控剧集元数据刷新过程，当剧集触发封面刷新时延迟恢复媒体信息，避免刷新后媒体信息丢失。")]
-        public bool EnableMetadataProvidersWatcher { get; set; } = true;
+        public override string EditorDescription => "元数据相关设置，包括刷新过程处理、TMDB 回退和 TVDB 回退。改完记得保存。";
 
         [DisplayName("允许提取 Strm 封面")]
         [Description("为 strm 音视频启用封面/缩略图提取，ImageCapture。")]
@@ -129,7 +127,7 @@ namespace MediaInfoKeeper.Options
             var groupedItems = new List<EditorBase>();
             var groupIndex = 0;
 
-            void AddGroup(string title, params string[] propertyNames)
+            void AddGroup(string title, string description, params string[] propertyNames)
             {
                 var items = new List<EditorBase>();
                 foreach (var propertyName in propertyNames)
@@ -147,22 +145,25 @@ namespace MediaInfoKeeper.Options
                 }
 
                 groupIndex++;
-                groupedItems.Add(new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null));
+                var group = new EditorGroup(title, items.ToArray(), $"group{groupIndex}", root.Id, null)
+                {
+                    Description = description
+                };
+                groupedItems.Add(group);
             }
 
-            AddGroup("",
-                nameof(EnableMetadataProvidersWatcher),
+            AddGroup("MetaData", "当 Emby 元数据刷新时，插件会监听元数据刷新过程并延迟恢复媒体信息，避免刷新后媒体信息丢失。",
                 nameof(EnableImageCapture),
                 nameof(EnableOriginalPoster),
                 nameof(BlockNonFallbackLanguage));
 
-            AddGroup("TMDB",
+            AddGroup("TMDB", "",
                 nameof(EnableAlternativeTitleFallback),
                 nameof(FallbackLanguages),
                 nameof(EnableMovieDbEpisodeGroup),
                 nameof(EnableLocalEpisodeGroup));
 
-            AddGroup("TVDB",
+            AddGroup("TVDB", "",
                 nameof(EnableTvdbFallback),
                 nameof(TvdbFallbackLanguages));
 

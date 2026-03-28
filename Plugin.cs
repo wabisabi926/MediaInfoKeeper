@@ -304,7 +304,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用插件 设置为 {options.MainPage.PlugginEnabled}");
             this.logger.Info($"入库时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
             this.logger.Info($"收藏时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
-            this.logger.Info($"启用 Strm 内容修改监听 设置为 {options.MainPage.EnableStrmFileWatcher}");
+            this.logger.Info("启用 Strm 内容修改监听 固定为 开");
             this.logger.Info($"MediaInfo JSON 存储根目录 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "空" : options.MainPage.MediaInfoJsonRootFolder)}");
             this.logger.Info($"条目移除时删除 JSON 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
             this.logger.Info($"追更媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "空" : options.MainPage.CatchupLibraries)}");
@@ -335,7 +335,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"日志来源黑名单 设置为 {(string.IsNullOrWhiteSpace(options.Enhance.SystemLogNameBlacklist) ? "空" : options.Enhance.SystemLogNameBlacklist)}");
 
             this.logger.Info("[MetaData]");
-            this.logger.Info($"启用剧集元数据变动监听 设置为 {options.MetaData.EnableMetadataProvidersWatcher}");
+            this.logger.Info("启用剧集元数据变动监听 固定为 开");
             this.logger.Info($"启用 TMDB 中文回退 设置为 {options.MetaData.EnableAlternativeTitleFallback}");
             this.logger.Info($"启用 TVDB 中文回退 设置为 {options.MetaData.EnableTvdbFallback}");
             this.logger.Info($"TMDB 备选语言 设置为 {options.MetaData.FallbackLanguages}");
@@ -379,7 +379,7 @@ namespace MediaInfoKeeper
             var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();
             safeOptions.MainPage ??= new MainPageOptions();
 
-            StrmFileWatcher?.Configure(this.PlugginEnabled && safeOptions.MainPage.EnableStrmFileWatcher);
+            StrmFileWatcher?.Configure(this.PlugginEnabled);
         }
 
         private string NormalizeScopedLibraries(string raw)
