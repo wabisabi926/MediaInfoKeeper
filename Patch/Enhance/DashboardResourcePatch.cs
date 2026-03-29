@@ -208,7 +208,7 @@ namespace MediaInfoKeeper.Patch
         }
 
         [HarmonyPrefix]
-        [HarmonyPriority(Priority.First)]
+        [HarmonyPriority(Priority.Normal)]
         private static bool GetPrefix(object __instance, object __0, ref Task<object> __result)
         {
             var request = __0;
@@ -220,8 +220,8 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            logger?.Info("DashboardResourcePatch target hit: {0}", path);
-
+            logger?.Debug("DashboardResourcePatch target hit: {0}", path);
+            
             try
             {
                 var requestContext = GetPropertyValue<IRequest>(__instance, "Request");
@@ -337,12 +337,6 @@ namespace MediaInfoKeeper.Patch
             handler.Stream = new MemoryStream(Encoding.UTF8.GetBytes(rewrittenContent), writable: false);
             handler.Length = rewrittenContent.Length;
             handler.TotalLength = rewrittenContent.Length;
-
-            if (!string.Equals(originalContent, rewrittenContent, StringComparison.Ordinal))
-            {
-                logger?.Info("DashboardResourcePatch hit: rewrote {0}", targetName);
-            }
-
             return handler;
         }
 
@@ -360,7 +354,6 @@ namespace MediaInfoKeeper.Patch
 
             return handler(content);
         }
-
         private static string RewriteHtmlVideoPlayerPlugin(string content)
         {
             if (string.IsNullOrEmpty(content))
@@ -373,6 +366,8 @@ namespace MediaInfoKeeper.Patch
                 return content;
             }
 
+            logger?.Info("DashboardResourcePatch: 移除 crossOrigin");
+            
             return content.Replace(
                 "&&(elem.crossOrigin=initialSubtitleStream)",
                 string.Empty,
@@ -403,7 +398,7 @@ namespace MediaInfoKeeper.Patch
                 return content;
             }
 
-            logger?.Info("注入 Emby Web ede.js");
+            logger?.Info("DashboardResourcePatch: index.html 注入弹幕js ede.js");
             return content.Insert(bodyCloseIndex, scriptTag + Environment.NewLine);
         }
 
