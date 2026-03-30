@@ -63,6 +63,13 @@ namespace MediaInfoKeeper.Web
         public string[] Ids { get; set; }
     }
 
+    [Route("/MediaInfoKeeper/Items/DebugMediaInfo", "GET")]
+    [Authenticated(Roles = "Admin")]
+    public class DebugMediaInfoRequest : IReturn<DebugMediaInfoResponse>
+    {
+        public long InternalId { get; set; }
+    }
+
     public class MediaInfoMenuResponse
     {
         public int Total { get; set; }
@@ -76,6 +83,68 @@ namespace MediaInfoKeeper.Web
         public int Skipped { get; set; }
 
         public string Message { get; set; }
+    }
+
+    public class DebugMediaInfoResponse
+    {
+        public bool Found { get; set; }
+
+        public string Message { get; set; }
+
+        public DebugItemInfo Item { get; set; }
+
+        public DebugFileInfo MediaInfoJson { get; set; }
+
+        public DebugFileInfo LyricsJson { get; set; }
+
+        public DebugBinaryFileInfo Cover { get; set; }
+    }
+
+    public class DebugItemInfo
+    {
+        public long InternalId { get; set; }
+
+        public string Type { get; set; }
+
+        public string Name { get; set; }
+
+        public string Path { get; set; }
+
+        public string FileName { get; set; }
+
+        public string ContainingFolderPath { get; set; }
+
+        public bool HasMediaInfo { get; set; }
+
+        public bool HasCover { get; set; }
+
+        public int MediaStreamCount { get; set; }
+
+        public int AudioStreamCount { get; set; }
+
+        public int VideoStreamCount { get; set; }
+
+        public int SubtitleStreamCount { get; set; }
+
+        public long? RunTimeTicks { get; set; }
+    }
+
+    public class DebugFileInfo
+    {
+        public string Path { get; set; }
+
+        public bool Exists { get; set; }
+
+        public object Content { get; set; }
+    }
+
+    public class DebugBinaryFileInfo
+    {
+        public string Path { get; set; }
+
+        public bool Exists { get; set; }
+
+        public long Length { get; set; }
     }
 
 }

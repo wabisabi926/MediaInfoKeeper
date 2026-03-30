@@ -12,7 +12,14 @@ namespace MediaInfoKeeper.Options
     {
         public override string EditorTitle => "Debug";
 
-        public override string EditorDescription => "调试用页面，主要控制 DLL 扫描范围。改完记得保存。";
+        public override string EditorDescription =>
+            "调试用页面，主要控制 DLL 扫描范围。改完记得保存。\n\n" +
+            "需要管理员鉴权，返回指定 internalId 条目的当前库内媒体流状态，以及 xxx-mediainfo.json、xxx-lyrics.json、xxx-cover.jpg 的路径和内容，方便排查恢复问题。";
+
+        [DisplayName("MediaInfo 调试接口")]
+        [Description("只读，可直接复制。")]
+        public string DebugMediaInfoUrl { get; set; } =
+            "http://192.168.33.100:8091/MediaInfoKeeper/Items/DebugMediaInfo?InternalId=161483&api_key=123";
 
         [DisplayName("DLL 白名单前缀")]
         [Description("按前缀匹配 DLL 文件名（分号或换行分隔）。留空表示不启用白名单。")]
@@ -35,6 +42,13 @@ namespace MediaInfoKeeper.Options
             foreach (var item in root.EditorItems)
             {
                 var key = item.Name ?? item.Id;
+                if (item is EditorText text &&
+                    string.Equals(key, nameof(DebugMediaInfoUrl), StringComparison.OrdinalIgnoreCase))
+                {
+                    text.IsReadOnly = true;
+                    text.AllowEmpty = false;
+                }
+
                 if (string.IsNullOrEmpty(key))
                 {
                     continue;
@@ -75,6 +89,7 @@ namespace MediaInfoKeeper.Options
             }
 
             AddGroup("调试", "",
+                nameof(DebugMediaInfoUrl),
                 nameof(DllNameWhitelistPrefixes),
                 nameof(DllNameBlacklistPrefixes));
 
