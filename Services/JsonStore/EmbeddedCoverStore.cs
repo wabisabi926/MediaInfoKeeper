@@ -165,19 +165,20 @@ namespace MediaInfoKeeper.Services
                 return new SourceImage(image.Path, GetMimeType(image.Path));
             }
 
-            if (item is not Audio audio || audio.AlbumId == 0)
+            var displayParentId = item.ImageDisplayParentId;
+            if (displayParentId == 0 || displayParentId == item.InternalId)
             {
                 return null;
             }
 
-            var album = this.libraryManager.GetItemById(audio.AlbumId);
-            var albumImage = album?.GetImageInfo(ImageType.Primary, 0);
-            if (!IsUsableImage(albumImage))
+            var displayParent = this.libraryManager.GetItemById(displayParentId);
+            var displayParentImage = displayParent?.GetImageInfo(ImageType.Primary, 0);
+            if (!IsUsableImage(displayParentImage))
             {
                 return null;
             }
 
-            return new SourceImage(albumImage.Path, GetMimeType(albumImage.Path));
+            return new SourceImage(displayParentImage.Path, GetMimeType(displayParentImage.Path));
         }
 
         private bool IsUsableImage(ItemImageInfo image)
