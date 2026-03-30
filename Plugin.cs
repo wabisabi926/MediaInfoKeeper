@@ -495,8 +495,9 @@ namespace MediaInfoKeeper
                             var itemCollectionFolders = this.libraryManager.GetCollectionFolders(e.Item).Cast<BaseItem>().ToArray();
                             var itemLibraryOptions = this.libraryManager.GetLibraryOptions(e.Item);
                             e.Item.DateLastRefreshed = new DateTimeOffset();
-                            await this.providerManager
-                                .RefreshSingleItem(e.Item, metadataRefreshOptions, itemCollectionFolders, itemLibraryOptions, CancellationToken.None)
+                            await RefreshTaskRunner.RunAsync(
+                                    () => this.providerManager
+                                        .RefreshSingleItem(e.Item, metadataRefreshOptions, itemCollectionFolders, itemLibraryOptions, CancellationToken.None))
                                 .ConfigureAwait(false);
                         }
                         // 提取完成后写入 JSON。
@@ -544,8 +545,9 @@ namespace MediaInfoKeeper
                                 {
                                     var collectionFolders = this.libraryManager.GetCollectionFolders(parentFolder).Cast<BaseItem>().ToArray();
                                     var libraryOptions = this.libraryManager.GetLibraryOptions(parentFolder);
-                                    await this.providerManager
-                                        .RefreshSingleItem(parentFolder, discoverOnlyOptions, collectionFolders, libraryOptions, CancellationToken.None)
+                                    await RefreshTaskRunner.RunAsync(
+                                            () => this.providerManager
+                                                .RefreshSingleItem(parentFolder, discoverOnlyOptions, collectionFolders, libraryOptions, CancellationToken.None))
                                         .ConfigureAwait(false);
                                 }
                                 catch (Exception refreshEx)
@@ -670,60 +672,59 @@ namespace MediaInfoKeeper
                         var seriesEpisodes = LibraryService.GetSeriesEpisodesFromItem(item);
                         if (seriesEpisodes.Count > 0)
                         {
-                            await MediaInfoTaskRunner
-                                .ProcessItemsAsync(
-                                    seriesEpisodes.Cast<BaseItem>().ToList(),
-                                    async target =>
+                            var tasks = seriesEpisodes
+                                .Cast<BaseItem>()
+                                .Select(async target =>
+                                {
+                                    if (target == null)
                                     {
-                                        if (target == null)
+                                        return;
+                                    }
+
+                                    var displayName = target.Path ?? target.Name;
+                                    var workItem = this.libraryManager.GetItemById(target.InternalId) ?? target;
+
+                                    try
+                                    {
+                                        if (MediaInfoService.HasMediaInfo(workItem))
                                         {
+                                            this.logger.Info($"OnFavorite 已存在 MediaInfo，跳过处理: {displayName}");
                                             return;
                                         }
 
-                                        var displayName = target.Path ?? target.Name;
-                                        var workItem = this.libraryManager.GetItemById(target.InternalId) ?? target;
-
-                                        try
+                                        var restoreResult = MediaSourceInfoStore.ApplyToItem(workItem);
+                                        ChaptersStore.ApplyToItem(workItem);
+                                        if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                                            restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                                         {
-                                            if (MediaInfoService.HasMediaInfo(workItem))
-                                            {
-                                                this.logger.Info($"OnFavorite 已存在 MediaInfo，跳过处理: {displayName}");
-                                                return;
-                                            }
-
-                                            var restoreResult = MediaSourceInfoStore.ApplyToItem(workItem);
-                                            ChaptersStore.ApplyToItem(workItem);
-                                            if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                                                restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
-                                            {
-                                                this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
-                                                return;
-                                            }
-
-                                            var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
-                                            var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
-                                            var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
-                                            using (FfprobeGuard.Allow())
-                                            {
-                                                workItem.DateLastRefreshed = new DateTimeOffset();
-                                                await this.providerManager
-                                                    .RefreshSingleItem(workItem, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None)
-                                                    .ConfigureAwait(false);
-                                            }
-                                            MediaSourceInfoStore.OverWriteToFile(workItem);
-                                            this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
+                                            this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
+                                            return;
                                         }
-                                        catch (Exception ex)
+
+                                        var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
+                                        var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
+                                        var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
+                                        using (FfprobeGuard.Allow())
                                         {
-                                            this.logger.Error($"OnFavorite 媒体信息提取失败: {displayName}");
-                                            this.logger.Error(ex.Message);
-                                            this.logger.Debug(ex.StackTrace);
+                                            workItem.DateLastRefreshed = new DateTimeOffset();
+                                            await RefreshTaskRunner.RunAsync(
+                                                    () => this.providerManager
+                                                        .RefreshSingleItem(workItem, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None))
+                                                .ConfigureAwait(false);
                                         }
-                                    },
-                                    this.logger,
-                                    CancellationToken.None,
-                                    null)
-                                .ConfigureAwait(false);
+
+                                        MediaSourceInfoStore.OverWriteToFile(workItem);
+                                        this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.logger.Error($"OnFavorite 媒体信息提取失败: {displayName}");
+                                        this.logger.Error(ex.Message);
+                                        this.logger.Debug(ex.StackTrace);
+                                    }
+                                })
+                                .ToList();
+                            await Task.WhenAll(tasks).ConfigureAwait(false);
                         }
                     });
                 }

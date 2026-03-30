@@ -128,8 +128,9 @@ namespace MediaInfoKeeper.Web.Handler
                 var copiedOptions = LibraryService.CopyLibraryOptions(libraryOptions);
 
                 item.DateLastRefreshed = new DateTimeOffset();
-                await Plugin.ProviderManager
-                    .RefreshSingleItem(item, refreshOptions, collectionFolders, copiedOptions, CancellationToken.None)
+                await RefreshTaskRunner.RunAsync(
+                        () => Plugin.ProviderManager
+                            .RefreshSingleItem(item, refreshOptions, collectionFolders, copiedOptions, CancellationToken.None))
                     .ConfigureAwait(false);
 
                 if (!Plugin.MediaInfoService.HasMediaInfo(item))

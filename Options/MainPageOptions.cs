@@ -45,9 +45,9 @@ namespace MediaInfoKeeper.Options
         public string MediaInfoJsonRootFolder { get; set; } = string.Empty;
 
         [DisplayName("扫描最多并发数")]
-        [Description("设置媒体信息多线程提取的最大并发数，默认 2。")]
+        [Description("设置插件刷新任务的最大并发数，媒体信息提取和元数据刷新共用此限制，默认 3。")]
         [MinValue(1), MaxValue(20)]
-        public int MaxConcurrentCount { get; set; } = 2;
+        public int MaxConcurrentCount { get; set; } = 3;
 
         [Browsable(false)]
         public IEnumerable<EditorSelectOption> LibraryList { get; set; }

@@ -47,13 +47,40 @@ namespace MediaInfoKeeper.ScheduledTask
                 return;
             }
 
-            await MediaInfoTaskRunner.ProcessItemsAsync(
-                    items,
-                    item => ProcessItemAsync(item, "Scheduled Task", cancellationToken),
-                    this.logger,
-                    cancellationToken,
-                    progress)
-                .ConfigureAwait(false);
+            var completed = 0;
+            var tasks = items
+                .Select(async item =>
+                {
+                    try
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return;
+                        }
+
+                        await RefreshTaskRunner.RunAsync(
+                                () => ProcessItemAsync(item, "Scheduled Task", cancellationToken),
+                                cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // ignore
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logger.Error($"任务执行失败: {item.Path ?? item.Name}");
+                        this.logger.Error(ex.Message);
+                        this.logger.Debug(ex.StackTrace);
+                    }
+                    finally
+                    {
+                        var done = Interlocked.Increment(ref completed);
+                        progress?.Report(done / (double)total * 100);
+                    }
+                })
+                .ToList();
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
             this.logger.Info("计划任务完成");
         }

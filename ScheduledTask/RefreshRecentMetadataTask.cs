@@ -9,6 +9,7 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 using MediaInfoKeeper.Patch;
+using MediaInfoKeeper.Services;
 using static MediaInfoKeeper.Options.MainPageOptions;
 
 namespace MediaInfoKeeper.ScheduledTask
@@ -49,48 +50,38 @@ namespace MediaInfoKeeper.ScheduledTask
             var replaceThumbnails = ShouldReplaceThumbnails();
             this.logger.Info($"计划任务条目数{total}，元数据覆盖{replaceMetadata}，图片覆盖{replaceImages}，视频缩略图覆盖{replaceThumbnails}");
 
-            var current = 0;
-            foreach (var item in items)
-            {
-                var created = item.DateCreated == default ? "unknown" : item.DateCreated.ToString("u");
-                this.logger.Info($"[{current + 1}/{total}] 刷新元数据 {item.FileName ?? item.Path} 入库日期 = {created}");
-
-                if (cancellationToken.IsCancellationRequested)
+            var completed = 0;
+            var tasks = items
+                .Select(async item =>
                 {
-                    this.logger.Info("计划任务已取消");
-                    return;
-                }
+                    try
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return;
+                        }
 
-                try
-                {
-                    var options = BuildRefreshOptions(replaceMetadata, replaceImages, replaceThumbnails);
-                    var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
-                    var libraryOptions = this.libraryManager.GetLibraryOptions(item);
-
-                    await Plugin.ProviderManager
-                        .RefreshSingleItem(item, options, collectionFolders, libraryOptions, cancellationToken)
-                        .ConfigureAwait(false);
-                    // 刷新完元数据要重新从json恢复媒体信息，
-                    // 非strm会重新 ffprobe，但是没有allow所以会拦截，
-                    // strm会丢失信息，所以重新恢复，启用元数据变动监听会恢复，不必重复恢复
-                    // Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                    // Plugin.ChaptersStore.ApplyToItem(item);
-                }
-                catch (OperationCanceledException)
-                {
-                    this.logger.Info($"计划任务已取消 {item.Path}");
-                    return;
-                }
-                catch (Exception e)
-                {
-                    this.logger.Error($"计划任务失败: {item.Path}");
-                    this.logger.Error(e.Message);
-                    this.logger.Debug(e.StackTrace);
-                }
-
-                current++;
-                progress.Report(current / (double)total * 100);
-            }
+                        await ProcessItemAsync(item, replaceMetadata, replaceImages, replaceThumbnails, cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        this.logger.Info($"计划任务已取消 {item.Path}");
+                    }
+                    catch (Exception e)
+                    {
+                        this.logger.Error($"计划任务失败: {item.Path}");
+                        this.logger.Error(e.Message);
+                        this.logger.Debug(e.StackTrace);
+                    }
+                    finally
+                    {
+                        var done = Interlocked.Increment(ref completed);
+                        progress?.Report(done / (double)total * 100);
+                    }
+                })
+                .ToList();
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
             this.logger.Info("最近条目刷新元数据计划任务完成");
         }
@@ -132,6 +123,33 @@ namespace MediaInfoKeeper.ScheduledTask
                 ReplaceThumbnailImages = replaceThumbnails,
                 EnableThumbnailImageExtraction = Plugin.Instance.Options.MetaData.EnableImageCapture
             };
+        }
+
+        private async Task ProcessItemAsync(
+            BaseItem item,
+            bool replaceMetadata,
+            bool replaceImages,
+            bool replaceThumbnails,
+            CancellationToken cancellationToken)
+        {
+            var created = item.DateCreated == default ? "unknown" : item.DateCreated.ToString("u");
+            this.logger.Info($"刷新元数据 {item.FileName ?? item.Path} 入库日期 = {created}");
+
+            var options = BuildRefreshOptions(replaceMetadata, replaceImages, replaceThumbnails);
+            var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
+            var libraryOptions = this.libraryManager.GetLibraryOptions(item);
+
+            await RefreshTaskRunner.RunAsync(
+                    () => Plugin.ProviderManager
+                        .RefreshSingleItem(item, options, collectionFolders, libraryOptions, cancellationToken),
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            // 刷新完元数据要重新从json恢复媒体信息，
+            // 非strm会重新 ffprobe，但是没有allow所以会拦截，
+            // strm会丢失信息，所以重新恢复，启用元数据变动监听会恢复，不必重复恢复
+            // Plugin.MediaSourceInfoStore.ApplyToItem(item);
+            // Plugin.ChaptersStore.ApplyToItem(item);
         }
 
         private bool ShouldReplaceMetadata()

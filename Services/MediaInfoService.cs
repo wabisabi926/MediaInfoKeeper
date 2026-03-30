@@ -86,8 +86,9 @@ namespace MediaInfoKeeper.Services
                 using (FfprobeGuard.Allow())
                 {
                     episode.DateLastRefreshed = new DateTimeOffset();
-                    await Plugin.ProviderManager
-                        .RefreshSingleItem(episode, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None)
+                    await RefreshTaskRunner.RunAsync(
+                            () => Plugin.ProviderManager
+                                .RefreshSingleItem(episode, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None))
                         .ConfigureAwait(false);
                 }
 
