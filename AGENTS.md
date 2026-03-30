@@ -13,6 +13,10 @@
 - Use method signature exports under `Docs/${EMBY_DOCS_DIR}/`.
 - Primary files: `*_methods.txt` for target assemblies.
 
+## DLL Source Location
+- Local Emby DLL files are at `/Users/honue/Documents/Emby/dlls`.
+- Use this path when inspecting assemblies, resolving types, or cross-referencing method signatures.
+
 ## Project Structure
 - `Patch/`: Harmony patch implementations and method resolution logic.
 - `Patch/PatchManager.cs`: central patch bootstrap, configure, and health tracking entry.
