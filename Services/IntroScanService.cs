@@ -13,6 +13,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
+using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Services
@@ -20,17 +21,25 @@ namespace MediaInfoKeeper.Services
     public class IntroScanService
     {
         private readonly object runtimeLock = new object();
+        private readonly object introScanGateLock = new object();
         private readonly ILogger logger;
         private readonly ILibraryManager libraryManager;
-        private readonly SemaphoreSlim introScanSemaphore = new SemaphoreSlim(1, 1);
+        private readonly IFileSystem fileSystem;
+        private SemaphoreSlim introScanSemaphore;
+        private int configuredIntroScanConcurrency;
         private volatile AudioFingerprintRuntime audioFingerprintRuntime;
 
-        public IntroScanService(ILogManager logManager, ILibraryManager libraryManager)
+        public IntroScanService(
+            ILogManager logManager,
+            ILibraryManager libraryManager,
+            IFileSystem fileSystem)
         {
             this.logger = logManager.GetLogger(Plugin.PluginName);
             this.libraryManager = libraryManager;
+            this.fileSystem = fileSystem;
         }
 
+        /// <summary>按配置并发度扫描一批剧集的片头标记。</summary>
         public async Task ScanEpisodesAsync(IReadOnlyList<Episode> episodes, CancellationToken cancellationToken, IProgress<double> progress)
         {
             if (episodes == null || episodes.Count == 0)
@@ -41,69 +50,15 @@ namespace MediaInfoKeeper.Services
             }
 
             var total = episodes.Count;
-            var current = 0;
             if (progress != null)
             {
                 this.logger.Info($"片头扫描开始，总条目 {total}");
             }
 
-            foreach (var episode in episodes)
-            {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    this.logger.Info("扫描已取消");
-                    return;
-                }
-
-                var displayName = episode.Path ?? episode.Name;
-                this.logger.Info($"扫描进度 {current + 1}/{total}: {displayName} (id={episode.InternalId}, parent={episode.ParentId})");
-                if (HasIntroMarkers(episode))
-                {
-                    this.logger.Info($"跳过 已存在片头标记: {displayName}");
-                    current++;
-                    progress?.Report(current / (double)total * 100);
-                    continue;
-                }
-
-                try
-                {
-                    this.logger.Debug($"开始片头检测: {displayName}");
-                    var stopwatch = Stopwatch.StartNew();
-                    var detected = await TryDetectIntroAsync(episode, cancellationToken).ConfigureAwait(false);
-                    stopwatch.Stop();
-                    var hasMarkersAfterDetect = HasIntroMarkers(episode);
-                    this.logger.Info(
-                        $"片头检测结果: 状态={(detected && hasMarkersAfterDetect ? "成功" : "失败")}, 已检测到={(detected ? "是" : "否")}, 已写入标记={(hasMarkersAfterDetect ? "是" : "否")}, 耗时={stopwatch.ElapsedMilliseconds}ms, 条目={displayName}");
-
-                    if (!detected)
-                    {
-                        this.logger.Warn($"片头检测失败: reason=DetectorReturnedFalse, item={displayName}");
-                    }
-                    else if (hasMarkersAfterDetect)
-                    {
-                        this.logger.Debug($"片头检测成功: marker 已写入, item={displayName}");
-                        Plugin.ChaptersStore.OverWriteToFile(episode);
-                    }
-                    else
-                    {
-                        this.logger.Warn($"片头检测失败: reason=NoMarkerGenerated, item={displayName}");
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    this.logger.Info($"扫描已取消 {displayName}");
-                    return;
-                }
-                catch (Exception e)
-                {
-                    this.logger.Error($"片头检测失败: {displayName}");
-                    this.logger.Error(e.Message);
-                    this.logger.Debug(e.StackTrace);
-                }
-
-                current++;
-                progress?.Report(current / (double)total * 100);
-            }
+            var progressCounter = new ProgressCounter();
+            var tasks = episodes.Select(episode => ScanEpisodeWithConcurrencyGateAsync(episode, cancellationToken, total, progress, progressCounter))
+                .ToArray();
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
             if (progress != null)
             {
@@ -111,12 +66,14 @@ namespace MediaInfoKeeper.Services
             }
         }
 
+        /// <summary>判断条目当前是否已经存在片头标记。</summary>
         public bool HasIntroMarkers(BaseItem item)
         {
             return Plugin.IntroSkipChapterApi.GetIntroStart(item).HasValue ||
                    Plugin.IntroSkipChapterApi.GetIntroEnd(item).HasValue;
         }
 
+        /// <summary>将单个剧集加入后台片头扫描队列，并在失败时延迟重试一次。</summary>
         public bool QueueEpisodeScan(Episode episode, string source)
         {
             if (episode == null)
@@ -133,10 +90,10 @@ namespace MediaInfoKeeper.Services
             _ = Task.Run(async () =>
             {
                 var semaphoreHeld = false;
+                SemaphoreSlim introScanGate = null;
                 try
                 {
                     this.logger.Debug($"{source} 片头扫描: 新的扫描任务 {episode.FileName ?? episode.Path}");
-                    var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
 
                     if (HasIntroMarkers(episode))
                     {
@@ -144,8 +101,7 @@ namespace MediaInfoKeeper.Services
                         return;
                     }
 
-                    episode = await Plugin.MediaInfoService
-                        .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "Pre")
+                    episode = await PrepareEpisodeForDetectionAsync(episode, source + "Pre")
                         .ConfigureAwait(false);
                     if (episode == null)
                     {
@@ -154,37 +110,36 @@ namespace MediaInfoKeeper.Services
 
                     this.logger.Debug($"{source} 片头扫描: 预提取完成，加入扫描队列 {episode.Path} InternalId: {episode.InternalId}");
 
-                    await introScanSemaphore.WaitAsync().ConfigureAwait(false);
+                    introScanGate = GetScanConcurrencyGate();
+                    await introScanGate.WaitAsync().ConfigureAwait(false);
                     semaphoreHeld = true;
 
                     this.logger.Debug($"{source} 片头扫描: 开始片头检测 {episode.FileName ?? episode.Path} InternalId: {episode.InternalId}");
-                    await ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                        .ConfigureAwait(false);
+                    await ScanEpisodeCoreAsync(episode, CancellationToken.None, null, null, null).ConfigureAwait(false);
 
                     if (!HasIntroMarkers(episode))
                     {
                         this.logger.Info($"{source} 片头扫描: 未生成标记，2 分钟后重试 1 次");
                         if (semaphoreHeld)
                         {
-                            introScanSemaphore.Release();
+                            introScanGate.Release();
                             semaphoreHeld = false;
                         }
 
                         await Task.Delay(TimeSpan.FromMinutes(2), CancellationToken.None)
                             .ConfigureAwait(false);
 
-                        episode = await Plugin.MediaInfoService
-                            .PrepareEpisodeForIntroScanAsync(episode, directoryService, source + "RetryPre")
+                        episode = await PrepareEpisodeForDetectionAsync(episode, source + "RetryPre")
                             .ConfigureAwait(false);
                         if (episode == null)
                         {
                             return;
                         }
 
-                        await introScanSemaphore.WaitAsync().ConfigureAwait(false);
+                        introScanGate = GetScanConcurrencyGate();
+                        await introScanGate.WaitAsync().ConfigureAwait(false);
                         semaphoreHeld = true;
-                        await ScanEpisodesAsync(new List<Episode> { episode }, CancellationToken.None, null)
-                            .ConfigureAwait(false);
+                        await ScanEpisodeCoreAsync(episode, CancellationToken.None, null, null, null).ConfigureAwait(false);
                     }
                 }
                 catch (Exception ex)
@@ -197,7 +152,7 @@ namespace MediaInfoKeeper.Services
                 {
                     if (semaphoreHeld)
                     {
-                        introScanSemaphore.Release();
+                        introScanGate?.Release();
                     }
                 }
             });
@@ -205,13 +160,240 @@ namespace MediaInfoKeeper.Services
             return true;
         }
 
-        public async Task<bool> TryDetectIntroAsync(Episode episode, CancellationToken cancellationToken)
+        /// <summary>为片头探测准备剧集状态，确保挂载可用、MediaInfo 可恢复且存在音频流。</summary>
+        private async Task<Episode> PrepareEpisodeForDetectionAsync(Episode episode, string source)
         {
-            this.logger.Debug($"TryDetectIntroAsync: item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
-            var detector = TryResolveAudioFingerprintManager();
+            if (episode == null)
+            {
+                return null;
+            }
+
+            var workEpisode = this.libraryManager.GetItemById(episode.InternalId) as Episode ?? episode;
+
+            if (LibraryService.IsFileShortcut(workEpisode.Path ?? workEpisode.FileName))
+            {
+                var mountedPath = await Plugin.LibraryService.GetStrmMountPathAsync(workEpisode.Path).ConfigureAwait(false);
+                if (string.IsNullOrEmpty(mountedPath))
+                {
+                    this.logger.Warn($"{source} 片头扫描预提取: {workEpisode.FileName} InternalId: {workEpisode.InternalId} 挂载路径解析失败，跳过扫描");
+                    return null;
+                }
+            }
+
+            if (!Plugin.MediaInfoService.HasMediaInfo(workEpisode))
+            {
+                this.logger.Info($"{source} 片头扫描预提取: {workEpisode.FileName} 无 MediaInfo，尝试从 JSON 恢复");
+                var restoreResult = Plugin.MediaSourceInfoStore.ApplyToItem(workEpisode);
+                Plugin.ChaptersStore.ApplyToItem(workEpisode);
+                var restoreSucceeded =
+                    restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                    restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists;
+
+                if (!restoreSucceeded)
+                {
+                    this.logger.Info($"{source} 片头扫描预提取: {workEpisode.FileName} 开始提取媒体信息");
+                    workEpisode = await RefreshEpisodeForDetectionAsync(workEpisode, source + " Extract")
+                        .ConfigureAwait(false);
+                    if (workEpisode == null)
+                    {
+                        return null;
+                    }
+
+                    if (Plugin.MediaInfoService.HasMediaInfo(workEpisode))
+                    {
+                        Plugin.MediaSourceInfoStore.OverWriteToFile(workEpisode);
+                    }
+                }
+            }
+
+            workEpisode = this.libraryManager.GetItemById(workEpisode.InternalId) as Episode ?? workEpisode;
+            if (!Plugin.MediaInfoService.HasMediaInfo(workEpisode))
+            {
+                this.logger.Warn($"{source} 片头扫描预提取: {workEpisode.FileName} 提取后仍无 MediaInfo，跳过扫描");
+                return null;
+            }
+
+            var hasAudioStream = workEpisode.GetMediaStreams().Any(s => s.Type == MediaStreamType.Audio);
+            if (!hasAudioStream)
+            {
+                this.logger.Warn($"{source} 片头扫描预提取: {workEpisode.FileName} MediaInfo 存在但无音频流，跳过扫描");
+                return null;
+            }
+
+            return workEpisode;
+        }
+
+        /// <summary>为片头探测执行一次最小化刷新，以便补齐 MediaInfo。</summary>
+        private async Task<Episode> RefreshEpisodeForDetectionAsync(Episode episode, string source)
+        {
+            if (episode == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                var metadataRefreshOptions = new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
+                {
+                    EnableRemoteContentProbe = true,
+                    MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,
+                    ReplaceAllMetadata = false,
+                    ImageRefreshMode = MetadataRefreshMode.ValidationOnly,
+                    ReplaceAllImages = false,
+                    EnableThumbnailImageExtraction = false,
+                    EnableSubtitleDownloading = false
+                };
+                var collectionFolders = this.libraryManager.GetCollectionFolders(episode).Cast<BaseItem>().ToArray();
+                var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
+                using (FfprobeGuard.Allow())
+                {
+                    episode.DateLastRefreshed = new DateTimeOffset();
+                    await RefreshTaskRunner.RunAsync(
+                            () => Plugin.ProviderManager
+                                .RefreshSingleItem(episode, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None))
+                        .ConfigureAwait(false);
+                }
+
+                return episode;
+            }
+            catch (Exception ex)
+            {
+                this.logger.Error($"{source} 片头扫描: 未刷新条目触发刷新失败 {episode.Path} InternalId: {episode.InternalId}");
+                this.logger.Error(ex.Message);
+                this.logger.Debug(ex.StackTrace);
+                return null;
+            }
+        }
+
+        /// <summary>在并发门控下执行单个剧集的扫描，并汇总批量扫描进度。</summary>
+        private async Task ScanEpisodeWithConcurrencyGateAsync(
+            Episode episode,
+            CancellationToken cancellationToken,
+            int total,
+            IProgress<double> progress,
+            ProgressCounter progressCounter)
+        {
+            var semaphoreHeld = false;
+            SemaphoreSlim introScanGate = null;
+            try
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    this.logger.Info("扫描已取消");
+                    return;
+                }
+
+                introScanGate = GetScanConcurrencyGate();
+                await introScanGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+                semaphoreHeld = true;
+                await ScanEpisodeCoreAsync(episode, cancellationToken, total, progress, () => Interlocked.Increment(ref progressCounter.Completed))
+                    .ConfigureAwait(false);
+            }
+            finally
+            {
+                if (semaphoreHeld)
+                {
+                    introScanGate?.Release();
+                }
+            }
+        }
+
+        /// <summary>执行单个剧集的片头探测，并在成功后持久化标记结果。</summary>
+        private async Task ScanEpisodeCoreAsync(
+            Episode episode,
+            CancellationToken cancellationToken,
+            int? total,
+            IProgress<double> progress,
+            Func<int> onCompleted)
+        {
+            var displayName = episode?.Path ?? episode?.Name;
+            if (episode == null)
+            {
+                return;
+            }
+
+            try
+            {
+                if (HasIntroMarkers(episode))
+                {
+                    this.logger.Info($"跳过 已存在片头标记: {displayName}");
+                    return;
+                }
+
+                this.logger.Debug($"开始片头检测: {displayName}");
+                var stopwatch = Stopwatch.StartNew();
+                var detected = await DetectIntroAsync(episode, cancellationToken).ConfigureAwait(false);
+                stopwatch.Stop();
+                var hasMarkersAfterDetect = HasIntroMarkers(episode);
+                this.logger.Info(
+                    $"片头检测结果: 状态={(detected && hasMarkersAfterDetect ? "成功" : "失败")}, 已检测到={(detected ? "是" : "否")}, 已写入标记={(hasMarkersAfterDetect ? "是" : "否")}, 耗时={stopwatch.ElapsedMilliseconds}ms, 条目={displayName}");
+
+                if (!detected)
+                {
+                    this.logger.Warn($"片头检测失败: reason=DetectorReturnedFalse, item={displayName}");
+                }
+                else if (hasMarkersAfterDetect)
+                {
+                    this.logger.Debug($"片头检测成功: marker 已写入, item={displayName}");
+                    Plugin.ChaptersStore.OverWriteToFile(episode);
+                }
+                else
+                {
+                    this.logger.Warn($"片头检测失败: reason=NoMarkerGenerated, item={displayName}");
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                this.logger.Info($"扫描已取消 {displayName}");
+                throw;
+            }
+            catch (Exception e)
+            {
+                this.logger.Error($"片头检测失败: {displayName}");
+                this.logger.Error(e.Message);
+                this.logger.Debug(e.StackTrace);
+            }
+            finally
+            {
+                if (onCompleted != null && total.HasValue)
+                {
+                    var completed = onCompleted();
+                    this.logger.Info($"扫描进度 {completed}/{total}: {displayName} (id={episode.InternalId}, parent={episode.ParentId})");
+                    progress?.Report(completed / (double)total.Value * 100);
+                }
+            }
+        }
+
+        /// <summary>按当前配置获取片头探测并发门控实例。</summary>
+        private SemaphoreSlim GetScanConcurrencyGate()
+        {
+            var maxConcurrent = Math.Max(1, Plugin.Instance?.Options?.IntroSkip?.IntroDetectionMaxConcurrentCount ?? 1);
+            lock (introScanGateLock)
+            {
+                if (introScanSemaphore == null || configuredIntroScanConcurrency != maxConcurrent)
+                {
+                    introScanSemaphore = new SemaphoreSlim(maxConcurrent, maxConcurrent);
+                    configuredIntroScanConcurrency = maxConcurrent;
+                }
+
+                return introScanSemaphore;
+            }
+        }
+
+        /// <summary>承载批量扫描时的已完成计数，便于线程安全地汇报进度。</summary>
+        private sealed class ProgressCounter
+        {
+            public int Completed;
+        }
+
+        /// <summary>调用 Emby 的 AudioFingerprint 流程，对单个剧集执行片头探测。</summary>
+        public async Task<bool> DetectIntroAsync(Episode episode, CancellationToken cancellationToken)
+        {
+            this.logger.Debug($"DetectIntroAsync: item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
+            var detector = ResolveAudioFingerprintManager();
             if (detector != null)
             {
-                if (await TryRunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken).ConfigureAwait(false))
+                if (await RunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken).ConfigureAwait(false))
                 {
                     return true;
                 }
@@ -227,18 +409,19 @@ namespace MediaInfoKeeper.Services
             return false;
         }
 
-        private object TryResolveAudioFingerprintManager()
+        /// <summary>解析 Emby 内部的 AudioFingerprintManager 服务实例。</summary>
+        private object ResolveAudioFingerprintManager()
         {
             try
             {
-                var runtime = EnsureAudioFingerprintRuntime();
+                var runtime = GetOrCreateAudioFingerprintRuntime();
                 if (runtime?.ManagerType == null)
                 {
                     this.logger.Warn("未找到 AudioFingerprintManager 类型");
                     return null;
                 }
 
-                var detector = TryResolveService(runtime.ManagerType);
+                var detector = ResolveAppHostService(runtime.ManagerType);
                 if (detector == null)
                 {
                     this.logger.Warn($"AudioFingerprintManager 服务解析失败: {runtime.ManagerType.FullName}");
@@ -253,7 +436,8 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private AudioFingerprintRuntime EnsureAudioFingerprintRuntime()
+        /// <summary>解析并缓存 AudioFingerprint 相关类型与方法签名。</summary>
+        private AudioFingerprintRuntime GetOrCreateAudioFingerprintRuntime()
         {
             if (audioFingerprintRuntime != null)
             {
@@ -351,7 +535,8 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private object TryResolveService(Type serviceType)
+        /// <summary>优先通过 AppHost 的已知入口解析指定服务。</summary>
+        private object ResolveAppHostService(Type serviceType)
         {
             var appHost = Plugin.Instance.AppHost;
             if (appHost == null)
@@ -375,7 +560,7 @@ namespace MediaInfoKeeper.Services
                 this.logger.Debug($"服务解析提示 {serviceType.FullName}: AppHost 未公开 GetService(Type)，跳过");
             }
 
-            var resolvedByAppHost = TryResolveViaAppHost(appHost, serviceType);
+            var resolvedByAppHost = ResolveServiceViaAppHost(appHost, serviceType);
             if (resolvedByAppHost != null)
             {
                 this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.Resolve<T>() 成功");
@@ -386,30 +571,32 @@ namespace MediaInfoKeeper.Services
             return null;
         }
 
-        private object TryResolveViaAppHost(object appHost, Type serviceType)
+        /// <summary>回退尝试 AppHost 的泛型解析入口，兼容不同版本实现。</summary>
+        private object ResolveServiceViaAppHost(object appHost, Type serviceType)
         {
-            var resolved = TryInvokeGenericServiceResolver(appHost, serviceType, "Resolve");
+            var resolved = InvokeGenericServiceResolver(appHost, serviceType, "Resolve");
             if (resolved != null)
             {
                 return resolved;
             }
 
-            resolved = TryInvokeGenericServiceResolver(appHost, serviceType, "TryResolve");
+            resolved = InvokeGenericServiceResolver(appHost, serviceType, "TryResolve");
             if (resolved != null)
             {
                 return resolved;
             }
 
-            resolved = TryInvokeGenericServiceResolver(appHost, serviceType, "GetExports", false);
+            resolved = InvokeGenericServiceResolver(appHost, serviceType, "GetExports", false);
             if (resolved != null)
             {
                 return resolved;
             }
 
-            return TryInvokeGenericServiceResolver(appHost, serviceType, "GetExports", true);
+            return InvokeGenericServiceResolver(appHost, serviceType, "GetExports", true);
         }
 
-        private object TryInvokeGenericServiceResolver(object appHost, Type serviceType, string methodName, params object[] args)
+        /// <summary>调用 AppHost 的泛型服务解析方法，并兼容返回集合或单值的结果。</summary>
+        private object InvokeGenericServiceResolver(object appHost, Type serviceType, string methodName, params object[] args)
         {
             try
             {
@@ -426,7 +613,7 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var result = resolver.MakeGenericMethod(serviceType).Invoke(appHost, args);
-                return UnwrapServiceResult(result);
+                return UnwrapServiceResolutionResult(result);
             }
             catch (Exception ex)
             {
@@ -435,7 +622,8 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private static object UnwrapServiceResult(object result)
+        /// <summary>将服务解析结果统一拆成单个服务实例。</summary>
+        private static object UnwrapServiceResolutionResult(object result)
         {
             if (result == null)
             {
@@ -455,13 +643,14 @@ namespace MediaInfoKeeper.Services
             return result;
         }
 
-        private async Task<bool> TryRunAudioFingerprintWorkflowAsync(
+        /// <summary>串起 AudioFingerprint 的支持性检查、指纹生成与片头序列更新流程。</summary>
+        private async Task<bool> RunAudioFingerprintWorkflowAsync(
             object detector,
             Episode episode,
             CancellationToken cancellationToken)
         {
             this.logger.Debug($"AudioFingerprint workflow start: detector={detector.GetType().FullName}, item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
-            var runtime = EnsureAudioFingerprintRuntime();
+            var runtime = GetOrCreateAudioFingerprintRuntime();
             if (runtime == null)
             {
                 this.logger.Warn("AudioFingerprint workflow未完成方法初始化");
@@ -474,8 +663,8 @@ namespace MediaInfoKeeper.Services
             this.logger.Debug($"LibraryOptions loaded: null={!hasLibraryOptions}");
 
             var supportedArgs = new object[] { episode, libraryOptions };
-            LogInvocation(runtime.IsIntroDetectionSupported, supportedArgs);
-            var supportedResult = await InvokeWithResultAsync(detector, runtime.IsIntroDetectionSupported, supportedArgs).ConfigureAwait(false);
+            LogMethodInvocation(runtime.IsIntroDetectionSupported, supportedArgs);
+            var supportedResult = await InvokeMethodAsync(detector, runtime.IsIntroDetectionSupported, supportedArgs).ConfigureAwait(false);
             if (supportedResult is bool supported && !supported)
             {
                 this.logger.Debug("AudioFingerprintManager.IsIntroDetectionSupported 返回 false");
@@ -485,10 +674,10 @@ namespace MediaInfoKeeper.Services
 
             this.logger.Debug("触发 CreateTitleFingerprint 生成指纹");
             var fingerprintArgs = new object[] { episode, libraryOptions, directoryService, cancellationToken };
-            LogInvocation(runtime.CreateTitleFingerprintAsync, fingerprintArgs);
-            await InvokeWithResultAsync(detector, runtime.CreateTitleFingerprintAsync, fingerprintArgs).ConfigureAwait(false);
+            LogMethodInvocation(runtime.CreateTitleFingerprintAsync, fingerprintArgs);
+            await InvokeMethodAsync(detector, runtime.CreateTitleFingerprintAsync, fingerprintArgs).ConfigureAwait(false);
 
-            var season = TryGetSeason(episode);
+            var season = ResolveSeason(episode);
             if (season == null)
             {
                 this.logger.Debug("无法获取 Season，跳过 UpdateSequencesForSeason");
@@ -496,13 +685,13 @@ namespace MediaInfoKeeper.Services
             }
 
             this.logger.Debug($"Season resolved: {season.Name} (id={season.InternalId})");
-            var seasonEpisodes = FetchSeasonEpisodes(season);
+            var seasonEpisodes = GetSeasonEpisodes(season);
             this.logger.Debug($"Season episodes loaded: count={seasonEpisodes.Length}");
 
             this.logger.Debug("触发 GetAllFingerprintFilesForSeason 收集指纹");
             var getArgs = new object[] { season, seasonEpisodes, libraryOptions, directoryService, cancellationToken };
-            LogInvocation(runtime.GetAllFingerprintFilesForSeason, getArgs);
-            var seasonFingerprintInfo = await InvokeWithResultAsync(detector, runtime.GetAllFingerprintFilesForSeason, getArgs).ConfigureAwait(false);
+            LogMethodInvocation(runtime.GetAllFingerprintFilesForSeason, getArgs);
+            var seasonFingerprintInfo = await InvokeMethodAsync(detector, runtime.GetAllFingerprintFilesForSeason, getArgs).ConfigureAwait(false);
             this.logger.Debug($"GetAllFingerprintFilesForSeason result type: {seasonFingerprintInfo?.GetType().FullName ?? "null"}");
 
             this.logger.Debug("触发 UpdateSequencesForSeason 生成片头序列");
@@ -513,14 +702,15 @@ namespace MediaInfoKeeper.Services
             }
 
             var updateArgs = new[] { season, seasonFingerprintInfo, (object)episode, libraryOptions, directoryService, cancellationToken };
-            LogInvocation(runtime.UpdateSequencesForSeason, updateArgs);
-            await InvokeWithResultAsync(detector, runtime.UpdateSequencesForSeason, updateArgs).ConfigureAwait(false);
+            LogMethodInvocation(runtime.UpdateSequencesForSeason, updateArgs);
+            await InvokeMethodAsync(detector, runtime.UpdateSequencesForSeason, updateArgs).ConfigureAwait(false);
             this.logger.Debug($"AudioFingerprint workflow完成: item={episode?.Path ?? episode?.Name}");
 
             return true;
         }
 
-        private void LogInvocation(MethodInfo method, object[] args)
+        /// <summary>记录反射调用的方法签名与实参数类型，便于排查版本差异。</summary>
+        private void LogMethodInvocation(MethodInfo method, object[] args)
         {
             if (method == null)
             {
@@ -539,7 +729,8 @@ namespace MediaInfoKeeper.Services
             this.logger.Debug($"调用 {method.DeclaringType?.Name}.{method.Name} 参数: {string.Join(", ", parts)}");
         }
 
-        private static async Task<object> InvokeWithResultAsync(object target, MethodInfo method, object[] args)
+        /// <summary>统一调用可能返回 Task 的反射方法，并在需要时取出其结果值。</summary>
+        private static async Task<object> InvokeMethodAsync(object target, MethodInfo method, object[] args)
         {
             var result = method.Invoke(target, args);
             if (result is Task task)
@@ -557,7 +748,8 @@ namespace MediaInfoKeeper.Services
             return result;
         }
 
-        private Season TryGetSeason(Episode episode)
+        /// <summary>优先从 Episode 本身或父级条目中解析其所属 Season。</summary>
+        private Season ResolveSeason(Episode episode)
         {
             if (episode?.Season != null)
             {
@@ -572,7 +764,8 @@ namespace MediaInfoKeeper.Services
             return this.libraryManager.GetItemById(episode.ParentId) as Season;
         }
 
-        private Episode[] FetchSeasonEpisodes(Season season)
+        /// <summary>获取当前 Season 下可参与片头探测的全部剧集条目。</summary>
+        private Episode[] GetSeasonEpisodes(Season season)
         {
             if (season == null)
             {

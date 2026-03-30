@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Emby.Web.GenericEdit.Common;
 using MediaInfoKeeper.Common;
 using Microsoft.Extensions.Caching.Memory;
@@ -48,6 +50,7 @@ namespace MediaInfoKeeper.Services
         private readonly IProviderManager providerManager;
         private readonly IFileSystem fileSystem;
         private readonly IUserDataManager userDataManager;
+        private readonly IMediaMountManager mediaMountManager;
         private readonly MemoryCache favoriteUsersBySeriesIdCache = new MemoryCache(new MemoryCacheOptions());
         private static readonly TimeSpan FavoriteUsersCacheTtl = TimeSpan.FromSeconds(120);
         private static readonly MemoryCacheEntryOptions FavoriteUsersCacheEntryOptions = new MemoryCacheEntryOptions
@@ -56,13 +59,19 @@ namespace MediaInfoKeeper.Services
         };
 
         /// <summary>创建库处理辅助类并注入所需服务。</summary>
-        public LibraryService(ILibraryManager libraryManager, IProviderManager providerManager, IFileSystem fileSystem, IUserDataManager userDataManager)
+        public LibraryService(
+            ILibraryManager libraryManager,
+            IProviderManager providerManager,
+            IFileSystem fileSystem,
+            IUserDataManager userDataManager,
+            IMediaMountManager mediaMountManager)
         {
             this.logger = Plugin.Instance.Logger;
             this.libraryManager = libraryManager;
             this.providerManager = providerManager;
             this.fileSystem = fileSystem;
             this.userDataManager = userDataManager;
+            this.mediaMountManager = mediaMountManager;
         }
 
         /// <summary>构建媒体库选择列表，用于配置 UI 复用。</summary>
@@ -182,6 +191,33 @@ namespace MediaInfoKeeper.Services
             return paths
                 .Where(path => Directory.Exists(path))
                 .ToList();
+        }
+
+        public async Task<string> GetStrmMountPathAsync(string strmPath)
+        {
+            if (string.IsNullOrWhiteSpace(strmPath))
+            {
+                return null;
+            }
+
+            if (this.mediaMountManager == null)
+            {
+                this.logger.Warn("MediaMountManager 为空，无法解析 strm 挂载路径");
+                return null;
+            }
+
+            try
+            {
+                using var mediaMount = await this.mediaMountManager.Mount(strmPath, null, CancellationToken.None)
+                    .ConfigureAwait(false);
+                return mediaMount?.MountedPathInfo?.FullName;
+            }
+            catch (Exception ex)
+            {
+                this.logger.Warn($"strm 挂载路径解析异常 {strmPath}");
+                this.logger.Warn(ex.Message);
+                return null;
+            }
         }
 
         /// <summary>按路径范围获取音视频条目。</summary>

@@ -53,6 +53,12 @@ namespace MediaInfoKeeper.Options
         [Required]
         public int MinOpeningPlotDurationSeconds { get; set; } = 60;
 
+        [DisplayName("片头探测最大并发数")]
+        [Description("限制 AudioFingerprint 片头探测同时运行的条目数，默认 1。调大可加快扫描，但会增加 CPU 和磁盘压力。")]
+        [MinValue(1), MaxValue(10)]
+        [Required]
+        public int IntroDetectionMaxConcurrentCount { get; set; } = 1;
+        
         [DisplayName("片头指纹分钟数")]
         [Description("范围 2-20，默认 10。将同步到媒体库的 IntroDetectionFingerprintLength。")]
         [MinValue(2), MaxValue(20)]
@@ -135,7 +141,8 @@ namespace MediaInfoKeeper.Options
                 nameof(ScanIntroOnItemAdded),
                 nameof(ScanIntroOnFavorite),
                 nameof(ProtectIntroMarkers),
-                nameof(IntroDetectionFingerprintMinutes));
+                nameof(IntroDetectionFingerprintMinutes),
+                nameof(IntroDetectionMaxConcurrentCount));
 
             AddGroup("播放行为打标", "",
                 nameof(EnableIntroSkip),

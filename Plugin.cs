@@ -147,14 +147,14 @@ namespace MediaInfoKeeper
 
             this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
 
-            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager);
-            MediaInfoService = new MediaInfoService(libraryManager, fileSystem, mediaMountManager);
+            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager, mediaMountManager);
+            MediaInfoService = new MediaInfoService(libraryManager, fileSystem);
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
 
             NotificationApi = new NotificationApi(notificationManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
-            IntroScanService = new IntroScanService(logManager, libraryManager);
+            IntroScanService = new IntroScanService(logManager, libraryManager, fileSystem);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
             StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
