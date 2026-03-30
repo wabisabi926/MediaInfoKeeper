@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
@@ -11,8 +12,14 @@ namespace MediaInfoKeeper.Services
     internal static class MediaInfoRestoreService
     {
         private const int MaxRestoreAttempts = 3;
+        private const long QueueDebounceMilliseconds = 2000;
         private static ILogger logger;
+        private static long restoreSequence;
         private static readonly ConcurrentDictionary<long, long> restoreVersionMap =
+            new ConcurrentDictionary<long, long>();
+        private static readonly ConcurrentDictionary<long, byte> restoreExecutionMap =
+            new ConcurrentDictionary<long, byte>();
+        private static readonly ConcurrentDictionary<long, long> restoreEnqueueTicks =
             new ConcurrentDictionary<long, long>();
 
         public static void QueueRestore(BaseItem item, int delaySeconds)
@@ -42,7 +49,39 @@ namespace MediaInfoKeeper.Services
                 BackupIfNeeded(workItem);
 
                 var itemId = workItem.InternalId;
-                var version = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                var now = Environment.TickCount64;
+
+                while (restoreExecutionMap.ContainsKey(itemId))
+                {
+                    logger?.Debug($"媒体信息恢复已在执行，忽略重复提交: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                    return;
+                }
+
+                while (true)
+                {
+                    if (!restoreEnqueueTicks.TryGetValue(itemId, out var lastEnqueue))
+                    {
+                        if (restoreEnqueueTicks.TryAdd(itemId, now))
+                        {
+                            break;
+                        }
+
+                        continue;
+                    }
+
+                    if (now - lastEnqueue < QueueDebounceMilliseconds)
+                    {
+                        logger?.Debug($"媒体信息恢复短时间内重复排队，忽略提交: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                        return;
+                    }
+
+                    if (restoreEnqueueTicks.TryUpdate(itemId, now, lastEnqueue))
+                    {
+                        break;
+                    }
+                }
+
+                var version = Interlocked.Increment(ref restoreSequence);
                 restoreVersionMap[itemId] = version;
 
                 logger?.Debug($"已加入媒体信息延迟检查队列: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
@@ -52,6 +91,12 @@ namespace MediaInfoKeeper.Services
                     try
                     {
                         await Task.Delay(TimeSpan.FromSeconds(delaySeconds)).ConfigureAwait(false);
+
+                        if (!restoreExecutionMap.TryAdd(itemId, 0))
+                        {
+                            logger?.Debug($"媒体信息恢复已在执行，忽略重复提交: {workItem.FileName ?? workItem.Path} InternalId:{itemId}");
+                            return;
+                        }
 
                         for (var attempt = 1; attempt <= MaxRestoreAttempts; attempt++)
                         {
@@ -151,6 +196,11 @@ namespace MediaInfoKeeper.Services
                         restoreVersionMap.TryRemove(itemId, out _);
                         logger?.Error("延迟恢复 MediaInfo 失败");
                         logger?.Error(ex.Message);
+                    }
+                    finally
+                    {
+                        restoreExecutionMap.TryRemove(itemId, out _);
+                        restoreEnqueueTicks.TryRemove(itemId, out _);
                     }
                 });
             }
