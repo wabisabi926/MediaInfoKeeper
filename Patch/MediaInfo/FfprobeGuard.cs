@@ -19,7 +19,6 @@ namespace MediaInfoKeeper.Patch
             public long? ItemInternalId { get; set; }
             public string ItemPath { get; set; }
             public bool IsShortcut { get; set; }
-            public bool IsAudioOrMusicAlbum { get; set; }
             public bool AllowFfprobe { get; set; }
         }
 

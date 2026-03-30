@@ -219,16 +219,10 @@ namespace MediaInfoKeeper.Patch
             var itemPath = item.Path ?? item.FileName;
             var hasPath = !string.IsNullOrWhiteSpace(itemPath);
             var isShortcut = LibraryService.IsFileShortcut(itemPath);
-            var isAudioOrMusicAlbum = item is Audio or MusicAlbum;
 
             // logger.Info($"{itemPath} {isShortcut}");
 
             var allowFfprobe = hasPath && !isShortcut;
-            if (hasPath && isShortcut && isAudioOrMusicAlbum)
-            {
-                var libraryOptions = Plugin.LibraryManager?.GetLibraryOptions(item);
-                allowFfprobe = libraryOptions?.ShareEmbeddedMusicAlbumImages == true;
-            }
 
             if (!allowFfprobe && FfprobeGuard.HasExplicitAllowance())
             {
@@ -240,7 +234,6 @@ namespace MediaInfoKeeper.Patch
                 ItemInternalId = item.InternalId,
                 ItemPath = itemPath,
                 IsShortcut = isShortcut,
-                IsAudioOrMusicAlbum = isAudioOrMusicAlbum,
                 AllowFfprobe = allowFfprobe
             });
         }
