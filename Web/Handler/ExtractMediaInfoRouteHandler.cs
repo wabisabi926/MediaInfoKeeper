@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Providers;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 
@@ -107,26 +108,50 @@ namespace MediaInfoKeeper.Web.Handler
                     }
                 }
 
-                if (Plugin.MediaInfoService.HasMediaInfo(item))
+                if (Plugin.MediaInfoService.HasMediaInfo(item) &&
+                    (item is not Audio || Plugin.LibraryService.HasCover(item)))
                 {
                     Plugin.Instance.Logger.Info($"快捷菜单提取媒体信息跳过 已存在MediaInfo: {displayName}");
                     return false;
                 }
 
                 var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                Plugin.ChaptersStore.ApplyToItem(item);
+                var shouldRefreshAudioForMissingCover = false;
+                if (item is Video)
+                {
+                    Plugin.ChaptersStore.ApplyToItem(item);
+                }
+                else if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.ApplyToItem(item);
+                    Plugin.LyricsStore.ApplyToItem(item);
+                    Plugin.EmbeddedCoverStore.ApplyToItem(item);
+                    shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
+                }
 
-                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                    deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
+                if ((deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                     deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
+                    !shouldRefreshAudioForMissingCover)
                 {
                     Plugin.MediaSourceInfoStore.OverWriteToFile(item);
+                    if (item is Audio)
+                    {
+                        Plugin.AudioMetadataStore.OverWriteToFile(item);
+                        Plugin.LyricsStore.OverWriteToFile(item);
+                        Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                    }
                     return true;
                 }
 
                 var collectionFolders = Plugin.LibraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
                 var libraryOptions = Plugin.LibraryManager.GetLibraryOptions(item);
                 var copiedOptions = LibraryService.CopyLibraryOptions(libraryOptions);
-
+                
+                if (shouldRefreshAudioForMissingCover)
+                {
+                    refreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
+                }
+                
                 item.DateLastRefreshed = new DateTimeOffset();
                 await RefreshTaskRunner.RunAsync(
                         () => Plugin.ProviderManager
@@ -140,6 +165,12 @@ namespace MediaInfoKeeper.Web.Handler
                 }
 
                 Plugin.MediaSourceInfoStore.OverWriteToFile(item);
+                if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.OverWriteToFile(item);
+                    Plugin.LyricsStore.OverWriteToFile(item);
+                    Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                }
                 return true;
             }
         }

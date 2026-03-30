@@ -47,6 +47,9 @@ namespace MediaInfoKeeper
         
         public static ChaptersStore ChaptersStore { get; private set; }
         public static MediaSourceInfoStore MediaSourceInfoStore { get; private set; }
+        public static AudioMetadataStore AudioMetadataStore { get; private set; }
+        public static LyricsStore LyricsStore { get; private set; }
+        public static EmbeddedCoverStore EmbeddedCoverStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
@@ -151,6 +154,9 @@ namespace MediaInfoKeeper
             MediaInfoService = new MediaInfoService(libraryManager, fileSystem);
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
+            AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
+            LyricsStore = new LyricsStore(itemRepository, fileSystem, jsonSerializer);
+            EmbeddedCoverStore = new EmbeddedCoverStore(libraryManager, fileSystem, jsonSerializer);
 
             NotificationApi = new NotificationApi(notificationManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
@@ -459,16 +465,28 @@ namespace MediaInfoKeeper
 
                 // 判断当前条目是否已有 MediaInfo。
                 var hasMediaInfo = MediaInfoService.HasMediaInfo(e.Item);
+                var needsAudioCoverRefresh = e.Item is Audio && !LibraryService.HasCover(e.Item);
 
-                if (!hasMediaInfo)
+                if (!hasMediaInfo || needsAudioCoverRefresh)
                 {
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Debug("尝试从 JSON 恢复 MediaInfo");
                     var restoreResult = MediaSourceInfoStore.ApplyToItem(e.Item);
-                    ChaptersStore.ApplyToItem(e.Item);
+                    var shouldRefreshAfterRestore = restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                    if (e.Item is Video)
+                    {
+                        ChaptersStore.ApplyToItem(e.Item);
+                    }
+                    else if (e.Item is Audio)
+                    {
+                        AudioMetadataStore.ApplyToItem(e.Item);
+                        LyricsStore.ApplyToItem(e.Item);
+                        EmbeddedCoverStore.ApplyToItem(e.Item);
+                        shouldRefreshAfterRestore = shouldRefreshAfterRestore || !LibraryService.HasCover(e.Item);
+                    }
 
                     // 如果不存在Json文件，则使用ffprobe 提取一次
-                    if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Failed)
+                    if (shouldRefreshAfterRestore)
                     {
                         if (!this.Options.MainPage.ExtractMediaInfoOnItemAdded)
                         {
@@ -477,7 +495,7 @@ namespace MediaInfoKeeper
                         }
 
                         // 恢复失败时先触发媒体信息提取，再写入 JSON。
-                        this.logger.Info($"入库媒体信息: JSON 恢复失败，开始提取 item={e.Item.FileName ?? e.Item.Path}");
+                        this.logger.Info($"入库媒体信息: 媒体信息或封面缺失，开始提取 item={e.Item.FileName ?? e.Item.Path}");
 
                         // 触发一次刷新以提取 MediaInfo。
                         using (FfprobeGuard.Allow())
@@ -503,6 +521,12 @@ namespace MediaInfoKeeper
                         // 提取完成后写入 JSON。
                         this.logger.Info($"入库媒体信息: 提取完成并写入 JSON item={e.Item.FileName ?? e.Item.Path}");
                         MediaSourceInfoStore.OverWriteToFile(e.Item);
+                        if (e.Item is Audio)
+                        {
+                            AudioMetadataStore.OverWriteToFile(e.Item);
+                            LyricsStore.OverWriteToFile(e.Item);
+                            EmbeddedCoverStore.OverWriteToFile(e.Item);
+                        }
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
                     else if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
@@ -565,7 +589,16 @@ namespace MediaInfoKeeper
                 {
                     this.logger.Debug("已有 MediaInfo，覆盖写入 JSON");
                     MediaSourceInfoStore.OverWriteToFile(e.Item);
-                    ChaptersStore.OverWriteToFile(e.Item);
+                    if (e.Item is Video)
+                    {
+                        ChaptersStore.OverWriteToFile(e.Item);
+                    }
+                    else if (e.Item is Audio)
+                    {
+                        AudioMetadataStore.OverWriteToFile(e.Item);
+                        LyricsStore.OverWriteToFile(e.Item);
+                        EmbeddedCoverStore.OverWriteToFile(e.Item);
+                    }
                 }
                 // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
@@ -686,22 +719,39 @@ namespace MediaInfoKeeper
 
                                     try
                                     {
-                                        if (MediaInfoService.HasMediaInfo(workItem))
+                                        if (MediaInfoService.HasMediaInfo(workItem) &&
+                                            (workItem is not Audio || LibraryService.HasCover(workItem)))
                                         {
                                             this.logger.Info($"OnFavorite 已存在 MediaInfo，跳过处理: {displayName}");
                                             return;
                                         }
 
                                         var restoreResult = MediaSourceInfoStore.ApplyToItem(workItem);
-                                        ChaptersStore.ApplyToItem(workItem);
-                                        if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                                            restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
+                                        var shouldRefreshAudioForMissingCover = false;
+                                        if (workItem is Video)
+                                        {
+                                            ChaptersStore.ApplyToItem(workItem);
+                                        }
+                                        else if (workItem is Audio)
+                                        {
+                                            AudioMetadataStore.ApplyToItem(workItem);
+                                            LyricsStore.ApplyToItem(workItem);
+                                            EmbeddedCoverStore.ApplyToItem(workItem);
+                                            shouldRefreshAudioForMissingCover = !LibraryService.HasCover(workItem);
+                                        }
+                                        if ((restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                                             restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
+                                            !shouldRefreshAudioForMissingCover)
                                         {
                                             this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
                                             return;
                                         }
 
                                         var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
+                                        if (shouldRefreshAudioForMissingCover)
+                                        {
+                                            metadataRefreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
+                                        }
                                         var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
                                         var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
                                         using (FfprobeGuard.Allow())
@@ -714,6 +764,12 @@ namespace MediaInfoKeeper
                                         }
 
                                         MediaSourceInfoStore.OverWriteToFile(workItem);
+                                        if (workItem is Audio)
+                                        {
+                                            AudioMetadataStore.OverWriteToFile(workItem);
+                                            LyricsStore.OverWriteToFile(workItem);
+                                            EmbeddedCoverStore.OverWriteToFile(workItem);
+                                        }
                                         this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
                                     }
                                     catch (Exception ex)
@@ -761,6 +817,8 @@ namespace MediaInfoKeeper
 
             logger.Info("同步删除 媒体信息 Json");
             MediaInfoDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
+            MediaInfoDocument.DeleteLyricsJson(e.Item, this.directoryService, "Item Removed Event");
+            MediaInfoDocument.DeleteCover(e.Item, this.directoryService, "Item Removed Event");
         }
 
         private string GetLatestReleaseVersion()

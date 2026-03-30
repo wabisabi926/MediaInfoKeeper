@@ -142,7 +142,16 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                Plugin.ChaptersStore.ApplyToItem(item);
+                if (item is Video)
+                {
+                    Plugin.ChaptersStore.ApplyToItem(item);
+                }
+                else if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.ApplyToItem(item);
+                    Plugin.LyricsStore.ApplyToItem(item);
+                    Plugin.EmbeddedCoverStore.ApplyToItem(item);
+                }
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                 {
                     this.logger.Info($"从JSON 恢复成功: {displayName}");

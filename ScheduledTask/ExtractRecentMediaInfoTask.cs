@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
+using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 using MediaInfoKeeper.Patch;
@@ -151,29 +152,71 @@ namespace MediaInfoKeeper.ScheduledTask
                 var dummyLibraryOptions = LibraryService.CopyLibraryOptions(libraryOptions);
 
                 var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                Plugin.ChaptersStore.ApplyToItem(item);
+                var shouldRefreshAudioForMissingCover = false;
+                if (item is Video)
+                {
+                    Plugin.ChaptersStore.ApplyToItem(item);
+                }
+                else if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.ApplyToItem(item);
+                    Plugin.LyricsStore.ApplyToItem(item);
+                    Plugin.EmbeddedCoverStore.ApplyToItem(item);
+                    shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
+                }
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                 {
-                    this.logger.Info($"从JSON 恢复成功: {displayName}");
-                    return;
+                    if (shouldRefreshAudioForMissingCover)
+                    {
+                        this.logger.Info($"从JSON 恢复媒体信息成功但缺少封面，继续提取: {displayName}");
+                    }
+                    else
+                    {
+                        this.logger.Info($"从JSON 恢复成功: {displayName}");
+                        return;
+                    }
                 }
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
-                    this.logger.Info($"跳过 已存在MediaInfo: {displayName}");
-                    return;
+                    if (item is not Audio || !shouldRefreshAudioForMissingCover)
+                    {
+                        this.logger.Info($"跳过 已存在MediaInfo: {displayName}");
+                        return;
+                    }
+
+                    this.logger.Info($"音频已存在MediaInfo但缺少封面，继续提取: {displayName}");
                 }
 
-                this.logger.Info($"无Json媒体信息存在，刷新开始: {displayName}");
+                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Failed)
+                {
+                    this.logger.Info($"无Json媒体信息存在，刷新开始: {displayName}");
+                }
+                else
+                {
+                    this.logger.Info($"继续刷新并补全封面: {displayName}");
+                }
+
                 item.DateLastRefreshed = new DateTimeOffset();
 
+                if (shouldRefreshAudioForMissingCover)
+                {
+                    refreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
+                }
+                
                 await Plugin.ProviderManager
                     .RefreshSingleItem(item, refreshOptions, collectionFolders, dummyLibraryOptions, cancellationToken)
                     .ConfigureAwait(false);
 
                 this.logger.Info($"写入 JSON: {displayName}");
                 Plugin.MediaSourceInfoStore.OverWriteToFile(item);
+                if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.OverWriteToFile(item);
+                    Plugin.LyricsStore.OverWriteToFile(item);
+                    Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                }
 
                 this.logger.Info($"完成: {displayName}");
             }

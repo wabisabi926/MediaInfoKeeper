@@ -112,6 +112,29 @@ namespace MediaInfoKeeper.Services
             return last >= DateTimeOffset.UtcNow.AddMinutes(-10);
         }
 
+        /// <summary>判断条目是否已有封面；音乐条目会同时检查展示父级（如专辑）主图。</summary>
+        public bool HasCover(BaseItem item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            if (item.HasImage(ImageType.Primary))
+            {
+                return true;
+            }
+
+            var displayParentId = item.ImageDisplayParentId;
+            if (displayParentId == 0 || displayParentId == item.InternalId)
+            {
+                return false;
+            }
+
+            var displayParent = this.libraryManager.GetItemById(displayParentId);
+            return displayParent?.HasImage(ImageType.Primary) == true;
+        }
+
         /// <summary>根据配置判断条目是否属于选定媒体库。</summary>
         public bool IsItemInScope(BaseItem item)
         {

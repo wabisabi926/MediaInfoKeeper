@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Model.Logging;
 using MediaInfoKeeper.Patch;
 
@@ -72,27 +73,63 @@ namespace MediaInfoKeeper.Services
                                 return;
                             }
 
-                            if (Plugin.MediaInfoService?.HasMediaInfo(workItem) == true)
+                            var hasMediaInfo = Plugin.MediaInfoService?.HasMediaInfo(workItem) == true;
+                            var hasCover = workItem is Audio && Plugin.LibraryService.HasCover(workItem);
+                            var isHealthy = workItem is Audio ? hasMediaInfo && hasCover : hasMediaInfo;
+
+                            if (isHealthy)
                             {
                                 if (attempt < MaxRestoreAttempts)
                                 {
-                                    logger?.Debug($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查 MediaInfo 仍存在，继续观察");
+                                    logger?.Debug(
+                                        workItem is Audio
+                                            ? $"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查 MediaInfo 和封面均存在，继续观察"
+                                            : $"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查 MediaInfo 存在，继续观察");
                                     await Task.Delay(TimeSpan.FromSeconds(delaySeconds * attempt * attempt)).ConfigureAwait(false);
                                     continue;
                                 }
 
-                                logger?.Debug($"{workItem.FileName ?? workItem.Path} 连续检查后 MediaInfo 仍存在，跳过恢复");
+                                logger?.Debug(
+                                    workItem is Audio
+                                        ? $"{workItem.FileName ?? workItem.Path} 连续检查后 MediaInfo 和封面均存在，跳过恢复"
+                                        : $"{workItem.FileName ?? workItem.Path} 连续检查后 MediaInfo 存在，跳过恢复");
                                 restoreVersionMap.TryRemove(itemId, out _);
                                 return;
                             }
 
-                            logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+                            if (workItem is Audio)
+                            {
+                                if (!hasMediaInfo && !hasCover)
+                                {
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 和封面都缺失，开始恢复媒体信息");
+                                }
+                                else if (!hasMediaInfo)
+                                {
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+                                }
+                                else
+                                {
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现封面缺失，开始恢复媒体信息");
+                                }
+                            }
+                            else
+                            {
+                                logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+                            }
 
                             var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
                                 ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                            
+                            if (workItem is Audio)
+                            {
+                                Plugin.AudioMetadataStore?.ApplyToItem(workItem);
+                                Plugin.LyricsStore?.ApplyToItem(workItem);
+                                Plugin.EmbeddedCoverStore?.ApplyToItem(workItem);
+                            }
+                            
                             if (restoreResult != MediaInfoDocument.MediaInfoRestoreResult.Failed)
                             {
-                                if (Plugin.IntroScanService == null || !Plugin.IntroScanService.HasIntroMarkers(workItem))
+                                if (workItem is Video &&!Plugin.IntroScanService.HasIntroMarkers(workItem))
                                 {
                                     Plugin.ChaptersStore?.ApplyToItem(workItem);
                                 }
@@ -132,8 +169,16 @@ namespace MediaInfoKeeper.Services
             if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
             {
                 Plugin.MediaSourceInfoStore.WriteToFile(item);
+                if (item is Audio)
+                {
+                    Plugin.AudioMetadataStore.WriteToFile(item);
+                    Plugin.LyricsStore.WriteToFile(item);
+                    Plugin.EmbeddedCoverStore.WriteToFile(item);
+                }
 
-                if (!Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
+                if (item is Video &&
+                    !Plugin.ChaptersStore.HasInFile(item) &&
+                    Plugin.IntroScanService.HasIntroMarkers(item))
                 {
                     Plugin.ChaptersStore.WriteToFile(item);
                 }

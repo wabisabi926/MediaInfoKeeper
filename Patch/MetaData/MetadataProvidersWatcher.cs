@@ -7,6 +7,7 @@ using HarmonyLib;
 using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Controller.Providers;
@@ -130,15 +131,17 @@ namespace MediaInfoKeeper.Patch
             if (provider == null) return false;
 
             var typeName = provider.GetType().FullName ?? provider.GetType().Name;
-            if (!string.Equals(typeName, "Emby.Providers.MediaInfo.VideoImageProvider", StringComparison.Ordinal))
+            var isVideoProvider = string.Equals(typeName, "Emby.Providers.MediaInfo.VideoImageProvider", StringComparison.Ordinal);
+            var isAudioProvider = string.Equals(typeName, "Emby.Providers.MediaInfo.AudioImageProvider", StringComparison.Ordinal);
+
+            if (!isVideoProvider && !isAudioProvider)
             {
                 return false;
             }
 
             if (args[1] is BaseItem baseItem &&
                 baseItem.InternalId != 0 &&
-                LibraryService.IsFileShortcut(baseItem.Path ?? baseItem.FileName) &&
-                (baseItem is Video || baseItem is Audio))
+                (baseItem is Video || baseItem is Audio || baseItem is MusicAlbum))
             {
                 item = baseItem;
                 return true;

@@ -193,6 +193,7 @@ namespace MediaInfoKeeper.Services
                 documents.Add(document);
             }
 
+            Directory.CreateDirectory(Path.GetDirectoryName(mediaInfoJsonPath));
             this.jsonSerializer.SerializeToFile(documents, mediaInfoJsonPath);
         }
 

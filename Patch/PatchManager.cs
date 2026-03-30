@@ -36,10 +36,9 @@ namespace MediaInfoKeeper.Patch
                 FfprobeGuard.Initialize(logger, true);
                 UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
 
-                Register("ProviderManager");
-                ProviderManager.Initialize(logger, true);
-                UpdateTracker("ProviderManager", true,
-                    ProviderManager.IsReady, null);
+                // Register("ProviderManager");
+                // ProviderManager.Initialize(logger, true);
+                // UpdateTracker("ProviderManager", true, ProviderManager.IsReady, null);
 
                 Register("ImageCapture");
                 ImageCapture.Initialize(logger, safeOptions.MetaData.EnableImageCapture);

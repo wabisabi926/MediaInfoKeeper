@@ -149,7 +149,16 @@ namespace MediaInfoKeeper.ScheduledTask
             // 非strm会重新 ffprobe，但是没有allow所以会拦截，
             // strm会丢失信息，所以重新恢复，启用元数据变动监听会恢复，不必重复恢复
             // Plugin.MediaSourceInfoStore.ApplyToItem(item);
-            // Plugin.ChaptersStore.ApplyToItem(item);
+            // if (item is Video)
+            // {
+            //     Plugin.ChaptersStore.ApplyToItem(item);
+            // }
+            // else if (item is Audio)
+            // {
+            //     Plugin.AudioMetadataStore.ApplyToItem(item);
+            //     Plugin.LyricsStore.ApplyToItem(item);
+            //     Plugin.EmbeddedCoverStore.ApplyToItem(item);
+            // }
         }
 
         private bool ShouldReplaceMetadata()

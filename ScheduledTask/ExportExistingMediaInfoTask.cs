@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 
@@ -57,7 +58,16 @@ namespace MediaInfoKeeper.ScheduledTask
                 try
                 {
                     Plugin.MediaSourceInfoStore.OverWriteToFile(item);
-                    Plugin.ChaptersStore.OverWriteToFile(item);
+                    if (item is Video)
+                    {
+                        Plugin.ChaptersStore.OverWriteToFile(item);
+                    }
+                    else if (item is Audio)
+                    {
+                        Plugin.AudioMetadataStore.OverWriteToFile(item);
+                        Plugin.LyricsStore.OverWriteToFile(item);
+                        Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                    }
                 }
                 catch (OperationCanceledException)
                 {

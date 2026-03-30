@@ -40,7 +40,7 @@ namespace MediaInfoKeeper.Options
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
 
         [DisplayName("MediaInfo JSON 存储根目录")]
-        [Description("建议配置不要留空，可以填写 /config/mediainfo 或者其他的位置保存。如果留空以后文件夹结构改变，不方便定位json恢复媒体信息。为空时，JSON 保存到媒体文件同目录。填写后会保存在填写的目录下， /your-path/FileNameWithoutExtension-mediainfo.json。")]
+        [Description("建议配置不要留空，可以填写 /config/mediainfo 或者其他的位置保存。如果留空以后文件夹结构改变，不方便定位json恢复媒体信息。为空时，JSON 保存到媒体文件同目录。填写后视频等媒体保存在填写的目录下，/your-path/FileNameWithoutExtension-mediainfo.json；音频保存在 /your-path/music/FileNameWithoutExtension-mediainfo.json。")]
         [Editor(typeof(EditorFolderPicker), typeof(EditorBase))]
         public string MediaInfoJsonRootFolder { get; set; } = string.Empty;
 
