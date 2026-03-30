@@ -147,9 +147,11 @@ namespace MediaInfoKeeper.Services
                 return MediaInfoDocument.MediaInfoRestoreResult.Failed;
             }
 
+            var streamsToRestore = mediaSourceInfo.MediaStreams ?? new List<MediaStream>();
+
             try
             {
-                foreach (var subtitle in (mediaSourceInfo.MediaStreams ?? new List<MediaStream>()).Where(m =>
+                foreach (var subtitle in streamsToRestore.Where(m =>
                              m.IsExternal && m.Type == MediaStreamType.Subtitle &&
                              m.Protocol == MediaProtocol.File))
                 {
@@ -157,14 +159,14 @@ namespace MediaInfoKeeper.Services
                         this.fileSystem.GetFileInfo(subtitle.Path).Name);
                 }
 
-                this.itemRepository.SaveMediaStreams(item.InternalId, mediaSourceInfo.MediaStreams ?? new List<MediaStream>(), CancellationToken.None);
+                this.itemRepository.SaveMediaStreams(item.InternalId, streamsToRestore, CancellationToken.None);
 
                 item.Size = mediaSourceInfo.Size.GetValueOrDefault();
                 item.RunTimeTicks = mediaSourceInfo.RunTimeTicks;
                 item.Container = mediaSourceInfo.Container;
                 item.TotalBitrate = mediaSourceInfo.Bitrate.GetValueOrDefault();
 
-                var videoStream = (mediaSourceInfo.MediaStreams ?? new List<MediaStream>())
+                var videoStream = streamsToRestore
                     .Where(s => s.Type == MediaStreamType.Video && s.Width.HasValue && s.Height.HasValue)
                     .OrderByDescending(s => (long)s.Width.Value * s.Height.Value)
                     .FirstOrDefault();

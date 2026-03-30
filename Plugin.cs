@@ -48,7 +48,6 @@ namespace MediaInfoKeeper
         public static ChaptersStore ChaptersStore { get; private set; }
         public static MediaSourceInfoStore MediaSourceInfoStore { get; private set; }
         public static AudioMetadataStore AudioMetadataStore { get; private set; }
-        public static LyricsStore LyricsStore { get; private set; }
         public static EmbeddedCoverStore EmbeddedCoverStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
@@ -155,7 +154,6 @@ namespace MediaInfoKeeper
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
-            LyricsStore = new LyricsStore(itemRepository, fileSystem, jsonSerializer);
             EmbeddedCoverStore = new EmbeddedCoverStore(libraryManager, fileSystem, jsonSerializer);
 
             NotificationApi = new NotificationApi(notificationManager);
@@ -480,7 +478,6 @@ namespace MediaInfoKeeper
                     else if (e.Item is Audio)
                     {
                         AudioMetadataStore.ApplyToItem(e.Item);
-                        LyricsStore.ApplyToItem(e.Item);
                         EmbeddedCoverStore.ApplyToItem(e.Item);
                         shouldRefreshAfterRestore = shouldRefreshAfterRestore || !LibraryService.HasCover(e.Item);
                     }
@@ -524,7 +521,6 @@ namespace MediaInfoKeeper
                         if (e.Item is Audio)
                         {
                             AudioMetadataStore.OverWriteToFile(e.Item);
-                            LyricsStore.OverWriteToFile(e.Item);
                             EmbeddedCoverStore.OverWriteToFile(e.Item);
                         }
                     }
@@ -596,7 +592,6 @@ namespace MediaInfoKeeper
                     else if (e.Item is Audio)
                     {
                         AudioMetadataStore.OverWriteToFile(e.Item);
-                        LyricsStore.OverWriteToFile(e.Item);
                         EmbeddedCoverStore.OverWriteToFile(e.Item);
                     }
                 }
@@ -735,7 +730,6 @@ namespace MediaInfoKeeper
                                         else if (workItem is Audio)
                                         {
                                             AudioMetadataStore.ApplyToItem(workItem);
-                                            LyricsStore.ApplyToItem(workItem);
                                             EmbeddedCoverStore.ApplyToItem(workItem);
                                             shouldRefreshAudioForMissingCover = !LibraryService.HasCover(workItem);
                                         }
@@ -767,7 +761,6 @@ namespace MediaInfoKeeper
                                         if (workItem is Audio)
                                         {
                                             AudioMetadataStore.OverWriteToFile(workItem);
-                                            LyricsStore.OverWriteToFile(workItem);
                                             EmbeddedCoverStore.OverWriteToFile(workItem);
                                         }
                                         this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
@@ -817,7 +810,6 @@ namespace MediaInfoKeeper
 
             logger.Info("同步删除 媒体信息 Json");
             MediaInfoDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
-            MediaInfoDocument.DeleteLyricsJson(e.Item, this.directoryService, "Item Removed Event");
             MediaInfoDocument.DeleteCover(e.Item, this.directoryService, "Item Removed Event");
         }
 

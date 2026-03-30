@@ -95,8 +95,6 @@ namespace MediaInfoKeeper.Web
 
         public DebugFileInfo MediaInfoJson { get; set; }
 
-        public DebugFileInfo LyricsJson { get; set; }
-
         public DebugBinaryFileInfo Cover { get; set; }
     }
 

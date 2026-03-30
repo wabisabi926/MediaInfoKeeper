@@ -160,7 +160,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 else if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.ApplyToItem(item);
-                    Plugin.LyricsStore.ApplyToItem(item);
                     Plugin.EmbeddedCoverStore.ApplyToItem(item);
                     shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
                 }
@@ -214,7 +213,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.OverWriteToFile(item);
-                    Plugin.LyricsStore.OverWriteToFile(item);
                     Plugin.EmbeddedCoverStore.OverWriteToFile(item);
                 }
 

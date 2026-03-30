@@ -25,7 +25,6 @@ namespace MediaInfoKeeper.Services
 
         private const string MediaInfoFileExtension = "-mediainfo.json";
         private const string CoverFileExtension = "-cover.jpg";
-        private const string LyricsFileExtension = "-lyrics.json";
 
         public MediaSourceInfo MediaSourceInfo { get; set; }
 
@@ -34,8 +33,6 @@ namespace MediaInfoKeeper.Services
         public AudioMetadataSnapshot AudioMetadata { get; set; }
 
         public EmbeddedCoverSnapshot EmbeddedCover { get; set; }
-
-        public string LyricsFileName { get; set; }
 
         public static string GetMediaInfoJsonPath(BaseItem item)
         {
@@ -47,19 +44,9 @@ namespace MediaInfoKeeper.Services
             return BuildSidecarPath(item, CoverFileExtension);
         }
 
-        public static string GetLyricsJsonPath(BaseItem item)
-        {
-            return BuildSidecarPath(item, LyricsFileExtension);
-        }
-
         public static string GetCoverFileName(BaseItem item)
         {
             return item.FileNameWithoutExtension + CoverFileExtension;
-        }
-
-        public static string GetLyricsFileName(BaseItem item)
-        {
-            return item.FileNameWithoutExtension + LyricsFileExtension;
         }
 
         private static string BuildSidecarPath(BaseItem item, string extension)
@@ -85,11 +72,6 @@ namespace MediaInfoKeeper.Services
         public static void DeleteMediaInfoJson(BaseItem item, IDirectoryService directoryService, string source)
         {
             DeleteSidecar(item, directoryService, GetMediaInfoJsonPath(item), "JSON", source);
-        }
-
-        public static void DeleteLyricsJson(BaseItem item, IDirectoryService directoryService, string source)
-        {
-            DeleteSidecar(item, directoryService, GetLyricsJsonPath(item), "歌词JSON", source);
         }
 
         public static void DeleteCover(BaseItem item, IDirectoryService directoryService, string source)
@@ -142,17 +124,6 @@ namespace MediaInfoKeeper.Services
 
         public Dictionary<string, string> ProviderIds { get; set; } =
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-    }
-
-    public class EmbeddedLyricsSnapshot
-    {
-        public string Title { get; set; }
-
-        public string Language { get; set; }
-
-        public string Codec { get; set; }
-
-        public string Content { get; set; }
     }
 
     public class EmbeddedCoverSnapshot

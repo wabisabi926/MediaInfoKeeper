@@ -123,7 +123,6 @@ namespace MediaInfoKeeper.Services
                             if (workItem is Audio)
                             {
                                 Plugin.AudioMetadataStore?.ApplyToItem(workItem);
-                                Plugin.LyricsStore?.ApplyToItem(workItem);
                                 Plugin.EmbeddedCoverStore?.ApplyToItem(workItem);
                             }
                             
@@ -172,7 +171,6 @@ namespace MediaInfoKeeper.Services
                 if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.WriteToFile(item);
-                    Plugin.LyricsStore.WriteToFile(item);
                     Plugin.EmbeddedCoverStore.WriteToFile(item);
                 }
 

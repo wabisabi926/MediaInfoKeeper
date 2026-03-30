@@ -14,7 +14,7 @@ namespace MediaInfoKeeper.Options
 
         public override string EditorDescription =>
             "调试用页面，主要控制 DLL 扫描范围。改完记得保存。\n\n" +
-            "需要管理员鉴权，返回指定 internalId 条目的当前库内媒体流状态，以及 xxx-mediainfo.json、xxx-lyrics.json、xxx-cover.jpg 的路径和内容，方便排查恢复问题。";
+            "需要管理员鉴权，返回指定 internalId 条目的当前库内媒体流状态，以及 xxx-mediainfo.json、xxx-cover.jpg 的路径和内容，方便排查恢复问题。";
 
         [DisplayName("MediaInfo 调试接口")]
         [Description("只读，可直接复制。")]

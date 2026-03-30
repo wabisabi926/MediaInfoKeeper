@@ -111,7 +111,6 @@ namespace MediaInfoKeeper.Web
             }
 
             var mediaInfoPath = MediaInfoDocument.GetMediaInfoJsonPath(item);
-            var lyricsPath = MediaInfoDocument.GetLyricsJsonPath(item);
             var coverPath = MediaInfoDocument.GetCoverPath(item);
             var streams = item.GetMediaStreams().ToList();
 
@@ -140,12 +139,6 @@ namespace MediaInfoKeeper.Web
                     Path = mediaInfoPath,
                     Exists = File.Exists(mediaInfoPath),
                     Content = ReadJsonFile<List<MediaInfoDocument>>(mediaInfoPath)
-                },
-                LyricsJson = new DebugFileInfo
-                {
-                    Path = lyricsPath,
-                    Exists = File.Exists(lyricsPath),
-                    Content = ReadJsonFile<List<EmbeddedLyricsSnapshot>>(lyricsPath)
                 },
                 Cover = new DebugBinaryFileInfo
                 {
