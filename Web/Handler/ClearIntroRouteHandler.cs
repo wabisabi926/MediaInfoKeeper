@@ -56,12 +56,12 @@ namespace MediaInfoKeeper.Web.Handler
                 {
                     introSkipApi.RemoveIntroMarkers(item);
                     response.Succeeded++;
-                    Plugin.Instance.Logger.Info($"ShortcutMenu 清除片头成功: {item.Path ?? item.Name}");
+                    Plugin.Instance.Logger.Info($"ShortcutMenu 清除片头片尾成功: {item.Path ?? item.Name}");
                 }
                 catch (Exception ex)
                 {
                     response.Failed++;
-                    Plugin.Instance.Logger.Error($"快捷菜单清除片头失败: {item.Path ?? item.Name}");
+                    Plugin.Instance.Logger.Error($"快捷菜单清除片头片尾失败: {item.Path ?? item.Name}");
                     Plugin.Instance.Logger.Error(ex.Message);
                     Plugin.Instance.Logger.Debug(ex.StackTrace);
                 }

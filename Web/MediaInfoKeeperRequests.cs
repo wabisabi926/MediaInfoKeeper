@@ -54,6 +54,7 @@ namespace MediaInfoKeeper.Web
         public string[] Ids { get; set; }
         public long IntroStartTicks { get; set; }
         public long IntroEndTicks { get; set; }
+        public long? CreditsStartTicks { get; set; }
     }
 
     [Route("/MediaInfoKeeper/Items/ClearIntro", "POST")]

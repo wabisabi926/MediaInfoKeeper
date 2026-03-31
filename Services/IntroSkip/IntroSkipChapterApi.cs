@@ -228,11 +228,13 @@ namespace MediaInfoKeeper.Services.IntroSkip
             }
 
             var removed = chapters.RemoveAll(c =>
-                c.MarkerType == MarkerType.IntroStart || c.MarkerType == MarkerType.IntroEnd);
+                c.MarkerType == MarkerType.IntroStart ||
+                c.MarkerType == MarkerType.IntroEnd ||
+                c.MarkerType == MarkerType.CreditsStart);
 
             if (removed <= 0)
             {
-                logger.Info("ShortcutMenu 未发现片头标记: " + (item.FileName ?? item.Path));
+                logger.Info("ShortcutMenu 未发现片头片尾标记: " + (item.FileName ?? item.Path));
                 return;
             }
 
@@ -244,7 +246,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
 
             Plugin.ChaptersStore.OverWriteToFile(item);
 
-            logger.Info("ShortcutMenu 清理片头标记: " + (item.FileName ?? item.Path));
+            logger.Info("ShortcutMenu 清理片头片尾标记: " + (item.FileName ?? item.Path));
         }
 
         private static bool IsMarkerAddedByMik(ChapterInfo chapter)

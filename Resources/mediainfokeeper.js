@@ -62,15 +62,15 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
     function getSetIntroCommandName() {
         const locale = (globalize.getCurrentLocale() || '').toLowerCase();
         return locale === 'zh-cn'
-            ? '设置片头'
-            : (['zh-hk', 'zh-tw'].includes(locale) ? '設置片頭' : 'Set Intro');
+            ? '设置片头片尾'
+            : (['zh-hk', 'zh-tw'].includes(locale) ? '設置片頭片尾' : 'Set Intro/Credits');
     }
 
     function getClearIntroCommandName() {
         const locale = (globalize.getCurrentLocale() || '').toLowerCase();
         return locale === 'zh-cn'
-            ? '清除片头'
-            : (['zh-hk', 'zh-tw'].includes(locale) ? '清除片頭' : 'Clear Intro');
+            ? '删除片头片尾'
+            : (['zh-hk', 'zh-tw'].includes(locale) ? '刪除片頭片尾' : 'Delete Intro/Credits');
     }
 
     function getResultMessage(result, action) {
@@ -252,13 +252,14 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
         return `${hh}:${mm}:${ss}.${mmm}`;
     }
 
-    function getIntroTicksFromItem(item) {
+    function getMarkerTicksFromItem(item) {
         if (!item || !Array.isArray(item.Chapters)) {
             return null;
         }
 
         let introStartTicks = null;
         let introEndTicks = null;
+        let creditsStartTicks = null;
 
         for (const chapter of item.Chapters) {
             if (!chapter || chapter.StartPositionTicks == null) {
@@ -269,18 +270,20 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 introStartTicks = chapter.StartPositionTicks;
             } else if (chapter.MarkerType === 'IntroEnd' || chapter.MarkerType === 8) {
                 introEndTicks = chapter.StartPositionTicks;
+            } else if (chapter.MarkerType === 'CreditsStart' || chapter.MarkerType === 9) {
+                creditsStartTicks = chapter.StartPositionTicks;
             }
         }
 
-        if (introStartTicks == null && introEndTicks == null) {
+        if (introStartTicks == null && introEndTicks == null && creditsStartTicks == null) {
             return null;
         }
 
-        return { introStartTicks, introEndTicks };
+        return { introStartTicks, introEndTicks, creditsStartTicks };
     }
 
-    function getExistingIntroTicks(apiClient, episodeItem) {
-        const fromCurrentItem = getIntroTicksFromItem(episodeItem);
+    function getExistingMarkerTicks(apiClient, episodeItem) {
+        const fromCurrentItem = getMarkerTicksFromItem(episodeItem);
         if (fromCurrentItem) {
             return Promise.resolve(fromCurrentItem);
         }
@@ -299,7 +302,7 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
             url: url,
             dataType: 'json'
         }).then(function (item) {
-            return getIntroTicksFromItem(item);
+            return getMarkerTicksFromItem(item);
         }).catch(function () {
             return null;
         });
@@ -403,7 +406,7 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 const dialogHtml = `
                     <div class="dialogContainer" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999;">
                         <div class="formDialogContent smoothScrollY" style="background: #101010; border-radius: 8px; padding: 24px; max-width: 90%; width: 500px; max-height: 90vh; overflow-y: auto;">
-                            <h3 style="margin: 0 0 20px 0; color: #fff; font-size: 1.5em;">${locale === 'zh-cn' ? '设置片头时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '設置片頭時間' : 'Set Intro Time')}</h3>
+                            <h3 style="margin: 0 0 20px 0; color: #fff; font-size: 1.5em;">${locale === 'zh-cn' ? '设置片头片尾时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '設置片頭片尾時間' : 'Set Intro/Credits Time')}</h3>
                             <div class="inputContainer" style="margin-bottom: 16px;">
                                 <label style="display: block; margin-bottom: 8px; color: #fff; font-size: 0.9em;">${locale === 'zh-cn' ? '片头开始时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '片頭開始時間' : 'Intro Start Time')}</label>
                                 <input type="text" id="introStartTime" class="emby-input" value="${defaultTimeValue}" placeholder="${defaultTimeValue}" style="width: 100%; padding: 10px; background: #1f1f1f; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 16px; box-sizing: border-box;">
@@ -411,6 +414,10 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                             <div class="inputContainer" style="margin-bottom: 16px;">
                                 <label style="display: block; margin-bottom: 8px; color: #fff; font-size: 0.9em;">${locale === 'zh-cn' ? '片头结束时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '片頭結束時間' : 'Intro End Time')}</label>
                                 <input type="text" id="introEndTime" class="emby-input" value="${defaultTimeValue}" placeholder="${defaultTimeValue}" style="width: 100%; padding: 10px; background: #1f1f1f; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 16px; box-sizing: border-box;">
+                            </div>
+                            <div class="inputContainer" style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; color: #fff; font-size: 0.9em;">${locale === 'zh-cn' ? '片尾开始时间（可选）' : (['zh-hk', 'zh-tw'].includes(locale) ? '片尾開始時間（可選）' : 'Credits Start Time (Optional)')}</label>
+                                <input type="text" id="creditsStartTime" class="emby-input" value="" placeholder="${defaultTimeValue}" style="width: 100%; padding: 10px; background: #1f1f1f; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 16px; box-sizing: border-box;">
                             </div>
                             <div style="margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="cancelSetIntro" class="emby-button emby-button-cancel" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${globalize.translate('Cancel')}</button>
@@ -428,26 +435,34 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 const confirmBtn = dialog.querySelector('#confirmSetIntro');
                 const startInput = dialog.querySelector('#introStartTime');
                 const endInput = dialog.querySelector('#introEndTime');
+                const creditsInput = dialog.querySelector('#creditsStartTime');
                 const shouldPrefill = selectedItems.length === 1 && selectedItems[0].Type === 'Episode';
 
                 if (shouldPrefill) {
                     const apiClient = connectionManager.currentApiClient();
-                    getExistingIntroTicks(apiClient, selectedItems[0]).then(function (introTicks) {
-                        if (!introTicks) {
+                    getExistingMarkerTicks(apiClient, selectedItems[0]).then(function (markerTicks) {
+                        if (!markerTicks) {
                             return;
                         }
 
-                        if (introTicks.introStartTicks != null && startInput.value === defaultTimeValue) {
-                            const formattedStart = ticksToTimeString(introTicks.introStartTicks);
+                        if (markerTicks.introStartTicks != null && startInput.value === defaultTimeValue) {
+                            const formattedStart = ticksToTimeString(markerTicks.introStartTicks);
                             if (formattedStart) {
                                 startInput.value = formattedStart;
                             }
                         }
 
-                        if (introTicks.introEndTicks != null && endInput.value === defaultTimeValue) {
-                            const formattedEnd = ticksToTimeString(introTicks.introEndTicks);
+                        if (markerTicks.introEndTicks != null && endInput.value === defaultTimeValue) {
+                            const formattedEnd = ticksToTimeString(markerTicks.introEndTicks);
                             if (formattedEnd) {
                                 endInput.value = formattedEnd;
+                            }
+                        }
+
+                        if (markerTicks.creditsStartTicks != null && creditsInput.value === '') {
+                            const formattedCredits = ticksToTimeString(markerTicks.creditsStartTicks);
+                            if (formattedCredits) {
+                                creditsInput.value = formattedCredits;
                             }
                         }
                     });
@@ -461,22 +476,31 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 confirmBtn.addEventListener('click', function () {
                     const startSeconds = timeToSeconds(startInput.value);
                     const endSeconds = timeToSeconds(endInput.value);
+                    const creditsValue = (creditsInput.value || '').trim();
+                    const creditsSeconds = creditsValue ? timeToSeconds(creditsValue) : null;
 
                     if (startSeconds >= endSeconds) {
                         toast(locale === 'zh-cn' ? '开始时间必须小于结束时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '開始時間必須小於結束時間' : 'Start time must be less than end time'));
                         return;
                     }
 
+                    if (creditsSeconds != null && endSeconds >= creditsSeconds) {
+                        toast(locale === 'zh-cn' ? '片尾开始时间必须大于片头结束时间' : (['zh-hk', 'zh-tw'].includes(locale) ? '片尾開始時間必須大於片頭結束時間' : 'Credits start time must be greater than intro end time'));
+                        return;
+                    }
+
                     const introStartTicks = Math.round(startSeconds * 10000000);
                     const introEndTicks = Math.round(endSeconds * 10000000);
+                    const creditsStartTicks = creditsSeconds != null ? Math.round(creditsSeconds * 10000000) : null;
 
                     document.body.removeChild(dialog);
                     loading.show();
                     const apiClient = connectionManager.currentApiClient();
-                    return postJson(apiClient, 'MediaInfoKeeper/Items/SetIntro', { 
+                    return postJson(apiClient, 'MediaInfoKeeper/Items/SetIntro', {
                         Ids: ids, 
-                        IntroStartTicks: introStartTicks, 
-                        IntroEndTicks: introEndTicks 
+                        IntroStartTicks: introStartTicks,
+                        IntroEndTicks: introEndTicks,
+                        CreditsStartTicks: creditsStartTicks
                     }).then(function (result) {
                         toast(getResultMessage(result, 'set_intro'));
                         resolve();
@@ -502,8 +526,8 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 const dialogHtml = `
                     <div class="dialogContainer" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999;">
                         <div class="formDialogContent smoothScrollY" style="background: #101010; border-radius: 8px; padding: 24px; max-width: 90%; width: 500px; max-height: 90vh; overflow-y: auto;">
-                            <h3 style="margin: 0 0 20px 0; color: #fff; font-size: 1.5em;">${locale === 'zh-cn' ? '清除片头' : (['zh-hk', 'zh-tw'].includes(locale) ? '清除片頭' : 'Clear Intro')}</h3>
-                            <p style="margin: 0 0 24px 0; color: #ccc; font-size: 14px;">${locale === 'zh-cn' ? '确定要清除选中项目的片头标记吗？' : (['zh-hk', 'zh-tw'].includes(locale) ? '確定要清除選中項目的片頭標記嗎？' : 'Are you sure you want to clear intro markers for selected items?')}</p>
+                            <h3 style="margin: 0 0 20px 0; color: #fff; font-size: 1.5em;">${locale === 'zh-cn' ? '删除片头片尾' : (['zh-hk', 'zh-tw'].includes(locale) ? '刪除片頭片尾' : 'Delete Intro/Credits')}</h3>
+                            <p style="margin: 0 0 24px 0; color: #ccc; font-size: 14px;">${locale === 'zh-cn' ? '确定要删除选中项目的片头片尾标记吗？' : (['zh-hk', 'zh-tw'].includes(locale) ? '確定要刪除選中項目的片頭片尾標記嗎？' : 'Are you sure you want to delete intro/credits markers for selected items?')}</p>
                             <div style="margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="cancelClearIntro" class="emby-button emby-button-cancel" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${globalize.translate('Cancel')}</button>
                                 <button id="confirmClearIntro" class="emby-button emby-button-submit" style="flex: 1; min-width: 100px; padding: 12px 20px; background: #53B54C; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; justify-content: center; align-items: center;">${commandName}</button>
