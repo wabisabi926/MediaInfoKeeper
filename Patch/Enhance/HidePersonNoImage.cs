@@ -7,6 +7,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Dto;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
@@ -144,9 +145,23 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
+            var preference = Plugin.Instance?.Options?.Enhance?.HidePersonPreference;
+            var noImage =
+                preference?.Contains(Options.EnhanceOptions.HidePersonOption.NoImage.ToString(), StringComparison.OrdinalIgnoreCase) == true;
+            var actorOnly =
+                preference?.Contains(Options.EnhanceOptions.HidePersonOption.ActorOnly.ToString(), StringComparison.OrdinalIgnoreCase) == true;
+
+            if (!noImage && !actorOnly)
+            {
+                return;
+            }
+
             var originalPeople = dto.People;
             var filteredOutPeople = originalPeople
-                .Where(p => p != null && !p.HasPrimaryImage)
+                .Where(p =>
+                    p != null &&
+                    ((noImage && !p.HasPrimaryImage) ||
+                     (actorOnly && p.Type != PersonType.Actor && p.Type != PersonType.GuestStar)))
                 .ToArray();
 
             if (filteredOutPeople.Length == 0)
@@ -154,7 +169,12 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            dto.People = originalPeople.Where(p => p != null && p.HasPrimaryImage).ToArray();
+            dto.People = originalPeople
+                .Where(p =>
+                    p != null &&
+                    (!noImage || p.HasPrimaryImage) &&
+                    (!actorOnly || p.Type == PersonType.Actor || p.Type == PersonType.GuestStar))
+                .ToArray();
 
             var removedNames = filteredOutPeople
                 .Select(p => p.Name)

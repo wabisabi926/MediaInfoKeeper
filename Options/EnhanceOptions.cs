@@ -61,9 +61,25 @@ namespace MediaInfoKeeper.Options
         [Description("增强 NFO 人物节点解析，导入使用 actor/director 等人物中的 thumb 图片地址。")]
         public bool EnableNfoMetadataEnhance { get; set; } = true;
 
-        [DisplayName("隐藏无图人物")]
-        [Description("在电影、剧集、季、集详情页中过滤没有主图的人物。")]
+        [DisplayName("按偏好隐藏演职人员")]
+        [Description("按偏好隐藏电影剧集页面的演职人员，非删除，仍可搜索，默认关闭。")]
         public bool HidePersonNoImage { get; set; } = false;
+
+        public enum HidePersonOption
+        {
+            NoImage,
+            ActorOnly
+        }
+
+        [Browsable(false)]
+        public List<EditorSelectOption> HidePersonOptionList { get; set; } = new List<EditorSelectOption>();
+
+        [DisplayName("隐藏偏好")]
+        [Description("可组合选择：无图、仅演员。勾选“仅演员”后，只保留演员和客串演员。")]
+        [EditMultilSelect]
+        [SelectItemsSource(nameof(HidePersonOptionList))]
+        [VisibleCondition(nameof(HidePersonNoImage), SimpleCondition.IsTrue)]
+        public string HidePersonPreference { get; set; } = string.Empty;
 
         [DisplayName("禁止自动合集")]
         [Description("阻止 Emby 自动创建 BoxSets 合集库，并在用户视图中过滤该入口。")]
@@ -97,6 +113,18 @@ namespace MediaInfoKeeper.Options
                     IsEnabled = true
                 });
             }
+
+            HidePersonOptionList.Clear();
+            foreach (HidePersonOption item in Enum.GetValues(typeof(HidePersonOption)))
+            {
+                HidePersonOptionList.Add(new EditorSelectOption
+                {
+                    Value = item.ToString(),
+                    Name = GetHidePersonOptionDisplayName(item),
+                    IsEnabled = true
+                });
+            }
+
         }
 
         public override IEditObjectContainer CreateEditContainer()
@@ -166,16 +194,11 @@ namespace MediaInfoKeeper.Options
             AddGroup("通知", "",
                 nameof(TakeOverSystemLibraryNew));
             
-            AddGroup("演员人物", "",
-                nameof(HidePersonNoImage));
-
-            AddGroup("NFO增强", "",
-                nameof(EnableNfoMetadataEnhance));
-
-            AddGroup("合集", "",
-                nameof(NoBoxsetsAutoCreation));
-
-            AddGroup("媒体库", "",
+            AddGroup("UI功能", "",
+                nameof(HidePersonNoImage),
+                nameof(HidePersonPreference),
+                nameof(EnableNfoMetadataEnhance),
+                nameof(NoBoxsetsAutoCreation),
                 nameof(EnforceLibraryOrder));
 
             AddGroup("日志", "",
@@ -228,6 +251,19 @@ namespace MediaInfoKeeper.Options
                     return "播放列表";
                 case SearchItemType.Video:
                     return "视频";
+                default:
+                    return item.ToString();
+            }
+        }
+
+        private static string GetHidePersonOptionDisplayName(HidePersonOption item)
+        {
+            switch (item)
+            {
+                case HidePersonOption.NoImage:
+                    return "隐藏无图演职人员";
+                case HidePersonOption.ActorOnly:
+                    return "隐藏导演编剧，仅显示演员";
                 default:
                     return item.ToString();
             }
