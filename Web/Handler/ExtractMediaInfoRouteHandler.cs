@@ -85,7 +85,7 @@ namespace MediaInfoKeeper.Web.Handler
             }
 
             var displayName = item.FileName ?? item.Path ?? item.Name;
-            using (FfprobeGuard.Allow())
+            using (FfProcessGuard.Allow())
             {
                 var filePath = item.Path;
                 if (string.IsNullOrEmpty(filePath))

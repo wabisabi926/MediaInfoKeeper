@@ -6,6 +6,7 @@ using HarmonyLib;
 using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Logging;
@@ -13,7 +14,7 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 在 ProviderManager 刷新媒体项期间按条目类型临时放行 ffprobe。
+    /// 在 ProviderManager 刷新媒体项期间按条目类型临时放行 ffprobe/ffmpeg。
     /// </summary>
     public static class ProviderManager
     {
@@ -168,32 +169,32 @@ namespace MediaInfoKeeper.Patch
                 postfix: new HarmonyMethod(typeof(ProviderManager), postfix));
         }
 
-        private static void RefreshItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
         {
-            __state = BeginRefreshFfprobeAllowance(__0);
+            __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshItemPostfix(ref Task __result, FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshItemPostfix(ref Task __result, FfProcessGuard.AllowanceHandle __state)
         {
-            CompleteRefreshFfprobeAllowance(ref __result, __state);
+            CompleteRefreshFfprocessAllowance(ref __result, __state);
         }
 
-        private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
         {
-            __state = BeginRefreshFfprobeAllowance(__0);
+            __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshItemByNameChildrenPostfix(ref Task __result, FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshItemByNameChildrenPostfix(ref Task __result, FfProcessGuard.AllowanceHandle __state)
         {
-            CompleteRefreshFfprobeAllowance(ref __result, __state);
+            CompleteRefreshFfprocessAllowance(ref __result, __state);
         }
 
-        private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
         {
-            __state = BeginRefreshFfprobeAllowance(__0);
+            __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshSingleItemPostfix(ref object __result, FfprobeGuard.AllowanceHandle __state)
+        private static void RefreshSingleItemPostfix(ref object __result, FfProcessGuard.AllowanceHandle __state)
         {
             if (__state == null)
             {
@@ -206,10 +207,10 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            FfprobeGuard.EndAllow(__state);
+            FfProcessGuard.EndAllow(__state);
         }
 
-        private static FfprobeGuard.AllowanceHandle BeginRefreshFfprobeAllowance(BaseItem item)
+        private static FfProcessGuard.AllowanceHandle BeginRefreshFfprocessAllowance(BaseItem item)
         {
             if (item == null)
             {
@@ -217,28 +218,25 @@ namespace MediaInfoKeeper.Patch
             }
 
             var itemPath = item.Path ?? item.FileName;
-            var hasPath = !string.IsNullOrWhiteSpace(itemPath);
             var isShortcut = LibraryService.IsFileShortcut(itemPath);
+            var isMediaFileItem = item is Video || item is Audio;
 
-            // logger.Info($"{itemPath} {isShortcut}");
-
-            var allowFfprobe = hasPath && !isShortcut;
-
-            if (!allowFfprobe && FfprobeGuard.HasExplicitAllowance())
+            var allowFfprocess = isMediaFileItem && !string.IsNullOrWhiteSpace(itemPath) && !isShortcut;
+            if (!allowFfprocess && FfProcessGuard.HasExplicitAllowance())
             {
-                allowFfprobe = true;
+                allowFfprocess = true;
             }
 
-            return FfprobeGuard.BeginAllow(new FfprobeGuard.AllowanceContext
+            return FfProcessGuard.BeginAllow(new FfProcessGuard.AllowanceContext
             {
                 ItemInternalId = item.InternalId,
                 ItemPath = itemPath,
                 IsShortcut = isShortcut,
-                AllowFfprobe = allowFfprobe
+                AllowFfprocess = allowFfprocess
             });
         }
 
-        private static void CompleteRefreshFfprobeAllowance(ref Task task, FfprobeGuard.AllowanceHandle allowance)
+        private static void CompleteRefreshFfprocessAllowance(ref Task task, FfProcessGuard.AllowanceHandle allowance)
         {
             if (allowance == null)
             {
@@ -248,11 +246,11 @@ namespace MediaInfoKeeper.Patch
             task = task == null ? null : AwaitTask(task, allowance);
             if (task == null)
             {
-                FfprobeGuard.EndAllow(allowance);
+                FfProcessGuard.EndAllow(allowance);
             }
         }
 
-        private static object AwaitWithScope(Task task, FfprobeGuard.AllowanceHandle allowance)
+        private static object AwaitWithScope(Task task, FfProcessGuard.AllowanceHandle allowance)
         {
             var taskType = task.GetType();
             if (taskType == typeof(Task))
@@ -272,7 +270,7 @@ namespace MediaInfoKeeper.Patch
             return task;
         }
 
-        private static async Task AwaitTask(Task task, FfprobeGuard.AllowanceHandle allowance)
+        private static async Task AwaitTask(Task task, FfProcessGuard.AllowanceHandle allowance)
         {
             try
             {
@@ -280,11 +278,11 @@ namespace MediaInfoKeeper.Patch
             }
             finally
             {
-                FfprobeGuard.EndAllow(allowance);
+                FfProcessGuard.EndAllow(allowance);
             }
         }
 
-        private static async Task<T> AwaitGenericTask<T>(Task<T> task, FfprobeGuard.AllowanceHandle allowance)
+        private static async Task<T> AwaitGenericTask<T>(Task<T> task, FfProcessGuard.AllowanceHandle allowance)
         {
             try
             {
@@ -292,7 +290,7 @@ namespace MediaInfoKeeper.Patch
             }
             finally
             {
-                FfprobeGuard.EndAllow(allowance);
+                FfProcessGuard.EndAllow(allowance);
             }
         }
     }

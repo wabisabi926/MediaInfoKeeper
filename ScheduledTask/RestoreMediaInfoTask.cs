@@ -118,7 +118,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return Task.CompletedTask;
             }
 
-            using (FfprobeGuard.Allow())
+            using (FfProcessGuard.Allow())
             {
                 var filePath = item.Path;
                 if (string.IsNullOrEmpty(filePath))

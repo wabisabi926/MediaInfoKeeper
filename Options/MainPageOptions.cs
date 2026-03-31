@@ -86,7 +86,7 @@ namespace MediaInfoKeeper.Options
 
         [DisplayName("替换现有视频预览缩略图")]
         [Description("如果在媒体库选项中启用此功能，将删除所有现有视频预览缩略图并生成新缩略图。")]
-        public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = true;
+        public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = false;
 
         public override IEditObjectContainer CreateEditContainer()
         {
@@ -143,7 +143,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("插件", "",
                 nameof(PlugginEnabled));
 
-            AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe 运行；仅在插件内部需要提取媒体信息时按需放行。",
+            AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe/ffmpeg 运行；仅在插件内部需要提取媒体信息时按需放行。",
                 nameof(ExtractMediaInfoOnItemAdded),
                 nameof(ExtractMediaInfoOnFavorite),
                 nameof(DeleteMediaInfoJsonOnRemove),

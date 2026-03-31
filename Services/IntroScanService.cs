@@ -245,7 +245,7 @@ namespace MediaInfoKeeper.Services
                 };
                 var collectionFolders = this.libraryManager.GetCollectionFolders(episode).Cast<BaseItem>().ToArray();
                 var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
-                using (FfprobeGuard.Allow())
+                using (FfProcessGuard.Allow())
                 {
                     episode.DateLastRefreshed = new DateTimeOffset();
                     await RefreshTaskRunner.RunAsync(

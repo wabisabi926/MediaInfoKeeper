@@ -499,7 +499,7 @@ namespace MediaInfoKeeper
                         this.logger.Info($"入库媒体信息: 媒体信息或封面缺失，开始提取 item={e.Item.FileName ?? e.Item.Path}");
 
                         // 触发一次刷新以提取 MediaInfo。
-                        using (FfprobeGuard.Allow())
+                        using (FfProcessGuard.Allow())
                         {
                             // 构建用于媒体信息提取的刷新参数与库选项。
                             var metadataRefreshOptions = new MetadataRefreshOptions(this.directoryService)
@@ -752,7 +752,7 @@ namespace MediaInfoKeeper
                                         }
                                         var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
                                         var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
-                                        using (FfprobeGuard.Allow())
+                                        using (FfProcessGuard.Allow())
                                         {
                                             workItem.DateLastRefreshed = new DateTimeOffset();
                                             await RefreshTaskRunner.RunAsync(

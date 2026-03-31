@@ -123,7 +123,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 return;
             }
 
-            using (FfprobeGuard.Allow())
+            using (FfProcessGuard.Allow())
             {
                 var filePath = item.Path;
                 if (string.IsNullOrEmpty(filePath))

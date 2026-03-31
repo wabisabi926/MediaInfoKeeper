@@ -33,8 +33,8 @@ namespace MediaInfoKeeper.Patch
                 var netWorkOptions = safeOptions.GetNetWorkOptions();
 
                 Register("FfprobeGuard");
-                FfprobeGuard.Initialize(logger, true);
-                UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
+                FfProcessGuard.Initialize(logger, true);
+                UpdateTracker("FfprobeGuard", true, FfProcessGuard.IsReady, null);
 
                 Register("ProviderManager");
                 ProviderManager.Initialize(logger, true);
@@ -173,7 +173,7 @@ namespace MediaInfoKeeper.Patch
                     null);
 
                 Register("SystemLog");
-                SystemLog.Initialize(logger, true, safeOptions.Enhance.SystemLogNameBlacklist);
+                SystemLog.Initialize(logger, true);
                 UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
                 LogTrackerSummary();
@@ -185,7 +185,7 @@ namespace MediaInfoKeeper.Patch
             var safeOptions = EnsureOptions(options);
             var netWorkOptions = safeOptions.GetNetWorkOptions();
 
-            FfprobeGuard.Configure(true);
+            FfProcessGuard.Configure(true);
             ProviderManager.Configure(true);
             ImageCapture.Configure(safeOptions.MetaData.EnableImageCapture);
             MetadataProvidersWatcher.Configure(true);
@@ -208,7 +208,7 @@ namespace MediaInfoKeeper.Patch
             OriginalPoster.Configure(safeOptions.MetaData.EnableOriginalPoster);
             IntroMarkerProtect.Configure(true);
 
-            UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
+            UpdateTracker("FfprobeGuard", true, FfProcessGuard.IsReady, null);
             UpdateTracker("ProviderManager", true,
                 ProviderManager.IsReady, null);
             UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
@@ -261,7 +261,7 @@ namespace MediaInfoKeeper.Patch
                 safeOptions.Enhance.DisableVideoSubtitleCrossOrigin || safeOptions.Enhance.EnableDanmakuJs,
                 DashboardResourcePatch.IsReady,
                 null);
-            SystemLog.Configure(true, safeOptions.Enhance.SystemLogNameBlacklist);
+            SystemLog.Configure(true);
             UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
 
             LogTrackerSummary();
