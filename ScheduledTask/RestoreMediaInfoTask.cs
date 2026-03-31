@@ -12,18 +12,18 @@ using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.ScheduledTask
 {
-    public class ExtractMediaInfoTask : IScheduledTask
+    public class RestoreMediaInfoTask : IScheduledTask
     {
         private readonly ILogger logger;
 
-        public ExtractMediaInfoTask(ILogManager logManager)
+        public RestoreMediaInfoTask(ILogManager logManager)
         {
             this.logger = logManager.GetLogger(Plugin.PluginName);
         }
 
         public string Key => "MediaInfoKeeperExtractMediaInfoTask";
 
-        public string Name => "4.恢复媒体信息";
+        public string Name => "5.恢复媒体信息";
 
         public string Description => "对计划任务范围内！的条目,存在 JSON 则恢复，不存在则跳过";
 

@@ -33,7 +33,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Key => "UpdatePluginTask";
 
-        public string Name => "6.更新插件";
+        public string Name => "7.更新插件";
 
         public string Description => "更新插件至最新版本";
 

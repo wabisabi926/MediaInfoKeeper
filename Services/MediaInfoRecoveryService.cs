@@ -9,7 +9,7 @@ using MediaInfoKeeper.Patch;
 
 namespace MediaInfoKeeper.Services
 {
-    internal static class MediaInfoRestoreService
+    internal static class MediaInfoRecoveryService
     {
         private const int MaxRestoreAttempts = 3;
         private const long QueueDebounceMilliseconds = 2000;

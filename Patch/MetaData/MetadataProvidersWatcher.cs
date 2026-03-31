@@ -156,7 +156,7 @@ namespace MediaInfoKeeper.Patch
 
             try
             {
-                MediaInfoRestoreService.QueueRestore(item, 5);
+                MediaInfoRecoveryService.QueueRestore(item, 5);
             }
             catch (Exception ex)
             {

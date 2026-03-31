@@ -172,7 +172,7 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                MediaInfoRestoreService.QueueRestore(item, 5);
+                MediaInfoRecoveryService.QueueRestore(item, 5);
             }
             catch (Exception ex)
             {
