@@ -72,6 +72,9 @@ namespace MediaInfoKeeper.Services
         private List<ChapterInfo> CreateForPersist(BaseItem item)
         {
             var chapters = this.itemRepository.GetChapters(item) ?? new List<ChapterInfo>();
+            chapters = chapters
+                .Where(chapter => chapter != null && chapter.MarkerType != MarkerType.Chapter)
+                .ToList();
 
             foreach (var chapter in chapters)
             {
