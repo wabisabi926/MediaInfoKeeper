@@ -165,7 +165,7 @@ namespace MediaInfoKeeper
             StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
             PluginWebResourceLoader.Initialize(serverConfigurationManager);
 
-            if (this.Options.IntroSkip?.EnableIntroSkip == true)
+            if (this.Options.IntroSkip?.EnableIntroMarker == true || this.Options.IntroSkip?.EnableCreditsMarker == true)
             {
                 IntroSkipPlaySessionMonitor.Initialize();
                 IntroSkipPlaySessionMonitor.UpdateLibraryPathsInScope(this.Options.IntroSkip.LibraryScope);
@@ -320,7 +320,8 @@ namespace MediaInfoKeeper
             this.logger.Info($"入库时扫描片头 设置为 {options.IntroSkip.ScanIntroOnItemAdded}");
             this.logger.Info($"收藏时扫描片头 设置为 {options.IntroSkip.ScanIntroOnFavorite}");
             this.logger.Info("保护片头标记 固定为 开");
-            this.logger.Info($"启用播放行为打标 设置为 {options.IntroSkip.EnableIntroSkip}");
+            this.logger.Info($"启用片头打标 设置为 {options.IntroSkip.EnableIntroMarker}");
+            this.logger.Info($"启用片尾打标 设置为 {options.IntroSkip.EnableCreditsMarker}");
             this.logger.Info($"片头检测库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.MarkerEnabledLibraryScope) ? "空" : options.IntroSkip.MarkerEnabledLibraryScope)}");
             this.logger.Info($"打标库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.LibraryScope) ? "空" : options.IntroSkip.LibraryScope)}");
             this.logger.Info($"用户范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.UserScope) ? "空" : options.IntroSkip.UserScope)}");
@@ -365,7 +366,7 @@ namespace MediaInfoKeeper
 
             PatchManager.Configure(options);
 
-            if (options.IntroSkip.EnableIntroSkip)
+            if (options.IntroSkip.EnableIntroMarker || options.IntroSkip.EnableCreditsMarker)
             {
                 IntroSkipPlaySessionMonitor.Initialize();
                 IntroSkipPlaySessionMonitor.UpdateLibraryPathsInScope(options.IntroSkip.LibraryScope);

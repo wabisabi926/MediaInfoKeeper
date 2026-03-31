@@ -27,9 +27,13 @@ namespace MediaInfoKeeper.Options
         [Description("收藏时触发对应媒体片头检测。")]
         public bool ScanIntroOnFavorite { get; set; } = true;
 
-        [DisplayName("启用播放行为打标")]
-        [Description("根据播放行为自动标记片头/片尾。")]
-        public bool EnableIntroSkip { get; set; } = false;
+        [DisplayName("启用片头打标")]
+        [Description("根据播放行为自动标记片头。")]
+        public bool EnableIntroMarker { get; set; } = false;
+
+        [DisplayName("启用片尾打标")]
+        [Description("根据播放行为自动标记片尾。")]
+        public bool EnableCreditsMarker { get; set; } = false;
 
         [DisplayName("最大片头时长(秒)")]
         [Description("超过此时间不再认为是片头区间。")]
@@ -143,9 +147,10 @@ namespace MediaInfoKeeper.Options
             AddGroup("播放行为打标",
                 "最短剧情起始前: 优先视为前置剧情保护区；最短剧情起始到最大片头时长: 片头更可信；" +
                 "超过最大片头时长: 不再判为片头；距离结束小于最大片尾时长: 可判为片尾。",
-                nameof(EnableIntroSkip),
+                nameof(EnableIntroMarker),
                 nameof(MinOpeningPlotDurationSeconds),
                 nameof(MaxIntroDurationSeconds),
+                nameof(EnableCreditsMarker),
                 nameof(MaxCreditsDurationSeconds),
                 nameof(LibraryScope),
                 nameof(UserScope));

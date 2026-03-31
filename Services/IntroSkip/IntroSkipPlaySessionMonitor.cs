@@ -98,6 +98,10 @@ namespace MediaInfoKeeper.Services.IntroSkip
             sessionManager.PlaybackStopped += OnPlaybackStopped;
         }
 
+        private static bool IsIntroMarkerEnabled => Plugin.Instance?.Options?.IntroSkip?.EnableIntroMarker == true;
+
+        private static bool IsCreditsMarkerEnabled => Plugin.Instance?.Options?.IntroSkip?.EnableCreditsMarker == true;
+
         private void OnPlaybackStart(object sender, PlaybackProgressEventArgs e)
         {
             if (!(e.Item is Episode) || !e.PlaybackPositionTicks.HasValue)
@@ -143,7 +147,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
             var introStart = data.IntroStart;
             var introEnd = data.IntroEnd;
 
-            if (e.EventName == ProgressEvent.TimeUpdate && !introEnd.HasValue)
+            if (IsIntroMarkerEnabled && e.EventName == ProgressEvent.TimeUpdate && !introEnd.HasValue)
             {
                 var elapsedTime = (currentEventTime - data.PreviousEventTime).TotalSeconds;
                 var positionTimeDiff = TimeSpan.FromTicks(currentPositionTicks - data.PreviousPositionTicks).TotalSeconds;
@@ -200,7 +204,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 return;
             }
 
-            if (e.EventName == ProgressEvent.Unpause && data.LastPauseEventTime.HasValue &&
+            if (IsIntroMarkerEnabled && e.EventName == ProgressEvent.Unpause && data.LastPauseEventTime.HasValue &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 500 &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds < 5000 &&
                 introStart.HasValue && introStart.Value < currentPositionTicks && introEnd.HasValue &&
@@ -211,7 +215,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 UpdateIntroTask(episode, e.Session, data, introStart.Value, currentPositionTicks);
             }
 
-            if (e.EventName == ProgressEvent.Unpause && episode.RunTimeTicks.HasValue &&
+            if (IsCreditsMarkerEnabled && e.EventName == ProgressEvent.Unpause && episode.RunTimeTicks.HasValue &&
                 data.LastPauseEventTime.HasValue &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 500 &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds < 5000 &&
@@ -238,7 +242,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 return;
             }
 
-            if (!data.CreditsStart.HasValue)
+            if (IsCreditsMarkerEnabled && !data.CreditsStart.HasValue)
             {
                 var currentPositionTicks = e.PlaybackPositionTicks.Value;
                 if (currentPositionTicks > episode.RunTimeTicks - data.MaxCreditsDurationTicks)
