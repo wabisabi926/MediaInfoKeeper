@@ -14,9 +14,7 @@ namespace MediaInfoKeeper.Options.Store
         public MainPageOptions GetOptions()
         {
             var options = this.pluginOptionsStore.GetOptionsForUi();
-            var mainPage = options.MainPage ?? new MainPageOptions();
-            mainPage.NormalizeLegacyRefreshOptions();
-            return mainPage;
+            return options.MainPage ?? new MainPageOptions();
         }
 
         public void SetOptions(MainPageOptions options)

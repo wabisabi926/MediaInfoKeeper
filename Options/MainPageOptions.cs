@@ -88,22 +88,6 @@ namespace MediaInfoKeeper.Options
         [Description("如果在媒体库选项中启用此功能，将删除所有现有视频预览缩略图并生成新缩略图。")]
         public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = true;
 
-        [Browsable(false)]
-        public RefreshModeOption RefreshImageMode { get; set; } = RefreshModeOption.Fill;
-
-        public void NormalizeLegacyRefreshOptions()
-        {
-            if (this.RefreshImageMode == RefreshModeOption.Replace &&
-                !this.ReplaceExistingImages &&
-                !this.ReplaceExistingVideoPreviewThumbnails)
-            {
-                this.ReplaceExistingImages = true;
-                this.ReplaceExistingVideoPreviewThumbnails = true;
-            }
-
-            this.RefreshImageMode = RefreshModeOption.Fill;
-        }
-
         public override IEditObjectContainer CreateEditContainer()
         {
             var container = (EditObjectContainer)base.CreateEditContainer();
