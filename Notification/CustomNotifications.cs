@@ -28,6 +28,13 @@ namespace MediaInfoKeeper.Notification
                     Name = "深度删除通知",
                     CategoryId = "mediainfo.keeper",
                     CategoryName = Plugin.PluginName
+                },
+                new NotificationTypeInfo
+                {
+                    Id = "introskip.update",
+                    Name = "片头片尾打标更新",
+                    CategoryId = "mediainfo.keeper",
+                    CategoryName = Plugin.PluginName
                 }
             };
         }

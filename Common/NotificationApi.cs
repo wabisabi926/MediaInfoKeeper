@@ -1,21 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Emby.Notifications;
 using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
+using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Notifications;
+using MediaBrowser.Controller.Session;
+using MediaBrowser.Model.Session;
 
 namespace MediaInfoKeeper.Common
 {
     public sealed class NotificationApi
     {
         private readonly INotificationManager notificationManager;
+        private readonly IUserManager userManager;
+        private readonly ISessionManager sessionManager;
 
-        public NotificationApi(INotificationManager notificationManager)
+        public NotificationApi(
+            INotificationManager notificationManager,
+            IUserManager userManager,
+            ISessionManager sessionManager)
         {
             this.notificationManager = notificationManager;
+            this.userManager = userManager;
+            this.sessionManager = sessionManager;
         }
 
         public void DeepDeleteSendNotification(BaseItem item, HashSet<string> mountPaths)
@@ -86,6 +98,84 @@ namespace MediaInfoKeeper.Common
             }
 
             return sentCount;
+        }
+
+        public async Task IntroUpdateSendNotification(Episode episode, SessionInfo session, string introStartTime, string introEndTime)
+        {
+            if (episode == null || session == null)
+            {
+                return;
+            }
+
+            if (CanDisplayMessage(session))
+            {
+                var message = new MessageCommand
+                {
+                    Header = Plugin.PluginName,
+                    Text = $"{episode.FindSeriesName()} - {episode.Name} - 片头标记已更新",
+                    TimeoutMs = 500
+                };
+                await this.sessionManager
+                    .SendMessageCommand(session.Id, session.Id, message, CancellationToken.None)
+                    .ConfigureAwait(false);
+            }
+
+            var request = new NotificationRequest
+            {
+                Title = Plugin.PluginName,
+                EventId = "introskip.update",
+                User = this.userManager.GetUserById(session.UserInternalId),
+                Item = episode,
+                Session = session,
+                Description =
+                    $"{episode.FindSeriesName()} - {episode.FindSeasonName()} - 片头标记已更新" +
+                    $"{Environment.NewLine}{Environment.NewLine}片头开始: {introStartTime}" +
+                    $"{Environment.NewLine}片头结束: {introEndTime}" +
+                    $"{Environment.NewLine}{Environment.NewLine}by {session.UserName}"
+            };
+
+            this.notificationManager.SendNotification(request);
+        }
+
+        public async Task CreditsUpdateSendNotification(Episode episode, SessionInfo session, string creditsDuration)
+        {
+            if (episode == null || session == null)
+            {
+                return;
+            }
+
+            if (CanDisplayMessage(session))
+            {
+                var message = new MessageCommand
+                {
+                    Header = Plugin.PluginName,
+                    Text = $"{episode.FindSeriesName()} - {episode.Name} - 片尾标记已更新",
+                    TimeoutMs = 500
+                };
+                await this.sessionManager
+                    .SendMessageCommand(session.Id, session.Id, message, CancellationToken.None)
+                    .ConfigureAwait(false);
+            }
+
+            var request = new NotificationRequest
+            {
+                Title = Plugin.PluginName,
+                EventId = "introskip.update",
+                User = this.userManager.GetUserById(session.UserInternalId),
+                Item = episode,
+                Session = session,
+                Description =
+                    $"{episode.FindSeriesName()} - {episode.FindSeasonName()} - 片尾标记已更新" +
+                    $"{Environment.NewLine}{Environment.NewLine}片尾时长: {creditsDuration}" +
+                    $"{Environment.NewLine}{Environment.NewLine}by {session.UserName}"
+            };
+
+            this.notificationManager.SendNotification(request);
+        }
+
+        private bool CanDisplayMessage(SessionInfo session)
+        {
+            return session?.SupportedCommands?.Contains("DisplayMessage") == true;
         }
     }
 }

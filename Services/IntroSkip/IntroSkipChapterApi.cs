@@ -92,10 +92,16 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 {
                     itemRepository.SaveChapters(episode.InternalId, chapters);
                 }
+
+                Plugin.ChaptersStore.OverWriteToFile(episode);
             }
 
+            var introStartTime = new TimeSpan(introStartPositionTicks).ToString(@"hh\:mm\:ss\.fff");
+            var introEndTime = new TimeSpan(introEndPositionTicks).ToString(@"hh\:mm\:ss\.fff");
             logger.Info("片头标记已更新，用户: " + session.UserName + "，条目: " +
-                        (item.FileName ?? item.Path));
+                        (item.FileName ?? item.Path) + "，片头开始: " + introStartTime +
+                        "，片头结束: " + introEndTime);
+            _ = Plugin.NotificationApi.IntroUpdateSendNotification(item, session, introStartTime, introEndTime);
         }
 
         public void UpdateCredits(Episode item, SessionInfo session, long creditsDurationTicks)
@@ -135,10 +141,18 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 {
                     itemRepository.SaveChapters(episode.InternalId, chapters);
                 }
+
+                Plugin.ChaptersStore.OverWriteToFile(episode);
             }
 
+            var creditsDuration = new TimeSpan(creditsDurationTicks).ToString(@"hh\:mm\:ss\.fff");
+            var creditsStartTime = item.RunTimeTicks.HasValue
+                ? new TimeSpan(item.RunTimeTicks.Value - creditsDurationTicks).ToString(@"hh\:mm\:ss\.fff")
+                : "unknown";
             logger.Info("片尾标记已更新，用户: " + session.UserName + "，条目: " +
-                        (item.FileName ?? item.Path));
+                        (item.FileName ?? item.Path) + "，片尾开始: " + creditsStartTime +
+                        "，片尾时长: " + creditsDuration);
+            _ = Plugin.NotificationApi.CreditsUpdateSendNotification(item, session, creditsDuration);
         }
 
         public void RemoveIntroMarkers(BaseItem item)
@@ -168,6 +182,8 @@ namespace MediaInfoKeeper.Services.IntroSkip
             {
                 itemRepository.SaveChapters(item.InternalId, chapters);
             }
+
+            Plugin.ChaptersStore.OverWriteToFile(item);
 
             logger.Info("ShortcutMenu 清理片头标记: " + (item.FileName ?? item.Path));
         }

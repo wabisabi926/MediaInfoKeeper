@@ -39,7 +39,7 @@ namespace MediaInfoKeeper.Options
         [Description("超过此时间不再认为是片头区间。")]
         [MinValue(10), MaxValue(600)]
         [Required]
-        public int MaxIntroDurationSeconds { get; set; } = 150;
+        public int MaxIntroDurationSeconds { get; set; } = 180;
 
         [DisplayName("最大片尾时长(秒)")]
         [Description("距结尾小于该时长时可标记片尾。")]
@@ -142,14 +142,16 @@ namespace MediaInfoKeeper.Options
                 nameof(ScanIntroOnFavorite),
                 nameof(ProtectIntroMarkers),
                 nameof(IntroDetectionFingerprintMinutes),
-                nameof(IntroDetectionMaxConcurrentCount));
+                nameof(IntroDetectionMaxConcurrentCount),
+                nameof(MarkerEnabledLibraryScope));
 
-            AddGroup("播放行为打标", "",
+            AddGroup("播放行为打标",
+                "最短剧情起始前: 优先视为前置剧情保护区；最短剧情起始到最大片头时长: 片头更可信；" +
+                "超过最大片头时长: 不再判为片头；距离结束小于最大片尾时长: 可判为片尾。",
                 nameof(EnableIntroSkip),
+                nameof(MinOpeningPlotDurationSeconds),
                 nameof(MaxIntroDurationSeconds),
                 nameof(MaxCreditsDurationSeconds),
-                nameof(MinOpeningPlotDurationSeconds),
-                nameof(MarkerEnabledLibraryScope),
                 nameof(LibraryScope),
                 nameof(UserScope));
 

@@ -157,7 +157,7 @@ namespace MediaInfoKeeper
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
             EmbeddedCoverStore = new EmbeddedCoverStore(libraryManager, fileSystem, jsonSerializer);
 
-            NotificationApi = new NotificationApi(notificationManager);
+            NotificationApi = new NotificationApi(notificationManager, userManager, sessionManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
             IntroScanService = new IntroScanService(logManager, libraryManager, fileSystem);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
