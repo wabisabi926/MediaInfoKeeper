@@ -75,6 +75,7 @@ namespace MediaInfoKeeper
         internal static IFileSystem FileSystem { get; private set; }
         internal static ILibraryManager LibraryManager { get; private set; }
         internal IApplicationHost AppHost => this.applicationHost;
+        internal IItemRepository ItemRepository => this.itemRepository;
 
         private bool PlugginEnabled;
         internal readonly PluginOptionsStore OptionsStore;

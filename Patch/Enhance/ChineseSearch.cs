@@ -34,6 +34,7 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo sqlite3_enable_load_extension;
         private static FieldInfo sqlite3_db;
         private static readonly List<MethodInfo> createConnectionTargets = new List<MethodInfo>();
+        private static MethodInfo createRepositoryConnection;
         private static PropertyInfo dbFilePath;
         private static MethodInfo getJoinCommandText;
         private static MethodInfo createSearchTerm;
@@ -59,8 +60,11 @@ namespace MediaInfoKeeper.Patch
         private static readonly Dictionary<string, Regex> patterns = new Dictionary<string, Regex>
         {
             { "imdb", new Regex(@"^tt\d{7,8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled) },
+            { "imdb_name", new Regex(@"^nm\d{7,8}$", RegexOptions.IgnoreCase | RegexOptions.Compiled) },
             { "tmdb", new Regex(@"^tmdb(id)?=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled) },
-            { "tvdb", new Regex(@"^tvdb(id)?=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled) }
+            { "tvdb", new Regex(@"^tvdb(id)?=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled) },
+            { "douban", new Regex(@"^douban(id)?=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled) },
+            { "bangumi", new Regex(@"^(bgm(id)?|bangumi)=(\d+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled) }
         };
 
         public static void Initialize(ILogger pluginLogger, EnhanceOptions options)
@@ -118,6 +122,24 @@ namespace MediaInfoKeeper.Patch
                         null,
                         new[] { typeof(bool) },
                         null));
+                    createRepositoryConnection = baseSqliteRepository?.GetMethod(
+                        "CreateConnection",
+                        BindingFlags.NonPublic | BindingFlags.Instance,
+                        null,
+                        new[] { typeof(bool), typeof(CancellationToken) },
+                        null)
+                        ?? baseSqliteRepository?.GetMethod(
+                            "CreateConnection",
+                            BindingFlags.NonPublic | BindingFlags.Instance,
+                            null,
+                            new[] { typeof(bool) },
+                            null)
+                        ?? baseSqliteRepository?.GetMethod(
+                            "CreateNewConnection",
+                            BindingFlags.NonPublic | BindingFlags.Instance,
+                            null,
+                            new[] { typeof(bool) },
+                            null);
 
                     dbFilePath = baseSqliteRepository?.GetProperty(
                         "DbFilePath",
@@ -172,7 +194,7 @@ namespace MediaInfoKeeper.Patch
                         logger,
                         "ChineseSearch.CacheIdsFromTextParams");
 
-                    if (createConnectionTargets.Count == 0 || dbFilePath == null || getJoinCommandText == null ||
+                    if (createConnectionTargets.Count == 0 || createRepositoryConnection == null || dbFilePath == null || getJoinCommandText == null ||
                         cacheIdsFromTextParams == null || sqlite3_db == null ||
                         sqlite3_enable_load_extension == null)
                     {
@@ -490,6 +512,88 @@ namespace MediaInfoKeeper.Patch
             return "unknown";
         }
 
+        public static bool RebuildSearchIndex()
+        {
+            if (!isInitialized || createRepositoryConnection == null)
+            {
+                logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: search module not initialized");
+                return false;
+            }
+
+            var repository = Plugin.Instance?.ItemRepository;
+            if (repository == null)
+            {
+                logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: item repository unavailable");
+                return false;
+            }
+
+            IDatabaseConnection connection = null;
+            try
+            {
+                connection = OpenLibraryConnection(repository);
+                if (connection == null)
+                {
+                    logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: connection unavailable");
+                    return false;
+                }
+
+                var ftsTableName = GetFtsTableName();
+                CurrentTokenizerName = DetectCurrentTokenizer(connection, ftsTableName);
+                logger?.Info($"EnhanceChineseSearch - Current tokenizer (before) is {CurrentTokenizerName}");
+
+                var options = Plugin.Instance?.Options?.Enhance;
+                var targetTokenizer = "unicode61 remove_diacritics 2";
+                if (options?.EnhanceChineseSearch == true && LoadTokenizerExtension(connection, false))
+                {
+                    targetTokenizer = "simple";
+                }
+
+                var rebuildResult = RebuildFts(connection, ftsTableName, targetTokenizer);
+                if (!rebuildResult)
+                {
+                    logger?.Warn("EnhanceChineseSearch - Load Failed");
+                    return false;
+                }
+
+                CurrentTokenizerName = targetTokenizer;
+                logger?.Info("EnhanceChineseSearch - Load Success");
+                logger?.Info($"EnhanceChineseSearch - Current tokenizer (after) is {CurrentTokenizerName}");
+                return true;
+            }
+            catch (Exception e)
+            {
+                logger?.Warn("EnhanceChineseSearch - Load Failed");
+                logger?.Warn(e.ToString());
+                return false;
+            }
+            finally
+            {
+                (connection as IDisposable)?.Dispose();
+            }
+        }
+
+        private static IDatabaseConnection OpenLibraryConnection(object repository)
+        {
+            var parameters = createRepositoryConnection.GetParameters();
+            object[] args;
+            if (parameters.Length == 2 &&
+                parameters[0].ParameterType == typeof(bool) &&
+                parameters[1].ParameterType == typeof(CancellationToken))
+            {
+                args = new object[] { false, CancellationToken.None };
+            }
+            else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(bool))
+            {
+                args = new object[] { false };
+            }
+            else
+            {
+                return null;
+            }
+
+            return createRepositoryConnection.Invoke(repository, args) as IDatabaseConnection;
+        }
+
         private static bool RebuildFts(IDatabaseConnection connection, string ftsTableName, string tokenizerName)
         {
             string populateQuery;
@@ -546,7 +650,16 @@ namespace MediaInfoKeeper.Patch
 
         private static string GetSearchColumnNormalization(string columnName)
         {
-            return "replace(replace(" + columnName + ",'''',''),'.','')";
+            return "replace(replace(replace(replace(" + columnName + ",'''',''),'.',''),'·',''),'-','')";
+        }
+
+        private static string NormalizeSearchTerm(string searchTerm)
+        {
+            return searchTerm?
+                .Replace(".", string.Empty)
+                .Replace("'", string.Empty)
+                .Replace("·", string.Empty)
+                .Replace("-", string.Empty);
         }
 
         private static bool EnsureTokenizerExists()
@@ -864,11 +977,10 @@ namespace MediaInfoKeeper.Patch
                         {
                             currentValue = currentValue
                                 .Substring(currentValue.IndexOf(":", StringComparison.Ordinal) + 1)
-                                .Trim('\"', '^', '$')
-                                .Replace(".", string.Empty)
-                                .Replace("'", string.Empty);
+                                .Trim('\"', '^', '$');
                         }
 
+                        currentValue = NormalizeSearchTerm(currentValue);
                         bindParams[i] = new KeyValuePair<string, string>(kvp.Key, currentValue);
                     }
                 }
@@ -888,7 +1000,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            __result = searchTerm.Replace(".", string.Empty).Replace("'", string.Empty);
+            __result = NormalizeSearchTerm(searchTerm);
             return false;
         }
 
@@ -938,12 +1050,7 @@ namespace MediaInfoKeeper.Patch
                         var match = provider.Value.Match(searchTerm.Trim());
                         if (match.Success)
                         {
-                            var idValue = provider.Key == "imdb" ? match.Value : match.Groups[2].Value;
-
-                            query.AnyProviderIdEquals = new List<KeyValuePair<string, string>>
-                            {
-                                new KeyValuePair<string, string>(provider.Key, idValue)
-                            };
+                            query.AnyProviderIdEquals = BuildProviderIdEquals(provider.Key, match);
                             query.SearchTerm = null;
                             break;
                         }
@@ -957,6 +1064,40 @@ namespace MediaInfoKeeper.Patch
             }
 
             return true;
+        }
+
+        private static List<KeyValuePair<string, string>> BuildProviderIdEquals(string providerKey, Match match)
+        {
+            switch (providerKey)
+            {
+                case "imdb":
+                case "imdb_name":
+                    return new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("imdb", match.Value)
+                    };
+                case "tmdb":
+                case "tvdb":
+                    return new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>(providerKey, match.Groups[2].Value)
+                    };
+                case "douban":
+                    return new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("douban", match.Groups[2].Value),
+                        new KeyValuePair<string, string>("doubanid", match.Groups[2].Value)
+                    };
+                case "bangumi":
+                    return new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("bgm", match.Groups[3].Value),
+                        new KeyValuePair<string, string>("bgmid", match.Groups[3].Value),
+                        new KeyValuePair<string, string>("bangumi", match.Groups[3].Value)
+                    };
+                default:
+                    return new List<KeyValuePair<string, string>>();
+            }
         }
     }
 }
