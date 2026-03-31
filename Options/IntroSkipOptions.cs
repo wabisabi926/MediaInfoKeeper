@@ -27,10 +27,6 @@ namespace MediaInfoKeeper.Options
         [Description("收藏时触发对应媒体片头检测。")]
         public bool ScanIntroOnFavorite { get; set; } = true;
 
-        [DisplayName("保护片头标记")]
-        [Description("刷新元数据时保护已存在的片头/片尾标记不被清空。")]
-        public bool ProtectIntroMarkers { get; set; } = true;
-
         [DisplayName("启用播放行为打标")]
         [Description("根据播放行为自动标记片头/片尾。")]
         public bool EnableIntroSkip { get; set; } = false;
@@ -140,7 +136,6 @@ namespace MediaInfoKeeper.Options
                 nameof(UnlockIntroSkip),
                 nameof(ScanIntroOnItemAdded),
                 nameof(ScanIntroOnFavorite),
-                nameof(ProtectIntroMarkers),
                 nameof(IntroDetectionFingerprintMinutes),
                 nameof(IntroDetectionMaxConcurrentCount),
                 nameof(MarkerEnabledLibraryScope));

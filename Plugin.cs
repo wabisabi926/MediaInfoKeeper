@@ -319,7 +319,7 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用 Strm 片头检测解锁 设置为 {options.IntroSkip.UnlockIntroSkip}");
             this.logger.Info($"入库时扫描片头 设置为 {options.IntroSkip.ScanIntroOnItemAdded}");
             this.logger.Info($"收藏时扫描片头 设置为 {options.IntroSkip.ScanIntroOnFavorite}");
-            this.logger.Info($"保护片头标记 设置为 {options.IntroSkip.ProtectIntroMarkers}");
+            this.logger.Info("保护片头标记 固定为 开");
             this.logger.Info($"启用播放行为打标 设置为 {options.IntroSkip.EnableIntroSkip}");
             this.logger.Info($"片头检测库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.MarkerEnabledLibraryScope) ? "空" : options.IntroSkip.MarkerEnabledLibraryScope)}");
             this.logger.Info($"打标库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.LibraryScope) ? "空" : options.IntroSkip.LibraryScope)}");

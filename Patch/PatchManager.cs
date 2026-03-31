@@ -94,8 +94,8 @@ namespace MediaInfoKeeper.Patch
                 UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
 
                 Register("IntroMarkerProtect");
-                IntroMarkerProtect.Initialize(logger, safeOptions.IntroSkip.ProtectIntroMarkers);
-                UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
+                IntroMarkerProtect.Initialize(logger, true);
+                UpdateTracker("IntroMarkerProtect", true, IntroMarkerProtect.IsReady, "always enabled");
 
                 Register("NetworkServer");
                 NetworkServer.Initialize(logger, netWorkOptions.EnableProxyServer);
@@ -206,7 +206,7 @@ namespace MediaInfoKeeper.Patch
             TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
             MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
             OriginalPoster.Configure(safeOptions.MetaData.EnableOriginalPoster);
-            IntroMarkerProtect.Configure(safeOptions.IntroSkip.ProtectIntroMarkers);
+            IntroMarkerProtect.Configure(true);
 
             UpdateTracker("FfprobeGuard", true, FfprobeGuard.IsReady, null);
             UpdateTracker("ProviderManager", true,
@@ -223,7 +223,7 @@ namespace MediaInfoKeeper.Patch
             UpdateTracker("OriginalPoster", safeOptions.MetaData.EnableOriginalPoster, OriginalPoster.IsReady,
                 OriginalPoster.IsWaiting ? "waiting for MovieDb assembly" : null, OriginalPoster.IsWaiting);
             UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
-            UpdateTracker("IntroMarkerProtect", safeOptions.IntroSkip.ProtectIntroMarkers, IntroMarkerProtect.IsReady, null);
+            UpdateTracker("IntroMarkerProtect", true, IntroMarkerProtect.IsReady, "always enabled");
             UpdateTracker("NetworkServer", netWorkOptions.EnableProxyServer, NetworkServer.IsReady,
                 BuildProxyNotes(), false);
             UpdateTracker(
