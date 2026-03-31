@@ -245,6 +245,7 @@ namespace MediaInfoKeeper
 #if DEBUG
             options.Debug ??= new DebugOptions();
 #endif
+            options.IntroSkip.Initialize();
             options.Enhance.Initialize();
             options.MetaData.Initialize();
 

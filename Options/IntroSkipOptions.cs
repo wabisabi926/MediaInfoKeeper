@@ -11,6 +11,13 @@ namespace MediaInfoKeeper.Options
 {
     public class IntroSkipOptions : EditableOptionsBase
     {
+        public enum SubsequentMarkerMode
+        {
+            CurrentOnly,
+            FillMissing,
+            Overwrite
+        }
+
         public override string EditorTitle => "IntroSkip";
 
         public override string EditorDescription => "片头相关设置都放在这里，包括扫描、标记保护和播放行为打标。改完记得保存。";
@@ -31,24 +38,44 @@ namespace MediaInfoKeeper.Options
         [Description("根据播放行为自动标记片头。")]
         public bool EnableIntroMarker { get; set; } = false;
 
+        [Browsable(false)]
+        public List<EditorSelectOption> SubsequentMarkerModeList { get; set; } = new List<EditorSelectOption>();
+
+        [DisplayName("后续片头设置")]
+        [Description("当前集打标后，是否同步作用到后续剧集。")]
+        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
+        [SelectItemsSource(nameof(SubsequentMarkerModeList))]
+        [VisibleCondition(nameof(EnableIntroMarker), SimpleCondition.IsTrue)]
+        public string IntroMarkerMode { get; set; } = SubsequentMarkerMode.FillMissing.ToString();
+
         [DisplayName("启用片尾打标")]
         [Description("根据播放行为自动标记片尾。")]
         public bool EnableCreditsMarker { get; set; } = false;
 
+        [DisplayName("后续片尾设置")]
+        [Description("当前集打标后，是否同步作用到后续剧集。")]
+        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
+        [SelectItemsSource(nameof(SubsequentMarkerModeList))]
+        [VisibleCondition(nameof(EnableCreditsMarker), SimpleCondition.IsTrue)]
+        public string CreditsMarkerMode { get; set; } = SubsequentMarkerMode.FillMissing.ToString();
+
         [DisplayName("最大片头时长(秒)")]
         [Description("超过此时间不再认为是片头区间。")]
+        [VisibleCondition(nameof(EnableIntroMarker), SimpleCondition.IsTrue)]
         [MinValue(10), MaxValue(600)]
         [Required]
         public int MaxIntroDurationSeconds { get; set; } = 180;
 
         [DisplayName("最大片尾时长(秒)")]
         [Description("距结尾小于该时长时可标记片尾。")]
+        [VisibleCondition(nameof(EnableCreditsMarker), SimpleCondition.IsTrue)]
         [MinValue(10), MaxValue(600)]
         [Required]
         public int MaxCreditsDurationSeconds { get; set; } = 360;
 
         [DisplayName("最短剧情起始(秒)")]
         [Description("用于避免把前置剧情误判为片头。")]
+        [VisibleCondition(nameof(EnableIntroMarker), SimpleCondition.IsTrue)]
         [MinValue(30), MaxValue(120)]
         [Required]
         public int MinOpeningPlotDurationSeconds { get; set; } = 60;
@@ -83,6 +110,20 @@ namespace MediaInfoKeeper.Options
         [DisplayName("用户范围")]
         [Description("允许触发打标的用户 ID，逗号或分号分隔；留空表示所有用户。")]
         public string UserScope { get; set; } = string.Empty;
+
+        public void Initialize()
+        {
+            SubsequentMarkerModeList.Clear();
+            foreach (SubsequentMarkerMode item in Enum.GetValues(typeof(SubsequentMarkerMode)))
+            {
+                SubsequentMarkerModeList.Add(new EditorSelectOption
+                {
+                    Value = item.ToString(),
+                    Name = GetSubsequentMarkerModeDisplayName(item),
+                    IsEnabled = true
+                });
+            }
+        }
 
         public override IEditObjectContainer CreateEditContainer()
         {
@@ -148,9 +189,11 @@ namespace MediaInfoKeeper.Options
                 "最短剧情起始前: 优先视为前置剧情保护区；最短剧情起始到最大片头时长: 片头更可信；" +
                 "超过最大片头时长: 不再判为片头；距离结束小于最大片尾时长: 可判为片尾。",
                 nameof(EnableIntroMarker),
+                nameof(IntroMarkerMode),
                 nameof(MinOpeningPlotDurationSeconds),
                 nameof(MaxIntroDurationSeconds),
                 nameof(EnableCreditsMarker),
+                nameof(CreditsMarkerMode),
                 nameof(MaxCreditsDurationSeconds),
                 nameof(LibraryScope),
                 nameof(UserScope));
@@ -178,6 +221,17 @@ namespace MediaInfoKeeper.Options
             }
 
             return container;
+        }
+
+        private static string GetSubsequentMarkerModeDisplayName(SubsequentMarkerMode option)
+        {
+            return option switch
+            {
+                SubsequentMarkerMode.CurrentOnly => "仅设置本集，不作用于后续剧集",
+                SubsequentMarkerMode.FillMissing => "补全缺失，而且会重新更新插件标记",
+                SubsequentMarkerMode.Overwrite => "覆盖后续插件标记，Emby 系统生成的标记不会被覆盖",
+                _ => option.ToString()
+            };
         }
 
     }

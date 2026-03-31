@@ -198,14 +198,14 @@ namespace MediaInfoKeeper.Services.IntroSkip
 
             if (e.EventName == ProgressEvent.Unpause && data.LastPauseEventTime.HasValue &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds <
-                (data.LastPlaybackRateChangeEventTime.HasValue ? 1500 : 500))
+                (data.LastPlaybackRateChangeEventTime.HasValue ? 1500 : 200))
             {
                 data.LastPauseEventTime = null;
                 return;
             }
 
             if (IsIntroMarkerEnabled && e.EventName == ProgressEvent.Unpause && data.LastPauseEventTime.HasValue &&
-                (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 500 &&
+                (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 200 &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds < 5000 &&
                 introStart.HasValue && introStart.Value < currentPositionTicks && introEnd.HasValue &&
                 currentPositionTicks < Math.Max(data.MaxIntroDurationTicks, introEnd.Value) &&
@@ -217,7 +217,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
 
             if (IsCreditsMarkerEnabled && e.EventName == ProgressEvent.Unpause && episode.RunTimeTicks.HasValue &&
                 data.LastPauseEventTime.HasValue &&
-                (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 500 &&
+                (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds > 200 &&
                 (currentEventTime - data.LastPauseEventTime.Value).TotalMilliseconds < 5000 &&
                 currentPositionTicks > episode.RunTimeTicks - data.MaxCreditsDurationTicks)
             {
