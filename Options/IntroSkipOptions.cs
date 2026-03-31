@@ -42,7 +42,7 @@ namespace MediaInfoKeeper.Options
         public List<EditorSelectOption> SubsequentMarkerModeList { get; set; } = new List<EditorSelectOption>();
 
         [DisplayName("后续片头设置")]
-        [Description("当前集打标后，是否同步作用到后续剧集。")]
+        [Description("按当前季补齐；可只写本集、补全缺失，或覆盖插件已写入的后续标记。当前集和后续剧集中的 Emby 系统片头标记都不会更新。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
         [SelectItemsSource(nameof(SubsequentMarkerModeList))]
         [VisibleCondition(nameof(EnableIntroMarker), SimpleCondition.IsTrue)]
@@ -53,7 +53,7 @@ namespace MediaInfoKeeper.Options
         public bool EnableCreditsMarker { get; set; } = false;
 
         [DisplayName("后续片尾设置")]
-        [Description("当前集打标后，是否同步作用到后续剧集。")]
+        [Description("按当前季补齐；可只写本集、补全缺失，或覆盖插件已写入的后续标记。当前集和后续剧集中的 Emby 系统片尾标记都不会更新。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
         [SelectItemsSource(nameof(SubsequentMarkerModeList))]
         [VisibleCondition(nameof(EnableCreditsMarker), SimpleCondition.IsTrue)]
@@ -227,8 +227,8 @@ namespace MediaInfoKeeper.Options
         {
             return option switch
             {
-                SubsequentMarkerMode.CurrentOnly => "仅设置本集，不作用于后续剧集",
-                SubsequentMarkerMode.FillMissing => "补全缺失，而且会重新更新插件标记",
+                SubsequentMarkerMode.CurrentOnly => "仅设置本集，不作用于后续剧集，Emby 系统生成的标记不会被覆盖",
+                SubsequentMarkerMode.FillMissing => "补全缺失，而且会更新插件的标记",
                 SubsequentMarkerMode.Overwrite => "覆盖后续插件标记，Emby 系统生成的标记不会被覆盖",
                 _ => option.ToString()
             };

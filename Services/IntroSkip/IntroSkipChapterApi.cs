@@ -72,6 +72,12 @@ namespace MediaInfoKeeper.Services.IntroSkip
             {
                 var chapters = itemRepository.GetChapters(episode);
 
+                if (episode.InternalId == item.InternalId && HasNonMikIntro(chapters))
+                {
+                    skippedEpisodes.Add((episode.FileName ?? episode.Path ?? episode.Name) + " (当前集已有非插件片头标记)");
+                    continue;
+                }
+
                 if (episode.InternalId != item.InternalId &&
                     mode != IntroSkipOptions.SubsequentMarkerMode.Overwrite &&
                     HasNonMikIntro(chapters))
