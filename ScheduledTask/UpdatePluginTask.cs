@@ -81,32 +81,30 @@ namespace MediaInfoKeeper.ScheduledTask
 
             try
             {
-                var githubOptions = Plugin.Instance.Options.GitHub;
-                var githubToken = githubOptions?.GitHubToken;
-                var authHeader = string.IsNullOrWhiteSpace(githubToken) ? null : $"token {githubToken}";
+                var githubToken = Plugin.Instance.Options.GitHub?.GitHubToken;
                 var currentVersion = ParseVersion(GetCurrentVersion());
                 var embyVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
 
                 logger.Info("开始检查插件更新：当前插件版本={0}，当前Emby版本={1}", currentVersion, embyVersion);
 
-                using var response = await httpClient.SendAsync(new HttpRequestOptions
+                var releaseRequestOptions = new HttpRequestOptions
                 {
                     Url = RepoReleaseUrl,
                     CancellationToken = cancellationToken,
-                    AcceptHeader = "application/json",
-                    UserAgent = "MediaInfoKeeper",
-                    EnableDefaultUserAgent = false,
-                    RequestHeaders =
-                    {
-                        ["Authorization"] = authHeader
-                    }
-                }, "GET").ConfigureAwait(false);
+                    AcceptHeader = "application/json"
+                };
+                if (!string.IsNullOrWhiteSpace(githubToken))
+                {
+                    releaseRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                }
+
+                using var response = await httpClient.SendAsync(releaseRequestOptions, "GET").ConfigureAwait(false);
 
                 await using var contentStream = response.Content;
                 var apiResult = jsonSerializer.DeserializeFromStream<ApiResponseInfo>(contentStream);
 
                 var remoteVersion = ParseVersion(apiResult?.tag_name);
-                var compatibility = await FetchCompatibilityManifest(cancellationToken, authHeader).ConfigureAwait(false);
+                var compatibility = await FetchCompatibilityManifest(cancellationToken).ConfigureAwait(false);
                 var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
                 logger.Info(
                     "版本信息：最新插件={0}，当前插件={1}，当前Emby={2}，兼容Emby版本区间=[{3},{4}]",
@@ -145,18 +143,18 @@ namespace MediaInfoKeeper.ScheduledTask
 
                     logger.Info("开始下载插件：版本={0}", remoteVersion);
 
-                    await using (var responseStream = await httpClient.Get(new HttpRequestOptions
+                    var downloadRequestOptions = new HttpRequestOptions
                     {
                         Url = url,
                         CancellationToken = cancellationToken,
-                        UserAgent = "MediaInfoKeeper",
-                        EnableDefaultUserAgent = false,
-                        Progress = progress,
-                        RequestHeaders =
-                                         {
-                                             ["Authorization"] = authHeader
-                                         }
-                    })
+                        Progress = progress
+                    };
+                    if (!string.IsNullOrWhiteSpace(githubToken))
+                    {
+                        downloadRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                    }
+
+                    await using (var responseStream = await httpClient.Get(downloadRequestOptions)
                                      .ConfigureAwait(false))
                     {
                         using (var memoryStream = new MemoryStream())
@@ -225,23 +223,23 @@ namespace MediaInfoKeeper.ScheduledTask
         }
 
         private async Task<PluginCompatibilityInfo> FetchCompatibilityManifest(
-            CancellationToken cancellationToken,
-            string authHeader)
+            CancellationToken cancellationToken)
         {
             try
             {
-                using var response = await httpClient.SendAsync(new HttpRequestOptions
+                var githubToken = Plugin.Instance.Options.GitHub?.GitHubToken;
+                var manifestRequestOptions = new HttpRequestOptions
                 {
                     Url = RepoVersionUrl,
                     CancellationToken = cancellationToken,
-                    AcceptHeader = "application/json",
-                    UserAgent = "MediaInfoKeeper",
-                    EnableDefaultUserAgent = false,
-                    RequestHeaders =
-                    {
-                        ["Authorization"] = authHeader
-                    }
-                }, "GET").ConfigureAwait(false);
+                    AcceptHeader = "application/json"
+                };
+                if (!string.IsNullOrWhiteSpace(githubToken))
+                {
+                    manifestRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                }
+
+                using var response = await httpClient.SendAsync(manifestRequestOptions, "GET").ConfigureAwait(false);
 
                 await using var stream = response.Content;
                 var manifest = jsonSerializer.DeserializeFromStream<PluginManifestInfo>(stream);

@@ -3,12 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
+using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
@@ -73,10 +73,6 @@ namespace MediaInfoKeeper.Patch
 
         private static readonly object InitLock = new object();
         private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(6);
-        private static readonly HttpClient HttpClient = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(8)
-        };
 
         private static readonly AsyncLocal<Series> CurrentSeries = new AsyncLocal<Series>();
         private static readonly ConcurrentDictionary<string, (DateTimeOffset At, EpisodeGroupResponse Data)> OnlineCache =
@@ -854,14 +850,26 @@ namespace MediaInfoKeeper.Patch
 
             try
             {
-                using var response = HttpClient.GetAsync(url).GetAwaiter().GetResult();
-                if (!response.IsSuccessStatusCode)
+                var httpClient = Plugin.SharedHttpClient;
+                if (httpClient == null)
+                {
+                    logger?.Debug("获取在线剧集组失败: IHttpClient 不可用, id={0}", episodeGroupId);
+                    return null;
+                }
+
+                using var response = httpClient.GetResponse(new HttpRequestOptions
+                {
+                    Url = url,
+                    TimeoutMs = 8000
+                }).GetAwaiter().GetResult();
+                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
                 {
                     logger?.Debug("获取在线剧集组失败: status={0}, id={1}", (int)response.StatusCode, episodeGroupId);
                     return null;
                 }
 
-                var raw = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                using var reader = new StreamReader(response.Content);
+                var raw = reader.ReadToEnd();
                 if (string.IsNullOrWhiteSpace(raw))
                 {
                     return null;

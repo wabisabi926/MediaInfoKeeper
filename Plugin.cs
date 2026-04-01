@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -15,6 +14,7 @@ using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Services.IntroSkip;
 using MediaBrowser.Common;
+using MediaBrowser.Common.Net;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Controller.Configuration;
 using MediaBrowser.Controller.Entities;
@@ -72,11 +72,13 @@ namespace MediaInfoKeeper
         private readonly ISessionManager sessionManager;
         private readonly IMediaMountManager mediaMountManager;
         private readonly IApplicationHost applicationHost;
+        private readonly IHttpClient httpClient;
         private readonly DirectoryService directoryService;
 
         internal static IProviderManager ProviderManager { get; private set; }
         internal static IFileSystem FileSystem { get; private set; }
         internal static ILibraryManager LibraryManager { get; private set; }
+        internal static IHttpClient SharedHttpClient { get; private set; }
         internal IApplicationHost AppHost => this.applicationHost;
         internal IItemRepository ItemRepository => this.itemRepository;
 
@@ -91,10 +93,6 @@ namespace MediaInfoKeeper
 #if DEBUG
         internal readonly DebugOptionsStore DebugOptionsStore;
 #endif
-        private static readonly HttpClient HttpClient = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(3)
-        };
         private static string latestReleaseVersionCache;
         private static readonly object ReleaseHistoryLock = new object();
         private static DateTimeOffset releaseHistoryCheckedUtc = DateTimeOffset.MinValue;
@@ -115,6 +113,7 @@ namespace MediaInfoKeeper
             INotificationManager notificationManager,
             IMediaMountManager mediaMountManager,
             IMediaProbeManager mediaProbeManager,
+            IHttpClient httpClient,
             IServerConfigurationManager serverConfigurationManager,
             ILocalizationManager localizationManager,
             IJsonSerializer jsonSerializer,
@@ -134,9 +133,11 @@ namespace MediaInfoKeeper
             this.userDataManager = userDataManager;
             this.sessionManager = sessionManager;
             this.mediaMountManager = mediaMountManager;
+            this.httpClient = httpClient;
             ProviderManager = providerManager;
             FileSystem = fileSystem;
             LibraryManager = libraryManager;
+            SharedHttpClient = httpClient;
             LibraryApi.Initialize(userManager);
 
             OptionsStore = new PluginOptionsStore(applicationHost, this.logger, this.Name,
@@ -885,25 +886,26 @@ namespace MediaInfoKeeper
                 var latestVersion = "未知";
                 while (true)
                 {
-                    using var request = new HttpRequestMessage(HttpMethod.Get, $"{GitHubReleaseHistoryUrl}{page}");
-                    request.Headers.UserAgent.ParseAdd("MediaInfoKeeper");
-                    request.Headers.Accept.ParseAdd("application/vnd.github+json");
-
+                    var requestOptions = new HttpRequestOptions
+                    {
+                        Url = $"{GitHubReleaseHistoryUrl}{page}",
+                        AcceptHeader = "application/vnd.github+json",
+                        TimeoutMs = 3000
+                    };
                     var token = this.Options?.GitHub?.GitHubToken;
                     if (!string.IsNullOrWhiteSpace(token))
                     {
-                        request.Headers.TryAddWithoutValidation("Authorization", $"token {token}");
+                        requestOptions.RequestHeaders["Authorization"] = $"token {token}";
                     }
 
-                    using var response = HttpClient.SendAsync(request).GetAwaiter().GetResult();
-                    if (!response.IsSuccessStatusCode)
+                    using var response = this.httpClient.SendAsync(requestOptions, "GET").GetAwaiter().GetResult();
+                    if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
                     {
-                        this.logger.Info($"获取 GitHub 历史版本失败: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        this.logger.Info($"获取 GitHub 历史版本失败: {(int)response.StatusCode} {response.StatusCode}");
                         return new ReleaseHistoryInfo("获取失败", "获取失败");
                     }
 
-                    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    using var document = JsonDocument.Parse(json);
+                    using var document = JsonDocument.Parse(response.Content);
                     if (document.RootElement.ValueKind != JsonValueKind.Array ||
                         document.RootElement.GetArrayLength() == 0)
                     {
@@ -979,6 +981,7 @@ namespace MediaInfoKeeper
                 return new ReleaseHistoryInfo("获取失败", "获取失败");
             }
         }
+
 
         private readonly struct ReleaseHistoryInfo
         {
