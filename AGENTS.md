@@ -17,6 +17,24 @@
 - Local Emby DLL files are at `/Users/honue/Documents/Emby/dlls`.
 - Use this path when inspecting assemblies, resolving types, or cross-referencing method signatures.
 
+## Decompiled Source Location
+- Decompiled Emby source trees are alongside the DLLs under `/Users/honue/Documents/Emby/dlls/`.
+- When a DLL also has a same-name source directory, inspect that source directory first to confirm actual behavior, access modifiers, inheritance, and public entry points before inferring from exported method docs alone.
+- Common examples:
+  - DLL: `/Users/honue/Documents/Emby/dlls/Emby.Providers.dll`
+    Source: `/Users/honue/Documents/Emby/dlls/Emby.Providers/`
+  - DLL: `/Users/honue/Documents/Emby/dlls/MediaBrowser.Controller.dll`
+    Source: `/Users/honue/Documents/Emby/dlls/MediaBrowser.Controller/`
+  - DLL: `/Users/honue/Documents/Emby/dlls/MediaBrowser.Model.dll`
+    Source: `/Users/honue/Documents/Emby/dlls/MediaBrowser.Model/`
+- For implementation work, use both:
+  - `Docs/${EMBY_DOCS_DIR}/..._methods.txt` for exact signature matching
+  - Decompiled source under `/Users/honue/Documents/Emby/dlls/<AssemblyName>/` for call flow and actual usable entry points
+- For external subtitle scanning, start with:
+  - `/Users/honue/Documents/Emby/dlls/Emby.Providers/Emby.Providers.MediaInfo/BaseTrackResolver.cs`
+  - `/Users/honue/Documents/Emby/dlls/Emby.Providers/Emby.Providers.MediaInfo/SubtitleResolver.cs`
+  - `/Users/honue/Documents/Emby/dlls/Emby.Providers/Emby.Providers.MediaInfo/FFProbeSubtitleInfo.cs`
+
 ## Project Structure
 - `Patch/`: Harmony patch implementations and method resolution logic.
 - `Patch/PatchManager.cs`: central patch bootstrap, configure, and health tracking entry.

@@ -31,7 +31,7 @@ namespace MediaInfoKeeper.Options
 
         [DisplayName("写入环境变量")]
         [Description("同步写入 http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY，便于 ffprobe 等外部进程访问需要代理的资源。注意！如果你的代理无法访问strm的http可能会导致无法提取与播放。")]
-        public bool WriteProxyEnvVars { get; set; } = true;
+        public bool WriteProxyEnvVars { get; set; } = false;
 
         [DisplayName("启用压缩传输")]
         [Description("允许元数据服务器返回 gzip/deflate/br 压缩内容，并自动解压以减少网络流量。")]
