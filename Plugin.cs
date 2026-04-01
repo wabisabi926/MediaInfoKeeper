@@ -881,37 +881,37 @@ namespace MediaInfoKeeper
             try
             {
                 var sb = new StringBuilder();
-                var page = 1;
                 var latestAssigned = false;
                 var latestVersion = "未知";
-                while (true)
+                var requestOptions = new HttpRequestOptions
                 {
-                    var requestOptions = new HttpRequestOptions
-                    {
-                        Url = $"{GitHubReleaseHistoryUrl}{page}",
-                        AcceptHeader = "application/vnd.github+json",
-                        TimeoutMs = 3000
-                    };
-                    var token = this.Options?.GitHub?.GitHubToken;
-                    if (!string.IsNullOrWhiteSpace(token))
-                    {
-                        requestOptions.RequestHeaders["Authorization"] = $"token {token}";
-                    }
+                    Url = $"{GitHubReleaseHistoryUrl}1",
+                    AcceptHeader = "application/vnd.github+json",
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    LogRequest = true,
+                    LogResponse = true,
+                    TimeoutMs = 3000
+                };
+                var token = this.Options?.GitHub?.GitHubToken;
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    requestOptions.RequestHeaders["Authorization"] = $"token {token}";
+                }
 
-                    using var response = this.httpClient.SendAsync(requestOptions, "GET").GetAwaiter().GetResult();
-                    if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
-                    {
-                        this.logger.Info($"获取 GitHub 历史版本失败: {(int)response.StatusCode} {response.StatusCode}");
-                        return new ReleaseHistoryInfo("获取失败", "获取失败");
-                    }
+                using var response = this.httpClient.SendAsync(requestOptions, "GET").GetAwaiter().GetResult();
+                using var responseReader = new StreamReader(response.Content);
+                var responseBody = responseReader.ReadToEnd();
+                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
+                {
+                    this.logger.Info($"获取 GitHub 历史版本失败: {(int)response.StatusCode} {response.StatusCode}");
+                    this.logger.Info($"GitHub 响应体: {responseBody}");
+                    return new ReleaseHistoryInfo("获取失败", "获取失败");
+                }
 
-                    using var document = JsonDocument.Parse(response.Content);
-                    if (document.RootElement.ValueKind != JsonValueKind.Array ||
-                        document.RootElement.GetArrayLength() == 0)
-                    {
-                        break;
-                    }
-
+                using var document = JsonDocument.Parse(responseBody);
+                if (document.RootElement.ValueKind == JsonValueKind.Array)
+                {
                     foreach (var release in document.RootElement.EnumerateArray())
                     {
                         var tag = release.TryGetProperty("tag_name", out var tagElement)
@@ -963,8 +963,6 @@ namespace MediaInfoKeeper
                         sb.AppendLine(body.Trim());
                         sb.AppendLine("----");
                     }
-
-                    page++;
                 }
 
                 if (sb.Length == 0)

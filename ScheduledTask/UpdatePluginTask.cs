@@ -91,7 +91,11 @@ namespace MediaInfoKeeper.ScheduledTask
                 {
                     Url = RepoReleaseUrl,
                     CancellationToken = cancellationToken,
-                    AcceptHeader = "application/json"
+                    AcceptHeader = "application/json",
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    LogRequest = true,
+                    LogResponse = true
                 };
                 if (!string.IsNullOrWhiteSpace(githubToken))
                 {
@@ -99,9 +103,20 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 using var response = await httpClient.SendAsync(releaseRequestOptions, "GET").ConfigureAwait(false);
+                string releaseResponseBody;
+                await using (var contentStream = response.Content)
+                using (var reader = new StreamReader(contentStream))
+                {
+                    releaseResponseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+                }
 
-                await using var contentStream = response.Content;
-                var apiResult = jsonSerializer.DeserializeFromStream<ApiResponseInfo>(contentStream);
+                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
+                {
+                    logger.Error("获取最新 Release 失败：status={0}, body={1}", (int)response.StatusCode, releaseResponseBody);
+                    throw new Exception($"获取最新 Release 失败: {(int)response.StatusCode}");
+                }
+
+                var apiResult = jsonSerializer.DeserializeFromString<ApiResponseInfo>(releaseResponseBody);
 
                 var remoteVersion = ParseVersion(apiResult?.tag_name);
                 var compatibility = await FetchCompatibilityManifest(cancellationToken).ConfigureAwait(false);
@@ -147,6 +162,10 @@ namespace MediaInfoKeeper.ScheduledTask
                     {
                         Url = url,
                         CancellationToken = cancellationToken,
+                        UserAgent = "MediaInfoKeeper",
+                        EnableDefaultUserAgent = false,
+                        LogRequest = true,
+                        LogResponse = true,
                         Progress = progress
                     };
                     if (!string.IsNullOrWhiteSpace(githubToken))
@@ -154,12 +173,20 @@ namespace MediaInfoKeeper.ScheduledTask
                         downloadRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
                     }
 
-                    await using (var responseStream = await httpClient.Get(downloadRequestOptions)
-                                     .ConfigureAwait(false))
+                    using (var downloadResponse = await httpClient.GetResponse(downloadRequestOptions)
+                               .ConfigureAwait(false))
                     {
+                        if ((int)downloadResponse.StatusCode < 200 || (int)downloadResponse.StatusCode >= 300)
+                        {
+                            using var reader = new StreamReader(downloadResponse.Content);
+                            var responseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+                            logger.Error("下载插件失败：status={0}, body={1}", (int)downloadResponse.StatusCode, responseBody);
+                            throw new Exception($"下载插件失败: {(int)downloadResponse.StatusCode}");
+                        }
+
                         using (var memoryStream = new MemoryStream())
                         {
-                            await responseStream.CopyToAsync(memoryStream, 81920, cancellationToken)
+                            await downloadResponse.Content.CopyToAsync(memoryStream, 81920, cancellationToken)
                                 .ConfigureAwait(false);
 
                             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -232,7 +259,11 @@ namespace MediaInfoKeeper.ScheduledTask
                 {
                     Url = RepoVersionUrl,
                     CancellationToken = cancellationToken,
-                    AcceptHeader = "application/json"
+                    AcceptHeader = "application/json",
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    LogRequest = true,
+                    LogResponse = true
                 };
                 if (!string.IsNullOrWhiteSpace(githubToken))
                 {
@@ -240,9 +271,20 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 using var response = await httpClient.SendAsync(manifestRequestOptions, "GET").ConfigureAwait(false);
+                string manifestResponseBody;
+                await using (var stream = response.Content)
+                using (var reader = new StreamReader(stream))
+                {
+                    manifestResponseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+                }
 
-                await using var stream = response.Content;
-                var manifest = jsonSerializer.DeserializeFromStream<PluginManifestInfo>(stream);
+                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
+                {
+                    logger.Error("加载 Version.json 失败：status={0}, body={1}", (int)response.StatusCode, manifestResponseBody);
+                    throw new Exception($"加载 Version.json 失败: {(int)response.StatusCode}");
+                }
+
+                var manifest = jsonSerializer.DeserializeFromString<PluginManifestInfo>(manifestResponseBody);
                 var compatibility = manifest?.latest;
                 if (compatibility != null)
                 {
