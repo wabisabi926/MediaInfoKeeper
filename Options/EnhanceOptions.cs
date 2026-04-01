@@ -62,8 +62,12 @@ namespace MediaInfoKeeper.Options
         public bool EnableNfoMetadataEnhance { get; set; } = true;
 
         [DisplayName("按偏好隐藏演职人员")]
-        [Description("按偏好隐藏电影剧集页面的演职人员，非删除，仍可搜索，默认关闭。")]
+        [Description("按偏好隐藏电影剧集页面的演职人员，非删除，仍可搜索。")]
         public bool HidePersonNoImage { get; set; } = false;
+
+        [DisplayName("拼音首字母排序")]
+        [Description("自动把中文标题的 SortName 转成拼音首字母，并清理 A-Z 前缀分组。")]
+        public bool EnablePinyinSortName { get; set; } = false;
 
         public enum HidePersonOption
         {
@@ -197,6 +201,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("UI功能", "",
                 nameof(HidePersonNoImage),
                 nameof(HidePersonPreference),
+                nameof(EnablePinyinSortName),
                 nameof(EnableNfoMetadataEnhance),
                 nameof(NoBoxsetsAutoCreation),
                 nameof(EnforceLibraryOrder));

@@ -142,6 +142,10 @@ namespace MediaInfoKeeper.Patch
                 HidePersonNoImage.Initialize(logger, safeOptions.Enhance.HidePersonNoImage);
                 UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
 
+                Register("PinyinSortName");
+                PinyinSortName.Initialize(logger, safeOptions.Enhance.EnablePinyinSortName);
+                UpdateTracker("PinyinSortName", safeOptions.Enhance.EnablePinyinSortName, PinyinSortName.IsReady, null);
+
                 Register("NoBoxsetsAutoCreation");
                 NoBoxsetsAutoCreation.Initialize(logger, safeOptions.Enhance.NoBoxsetsAutoCreation);
                 UpdateTracker(
@@ -199,6 +203,7 @@ namespace MediaInfoKeeper.Patch
             DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
             NfoMetadataEnhance.Configure(safeOptions.Enhance.EnableNfoMetadataEnhance);
             HidePersonNoImage.Configure(safeOptions.Enhance.HidePersonNoImage);
+            PinyinSortName.Configure(safeOptions.Enhance.EnablePinyinSortName);
             NoBoxsetsAutoCreation.Configure(safeOptions.Enhance.NoBoxsetsAutoCreation);
             EnforceLibraryOrder.Configure(safeOptions.Enhance.EnforceLibraryOrder);
             DashboardResourcePatch.Configure(
@@ -247,6 +252,7 @@ namespace MediaInfoKeeper.Patch
                 NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
                 NfoMetadataEnhance.IsWaiting);
             UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
+            UpdateTracker("PinyinSortName", safeOptions.Enhance.EnablePinyinSortName, PinyinSortName.IsReady, null);
             UpdateTracker(
                 "NoBoxsetsAutoCreation",
                 safeOptions.Enhance.NoBoxsetsAutoCreation,
@@ -418,7 +424,7 @@ namespace MediaInfoKeeper.Patch
 
                 if (tracker.Health == PatchHealth.Disabled)
                 {
-                    logger?.Info("补丁状态：{0}=禁用", tracker.Name);
+                    logger?.Debug("补丁状态：{0}=禁用", tracker.Name);
                 }
             }
         }

@@ -29,6 +29,7 @@
     <PackageReference Include="SQLitePCL.pretty.core" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="TinyPinyin" Version="1.1.0" />
   </ItemGroup>
 
   <Target Name="CopyHarmony" BeforeTargets="PostBuildEvent">
