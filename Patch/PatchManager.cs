@@ -7,14 +7,35 @@ using MediaBrowser.Model.Logging;
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 集中初始化各补丁，并汇总其启用状态、等待状态与说明信息。
+    /// 集中初始化各补丁，并统一计算其启用状态、等待状态与说明信息。
     /// </summary>
     public static class PatchManager
     {
+        private sealed class PatchRegistration
+        {
+            public string Name { get; set; }
+
+            public PatchApproach Approach { get; set; } = PatchApproach.Harmony;
+
+            public Action<PluginConfiguration> Initialize { get; set; }
+
+            public Action<PluginConfiguration> Configure { get; set; }
+
+            public Func<PluginConfiguration, bool> IsEnabled { get; set; }
+
+            public Func<bool> IsReady { get; set; }
+
+            public Func<bool> IsWaiting { get; set; }
+
+            public Func<string> Notes { get; set; }
+        }
+
         private static readonly object InitLock = new object();
+        private static readonly List<PatchTracker> trackers = new List<PatchTracker>();
+        private static readonly List<PatchRegistration> registrations = new List<PatchRegistration>();
+
         private static bool initialized;
         private static ILogger logger;
-        private static readonly List<PatchTracker> trackers = new List<PatchTracker>();
 
         public static IReadOnlyCollection<PatchTracker> Trackers => trackers.AsReadOnly();
 
@@ -23,256 +44,65 @@ namespace MediaInfoKeeper.Patch
             lock (InitLock)
             {
                 logger = pluginLogger;
+                var safeOptions = EnsureOptions(options);
+
                 if (!initialized)
                 {
-                    trackers.Clear();
                     initialized = true;
+                    trackers.Clear();
+                    registrations.Clear();
+                    BuildRegistrations();
+                    RegisterTrackers();
                 }
 
-                var safeOptions = EnsureOptions(options);
-                var netWorkOptions = safeOptions.GetNetWorkOptions();
-                var enableFfProcessGuard = GetFfProcessGuardEnabled(safeOptions);
+                foreach (var registration in registrations)
+                {
+                    registration.Initialize?.Invoke(safeOptions);
+                }
 
-                Register("FfprobeGuard");
-                FfProcessGuard.Initialize(logger, enableFfProcessGuard);
-                UpdateTracker("FfprobeGuard", enableFfProcessGuard, FfProcessGuard.IsReady, null);
-
-                Register("ProviderManager");
-                ProviderManager.Initialize(logger, true);
-                UpdateTracker("ProviderManager", true, ProviderManager.IsReady, null);
-
-                Register("ImageCapture");
-                ImageCapture.Initialize(logger, safeOptions.MetaData.EnableImageCapture);
-                UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
-
-                Register("MetadataProvidersWatcher");
-                MetadataProvidersWatcher.Initialize(logger, true);
-                UpdateTracker("MetadataProvidersWatcher", true,
-                    MetadataProvidersWatcher.IsReady, null);
-
-                Register("MovieDbTitle");
-                MovieDbTitle.Initialize(logger, safeOptions.MetaData.EnableAlternativeTitleFallback);
-                UpdateTracker(
-                    "MovieDbTitle",
-                    safeOptions.MetaData.EnableAlternativeTitleFallback,
-                    MovieDbTitle.IsReady,
-                    MovieDbTitle.IsWaiting ? "waiting for MovieDb assembly" : null,
-                    MovieDbTitle.IsWaiting);
-
-                Register("TvdbTitle");
-                TvdbTitle.Initialize(logger, safeOptions.MetaData.EnableTvdbFallback);
-                UpdateTracker(
-                    "TvdbTitle",
-                    safeOptions.MetaData.EnableTvdbFallback,
-                    TvdbTitle.IsReady,
-                    TvdbTitle.IsWaiting ? "waiting for Tvdb assembly" : null,
-                    TvdbTitle.IsWaiting);
-
-                Register("MovieDbEpisodeGroup");
-                MovieDbEpisodeGroup.Initialize(
-                    logger,
-                    safeOptions.MetaData.EnableMovieDbEpisodeGroup,
-                    safeOptions.MetaData.EnableLocalEpisodeGroup);
-                UpdateTracker(
-                    "MovieDbEpisodeGroup",
-                    safeOptions.MetaData.EnableMovieDbEpisodeGroup,
-                    MovieDbEpisodeGroup.IsReady,
-                    MovieDbEpisodeGroup.IsWaiting ? "waiting for MovieDb assembly" : null,
-                    MovieDbEpisodeGroup.IsWaiting);
-
-                Register("OriginalPoster");
-                OriginalPoster.Initialize(logger, safeOptions.MetaData.EnableOriginalPoster);
-                UpdateTracker(
-                    "OriginalPoster",
-                    safeOptions.MetaData.EnableOriginalPoster,
-                    OriginalPoster.IsReady,
-                    OriginalPoster.IsWaiting ? "waiting for MovieDb assembly" : null,
-                    OriginalPoster.IsWaiting);
-
-                Register("UnlockIntroSkip");
-                IntroUnlock.Initialize(logger, safeOptions.IntroSkip.UnlockIntroSkip);
-                IntroUnlock.Configure(safeOptions);
-                UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
-
-                Register("IntroMarkerProtect");
-                IntroMarkerProtect.Initialize(logger, true);
-                UpdateTracker("IntroMarkerProtect", true, IntroMarkerProtect.IsReady, "always enabled");
-
-                Register("NetworkServer");
-                NetworkServer.Initialize(logger, netWorkOptions.EnableProxyServer);
-                UpdateTracker(
-                    "NetworkServer",
-                    netWorkOptions.EnableProxyServer,
-                    NetworkServer.IsReady,
-                    BuildProxyNotes(),
-                    false);
-
-                Register("LocalDiscoveryAddress");
-                LocalDiscoveryAddress.Initialize(logger, netWorkOptions.CustomLocalDiscoveryAddress);
-                UpdateTracker(
-                    "LocalDiscoveryAddress",
-                    !string.IsNullOrWhiteSpace(netWorkOptions.CustomLocalDiscoveryAddress),
-                    LocalDiscoveryAddress.IsConfiguredBehaviorReady,
-                    BuildLocalDiscoveryNotes(),
-                    false);
-
-                Register("ChineseSearch");
-                ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
-                ChineseSearch.Initialize(logger, safeOptions.Enhance);
-                UpdateTracker(
-                    "ChineseSearch",
-                    safeOptions.Enhance.EnhanceChineseSearch || safeOptions.Enhance.EnhanceChineseSearchRestore,
-                    ChineseSearch.IsReady,
-                    null);
-
-                Register("DeepDelete");
-                DeepDelete.Initialize(logger, safeOptions.Enhance.EnableDeepDelete);
-                UpdateTracker("DeepDelete", safeOptions.Enhance.EnableDeepDelete, DeepDelete.IsReady, null);
-
-                Register("NfoMetadataEnhance");
-                NfoMetadataEnhance.Initialize(logger, safeOptions.Enhance.EnableNfoMetadataEnhance);
-                UpdateTracker(
-                    "NfoMetadataEnhance",
-                    safeOptions.Enhance.EnableNfoMetadataEnhance,
-                    NfoMetadataEnhance.IsReady,
-                    NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
-                    NfoMetadataEnhance.IsWaiting);
-
-                Register("HidePersonNoImage");
-                HidePersonNoImage.Initialize(logger, safeOptions.Enhance.HidePersonNoImage);
-                UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
-
-                Register("PinyinSortName");
-                PinyinSortName.Initialize(logger, safeOptions.Enhance.EnablePinyinSortName);
-                UpdateTracker("PinyinSortName", safeOptions.Enhance.EnablePinyinSortName, PinyinSortName.IsReady, null);
-
-                Register("NoBoxsetsAutoCreation");
-                NoBoxsetsAutoCreation.Initialize(logger, safeOptions.Enhance.NoBoxsetsAutoCreation);
-                UpdateTracker(
-                    "NoBoxsetsAutoCreation",
-                    safeOptions.Enhance.NoBoxsetsAutoCreation,
-                    NoBoxsetsAutoCreation.IsReady,
-                    null);
-
-                Register("EnforceLibraryOrder");
-                EnforceLibraryOrder.Initialize(logger, safeOptions.Enhance.EnforceLibraryOrder);
-                UpdateTracker(
-                    "EnforceLibraryOrder",
-                    safeOptions.Enhance.EnforceLibraryOrder,
-                    EnforceLibraryOrder.IsReady,
-                    null);
-
-                Register("NotificationSystem");
-                NotificationSystem.Initialize(logger);
-                UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
-
-                Register("DashboardResourcePatch");
-                DashboardResourcePatch.Initialize(
-                    logger,
-                    safeOptions.Enhance.DisableVideoSubtitleCrossOrigin,
-                    safeOptions.Enhance.EnableDanmakuJs);
-                UpdateTracker(
-                    "DashboardResourcePatch",
-                    safeOptions.Enhance.DisableVideoSubtitleCrossOrigin || safeOptions.Enhance.EnableDanmakuJs,
-                    DashboardResourcePatch.IsReady,
-                    null);
-
-                Register("SystemLog");
-                SystemLog.Initialize(logger, true);
-                UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
-
-                LogTrackerSummary();
+                Configure(safeOptions);
             }
         }
 
         public static void Configure(PluginConfiguration options)
         {
-            var safeOptions = EnsureOptions(options);
-            var netWorkOptions = safeOptions.GetNetWorkOptions();
-            var enableFfProcessGuard = GetFfProcessGuardEnabled(safeOptions);
+            lock (InitLock)
+            {
+                var safeOptions = EnsureOptions(options);
 
-            FfProcessGuard.Configure(enableFfProcessGuard);
-            ProviderManager.Configure(true);
-            ImageCapture.Configure(safeOptions.MetaData.EnableImageCapture);
-            MetadataProvidersWatcher.Configure(true);
-            IntroUnlock.Configure(safeOptions);
-            NetworkServer.Configure(netWorkOptions.EnableProxyServer);
-            LocalDiscoveryAddress.Configure(netWorkOptions.CustomLocalDiscoveryAddress);
-            ChineseSearch.UpdateSearchScope(safeOptions.Enhance.SearchScope);
-            ChineseSearch.Configure(safeOptions.Enhance);
-            DeepDelete.Configure(safeOptions.Enhance.EnableDeepDelete);
-            NfoMetadataEnhance.Configure(safeOptions.Enhance.EnableNfoMetadataEnhance);
-            HidePersonNoImage.Configure(safeOptions.Enhance.HidePersonNoImage);
-            PinyinSortName.Configure(safeOptions.Enhance.EnablePinyinSortName);
-            NoBoxsetsAutoCreation.Configure(safeOptions.Enhance.NoBoxsetsAutoCreation);
-            EnforceLibraryOrder.Configure(safeOptions.Enhance.EnforceLibraryOrder);
-            DashboardResourcePatch.Configure(
-                safeOptions.Enhance.DisableVideoSubtitleCrossOrigin,
-                safeOptions.Enhance.EnableDanmakuJs);
-            MovieDbTitle.Configure(safeOptions.MetaData.EnableAlternativeTitleFallback);
-            TvdbTitle.Configure(safeOptions.MetaData.EnableTvdbFallback);
-            MovieDbEpisodeGroup.Configure(safeOptions.MetaData.EnableMovieDbEpisodeGroup, safeOptions.MetaData.EnableLocalEpisodeGroup);
-            OriginalPoster.Configure(safeOptions.MetaData.EnableOriginalPoster);
-            IntroMarkerProtect.Configure(true);
+                foreach (var registration in registrations)
+                {
+                    registration.Configure?.Invoke(safeOptions);
 
-            UpdateTracker("FfprobeGuard", enableFfProcessGuard, FfProcessGuard.IsReady, null);
-            UpdateTracker("ProviderManager", true,
-                ProviderManager.IsReady, null);
-            UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
-            UpdateTracker("MetadataProvidersWatcher", true,
-                MetadataProvidersWatcher.IsReady, null);
-            UpdateTracker("MovieDbTitle", safeOptions.MetaData.EnableAlternativeTitleFallback, MovieDbTitle.IsReady,
-                MovieDbTitle.IsWaiting ? "waiting for MovieDb assembly" : null, MovieDbTitle.IsWaiting);
-            UpdateTracker("TvdbTitle", safeOptions.MetaData.EnableTvdbFallback, TvdbTitle.IsReady,
-                TvdbTitle.IsWaiting ? "waiting for Tvdb assembly" : null, TvdbTitle.IsWaiting);
-            UpdateTracker("MovieDbEpisodeGroup", safeOptions.MetaData.EnableMovieDbEpisodeGroup, MovieDbEpisodeGroup.IsReady,
-                MovieDbEpisodeGroup.IsWaiting ? "waiting for MovieDb assembly" : null, MovieDbEpisodeGroup.IsWaiting);
-            UpdateTracker("OriginalPoster", safeOptions.MetaData.EnableOriginalPoster, OriginalPoster.IsReady,
-                OriginalPoster.IsWaiting ? "waiting for MovieDb assembly" : null, OriginalPoster.IsWaiting);
-            UpdateTracker("UnlockIntroSkip", safeOptions.IntroSkip.UnlockIntroSkip, IntroUnlock.IsReady, null);
-            UpdateTracker("IntroMarkerProtect", true, IntroMarkerProtect.IsReady, "always enabled");
-            UpdateTracker("NetworkServer", netWorkOptions.EnableProxyServer, NetworkServer.IsReady,
-                BuildProxyNotes(), false);
-            UpdateTracker(
-                "LocalDiscoveryAddress",
-                !string.IsNullOrWhiteSpace(netWorkOptions.CustomLocalDiscoveryAddress),
-                LocalDiscoveryAddress.IsConfiguredBehaviorReady,
-                BuildLocalDiscoveryNotes(),
-                false);
-            UpdateTracker(
-                "ChineseSearch",
-                safeOptions.Enhance.EnhanceChineseSearch || safeOptions.Enhance.EnhanceChineseSearchRestore,
-                ChineseSearch.IsReady,
-                null);
-            UpdateTracker("DeepDelete", safeOptions.Enhance.EnableDeepDelete, DeepDelete.IsReady, null);
-            UpdateTracker(
-                "NfoMetadataEnhance",
-                safeOptions.Enhance.EnableNfoMetadataEnhance,
-                NfoMetadataEnhance.IsReady,
-                NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null,
-                NfoMetadataEnhance.IsWaiting);
-            UpdateTracker("HidePersonNoImage", safeOptions.Enhance.HidePersonNoImage, HidePersonNoImage.IsReady, null);
-            UpdateTracker("PinyinSortName", safeOptions.Enhance.EnablePinyinSortName, PinyinSortName.IsReady, null);
-            UpdateTracker(
-                "NoBoxsetsAutoCreation",
-                safeOptions.Enhance.NoBoxsetsAutoCreation,
-                NoBoxsetsAutoCreation.IsReady,
-                null);
-            UpdateTracker(
-                "EnforceLibraryOrder",
-                safeOptions.Enhance.EnforceLibraryOrder,
-                EnforceLibraryOrder.IsReady,
-                null);
-            UpdateTracker("NotificationSystem", true, NotificationSystem.IsReady, null);
-            UpdateTracker(
-                "DashboardResourcePatch",
-                safeOptions.Enhance.DisableVideoSubtitleCrossOrigin || safeOptions.Enhance.EnableDanmakuJs,
-                DashboardResourcePatch.IsReady,
-                null);
-            SystemLog.Configure(true);
-            UpdateTracker("SystemLog", true, SystemLog.IsReady, SystemLog.IsReady ? null : "NamedLogger.Log 未命中");
+                    var tracker = trackers.FirstOrDefault(t => string.Equals(t.Name, registration.Name, StringComparison.Ordinal));
+                    if (tracker == null)
+                    {
+                        continue;
+                    }
 
-            LogTrackerSummary();
+                    var enabled = registration.IsEnabled?.Invoke(safeOptions) == true;
+                    var waiting = registration.IsWaiting?.Invoke() == true;
+                    var ready = registration.IsReady?.Invoke() == true;
+
+                    tracker.IsEnabled = enabled;
+                    tracker.Notes = registration.Notes?.Invoke();
+
+                    if (!enabled)
+                    {
+                        tracker.Health = PatchHealth.Disabled;
+                    }
+                    else if (waiting)
+                    {
+                        tracker.Health = PatchHealth.Waiting;
+                    }
+                    else
+                    {
+                        tracker.Health = ready ? PatchHealth.Enabled : PatchHealth.Failed;
+                    }
+                }
+
+                LogTrackerSummary();
+            }
         }
 
         public static bool? IsHarmonyHealthy()
@@ -282,7 +112,283 @@ namespace MediaInfoKeeper.Patch
                 return null;
             }
 
-            return trackers.All(t => t.IsEnabled && t.Approach == PatchApproach.Harmony);
+            var enabledTrackers = trackers.Where(t => t.IsEnabled).ToArray();
+            if (enabledTrackers.Length == 0)
+            {
+                return null;
+            }
+
+            return enabledTrackers.All(t => t.Approach == PatchApproach.Harmony);
+        }
+
+        private static void BuildRegistrations()
+        {
+            registrations.Add(new PatchRegistration
+            {
+                Name = "FfprobeGuard",
+                Initialize = options => FfProcessGuard.Initialize(logger, GetFfProcessGuardEnabled(options)),
+                Configure = options => FfProcessGuard.Configure(IsPluginEnabled(options) && GetFfProcessGuardEnabled(options)),
+                IsEnabled = options => IsPluginEnabled(options) && GetFfProcessGuardEnabled(options),
+                IsReady = () => FfProcessGuard.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "ProviderManager",
+                Initialize = _ => ProviderManager.Initialize(logger, true),
+                Configure = _ => ProviderManager.Configure(true),
+                IsEnabled = options => IsPluginEnabled(options),
+                IsReady = () => ProviderManager.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "ImageCapture",
+                Initialize = options => ImageCapture.Initialize(logger, options.MetaData.EnableImageCapture),
+                Configure = options => ImageCapture.Configure(IsPluginEnabled(options) && options.MetaData.EnableImageCapture),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableImageCapture,
+                IsReady = () => ImageCapture.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "MetadataProvidersWatcher",
+                Initialize = _ => MetadataProvidersWatcher.Initialize(logger, true),
+                Configure = options => MetadataProvidersWatcher.Configure(IsPluginEnabled(options)),
+                IsEnabled = options => IsPluginEnabled(options),
+                IsReady = () => MetadataProvidersWatcher.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "MovieDbTitle",
+                Initialize = options => MovieDbTitle.Initialize(logger, options.MetaData.EnableAlternativeTitleFallback),
+                Configure = options => MovieDbTitle.Configure(IsPluginEnabled(options) && options.MetaData.EnableAlternativeTitleFallback),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableAlternativeTitleFallback,
+                IsReady = () => MovieDbTitle.IsReady,
+                IsWaiting = () => MovieDbTitle.IsWaiting,
+                Notes = () => MovieDbTitle.IsWaiting ? "waiting for MovieDb assembly" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "TvdbTitle",
+                Initialize = options => TvdbTitle.Initialize(logger, options.MetaData.EnableTvdbFallback),
+                Configure = options => TvdbTitle.Configure(IsPluginEnabled(options) && options.MetaData.EnableTvdbFallback),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableTvdbFallback,
+                IsReady = () => TvdbTitle.IsReady,
+                IsWaiting = () => TvdbTitle.IsWaiting,
+                Notes = () => TvdbTitle.IsWaiting ? "waiting for Tvdb assembly" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "MovieDbEpisodeGroup",
+                Initialize = options => MovieDbEpisodeGroup.Initialize(
+                    logger,
+                    options.MetaData.EnableMovieDbEpisodeGroup,
+                    options.MetaData.EnableLocalEpisodeGroup),
+                Configure = options => MovieDbEpisodeGroup.Configure(
+                    IsPluginEnabled(options) && options.MetaData.EnableMovieDbEpisodeGroup,
+                    IsPluginEnabled(options) && options.MetaData.EnableLocalEpisodeGroup),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableMovieDbEpisodeGroup,
+                IsReady = () => MovieDbEpisodeGroup.IsReady,
+                IsWaiting = () => MovieDbEpisodeGroup.IsWaiting,
+                Notes = () => MovieDbEpisodeGroup.IsWaiting ? "waiting for MovieDb assembly" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "OriginalPoster",
+                Initialize = options => OriginalPoster.Initialize(logger, options.MetaData.EnableOriginalPoster),
+                Configure = options => OriginalPoster.Configure(IsPluginEnabled(options) && options.MetaData.EnableOriginalPoster),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableOriginalPoster,
+                IsReady = () => OriginalPoster.IsReady,
+                IsWaiting = () => OriginalPoster.IsWaiting,
+                Notes = () => OriginalPoster.IsWaiting ? "waiting for MovieDb assembly" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "UnlockIntroSkip",
+                Initialize = options =>
+                {
+                    IntroUnlock.Initialize(logger, options.IntroSkip.UnlockIntroSkip);
+                    IntroUnlock.Configure(options);
+                },
+                Configure = options =>
+                {
+                    IntroUnlock.Configure(IsPluginEnabled(options) && options.IntroSkip.UnlockIntroSkip);
+                    IntroUnlock.Configure(options);
+                    if (!IsPluginEnabled(options))
+                    {
+                        IntroUnlock.Configure(false);
+                    }
+                },
+                IsEnabled = options => IsPluginEnabled(options) && options.IntroSkip.UnlockIntroSkip,
+                IsReady = () => IntroUnlock.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "IntroMarkerProtect",
+                Initialize = _ => IntroMarkerProtect.Initialize(logger, true),
+                Configure = options => IntroMarkerProtect.Configure(IsPluginEnabled(options)),
+                IsEnabled = options => IsPluginEnabled(options),
+                IsReady = () => IntroMarkerProtect.IsReady,
+                Notes = () => IsPluginEnabled(Plugin.Instance?.Options) ? "always enabled" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "NetworkServer",
+                Initialize = options => NetworkServer.Initialize(logger, IsPluginEnabled(options) && HasNetworkServerFeatures(options)),
+                Configure = options => NetworkServer.Configure(IsPluginEnabled(options) && HasNetworkServerFeatures(options)),
+                IsEnabled = options => IsPluginEnabled(options) && HasNetworkServerFeatures(options),
+                IsReady = () => NetworkServer.IsReady,
+                Notes = BuildProxyNotes
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "LocalDiscoveryAddress",
+                Initialize = options => LocalDiscoveryAddress.Initialize(logger, options.GetNetWorkOptions().CustomLocalDiscoveryAddress),
+                Configure = options => LocalDiscoveryAddress.Configure(
+                    IsPluginEnabled(options) ? options.GetNetWorkOptions().CustomLocalDiscoveryAddress : string.Empty),
+                IsEnabled = options =>
+                    IsPluginEnabled(options) &&
+                    !string.IsNullOrWhiteSpace(options.GetNetWorkOptions().CustomLocalDiscoveryAddress),
+                IsReady = () => LocalDiscoveryAddress.IsConfiguredBehaviorReady,
+                Notes = BuildLocalDiscoveryNotes
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "ChineseSearch",
+                Initialize = options =>
+                {
+                    ChineseSearch.Initialize(logger, options.Enhance);
+                },
+                Configure = options =>
+                {
+                    ChineseSearch.Configure(
+                        IsPluginEnabled(options) && options.Enhance.EnhanceChineseSearch,
+                        IsPluginEnabled(options) && options.Enhance.EnhanceChineseSearchRestore,
+                        options.Enhance.SearchScope,
+                        options.Enhance.ExcludeOriginalTitleFromSearch);
+                },
+                IsEnabled = options =>
+                    IsPluginEnabled(options) &&
+                    (options.Enhance.EnhanceChineseSearch || options.Enhance.EnhanceChineseSearchRestore),
+                IsReady = () => ChineseSearch.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "DeepDelete",
+                Initialize = options => DeepDelete.Initialize(logger, options.Enhance.EnableDeepDelete),
+                Configure = options => DeepDelete.Configure(IsPluginEnabled(options) && options.Enhance.EnableDeepDelete),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableDeepDelete,
+                IsReady = () => DeepDelete.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "NfoMetadataEnhance",
+                Initialize = options => NfoMetadataEnhance.Initialize(logger, options.Enhance.EnableNfoMetadataEnhance),
+                Configure = options => NfoMetadataEnhance.Configure(IsPluginEnabled(options) && options.Enhance.EnableNfoMetadataEnhance),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableNfoMetadataEnhance,
+                IsReady = () => NfoMetadataEnhance.IsReady,
+                IsWaiting = () => NfoMetadataEnhance.IsWaiting,
+                Notes = () => NfoMetadataEnhance.IsWaiting ? "waiting for NfoMetadata assembly" : null
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "HidePersonNoImage",
+                Initialize = options => HidePersonNoImage.Initialize(logger, options.Enhance.HidePersonNoImage),
+                Configure = options => HidePersonNoImage.Configure(IsPluginEnabled(options) && options.Enhance.HidePersonNoImage),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.HidePersonNoImage,
+                IsReady = () => HidePersonNoImage.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "PinyinSortName",
+                Initialize = options => PinyinSortName.Initialize(logger, options.Enhance.EnablePinyinSortName),
+                Configure = options => PinyinSortName.Configure(IsPluginEnabled(options) && options.Enhance.EnablePinyinSortName),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnablePinyinSortName,
+                IsReady = () => PinyinSortName.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "NoBoxsetsAutoCreation",
+                Initialize = options => NoBoxsetsAutoCreation.Initialize(logger, options.Enhance.NoBoxsetsAutoCreation),
+                Configure = options => NoBoxsetsAutoCreation.Configure(IsPluginEnabled(options) && options.Enhance.NoBoxsetsAutoCreation),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.NoBoxsetsAutoCreation,
+                IsReady = () => NoBoxsetsAutoCreation.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "EnforceLibraryOrder",
+                Initialize = options => EnforceLibraryOrder.Initialize(logger, options.Enhance.EnforceLibraryOrder),
+                Configure = options => EnforceLibraryOrder.Configure(IsPluginEnabled(options) && options.Enhance.EnforceLibraryOrder),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnforceLibraryOrder,
+                IsReady = () => EnforceLibraryOrder.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "NotificationSystem",
+                Initialize = _ => NotificationSystem.Initialize(logger),
+                Configure = _ => { },
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.TakeOverSystemLibraryNew,
+                IsReady = () => NotificationSystem.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "DashboardResourcePatch",
+                Initialize = options => DashboardResourcePatch.Initialize(
+                    logger,
+                    options.Enhance.DisableVideoSubtitleCrossOrigin,
+                    options.Enhance.EnableDanmakuJs),
+                Configure = options => DashboardResourcePatch.Configure(
+                    IsPluginEnabled(options) && options.Enhance.DisableVideoSubtitleCrossOrigin,
+                    IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs),
+                IsEnabled = options =>
+                    IsPluginEnabled(options) &&
+                    (options.Enhance.DisableVideoSubtitleCrossOrigin || options.Enhance.EnableDanmakuJs),
+                IsReady = () => DashboardResourcePatch.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "SystemLog",
+                Initialize = _ => SystemLog.Initialize(logger, true),
+                Configure = options => SystemLog.Configure(IsPluginEnabled(options)),
+                IsEnabled = IsPluginEnabled,
+                IsReady = () => SystemLog.IsReady,
+                Notes = () => SystemLog.IsReady ? null : "NamedLogger.Log 未命中"
+            });
+        }
+
+        private static void RegisterTrackers()
+        {
+            foreach (var registration in registrations)
+            {
+                trackers.Add(new PatchTracker(registration.Name)
+                {
+                    Approach = registration.Approach
+                });
+            }
+        }
+
+        private static bool IsPluginEnabled(PluginConfiguration options)
+        {
+            return options?.MainPage?.PlugginEnabled ?? true;
         }
 
         private static PluginConfiguration EnsureOptions(PluginConfiguration options)
@@ -308,14 +414,19 @@ namespace MediaInfoKeeper.Patch
 #endif
         }
 
-        private static void Register(string name)
+        private static bool HasNetworkServerFeatures(PluginConfiguration options)
         {
-            if (trackers.Any(t => string.Equals(t.Name, name, StringComparison.Ordinal)))
+            var networkOptions = options?.GetNetWorkOptions();
+            if (networkOptions == null)
             {
-                return;
+                return false;
             }
 
-            trackers.Add(new PatchTracker(name));
+            return networkOptions.EnableProxyServer ||
+                   networkOptions.EnableGzip ||
+                   !string.IsNullOrWhiteSpace(networkOptions.AlternativeTmdbApiUrl) ||
+                   !string.IsNullOrWhiteSpace(networkOptions.AlternativeTmdbImageUrl) ||
+                   !string.IsNullOrWhiteSpace(networkOptions.AlternativeTmdbApiKey);
         }
 
         private static string BuildProxyNotes()
@@ -360,31 +471,6 @@ namespace MediaInfoKeeper.Patch
             return "SendMessage/RespondToMessage 未完全命中";
         }
 
-        private static void UpdateTracker(string name, bool enabled, bool success, string notes, bool waiting = false)
-        {
-            var tracker = trackers.FirstOrDefault(t => string.Equals(t.Name, name, StringComparison.Ordinal));
-            if (tracker == null)
-            {
-                return;
-            }
-
-            tracker.IsEnabled = enabled;
-            tracker.Notes = notes;
-            if (!enabled)
-            {
-                tracker.Health = PatchHealth.Disabled;
-                return;
-            }
-
-            if (waiting)
-            {
-                tracker.Health = PatchHealth.Waiting;
-                return;
-            }
-
-            tracker.Health = success ? PatchHealth.Enabled : PatchHealth.Failed;
-        }
-
         private static void LogTrackerSummary()
         {
             if (!trackers.Any())
@@ -408,7 +494,8 @@ namespace MediaInfoKeeper.Patch
             {
                 if (tracker.Health == PatchHealth.Failed)
                 {
-                    logger?.Warn("补丁状态：{0}=失败{1}",
+                    logger?.Warn(
+                        "补丁状态：{0}=失败{1}",
                         tracker.Name,
                         string.IsNullOrWhiteSpace(tracker.Notes) ? string.Empty : " (" + tracker.Notes + ")");
                     continue;
@@ -416,7 +503,8 @@ namespace MediaInfoKeeper.Patch
 
                 if (tracker.Health == PatchHealth.Waiting)
                 {
-                    logger?.Info("补丁状态：{0}=等待{1}",
+                    logger?.Info(
+                        "补丁状态：{0}=等待{1}",
                         tracker.Name,
                         string.IsNullOrWhiteSpace(tracker.Notes) ? string.Empty : " (" + tracker.Notes + ")");
                     continue;

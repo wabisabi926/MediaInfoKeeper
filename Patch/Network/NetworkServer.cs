@@ -147,6 +147,11 @@ namespace MediaInfoKeeper.Patch
         [HarmonyPostfix]
         private static void CreateHttpClientHandlerPostfix(ref HttpMessageHandler __result)
         {
+            if (!isEnabled)
+            {
+                return;
+            }
+
             var options = Plugin.Instance.Options.GetNetWorkOptions();
             if (options == null)
             {
@@ -155,11 +160,6 @@ namespace MediaInfoKeeper.Patch
 
             var primaryHandler = __result;
             ApplyAutomaticDecompression(primaryHandler, options.EnableGzip);
-
-            if (!isEnabled)
-            {
-                return;
-            }
 
             if (!TryParseProxyUrl(options.ProxyServerUrl, out var proxyUri, out var credentials))
             {
@@ -199,7 +199,13 @@ namespace MediaInfoKeeper.Patch
         [HarmonyPrefix]
         private static void SendAsyncInternalPrefix(object[] __args)
         {
-            if (__args == null || __args.Length == 0 || __args[0] == null)
+            if (!isEnabled || __args == null || __args.Length == 0 || __args[0] == null)
+            {
+                return;
+            }
+
+            var options = Plugin.Instance.Options.GetNetWorkOptions();
+            if (options == null || !HasAnyTmdbOverride(options))
             {
                 return;
             }
@@ -208,12 +214,7 @@ namespace MediaInfoKeeper.Patch
             var requestOptions = __args[0];
             var urlProperty = requestOptions.GetType().GetProperty("Url", BindingFlags.Instance | BindingFlags.Public);
             var originalUrl = urlProperty?.CanRead == true ? urlProperty.GetValue(requestOptions) as string : null;
-            var finalUrl = originalUrl;
-
-            var options = Plugin.Instance.Options.GetNetWorkOptions();
-            if (options != null &&
-                HasAnyTmdbOverride(options) &&
-                urlProperty != null &&
+            if (urlProperty != null &&
                 urlProperty.CanRead &&
                 urlProperty.CanWrite &&
                 Uri.TryCreate(originalUrl, UriKind.Absolute, out var uri))
@@ -221,15 +222,11 @@ namespace MediaInfoKeeper.Patch
                 var rewritten = RewriteTmdbUri(uri, options);
                 if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
                 {
-                    finalUrl = rewritten.ToString();
+                    var finalUrl = rewritten.ToString();
                     logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
                     urlProperty.SetValue(requestOptions, finalUrl);
+                    logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
                 }
-            }
-
-            if (!string.IsNullOrWhiteSpace(finalUrl))
-            {
-                logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
             }
         }
 
@@ -292,7 +289,13 @@ namespace MediaInfoKeeper.Patch
                 Environment.SetEnvironmentVariable("HTTP_PROXY", proxyUrl);
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyUrl);
                 logger.Info($"设置代理环境变量 {proxyUrl}");
+                return;
             }
+
+            Environment.SetEnvironmentVariable("http_proxy", null);
+            Environment.SetEnvironmentVariable("https_proxy", null);
+            Environment.SetEnvironmentVariable("HTTP_PROXY", null);
+            Environment.SetEnvironmentVariable("HTTPS_PROXY", null);
         }
 
         private static Uri RewriteTmdbUri(Uri uri, Options.NetWorkOptions options)
