@@ -31,10 +31,11 @@ namespace MediaInfoKeeper.Patch
 
                 var safeOptions = EnsureOptions(options);
                 var netWorkOptions = safeOptions.GetNetWorkOptions();
+                var enableFfProcessGuard = GetFfProcessGuardEnabled(safeOptions);
 
                 Register("FfprobeGuard");
-                FfProcessGuard.Initialize(logger, true);
-                UpdateTracker("FfprobeGuard", true, FfProcessGuard.IsReady, null);
+                FfProcessGuard.Initialize(logger, enableFfProcessGuard);
+                UpdateTracker("FfprobeGuard", enableFfProcessGuard, FfProcessGuard.IsReady, null);
 
                 Register("ProviderManager");
                 ProviderManager.Initialize(logger, true);
@@ -184,8 +185,9 @@ namespace MediaInfoKeeper.Patch
         {
             var safeOptions = EnsureOptions(options);
             var netWorkOptions = safeOptions.GetNetWorkOptions();
+            var enableFfProcessGuard = GetFfProcessGuardEnabled(safeOptions);
 
-            FfProcessGuard.Configure(true);
+            FfProcessGuard.Configure(enableFfProcessGuard);
             ProviderManager.Configure(true);
             ImageCapture.Configure(safeOptions.MetaData.EnableImageCapture);
             MetadataProvidersWatcher.Configure(true);
@@ -208,7 +210,7 @@ namespace MediaInfoKeeper.Patch
             OriginalPoster.Configure(safeOptions.MetaData.EnableOriginalPoster);
             IntroMarkerProtect.Configure(true);
 
-            UpdateTracker("FfprobeGuard", true, FfProcessGuard.IsReady, null);
+            UpdateTracker("FfprobeGuard", enableFfProcessGuard, FfProcessGuard.IsReady, null);
             UpdateTracker("ProviderManager", true,
                 ProviderManager.IsReady, null);
             UpdateTracker("ImageCapture", safeOptions.MetaData.EnableImageCapture, ImageCapture.IsReady, null);
@@ -285,7 +287,19 @@ namespace MediaInfoKeeper.Patch
             safe.GetNetWorkOptions();
             safe.Enhance ??= new EnhanceOptions();
             safe.MetaData ??= new MetaDataOptions();
+#if DEBUG
+            safe.Debug ??= new DebugOptions();
+#endif
             return safe;
+        }
+
+        private static bool GetFfProcessGuardEnabled(PluginConfiguration options)
+        {
+#if DEBUG
+            return options?.Debug?.EnableFfProcessGuard ?? true;
+#else
+            return true;
+#endif
         }
 
         private static void Register(string name)

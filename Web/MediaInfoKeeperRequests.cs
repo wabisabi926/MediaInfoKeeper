@@ -97,6 +97,12 @@ namespace MediaInfoKeeper.Web
         public DebugFileInfo MediaInfoJson { get; set; }
 
         public DebugBinaryFileInfo Cover { get; set; }
+
+        public DebugPrimaryImageInfo PrimaryImage { get; set; }
+
+        public DebugChapterImagesInfo ChapterImages { get; set; }
+
+        public DebugThumbnailSetsInfo ThumbnailSets { get; set; }
     }
 
     public class DebugItemInfo
@@ -113,9 +119,25 @@ namespace MediaInfoKeeper.Web
 
         public string ContainingFolderPath { get; set; }
 
+        public string ItemId { get; set; }
+
+        public long ParentId { get; set; }
+
+        public long ImageDisplayParentId { get; set; }
+
+        public bool IsShortcut { get; set; }
+
+        public string ExtraType { get; set; }
+
         public bool HasMediaInfo { get; set; }
 
         public bool HasCover { get; set; }
+
+        public bool HasPrimaryImage { get; set; }
+
+        public bool IsInScope { get; set; }
+
+        public bool IsRefreshedRecently { get; set; }
 
         public int MediaStreamCount { get; set; }
 
@@ -126,6 +148,95 @@ namespace MediaInfoKeeper.Web
         public int SubtitleStreamCount { get; set; }
 
         public long? RunTimeTicks { get; set; }
+
+        public long Size { get; set; }
+
+        public string Container { get; set; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public string DateCreated { get; set; }
+
+        public string DateModified { get; set; }
+
+        public string DateLastRefreshed { get; set; }
+
+        public string PremiereDate { get; set; }
+
+        public int? ProductionYear { get; set; }
+
+        public string OfficialRating { get; set; }
+
+        public bool? SupportsThumbnails { get; set; }
+    }
+
+    public class DebugPrimaryImageInfo
+    {
+        public bool HasPrimaryImage { get; set; }
+
+        public string PrimaryImagePath { get; set; }
+
+        public bool PrimaryImagePathExists { get; set; }
+
+        public long ImageDisplayParentId { get; set; }
+
+        public bool HasDisplayParentPrimaryImage { get; set; }
+
+        public string DisplayParentPrimaryImagePath { get; set; }
+
+        public bool DisplayParentPrimaryImagePathExists { get; set; }
+    }
+
+    public class DebugChapterImagesInfo
+    {
+        public int ChapterCount { get; set; }
+
+        public int ChaptersWithImagePath { get; set; }
+
+        public int ExistingImageFiles { get; set; }
+
+        public DebugChapterImageEntry[] Entries { get; set; }
+    }
+
+    public class DebugChapterImageEntry
+    {
+        public string Name { get; set; }
+
+        public string MarkerType { get; set; }
+
+        public long StartPositionTicks { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public bool ImagePathExists { get; set; }
+
+        public string ImageTag { get; set; }
+
+        public string ImageDateModified { get; set; }
+    }
+
+    public class DebugThumbnailSetsInfo
+    {
+        public bool SupportsThumbnails { get; set; }
+
+        public int Count { get; set; }
+
+        public DebugThumbnailSetEntry[] Entries { get; set; }
+    }
+
+    public class DebugThumbnailSetEntry
+    {
+        public string Path { get; set; }
+
+        public bool Exists { get; set; }
+
+        public bool IsDirectory { get; set; }
+
+        public int Width { get; set; }
+
+        public int IntervalSeconds { get; set; }
     }
 
     public class DebugFileInfo

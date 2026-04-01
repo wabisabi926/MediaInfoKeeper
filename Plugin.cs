@@ -48,7 +48,7 @@ namespace MediaInfoKeeper
         public static ChaptersStore ChaptersStore { get; private set; }
         public static MediaSourceInfoStore MediaSourceInfoStore { get; private set; }
         public static AudioMetadataStore AudioMetadataStore { get; private set; }
-        public static EmbeddedCoverStore EmbeddedCoverStore { get; private set; }
+        public static CoverStore CoverStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
@@ -155,7 +155,7 @@ namespace MediaInfoKeeper
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
-            EmbeddedCoverStore = new EmbeddedCoverStore(libraryManager, fileSystem, jsonSerializer);
+            CoverStore = new CoverStore(libraryManager, fileSystem, jsonSerializer);
 
             NotificationApi = new NotificationApi(notificationManager, userManager, sessionManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
@@ -358,6 +358,10 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用代理 设置为 {netWorkOptions.EnableProxyServer}");
             this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.ProxyServerUrl) ? "空" : netWorkOptions.ProxyServerUrl)}");
             this.logger.Info($"忽略证书验证 设置为 {netWorkOptions.IgnoreCertificateValidation}");
+#if DEBUG
+            this.logger.Info("[Debug]");
+            this.logger.Info($"启用 ffprocess 拦截 设置为 {options.Debug.EnableFfProcessGuard}");
+#endif
             this.logger.Info($"写入环境变量 设置为 {netWorkOptions.WriteProxyEnvVars}");
             this.logger.Info($"启用压缩传输 设置为 {netWorkOptions.EnableGzip}");
             this.logger.Info($"自定义本地发现地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.CustomLocalDiscoveryAddress) ? "空" : netWorkOptions.CustomLocalDiscoveryAddress)}");
@@ -482,7 +486,7 @@ namespace MediaInfoKeeper
                     else if (e.Item is Audio)
                     {
                         AudioMetadataStore.ApplyToItem(e.Item);
-                        EmbeddedCoverStore.ApplyToItem(e.Item);
+                        CoverStore.ApplyToItem(e.Item);
                         shouldRefreshAfterRestore = shouldRefreshAfterRestore || !LibraryService.HasCover(e.Item);
                     }
 
@@ -522,10 +526,14 @@ namespace MediaInfoKeeper
                         // 提取完成后写入 JSON。
                         this.logger.Info($"入库媒体信息: 提取完成并写入 JSON item={e.Item.FileName ?? e.Item.Path}");
                         MediaSourceInfoStore.OverWriteToFile(e.Item);
-                        if (e.Item is Audio)
+                        if (e.Item is Video)
+                        {
+                            CoverStore.OverWriteToFile(e.Item);
+                        }
+                        else if (e.Item is Audio)
                         {
                             AudioMetadataStore.OverWriteToFile(e.Item);
-                            EmbeddedCoverStore.OverWriteToFile(e.Item);
+                            CoverStore.OverWriteToFile(e.Item);
                         }
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
@@ -592,11 +600,12 @@ namespace MediaInfoKeeper
                     if (e.Item is Video)
                     {
                         ChaptersStore.OverWriteToFile(e.Item);
+                        CoverStore.OverWriteToFile(e.Item);
                     }
                     else if (e.Item is Audio)
                     {
                         AudioMetadataStore.OverWriteToFile(e.Item);
-                        EmbeddedCoverStore.OverWriteToFile(e.Item);
+                        CoverStore.OverWriteToFile(e.Item);
                     }
                 }
                 // 入库加入扫描片头队列
@@ -730,11 +739,12 @@ namespace MediaInfoKeeper
                                         if (workItem is Video)
                                         {
                                             ChaptersStore.ApplyToItem(workItem);
+                                            CoverStore.ApplyToItem(workItem);
                                         }
                                         else if (workItem is Audio)
                                         {
                                             AudioMetadataStore.ApplyToItem(workItem);
-                                            EmbeddedCoverStore.ApplyToItem(workItem);
+                                            CoverStore.ApplyToItem(workItem);
                                             shouldRefreshAudioForMissingCover = !LibraryService.HasCover(workItem);
                                         }
                                         if ((restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
@@ -762,10 +772,14 @@ namespace MediaInfoKeeper
                                         }
 
                                         MediaSourceInfoStore.OverWriteToFile(workItem);
-                                        if (workItem is Audio)
+                                        if (workItem is Video)
+                                        {
+                                            CoverStore.OverWriteToFile(workItem);
+                                        }
+                                        else if (workItem is Audio)
                                         {
                                             AudioMetadataStore.OverWriteToFile(workItem);
-                                            EmbeddedCoverStore.OverWriteToFile(workItem);
+                                            CoverStore.OverWriteToFile(workItem);
                                         }
                                         this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
                                     }

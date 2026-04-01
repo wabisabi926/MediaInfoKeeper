@@ -29,6 +29,10 @@ namespace MediaInfoKeeper.Options
         [Description("按前缀匹配 DLL 文件名（分号或换行分隔）。默认：Microsoft.;System.;netstandard;mscorlib")]
         public string DllNameBlacklistPrefixes { get; set; } = "Microsoft.;System.;netstandard;mscorlib";
 
+        [DisplayName("启用 ffprocess 拦截")]
+        [Description("关闭后不再拦截 Emby 自身的 ffprobe/ffmpeg 调用。默认开启，仅建议在调试时临时关闭。")]
+        public bool EnableFfProcessGuard { get; set; } = true;
+
         public override IEditObjectContainer CreateEditContainer()
         {
             var container = (EditObjectContainer)base.CreateEditContainer();
@@ -91,7 +95,8 @@ namespace MediaInfoKeeper.Options
             AddGroup("调试", "",
                 nameof(DebugMediaInfoUrl),
                 nameof(DllNameWhitelistPrefixes),
-                nameof(DllNameBlacklistPrefixes));
+                nameof(DllNameBlacklistPrefixes),
+                nameof(EnableFfProcessGuard));
 
             if (groupedItems.Count > 0)
             {
