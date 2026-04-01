@@ -25,7 +25,9 @@ using MediaBrowser.Controller.Notifications;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
 using MediaBrowser.Controller.Entities.TV;
+using MediaBrowser.Controller.MediaEncoding;
 using MediaBrowser.Model.Drawing;
+using MediaBrowser.Model.Globalization;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Plugins.UI;
@@ -55,6 +57,7 @@ namespace MediaInfoKeeper
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
         public static IntroScanService IntroScanService { get; private set; }
         public static StrmFileWatcher StrmFileWatcher { get; private set; }
+        public static ExternalSubtitle ExternalSubtitle { get; private set; }
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -111,7 +114,9 @@ namespace MediaInfoKeeper
             ISessionManager sessionManager,
             INotificationManager notificationManager,
             IMediaMountManager mediaMountManager,
+            IMediaProbeManager mediaProbeManager,
             IServerConfigurationManager serverConfigurationManager,
+            ILocalizationManager localizationManager,
             IJsonSerializer jsonSerializer,
             IFileSystem fileSystem)
         {
@@ -145,6 +150,13 @@ namespace MediaInfoKeeper
 #if DEBUG
             DebugOptionsStore = new DebugOptionsStore(OptionsStore);
 #endif
+
+            ExternalSubtitle = new ExternalSubtitle(
+                libraryManager,
+                fileSystem,
+                mediaProbeManager,
+                localizationManager,
+                itemRepository);
 
             PatchManager.Initialize(this.logger, this.Options);
 
