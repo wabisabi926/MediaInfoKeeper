@@ -43,8 +43,13 @@
     <PropertyGroup>
       <IlRepackExe Condition="'$(OS)'=='Windows_NT'">$(UserProfile)\.dotnet\tools\ilrepack.exe</IlRepackExe>
       <IlRepackExe Condition="'$(OS)'!='Windows_NT'">$(HOME)/.dotnet/tools/ilrepack</IlRepackExe>
+      <TinyPinyinAssembly>$(TargetDir)TinyPinyin.dll</TinyPinyinAssembly>
     </PropertyGroup>
-    <Exec Command="$(IlRepackExe) /out:$(TargetDir)$(TargetFileName) $(TargetPath) $(TargetDir)0Harmony.dll /lib:$(TargetDir)" />
+    <ItemGroup>
+      <IlRepackInput Include="$(TargetDir)0Harmony.dll" Condition="Exists('$(TargetDir)0Harmony.dll')" />
+      <IlRepackInput Include="$(TinyPinyinAssembly)" Condition="Exists('$(TinyPinyinAssembly)')" />
+    </ItemGroup>
+    <Exec Command="$(IlRepackExe) /out:$(TargetDir)$(TargetFileName) $(TargetPath) @(IlRepackInput->'%(Identity)', ' ') /lib:$(TargetDir)" />
   </Target>
 
 </Project>
