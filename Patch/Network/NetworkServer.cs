@@ -205,28 +205,31 @@ namespace MediaInfoKeeper.Patch
             }
 
             var options = Plugin.Instance.Options.GetNetWorkOptions();
-            if (options == null || !HasAnyTmdbOverride(options))
-            {
-                return;
-            }
-
             var httpMethod = __args.Length > 1 ? __args[1] as string : null;
             var requestOptions = __args[0];
             var urlProperty = requestOptions.GetType().GetProperty("Url", BindingFlags.Instance | BindingFlags.Public);
             var originalUrl = urlProperty?.CanRead == true ? urlProperty.GetValue(requestOptions) as string : null;
+            var finalUrl = originalUrl;
             if (urlProperty != null &&
                 urlProperty.CanRead &&
                 urlProperty.CanWrite &&
                 Uri.TryCreate(originalUrl, UriKind.Absolute, out var uri))
             {
-                var rewritten = RewriteTmdbUri(uri, options);
-                if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
+                if (options != null && HasAnyTmdbOverride(options))
                 {
-                    var finalUrl = rewritten.ToString();
-                    logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
-                    urlProperty.SetValue(requestOptions, finalUrl);
-                    logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
+                    var rewritten = RewriteTmdbUri(uri, options);
+                    if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
+                    {
+                        finalUrl = rewritten.ToString();
+                        logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
+                        urlProperty.SetValue(requestOptions, finalUrl);
+                    }
                 }
+            }
+
+            if (!string.IsNullOrWhiteSpace(finalUrl))
+            {
+                logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
             }
         }
 
@@ -288,14 +291,8 @@ namespace MediaInfoKeeper.Patch
                 Environment.SetEnvironmentVariable("https_proxy", proxyUrl);
                 Environment.SetEnvironmentVariable("HTTP_PROXY", proxyUrl);
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyUrl);
-                logger.Info($"设置代理环境变量 {proxyUrl}");
-                return;
+                logger.Info($"设置代理环境变量 {proxyUrl} 注意！如果你的代理无法访问 strm 的 http 可能会导致无法通过 ffprobe 提取与播放。");
             }
-
-            Environment.SetEnvironmentVariable("http_proxy", null);
-            Environment.SetEnvironmentVariable("https_proxy", null);
-            Environment.SetEnvironmentVariable("HTTP_PROXY", null);
-            Environment.SetEnvironmentVariable("HTTPS_PROXY", null);
         }
 
         private static Uri RewriteTmdbUri(Uri uri, Options.NetWorkOptions options)
