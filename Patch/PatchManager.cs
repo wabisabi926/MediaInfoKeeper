@@ -367,8 +367,8 @@ namespace MediaInfoKeeper.Patch
             registrations.Add(new PatchRegistration
             {
                 Name = "SystemLog",
-                Initialize = _ => SystemLog.Initialize(logger, true),
-                Configure = options => SystemLog.Configure(IsPluginEnabled(options)),
+                Initialize = options => SystemLog.Initialize(logger, true, options.Enhance.SystemLogNameBlacklist),
+                Configure = options => SystemLog.Configure(IsPluginEnabled(options), options.Enhance.SystemLogNameBlacklist),
                 IsEnabled = IsPluginEnabled,
                 IsReady = () => SystemLog.IsReady,
                 Notes = () => SystemLog.IsReady ? null : "NamedLogger.Log 未命中"

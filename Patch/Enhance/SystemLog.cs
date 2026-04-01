@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Threading;
@@ -18,25 +19,29 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo namedLoggerLog;
         private static MethodInfo namedLoggerLogMemory;
         private static MethodInfo namedLoggerLogException;
+        private static PropertyInfo namedLoggerNameProperty;
         private static bool isEnabled = true;
         private static bool isPatched;
+        private static HashSet<string> loggerNameBlacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         public static bool IsReady => harmony != null && isPatched;
 
-        public static void Initialize(ILogger logger, bool enable)
+        public static void Initialize(ILogger logger, bool enable, string loggerNameBlacklistRaw)
         {
             if (harmony != null)
             {
-                Configure(enable);
+                Configure(enable, loggerNameBlacklistRaw);
                 return;
             }
 
             pluginLogger = logger;
             isEnabled = enable;
+            UpdateLoggerNameBlacklist(loggerNameBlacklistRaw);
 
             try
             {
                 var embyServerImplementationsAssembly = Assembly.Load("Emby.Server.Implementations");
                 var namedLoggerType = embyServerImplementationsAssembly.GetType("Emby.Server.Implementations.Logging.NamedLogger");
+                namedLoggerNameProperty = namedLoggerType?.GetProperty("Name", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 namedLoggerLog = PatchMethodResolver.Resolve(
                     namedLoggerType,
                     embyServerImplementationsAssembly.GetName().Version,
@@ -99,9 +104,10 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        public static void Configure(bool enable)
+        public static void Configure(bool enable, string loggerNameBlacklistRaw)
         {
             isEnabled = enable;
+            UpdateLoggerNameBlacklist(loggerNameBlacklistRaw);
 
             if (harmony == null)
             {
@@ -149,6 +155,44 @@ namespace MediaInfoKeeper.Patch
                    message.StartsWith("ffmpeg image extraction failed for", StringComparison.OrdinalIgnoreCase);
         }
 
+        private static void UpdateLoggerNameBlacklist(string raw)
+        {
+            loggerNameBlacklist = new HashSet<string>(
+                (raw ?? string.Empty)
+                    .Split(new[] { ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(item => item.Trim())
+                    .Where(item => !string.IsNullOrWhiteSpace(item)),
+                StringComparer.OrdinalIgnoreCase);
+        }
+
+        private static bool IsLoggerNameBlocked(object loggerInstance)
+        {
+            if (loggerNameBlacklist == null || loggerNameBlacklist.Count == 0 || loggerInstance == null || namedLoggerNameProperty == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                var loggerName = namedLoggerNameProperty.GetValue(loggerInstance) as string;
+                if (string.IsNullOrWhiteSpace(loggerName))
+                {
+                    return false;
+                }
+
+                loggerName = loggerName.Trim();
+                return loggerNameBlacklist.Any(rule =>
+                    !string.IsNullOrWhiteSpace(rule) &&
+                    (string.Equals(loggerName, rule, StringComparison.OrdinalIgnoreCase) ||
+                     loggerName.StartsWith(rule, StringComparison.OrdinalIgnoreCase)));
+            }
+            catch (Exception ex)
+            {
+                pluginLogger?.Debug("SystemLog 读取 logger.Name 失败: {0}", ex.Message);
+                return false;
+            }
+        }
+
         private static void Patch()
         {
             if (isPatched || harmony == null || namedLoggerLog == null)
@@ -175,7 +219,7 @@ namespace MediaInfoKeeper.Patch
         }
 
         [HarmonyPrefix]
-        private static bool NamedLoggerLogPrefix(ref LogSeverity __0, string __1)
+        private static bool NamedLoggerLogPrefix(object __instance, ref LogSeverity __0, string __1)
         {
             if (!isEnabled)
             {
@@ -192,22 +236,22 @@ namespace MediaInfoKeeper.Patch
                 __0 = LogSeverity.Debug;
             }
 
-            return true;
+            return !IsLoggerNameBlocked(__instance);
         }
 
         [HarmonyPrefix]
-        private static bool NamedLoggerMemoryLogPrefix()
+        private static bool NamedLoggerMemoryLogPrefix(object __instance)
         {
             if (!isEnabled)
             {
                 return true;
             }
 
-            return !TryConsumeSuppression();
+            return !TryConsumeSuppression() && !IsLoggerNameBlocked(__instance);
         }
 
         [HarmonyPrefix]
-        private static bool NamedLoggerLogExceptionPrefix(ref LogSeverity __0, string __1)
+        private static bool NamedLoggerLogExceptionPrefix(object __instance, ref LogSeverity __0, string __1)
         {
             if (!isEnabled)
             {
@@ -224,7 +268,7 @@ namespace MediaInfoKeeper.Patch
                 __0 = LogSeverity.Debug;
             }
 
-            return true;
+            return !IsLoggerNameBlocked(__instance);
         }
 
         public static void Waiting(ILogger logger, string module, string dependency, bool enabled)
