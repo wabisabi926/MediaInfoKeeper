@@ -217,6 +217,23 @@ namespace MediaInfoKeeper.Services
             }
         }
 
+        public void DeleteCoverPersist(BaseItem item)
+        {
+            var mediaInfoJsonPath = MediaInfoDocument.GetMediaInfoJsonPath(item);
+            var documents = ReadDocuments(mediaInfoJsonPath);
+            var document = documents.FirstOrDefault();
+
+            DeleteCoverFile(item);
+
+            if (document == null || document.EmbeddedCover == null)
+            {
+                return;
+            }
+
+            document.EmbeddedCover = null;
+            this.jsonSerializer.SerializeToFile(documents, mediaInfoJsonPath);
+        }
+
         private void SaveDocuments(List<MediaInfoDocument> documents, MediaInfoDocument document, string mediaInfoJsonPath)
         {
             if (documents.Count == 0)

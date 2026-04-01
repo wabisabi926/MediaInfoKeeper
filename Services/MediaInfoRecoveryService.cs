@@ -240,7 +240,7 @@ namespace MediaInfoKeeper.Services
                         // 删除之前备份的图片
                         if (workItem is Video)
                         {
-                            Plugin.CoverStore?.DeleteCoverFile(workItem);
+                            Plugin.CoverStore?.DeleteCoverPersist(workItem);
                         }
 
                         restoreExecutionMap.TryRemove(itemId, out _);
