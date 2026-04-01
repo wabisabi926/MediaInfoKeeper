@@ -67,6 +67,10 @@ namespace MediaInfoKeeper.Options
         [Description("开启后支持按 TMDB 剧集组映射刮削剧集元数据（需在剧集外部ID中填写 TmdbEg，或启用本地剧集组文件）。")]
         public bool EnableMovieDbEpisodeGroup { get; set; } = true;
 
+        [DisplayName("启用缺失剧集增强")]
+        [Description("开启后让 Emby 的“查看缺少的集”优先使用 TMDB，并支持按 TMDB 剧集组映射结果展示缺失剧集。")]
+        public bool EnableMissingEpisodesEnhance { get; set; } = true;
+
         [DisplayName("优先原语言海报")]
         [Description("开启后优先原语言图片结果（支持 TMDB / TVDB / Fanart）。")]
         public bool EnableOriginalPoster { get; set; } = false;
@@ -161,6 +165,7 @@ namespace MediaInfoKeeper.Options
                 nameof(EnableAlternativeTitleFallback),
                 nameof(FallbackLanguages),
                 nameof(EnableMovieDbEpisodeGroup),
+                nameof(EnableMissingEpisodesEnhance),
                 nameof(EnableLocalEpisodeGroup));
 
             AddGroup("TVDB", "",

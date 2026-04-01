@@ -199,6 +199,18 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "EnhanceMissingEpisodes",
+                Initialize = options => EnhanceMissingEpisodes.Initialize(
+                    logger,
+                    options.MetaData.EnableMissingEpisodesEnhance),
+                Configure = options => EnhanceMissingEpisodes.Configure(
+                    IsPluginEnabled(options) && options.MetaData.EnableMissingEpisodesEnhance),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableMissingEpisodesEnhance,
+                IsReady = () => EnhanceMissingEpisodes.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "OriginalPoster",
                 Initialize = options => OriginalPoster.Initialize(logger, options.MetaData.EnableOriginalPoster),
                 Configure = options => OriginalPoster.Configure(IsPluginEnabled(options) && options.MetaData.EnableOriginalPoster),
