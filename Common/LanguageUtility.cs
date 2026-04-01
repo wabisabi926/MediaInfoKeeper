@@ -1,5 +1,7 @@
 using System.Text.RegularExpressions;
 using TinyPinyin;
+using System;
+using System.IO;
 
 namespace MediaInfoKeeper.Common
 {
@@ -18,7 +20,22 @@ namespace MediaInfoKeeper.Common
 
         public static string ConvertToPinyinInitials(string input)
         {
-            return string.IsNullOrWhiteSpace(input) ? input : PinyinHelper.GetPinyinInitials(input);
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return input;
+            }
+
+            try
+            {
+                return PinyinHelper.GetPinyinInitials(input);
+            }
+            catch (Exception ex) when (
+                ex is FileNotFoundException ||
+                ex is FileLoadException ||
+                ex is TypeLoadException)
+            {
+                return input;
+            }
         }
 
         public static string RemoveDefaultCollectionName(string input)

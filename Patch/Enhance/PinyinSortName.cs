@@ -209,7 +209,17 @@ namespace MediaInfoKeeper.Patch
             var sortNameSource = __instance is BoxSet
                 ? LanguageUtility.RemoveDefaultCollectionName(currentSortName)
                 : currentSortName;
-            var pinyinInitials = LanguageUtility.ConvertToPinyinInitials(sortNameSource);
+            string pinyinInitials;
+            try
+            {
+                pinyinInitials = LanguageUtility.ConvertToPinyinInitials(sortNameSource);
+            }
+            catch (Exception ex)
+            {
+                logger?.Warn("PinyinSortName 已跳过：拼音转换失败。{0}", ex.Message);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(pinyinInitials))
             {
                 return;

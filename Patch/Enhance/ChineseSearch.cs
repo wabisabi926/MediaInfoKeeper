@@ -25,16 +25,10 @@ namespace MediaInfoKeeper.Patch
     /// </summary>
     public static class ChineseSearch
     {
-        private static readonly Version Ver4830 = new Version("4.8.3.0");
-        private static readonly Version Ver4900 = new Version("4.9.0.0");
-        private static readonly Version Ver4937 = new Version("4.9.0.37");
-
-        private static Version appVer;
         private static Type raw;
         private static MethodInfo sqlite3_enable_load_extension;
         private static FieldInfo sqlite3_db;
-        private static readonly List<MethodInfo> createConnectionTargets = new List<MethodInfo>();
-        private static MethodInfo createRepositoryConnection;
+        private static MethodInfo createConnection;
         private static PropertyInfo dbFilePath;
         private static MethodInfo getJoinCommandText;
         private static MethodInfo createSearchTerm;
@@ -49,6 +43,9 @@ namespace MediaInfoKeeper.Patch
         private static bool isConnectionPatched;
         private static bool areSearchFunctionsPatched;
         private static bool patchPhase2Initialized;
+        private static bool enhanceChineseSearchEnabled;
+        private static bool enhanceChineseSearchRestoreEnabled;
+        private static bool excludeOriginalTitleFromSearch;
         public static bool IsReady => isInitialized;
 
         private static ILogger logger;
@@ -71,7 +68,11 @@ namespace MediaInfoKeeper.Patch
         {
             if (isInitialized)
             {
-                Configure(options);
+                Configure(
+                    options?.EnhanceChineseSearch == true,
+                    options?.EnhanceChineseSearchRestore == true,
+                    options?.SearchScope,
+                    options?.ExcludeOriginalTitleFromSearch == true);
                 return;
             }
 
@@ -79,13 +80,16 @@ namespace MediaInfoKeeper.Patch
             {
                 if (isInitialized)
                 {
-                    Configure(options);
+                    Configure(
+                        options?.EnhanceChineseSearch == true,
+                        options?.EnhanceChineseSearchRestore == true,
+                        options?.SearchScope,
+                        options?.ExcludeOriginalTitleFromSearch == true);
                     return;
                 }
 
                 logger = pluginLogger;
                 harmony = new Harmony("mediainfokeeper.search");
-                appVer = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
                 tokenizerPath = ResolveTokenizerPath();
 
                 try
@@ -103,44 +107,12 @@ namespace MediaInfoKeeper.Patch
                     var embySqlite = Assembly.Load("Emby.Sqlite");
                     var baseSqliteRepository = embySqlite.GetType("Emby.Sqlite.BaseSqliteRepository");
 
-                    createConnectionTargets.Clear();
-                    AddCreateConnectionTarget(baseSqliteRepository?.GetMethod(
-                        "CreateNewConnection",
-                        BindingFlags.NonPublic | BindingFlags.Instance,
-                        null,
-                        new[] { typeof(bool) },
-                        null));
-                    AddCreateConnectionTarget(baseSqliteRepository?.GetMethod(
+                    createConnection = baseSqliteRepository?.GetMethod(
                         "CreateConnection",
                         BindingFlags.NonPublic | BindingFlags.Instance,
                         null,
                         new[] { typeof(bool), typeof(CancellationToken) },
-                        null));
-                    AddCreateConnectionTarget(baseSqliteRepository?.GetMethod(
-                        "CreateConnection",
-                        BindingFlags.NonPublic | BindingFlags.Instance,
-                        null,
-                        new[] { typeof(bool) },
-                        null));
-                    createRepositoryConnection = baseSqliteRepository?.GetMethod(
-                        "CreateConnection",
-                        BindingFlags.NonPublic | BindingFlags.Instance,
-                        null,
-                        new[] { typeof(bool), typeof(CancellationToken) },
-                        null)
-                        ?? baseSqliteRepository?.GetMethod(
-                            "CreateConnection",
-                            BindingFlags.NonPublic | BindingFlags.Instance,
-                            null,
-                            new[] { typeof(bool) },
-                            null)
-                        ?? baseSqliteRepository?.GetMethod(
-                            "CreateNewConnection",
-                            BindingFlags.NonPublic | BindingFlags.Instance,
-                            null,
-                            new[] { typeof(bool) },
-                            null);
-
+                        null);
                     dbFilePath = baseSqliteRepository?.GetProperty(
                         "DbFilePath",
                         BindingFlags.NonPublic | BindingFlags.Instance);
@@ -194,7 +166,7 @@ namespace MediaInfoKeeper.Patch
                         logger,
                         "ChineseSearch.CacheIdsFromTextParams");
 
-                    if (createConnectionTargets.Count == 0 || createRepositoryConnection == null || dbFilePath == null || getJoinCommandText == null ||
+                    if (createConnection == null || dbFilePath == null || getJoinCommandText == null ||
                         cacheIdsFromTextParams == null || sqlite3_db == null ||
                         sqlite3_enable_load_extension == null)
                     {
@@ -211,23 +183,66 @@ namespace MediaInfoKeeper.Patch
                 }
             }
 
-            Configure(options);
+            Configure(
+                options?.EnhanceChineseSearch == true,
+                options?.EnhanceChineseSearchRestore == true,
+                options?.SearchScope,
+                options?.ExcludeOriginalTitleFromSearch == true);
         }
 
-        public static void Configure(EnhanceOptions options)
+        public static void Configure(
+            bool enableChineseSearch,
+            bool enableChineseSearchRestore,
+            string searchScope,
+            bool excludeOriginalTitle)
         {
-            if (!isInitialized || options == null)
+            enhanceChineseSearchEnabled = enableChineseSearch;
+            enhanceChineseSearchRestoreEnabled = enableChineseSearchRestore;
+            excludeOriginalTitleFromSearch = excludeOriginalTitle;
+            UpdateSearchScope(searchScope);
+
+            if (!isInitialized)
             {
                 return;
             }
 
-            if (appVer >= Ver4830)
+            if (EnsureTokenizerExists() && PatchCreateConnection())
             {
-                PatchPhase1();
+                return;
             }
-            else
+
+            logger?.Warn("增强搜索初始化失败。");
+            ResetOptions();
+        }
+
+        private static string ResolveTokenizerPath()
+        {
+            var basePath = AppContext.BaseDirectory;
+            try
             {
-                ResetOptions();
+                var appHost = Plugin.Instance?.AppHost;
+                if (appHost != null)
+                {
+                    var applicationPaths = appHost.Resolve<MediaBrowser.Common.Configuration.IApplicationPaths>();
+                    if (applicationPaths != null)
+                    {
+                        basePath = applicationPaths.PluginsPath;
+                    }
+                }
+            }
+            catch
+            {
+                // Fall back to base directory when application paths are unavailable.
+            }
+
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Win32NT when Environment.Is64BitOperatingSystem:
+                    return Path.Combine(basePath, "simple.dll");
+                case PlatformID.Unix when Environment.Is64BitOperatingSystem:
+                    return Path.Combine(basePath, "libsimple");
+                default:
+                    return Path.Combine(basePath, "simple.dll");
             }
         }
 
@@ -282,107 +297,32 @@ namespace MediaInfoKeeper.Patch
             return includeItemTypes;
         }
 
-        private static string ResolveTokenizerPath()
+        private static bool PatchCreateConnection()
         {
-            var basePath = AppContext.BaseDirectory;
             try
             {
-                var appHost = Plugin.Instance?.AppHost;
-                if (appHost != null)
+                if (isConnectionPatched || harmony == null || createConnection == null)
                 {
-                    var applicationPaths = appHost.Resolve<MediaBrowser.Common.Configuration.IApplicationPaths>();
-                    if (applicationPaths != null)
-                    {
-                        basePath = applicationPaths.PluginsPath;
-                    }
+                    return isConnectionPatched;
                 }
-            }
-            catch
-            {
-                // Fall back to base directory when application paths are unavailable.
-            }
 
-            switch (Environment.OSVersion.Platform)
-            {
-                case PlatformID.Win32NT when Environment.Is64BitOperatingSystem:
-                    return Path.Combine(basePath, "simple.dll");
-                case PlatformID.Unix when Environment.Is64BitOperatingSystem:
-                    return Path.Combine(basePath, "libsimple");
-                default:
-                    return Path.Combine(basePath, "simple.dll");
-            }
-        }
-
-        private static bool CreateConnectionPostfixPlatform()
-        {
-            if (isConnectionPatched || harmony == null || createConnectionTargets.Count == 0)
-            {
+                harmony.Patch(
+                    createConnection,
+                    postfix: new HarmonyMethod(typeof(ChineseSearch), nameof(CreateConnectionPostfix)));
+                isConnectionPatched = true;
                 return isConnectionPatched;
-            }
-
-            var patchedAny = false;
-            foreach (var method in createConnectionTargets)
-            {
-                patchedAny |= PatchCreateConnection(method);
-            }
-
-            isConnectionPatched = patchedAny;
-            return patchedAny;
-        }
-
-        private static void AddCreateConnectionTarget(MethodInfo method)
-        {
-            if (method == null || createConnectionTargets.Contains(method))
-            {
-                return;
-            }
-
-            createConnectionTargets.Add(method);
-        }
-
-        private static bool PatchCreateConnection(MethodInfo targetMethod)
-        {
-            try
-            {
-                var parameters = targetMethod.GetParameters();
-                var postfixName = nameof(CreateConnectionPostfixBoolOnly);
-                if (parameters.Length == 2 &&
-                    parameters[0].ParameterType == typeof(bool) &&
-                    parameters[1].ParameterType == typeof(CancellationToken))
-                {
-                    postfixName = nameof(CreateConnectionPostfixBoolWithCancellation);
-                }
-                else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(bool))
-                {
-                    postfixName = nameof(CreateConnectionPostfixBoolOnly);
-                }
-
-                var postfix = new HarmonyMethod(typeof(ChineseSearch), postfixName);
-                harmony.Patch(targetMethod, postfix: postfix);
-                return true;
             }
             catch (Exception e)
             {
-                logger?.Error("ChineseSearch patch CreateConnection failed: " + targetMethod?.Name);
+                logger?.Error("ChineseSearch patch CreateConnection failed: " + createConnection?.Name);
                 logger?.Error(e.ToString());
                 return false;
             }
         }
 
-        private static void PatchPhase1()
-        {
-            if (EnsureTokenizerExists() && CreateConnectionPostfixPlatform())
-            {
-                return;
-            }
-
-            logger?.Warn("增强搜索 PatchPhase1 失败。");
-            ResetOptions();
-        }
-
         private static void PatchPhase2(IDatabaseConnection connection)
         {
-            var ftsTableName = GetFtsTableName();
+            const string ftsTableName = "fts_search9";
             var rebuildFtsResult = true;
             var patchSearchFunctionsResult = false;
             var shouldLogLoadSuccess = false;
@@ -392,14 +332,28 @@ namespace MediaInfoKeeper.Patch
             {
                 CurrentTokenizerName = DetectCurrentTokenizer(connection, ftsTableName);
                 logger?.Info($"EnhanceChineseSearch - Current tokenizer (before) is {CurrentTokenizerName}");
-                var options = Plugin.Instance?.Options?.Enhance;
-                if (options != null)
-                {
-                    var shouldEnhance = options.EnhanceChineseSearch;
-                    var shouldRestore = options.EnhanceChineseSearchRestore;
-                    var shouldAutoRestore = !shouldEnhance && !shouldRestore;
+                var shouldEnhance = enhanceChineseSearchEnabled;
+                var shouldRestore = enhanceChineseSearchRestoreEnabled;
+                var shouldAutoRestore = !shouldEnhance && !shouldRestore;
 
-                    if (shouldRestore)
+                if (shouldRestore)
+                {
+                    if (string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
+                    {
+                        rebuildFtsResult = RebuildFts(connection, ftsTableName, "unicode61 remove_diacritics 2");
+                    }
+
+                    if (rebuildFtsResult)
+                    {
+                        CurrentTokenizerName = "unicode61 remove_diacritics 2";
+                        logger?.Info("增强搜索 - 恢复成功");
+                    }
+
+                    ResetOptions();
+                }
+                else if (shouldEnhance)
+                {
+                    if (!simpleTokenizerLoaded)
                     {
                         if (string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
                         {
@@ -409,50 +363,23 @@ namespace MediaInfoKeeper.Patch
                         if (rebuildFtsResult)
                         {
                             CurrentTokenizerName = "unicode61 remove_diacritics 2";
-                            logger?.Info("增强搜索 - 恢复成功");
+                            logger?.Warn("增强搜索 - simple 分词器不可用，已自动回退到 unicode61");
                         }
 
                         ResetOptions();
                     }
-                    else if (shouldEnhance)
+                    else
                     {
-                        if (!simpleTokenizerLoaded)
+                        if (!string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
                         {
-                            if (string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
-                            {
-                                rebuildFtsResult = RebuildFts(connection, ftsTableName, "unicode61 remove_diacritics 2");
-                            }
-
-                            if (rebuildFtsResult)
-                            {
-                                CurrentTokenizerName = "unicode61 remove_diacritics 2";
-                                logger?.Warn("增强搜索 - simple 分词器不可用，已自动回退到 unicode61");
-                            }
-
-                            ResetOptions();
+                            rebuildFtsResult = RebuildFts(connection, ftsTableName, "simple");
                         }
-                        else
-                        {
-                            if (!string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
-                            {
-                                rebuildFtsResult = RebuildFts(connection, ftsTableName, "simple");
-                            }
 
-                            if (rebuildFtsResult)
-                            {
-                                CurrentTokenizerName = "simple";
-                                patchSearchFunctionsResult = PatchSearchFunctions();
-                                shouldLogLoadSuccess = patchSearchFunctionsResult;
-                            }
-                        }
-                    }
-                    else if (shouldAutoRestore && string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
-                    {
-                        rebuildFtsResult = RebuildFts(connection, ftsTableName, "unicode61 remove_diacritics 2");
                         if (rebuildFtsResult)
                         {
-                            CurrentTokenizerName = "unicode61 remove_diacritics 2";
-                            logger?.Info("增强搜索 - 检测到历史 simple tokenizer，已自动还原");
+                            CurrentTokenizerName = "simple";
+                            patchSearchFunctionsResult = PatchSearchFunctions();
+                            shouldLogLoadSuccess = patchSearchFunctionsResult;
                         }
                     }
                 }
@@ -464,8 +391,7 @@ namespace MediaInfoKeeper.Patch
                 logger?.Warn(e.ToString());
             }
 
-            var optionsAfterPatch = Plugin.Instance?.Options?.Enhance;
-            var isEnhanceMode = optionsAfterPatch?.EnhanceChineseSearch == true;
+            var isEnhanceMode = enhanceChineseSearchEnabled;
             var hasUnknownTokenizer = string.Equals(CurrentTokenizerName, "unknown", StringComparison.Ordinal);
             var shouldResetOptions = (isEnhanceMode && !patchSearchFunctionsResult) || !rebuildFtsResult || hasUnknownTokenizer;
             if (shouldResetOptions)
@@ -479,11 +405,6 @@ namespace MediaInfoKeeper.Patch
             }
 
             logger?.Info($"EnhanceChineseSearch - Current tokenizer (after) is {CurrentTokenizerName}");
-        }
-
-        private static string GetFtsTableName()
-        {
-            return appVer >= Ver4830 ? "fts_search9" : "fts_search8";
         }
 
         private static string DetectCurrentTokenizer(IDatabaseConnection connection, string ftsTableName)
@@ -514,7 +435,7 @@ namespace MediaInfoKeeper.Patch
 
         public static bool RebuildSearchIndex()
         {
-            if (!isInitialized || createRepositoryConnection == null)
+            if (!isInitialized || createConnection == null)
             {
                 logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: search module not initialized");
                 return false;
@@ -537,13 +458,12 @@ namespace MediaInfoKeeper.Patch
                     return false;
                 }
 
-                var ftsTableName = GetFtsTableName();
+                const string ftsTableName = "fts_search9";
                 CurrentTokenizerName = DetectCurrentTokenizer(connection, ftsTableName);
                 logger?.Info($"EnhanceChineseSearch - Current tokenizer (before) is {CurrentTokenizerName}");
 
-                var options = Plugin.Instance?.Options?.Enhance;
                 var targetTokenizer = "unicode61 remove_diacritics 2";
-                if (options?.EnhanceChineseSearch == true && LoadTokenizerExtension(connection, false))
+                if (enhanceChineseSearchEnabled && LoadTokenizerExtension(connection, false))
                 {
                     targetTokenizer = "simple";
                 }
@@ -574,51 +494,19 @@ namespace MediaInfoKeeper.Patch
 
         private static IDatabaseConnection OpenLibraryConnection(object repository)
         {
-            var parameters = createRepositoryConnection.GetParameters();
-            object[] args;
-            if (parameters.Length == 2 &&
-                parameters[0].ParameterType == typeof(bool) &&
-                parameters[1].ParameterType == typeof(CancellationToken))
-            {
-                args = new object[] { false, CancellationToken.None };
-            }
-            else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(bool))
-            {
-                args = new object[] { false };
-            }
-            else
-            {
-                return null;
-            }
-
-            return createRepositoryConnection.Invoke(repository, args) as IDatabaseConnection;
+            return createConnection?.Invoke(repository, new object[] { false, CancellationToken.None }) as IDatabaseConnection;
         }
 
         private static bool RebuildFts(IDatabaseConnection connection, string ftsTableName, string tokenizerName)
         {
-            string populateQuery;
-
-            if (appVer < Ver4900)
-            {
-                populateQuery =
-                    $"insert into {ftsTableName}(RowId, Name, OriginalTitle, SeriesName, Album) select id, " +
-                    GetSearchColumnNormalization("Name") + ", " +
-                    GetSearchColumnNormalization("OriginalTitle") + ", " +
-                    GetSearchColumnNormalization("SeriesName") + ", " +
-                    GetSearchColumnNormalization("Album") +
-                    " from MediaItems";
-            }
-            else
-            {
-                populateQuery =
-                    $"insert into {ftsTableName}(RowId, Name, OriginalTitle, SeriesName, Album) select id, " +
-                    GetSearchColumnNormalization("Name") + ", " +
-                    GetSearchColumnNormalization("OriginalTitle") + ", " +
-                    GetSearchColumnNormalization("SeriesName") + ", " +
-                    GetSearchColumnNormalization(
-                        "(select case when AlbumId is null then null else (select name from MediaItems where Id = AlbumId limit 1) end)") +
-                    " from MediaItems";
-            }
+            var populateQuery =
+                $"insert into {ftsTableName}(RowId, Name, OriginalTitle, SeriesName, Album) select id, " +
+                GetSearchColumnNormalization("Name") + ", " +
+                GetSearchColumnNormalization("OriginalTitle") + ", " +
+                GetSearchColumnNormalization("SeriesName") + ", " +
+                GetSearchColumnNormalization(
+                    "(select case when AlbumId is null then null else (select name from MediaItems where Id = AlbumId limit 1) end)") +
+                " from MediaItems";
 
             connection.BeginTransaction(TransactionMode.Deferred);
             try
@@ -677,19 +565,12 @@ namespace MediaInfoKeeper.Patch
                 if (File.Exists(tokenizerPath))
                 {
                     var existingSha1 = ComputeSha1(tokenizerPath);
-                    if (expectedSha1.ContainsValue(existingSha1))
+                    if (string.Equals(existingSha1, expectedSha1, StringComparison.OrdinalIgnoreCase))
                     {
-                        var highestVersion = expectedSha1.Keys.Max();
-                        var highestSha1 = expectedSha1[highestVersion];
-
-                        if (existingSha1 != highestSha1)
-                        {
-                            ExportTokenizer(resourceName);
-                        }
-
                         return true;
                     }
 
+                    ExportTokenizer(resourceName);
                     return true;
                 }
 
@@ -739,26 +620,14 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        private static Dictionary<Version, string> GetExpectedSha1()
+        private static string GetExpectedSha1()
         {
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Win32NT:
-                    return new Dictionary<Version, string>
-                    {
-                        { new Version(0, 4, 0), "a83d90af9fb88e75a1ddf2436c8b67954c761c83" },
-                        { new Version(0, 5, 0), "aed57350b46b51bb7d04321b7fe8e5e60b0cdbdc" },
-                        { new Version(0, 5, 2), "338bb0915d6f4625b54f041bdeb6791b6e590c4e" },
-                        { new Version(0, 5, 3), "338bb0915d6f4625b54f041bdeb6791b6e590c4e" }
-                    };
+                    return "338bb0915d6f4625b54f041bdeb6791b6e590c4e";
                 case PlatformID.Unix:
-                    return new Dictionary<Version, string>
-                    {
-                        { new Version(0, 4, 0), "f7fb8ba0b98e358dfaa87570dc3426ee7f00e1b6" },
-                        { new Version(0, 5, 0), "8e36162f96c67d77c44b36093f31ae4d297b15c0" },
-                        { new Version(0, 5, 2), "e89eeb7938894e4e8b284896285e7dc90da715bc" },
-                        { new Version(0, 5, 3), "a6188af48c0fef201cb24dbebc65c4cf5b4ddf9b" }
-                    };
+                    return "a6188af48c0fef201cb24dbebc65c4cf5b4ddf9b";
                 default:
                     return null;
             }
@@ -905,16 +774,7 @@ namespace MediaInfoKeeper.Patch
         }
 
         [HarmonyPostfix]
-        private static void CreateConnectionPostfixBoolOnly(
-            object __instance,
-            [HarmonyArgument("isReadOnly")] bool isReadOnly,
-            ref IDatabaseConnection __result)
-        {
-            HandleConnectionCreated(__instance, isReadOnly, __result);
-        }
-
-        [HarmonyPostfix]
-        private static void CreateConnectionPostfixBoolWithCancellation(
+        private static void CreateConnectionPostfix(
             object __instance,
             [HarmonyArgument("isReadOnly")] bool isReadOnly,
             [HarmonyArgument("cancellationToken")] CancellationToken cancellationToken,
@@ -939,12 +799,10 @@ namespace MediaInfoKeeper.Patch
 
             if (!string.IsNullOrEmpty(query.SearchTerm) && hasMatchParam)
             {
-                var options = Plugin.Instance?.Options?.Enhance;
-                if (options?.EnhanceChineseSearch == true &&
+                if (enhanceChineseSearchEnabled &&
                     string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
                 {
-                    var excludeOriginalTitle = options.ExcludeOriginalTitleFromSearch;
-                    var replacement = excludeOriginalTitle
+                    var replacement = excludeOriginalTitleFromSearch
                         ? "match '-OriginalTitle:' || simple_query(@SearchTerm)"
                         : "match simple_query(@SearchTerm)";
 
@@ -958,7 +816,7 @@ namespace MediaInfoKeeper.Patch
 
             if (!string.IsNullOrEmpty(query.Name) &&
                 hasMatchParam &&
-                Plugin.Instance?.Options?.Enhance?.EnhanceChineseSearch == true &&
+                enhanceChineseSearchEnabled &&
                 string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
             {
                 newSql = Regex.Replace(
@@ -1057,7 +915,7 @@ namespace MediaInfoKeeper.Patch
                     }
                 }
 
-                if (appVer >= Ver4937 && !string.IsNullOrEmpty(query.SearchTerm))
+                if (!string.IsNullOrEmpty(query.SearchTerm))
                 {
                     LoadTokenizerExtension(db, false);
                 }
