@@ -526,11 +526,7 @@ namespace MediaInfoKeeper
                         // 提取完成后写入 JSON。
                         this.logger.Info($"入库媒体信息: 提取完成并写入 JSON item={e.Item.FileName ?? e.Item.Path}");
                         MediaSourceInfoStore.OverWriteToFile(e.Item);
-                        if (e.Item is Video)
-                        {
-                            CoverStore.OverWriteToFile(e.Item);
-                        }
-                        else if (e.Item is Audio)
+                        if (e.Item is Audio)
                         {
                             AudioMetadataStore.OverWriteToFile(e.Item);
                             CoverStore.OverWriteToFile(e.Item);
@@ -600,7 +596,6 @@ namespace MediaInfoKeeper
                     if (e.Item is Video)
                     {
                         ChaptersStore.OverWriteToFile(e.Item);
-                        CoverStore.OverWriteToFile(e.Item);
                     }
                     else if (e.Item is Audio)
                     {
@@ -739,7 +734,6 @@ namespace MediaInfoKeeper
                                         if (workItem is Video)
                                         {
                                             ChaptersStore.ApplyToItem(workItem);
-                                            CoverStore.ApplyToItem(workItem);
                                         }
                                         else if (workItem is Audio)
                                         {
@@ -772,11 +766,7 @@ namespace MediaInfoKeeper
                                         }
 
                                         MediaSourceInfoStore.OverWriteToFile(workItem);
-                                        if (workItem is Video)
-                                        {
-                                            CoverStore.OverWriteToFile(workItem);
-                                        }
-                                        else if (workItem is Audio)
+                                        if (workItem is Audio)
                                         {
                                             AudioMetadataStore.OverWriteToFile(workItem);
                                             CoverStore.OverWriteToFile(workItem);

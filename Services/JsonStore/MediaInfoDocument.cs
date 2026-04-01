@@ -25,6 +25,7 @@ namespace MediaInfoKeeper.Services
 
         private const string MediaInfoFileExtension = "-mediainfo.json";
         private const string CoverFileExtension = "-cover.jpg";
+        private const string ThumbFileExtension = "-thumb.jpg";
 
         public MediaSourceInfo MediaSourceInfo { get; set; }
 
@@ -41,12 +42,12 @@ namespace MediaInfoKeeper.Services
 
         public static string GetCoverPath(BaseItem item)
         {
-            return BuildSidecarPath(item, CoverFileExtension);
+            return BuildSidecarPath(item, item is Audio ? CoverFileExtension : ThumbFileExtension);
         }
 
         public static string GetCoverFileName(BaseItem item)
         {
-            return item.FileNameWithoutExtension + CoverFileExtension;
+            return item.FileNameWithoutExtension + (item is Audio ? CoverFileExtension : ThumbFileExtension);
         }
 
         private static string BuildSidecarPath(BaseItem item, string extension)

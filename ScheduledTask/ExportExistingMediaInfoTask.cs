@@ -65,7 +65,7 @@ namespace MediaInfoKeeper.ScheduledTask
                     else if (item is Audio)
                     {
                         Plugin.AudioMetadataStore.OverWriteToFile(item);
-                        Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                        Plugin.CoverStore.OverWriteToFile(item);
                     }
                 }
                 catch (OperationCanceledException)

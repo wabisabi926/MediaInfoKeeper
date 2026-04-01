@@ -86,7 +86,7 @@ namespace MediaInfoKeeper.Options
 
         [DisplayName("替换现有视频预览缩略图")]
         [Description("如果在媒体库选项中启用此功能，将删除所有现有视频预览缩略图并生成新缩略图。")]
-        public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = false;
+        public bool ReplaceExistingVideoPreviewThumbnails { get; set; } = true;
 
         public override IEditObjectContainer CreateEditContainer()
         {

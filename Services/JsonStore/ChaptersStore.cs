@@ -66,7 +66,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
             document.Chapters = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Debug($"ChaptersStore 覆盖Json写入章节信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"ChaptersStore 覆盖写入章节信息成功: {(item.FileName ?? item.Path)}");
         }
 
         private List<ChapterInfo> CreateForPersist(BaseItem item)

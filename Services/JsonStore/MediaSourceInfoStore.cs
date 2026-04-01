@@ -92,13 +92,13 @@ namespace MediaInfoKeeper.Services
             var mediaSourceInfo = CreateForPersist(item);
             if (!HasPersistablePrimaryStream(mediaSourceInfo))
             {
-                this.logger.Debug($"MediaSourceInfoStore 覆盖Json写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
+                this.logger.Debug($"MediaSourceInfoStore 覆盖写入媒体源信息跳过: {(item.FileName ?? item.Path)} 无有效音视频流");
                 return;
             }
 
             document.MediaSourceInfo = mediaSourceInfo;
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Debug($"MediaSourceInfoStore 覆盖Json写入媒体源信息成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"MediaSourceInfoStore 覆盖写入媒体源信息成功: {(item.FileName ?? item.Path)}");
         }
 
         public bool DeleteFromFile(BaseItem item)

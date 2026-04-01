@@ -149,7 +149,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 else if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.ApplyToItem(item);
-                    Plugin.EmbeddedCoverStore.ApplyToItem(item);
+                    Plugin.CoverStore.ApplyToItem(item);
                 }
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                 {

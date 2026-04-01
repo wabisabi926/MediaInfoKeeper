@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Providers;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaInfoKeeper.Patch;
 
@@ -120,7 +122,15 @@ namespace MediaInfoKeeper.Services
 
                             var hasMediaInfo = Plugin.MediaInfoService?.HasMediaInfo(workItem) == true;
                             var hasCover = workItem is Audio && Plugin.LibraryService.HasCover(workItem);
-                            var isHealthy = workItem is Audio ? hasMediaInfo && hasCover : hasMediaInfo;
+                            var hasRefreshBackup = workItem is Video && Plugin.CoverStore?.HasInFile(workItem) == true;
+                            var hasPrimaryImage = workItem is Video && workItem.HasImage(ImageType.Primary);
+                            var needsVideoPrimaryRestore = hasRefreshBackup && !hasPrimaryImage;
+                            var isHealthy = workItem switch
+                            {
+                                Audio => hasMediaInfo && hasCover,
+                                Video => hasMediaInfo && !needsVideoPrimaryRestore,
+                                _ => hasMediaInfo
+                            };
 
                             if (isHealthy)
                             {
@@ -146,32 +156,53 @@ namespace MediaInfoKeeper.Services
                             {
                                 if (!hasMediaInfo && !hasCover)
                                 {
-                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 和封面都缺失，开始恢复媒体信息");
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 和封面都缺失，开始恢复");
                                 }
                                 else if (!hasMediaInfo)
                                 {
-                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复");
                                 }
                                 else
                                 {
-                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现封面缺失，开始恢复媒体信息");
+                                    logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现封面缺失，开始恢复");
                                 }
+                            }
+                            else if (workItem is Video && needsVideoPrimaryRestore)
+                            {
+                                logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 Primary 图片缺失，开始恢复");
                             }
                             else
                             {
-                                logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复媒体信息");
+                                logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复");
                             }
 
                             var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
                                 ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
-                            
+
+                            var imageRestoreResult = MediaInfoDocument.MediaInfoRestoreResult.Failed;
                             if (workItem is Audio)
                             {
                                 Plugin.AudioMetadataStore?.ApplyToItem(workItem);
-                                Plugin.EmbeddedCoverStore?.ApplyToItem(workItem);
+                                imageRestoreResult = Plugin.CoverStore?.ApplyToItem(workItem)
+                                    ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
                             }
-                            
-                            if (restoreResult != MediaInfoDocument.MediaInfoRestoreResult.Failed)
+                            else if (workItem is Video)
+                            {
+                                imageRestoreResult = Plugin.CoverStore?.ApplyToItem(workItem)
+                                    ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                            }
+
+                            var hasMediaInfoAfterRestore = Plugin.MediaInfoService?.HasMediaInfo(workItem) == true;
+                            var hasCoverAfterRestore = workItem is Audio && Plugin.LibraryService.HasCover(workItem);
+                            var hasPrimaryImageAfterRestore = workItem is Video && workItem.HasImage(ImageType.Primary);
+                            var isHealthyAfterRestore = workItem switch
+                            {
+                                Audio => hasMediaInfoAfterRestore && hasCoverAfterRestore,
+                                Video => hasMediaInfoAfterRestore && (hasPrimaryImageAfterRestore || !hasRefreshBackup),
+                                _ => hasMediaInfoAfterRestore
+                            };
+
+                            if (isHealthyAfterRestore)
                             {
                                 if (workItem is Video &&!Plugin.IntroScanService.HasIntroMarkers(workItem))
                                 {
@@ -183,7 +214,14 @@ namespace MediaInfoKeeper.Services
                                 return;
                             }
 
-                            logger?.Warn($"恢复媒体信息失败，不再重试: {workItem.FileName ?? workItem.Path}");
+                            var incompleteReason = !hasMediaInfoAfterRestore
+                                ? "MediaInfo 缺失"
+                                : workItem is Audio && !hasCoverAfterRestore
+                                    ? "封面缺失"
+                                    : workItem is Video && hasRefreshBackup && !hasPrimaryImageAfterRestore
+                                        ? "Primary 图片缺失"
+                                        : "状态未完整";
+                            logger?.Warn($"{workItem.FileName ?? workItem.Path} 恢复后仍不完整: {incompleteReason}");
                             restoreVersionMap.TryRemove(itemId, out _);
                             return;
                         }
@@ -199,6 +237,12 @@ namespace MediaInfoKeeper.Services
                     }
                     finally
                     {
+                        // 删除之前备份的图片
+                        if (workItem is Video)
+                        {
+                            Plugin.CoverStore?.DeleteCoverFile(workItem);
+                        }
+
                         restoreExecutionMap.TryRemove(itemId, out _);
                         restoreEnqueueTicks.TryRemove(itemId, out _);
                     }
@@ -215,20 +259,29 @@ namespace MediaInfoKeeper.Services
         {
             logger?.Debug($"检查媒体信息备份: {item.FileName ?? item.Path}");
 
+            // 刷新元数据前备份封面
+            if (item is Video && item.HasImage(ImageType.Primary))
+            {
+                Plugin.CoverStore?.OverWriteToFile(item);
+            }
+
             if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
             {
                 Plugin.MediaSourceInfoStore.WriteToFile(item);
                 if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.WriteToFile(item);
-                    Plugin.EmbeddedCoverStore.WriteToFile(item);
+                    Plugin.CoverStore.WriteToFile(item);
                 }
 
-                if (item is Video &&
-                    !Plugin.ChaptersStore.HasInFile(item) &&
-                    Plugin.IntroScanService.HasIntroMarkers(item))
+                if (item is Video && !Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
                 {
                     Plugin.ChaptersStore.WriteToFile(item);
+                }
+                
+                if (item is Video && item.HasImage(ImageType.Primary))
+                {
+                    Plugin.CoverStore?.WriteToFile(item);
                 }
             }
         }

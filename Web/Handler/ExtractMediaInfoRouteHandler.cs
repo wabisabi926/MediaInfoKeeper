@@ -124,7 +124,7 @@ namespace MediaInfoKeeper.Web.Handler
                 else if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.ApplyToItem(item);
-                    Plugin.EmbeddedCoverStore.ApplyToItem(item);
+                    Plugin.CoverStore.ApplyToItem(item);
                     shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
                 }
 
@@ -136,7 +136,7 @@ namespace MediaInfoKeeper.Web.Handler
                     if (item is Audio)
                     {
                         Plugin.AudioMetadataStore.OverWriteToFile(item);
-                        Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                        Plugin.CoverStore.OverWriteToFile(item);
                     }
                     return true;
                 }
@@ -166,7 +166,7 @@ namespace MediaInfoKeeper.Web.Handler
                 if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.OverWriteToFile(item);
-                    Plugin.EmbeddedCoverStore.OverWriteToFile(item);
+                    Plugin.CoverStore.OverWriteToFile(item);
                 }
                 return true;
             }

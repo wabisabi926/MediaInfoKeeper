@@ -67,7 +67,7 @@ namespace MediaInfoKeeper.Services
             var document = documents.FirstOrDefault() ?? new MediaInfoDocument();
             document.AudioMetadata = CreateForPersist(item);
             SaveDocuments(documents, document, mediaInfoJsonPath);
-            this.logger.Debug($"AudioMetadataStore 覆盖Json写入音乐元数据成功: {(item.FileName ?? item.Path)}");
+            this.logger.Debug($"AudioMetadataStore 覆盖写入音乐元数据成功: {(item.FileName ?? item.Path)}");
         }
 
         public MediaInfoDocument.MediaInfoRestoreResult ApplyToItem(BaseItem item)
