@@ -605,7 +605,7 @@ namespace MediaInfoKeeper.Patch
 
         private static string GetTokenizerResourceName()
         {
-            var tokenizerNamespace = Assembly.GetExecutingAssembly().GetName().Name + ".Tokenizer";
+            var tokenizerNamespace = Assembly.GetExecutingAssembly().GetName().Name + ".Resources.Tokenizer";
             var winSimpleTokenizer = $"{tokenizerNamespace}.win.simple.dll";
             var linuxSimpleTokenizer = $"{tokenizerNamespace}.linux.libsimple.so";
 

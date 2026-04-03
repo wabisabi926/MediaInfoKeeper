@@ -17,15 +17,15 @@
     <None Remove="Resources\\ede.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Tokenizer\linux\libsimple.so" />
+    <EmbeddedResource Include="Resources\Tokenizer\win\simple.dll" />
     <EmbeddedResource Include="Resources\\ThumbImage.png" />
-    <EmbeddedResource Include="Tokenizer\\linux\\libsimple.so" />
-    <EmbeddedResource Include="Tokenizer\\win\\simple.dll" />
     <EmbeddedResource Include="Resources\\mediainfokeeper.js" />
     <EmbeddedResource Include="Resources\\ede.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediaBrowser.Server.Core" Version="4.9.1.90" />
-    <PackageReference Include="Lib.Harmony" Version="2.4.1" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" />
     <PackageReference Include="SQLitePCL.pretty.core" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
@@ -34,7 +34,7 @@
 
   <Target Name="CopyHarmony" BeforeTargets="PostBuildEvent">
     <PropertyGroup>
-      <HarmonyPackagePath>$(NuGetPackageRoot)lib.harmony\2.4.1\lib\net5.0\0Harmony.dll</HarmonyPackagePath>
+      <HarmonyPackagePath>$(NuGetPackageRoot)lib.harmony\2.4.2\lib\net5.0\0Harmony.dll</HarmonyPackagePath>
     </PropertyGroup>
     <Copy SourceFiles="$(HarmonyPackagePath)" DestinationFolder="$(TargetDir)" Condition="Exists('$(HarmonyPackagePath)')" />
   </Target>
