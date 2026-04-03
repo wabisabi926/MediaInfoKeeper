@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Common;
 using Emby.Web.GenericEdit.Editors;
+using MediaBrowser.Common.Configuration;
 using MediaBrowser.Model.GenericEdit;
 using MediaBrowser.Model.Attributes;
 
@@ -40,9 +42,9 @@ namespace MediaInfoKeeper.Options
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
 
         [DisplayName("MediaInfo JSON 存储根目录")]
-        [Description("建议配置不要留空，可以填写 /config/mediainfo 或者其他的位置保存。如果留空以后文件夹结构改变，不方便定位json恢复媒体信息。为空时，JSON 保存到媒体文件同目录。填写后视频等媒体保存在填写的目录下，/your-path/FileNameWithoutExtension-mediainfo.json；音频保存在 /your-path/music/FileNameWithoutExtension-mediainfo.json。")]
-        [Editor(typeof(EditorFolderPicker), typeof(EditorBase))]
-        public string MediaInfoJsonRootFolder { get; set; } = string.Empty;
+        [Description("默认使用 Emby的 /config/data/MediaInfoKeeper 子目录保存。视频等媒体保存在 /your-path/FileNameWithoutExtension-mediainfo.json；音频保存在 /your-path/music/FileNameWithoutExtension-mediainfo.json。若当前值为空，JSON 保存到媒体文件同目录。")]
+        [EditFolderPicker]
+        public string MediaInfoJsonRootFolder { get; set; } = GetDefaultMediaInfoJsonRootFolder();
 
         [DisplayName("扫描最多并发数")]
         [Description("设置插件刷新任务的最大并发数，媒体信息提取和元数据刷新共用此限制，默认 3。")]
@@ -184,6 +186,23 @@ namespace MediaInfoKeeper.Options
             }
 
             return container;
+        }
+
+        private static string GetDefaultMediaInfoJsonRootFolder()
+        {
+            try
+            {
+                var programDataPath = Plugin.Instance?.AppHost?.Resolve<IApplicationPaths>()?.ProgramDataPath;
+                if (!string.IsNullOrWhiteSpace(programDataPath))
+                {
+                    return Path.Combine(programDataPath, "data", Plugin.PluginName);
+                }
+            }
+            catch
+            {
+            }
+
+            return Path.Combine("/config", "data", Plugin.PluginName);
         }
     }
 }

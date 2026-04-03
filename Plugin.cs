@@ -371,10 +371,6 @@ namespace MediaInfoKeeper
             this.logger.Info($"启用代理 设置为 {netWorkOptions.EnableProxyServer}");
             this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.ProxyServerUrl) ? "空" : netWorkOptions.ProxyServerUrl)}");
             this.logger.Info($"忽略证书验证 设置为 {netWorkOptions.IgnoreCertificateValidation}");
-#if DEBUG
-            this.logger.Info("[Debug]");
-            this.logger.Info($"启用 ffprocess 拦截 设置为 {options.Debug.EnableFfProcessGuard}");
-#endif
             this.logger.Info($"写入环境变量 设置为 {netWorkOptions.WriteProxyEnvVars}");
             this.logger.Info($"启用压缩传输 设置为 {netWorkOptions.EnableGzip}");
             this.logger.Info($"自定义本地发现地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.CustomLocalDiscoveryAddress) ? "空" : netWorkOptions.CustomLocalDiscoveryAddress)}");
@@ -382,6 +378,11 @@ namespace MediaInfoKeeper
             this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbImageUrl) ? "空" : netWorkOptions.AlternativeTmdbImageUrl)}");
             this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbApiKey) ? "空" : "***")}");
 
+#if DEBUG
+            this.logger.Info("[Debug]");
+            this.logger.Info($"启用 ffprocess 拦截 设置为 {options.Debug.EnableFfProcessGuard}");
+#endif
+            
             PatchManager.Configure(options);
 
             if (options.IntroSkip.EnableIntroMarker || options.IntroSkip.EnableCreditsMarker)

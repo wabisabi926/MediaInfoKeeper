@@ -101,7 +101,7 @@ namespace MediaInfoKeeper.Services
                     }
                 }
 
-                this.logger?.Info(
+                this.logger?.Debug(
                     $"StrmFileWatcher 已启动，监听路径: {string.Join(", ", this.watchers.Keys.OrderBy(path => path, StringComparer.OrdinalIgnoreCase))}");
             }
         }
@@ -136,7 +136,18 @@ namespace MediaInfoKeeper.Services
                 }
 
                 this.pathVersionMap.TryRemove(path, out _);
-                this.logger?.Info($"StrmFileWatcher 检测到 strm 内容变更: {path}");
+                var filename = Path.GetFileName(path);
+                string content;
+                try
+                {
+                    content = Plugin.FileSystem.FileExists(path) ? Plugin.FileSystem.ReadAllText(path) : "<missing>";
+                }
+                catch (Exception ex)
+                {
+                    content = $"<read failed: {ex.Message}>";
+                }
+
+                this.logger?.Info($"StrmFileWatcher 检测到 {filename} 内容变更: {content}");
                 QueueRestore(path);
             });
         }
