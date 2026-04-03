@@ -20,7 +20,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Key => "MediaInfoKeeperScanExternalSubtitleTask";
 
-        public string Name => "7.扫描外挂字幕";
+        public string Name => "8.扫描外挂字幕";
 
         public string Description => "对计划任务范围内的视频独立扫描外挂字幕，发现变更时更新字幕媒体流。";
 

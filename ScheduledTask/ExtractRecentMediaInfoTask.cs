@@ -27,7 +27,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Key => "MediaInfoKeeperExtractRecentMediaInfoTask";
 
-        public string Name => "3.提取媒体信息";
+        public string Name => "4.提取媒体信息";
 
         public string Description => "计划任务媒体库范围内，按入库时间倒序取最近 N 条（“最近入库媒体筛选数量”）恢复/提取媒体信息并写入 JSON。（已存在则恢复）";
 

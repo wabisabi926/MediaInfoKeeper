@@ -23,7 +23,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Key => "MediaInfoKeeperExtractMediaInfoTask";
 
-        public string Name => "5.恢复媒体信息";
+        public string Name => "6.恢复媒体信息";
 
         public string Description => "对计划任务范围内！的条目,存在 JSON 则恢复，不存在则跳过";
 

@@ -19,7 +19,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public string Key => "MediaInfoKeeperRebuildSearchIndexTask";
 
-        public string Name => "6.重建搜索索引";
+        public string Name => "7.重建搜索索引";
 
         public string Description => "按当前增强搜索配置，强制重建 Emby 搜索 FTS 索引。用于应用新的分词归一化规则或修复历史索引。";
 

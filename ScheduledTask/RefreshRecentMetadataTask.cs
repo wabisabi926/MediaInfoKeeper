@@ -26,7 +26,7 @@ namespace MediaInfoKeeper.ScheduledTask
         }
         public string Key => "MediaInfoKeeperRefreshRecentMetadataTask";
 
-        public string Name => "1.刷新媒体元数据";
+        public string Name => "2.刷新媒体元数据";
 
         public string Description => "全局媒体库范围内，按“最近入库时间窗口（天）”筛选（0=不限制），刷新元数据（可选覆盖或补全），之后会从 JSON 恢复媒体信息。";
 
