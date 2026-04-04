@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,8 +28,10 @@ namespace MediaInfoKeeper.ScheduledTask
         private readonly IJsonSerializer jsonSerializer;
         private readonly IActivityManager activityManager;
         private readonly IServerApplicationHost serverApplicationHost;
+        private const int ReleasePageSize = 100;
+        private const int MaxReleasePages = 10;
         private static string PluginAssemblyFilename => Assembly.GetExecutingAssembly().GetName().Name + ".dll";
-        private static string RepoReleaseUrl => "https://api.github.com/repos/honue/MediaInfoKeeper/releases/latest";
+        private static string RepoReleaseUrlTemplate => $"https://api.github.com/repos/honue/MediaInfoKeeper/releases?per_page={ReleasePageSize}&page={{0}}";
         private static string RepoVersionUrl => "https://raw.githubusercontent.com/honue/MediaInfoKeeper/master/Version.json";
 
         public string Key => "UpdatePluginTask";
@@ -82,44 +85,26 @@ namespace MediaInfoKeeper.ScheduledTask
             try
             {
                 var githubToken = Plugin.Instance.Options.GitHub?.GitHubToken;
+                var updateChannel = string.IsNullOrWhiteSpace(Plugin.Instance.Options.GitHub?.UpdateChannel)
+                    ? Options.GitHubOptions.UpdateChannelOption.Stable.ToString()
+                    : Plugin.Instance.Options.GitHub.UpdateChannel;
                 var currentVersion = ParseVersion(GetCurrentVersion());
                 var embyVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
 
-                logger.Info("开始检查插件更新：当前插件版本={0}，当前Emby版本={1}", currentVersion, embyVersion);
+                logger.Info(
+                    "开始检查插件更新：当前插件版本={0}，当前Emby版本={1}，更新频道={2}",
+                    currentVersion,
+                    embyVersion,
+                    updateChannel);
 
-                var releaseRequestOptions = new HttpRequestOptions
+                var apiResult = await FetchReleaseForChannel(cancellationToken, updateChannel, githubToken).ConfigureAwait(false);
+                if (apiResult == null)
                 {
-                    Url = RepoReleaseUrl,
-                    CancellationToken = cancellationToken,
-                    AcceptHeader = "application/json",
-                    UserAgent = "MediaInfoKeeper",
-                    EnableDefaultUserAgent = false,
-                    LogRequest = true,
-                    LogResponse = true
-                };
-                if (!string.IsNullOrWhiteSpace(githubToken))
-                {
-                    releaseRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                    throw new Exception("未找到匹配当前更新频道的 Release");
                 }
-
-                using var response = await httpClient.SendAsync(releaseRequestOptions, "GET").ConfigureAwait(false);
-                string releaseResponseBody;
-                await using (var contentStream = response.Content)
-                using (var reader = new StreamReader(contentStream))
-                {
-                    releaseResponseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
-                }
-
-                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
-                {
-                    logger.Error("获取最新 Release 失败：status={0}, body={1}", (int)response.StatusCode, releaseResponseBody);
-                    throw new Exception($"获取最新 Release 失败: {(int)response.StatusCode}");
-                }
-
-                var apiResult = jsonSerializer.DeserializeFromString<ApiResponseInfo>(releaseResponseBody);
 
                 var remoteVersion = ParseVersion(apiResult?.tag_name);
-                var compatibility = await FetchCompatibilityManifest(cancellationToken).ConfigureAwait(false);
+                var compatibility = await FetchCompatibilityManifest(cancellationToken, updateChannel).ConfigureAwait(false);
                 var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
                 logger.Info(
                     "版本信息：最新插件={0}，当前插件={1}，当前Emby={2}，兼容Emby版本区间=[{3},{4}]",
@@ -246,11 +231,36 @@ namespace MediaInfoKeeper.ScheduledTask
             var normalized = value.StartsWith("v", StringComparison.OrdinalIgnoreCase)
                 ? value.Substring(1)
                 : value;
-            return new Version(normalized);
+            if (Version.TryParse(normalized, out var version))
+            {
+                return NormalizeVersion(version);
+            }
+
+            var match = Regex.Match(normalized, @"^(?<core>\d+(?:\.\d+){0,3})(?:[-+][A-Za-z.-]*?(?<suffix>\d+))?", RegexOptions.CultureInvariant);
+            if (!match.Success)
+            {
+                return new Version(0, 0, 0, 0);
+            }
+
+            var coreText = match.Groups["core"].Value;
+            if (!Version.TryParse(coreText, out var coreVersion))
+            {
+                return new Version(0, 0, 0, 0);
+            }
+
+            coreVersion = NormalizeVersion(coreVersion);
+            var suffixGroup = match.Groups["suffix"];
+            if (!suffixGroup.Success || !int.TryParse(suffixGroup.Value, out var suffixNumber))
+            {
+                return coreVersion;
+            }
+
+            return new Version(coreVersion.Major, coreVersion.Minor, coreVersion.Build, suffixNumber);
         }
 
         private async Task<PluginCompatibilityInfo> FetchCompatibilityManifest(
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken,
+            string updateChannel)
         {
             try
             {
@@ -285,7 +295,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 var manifest = jsonSerializer.DeserializeFromString<PluginManifestInfo>(manifestResponseBody);
-                var compatibility = manifest?.latest;
+                var compatibility = SelectCompatibilityInfo(manifest, updateChannel);
                 if (compatibility != null)
                 {
                     return compatibility;
@@ -298,6 +308,111 @@ namespace MediaInfoKeeper.ScheduledTask
 
             logger.Info("未获取到 Version.json 兼容信息，默认允许更新。");
             return null;
+        }
+
+        private async Task<ApiResponseInfo> FetchReleaseForChannel(
+            CancellationToken cancellationToken,
+            string updateChannel,
+            string githubToken)
+        {
+            for (var page = 1; page <= MaxReleasePages; page++)
+            {
+                var releaseRequestOptions = new HttpRequestOptions
+                {
+                    Url = string.Format(RepoReleaseUrlTemplate, page),
+                    CancellationToken = cancellationToken,
+                    AcceptHeader = "application/json",
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    LogRequest = true,
+                    LogResponse = true
+                };
+                if (!string.IsNullOrWhiteSpace(githubToken))
+                {
+                    releaseRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                }
+
+                using var response = await httpClient.SendAsync(releaseRequestOptions, "GET").ConfigureAwait(false);
+                string releaseResponseBody;
+                await using (var contentStream = response.Content)
+                using (var reader = new StreamReader(contentStream))
+                {
+                    releaseResponseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+                }
+
+                if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
+                {
+                    logger.Error("获取 Release 失败：page={0}, status={1}, body={2}", page, (int)response.StatusCode, releaseResponseBody);
+                    throw new Exception($"获取 Release 失败: {(int)response.StatusCode}");
+                }
+
+                var releaseResults = jsonSerializer.DeserializeFromString<List<ApiResponseInfo>>(releaseResponseBody) ??
+                                     new List<ApiResponseInfo>();
+                var selected = SelectReleaseForChannel(releaseResults, updateChannel);
+                if (selected != null)
+                {
+                    return selected;
+                }
+
+                if (releaseResults.Count < ReleasePageSize)
+                {
+                    break;
+                }
+            }
+
+            return null;
+        }
+
+        private static ApiResponseInfo SelectReleaseForChannel(
+            IEnumerable<ApiResponseInfo> releases,
+            string updateChannel)
+        {
+            var preferBeta = string.Equals(
+                updateChannel,
+                Options.GitHubOptions.UpdateChannelOption.Beta.ToString(),
+                StringComparison.OrdinalIgnoreCase);
+
+            var candidates = releases?
+                .Where(r => r != null && !r.draft)
+                .ToList() ?? new List<ApiResponseInfo>();
+            if (preferBeta)
+            {
+                return candidates.FirstOrDefault();
+            }
+
+            return candidates.FirstOrDefault(r => !r.prerelease);
+        }
+
+        private static Version NormalizeVersion(Version version)
+        {
+            if (version == null)
+            {
+                return new Version(0, 0, 0, 0);
+            }
+
+            var build = version.Build >= 0 ? version.Build : 0;
+            var revision = version.Revision >= 0 ? version.Revision : 0;
+            return new Version(version.Major, version.Minor, build, revision);
+        }
+
+        private static PluginCompatibilityInfo SelectCompatibilityInfo(
+            PluginManifestInfo manifest,
+            string updateChannel)
+        {
+            if (manifest == null)
+            {
+                return null;
+            }
+
+            if (string.Equals(
+                    updateChannel,
+                    Options.GitHubOptions.UpdateChannelOption.Beta.ToString(),
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                return manifest.beta ?? manifest.latest;
+            }
+
+            return manifest.latest;
         }
 
         private static (Version minVersion, Version maxVersion) GetEmbyVersionRange(PluginCompatibilityInfo compatibility)
@@ -376,16 +491,11 @@ namespace MediaInfoKeeper.ScheduledTask
             return version == null ? "0.0.0.0" : $"v{version.ToString(4)}";
         }
 
-        internal class ApiResponseInfo
-        {
-            public string tag_name { get; set; }
-
-            public List<ApiAssetInfo> assets { get; set; }
-        }
-
         internal class PluginManifestInfo
         {
             public PluginCompatibilityInfo latest { get; set; }
+
+            public PluginCompatibilityInfo beta { get; set; }
         }
 
         internal class PluginCompatibilityInfo
@@ -408,6 +518,17 @@ namespace MediaInfoKeeper.ScheduledTask
             public string name { get; set; }
 
             public string browser_download_url { get; set; }
+        }
+
+        internal class ApiResponseInfo
+        {
+            public string tag_name { get; set; }
+
+            public bool prerelease { get; set; }
+
+            public bool draft { get; set; }
+
+            public List<ApiAssetInfo> assets { get; set; }
         }
     }
 }

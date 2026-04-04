@@ -28,6 +28,7 @@ namespace MediaInfoKeeper.Services
         private volatile bool disposed;
 
         private static readonly TimeSpan DebounceDelay = TimeSpan.FromSeconds(2);
+        private static readonly TimeSpan RecentCreationThreshold = TimeSpan.FromSeconds(3);
 
         public StrmFileWatcher(ILibraryManager libraryManager, LibraryService libraryService, ILogger logger)
         {
@@ -108,10 +109,10 @@ namespace MediaInfoKeeper.Services
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            QueuePathForVerification(e?.FullPath);
+            QueuePathForVerification(e?.FullPath, isChangedEvent: true);
         }
 
-        private void QueuePathForVerification(string path)
+        private void QueuePathForVerification(string path, bool isChangedEvent)
         {
             if (!this.enabled || this.disposed || string.IsNullOrWhiteSpace(path))
             {
@@ -120,6 +121,12 @@ namespace MediaInfoKeeper.Services
 
             if (!path.EndsWith(".strm", StringComparison.OrdinalIgnoreCase))
             {
+                return;
+            }
+
+            if (isChangedEvent && IsRecentlyCreated(path))
+            {
+                this.logger?.Debug($"StrmFileWatcher 忽略疑似新建触发的 Changed 事件: {path}");
                 return;
             }
 
@@ -223,28 +230,33 @@ namespace MediaInfoKeeper.Services
             this.pathVersionMap.Clear();
         }
 
-        private string TryReadItemPathContent(string path)
+        private bool IsRecentlyCreated(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                return "<empty-path>";
+                return false;
             }
 
             try
             {
-                if (!File.Exists(path))
+                if (!Plugin.FileSystem.FileExists(path))
                 {
-                    return "<file-not-found>";
+                    return false;
                 }
 
-                var content = File.ReadAllText(path);
-                return string.IsNullOrWhiteSpace(content) ? "<empty-content>" : content.Trim();
+                var createdUtc = File.GetCreationTimeUtc(path);
+                if (createdUtc == DateTime.MinValue || createdUtc == DateTime.MaxValue)
+                {
+                    return false;
+                }
+
+                return DateTime.UtcNow - createdUtc <= RecentCreationThreshold;
             }
             catch (Exception ex)
             {
-                this.logger?.Warn($"StrmFileWatcher 读取文件内容失败: {path}");
-                this.logger?.Warn(ex.Message);
-                return "<read-failed>";
+                this.logger?.Debug($"StrmFileWatcher 获取创建时间失败: {path}");
+                this.logger?.Debug(ex.Message);
+                return false;
             }
         }
     }

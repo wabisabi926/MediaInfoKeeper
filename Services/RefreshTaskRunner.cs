@@ -7,8 +7,10 @@ namespace MediaInfoKeeper.Services
     public static class RefreshTaskRunner
     {
         private static readonly object GateSync = new object();
-        private static SemaphoreSlim gate;
         private static int configuredConcurrency;
+        private static int activeCount;
+        private static TaskCompletionSource<bool> availability =
+            CreateAvailabilitySource();
 
         public static Task RunAsync(
             Func<Task> action,
@@ -21,31 +23,78 @@ namespace MediaInfoKeeper.Services
             Func<Task> action,
             CancellationToken cancellationToken)
         {
-            var semaphore = GetGate();
-            await semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await WaitForTurnAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 await action().ConfigureAwait(false);
             }
             finally
             {
-                semaphore.Release();
+                ReleaseTurn();
             }
         }
 
-        private static SemaphoreSlim GetGate()
+        private static async Task WaitForTurnAsync(CancellationToken cancellationToken)
         {
-            var maxConcurrent = Math.Max(1, Plugin.Instance.Options.MainPage.MaxConcurrentCount);
-            lock (GateSync)
+            while (true)
             {
-                if (gate == null || configuredConcurrency != maxConcurrent)
+                Task waiter = null;
+                lock (GateSync)
                 {
-                    gate = new SemaphoreSlim(maxConcurrent, maxConcurrent);
-                    configuredConcurrency = maxConcurrent;
+                    var maxConcurrent = GetMaxConcurrent();
+                    if (configuredConcurrency != maxConcurrent)
+                    {
+                        configuredConcurrency = maxConcurrent;
+                        if (activeCount < configuredConcurrency)
+                        {
+                            SignalAvailability();
+                        }
+                    }
+
+                    if (activeCount < configuredConcurrency)
+                    {
+                        activeCount++;
+                        return;
+                    }
+
+                    waiter = availability.Task;
                 }
 
-                return gate;
+                await waiter.WaitAsync(cancellationToken).ConfigureAwait(false);
             }
+        }
+
+        private static void ReleaseTurn()
+        {
+            lock (GateSync)
+            {
+                if (activeCount > 0)
+                {
+                    activeCount--;
+                }
+
+                if (activeCount < configuredConcurrency)
+                {
+                    SignalAvailability();
+                }
+            }
+        }
+
+        private static void SignalAvailability()
+        {
+            var current = availability;
+            availability = CreateAvailabilitySource();
+            current.TrySetResult(true);
+        }
+
+        private static int GetMaxConcurrent()
+        {
+            return Math.Max(1, Plugin.Instance?.Options?.MainPage?.MaxConcurrentCount ?? 1);
+        }
+
+        private static TaskCompletionSource<bool> CreateAvailabilitySource()
+        {
+            return new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         }
     }
 }

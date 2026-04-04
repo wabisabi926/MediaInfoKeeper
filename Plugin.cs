@@ -95,6 +95,7 @@ namespace MediaInfoKeeper
         internal readonly DebugOptionsStore DebugOptionsStore;
 #endif
         private static string latestReleaseVersionCache;
+        private static string releaseHistoryChannelCache;
         private static readonly object ReleaseHistoryLock = new object();
         private static DateTimeOffset releaseHistoryCheckedUtc = DateTimeOffset.MinValue;
         private static string releaseHistoryBodyCache;
@@ -257,12 +258,17 @@ namespace MediaInfoKeeper
             options.IntroSkip ??= new IntroSkipOptions();
             options.GetNetWorkOptions();
             options.GitHub ??= new GitHubOptions();
+            if (string.IsNullOrWhiteSpace(options.GitHub.UpdateChannel))
+            {
+                options.GitHub.UpdateChannel = GitHubOptions.UpdateChannelOption.Stable.ToString();
+            }
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
 #if DEBUG
             options.Debug ??= new DebugOptions();
 #endif
             options.IntroSkip.Initialize();
+            options.GitHub.Initialize();
             options.Enhance.Initialize();
             options.MetaData.Initialize();
 
@@ -287,6 +293,11 @@ namespace MediaInfoKeeper
             {
                 options.IntroSkip.LibraryScope = NormalizeScopedLibraries(options.IntroSkip.LibraryScope);
                 options.IntroSkip.MarkerEnabledLibraryScope = NormalizeScopedLibraries(options.IntroSkip.MarkerEnabledLibraryScope);
+            }
+            options.GitHub ??= new GitHubOptions();
+            if (string.IsNullOrWhiteSpace(options.GitHub.UpdateChannel))
+            {
+                options.GitHub.UpdateChannel = GitHubOptions.UpdateChannelOption.Stable.ToString();
             }
             var netWorkOptions = options.GetNetWorkOptions();
             if (!LocalDiscoveryAddress.TryValidateConfiguredValue(
@@ -313,6 +324,11 @@ namespace MediaInfoKeeper
 
             options.MainPage ??= new MainPageOptions();
             options.IntroSkip ??= new IntroSkipOptions();
+            options.GitHub ??= new GitHubOptions();
+            if (string.IsNullOrWhiteSpace(options.GitHub.UpdateChannel))
+            {
+                options.GitHub.UpdateChannel = GitHubOptions.UpdateChannelOption.Stable.ToString();
+            }
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
 #if DEBUG
@@ -326,7 +342,6 @@ namespace MediaInfoKeeper
             this.logger.Info("[Main]");
             this.logger.Info($"启用插件 设置为 {options.MainPage.PlugginEnabled}");
             this.logger.Info($"入库时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
-            this.logger.Info($"收藏时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnFavorite}");
             this.logger.Info("启用 Strm 内容修改监听 固定为 开");
             this.logger.Info($"MediaInfo JSON 存储根目录 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "空" : options.MainPage.MediaInfoJsonRootFolder)}");
             this.logger.Info($"条目移除时删除 JSON 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
@@ -693,16 +708,14 @@ namespace MediaInfoKeeper
                 var userName = e.User?.Name ?? "unknown";
                 logger.Info($"收藏事件: 用户={userName}, 条目={(item.FileName ?? item.Path ?? item.Id.ToString())}");
 
-                var canExtract = this.Options.MainPage?.ExtractMediaInfoOnFavorite == true &&
-                                 (item is Episode || item is Season || item is Series);
                 var canScanIntro = this.Options.IntroSkip?.ScanIntroOnFavorite == true &&
                                 (item is Episode || item is Season || item is Series);
 
-                if (!canExtract && !canScanIntro)
+                if (!canScanIntro)
                 {
                     return;
                 }
-                
+
                 if (canScanIntro)
                 {
                     var episodes = LibraryService.GetSeriesEpisodesFromItem(item);
@@ -718,92 +731,6 @@ namespace MediaInfoKeeper
                         this.logger.Info("OnFavorite 片头扫描跳过: 未找到系列条目");
                     }
                 }
-
-                else if (canExtract)
-                {
-                    _ = Task.Run(async () =>
-                    {
-                        var seriesEpisodes = LibraryService.GetSeriesEpisodesFromItem(item);
-                        if (seriesEpisodes.Count > 0)
-                        {
-                            var tasks = seriesEpisodes
-                                .Cast<BaseItem>()
-                                .Select(async target =>
-                                {
-                                    if (target == null)
-                                    {
-                                        return;
-                                    }
-
-                                    var displayName = target.Path ?? target.Name;
-                                    var workItem = this.libraryManager.GetItemById(target.InternalId) ?? target;
-
-                                    try
-                                    {
-                                        if (MediaInfoService.HasMediaInfo(workItem) &&
-                                            (workItem is not Audio || LibraryService.HasCover(workItem)))
-                                        {
-                                            this.logger.Info($"OnFavorite 已存在 MediaInfo，跳过处理: {displayName}");
-                                            return;
-                                        }
-
-                                        var restoreResult = MediaSourceInfoStore.ApplyToItem(workItem);
-                                        var shouldRefreshAudioForMissingCover = false;
-                                        if (workItem is Video)
-                                        {
-                                            ChaptersStore.ApplyToItem(workItem);
-                                        }
-                                        else if (workItem is Audio)
-                                        {
-                                            AudioMetadataStore.ApplyToItem(workItem);
-                                            CoverStore.ApplyToItem(workItem);
-                                            shouldRefreshAudioForMissingCover = !LibraryService.HasCover(workItem);
-                                        }
-                                        if ((restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                                             restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
-                                            !shouldRefreshAudioForMissingCover)
-                                        {
-                                            this.logger.Info($"OnFavorite JSON 恢复成功，跳过 ffprobe: {displayName}");
-                                            return;
-                                        }
-
-                                        var metadataRefreshOptions = MediaInfoService.GetMediaInfoRefreshOptions();
-                                        if (shouldRefreshAudioForMissingCover)
-                                        {
-                                            metadataRefreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
-                                        }
-                                        var collectionFolders = this.libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
-                                        var libraryOptions = this.libraryManager.GetLibraryOptions(workItem);
-                                        using (FfProcessGuard.Allow())
-                                        {
-                                            workItem.DateLastRefreshed = new DateTimeOffset();
-                                            await RefreshTaskRunner.RunAsync(
-                                                    () => this.providerManager
-                                                        .RefreshSingleItem(workItem, metadataRefreshOptions, collectionFolders, libraryOptions, CancellationToken.None))
-                                                .ConfigureAwait(false);
-                                        }
-
-                                        MediaSourceInfoStore.OverWriteToFile(workItem);
-                                        if (workItem is Audio)
-                                        {
-                                            AudioMetadataStore.OverWriteToFile(workItem);
-                                            CoverStore.OverWriteToFile(workItem);
-                                        }
-                                        this.logger.Info($"OnFavorite 媒体信息提取完成: {displayName}");
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        this.logger.Error($"OnFavorite 媒体信息提取失败: {displayName}");
-                                        this.logger.Error(ex.Message);
-                                        this.logger.Debug(ex.StackTrace);
-                                    }
-                                })
-                                .ToList();
-                            await Task.WhenAll(tasks).ConfigureAwait(false);
-                        }
-                    });
-                }
-
 
             }
             catch (Exception ex)
@@ -860,7 +787,9 @@ namespace MediaInfoKeeper
         private void EnsureReleaseHistoryCache()
         {
             var now = DateTimeOffset.UtcNow;
+            var currentChannel = GetSelectedUpdateChannel();
             if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+                string.Equals(releaseHistoryChannelCache, currentChannel, StringComparison.Ordinal) &&
                 !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
             {
                 return;
@@ -869,25 +798,31 @@ namespace MediaInfoKeeper
             lock (ReleaseHistoryLock)
             {
                 if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+                    string.Equals(releaseHistoryChannelCache, currentChannel, StringComparison.Ordinal) &&
                     !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
                 {
                     return;
                 }
 
                 releaseHistoryCheckedUtc = now;
-                var historyInfo = FetchReleaseHistoryInfo();
+                releaseHistoryChannelCache = currentChannel;
+                var historyInfo = FetchReleaseHistoryInfo(currentChannel);
                 releaseHistoryBodyCache = historyInfo.HistoryBody;
                 latestReleaseVersionCache = historyInfo.LatestVersion;
             }
         }
 
-        private ReleaseHistoryInfo FetchReleaseHistoryInfo()
+        private ReleaseHistoryInfo FetchReleaseHistoryInfo(string updateChannel)
         {
             try
             {
                 var sb = new StringBuilder();
                 var latestAssigned = false;
                 var latestVersion = "未知";
+                var preferBeta = string.Equals(
+                    updateChannel,
+                    GitHubOptions.UpdateChannelOption.Beta.ToString(),
+                    StringComparison.OrdinalIgnoreCase);
                 var requestOptions = new HttpRequestOptions
                 {
                     Url = $"{GitHubReleaseHistoryUrl}1",
@@ -919,6 +854,20 @@ namespace MediaInfoKeeper
                 {
                     foreach (var release in document.RootElement.EnumerateArray())
                     {
+                        var isDraft = release.TryGetProperty("draft", out var draftElement) &&
+                                      draftElement.ValueKind == JsonValueKind.True;
+                        if (isDraft)
+                        {
+                            continue;
+                        }
+
+                        var isPrerelease = release.TryGetProperty("prerelease", out var prereleaseElement) &&
+                                           prereleaseElement.ValueKind == JsonValueKind.True;
+                        if (!preferBeta && isPrerelease)
+                        {
+                            continue;
+                        }
+
                         var tag = release.TryGetProperty("tag_name", out var tagElement)
                             ? tagElement.GetString()
                             : string.Empty;
@@ -983,6 +932,14 @@ namespace MediaInfoKeeper
                 this.logger.Debug(ex.StackTrace);
                 return new ReleaseHistoryInfo("获取失败", "获取失败");
             }
+        }
+
+        private string GetSelectedUpdateChannel()
+        {
+            var updateChannel = this.Options?.GitHub?.UpdateChannel;
+            return string.IsNullOrWhiteSpace(updateChannel)
+                ? GitHubOptions.UpdateChannelOption.Stable.ToString()
+                : updateChannel;
         }
 
 

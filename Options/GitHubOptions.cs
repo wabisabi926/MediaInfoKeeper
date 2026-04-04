@@ -2,13 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Emby.Web.GenericEdit;
+using Emby.Web.GenericEdit.Common;
 using Emby.Web.GenericEdit.Editors;
+using MediaBrowser.Model.Attributes;
 using MediaBrowser.Model.GenericEdit;
 
 namespace MediaInfoKeeper.Options
 {
     public class GitHubOptions : EditableOptionsBase
     {
+        public enum UpdateChannelOption
+        {
+            Stable,
+            Beta
+        }
+
         public override string EditorTitle => "GitHub";
 
         public override string EditorDescription => "当前版本、最新发布说明，建议把 GitHub Token 配好，并配置更新版本的计划任务。改完记得保存。";
@@ -16,6 +24,15 @@ namespace MediaInfoKeeper.Options
         [DisplayName("GitHub 访问令牌")]
         [Description("设置后使用 Token 获取 Releases，避免未认证请求的限流。")]
         public string GitHubToken { get; set; } = string.Empty;
+
+        [Browsable(false)]
+        public List<EditorSelectOption> UpdateChannelList { get; set; } = new List<EditorSelectOption>();
+
+        [DisplayName("更新频道")]
+        [Description("稳定版只跟随正式 Release；Beta 会优先跟随预发布版本。")]
+        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
+        [SelectItemsSource(nameof(UpdateChannelList))]
+        public string UpdateChannel { get; set; } = UpdateChannelOption.Stable.ToString();
 
         [DisplayName("项目地址")]
         [Description("项目初期，有许多不完善的地方，请及时关注更新。")]
@@ -26,11 +43,30 @@ namespace MediaInfoKeeper.Options
         public string CurrentVersion { get; set; } = "未知";
 
         [DisplayName("最新版本")]
-        [Description("从 GitHub Releases 获取最新版本号。")]
+        [Description("按当前更新频道从 GitHub Releases 获取最新版本号。")]
         public string LatestReleaseVersion { get; set; } = "加载中";
 
         [DisplayName("更新说明")]
         public string ReleaseHistoryBody { get; set; } = "加载中";
+
+        public void Initialize()
+        {
+            if (string.IsNullOrWhiteSpace(UpdateChannel))
+            {
+                UpdateChannel = UpdateChannelOption.Stable.ToString();
+            }
+
+            UpdateChannelList.Clear();
+            foreach (UpdateChannelOption item in Enum.GetValues(typeof(UpdateChannelOption)))
+            {
+                UpdateChannelList.Add(new EditorSelectOption
+                {
+                    Name = item == UpdateChannelOption.Stable ? "Stable" : "Beta",
+                    Value = item.ToString(),
+                    IsEnabled = true
+                });
+            }
+        }
 
         public override IEditObjectContainer CreateEditContainer()
         {
@@ -105,6 +141,7 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("GitHub", "",
                 nameof(GitHubToken),
+                nameof(UpdateChannel),
                 nameof(ProjectUrl),
                 nameof(CurrentVersion),
                 nameof(LatestReleaseVersion),

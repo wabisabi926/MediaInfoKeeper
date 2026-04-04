@@ -33,10 +33,6 @@ namespace MediaInfoKeeper.Options
         [Description("入库时若 JSON 不存在或恢复失败，提取媒体信息并写入 JSON。")]
         public bool ExtractMediaInfoOnItemAdded { get; set; } = true;
 
-        [DisplayName("收藏时提取媒体信息")]
-        [Description("收藏时触发提取媒体信息，并写入 JSON。")]
-        public bool ExtractMediaInfoOnFavorite { get; set; } = true;
-
         [DisplayName("条目移除时删除 JSON")]
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
@@ -147,7 +143,6 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe/ffmpeg 运行；仅在插件内部需要提取媒体信息时按需放行。",
                 nameof(ExtractMediaInfoOnItemAdded),
-                nameof(ExtractMediaInfoOnFavorite),
                 nameof(DeleteMediaInfoJsonOnRemove),
                 nameof(MediaInfoJsonRootFolder),
                 nameof(MaxConcurrentCount));

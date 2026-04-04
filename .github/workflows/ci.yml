@@ -6,10 +6,14 @@ on:
       - "MediaInfoKeeper.csproj"
   workflow_dispatch:
     inputs:
-      pre_release:
-        description: "Mark this release as pre-release"
-        type: boolean
-        default: true
+      channel:
+        description: "Release channel"
+        required: true
+        type: choice
+        default: beta
+        options:
+          - stable
+          - beta
       version:
         description: "Release version (for example: 1.6.6.10)"
         required: false
@@ -47,32 +51,38 @@ jobs:
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            pre_release="${{ github.event.inputs.pre_release }}"
+            channel="${{ github.event.inputs.channel }}"
             input_version="${{ github.event.inputs.version }}"
 
-            if [[ "$pre_release" == "true" ]]; then
+            if [[ "$channel" == "beta" ]]; then
               if [[ -z "$input_version" ]]; then
                 base_tag="${app_version}"
               else
                 base_tag="$input_version"
               fi
 
-              release_mode="manual_pre"
-              release_tag="v${base_tag}-Pre.${{ github.run_number }}"
-              release_name="MediaInfoKeeper Pre v${base_tag}"
+              pre_release="true"
+              release_mode="manual_beta"
+              release_channel="Beta"
+              release_tag="v${base_tag}-beta.${{ github.run_number }}"
+              release_name="MediaInfoKeeper Beta v${base_tag}"
             else
+              pre_release="false"
               release_mode="manual_stable_replace"
+              release_channel="Stable"
               release_tag=""
               release_name=""
             fi
           else
             pre_release="false"
             release_mode="push_stable"
+            release_channel="Stable"
             release_tag="v${app_version}"
             release_name="MediaInfoKeeper v${app_version}"
           fi
 
           echo "release_mode=$release_mode" >> $GITHUB_ENV
+          echo "release_channel=$release_channel" >> $GITHUB_ENV
           echo "pre_release=$pre_release" >> $GITHUB_ENV
           echo "release_tag=$release_tag" >> $GITHUB_ENV
           echo "release_name=$release_name" >> $GITHUB_ENV
@@ -104,44 +114,6 @@ jobs:
           echo "release_tag=${{ steps.latest_stable_release.outputs.tag_name }}" >> $GITHUB_ENV
           echo "release_name=${{ steps.latest_stable_release.outputs.release_name }}" >> $GITHUB_ENV
 
-      - name: Generate release notes
-        shell: bash
-        run: |
-          git fetch --force --tags
-
-          previous_tag=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || true)
-          notes_file="release-notes.md"
-
-          {
-            echo "## ${release_name}"
-            echo
-            echo "- Tag: \`${release_tag}\`"
-            echo "- Commit: \`${GITHUB_SHA::7}\`"
-
-            if [[ -n "$previous_tag" ]]; then
-              echo "- Previous tag: \`${previous_tag}\`"
-            else
-              echo "- Previous tag: none"
-            fi
-
-            echo
-            echo "### Changes"
-
-            if [[ -n "$previous_tag" ]]; then
-              git log "${previous_tag}..HEAD" --no-merges --pretty=format:'- %s (`%h`)'
-            else
-              git log --no-merges --pretty=format:'- %s (`%h`)'
-            fi
-
-            echo
-
-            if [[ -n "$previous_tag" ]]; then
-              echo
-              echo "### Full Changelog"
-              echo "https://github.com/${{ github.repository }}/compare/${previous_tag}...${release_tag}"
-            fi
-          } > "$notes_file"
-
       - name: Install ilrepack tool
         run: dotnet tool install -g dotnet-ilrepack --version 2.0.44
 
@@ -154,7 +126,9 @@ jobs:
           name: ${{ env.release_name }}
           tag_name: ${{ env.release_tag }}
           target_commitish: ${{ github.sha }}
-          body_path: release-notes.md
+          body: |
+            Channel: `${{ env.release_channel }}`
           overwrite_files: true
           prerelease: ${{ env.pre_release }}
+          generate_release_notes: true
           files: Build/bin/Release/net8.0/MediaInfoKeeper.dll
