@@ -72,8 +72,20 @@ namespace MediaInfoKeeper.Patch
                     logger,
                     "UnlockIntroSkip.CreateQueryForEpisodeIntroDetection");
 
-                isShortcutGetter = typeof(BaseItem).GetProperty("IsShortcut", BindingFlags.Instance | BindingFlags.Public)
-                    ?.GetGetMethod();
+                var controllerVersion = typeof(BaseItem).Assembly.GetName().Version;
+                isShortcutGetter = PatchMethodResolver.Resolve(
+                    typeof(BaseItem),
+                    controllerVersion,
+                    new MethodSignatureProfile
+                    {
+                        Name = "baseitem-get_isshortcut-exact",
+                        MethodName = "get_IsShortcut",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                        ParameterTypes = Type.EmptyTypes,
+                        ReturnType = typeof(bool)
+                    },
+                    logger,
+                    "UnlockIntroSkip.get_IsShortcut");
 
                 if (isIntroDetectionSupported == null || createQueryForEpisodeIntroDetection == null || isShortcutGetter == null)
                 {

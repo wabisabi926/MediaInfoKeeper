@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using HarmonyLib;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
@@ -44,17 +45,61 @@ namespace MediaInfoKeeper.Patch
             try
             {
                 var embyProviders = Assembly.Load("Emby.Providers");
+                var assemblyVersion = embyProviders?.GetName().Version;
                 var videoImageProvider = embyProviders?.GetType("Emby.Providers.MediaInfo.VideoImageProvider");
                 var audioImageProvider = embyProviders?.GetType("Emby.Providers.MediaInfo.AudioImageProvider");
 
                 isShortcutGetter = typeof(BaseItem).GetProperty("IsShortcut", BindingFlags.Instance | BindingFlags.Public)
                     ?.GetGetMethod();
-                supportsVideoImageCapture = videoImageProvider?.GetMethod("Supports", BindingFlags.Instance | BindingFlags.Public);
-                supportsAudioEmbeddedImages = audioImageProvider?.GetMethod("Supports", BindingFlags.Instance | BindingFlags.Public);
-                getImage = videoImageProvider?.GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(m => string.Equals(m.Name, "GetImage", StringComparison.Ordinal))
-                    .OrderByDescending(m => m.GetParameters().Length)
-                    .FirstOrDefault();
+                supportsVideoImageCapture = PatchMethodResolver.Resolve(
+                    videoImageProvider,
+                    assemblyVersion,
+                    new MethodSignatureProfile
+                    {
+                        Name = "videoimageprovider-supports-exact",
+                        MethodName = "Supports",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public,
+                        ParameterTypes = new[] { typeof(BaseItem) },
+                        ReturnType = typeof(bool),
+                        IsStatic = false
+                    },
+                    logger,
+                    "ImageCapture.VideoImageProvider.Supports");
+                supportsAudioEmbeddedImages = PatchMethodResolver.Resolve(
+                    audioImageProvider,
+                    assemblyVersion,
+                    new MethodSignatureProfile
+                    {
+                        Name = "audioimageprovider-supports-exact",
+                        MethodName = "Supports",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public,
+                        ParameterTypes = new[] { typeof(BaseItem) },
+                        ReturnType = typeof(bool),
+                        IsStatic = false
+                    },
+                    logger,
+                    "ImageCapture.AudioImageProvider.Supports");
+                getImage = PatchMethodResolver.Resolve(
+                    videoImageProvider,
+                    assemblyVersion,
+                    new MethodSignatureProfile
+                    {
+                        Name = "videoimageprovider-getimage-exact",
+                        MethodName = "GetImage",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public,
+                        ParameterTypes = new[]
+                        {
+                            typeof(BaseMetadataResult),
+                            typeof(BaseItem[]),
+                            typeof(MediaBrowser.Model.Configuration.LibraryOptions),
+                            typeof(ImageType),
+                            typeof(CancellationToken)
+                        },
+                        ReturnType = typeof(Task<DynamicImageResponse>),
+                        IsStatic = false
+                    },
+                    logger,
+                    "ImageCapture.VideoImageProvider.GetImage");
                 supportsThumbnailsGetter = typeof(Video).GetProperty("SupportsThumbnails", BindingFlags.Public | BindingFlags.Instance)
                     ?.GetGetMethod();
 

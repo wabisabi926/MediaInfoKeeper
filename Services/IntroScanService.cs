@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaInfoKeeper.Patch;
+using MediaBrowser.Common;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
@@ -28,6 +29,7 @@ namespace MediaInfoKeeper.Services
         private SemaphoreSlim introScanSemaphore;
         private int configuredIntroScanConcurrency;
         private volatile AudioFingerprintRuntime audioFingerprintRuntime;
+        private volatile AppHostResolverRuntime appHostResolverRuntime;
 
         public IntroScanService(
             ILogManager logManager,
@@ -387,53 +389,42 @@ namespace MediaInfoKeeper.Services
         }
 
         /// <summary>调用 Emby 的 AudioFingerprint 流程，对单个剧集执行片头探测。</summary>
-        public async Task<bool> DetectIntroAsync(Episode episode, CancellationToken cancellationToken)
+        private async Task<bool> DetectIntroAsync(Episode episode, CancellationToken cancellationToken)
         {
             this.logger.Debug($"DetectIntroAsync: item={episode?.Path ?? episode?.Name}, id={episode?.InternalId}");
-            var detector = ResolveAudioFingerprintManager();
-            if (detector != null)
-            {
-                if (await RunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken).ConfigureAwait(false))
-                {
-                    return true;
-                }
 
-                this.logger.Debug($"AudioFingerprintManager 执行失败: {detector.GetType().FullName}");
-            }
-            else
-            {
-                this.logger.Debug("未能解析 AudioFingerprintManager");
-            }
-
-            this.logger.Info("探测失败，可能尚未获取strm文件内容，请稍后再试。");
-            return false;
-        }
-
-        /// <summary>解析 Emby 内部的 AudioFingerprintManager 服务实例。</summary>
-        private object ResolveAudioFingerprintManager()
-        {
             try
             {
                 var runtime = GetOrCreateAudioFingerprintRuntime();
                 if (runtime?.ManagerType == null)
                 {
                     this.logger.Warn("未找到 AudioFingerprintManager 类型");
-                    return null;
                 }
-
-                var detector = ResolveAppHostService(runtime.ManagerType);
-                if (detector == null)
+                else
                 {
-                    this.logger.Warn($"AudioFingerprintManager 服务解析失败: {runtime.ManagerType.FullName}");
-                }
+                    var detector = ResolveAppHostService(runtime.ManagerType);
+                    if (detector == null)
+                    {
+                        this.logger.Warn($"AudioFingerprintManager 服务解析失败: {runtime.ManagerType.FullName}");
+                    }
+                    else
+                    {
+                        if (await RunAudioFingerprintWorkflowAsync(detector, episode, cancellationToken).ConfigureAwait(false))
+                        {
+                            return true;
+                        }
 
-                return detector;
+                        this.logger.Debug($"AudioFingerprintManager 执行失败: {detector.GetType().FullName}");
+                    }
+                }
             }
             catch (Exception ex)
             {
                 this.logger.Warn($"片头检测服务加载失败: {ex.Message}");
-                return null;
             }
+
+            this.logger.Info("探测失败，可能尚未获取strm文件内容，请稍后再试。");
+            return false;
         }
 
         /// <summary>解析并缓存 AudioFingerprint 相关类型与方法签名。</summary>
@@ -535,7 +526,7 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        /// <summary>优先通过 AppHost 的已知入口解析指定服务。</summary>
+        /// <summary>通过 IApplicationHost 的精确泛型入口解析指定服务。</summary>
         private object ResolveAppHostService(Type serviceType)
         {
             var appHost = Plugin.Instance.AppHost;
@@ -545,79 +536,131 @@ namespace MediaInfoKeeper.Services
                 return null;
             }
 
-            var getServiceMethod = appHost.GetType().GetMethod("GetService", new[] { typeof(Type) });
-            if (getServiceMethod != null)
+            var resolverRuntime = GetOrCreateAppHostResolverRuntime(appHost.GetType());
+            if (resolverRuntime == null)
             {
-                var service = getServiceMethod.Invoke(appHost, new object[] { serviceType });
-                if (service != null)
-                {
-                    this.logger.Debug($"服务解析 {serviceType.FullName}: GetService(Type) 成功");
-                    return service;
-                }
-            }
-            else
-            {
-                this.logger.Debug($"服务解析提示 {serviceType.FullName}: AppHost 未公开 GetService(Type)，跳过");
+                this.logger.Debug($"服务解析失败 {serviceType.FullName}: AppHost 精确解析入口缺失");
+                return null;
             }
 
-            var resolvedByAppHost = ResolveServiceViaAppHost(appHost, serviceType);
-            if (resolvedByAppHost != null)
+            var service = InvokeGenericResolver(appHost, resolverRuntime.Resolve, serviceType);
+            if (service != null)
             {
-                this.logger.Debug($"服务解析 {serviceType.FullName}: AppHost.Resolve<T>() 成功");
-                return resolvedByAppHost;
+                this.logger.Debug($"服务解析 {serviceType.FullName}: IApplicationHost.Resolve<T>() 成功");
+                return service;
             }
 
-            this.logger.Debug($"服务解析失败 {serviceType.FullName}: GetService(Type) 与 AppHost.Resolve<T>() 均返回空");
+            service = InvokeGenericResolver(appHost, resolverRuntime.TryResolve, serviceType);
+            if (service != null)
+            {
+                this.logger.Debug($"服务解析 {serviceType.FullName}: IApplicationHost.TryResolve<T>() 成功");
+                return service;
+            }
+
+            service = InvokeGenericResolver(appHost, resolverRuntime.GetExports, serviceType, false);
+            if (service != null)
+            {
+                this.logger.Debug($"服务解析 {serviceType.FullName}: IApplicationHost.GetExports<T>(false) 成功");
+                return service;
+            }
+
+            service = InvokeGenericResolver(appHost, resolverRuntime.GetExports, serviceType, true);
+            if (service != null)
+            {
+                this.logger.Debug($"服务解析 {serviceType.FullName}: IApplicationHost.GetExports<T>(true) 成功");
+                return service;
+            }
+
+            this.logger.Debug($"服务解析失败 {serviceType.FullName}: IApplicationHost.Resolve/TryResolve/GetExports 均返回空");
             return null;
         }
 
-        /// <summary>回退尝试 AppHost 的泛型解析入口，兼容不同版本实现。</summary>
-        private object ResolveServiceViaAppHost(object appHost, Type serviceType)
+        /// <summary>解析并缓存 IApplicationHost 在当前 AppHost 实现上的精确方法映射。</summary>
+        private AppHostResolverRuntime GetOrCreateAppHostResolverRuntime(Type appHostType)
         {
-            var resolved = InvokeGenericServiceResolver(appHost, serviceType, "Resolve");
-            if (resolved != null)
+            if (appHostType == null)
             {
-                return resolved;
+                return null;
             }
 
-            resolved = InvokeGenericServiceResolver(appHost, serviceType, "TryResolve");
-            if (resolved != null)
+            var cached = appHostResolverRuntime;
+            if (cached != null && cached.AppHostType == appHostType)
             {
-                return resolved;
+                return cached;
             }
 
-            resolved = InvokeGenericServiceResolver(appHost, serviceType, "GetExports", false);
-            if (resolved != null)
+            lock (runtimeLock)
             {
-                return resolved;
-            }
-
-            return InvokeGenericServiceResolver(appHost, serviceType, "GetExports", true);
-        }
-
-        /// <summary>调用 AppHost 的泛型服务解析方法，并兼容返回集合或单值的结果。</summary>
-        private object InvokeGenericServiceResolver(object appHost, Type serviceType, string methodName, params object[] args)
-        {
-            try
-            {
-                var resolver = appHost.GetType()
-                    .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    .FirstOrDefault(m =>
-                        string.Equals(m.Name, methodName, StringComparison.Ordinal) &&
-                        m.IsGenericMethodDefinition &&
-                        m.GetGenericArguments().Length == 1 &&
-                        m.GetParameters().Length == (args?.Length ?? 0));
-                if (resolver == null)
+                cached = appHostResolverRuntime;
+                if (cached != null && cached.AppHostType == appHostType)
                 {
+                    return cached;
+                }
+
+                var resolve = ResolveInterfaceGenericMethod(appHostType, typeof(IApplicationHost), "Resolve", Type.EmptyTypes);
+                var tryResolve = ResolveInterfaceGenericMethod(appHostType, typeof(IApplicationHost), "TryResolve", Type.EmptyTypes);
+                var getExports = ResolveInterfaceGenericMethod(appHostType, typeof(IApplicationHost), "GetExports", new[] { typeof(bool) });
+
+                if (resolve == null || tryResolve == null || getExports == null)
+                {
+                    this.logger.Warn("IApplicationHost 服务解析入口缺失");
                     return null;
                 }
 
-                var result = resolver.MakeGenericMethod(serviceType).Invoke(appHost, args);
+                cached = new AppHostResolverRuntime(appHostType, resolve, tryResolve, getExports);
+                appHostResolverRuntime = cached;
+                return cached;
+            }
+        }
+
+        /// <summary>从 IApplicationHost 接口映射到当前 AppHost 实现的精确泛型方法。</summary>
+        private static MethodInfo ResolveInterfaceGenericMethod(Type appHostType, Type interfaceType, string methodName, Type[] parameterTypes)
+        {
+            if (appHostType == null || interfaceType == null || !interfaceType.IsAssignableFrom(appHostType))
+            {
+                return null;
+            }
+
+            var interfaceMethod = interfaceType.GetMethod(methodName, parameterTypes ?? Type.EmptyTypes);
+            if (interfaceMethod == null || !interfaceMethod.IsGenericMethodDefinition)
+            {
+                return null;
+            }
+
+            var interfaceMap = appHostType.GetInterfaceMap(interfaceType);
+            for (var i = 0; i < interfaceMap.InterfaceMethods.Length; i++)
+            {
+                if (interfaceMap.InterfaceMethods[i] != interfaceMethod)
+                {
+                    continue;
+                }
+
+                var targetMethod = interfaceMap.TargetMethods[i];
+                if (targetMethod != null && targetMethod.IsGenericMethodDefinition)
+                {
+                    return targetMethod;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>调用 IApplicationHost 的泛型解析方法，并兼容返回集合或单值的结果。</summary>
+        private object InvokeGenericResolver(object appHost, MethodInfo method, Type serviceType, params object[] args)
+        {
+            if (appHost == null || method == null || serviceType == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                var result = method.MakeGenericMethod(serviceType).Invoke(appHost, args);
                 return UnwrapServiceResolutionResult(result);
             }
             catch (Exception ex)
             {
-                this.logger.Debug($"服务解析失败 {serviceType.FullName}: AppHost.{methodName}<T>() 异常: {ex.Message}");
+                this.logger.Debug($"服务解析失败 {serviceType.FullName}: {method.Name}<T>() 异常: {ex.Message}");
                 return null;
             }
         }
@@ -677,7 +720,12 @@ namespace MediaInfoKeeper.Services
             LogMethodInvocation(runtime.CreateTitleFingerprintAsync, fingerprintArgs);
             await InvokeMethodAsync(detector, runtime.CreateTitleFingerprintAsync, fingerprintArgs).ConfigureAwait(false);
 
-            var season = ResolveSeason(episode);
+            Season season = episode?.Season;
+            if (season == null && episode != null)
+            {
+                season = this.libraryManager.GetItemById(episode.ParentId) as Season;
+            }
+
             if (season == null)
             {
                 this.logger.Debug("无法获取 Season，跳过 UpdateSequencesForSeason");
@@ -685,7 +733,12 @@ namespace MediaInfoKeeper.Services
             }
 
             this.logger.Debug($"Season resolved: {season.Name} (id={season.InternalId})");
-            var seasonEpisodes = GetSeasonEpisodes(season);
+            var seasonEpisodes = season.GetEpisodes(new InternalItemsQuery
+            {
+                IncludeItemTypes = new[] { nameof(Episode) },
+                HasPath = true,
+                MediaTypes = new[] { MediaType.Video }
+            }, cancellationToken).Items.OfType<Episode>().ToArray();
             this.logger.Debug($"Season episodes loaded: count={seasonEpisodes.Length}");
 
             this.logger.Debug("触发 GetAllFingerprintFilesForSeason 收集指纹");
@@ -748,39 +801,23 @@ namespace MediaInfoKeeper.Services
             return result;
         }
 
-        /// <summary>优先从 Episode 本身或父级条目中解析其所属 Season。</summary>
-        private Season ResolveSeason(Episode episode)
+        private sealed class AppHostResolverRuntime
         {
-            if (episode?.Season != null)
+            public AppHostResolverRuntime(Type appHostType, MethodInfo resolve, MethodInfo tryResolve, MethodInfo getExports)
             {
-                return episode.Season;
+                AppHostType = appHostType;
+                Resolve = resolve;
+                TryResolve = tryResolve;
+                GetExports = getExports;
             }
 
-            if (episode == null)
-            {
-                return null;
-            }
+            public Type AppHostType { get; }
 
-            return this.libraryManager.GetItemById(episode.ParentId) as Season;
-        }
+            public MethodInfo Resolve { get; }
 
-        /// <summary>获取当前 Season 下可参与片头探测的全部剧集条目。</summary>
-        private Episode[] GetSeasonEpisodes(Season season)
-        {
-            if (season == null)
-            {
-                return Array.Empty<Episode>();
-            }
+            public MethodInfo TryResolve { get; }
 
-            var query = new InternalItemsQuery
-            {
-                IncludeItemTypes = new[] { nameof(Episode) },
-                HasPath = true,
-                MediaTypes = new[] { MediaType.Video },
-                ParentIds = new[] { season.InternalId }
-            };
-
-            return this.libraryManager.GetItemList(query).OfType<Episode>().ToArray();
+            public MethodInfo GetExports { get; }
         }
 
         private sealed class AudioFingerprintRuntime

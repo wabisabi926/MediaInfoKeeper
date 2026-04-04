@@ -97,9 +97,21 @@ namespace MediaInfoKeeper.Patch
                     var resolverVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
                     var sqlitePclEx = Assembly.Load("SQLitePCLRawEx.core");
                     raw = sqlitePclEx.GetType("SQLitePCLEx.raw");
-                    sqlite3_enable_load_extension = raw?.GetMethod(
-                        "sqlite3_enable_load_extension",
-                        BindingFlags.Static | BindingFlags.Public);
+                    var sqlite3Type = sqlitePclEx.GetType("SQLitePCLEx.sqlite3");
+                    sqlite3_enable_load_extension = PatchMethodResolver.Resolve(
+                        raw,
+                        sqlitePclEx.GetName().Version,
+                        new MethodSignatureProfile
+                        {
+                            Name = "sqlitepclex-raw-enable-load-extension-exact",
+                            MethodName = "sqlite3_enable_load_extension",
+                            BindingFlags = BindingFlags.Static | BindingFlags.Public,
+                            ParameterTypes = sqlite3Type == null ? null : new[] { sqlite3Type, typeof(int) },
+                            ReturnType = typeof(int),
+                            IsStatic = true
+                        },
+                        logger,
+                        "ChineseSearch.sqlite3_enable_load_extension");
 
                     sqlite3_db = typeof(SQLiteDatabaseConnection)
                         .GetField("db", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -107,12 +119,20 @@ namespace MediaInfoKeeper.Patch
                     var embySqlite = Assembly.Load("Emby.Sqlite");
                     var baseSqliteRepository = embySqlite.GetType("Emby.Sqlite.BaseSqliteRepository");
 
-                    createConnection = baseSqliteRepository?.GetMethod(
-                        "CreateConnection",
-                        BindingFlags.NonPublic | BindingFlags.Instance,
-                        null,
-                        new[] { typeof(bool), typeof(CancellationToken) },
-                        null);
+                    createConnection = PatchMethodResolver.Resolve(
+                        baseSqliteRepository,
+                        embySqlite.GetName().Version,
+                        new MethodSignatureProfile
+                        {
+                            Name = "basesqliterepository-createconnection-exact",
+                            MethodName = "CreateConnection",
+                            BindingFlags = BindingFlags.NonPublic | BindingFlags.Instance,
+                            ParameterTypes = new[] { typeof(bool), typeof(CancellationToken) },
+                            ReturnType = typeof(IDatabaseConnection),
+                            IsStatic = false
+                        },
+                        logger,
+                        "ChineseSearch.BaseSqliteRepository.CreateConnection");
                     dbFilePath = baseSqliteRepository?.GetProperty(
                         "DbFilePath",
                         BindingFlags.NonPublic | BindingFlags.Instance);
@@ -121,19 +141,25 @@ namespace MediaInfoKeeper.Patch
                     var sqliteItemRepository =
                         embyServerImplementationsAssembly.GetType(
                             "Emby.Server.Implementations.Data.SqliteItemRepository");
-                    getJoinCommandText = sqliteItemRepository?.GetMethod(
-                        "GetJoinCommandText",
-                        BindingFlags.NonPublic | BindingFlags.Instance,
-                        null,
-                        new[]
+                    getJoinCommandText = PatchMethodResolver.Resolve(
+                        sqliteItemRepository,
+                        embyServerImplementationsAssembly.GetName().Version,
+                        new MethodSignatureProfile
                         {
-                            typeof(InternalItemsQuery),
-                            typeof(List<KeyValuePair<string, string>>),
-                            typeof(string),
-                            typeof(string),
-                            typeof(bool)
+                            Name = "sqliteitemrepository-getjoincommandtext-exact",
+                            MethodName = "GetJoinCommandText",
+                            BindingFlags = BindingFlags.NonPublic | BindingFlags.Instance,
+                            ParameterTypes = new[]
+                            {
+                                typeof(InternalItemsQuery),
+                                typeof(List<KeyValuePair<string, string>>),
+                                typeof(string)
+                            },
+                            ReturnType = typeof(StringBuilder),
+                            IsStatic = false
                         },
-                        null);
+                        logger,
+                        "ChineseSearch.SqliteItemRepository.GetJoinCommandText");
                     createSearchTerm = PatchMethodResolver.Resolve(
                         sqliteItemRepository,
                         resolverVersion,

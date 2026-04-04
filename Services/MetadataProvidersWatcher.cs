@@ -1,19 +1,14 @@
 using System;
-using System.Collections.Concurrent;
-using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using HarmonyLib;
 using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
-using MediaBrowser.Model.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Logging;
-using MediaInfoKeeper.Common;
 
 namespace MediaInfoKeeper.Patch
 {
@@ -27,7 +22,6 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo instanceCanRefresh;
         private static ILogger logger;
         private static bool isEnabled;
-        private static IDirectoryService directoryService;
         public static bool IsReady => harmony != null && (staticCanRefresh != null || instanceCanRefresh != null);
         public static void Initialize(ILogger pluginLogger, bool enableWatcher)
         {
@@ -35,7 +29,6 @@ namespace MediaInfoKeeper.Patch
 
             logger = pluginLogger;
             isEnabled = enableWatcher;
-            directoryService = new DirectoryService(pluginLogger, Plugin.FileSystem);
 
             try
             {
@@ -150,7 +143,7 @@ namespace MediaInfoKeeper.Patch
             return false;
         }
 
-        private static void TriggerMediaInfoRestore(BaseItem item,bool force = false)
+        private static void TriggerMediaInfoRestore(BaseItem item)
         {
             if (item == null) return;
 

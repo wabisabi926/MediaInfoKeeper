@@ -15,6 +15,7 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
+using MediaBrowser.Model.Providers;
 using MediaInfoKeeper.Provider;
 
 namespace MediaInfoKeeper.Patch
@@ -222,50 +223,91 @@ namespace MediaInfoKeeper.Patch
 
         private static void ResolveMethods(Assembly assembly)
         {
+            var assemblyVersion = assembly.GetName().Version;
             var movieDbSeriesProvider = assembly.GetType("MovieDb.MovieDbSeriesProvider", false);
-            seriesGetMetadata = movieDbSeriesProvider?.GetMethod(
-                "GetMetadata",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(SeriesInfo), typeof(CancellationToken) },
-                null);
+            seriesGetMetadata = PatchMethodResolver.Resolve(
+                movieDbSeriesProvider,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = "moviedbseriesprovider-getmetadata-exact",
+                    MethodName = "GetMetadata",
+                    BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                    ParameterTypes = new[] { typeof(SeriesInfo), typeof(CancellationToken) },
+                    ReturnType = typeof(Task<>).MakeGenericType(typeof(MetadataResult<>).MakeGenericType(typeof(Series))),
+                    IsStatic = false
+                },
+                logger,
+                "MovieDbEpisodeGroup.MovieDbSeriesProvider.GetMetadata");
 
             var movieDbSeasonProvider = assembly.GetType("MovieDb.MovieDbSeasonProvider", false);
-            seasonGetMetadata = movieDbSeasonProvider?.GetMethod(
-                "GetMetadata",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(RemoteMetadataFetchOptions<SeasonInfo>), typeof(CancellationToken) },
-                null);
+            seasonGetMetadata = PatchMethodResolver.Resolve(
+                movieDbSeasonProvider,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = "moviedbseasonprovider-getmetadata-exact",
+                    MethodName = "GetMetadata",
+                    BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                    ParameterTypes = new[] { typeof(RemoteMetadataFetchOptions<SeasonInfo>), typeof(CancellationToken) },
+                    ReturnType = typeof(Task<>).MakeGenericType(typeof(MetadataResult<>).MakeGenericType(typeof(Season))),
+                    IsStatic = false
+                },
+                logger,
+                "MovieDbEpisodeGroup.MovieDbSeasonProvider.GetMetadata");
 
             var movieDbEpisodeProvider = assembly.GetType("MovieDb.MovieDbEpisodeProvider", false);
-            episodeGetMetadata = movieDbEpisodeProvider?.GetMethod(
-                "GetMetadata",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(RemoteMetadataFetchOptions<EpisodeInfo>), typeof(CancellationToken) },
-                null);
+            episodeGetMetadata = PatchMethodResolver.Resolve(
+                movieDbEpisodeProvider,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = "moviedbepisodeprovider-getmetadata-exact",
+                    MethodName = "GetMetadata",
+                    BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                    ParameterTypes = new[] { typeof(RemoteMetadataFetchOptions<EpisodeInfo>), typeof(CancellationToken) },
+                    ReturnType = typeof(Task<>).MakeGenericType(typeof(MetadataResult<>).MakeGenericType(typeof(Episode))),
+                    IsStatic = false
+                },
+                logger,
+                "MovieDbEpisodeGroup.MovieDbEpisodeProvider.GetMetadata");
 
             var movieDbSeasonImageProvider = assembly.GetType("MovieDb.MovieDbSeasonImageProvider", false);
-            seasonGetImages = movieDbSeasonImageProvider?.GetMethod(
-                "GetImages",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(RemoteImageFetchOptions), typeof(CancellationToken) },
-                null);
+            seasonGetImages = PatchMethodResolver.Resolve(
+                movieDbSeasonImageProvider,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = "moviedbseasonimageprovider-getimages-exact",
+                    MethodName = "GetImages",
+                    BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                    ParameterTypes = new[] { typeof(RemoteImageFetchOptions), typeof(CancellationToken) },
+                    ReturnType = typeof(Task<>).MakeGenericType(typeof(IEnumerable<RemoteImageInfo>)),
+                    IsStatic = false
+                },
+                logger,
+                "MovieDbEpisodeGroup.MovieDbSeasonImageProvider.GetImages");
 
             var movieDbEpisodeImageProvider = assembly.GetType("MovieDb.MovieDbEpisodeImageProvider", false);
-            episodeGetImages = movieDbEpisodeImageProvider?.GetMethod(
-                "GetImages",
-                BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] { typeof(RemoteImageFetchOptions), typeof(CancellationToken) },
-                null);
+            episodeGetImages = PatchMethodResolver.Resolve(
+                movieDbEpisodeImageProvider,
+                assemblyVersion,
+                new MethodSignatureProfile
+                {
+                    Name = "moviedbepisodeimageprovider-getimages-exact",
+                    MethodName = "GetImages",
+                    BindingFlags = BindingFlags.Public | BindingFlags.Instance,
+                    ParameterTypes = new[] { typeof(RemoteImageFetchOptions), typeof(CancellationToken) },
+                    ReturnType = typeof(Task<>).MakeGenericType(typeof(IEnumerable<RemoteImageInfo>)),
+                    IsStatic = false
+                },
+                logger,
+                "MovieDbEpisodeGroup.MovieDbEpisodeImageProvider.GetImages");
 
-            canRefreshMetadata = ResolveCanRefresh();
+            canRefreshMetadata = ResolveCanRefresh(assemblyVersion);
         }
 
-        private static MethodInfo ResolveCanRefresh()
+        private static MethodInfo ResolveCanRefresh(Version movieDbAssemblyVersion)
         {
             try
             {
@@ -276,20 +318,27 @@ namespace MediaInfoKeeper.Patch
                     return null;
                 }
 
-                return providerManager.GetMethod(
-                    "CanRefresh",
-                    BindingFlags.Static | BindingFlags.NonPublic,
-                    null,
-                    new[]
+                return PatchMethodResolver.Resolve(
+                    providerManager,
+                    movieDbAssemblyVersion ?? embyProviders.GetName().Version,
+                    new MethodSignatureProfile
                     {
-                        typeof(IMetadataProvider),
-                        typeof(BaseItem),
-                        typeof(LibraryOptions),
-                        typeof(bool),
-                        typeof(bool),
-                        typeof(bool)
+                        Name = "providermanager-canrefresh-exact",
+                        MethodName = "CanRefresh",
+                        BindingFlags = BindingFlags.Static | BindingFlags.NonPublic,
+                        ParameterTypes = new[]
+                        {
+                            typeof(IMetadataProvider),
+                            typeof(BaseItem),
+                            typeof(LibraryOptions),
+                            typeof(bool),
+                            typeof(bool),
+                            typeof(bool)
+                        },
+                        IsStatic = true
                     },
-                    null);
+                    logger,
+                    "MovieDbEpisodeGroup.ProviderManager.CanRefresh");
             }
             catch
             {
