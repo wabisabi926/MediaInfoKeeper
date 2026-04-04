@@ -422,6 +422,47 @@ namespace MediaInfoKeeper.Services
                 : this.libraryManager.GetItemById(seriesId) as Series;
         }
 
+        public IReadOnlyList<long> NextEpisodesId(Episode episode, int count = 0)
+        {
+            if (episode == null)
+            {
+                return Array.Empty<long>();
+            }
+
+            var season = this.libraryManager.GetItemById(episode.ParentId) as Season;
+            if (season == null)
+            {
+                return Array.Empty<long>();
+            }
+
+            var orderedEpisodes = FetchSeasonEpisodes(season)
+                .Where(i => i?.ExtraType == null)
+                .OrderBy(i => i.IndexNumber ?? int.MaxValue)
+                .ThenBy(i => i.DateCreated)
+                .ToList();
+
+            for (var index = 0; index < orderedEpisodes.Count; index++)
+            {
+                if (orderedEpisodes[index].InternalId != episode.InternalId)
+                {
+                    continue;
+                }
+
+                var nextIds = orderedEpisodes
+                    .Skip(index + 1)
+                    .Select(i => i.InternalId);
+
+                if (count > 0)
+                {
+                    nextIds = nextIds.Take(count);
+                }
+
+                return nextIds.ToList();
+            }
+
+            return Array.Empty<long>();
+        }
+
         private IReadOnlyList<Episode> FetchSeasonEpisodes(Season season)
         {
             if (season == null)
