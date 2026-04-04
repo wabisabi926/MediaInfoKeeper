@@ -16,7 +16,7 @@ namespace MediaInfoKeeper.Services
 {
     public sealed class PlaybackExtractService : IDisposable
     {
-        private static readonly TimeSpan NextEpisodePrefetchDelay = TimeSpan.FromSeconds(120);
+        private static readonly TimeSpan NextEpisodePrefetchDelay = TimeSpan.FromSeconds(5);
         private readonly ILibraryManager libraryManager;
         private readonly ISessionManager sessionManager;
         private readonly ILogger logger;
@@ -69,11 +69,6 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            if (!Plugin.LibraryService.IsItemInScope(targetItem))
-            {
-                return;
-            }
-
             QueueExtractIfNeeded(targetItem, "开播提取");
 
             if (targetItem is Episode episode)
@@ -85,7 +80,7 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var nextEpisode = libraryManager.GetItemById(nextEpisodeIds[0]) as Episode;
-                if (nextEpisode == null || !Plugin.LibraryService.IsItemInScope(nextEpisode))
+                if (nextEpisode == null)
                 {
                     return;
                 }
@@ -117,7 +112,7 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            logger.Info($"{source}: 120s后提取 {nextEpisodeName}");
+            logger.Info($"{source}: 5s后提取 {nextEpisodeName}");
 
             _ = Task.Run(async () =>
             {
@@ -130,7 +125,7 @@ namespace MediaInfoKeeper.Services
                     }
 
                     var nextEpisode = libraryManager.GetItemById(nextEpisodeId) as Episode;
-                    if (nextEpisode == null || !Plugin.LibraryService.IsItemInScope(nextEpisode))
+                    if (nextEpisode == null)
                     {
                         return;
                     }
