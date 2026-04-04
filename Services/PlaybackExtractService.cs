@@ -16,12 +16,12 @@ namespace MediaInfoKeeper.Services
 {
     public sealed class PlaybackExtractService : IDisposable
     {
-        private const double NextEpisodePrefetchThreshold = 0.5;
+        private static readonly TimeSpan NextEpisodePrefetchDelay = TimeSpan.FromSeconds(120);
         private readonly ILibraryManager libraryManager;
         private readonly ISessionManager sessionManager;
         private readonly ILogger logger;
         private readonly ConcurrentDictionary<long, byte> extractingItemIds = new ConcurrentDictionary<long, byte>();
-        private readonly ConcurrentDictionary<string, byte> prefetchedSessions = new ConcurrentDictionary<string, byte>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<string, CancellationTokenSource> prefetchSessions = new ConcurrentDictionary<string, CancellationTokenSource>(StringComparer.OrdinalIgnoreCase);
         private bool initialized;
 
         public PlaybackExtractService(
@@ -42,8 +42,6 @@ namespace MediaInfoKeeper.Services
             }
 
             sessionManager.PlaybackStart += OnPlaybackStart;
-            sessionManager.PlaybackProgress += OnPlaybackProgress;
-            sessionManager.PlaybackStopped += OnPlaybackStopped;
             initialized = true;
         }
 
@@ -55,8 +53,6 @@ namespace MediaInfoKeeper.Services
             }
 
             sessionManager.PlaybackStart -= OnPlaybackStart;
-            sessionManager.PlaybackProgress -= OnPlaybackProgress;
-            sessionManager.PlaybackStopped -= OnPlaybackStopped;
             initialized = false;
         }
 
@@ -78,57 +74,90 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            QueueExtractIfNeeded(targetItem, "开始播放");
-        }
+            QueueExtractIfNeeded(targetItem, "开播提取");
 
-        private void OnPlaybackProgress(object sender, PlaybackProgressEventArgs e)
-        {
-            if (Plugin.Instance?.Options?.MainPage?.PlugginEnabled != true ||
-                e?.Item is not Episode episode ||
-                !episode.RunTimeTicks.HasValue ||
-                !e.PlaybackPositionTicks.HasValue)
+            if (targetItem is Episode episode)
             {
-                return;
-            }
+                var nextEpisodeIds = Plugin.LibraryService.NextEpisodesId(episode, 1);
+                if (nextEpisodeIds.Count == 0)
+                {
+                    return;
+                }
 
-            var playedRatio = (double)e.PlaybackPositionTicks.Value / episode.RunTimeTicks.Value;
-            if (playedRatio < NextEpisodePrefetchThreshold)
-            {
-                return;
-            }
+                var nextEpisode = libraryManager.GetItemById(nextEpisodeIds[0]) as Episode;
+                if (nextEpisode == null || !Plugin.LibraryService.IsItemInScope(nextEpisode))
+                {
+                    return;
+                }
 
-            var sessionKey = !string.IsNullOrWhiteSpace(e.PlaySessionId)
-                ? e.PlaySessionId
-                : e.Session?.Id;
-            if (string.IsNullOrWhiteSpace(sessionKey) || !prefetchedSessions.TryAdd(sessionKey, 0))
-            {
-                return;
-            }
+                if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
+                {
+                    logger.Info($"下一集预提取: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
+                    return;
+                }
 
-            var nextEpisodeIds = Plugin.LibraryService.NextEpisodesId(episode, 1);
-            if (nextEpisodeIds.Count == 0)
-            {
-                return;
-            }
-
-            var nextEpisode = libraryManager.GetItemById(nextEpisodeIds[0]) as Episode;
-            if (nextEpisode != null && Plugin.LibraryService.IsItemInScope(nextEpisode))
-            {
-                QueueExtractIfNeeded(nextEpisode, "预提取");
+                var sessionKey = !string.IsNullOrWhiteSpace(e.PlaySessionId)
+                    ? e.PlaySessionId
+                    : e.Session?.Id;
+                ScheduleNextEpisodePrefetch(nextEpisode.InternalId, nextEpisode.FileName ?? nextEpisode.Name, sessionKey, "下一集预提取");
             }
         }
 
-        private void OnPlaybackStopped(object sender, PlaybackStopEventArgs e)
+        private void ScheduleNextEpisodePrefetch(long nextEpisodeId, string nextEpisodeName, string sessionKey, string source)
         {
-            var sessionKey = !string.IsNullOrWhiteSpace(e?.PlaySessionId)
-                ? e.PlaySessionId
-                : e?.Session?.Id;
-            if (string.IsNullOrWhiteSpace(sessionKey))
+            if (nextEpisodeId <= 0 || string.IsNullOrWhiteSpace(sessionKey))
             {
                 return;
             }
 
-            prefetchedSessions.TryRemove(sessionKey, out _);
+            var cancellationTokenSource = new CancellationTokenSource();
+            if (!prefetchSessions.TryAdd(sessionKey, cancellationTokenSource))
+            {
+                cancellationTokenSource.Dispose();
+                return;
+            }
+
+            logger.Info($"{source}: 120s后提取 {nextEpisodeName}");
+
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(NextEpisodePrefetchDelay, cancellationTokenSource.Token).ConfigureAwait(false);
+                    if (cancellationTokenSource.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    var nextEpisode = libraryManager.GetItemById(nextEpisodeId) as Episode;
+                    if (nextEpisode == null || !Plugin.LibraryService.IsItemInScope(nextEpisode))
+                    {
+                        return;
+                    }
+
+                    if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
+                    {
+                        logger.Info($"{source}: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
+                        return;
+                    }
+
+                    QueueExtractIfNeeded(nextEpisode, source);
+                }
+                catch (OperationCanceledException)
+                {
+                }
+                finally
+                {
+                    if (prefetchSessions.TryRemove(sessionKey, out var existing) && ReferenceEquals(existing, cancellationTokenSource))
+                    {
+                        existing.Dispose();
+                    }
+                    else
+                    {
+                        cancellationTokenSource.Dispose();
+                    }
+                }
+            });
         }
 
         private async Task EnsurePlaybackMediaInfoAsync(long itemId, string source)
@@ -164,11 +193,11 @@ namespace MediaInfoKeeper.Services
                  restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
                 !shouldRefreshAudioForMissingCover)
             {
-                logger.Info($"{logPrefix}: 命中已保存 MediaInfo，跳过提取 {displayName}");
+                logger.Info($"{logPrefix}: 命中已保存 MediaInfo，跳过提取 {workItem.FileName ?? workItem.Name ?? displayName}");
                 return;
             }
 
-            logger.Info($"{logPrefix}: 开始 {displayName}");
+            logger.Info($"{logPrefix}: 开始 {workItem.FileName ?? workItem.Name ?? displayName}");
 
             var refreshOptions = Plugin.MediaInfoService.GetMediaInfoRefreshOptions();
             refreshOptions.ImageRefreshMode = MetadataRefreshMode.ValidationOnly;
@@ -212,7 +241,7 @@ namespace MediaInfoKeeper.Services
                 Plugin.CoverStore.OverWriteToFile(workItem);
             }
 
-            logger.Info($"{logPrefix}: 完成 {displayName}");
+            logger.Info($"{logPrefix}: 完成 {workItem.FileName ?? workItem.Name ?? displayName}");
         }
 
         private void QueueExtractIfNeeded(BaseItem item, string source)
@@ -225,13 +254,17 @@ namespace MediaInfoKeeper.Services
             if (Plugin.MediaInfoService.HasMediaInfo(item) &&
                 (item is not Audio || Plugin.LibraryService.HasCover(item)))
             {
+                logger.Info($"{source}: 跳过，已存在媒体信息 {item.FileName ?? item.Name}");
                 return;
             }
 
             if (!extractingItemIds.TryAdd(item.InternalId, 0))
             {
+                logger.Info($"{source}: 跳过，提取中 {item.FileName ?? item.Name}");
                 return;
             }
+
+            logger.Info($"{source}: 开始 {item.FileName ?? item.Name}");
 
             _ = Task.Run(async () =>
             {
@@ -241,7 +274,7 @@ namespace MediaInfoKeeper.Services
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"{source} 媒体信息提取: 失败 {item.Path ?? item.Name}");
+                    logger.Error($"{source} 媒体信息提取: 失败 {item.FileName ?? item.Name}");
                     logger.Error(ex.Message);
                     logger.Debug(ex.StackTrace);
                 }

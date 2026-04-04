@@ -120,8 +120,6 @@ namespace MediaInfoKeeper.Services.IntroSkip
             data.PlaybackStartTicks = e.PlaybackPositionTicks.Value;
             data.PreviousPositionTicks = e.PlaybackPositionTicks.Value;
             data.PreviousEventTime = DateTime.UtcNow;
-
-            logger.Info("IntroSkip - 开始检测");
         }
 
         private void OnPlaybackProgress(object sender, PlaybackProgressEventArgs e)
