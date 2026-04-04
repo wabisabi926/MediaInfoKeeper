@@ -112,7 +112,7 @@ namespace MediaInfoKeeper.Common
                 var message = new MessageCommand
                 {
                     Header = Plugin.PluginName,
-                    Text = $"{episode.FindSeriesName()} - {episode.Name} - 片头标记已更新",
+                    Text = $"{episode.FindSeriesName()} - 片头标记已更新",
                     TimeoutMs = 500
                 };
                 await this.sessionManager
@@ -149,7 +149,7 @@ namespace MediaInfoKeeper.Common
                 var message = new MessageCommand
                 {
                     Header = Plugin.PluginName,
-                    Text = $"{episode.FindSeriesName()} - {episode.Name} - 片尾标记已更新",
+                    Text = $"{episode.FindSeriesName()} - 片尾标记已更新",
                     TimeoutMs = 500
                 };
                 await this.sessionManager

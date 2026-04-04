@@ -341,10 +341,10 @@ namespace MediaInfoKeeper.Services.IntroSkip
 
         private FetchEpisodesResult FetchEpisodes(Episode item, IntroSkipOptions.SubsequentMarkerMode mode, MarkerType markerType)
         {
-            var episodes = (Plugin.LibraryService?.GetSeriesEpisodesFromItem(item) ?? Array.Empty<Episode>())
+            var libraryService = Plugin.LibraryService;
+            var episodes = (libraryService?.GetSeriesEpisodesFromItem(item) ?? Array.Empty<Episode>())
                 .Where(e => e != null)
                 .OrderBy(e => e.IndexNumber ?? int.MaxValue)
-                .ThenBy(e => e.IndexNumber ?? int.MaxValue)
                 .ThenBy(e => e.Name ?? string.Empty, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
@@ -376,8 +376,10 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 .Where(e => IsMissingMarkerData(e, markerType, excludedReasons))
                 .ToList();
 
-            var followingEpisodes = episodes
-                .Skip(currentIndex + 1)
+            var nextEpisodeIds = libraryService?.NextEpisodesId(item) ?? Array.Empty<long>();
+            var followingEpisodes = nextEpisodeIds
+                .Select(id => episodes.FirstOrDefault(e => e.InternalId == id))
+                .Where(e => e != null)
                 .Where(e => ShouldApplyToFollowingEpisode(e, markerType, mode, excludedReasons))
                 .ToList();
 
