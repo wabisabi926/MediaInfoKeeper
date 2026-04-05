@@ -342,10 +342,31 @@ namespace MediaInfoKeeper.ScheduledTask
                 StringComparison.OrdinalIgnoreCase);
             var candidates = releases?
                 .Where(r => r != null && !r.draft)
+                .OrderByDescending(GetReleaseSortTimeUtc)
                 .ToList() ?? new List<ApiResponseInfo>();
             return preferBeta
                 ? candidates.FirstOrDefault()
                 : candidates.FirstOrDefault(r => !r.prerelease);
+        }
+
+        private static DateTimeOffset GetReleaseSortTimeUtc(ApiResponseInfo release)
+        {
+            if (release == null)
+            {
+                return DateTimeOffset.MinValue;
+            }
+
+            if (DateTimeOffset.TryParse(release.published_at, out var publishedAt))
+            {
+                return publishedAt;
+            }
+
+            if (DateTimeOffset.TryParse(release.created_at, out var createdAt))
+            {
+                return createdAt;
+            }
+
+            return DateTimeOffset.MinValue;
         }
 
         private static PluginCompatibilityInfo SelectCompatibilityInfo(
@@ -517,6 +538,10 @@ namespace MediaInfoKeeper.ScheduledTask
             public bool prerelease { get; set; }
 
             public bool draft { get; set; }
+
+            public string published_at { get; set; }
+
+            public string created_at { get; set; }
 
             public List<ApiAssetInfo> assets { get; set; }
         }
