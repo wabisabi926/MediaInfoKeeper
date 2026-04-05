@@ -47,6 +47,11 @@ namespace MediaInfoKeeper.Options
         [MinValue(1), MaxValue(20)]
         public int MaxConcurrentCount { get; set; } = 3;
 
+        [DisplayName("通知媒体库刷新（秒）")]
+        [Description("插件监测媒体文件，延迟到时，通知 Emby 有新文件入库。默认 10 秒，设为 -1 不启用。")]
+        [MinValue(-1), MaxValue(90)]
+        public int FileChangeRefreshDelaySeconds { get; set; } = 10;
+
         [Browsable(false)]
         public IEnumerable<EditorSelectOption> LibraryList { get; set; }
 
@@ -139,7 +144,8 @@ namespace MediaInfoKeeper.Options
             }
 
             AddGroup("插件", "",
-                nameof(PlugginEnabled));
+                nameof(PlugginEnabled),
+                nameof(FileChangeRefreshDelaySeconds));
 
             AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe/ffmpeg 运行；仅在插件内部需要提取媒体信息时按需放行。",
                 nameof(ExtractMediaInfoOnItemAdded),

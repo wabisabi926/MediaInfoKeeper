@@ -439,9 +439,179 @@ namespace MediaInfoKeeper
             var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();
             safeOptions.MainPage ??= new MainPageOptions();
 
-            StrmFileWatcher?.Configure(this.PlugginEnabled);
+            StrmFileWatcher?.Configure(this.PlugginEnabled, safeOptions.MainPage.FileChangeRefreshDelaySeconds);
+        }
+        private void LogOptionsSnapshot(PluginConfiguration options, string action)
+        {
+            if (options == null)
+            {
+                return;
+            }
+
+            var entries = BuildOptionLogEntries(options);
+            this.logger.Info($"{this.Name} 配置{action}。");
+            LogOptionEntries(entries);
+            this.lastLoggedOptionsSnapshot = CreateOptionSnapshot(entries);
         }
 
+        private void LogOptionsChanges(PluginConfiguration options, string action)
+        {
+            if (options == null)
+            {
+                return;
+            }
+
+            var entries = BuildOptionLogEntries(options);
+            var currentSnapshot = CreateOptionSnapshot(entries);
+            var baselineSnapshot = this.pendingSavedOptionsSnapshot ?? this.lastLoggedOptionsSnapshot;
+
+            var changedEntries = entries
+                .Where(entry =>
+                    !baselineSnapshot.TryGetValue(entry.Key, out var previousValue) ||
+                    !string.Equals(previousValue, entry.Value, StringComparison.Ordinal))
+                .ToList();
+
+            if (changedEntries.Count == 0)
+            {
+                this.pendingSavedOptionsSnapshot = null;
+                this.lastLoggedOptionsSnapshot = currentSnapshot;
+                return;
+            }
+
+            this.logger.Info($"{this.Name} 配置{action}。");
+            LogChangedOptionEntries(changedEntries, baselineSnapshot);
+            this.pendingSavedOptionsSnapshot = null;
+            this.lastLoggedOptionsSnapshot = currentSnapshot;
+        }
+
+        private List<OptionLogEntry> BuildOptionLogEntries(PluginConfiguration options)
+        {
+            options.MainPage ??= new MainPageOptions();
+            options.IntroSkip ??= new IntroSkipOptions();
+            options.Enhance ??= new EnhanceOptions();
+            options.MetaData ??= new MetaDataOptions();
+#if DEBUG
+            options.Debug ??= new DebugOptions();
+#endif
+            var netWorkOptions = options.GetNetWorkOptions();
+
+            return new List<OptionLogEntry>
+            {
+                new OptionLogEntry("Main.PlugginEnabled", "Main", "启用插件", options.MainPage.PlugginEnabled.ToString()),
+                new OptionLogEntry("Main.ExtractMediaInfoOnItemAdded", "Main", "入库时提取媒体信息", options.MainPage.ExtractMediaInfoOnItemAdded.ToString()),
+                new OptionLogEntry("Main.StrmFileWatcher", "Main", "启用 Strm 内容修改监听", "开"),
+                new OptionLogEntry("Main.MediaInfoJsonRootFolder", "Main", "MediaInfo JSON 存储根目录", FormatOptionValue(options.MainPage.MediaInfoJsonRootFolder)),
+                new OptionLogEntry("Main.DeleteMediaInfoJsonOnRemove", "Main", "条目移除时删除 JSON", options.MainPage.DeleteMediaInfoJsonOnRemove.ToString()),
+                new OptionLogEntry("Main.CatchupLibraries", "Main", "追更媒体库", FormatOptionValue(options.MainPage.CatchupLibraries)),
+                new OptionLogEntry("Main.ScheduledTaskLibraries", "Main", "计划任务媒体库", FormatOptionValue(options.MainPage.ScheduledTaskLibraries)),
+                new OptionLogEntry("Main.MaxConcurrentCount", "Main", "扫描最多并发数", options.MainPage.MaxConcurrentCount.ToString()),
+                new OptionLogEntry(
+                    "Main.FileChangeRefreshDelaySeconds",
+                    "Main",
+                    "扫描新入库文件延迟",
+                    options.MainPage.FileChangeRefreshDelaySeconds < 0
+                        ? "已禁用通知"
+                        : $"{options.MainPage.FileChangeRefreshDelaySeconds} 秒"),
+                new OptionLogEntry("IntroSkip.UnlockIntroSkip", "IntroSkip", "启用 Strm 片头检测解锁", options.IntroSkip.UnlockIntroSkip.ToString()),
+                new OptionLogEntry("IntroSkip.ScanIntroOnItemAdded", "IntroSkip", "入库时扫描片头", options.IntroSkip.ScanIntroOnItemAdded.ToString()),
+                new OptionLogEntry("IntroSkip.ScanIntroOnFavorite", "IntroSkip", "收藏时扫描片头", options.IntroSkip.ScanIntroOnFavorite.ToString()),
+                new OptionLogEntry("IntroSkip.ProtectMarkers", "IntroSkip", "保护片头标记", "开"),
+                new OptionLogEntry("IntroSkip.EnableIntroMarker", "IntroSkip", "启用片头打标", options.IntroSkip.EnableIntroMarker.ToString()),
+                new OptionLogEntry("IntroSkip.EnableCreditsMarker", "IntroSkip", "启用片尾打标", options.IntroSkip.EnableCreditsMarker.ToString()),
+                new OptionLogEntry("IntroSkip.MarkerEnabledLibraryScope", "IntroSkip", "片头检测库范围", FormatOptionValue(options.IntroSkip.MarkerEnabledLibraryScope)),
+                new OptionLogEntry("IntroSkip.LibraryScope", "IntroSkip", "打标库范围", FormatOptionValue(options.IntroSkip.LibraryScope)),
+                new OptionLogEntry("IntroSkip.UserScope", "IntroSkip", "用户范围", FormatOptionValue(options.IntroSkip.UserScope)),
+                new OptionLogEntry("Enhance.EnhanceChineseSearch", "Enhance", "启用增强搜索", options.Enhance.EnhanceChineseSearch.ToString()),
+                new OptionLogEntry("Enhance.EnableDeepDelete", "Enhance", "启用深度删除", options.Enhance.EnableDeepDelete.ToString()),
+                new OptionLogEntry("Enhance.EnableNfoMetadataEnhance", "Enhance", "启用 NFO 增强", options.Enhance.EnableNfoMetadataEnhance.ToString()),
+                new OptionLogEntry("Enhance.HidePersonNoImage", "Enhance", "隐藏无图人物", options.Enhance.HidePersonNoImage.ToString()),
+                new OptionLogEntry("Enhance.HidePersonPreference", "Enhance", "人物隐藏偏好", FormatOptionValue(options.Enhance.HidePersonPreference)),
+                new OptionLogEntry("Enhance.EnablePinyinSortName", "Enhance", "拼音首字母排序", options.Enhance.EnablePinyinSortName.ToString()),
+                new OptionLogEntry("Enhance.NoBoxsetsAutoCreation", "Enhance", "禁止自动合集", options.Enhance.NoBoxsetsAutoCreation.ToString()),
+                new OptionLogEntry("Enhance.EnforceLibraryOrder", "Enhance", "统一媒体库顺序", options.Enhance.EnforceLibraryOrder.ToString()),
+                new OptionLogEntry("Enhance.DisableVideoSubtitleCrossOrigin", "Enhance", "关闭 Web 客户端跨域校验", options.Enhance.DisableVideoSubtitleCrossOrigin.ToString()),
+                new OptionLogEntry("Enhance.EnableDanmakuJs", "Enhance", "加载弹幕 JS", options.Enhance.EnableDanmakuJs.ToString()),
+                new OptionLogEntry("Enhance.TakeOverSystemLibraryNew", "Enhance", "接管系统入库通知", options.Enhance.TakeOverSystemLibraryNew.ToString()),
+                new OptionLogEntry("Enhance.SearchScope", "Enhance", "搜索范围", FormatOptionValue(options.Enhance.SearchScope)),
+                new OptionLogEntry("Enhance.ExcludeOriginalTitleFromSearch", "Enhance", "排除原始标题", options.Enhance.ExcludeOriginalTitleFromSearch.ToString()),
+                new OptionLogEntry("Enhance.SystemLogNameBlacklist", "Enhance", "日志来源黑名单", FormatOptionValue(options.Enhance.SystemLogNameBlacklist)),
+                new OptionLogEntry("MetaData.MetadataChangeWatcher", "MetaData", "启用剧集元数据变动监听", "开"),
+                new OptionLogEntry("MetaData.EnableAlternativeTitleFallback", "MetaData", "启用 TMDB 中文回退", options.MetaData.EnableAlternativeTitleFallback.ToString()),
+                new OptionLogEntry("MetaData.EnableTvdbFallback", "MetaData", "启用 TVDB 中文回退", options.MetaData.EnableTvdbFallback.ToString()),
+                new OptionLogEntry("MetaData.FallbackLanguages", "MetaData", "TMDB 备选语言", FormatOptionValue(options.MetaData.FallbackLanguages)),
+                new OptionLogEntry("MetaData.TvdbFallbackLanguages", "MetaData", "TVDB 备选语言", FormatOptionValue(options.MetaData.TvdbFallbackLanguages)),
+                new OptionLogEntry("MetaData.BlockNonFallbackLanguage", "MetaData", "屏蔽非备选语言简介", options.MetaData.BlockNonFallbackLanguage.ToString()),
+                new OptionLogEntry("MetaData.EnableMovieDbEpisodeGroup", "MetaData", "启用 TMDB 剧集组刮削", options.MetaData.EnableMovieDbEpisodeGroup.ToString()),
+                new OptionLogEntry("MetaData.EnableOriginalPoster", "MetaData", "优先原语言海报", options.MetaData.EnableOriginalPoster.ToString()),
+                new OptionLogEntry("MetaData.EnableLocalEpisodeGroup", "MetaData", "启用本地剧集组文件", options.MetaData.EnableLocalEpisodeGroup.ToString()),
+                new OptionLogEntry("MetaData.EnableImageCapture", "MetaData", "启用图片提取", options.MetaData.EnableImageCapture.ToString()),
+                new OptionLogEntry("GitHub.GitHubToken", "GitHub", "GitHub 访问令牌", FormatSecretValue(options.GitHub.GitHubToken)),
+                new OptionLogEntry("GitHub.DownloadUrlPrefix", "GitHub", "下载前缀", FormatOptionValue(options.GitHub.DownloadUrlPrefix)),
+                new OptionLogEntry("GitHub.UpdateChannel", "GitHub", "更新频道", FormatOptionValue(options.GitHub.UpdateChannel)),
+                new OptionLogEntry("GitHub.CurrentVersion", "GitHub", "当前版本", FormatOptionValue(options.GitHub.CurrentVersion)),
+                new OptionLogEntry("GitHub.LatestReleaseVersion", "GitHub", "最新版本", FormatOptionValue(options.GitHub.LatestReleaseVersion)),
+                new OptionLogEntry("NetWork.EnableProxyServer", "NetWork", "启用代理", netWorkOptions.EnableProxyServer.ToString()),
+                new OptionLogEntry("NetWork.ProxyServerUrl", "NetWork", "代理服务器地址", FormatOptionValue(netWorkOptions.ProxyServerUrl)),
+                new OptionLogEntry("NetWork.IgnoreCertificateValidation", "NetWork", "忽略证书验证", netWorkOptions.IgnoreCertificateValidation.ToString()),
+                new OptionLogEntry("NetWork.WriteProxyEnvVars", "NetWork", "写入环境变量", netWorkOptions.WriteProxyEnvVars.ToString()),
+                new OptionLogEntry("NetWork.EnableGzip", "NetWork", "启用压缩传输", netWorkOptions.EnableGzip.ToString()),
+                new OptionLogEntry("NetWork.CustomLocalDiscoveryAddress", "NetWork", "自定义本地发现地址", FormatOptionValue(netWorkOptions.CustomLocalDiscoveryAddress)),
+                new OptionLogEntry("NetWork.AlternativeTmdbApiUrl", "NetWork", "自定义 TMDB API 域名", FormatOptionValue(netWorkOptions.AlternativeTmdbApiUrl)),
+                new OptionLogEntry("NetWork.AlternativeTmdbImageUrl", "NetWork", "自定义 TMDB 图像域名", FormatOptionValue(netWorkOptions.AlternativeTmdbImageUrl)),
+                new OptionLogEntry("NetWork.AlternativeTmdbApiKey", "NetWork", "自定义 TMDB API 密钥", FormatSecretValue(netWorkOptions.AlternativeTmdbApiKey)),
+#if DEBUG
+                new OptionLogEntry("Debug.EnableFfProcessGuard", "Debug", "启用 ffprocess 拦截", options.Debug.EnableFfProcessGuard.ToString()),
+#endif
+            };
+        }
+
+        private void LogOptionEntries(IEnumerable<OptionLogEntry> entries)
+        {
+            string currentSection = null;
+            foreach (var entry in entries)
+            {
+                if (!string.Equals(currentSection, entry.Section, StringComparison.Ordinal))
+                {
+                    currentSection = entry.Section;
+                    this.logger.Info($"[{currentSection}]");
+                }
+
+                this.logger.Info($"{entry.Label} 设置为 {entry.Value}");
+            }
+        }
+
+        private void LogChangedOptionEntries(IEnumerable<OptionLogEntry> entries, Dictionary<string, string> baselineSnapshot)
+        {
+            string currentSection = null;
+            foreach (var entry in entries)
+            {
+                if (!string.Equals(currentSection, entry.Section, StringComparison.Ordinal))
+                {
+                    currentSection = entry.Section;
+                    this.logger.Info($"[{currentSection}]");
+                }
+
+                var previousValue = baselineSnapshot.TryGetValue(entry.Key, out var value)
+                    ? value
+                    : "未设置";
+                this.logger.Info($"{entry.Label}: {previousValue} -> {entry.Value}");
+            }
+        }
+
+        private Dictionary<string, string> CreateOptionSnapshot(IEnumerable<OptionLogEntry> entries)
+        {
+            return entries.ToDictionary(entry => entry.Key, entry => entry.Value, StringComparer.Ordinal);
+        }
+
+        private static string FormatOptionValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) ? "空" : value;
+        }
+
+        private static string FormatSecretValue(string value)
+        {
+            return string.IsNullOrEmpty(value) ? "空" : "***";
+        }
         private string NormalizeScopedLibraries(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw))
