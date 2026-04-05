@@ -3,7 +3,7 @@ set -euo pipefail
 
 NAS_HOST="${NAS_HOST:-root@192.168.33.100}"
 CONTAINER="${CONTAINER:-emby}"
-LOCAL_DIR="${LOCAL_DIR:-$HOME/Downloads/emby-dlls}"
+LOCAL_DIR="${LOCAL_DIR:-/Users/honue/Documents/Emby/dlls}"
 OVERWRITE=0
 
 DEFAULT_DLLS=(
@@ -23,7 +23,7 @@ Usage:
   ./get_emby_dll.sh
   ./get_emby_dll.sh Emby.Providers.dll MovieDb.dll
   ./get_emby_dll.sh /system/Emby.Providers.dll /system/plugins/MovieDb.dll
-  ./get_emby_dll.sh --host root@192.168.33.100 --container emby --local-dir "\$HOME/Downloads/emby-dlls" Emby.Sqlite.dll
+  ./get_emby_dll.sh --host root@192.168.33.100 --container emby --local-dir "/Users/honue/Documents/Emby/dlls" Emby.Sqlite.dll
   ./get_emby_dll.sh --overwrite Emby.Providers.dll
   ./get_emby_dll.sh --list
 
@@ -38,6 +38,8 @@ Options:
 Notes:
   - Without DLL arguments, the script downloads the built-in default DLL list.
   - Existing local files are skipped by default. Use --overwrite to replace them.
+  - This directory should contain DLL files only. Decompiled source goes under:
+    /Users/honue/Documents/Emby/dlls/source
   - DLL arguments can be a full container path, a bare file name, or a plugin file name.
   - Bare names ending in .dll default to /system/<name>, except MovieDb.dll and Tvdb.dll which default to /system/plugins/.
 EOF
