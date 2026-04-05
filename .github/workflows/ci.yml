@@ -18,6 +18,10 @@ on:
         description: "Release version (for example: 1.6.6.10)"
         required: false
         type: string
+      beta_suffix:
+        description: "Beta suffix (optional, default: github.run_number)"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -53,6 +57,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             channel="${{ github.event.inputs.channel }}"
             input_version="${{ github.event.inputs.version }}"
+            input_beta_suffix="${{ github.event.inputs.beta_suffix }}"
 
             if [[ "$channel" == "beta" ]]; then
               if [[ -z "$input_version" ]]; then
@@ -61,10 +66,16 @@ jobs:
                 base_tag="$input_version"
               fi
 
+              if [[ -z "$input_beta_suffix" ]]; then
+                beta_suffix="${{ github.run_number }}"
+              else
+                beta_suffix="$input_beta_suffix"
+              fi
+
               pre_release="true"
               release_mode="manual_beta"
               release_channel="Beta"
-              release_tag="v${base_tag}-beta.${{ github.run_number }}"
+              release_tag="v${base_tag}-beta.${beta_suffix}"
               release_name="MediaInfoKeeper Beta v${base_tag}"
             else
               pre_release="false"
@@ -127,7 +138,9 @@ jobs:
           tag_name: ${{ env.release_tag }}
           target_commitish: ${{ github.sha }}
           body: |
-            Channel: `${{ env.release_channel }}`
+            Release channel: `${{ env.release_channel }}`
+            
+            ---
           overwrite_files: true
           prerelease: ${{ env.pre_release }}
           generate_release_notes: true
