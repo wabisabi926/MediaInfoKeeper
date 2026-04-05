@@ -33,6 +33,11 @@ namespace MediaInfoKeeper.Options.Store
             return options;
         }
 
+        public new void SetOptionsSilently(PluginConfiguration options)
+        {
+            base.SetOptionsSilently(options);
+        }
+
         private void HandleFileSaving(object sender, FileSavingEventArgs e)
         {
             if (this.onSaving == null)

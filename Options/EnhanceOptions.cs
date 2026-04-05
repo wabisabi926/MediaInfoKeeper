@@ -66,8 +66,11 @@ namespace MediaInfoKeeper.Options
         public bool HidePersonNoImage { get; set; } = false;
 
         [DisplayName("拼音首字母排序")]
-        [Description("自动把中文标题的 SortName 转成拼音首字母，并清理 A-Z 前缀分组。")]
+        [Description("自动把中文标题的 SortName 转成拼音首字母，并清理 A-Z 前缀分组。每次Emby启动时，会处理增量item的SortName。")]
         public bool EnablePinyinSortName { get; set; } = false;
+
+        [Browsable(false)]
+        public DateTimeOffset? PinyinSortNameLastProcessedUtc { get; set; } = null;
 
         public enum HidePersonOption
         {

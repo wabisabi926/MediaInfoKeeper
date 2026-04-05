@@ -419,6 +419,21 @@ namespace MediaInfoKeeper
 
         }
 
+        internal void UpdatePinyinSortNameLastProcessedUtc(DateTimeOffset processedUtc)
+        {
+            var options = this.OptionsStore.GetOptions();
+            options.Enhance ??= new EnhanceOptions();
+
+            var current = options.Enhance.PinyinSortNameLastProcessedUtc;
+            if (current.HasValue && current.Value >= processedUtc)
+            {
+                return;
+            }
+
+            options.Enhance.PinyinSortNameLastProcessedUtc = processedUtc;
+            this.OptionsStore.SetOptionsSilently(options);
+        }
+
         private void ConfigureStrmFileWatcher()
         {
             var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();

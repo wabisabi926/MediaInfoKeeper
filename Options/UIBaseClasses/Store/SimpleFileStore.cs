@@ -90,17 +90,30 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
 
         public override void SetOptions(TOptionType newOptions)
         {
+            SetOptionsInternal(newOptions, raiseEvents: true);
+        }
+
+        protected void SetOptionsSilently(TOptionType newOptions)
+        {
+            SetOptionsInternal(newOptions, raiseEvents: false);
+        }
+
+        private void SetOptionsInternal(TOptionType newOptions, bool raiseEvents)
+        {
             if (newOptions == null)
             {
                 throw new ArgumentNullException(nameof(newOptions));
             }
 
-            var savingArgs = new FileSavingEventArgs(newOptions);
-            this.FileSaving?.Invoke(this, savingArgs);
-
-            if (savingArgs.Cancel)
+            if (raiseEvents)
             {
-                return;
+                var savingArgs = new FileSavingEventArgs(newOptions);
+                this.FileSaving?.Invoke(this, savingArgs);
+
+                if (savingArgs.Cancel)
+                {
+                    return;
+                }
             }
 
             lock (this.lockObj)
@@ -117,8 +130,11 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
                 this.options = newOptions;
             }
 
-            var savedArgs = new FileSavedEventArgs(newOptions);
-            this.FileSaved?.Invoke(this, savedArgs);
+            if (raiseEvents)
+            {
+                var savedArgs = new FileSavedEventArgs(newOptions);
+                this.FileSaved?.Invoke(this, savedArgs);
+            }
         }
     }
 }
