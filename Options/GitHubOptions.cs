@@ -33,7 +33,7 @@ namespace MediaInfoKeeper.Options
         public List<EditorSelectOption> UpdateChannelList { get; set; } = new List<EditorSelectOption>();
 
         [DisplayName("更新频道")]
-        [Description("Stable 只跟随正式 Release；Beta 会优先跟随预发布版本。")]
+        [Description("Stable 只拉取最新正式版 Release；Beta 拉取最新 Release，可能是正式版，也可能是预发布版。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
         [SelectItemsSource(nameof(UpdateChannelList))]
         public string UpdateChannel { get; set; } = UpdateChannelOption.Stable.ToString();
@@ -50,10 +50,11 @@ namespace MediaInfoKeeper.Options
         public string CurrentVersion { get; set; } = "未知";
 
         [DisplayName("最新版本")]
-        [Description("按当前更新频道从 GitHub Releases 获取最新版本号。")]
+        [Description("按当前更新频道显示 GitHub Releases 中可用的最新版本号。")]
         public string LatestReleaseVersion { get; set; } = "加载中";
 
         [DisplayName("更新说明")]
+        [Description("按当前更新频道显示发布记录。Stable 仅显示正式版；Beta 同时显示正式版和预发布版。")]
         public string ReleaseHistoryBody { get; set; } = "加载中";
 
         public void Initialize()

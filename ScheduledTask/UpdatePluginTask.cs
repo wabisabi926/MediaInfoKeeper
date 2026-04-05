@@ -107,7 +107,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 var latestReleaseTag = string.IsNullOrWhiteSpace(apiResult?.tag_name)
                     ? "0.0.0.0"
                     : apiResult.tag_name.Trim();
-                var compatibility = await FetchCompatibilityManifest(cancellationToken, updateChannel).ConfigureAwait(false);
+                var compatibility = await FetchCompatibilityManifest(cancellationToken, updateChannel, apiResult.prerelease).ConfigureAwait(false);
                 var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
                 logger.Info(
                     "版本信息：最新插件={0}，当前插件={1}，当前Emby={2}，兼容Emby版本区间=[{3},{4}]",
@@ -228,7 +228,8 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private async Task<PluginCompatibilityInfo> FetchCompatibilityManifest(
             CancellationToken cancellationToken,
-            string updateChannel)
+            string updateChannel,
+            bool isPrerelease)
         {
             try
             {
@@ -263,7 +264,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 var manifest = jsonSerializer.DeserializeFromString<PluginManifestInfo>(manifestResponseBody);
-                var compatibility = SelectCompatibilityInfo(manifest, updateChannel);
+                var compatibility = SelectCompatibilityInfo(manifest, updateChannel, isPrerelease);
                 if (compatibility != null)
                 {
                     return compatibility;
@@ -339,32 +340,30 @@ namespace MediaInfoKeeper.ScheduledTask
                 updateChannel,
                 Options.GitHubOptions.UpdateChannelOption.Beta.ToString(),
                 StringComparison.OrdinalIgnoreCase);
-
             var candidates = releases?
                 .Where(r => r != null && !r.draft)
                 .ToList() ?? new List<ApiResponseInfo>();
-            if (preferBeta)
-            {
-                return candidates.FirstOrDefault(r => r.prerelease) ??
-                       candidates.FirstOrDefault();
-            }
-
-            return candidates.FirstOrDefault(r => !r.prerelease);
+            return preferBeta
+                ? candidates.FirstOrDefault()
+                : candidates.FirstOrDefault(r => !r.prerelease);
         }
 
         private static PluginCompatibilityInfo SelectCompatibilityInfo(
             PluginManifestInfo manifest,
-            string updateChannel)
+            string updateChannel,
+            bool isPrerelease)
         {
             if (manifest == null)
             {
                 return null;
             }
 
-            if (string.Equals(
-                    updateChannel,
-                    Options.GitHubOptions.UpdateChannelOption.Beta.ToString(),
-                    StringComparison.OrdinalIgnoreCase))
+            var preferBeta = string.Equals(
+                updateChannel,
+                Options.GitHubOptions.UpdateChannelOption.Beta.ToString(),
+                StringComparison.OrdinalIgnoreCase);
+
+            if (preferBeta && isPrerelease)
             {
                 return manifest.beta ?? manifest.latest;
             }

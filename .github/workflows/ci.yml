@@ -76,7 +76,7 @@ jobs:
               release_mode="manual_beta"
               release_channel="Beta"
               release_tag="v${base_tag}-beta.${beta_suffix}"
-              release_name="MediaInfoKeeper Beta v${base_tag}"
+              release_name="MediaInfoKeeper v${base_tag}-beta.${beta_suffix}"
             else
               pre_release="false"
               release_mode="manual_stable_replace"

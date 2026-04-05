@@ -1060,6 +1060,10 @@ namespace MediaInfoKeeper
                         {
                             sb.Append(" - ").Append(name.Trim());
                         }
+                        if (preferBeta && isPrerelease)
+                        {
+                            sb.Append(" [Prerelease]");
+                        }
 
                         if (!string.IsNullOrWhiteSpace(publishedAtLocal))
                         {
@@ -1094,7 +1098,6 @@ namespace MediaInfoKeeper
                 ? GitHubOptions.UpdateChannelOption.Stable.ToString()
                 : updateChannel;
         }
-
 
         private readonly struct ReleaseHistoryInfo
         {
