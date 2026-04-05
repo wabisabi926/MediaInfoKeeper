@@ -479,7 +479,7 @@ namespace MediaInfoKeeper.ScheduledTask
             }
 
             options.GitHub.InstalledReleaseTag = releaseTag.Trim();
-            plugin.OptionsStore.SetOptions(options);
+            plugin.OptionsStore.SetOptionsSilently(options);
         }
 
         internal class PluginManifestInfo

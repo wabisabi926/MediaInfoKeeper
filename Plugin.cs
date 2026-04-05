@@ -63,6 +63,8 @@ namespace MediaInfoKeeper
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
         private List<IPluginUIPageController> pages;
+        private Dictionary<string, string> lastLoggedOptionsSnapshot = new Dictionary<string, string>(StringComparer.Ordinal);
+        private Dictionary<string, string> pendingSavedOptionsSnapshot;
 
         private readonly ILibraryManager libraryManager;
         private readonly IProviderManager providerManager;
@@ -101,6 +103,22 @@ namespace MediaInfoKeeper
         private static string releaseHistoryBodyCache;
         private static readonly TimeSpan LatestVersionCacheDuration = TimeSpan.FromMinutes(30);
         private const string GitHubReleaseHistoryUrl = "https://api.github.com/repos/honue/MediaInfoKeeper/releases?per_page=100&page=";
+
+        private sealed class OptionLogEntry
+        {
+            public OptionLogEntry(string key, string section, string label, string value)
+            {
+                Key = key;
+                Section = section;
+                Label = label;
+                Value = value;
+            }
+
+            public string Key { get; }
+            public string Section { get; }
+            public string Label { get; }
+            public string Value { get; }
+        }
 
         /// <summary>初始化插件并注册库事件处理。</summary>
         public Plugin(
@@ -161,9 +179,11 @@ namespace MediaInfoKeeper
                 localizationManager,
                 itemRepository);
 
-            PatchManager.Initialize(this.logger, this.Options);
+            var initialOptions = this.Options;
+            PatchManager.Initialize(this.logger, initialOptions);
 
-            this.PlugginEnabled = this.Options.MainPage?.PlugginEnabled ?? true;
+            this.PlugginEnabled = initialOptions.MainPage?.PlugginEnabled ?? true;
+            LogOptionsSnapshot(initialOptions, "已加载");
 
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager, mediaMountManager);
             MediaInfoService = new MediaInfoService(libraryManager, fileSystem);
@@ -287,6 +307,11 @@ namespace MediaInfoKeeper
                 return true;
             }
 
+            var persistedOptions = this.OptionsStore.LoadOptionsFromDisk();
+            this.pendingSavedOptionsSnapshot = persistedOptions == null
+                ? null
+                : CreateOptionSnapshot(BuildOptionLogEntries(persistedOptions));
+
             options.MainPage.CatchupLibraries = NormalizeScopedLibraries(options.MainPage.CatchupLibraries);
             options.MainPage.ScheduledTaskLibraries = NormalizeScopedLibraries(options.MainPage.ScheduledTaskLibraries);
             if (options.IntroSkip != null)
@@ -338,69 +363,7 @@ namespace MediaInfoKeeper
 
             this.PlugginEnabled = options.MainPage.PlugginEnabled;
 
-            this.logger.Info($"{this.Name} 配置已更新。");
-            this.logger.Info("[Main]");
-            this.logger.Info($"启用插件 设置为 {options.MainPage.PlugginEnabled}");
-            this.logger.Info($"入库时提取媒体信息 设置为 {options.MainPage.ExtractMediaInfoOnItemAdded}");
-            this.logger.Info("启用 Strm 内容修改监听 固定为 开");
-            this.logger.Info($"MediaInfo JSON 存储根目录 设置为 {(string.IsNullOrEmpty(options.MainPage.MediaInfoJsonRootFolder) ? "空" : options.MainPage.MediaInfoJsonRootFolder)}");
-            this.logger.Info($"条目移除时删除 JSON 设置为 {options.MainPage.DeleteMediaInfoJsonOnRemove}");
-            this.logger.Info($"追更媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.CatchupLibraries) ? "空" : options.MainPage.CatchupLibraries)}");
-            this.logger.Info($"计划任务媒体库 设置为 {(string.IsNullOrEmpty(options.MainPage.ScheduledTaskLibraries) ? "空" : options.MainPage.ScheduledTaskLibraries)}");
-            this.logger.Info($"扫描最多并发数 设置为 {options.MainPage.MaxConcurrentCount}");
-            this.logger.Info("[IntroSkip]");
-            this.logger.Info($"启用 Strm 片头检测解锁 设置为 {options.IntroSkip.UnlockIntroSkip}");
-            this.logger.Info($"入库时扫描片头 设置为 {options.IntroSkip.ScanIntroOnItemAdded}");
-            this.logger.Info($"收藏时扫描片头 设置为 {options.IntroSkip.ScanIntroOnFavorite}");
-            this.logger.Info("保护片头标记 固定为 开");
-            this.logger.Info($"启用片头打标 设置为 {options.IntroSkip.EnableIntroMarker}");
-            this.logger.Info($"启用片尾打标 设置为 {options.IntroSkip.EnableCreditsMarker}");
-            this.logger.Info($"片头检测库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.MarkerEnabledLibraryScope) ? "空" : options.IntroSkip.MarkerEnabledLibraryScope)}");
-            this.logger.Info($"打标库范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.LibraryScope) ? "空" : options.IntroSkip.LibraryScope)}");
-            this.logger.Info($"用户范围 设置为 {(string.IsNullOrEmpty(options.IntroSkip.UserScope) ? "空" : options.IntroSkip.UserScope)}");
-
-            this.logger.Info("[Enhance]");
-            this.logger.Info($"启用增强搜索 设置为 {options.Enhance.EnhanceChineseSearch}");
-            this.logger.Info($"启用深度删除 设置为 {options.Enhance.EnableDeepDelete}");
-            this.logger.Info($"启用 NFO 增强 设置为 {options.Enhance.EnableNfoMetadataEnhance}");
-            this.logger.Info($"隐藏无图人物 设置为 {options.Enhance.HidePersonNoImage}");
-            this.logger.Info($"人物隐藏偏好 设置为 {(string.IsNullOrWhiteSpace(options.Enhance.HidePersonPreference) ? "空" : options.Enhance.HidePersonPreference)}");
-            this.logger.Info($"禁止自动合集 设置为 {options.Enhance.NoBoxsetsAutoCreation}");
-            this.logger.Info($"统一媒体库顺序 设置为 {options.Enhance.EnforceLibraryOrder}");
-            this.logger.Info($"关闭 Web 客户端跨域校验 设置为 {options.Enhance.DisableVideoSubtitleCrossOrigin}");
-            this.logger.Info($"加载弹幕 JS 设置为 {options.Enhance.EnableDanmakuJs}");
-            this.logger.Info($"接管系统入库通知 设置为 {options.Enhance.TakeOverSystemLibraryNew}");
-            this.logger.Info($"搜索范围 设置为 {(string.IsNullOrEmpty(options.Enhance.SearchScope) ? "空" : options.Enhance.SearchScope)}");
-            this.logger.Info($"排除原始标题 设置为 {options.Enhance.ExcludeOriginalTitleFromSearch}");
-            this.logger.Info($"日志来源黑名单 设置为 {(string.IsNullOrWhiteSpace(options.Enhance.SystemLogNameBlacklist) ? "空" : options.Enhance.SystemLogNameBlacklist)}");
-
-            this.logger.Info("[MetaData]");
-            this.logger.Info("启用剧集元数据变动监听 固定为 开");
-            this.logger.Info($"启用 TMDB 中文回退 设置为 {options.MetaData.EnableAlternativeTitleFallback}");
-            this.logger.Info($"启用 TVDB 中文回退 设置为 {options.MetaData.EnableTvdbFallback}");
-            this.logger.Info($"TMDB 备选语言 设置为 {options.MetaData.FallbackLanguages}");
-            this.logger.Info($"TVDB 备选语言 设置为 {options.MetaData.TvdbFallbackLanguages}");
-            this.logger.Info($"屏蔽非备选语言简介 设置为 {options.MetaData.BlockNonFallbackLanguage}");
-            this.logger.Info($"启用 TMDB 剧集组刮削 设置为 {options.MetaData.EnableMovieDbEpisodeGroup}");
-            this.logger.Info($"优先原语言海报 设置为 {options.MetaData.EnableOriginalPoster}");
-            this.logger.Info($"启用本地剧集组文件 设置为 {options.MetaData.EnableLocalEpisodeGroup}");
-            this.logger.Info($"启用图片提取 设置为 {options.MetaData.EnableImageCapture}");
-
-            this.logger.Info("[NetWork]");
-            this.logger.Info($"启用代理 设置为 {netWorkOptions.EnableProxyServer}");
-            this.logger.Info($"代理服务器地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.ProxyServerUrl) ? "空" : netWorkOptions.ProxyServerUrl)}");
-            this.logger.Info($"忽略证书验证 设置为 {netWorkOptions.IgnoreCertificateValidation}");
-            this.logger.Info($"写入环境变量 设置为 {netWorkOptions.WriteProxyEnvVars}");
-            this.logger.Info($"启用压缩传输 设置为 {netWorkOptions.EnableGzip}");
-            this.logger.Info($"自定义本地发现地址 设置为 {(string.IsNullOrEmpty(netWorkOptions.CustomLocalDiscoveryAddress) ? "空" : netWorkOptions.CustomLocalDiscoveryAddress)}");
-            this.logger.Info($"自定义 TMDB API 域名 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbApiUrl) ? "空" : netWorkOptions.AlternativeTmdbApiUrl)}");
-            this.logger.Info($"自定义 TMDB 图像域名 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbImageUrl) ? "空" : netWorkOptions.AlternativeTmdbImageUrl)}");
-            this.logger.Info($"自定义 TMDB API 密钥 设置为 {(string.IsNullOrEmpty(netWorkOptions.AlternativeTmdbApiKey) ? "空" : "***")}");
-
-#if DEBUG
-            this.logger.Info("[Debug]");
-            this.logger.Info($"启用 ffprocess 拦截 设置为 {options.Debug.EnableFfProcessGuard}");
-#endif
+            LogOptionsChanges(options, "已更新");
             
             PatchManager.Configure(options);
 
@@ -447,7 +410,6 @@ namespace MediaInfoKeeper
             {
                 return;
             }
-
             var entries = BuildOptionLogEntries(options);
             this.logger.Info($"{this.Name} 配置{action}。");
             LogOptionEntries(entries);

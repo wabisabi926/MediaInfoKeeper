@@ -59,32 +59,44 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
             }
         }
 
+        public TOptionType LoadOptionsFromDisk()
+        {
+            lock (this.lockObj)
+            {
+                return this.LoadOptionsFromDiskCore() ?? new TOptionType();
+            }
+        }
+
         public TOptionType ReloadOptions()
         {
             lock (this.lockObj)
             {
-                var tempOptions = this.options ?? new TOptionType();
-
-                try
-                {
-                    if (!this.fileSystem.FileExists(this.OptionsFilePath))
-                    {
-                        return tempOptions;
-                    }
-
-                    using (var stream = this.fileSystem.OpenRead(this.OptionsFilePath))
-                    {
-                        var deserialized = tempOptions.DeserializeFromJsonStream(stream, this.jsonSerializer);
-                        this.options = deserialized as TOptionType;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.logger.ErrorException("Error loading plugin options for {0} from {1}", ex, this.pluginFullName, this.OptionsFilePath);
-                    this.options = tempOptions;
-                }
-
+                this.options = this.LoadOptionsFromDiskCore() ?? new TOptionType();
                 return this.options ?? new TOptionType();
+            }
+        }
+
+        private TOptionType LoadOptionsFromDiskCore()
+        {
+            var tempOptions = new TOptionType();
+
+            try
+            {
+                if (!this.fileSystem.FileExists(this.OptionsFilePath))
+                {
+                    return tempOptions;
+                }
+
+                using (var stream = this.fileSystem.OpenRead(this.OptionsFilePath))
+                {
+                    var deserialized = tempOptions.DeserializeFromJsonStream(stream, this.jsonSerializer);
+                    return deserialized as TOptionType ?? tempOptions;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.ErrorException("Error loading plugin options for {0} from {1}", ex, this.pluginFullName, this.OptionsFilePath);
+                return tempOptions;
             }
         }
 
