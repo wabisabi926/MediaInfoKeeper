@@ -774,6 +774,12 @@ namespace MediaInfoKeeper
 
         private string GetCurrentVersion()
         {
+            var installedReleaseTag = this.OptionsStore?.GetOptions()?.GitHub?.InstalledReleaseTag;
+            if (!string.IsNullOrWhiteSpace(installedReleaseTag))
+            {
+                return installedReleaseTag.Trim();
+            }
+
             var version = this.GetType().Assembly.GetName().Version;
             return version == null ? "未知" : $"v{version.ToString(4)}";
         }

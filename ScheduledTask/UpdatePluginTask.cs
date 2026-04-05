@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -85,15 +84,17 @@ namespace MediaInfoKeeper.ScheduledTask
             try
             {
                 var githubToken = Plugin.Instance.Options.GitHub?.GitHubToken;
+                var downloadUrlPrefix = Plugin.Instance.Options.GitHub?.DownloadUrlPrefix;
                 var updateChannel = string.IsNullOrWhiteSpace(Plugin.Instance.Options.GitHub?.UpdateChannel)
                     ? Options.GitHubOptions.UpdateChannelOption.Stable.ToString()
                     : Plugin.Instance.Options.GitHub.UpdateChannel;
-                var currentVersion = ParseVersion(GetCurrentVersion());
+                var installedReleaseTag = Plugin.Instance.Options.GitHub?.InstalledReleaseTag ?? string.Empty;
+                var currentVersionText = GetCurrentVersion();
                 var embyVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
 
                 logger.Info(
                     "开始检查插件更新：当前插件版本={0}，当前Emby版本={1}，更新频道={2}",
-                    currentVersion,
+                    currentVersionText,
                     embyVersion,
                     updateChannel);
 
@@ -103,16 +104,26 @@ namespace MediaInfoKeeper.ScheduledTask
                     throw new Exception("未找到匹配当前更新频道的 Release");
                 }
 
-                var remoteVersion = ParseVersion(apiResult?.tag_name);
+                var latestReleaseTag = string.IsNullOrWhiteSpace(apiResult?.tag_name)
+                    ? "0.0.0.0"
+                    : apiResult.tag_name.Trim();
                 var compatibility = await FetchCompatibilityManifest(cancellationToken, updateChannel).ConfigureAwait(false);
                 var (minVersion, maxVersion) = GetEmbyVersionRange(compatibility);
                 logger.Info(
                     "版本信息：最新插件={0}，当前插件={1}，当前Emby={2}，兼容Emby版本区间=[{3},{4}]",
-                    remoteVersion,
-                    currentVersion,
+                    latestReleaseTag,
+                    currentVersionText,
                     embyVersion,
                     minVersion?.ToString() ?? "*",
                     maxVersion?.ToString() ?? "*");
+
+                if (!string.IsNullOrWhiteSpace(installedReleaseTag) &&
+                    string.Equals(installedReleaseTag.Trim(), latestReleaseTag, StringComparison.OrdinalIgnoreCase))
+                {
+                    logger.Info("无需更新：目标 Tag 与当前已安装 Tag 一致，tag={0}", latestReleaseTag);
+                    progress.Report(100);
+                    return;
+                }
 
                 if (!IsEmbyVersionCompatible(compatibility, embyVersion, out var incompatibleReason))
                 {
@@ -130,79 +141,73 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
 
                 logger.Info("版本校验通过：允许检查并更新插件。");
-
-                if (currentVersion.CompareTo(remoteVersion) < 0)
+                var url = (apiResult?.assets ?? new List<ApiAssetInfo>())
+                    .FirstOrDefault(asset => asset.name == PluginAssemblyFilename)
+                    ?.browser_download_url;
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
                 {
-                    var url = (apiResult?.assets ?? new List<ApiAssetInfo>())
-                        .FirstOrDefault(asset => asset.name == PluginAssemblyFilename)
-                        ?.browser_download_url;
-                    if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                    throw new Exception("下载地址无效");
+                }
+
+                var downloadUrl = ApplyUrlPrefix(url, downloadUrlPrefix);
+                logger.Info("开始下载插件：版本={0}，下载地址={1}", latestReleaseTag, downloadUrl);
+
+                var downloadRequestOptions = new HttpRequestOptions
+                {
+                    Url = downloadUrl,
+                    CancellationToken = cancellationToken,
+                    UserAgent = "MediaInfoKeeper",
+                    EnableDefaultUserAgent = false,
+                    LogRequest = true,
+                    LogResponse = true,
+                    Progress = progress
+                };
+                if (!string.IsNullOrWhiteSpace(githubToken))
+                {
+                    downloadRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
+                }
+
+                using (var downloadResponse = await httpClient.GetResponse(downloadRequestOptions)
+                           .ConfigureAwait(false))
+                {
+                    if ((int)downloadResponse.StatusCode < 200 || (int)downloadResponse.StatusCode >= 300)
                     {
-                        throw new Exception("下载地址无效");
+                        using var reader = new StreamReader(downloadResponse.Content);
+                        var responseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+                        logger.Error("下载插件失败：status={0}, body={1}", (int)downloadResponse.StatusCode, responseBody);
+                        throw new Exception($"下载插件失败: {(int)downloadResponse.StatusCode}");
                     }
 
-                    logger.Info("开始下载插件：版本={0}", remoteVersion);
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await downloadResponse.Content.CopyToAsync(memoryStream, 81920, cancellationToken)
+                            .ConfigureAwait(false);
 
-                    var downloadRequestOptions = new HttpRequestOptions
-                    {
-                        Url = url,
-                        CancellationToken = cancellationToken,
-                        UserAgent = "MediaInfoKeeper",
-                        EnableDefaultUserAgent = false,
-                        LogRequest = true,
-                        LogResponse = true,
-                        Progress = progress
-                    };
-                    if (!string.IsNullOrWhiteSpace(githubToken))
-                    {
-                        downloadRequestOptions.RequestHeaders["Authorization"] = $"token {githubToken}";
-                    }
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        var dllFilePath = Path.Combine(applicationPaths.PluginsPath, PluginAssemblyFilename);
 
-                    using (var downloadResponse = await httpClient.GetResponse(downloadRequestOptions)
-                               .ConfigureAwait(false))
-                    {
-                        if ((int)downloadResponse.StatusCode < 200 || (int)downloadResponse.StatusCode >= 300)
+                        await using (var fileStream =
+                                     new FileStream(dllFilePath, FileMode.Create, FileAccess.Write))
                         {
-                            using var reader = new StreamReader(downloadResponse.Content);
-                            var responseBody = await reader.ReadToEndAsync().ConfigureAwait(false);
-                            logger.Error("下载插件失败：status={0}, body={1}", (int)downloadResponse.StatusCode, responseBody);
-                            throw new Exception($"下载插件失败: {(int)downloadResponse.StatusCode}");
-                        }
-
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await downloadResponse.Content.CopyToAsync(memoryStream, 81920, cancellationToken)
+                            await memoryStream.CopyToAsync(fileStream, 81920, cancellationToken)
                                 .ConfigureAwait(false);
-
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-                            var dllFilePath = Path.Combine(applicationPaths.PluginsPath, PluginAssemblyFilename);
-
-                            await using (var fileStream =
-                                         new FileStream(dllFilePath, FileMode.Create, FileAccess.Write))
-                            {
-                                await memoryStream.CopyToAsync(fileStream, 81920, cancellationToken)
-                                    .ConfigureAwait(false);
-                            }
                         }
                     }
-
-                    logger.Info(
-                        "插件更新完成：版本={0}，重启后生效", remoteVersion);
-
-                    activityManager.Create(new ActivityLogEntry
-                    {
-                        Name = Plugin.Instance.Name + " Updated to " + remoteVersion + " on " +
-                               serverApplicationHost.FriendlyName,
-                        Type = "PluginUpdateInstalled",
-                        Severity = LogSeverity.Info
-                    });
-
-                    applicationHost.NotifyPendingRestart();
                 }
-                else
+
+                logger.Info(
+                    "插件更新完成：版本={0}，重启后生效", latestReleaseTag);
+
+                activityManager.Create(new ActivityLogEntry
                 {
-                    logger.Info("无需更新：最新版本={0}，当前版本={1}", remoteVersion, currentVersion);
-                }
+                    Name = Plugin.Instance.Name + " Updated to " + latestReleaseTag + " on " +
+                           serverApplicationHost.FriendlyName,
+                    Type = "PluginUpdateInstalled",
+                    Severity = LogSeverity.Info
+                });
+
+                SaveInstalledReleaseTag(latestReleaseTag);
+                applicationHost.NotifyPendingRestart();
             }
             catch (Exception ex)
             {
@@ -219,43 +224,6 @@ namespace MediaInfoKeeper.ScheduledTask
             }
 
             progress.Report(100);
-        }
-
-        private static Version ParseVersion(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return new Version(0, 0, 0, 0);
-            }
-
-            var normalized = value.StartsWith("v", StringComparison.OrdinalIgnoreCase)
-                ? value.Substring(1)
-                : value;
-            if (Version.TryParse(normalized, out var version))
-            {
-                return NormalizeVersion(version);
-            }
-
-            var match = Regex.Match(normalized, @"^(?<core>\d+(?:\.\d+){0,3})(?:[-+][A-Za-z.-]*?(?<suffix>\d+))?", RegexOptions.CultureInvariant);
-            if (!match.Success)
-            {
-                return new Version(0, 0, 0, 0);
-            }
-
-            var coreText = match.Groups["core"].Value;
-            if (!Version.TryParse(coreText, out var coreVersion))
-            {
-                return new Version(0, 0, 0, 0);
-            }
-
-            coreVersion = NormalizeVersion(coreVersion);
-            var suffixGroup = match.Groups["suffix"];
-            if (!suffixGroup.Success || !int.TryParse(suffixGroup.Value, out var suffixNumber))
-            {
-                return coreVersion;
-            }
-
-            return new Version(coreVersion.Major, coreVersion.Minor, coreVersion.Build, suffixNumber);
         }
 
         private async Task<PluginCompatibilityInfo> FetchCompatibilityManifest(
@@ -377,22 +345,11 @@ namespace MediaInfoKeeper.ScheduledTask
                 .ToList() ?? new List<ApiResponseInfo>();
             if (preferBeta)
             {
-                return candidates.FirstOrDefault();
+                return candidates.FirstOrDefault(r => r.prerelease) ??
+                       candidates.FirstOrDefault();
             }
 
             return candidates.FirstOrDefault(r => !r.prerelease);
-        }
-
-        private static Version NormalizeVersion(Version version)
-        {
-            if (version == null)
-            {
-                return new Version(0, 0, 0, 0);
-            }
-
-            var build = version.Build >= 0 ? version.Build : 0;
-            var revision = version.Revision >= 0 ? version.Revision : 0;
-            return new Version(version.Major, version.Minor, build, revision);
         }
 
         private static PluginCompatibilityInfo SelectCompatibilityInfo(
@@ -472,6 +429,16 @@ namespace MediaInfoKeeper.ScheduledTask
             return true;
         }
 
+        private static string ApplyUrlPrefix(string url, string prefix)
+        {
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                return url;
+            }
+
+            return $"{prefix.TrimEnd('/')}/{url.TrimStart('/')}";
+        }
+
         private static Version ParseOptionalVersion(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -487,8 +454,32 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private static string GetCurrentVersion()
         {
+            var installedReleaseTag = Plugin.Instance?.OptionsStore?.GetOptions()?.GitHub?.InstalledReleaseTag;
+            if (!string.IsNullOrWhiteSpace(installedReleaseTag))
+            {
+                return installedReleaseTag.Trim();
+            }
+
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             return version == null ? "0.0.0.0" : $"v{version.ToString(4)}";
+        }
+
+        private static void SaveInstalledReleaseTag(string releaseTag)
+        {
+            if (string.IsNullOrWhiteSpace(releaseTag))
+            {
+                return;
+            }
+
+            var plugin = Plugin.Instance;
+            var options = plugin?.OptionsStore?.GetOptions();
+            if (options?.GitHub == null)
+            {
+                return;
+            }
+
+            options.GitHub.InstalledReleaseTag = releaseTag.Trim();
+            plugin.OptionsStore.SetOptions(options);
         }
 
         internal class PluginManifestInfo

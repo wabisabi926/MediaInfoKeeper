@@ -25,14 +25,21 @@ namespace MediaInfoKeeper.Options
         [Description("设置后使用 Token 获取 Releases，避免未认证请求的限流。")]
         public string GitHubToken { get; set; } = string.Empty;
 
+        [DisplayName("下载前缀")]
+        [Description("仅用于插件 Dll 下载，例如 https://ghfast.top 已配置网络代理时通常不需要再设置这里，避免代理链路叠加。")]
+        public string DownloadUrlPrefix { get; set; } = string.Empty;
+
         [Browsable(false)]
         public List<EditorSelectOption> UpdateChannelList { get; set; } = new List<EditorSelectOption>();
 
         [DisplayName("更新频道")]
-        [Description("稳定版只跟随正式 Release；Beta 会优先跟随预发布版本。")]
+        [Description("Stable 只跟随正式 Release；Beta 会优先跟随预发布版本。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
         [SelectItemsSource(nameof(UpdateChannelList))]
         public string UpdateChannel { get; set; } = UpdateChannelOption.Stable.ToString();
+
+        [Browsable(false)]
+        public string InstalledReleaseTag { get; set; } = string.Empty;
 
         [DisplayName("项目地址")]
         [Description("项目初期，有许多不完善的地方，请及时关注更新。")]
@@ -141,6 +148,7 @@ namespace MediaInfoKeeper.Options
 
             AddGroup("GitHub", "",
                 nameof(GitHubToken),
+                nameof(DownloadUrlPrefix),
                 nameof(UpdateChannel),
                 nameof(ProjectUrl),
                 nameof(CurrentVersion),
