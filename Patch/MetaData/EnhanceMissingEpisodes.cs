@@ -28,6 +28,8 @@ namespace MediaInfoKeeper.Patch
         private static bool patchesInstalled;
         private static MethodInfo getAllEpisodesBySeries;
         private static MethodInfo getAllEpisodesBySeriesInfo;
+        private static MethodInfo getMissingEpisodesApi;
+        private static PropertyInfo includeUnairedProperty;
 
         public static bool IsReady => patchesInstalled;
 
@@ -95,6 +97,39 @@ namespace MediaInfoKeeper.Patch
                     if (getAllEpisodesBySeries == null && getAllEpisodesBySeriesInfo == null)
                     {
                         PatchLog.InitFailed(logger, nameof(EnhanceMissingEpisodes), "GetAllEpisodes 重载未找到");
+                    }
+
+                    var embyApi = Assembly.Load("Emby.Api");
+                    var tvShowsService = embyApi?.GetType("Emby.Api.TvShowsService", false);
+                    var getMissingEpisodesRequestType = embyApi?.GetType("Emby.Api.GetMissingEpisodes", false);
+                    includeUnairedProperty = getMissingEpisodesRequestType?.GetProperty("IncludeUnaired", BindingFlags.Instance | BindingFlags.Public);
+
+                    if (tvShowsService == null || getMissingEpisodesRequestType == null || includeUnairedProperty == null)
+                    {
+                        PatchLog.InitFailed(logger, nameof(EnhanceMissingEpisodes), "未找到缺失剧集 API 类型");
+                    }
+                    else
+                    {
+                        getMissingEpisodesApi = PatchMethodResolver.Resolve(
+                            tvShowsService,
+                            tvShowsService.Assembly.GetName().Version,
+                            new MethodSignatureProfile
+                            {
+                                Name = "tvshowsservice-get-missing-episodes",
+                                MethodName = "Get",
+                                BindingFlags = BindingFlags.Instance | BindingFlags.Public,
+                                ParameterTypes = new[]
+                                {
+                                    getMissingEpisodesRequestType
+                                },
+                                ReturnType = typeof(Task<object>)
+                            },
+                            logger,
+                            "EnhanceMissingEpisodes.GetMissingEpisodesApi");
+                    }
+
+                    if (getAllEpisodesBySeries == null && getAllEpisodesBySeriesInfo == null && getMissingEpisodesApi == null)
+                    {
                         return;
                     }
 
@@ -116,7 +151,17 @@ namespace MediaInfoKeeper.Patch
                         PatchLog.Patched(logger, nameof(EnhanceMissingEpisodes), getAllEpisodesBySeriesInfo);
                     }
 
-                    patchesInstalled = getAllEpisodesBySeries != null || getAllEpisodesBySeriesInfo != null;
+                    if (getMissingEpisodesApi != null)
+                    {
+                        harmony.Patch(
+                            getMissingEpisodesApi,
+                            prefix: new HarmonyMethod(typeof(EnhanceMissingEpisodes), nameof(GetMissingEpisodesApiPrefix)));
+                        PatchLog.Patched(logger, nameof(EnhanceMissingEpisodes), getMissingEpisodesApi);
+                    }
+
+                    patchesInstalled = getAllEpisodesBySeries != null ||
+                                       getAllEpisodesBySeriesInfo != null ||
+                                       getMissingEpisodesApi != null;
                 }
                 catch (Exception ex)
                 {
@@ -130,6 +175,17 @@ namespace MediaInfoKeeper.Patch
         public static void Configure(bool enable)
         {
             isEnabled = enable;
+        }
+
+        [HarmonyPrefix]
+        private static void GetMissingEpisodesApiPrefix(object request)
+        {
+            if (!isEnabled || request == null || includeUnairedProperty == null || !includeUnairedProperty.CanWrite)
+            {
+                return;
+            }
+
+            includeUnairedProperty.SetValue(request, true);
         }
 
         [HarmonyPostfix]
