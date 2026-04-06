@@ -143,6 +143,25 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "LibraryMonitorDelay",
+                Initialize = options => LibraryMonitorDelay.Initialize(
+                    logger,
+                    IsPluginEnabled(options) && options.MainPage.FileChangeRefreshDelaySeconds >= 0,
+                    options.MainPage.FileChangeRefreshDelaySeconds),
+                Configure = options => LibraryMonitorDelay.Configure(
+                    IsPluginEnabled(options) && options.MainPage.FileChangeRefreshDelaySeconds >= 0,
+                    options.MainPage.FileChangeRefreshDelaySeconds),
+                IsEnabled = options => IsPluginEnabled(options) && options.MainPage.FileChangeRefreshDelaySeconds >= 0,
+                IsReady = () => LibraryMonitorDelay.IsReady,
+                Notes = () =>
+                {
+                    var delaySeconds = Plugin.Instance?.Options?.MainPage?.FileChangeRefreshDelaySeconds ?? -1;
+                    return delaySeconds >= 0 ? $"override LibraryMonitorDelaySeconds={delaySeconds}" : null;
+                }
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "PlaybackFfprocessAllowance",
                 Initialize = _ => PlaybackFfprocess.Initialize(logger, true),
                 Configure = _ => PlaybackFfprocess.Configure(true),

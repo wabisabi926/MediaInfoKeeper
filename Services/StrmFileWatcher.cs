@@ -6,21 +6,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
-using MediaBrowser.Model.IO;
 
 namespace MediaInfoKeeper.Services
 {
     /// <summary>
-    /// 监听媒体库路径下的新入库 .strm 与视频文件，独立于元数据刷新链路进行媒体信息恢复校验。
+    /// 监听媒体库路径下的新入库 .strm 与视频文件，仅记录 Created 事件日志。
     /// </summary>
     public sealed class StrmFileWatcher : IDisposable
     {
         private readonly ILibraryManager libraryManager;
+        private readonly ILibraryMonitor libraryMonitor;
         private readonly LibraryService libraryService;
         private readonly ILogger logger;
-        private readonly DirectoryService directoryService;
         private readonly object syncRoot = new object();
         private readonly Dictionary<string, FileSystemWatcher> watchers =
             new Dictionary<string, FileSystemWatcher>(StringComparer.OrdinalIgnoreCase);
@@ -32,18 +30,20 @@ namespace MediaInfoKeeper.Services
         private volatile bool disposed;
         private volatile int refreshDelaySeconds;
 
-        private static readonly TimeSpan RecentCreationThreshold = TimeSpan.FromSeconds(3);
-
-        public StrmFileWatcher(ILibraryManager libraryManager, LibraryService libraryService, ILogger logger)
+        public StrmFileWatcher(
+            ILibraryManager libraryManager,
+            ILibraryMonitor libraryMonitor,
+            LibraryService libraryService,
+            ILogger logger)
         {
             this.libraryManager = libraryManager;
+            this.libraryMonitor = libraryMonitor;
             this.libraryService = libraryService;
             this.logger = logger;
-            this.directoryService = new DirectoryService(logger, Plugin.FileSystem);
         }
 
         /// <summary>
-        /// 配置监听开关和延迟扫描时间。
+        /// 配置监听开关。
         /// </summary>
         public void Configure(bool isEnabled, int delaySeconds)
         {
@@ -53,7 +53,7 @@ namespace MediaInfoKeeper.Services
             }
 
             this.enabled = isEnabled;
-            this.refreshDelaySeconds = Math.Max(-1, delaySeconds);
+            this.refreshDelaySeconds = Math.Max(0, delaySeconds);
             RebuildWatchers(isEnabled);
         }
 
@@ -73,7 +73,6 @@ namespace MediaInfoKeeper.Services
                     }
                     catch
                     {
-                        // ignore cleanup failure
                     }
                 }
 
@@ -100,15 +99,13 @@ namespace MediaInfoKeeper.Services
                         var watcher = new FileSystemWatcher(root, "*")
                         {
                             IncludeSubdirectories = true,
-                            NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.CreationTime,
+                            NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime,
                             InternalBufferSize = 64 * 1024,
                             EnableRaisingEvents = true
                         };
 
-                        watcher.Created += (sender, args) => PathQueue(args?.FullPath, isChangedEvent: false);
-                        watcher.Changed += (sender, args) => PathQueue(args?.FullPath, isChangedEvent: true);
-                        watcher.Renamed += (sender, args) => PathQueue(args?.FullPath, isChangedEvent: false);
-
+                        watcher.Created += (sender, args) => OnCreated(args?.FullPath);
+                        watcher.Changed += (sender, args) => QueueRestorePath(args?.FullPath);
                         this.watchers[root] = watcher;
                     }
                     catch (Exception ex)
@@ -124,17 +121,11 @@ namespace MediaInfoKeeper.Services
         }
 
         /// <summary>
-        /// 校验事件路径并加入延迟扫描队列。
-        /// Created 和 Renamed 仅触发扫描，Changed 同时触发扫描与 restore，差异仅由 isChangedEvent 控制。
+        /// 记录新增文件事件。
         /// </summary>
-        private void PathQueue(string path, bool isChangedEvent)
+        private void OnCreated(string path)
         {
             if (!this.enabled || this.disposed || string.IsNullOrWhiteSpace(path))
-            {
-                return;
-            }
-
-            if (!isChangedEvent && !IsRefreshNotificationEnabled())
             {
                 return;
             }
@@ -153,18 +144,55 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            if (isChangedEvent && IsRecentlyCreated(path))
+            if (LibraryService.IsFileShortcut(path))
             {
-                this.logger?.Debug($"StrmFileWatcher 忽略疑似新建触发的 Changed 事件: {path}");
+                this.logger?.Info($"新入库文件，{Path.GetFileName(path) ?? path}");
+                try
+                {
+                    this.libraryMonitor?.ReportFileSystemChanged(path);
+                }
+                catch (Exception ex)
+                {
+                    this.logger?.Error("StrmFileWatcher 通知 Emby 入库扫描失败");
+                    this.logger?.Error(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 收集 Changed 事件，延迟后执行 restore。
+        /// </summary>
+        private void QueueRestorePath(string path)
+        {
+            if (!this.enabled || this.disposed || string.IsNullOrWhiteSpace(path))
+            {
+                return;
+            }
+
+            try
+            {
+                if (!this.libraryManager.IsVideoFile(path.AsSpan()))
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger?.Debug($"StrmFileWatcher 判断视频文件失败: {path}");
+                this.logger?.Debug(ex.Message);
+                return;
+            }
+
+            if (!LibraryService.IsFileShortcut(path))
+            {
                 return;
             }
 
             lock (this.syncRoot)
             {
-                this.pendingPaths[path] = isChangedEvent ||
-                    (this.pendingPaths.TryGetValue(path, out var requiresRestore) && requiresRestore);
+                this.pendingPaths[path] = true;
 
-                var delay = TimeSpan.FromSeconds(Math.Max(0, this.refreshDelaySeconds));
+                var delay = TimeSpan.FromSeconds(this.refreshDelaySeconds);
                 if (this.flushTimer == null)
                 {
                     this.flushTimer = new Timer(_ => _ = Task.Run(FlushPendingPathsAsync), null, delay, Timeout.InfiniteTimeSpan);
@@ -176,13 +204,9 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        /// <summary>
-        /// 处理当前累计的新入库路径并触发扫描与恢复。
-        /// Created 和 Renamed 进入的路径只扫描，Changed 进入的路径在扫描后还会尝试执行 restore。
-        /// </summary>
         private async Task FlushPendingPathsAsync()
         {
-            KeyValuePair<string, bool>[] pendingEntries;
+            string[] pendingEntries;
             lock (this.syncRoot)
             {
                 if (this.pendingPaths.Count == 0 || !this.enabled || this.disposed)
@@ -190,164 +214,18 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                pendingEntries = this.pendingPaths.ToArray();
+                pendingEntries = this.pendingPaths.Keys.ToArray();
                 this.pendingPaths.Clear();
             }
 
-            var refreshTargets = new Dictionary<long, BaseItem>();
-            var restorePaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var entry in pendingEntries)
+            foreach (var path in pendingEntries)
             {
-                var path = entry.Key;
-                var target = ResolveRefreshTarget(path);
-                if (target != null && target.InternalId != 0)
-                {
-                    refreshTargets[target.InternalId] = target;
-                }
-
-                if (!entry.Value)
-                {
-                    continue;
-                }
-
-                try
-                {
-                    var item = this.libraryManager.FindByPath(path, false) as BaseItem
-                        ?? this.libraryManager.FindByPath(path, true) as BaseItem;
-                    if (item != null && LibraryService.IsFileShortcut(item.Path ?? item.FileName))
-                    {
-                        restorePaths.Add(path);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.logger?.Debug($"StrmFileWatcher 判断是否需要恢复失败: {path}");
-                    this.logger?.Debug(ex.Message);
-                    if (LibraryService.IsFileShortcut(path))
-                    {
-                        restorePaths.Add(path);
-                    }
-                }
+                QueueRestore(path);
             }
 
-            foreach (var target in refreshTargets.Values)
-            {
-                if (!IsRefreshNotificationEnabled())
-                {
-                    break;
-                }
-
-                await QueueRefreshAsync(target).ConfigureAwait(false);
-            }
-
-            foreach (var restorePath in restorePaths)
-            {
-                QueueRestore(restorePath);
-            }
+            await Task.CompletedTask.ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// 扫描指定目标条目，促使 Emby 发现新入库文件。
-        /// </summary>
-        private async Task QueueRefreshAsync(BaseItem target)
-        {
-            try
-            {
-                if (!this.enabled || this.disposed || target == null || target.InternalId == 0)
-                {
-                    return;
-                }
-
-                var refreshOptions = new MetadataRefreshOptions(this.directoryService)
-                {
-                    Recursive = true,
-                    EnableRemoteContentProbe = false,
-                    MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,
-                    ReplaceAllMetadata = false,
-                    ImageRefreshMode = MetadataRefreshMode.ValidationOnly,
-                    ReplaceAllImages = false,
-                    EnableThumbnailImageExtraction = false,
-                    EnableSubtitleDownloading = false
-                };
-
-                var collectionFolders = this.libraryManager.GetCollectionFolders(target).Cast<BaseItem>().ToArray();
-                var libraryOptions = this.libraryManager.GetLibraryOptions(target);
-                this.logger?.Info($"新入库文件，通知 Emby 刷新 {target.Path ?? target.Name}");
-
-                await RefreshTaskRunner.RunAsync(
-                        () => Plugin.ProviderManager.RefreshSingleItem(
-                            target,
-                            refreshOptions,
-                            collectionFolders,
-                            libraryOptions,
-                            CancellationToken.None))
-                    .ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                this.logger?.Error("StrmFileWatcher 提前刷新失败");
-                this.logger?.Error(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 根据文件路径解析用于扫描的目标条目。
-        /// </summary>
-        private BaseItem ResolveRefreshTarget(string path)
-        {
-            BaseItem item = null;
-            try
-            {
-                item = this.libraryManager.FindByPath(path, false) as BaseItem;
-                if (item == null)
-                {
-                    item = this.libraryManager.FindByPath(path, true) as BaseItem;
-                }
-            }
-            catch
-            {
-            }
-
-            if (item != null)
-            {
-                if (item is Folder folder)
-                {
-                    return folder;
-                }
-
-                var parent = item.GetParent();
-                if (parent != null)
-                {
-                    return parent;
-                }
-
-                return item;
-            }
-
-            var currentPath = Path.GetDirectoryName(path);
-            while (!string.IsNullOrWhiteSpace(currentPath))
-            {
-                var folder = this.libraryManager.FindByPath(currentPath, true) as Folder;
-                if (folder != null)
-                {
-                    return folder;
-                }
-
-                currentPath = Path.GetDirectoryName(currentPath);
-            }
-
-            return null;
-        }
-
-        private bool IsRefreshNotificationEnabled()
-        {
-            return this.refreshDelaySeconds >= 0;
-        }
-
-        /// <summary>
-        /// 为 strm 条目排队执行媒体信息恢复。
-        /// </summary>
         private void QueueRestore(string strmPath)
         {
             try
@@ -357,15 +235,10 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                var item = this.libraryManager.FindByPath(strmPath, false) as BaseItem;
-                if (item == null)
-                {
-                    item = this.libraryManager.FindByPath(strmPath, true) as BaseItem;
-                }
-
+                var item = this.libraryManager.FindByPath(strmPath, false) as BaseItem
+                    ?? this.libraryManager.FindByPath(strmPath, true) as BaseItem;
                 if (item == null || item.InternalId == 0)
                 {
-                    this.logger?.Debug($"StrmFileWatcher 未找到条目: {strmPath}");
                     return;
                 }
 
@@ -383,9 +256,24 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        /// <summary>
-        /// 释放文件监听和延迟扫描资源。
-        /// </summary>
+        private void DisposeFlushTimer()
+        {
+            if (this.flushTimer == null)
+            {
+                return;
+            }
+
+            try
+            {
+                this.flushTimer.Dispose();
+            }
+            catch
+            {
+            }
+
+            this.flushTimer = null;
+        }
+
         public void Dispose()
         {
             if (this.disposed)
@@ -407,7 +295,6 @@ namespace MediaInfoKeeper.Services
                     }
                     catch
                     {
-                        // ignore
                     }
                 }
 
@@ -415,60 +302,6 @@ namespace MediaInfoKeeper.Services
                 this.pendingPaths.Clear();
                 DisposeFlushTimer();
             }
-        }
-
-        /// <summary>
-        /// 判断路径是否对应刚创建不久的文件。
-        /// </summary>
-        private bool IsRecentlyCreated(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                return false;
-            }
-
-            try
-            {
-                if (!Plugin.FileSystem.FileExists(path))
-                {
-                    return false;
-                }
-
-                var createdUtc = File.GetCreationTimeUtc(path);
-                if (createdUtc == DateTime.MinValue || createdUtc == DateTime.MaxValue)
-                {
-                    return false;
-                }
-
-                return DateTime.UtcNow - createdUtc <= RecentCreationThreshold;
-            }
-            catch (Exception ex)
-            {
-                this.logger?.Debug($"StrmFileWatcher 获取创建时间失败: {path}");
-                this.logger?.Debug(ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 释放延迟扫描计时器。
-        /// </summary>
-        private void DisposeFlushTimer()
-        {
-            if (this.flushTimer == null)
-            {
-                return;
-            }
-
-            try
-            {
-                this.flushTimer.Dispose();
-            }
-            catch
-            {
-            }
-
-            this.flushTimer = null;
         }
     }
 }

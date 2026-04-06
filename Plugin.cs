@@ -67,6 +67,7 @@ namespace MediaInfoKeeper
         private Dictionary<string, string> pendingSavedOptionsSnapshot;
 
         private readonly ILibraryManager libraryManager;
+        private readonly ILibraryMonitor libraryMonitor;
         private readonly IProviderManager providerManager;
         private readonly IItemRepository itemRepository;
         private readonly IFileSystem fileSystem;
@@ -125,6 +126,7 @@ namespace MediaInfoKeeper
             IApplicationHost applicationHost,
             ILogManager logManager,
             ILibraryManager libraryManager,
+            ILibraryMonitor libraryMonitor,
             IProviderManager providerManager,
             IItemRepository itemRepository,
             IUserManager userManager,
@@ -145,6 +147,7 @@ namespace MediaInfoKeeper
 
             this.applicationHost = applicationHost;
             this.libraryManager = libraryManager;
+            this.libraryMonitor = libraryMonitor;
             this.providerManager = providerManager;
             this.itemRepository = itemRepository;
             this.fileSystem = fileSystem;
@@ -199,7 +202,7 @@ namespace MediaInfoKeeper
                 libraryManager, userManager, sessionManager, this.logger);
             PrefetchService = new PrefetchService(
                 libraryManager, sessionManager, this.logger);
-            StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
+            StrmFileWatcher = new StrmFileWatcher(libraryManager, libraryMonitor, LibraryService, this.logger);
             PluginWebResourceLoader.Initialize(serverConfigurationManager);
             PrefetchService.Initialize();
 
@@ -470,9 +473,9 @@ namespace MediaInfoKeeper
                 new OptionLogEntry(
                     "Main.FileChangeRefreshDelaySeconds",
                     "Main",
-                    "扫描新入库文件延迟",
+                    "Emby入库扫描延迟",
                     options.MainPage.FileChangeRefreshDelaySeconds < 0
-                        ? "已禁用通知"
+                        ? "已禁用覆盖"
                         : $"{options.MainPage.FileChangeRefreshDelaySeconds} 秒"),
                 new OptionLogEntry("IntroSkip.UnlockIntroSkip", "IntroSkip", "启用 Strm 片头检测解锁", options.IntroSkip.UnlockIntroSkip.ToString()),
                 new OptionLogEntry("IntroSkip.ScanIntroOnItemAdded", "IntroSkip", "入库时扫描片头", options.IntroSkip.ScanIntroOnItemAdded.ToString()),
