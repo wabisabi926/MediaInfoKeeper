@@ -89,7 +89,7 @@ namespace MediaInfoKeeper.Services
 
         private static int GetMaxConcurrent()
         {
-            return Math.Max(1, Plugin.Instance?.Options?.MainPage?.MaxConcurrentCount ?? 1);
+            return Math.Max(1, Plugin.Instance?.Options?.GetMediaInfoOptions()?.MaxConcurrentCount ?? 1);
         }
 
         private static TaskCompletionSource<bool> CreateAvailabilitySource()

@@ -16,6 +16,7 @@ namespace MediaInfoKeeper.Options.View
 
         public MainPageController(PluginInfo pluginInfo,
             MainPageOptionsStore mainPageOptionsStore,
+            MediaInfoOptionsStore mediaInfoOptionsStore,
             GitHubOptionsStore gitHubOptionsStore,
             IntroSkipOptionsStore introSkipOptionsStore,
             NetWorkOptionsStore netWorkOptionsStore,
@@ -38,6 +39,9 @@ namespace MediaInfoKeeper.Options.View
                 MenuIcon = "video_settings",
                 IsMainConfigPage = true
             };
+
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MediaInfoPageView), "MediaInfo",
+                e => new MediaInfoPageView(pluginInfo, mediaInfoOptionsStore)));
             
             this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "MetaData",
                 e => new MetaDataPageView(pluginInfo, metaDataOptionsStore)));

@@ -89,6 +89,7 @@ namespace MediaInfoKeeper
         private bool PlugginEnabled;
         internal readonly PluginOptionsStore OptionsStore;
         internal readonly MainPageOptionsStore MainPageOptionsStore;
+        internal readonly MediaInfoOptionsStore MediaInfoOptionsStore;
         internal readonly GitHubOptionsStore GitHubOptionsStore;
         internal readonly IntroSkipOptionsStore IntroSkipOptionsStore;
         internal readonly NetWorkOptionsStore NetWorkOptionsStore;
@@ -166,6 +167,7 @@ namespace MediaInfoKeeper
             OptionsStore = new PluginOptionsStore(applicationHost, this.logger, this.Name,
                 PrepareOptionsForUi, HandleOptionsSaving, HandleOptionsSaved);
             MainPageOptionsStore = new MainPageOptionsStore(OptionsStore);
+            MediaInfoOptionsStore = new MediaInfoOptionsStore(OptionsStore);
             GitHubOptionsStore = new GitHubOptionsStore(OptionsStore);
             IntroSkipOptionsStore = new IntroSkipOptionsStore(OptionsStore);
             NetWorkOptionsStore = new NetWorkOptionsStore(OptionsStore);
@@ -234,6 +236,7 @@ namespace MediaInfoKeeper
             {
                 var options = this.OptionsStore.GetOptions();
                 options.MainPage ??= new MainPageOptions();
+                options.GetMediaInfoOptions();
                 return options;
             }
         }
@@ -257,6 +260,7 @@ namespace MediaInfoKeeper
                     this.pages = new List<IPluginUIPageController>
                     {
                         new MainPageController(this.GetPluginInfo(), this.MainPageOptionsStore,
+                            this.MediaInfoOptionsStore,
                             this.GitHubOptionsStore, this.IntroSkipOptionsStore, this.NetWorkOptionsStore,
                             this.EnhanceOptionsStore, this.MetaDataOptionsStore
 #if DEBUG
@@ -278,6 +282,7 @@ namespace MediaInfoKeeper
             }
 
             options.MainPage ??= new MainPageOptions();
+            options.GetMediaInfoOptions();
             options.IntroSkip ??= new IntroSkipOptions();
             options.GetNetWorkOptions();
             options.GitHub ??= new GitHubOptions();
@@ -351,6 +356,7 @@ namespace MediaInfoKeeper
             }
 
             options.MainPage ??= new MainPageOptions();
+            options.GetMediaInfoOptions();
             options.IntroSkip ??= new IntroSkipOptions();
             options.GitHub ??= new GitHubOptions();
             if (string.IsNullOrWhiteSpace(options.GitHub.UpdateChannel))
@@ -404,6 +410,7 @@ namespace MediaInfoKeeper
         {
             var safeOptions = this.OptionsStore.GetOptions() ?? new PluginConfiguration();
             safeOptions.MainPage ??= new MainPageOptions();
+            safeOptions.GetMediaInfoOptions();
 
             StrmFileWatcher?.Configure(this.PlugginEnabled, safeOptions.MainPage.FileChangeRefreshDelaySeconds);
         }
@@ -452,6 +459,7 @@ namespace MediaInfoKeeper
         private List<OptionLogEntry> BuildOptionLogEntries(PluginConfiguration options)
         {
             options.MainPage ??= new MainPageOptions();
+            var mediaInfoOptions = options.GetMediaInfoOptions();
             options.IntroSkip ??= new IntroSkipOptions();
             options.Enhance ??= new EnhanceOptions();
             options.MetaData ??= new MetaDataOptions();
@@ -463,13 +471,13 @@ namespace MediaInfoKeeper
             return new List<OptionLogEntry>
             {
                 new OptionLogEntry("Main.PlugginEnabled", "Main", "启用插件", options.MainPage.PlugginEnabled.ToString()),
-                new OptionLogEntry("Main.ExtractMediaInfoOnItemAdded", "Main", "入库时提取媒体信息", options.MainPage.ExtractMediaInfoOnItemAdded.ToString()),
+                new OptionLogEntry("MediaInfo.ExtractMediaInfoOnItemAdded", "MediaInfo", "入库时提取媒体信息", mediaInfoOptions.ExtractMediaInfoOnItemAdded.ToString()),
                 new OptionLogEntry("Main.StrmFileWatcher", "Main", "启用 Strm 内容修改监听", "开"),
-                new OptionLogEntry("Main.MediaInfoJsonRootFolder", "Main", "MediaInfo JSON 存储根目录", FormatOptionValue(options.MainPage.MediaInfoJsonRootFolder)),
-                new OptionLogEntry("Main.DeleteMediaInfoJsonOnRemove", "Main", "条目移除时删除 JSON", options.MainPage.DeleteMediaInfoJsonOnRemove.ToString()),
+                new OptionLogEntry("MediaInfo.MediaInfoJsonRootFolder", "MediaInfo", "MediaInfo JSON 存储根目录", FormatOptionValue(mediaInfoOptions.MediaInfoJsonRootFolder)),
+                new OptionLogEntry("MediaInfo.DeleteMediaInfoJsonOnRemove", "MediaInfo", "条目移除时删除 JSON", mediaInfoOptions.DeleteMediaInfoJsonOnRemove.ToString()),
                 new OptionLogEntry("Main.CatchupLibraries", "Main", "追更媒体库", FormatOptionValue(options.MainPage.CatchupLibraries)),
                 new OptionLogEntry("Main.ScheduledTaskLibraries", "Main", "计划任务媒体库", FormatOptionValue(options.MainPage.ScheduledTaskLibraries)),
-                new OptionLogEntry("Main.MaxConcurrentCount", "Main", "扫描最多并发数", options.MainPage.MaxConcurrentCount.ToString()),
+                new OptionLogEntry("MediaInfo.MaxConcurrentCount", "MediaInfo", "扫描最多并发数", mediaInfoOptions.MaxConcurrentCount.ToString()),
                 new OptionLogEntry(
                     "Main.FileChangeRefreshDelaySeconds",
                     "Main",
@@ -676,7 +684,7 @@ namespace MediaInfoKeeper
                     // 如果不存在Json文件，则使用ffprobe 提取一次
                     if (shouldRefreshAfterRestore)
                     {
-                        if (!this.Options.MainPage.ExtractMediaInfoOnItemAdded)
+                        if (!this.Options.GetMediaInfoOptions().ExtractMediaInfoOnItemAdded)
                         {
                             this.logger.Info("已关闭入库时提取媒体信息，跳过");
                             return;
@@ -896,7 +904,7 @@ namespace MediaInfoKeeper
         {
             this.logger.Info($"{e.Item.Path} 删除媒体事件");
             // 未开启删除开关时直接跳过。
-            if (!this.Options.MainPage.DeleteMediaInfoJsonOnRemove || !this.Options.MainPage.PlugginEnabled)
+            if (!this.Options.GetMediaInfoOptions().DeleteMediaInfoJsonOnRemove || !this.Options.MainPage.PlugginEnabled)
             {
                 return;
             }

@@ -52,7 +52,7 @@ namespace MediaInfoKeeper.Services
 
         private static string BuildSidecarPath(BaseItem item, string extension)
         {
-            var jsonRootFolder = Plugin.Instance.Options.MainPage.MediaInfoJsonRootFolder?.Trim();
+            var jsonRootFolder = Plugin.Instance.Options.GetMediaInfoOptions().MediaInfoJsonRootFolder?.Trim();
             var fileName = item.FileNameWithoutExtension + extension;
 
             return !string.IsNullOrWhiteSpace(jsonRootFolder)

@@ -49,7 +49,7 @@ namespace MediaInfoKeeper.ScheduledTask
             await Task.Yield();
             progress.Report(0);
 
-            var exportRoot = Plugin.Instance.Options.MainPage?.MediaInfoJsonRootFolder?.Trim();
+            var exportRoot = Plugin.Instance.Options.GetMediaInfoOptions().MediaInfoJsonRootFolder?.Trim();
             if (string.IsNullOrWhiteSpace(exportRoot))
             {
                 throw new InvalidOperationException("请先在插件配置中设置“MediaInfo JSON 存储根目录”(MediaInfoJsonRootFolder)。");

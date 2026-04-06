@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Common;
 using Emby.Web.GenericEdit.Editors;
-using MediaBrowser.Common.Configuration;
 using MediaBrowser.Model.GenericEdit;
 using MediaBrowser.Model.Attributes;
 
@@ -29,19 +27,23 @@ namespace MediaInfoKeeper.Options
         [Description("关闭后将不执行任何行为。")]
         public bool PlugginEnabled { get; set; } = true;
 
+        [Browsable(false)]
         [DisplayName("入库时提取媒体信息")]
         [Description("入库时若 JSON 不存在或恢复失败，提取媒体信息并写入 JSON。")]
         public bool ExtractMediaInfoOnItemAdded { get; set; } = true;
 
+        [Browsable(false)]
         [DisplayName("条目移除时删除 JSON")]
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
 
+        [Browsable(false)]
         [DisplayName("MediaInfo JSON 存储根目录")]
         [Description("默认使用 Emby的 /config/data/MediaInfoKeeper 子目录保存。视频等媒体保存在 /your-path/FileNameWithoutExtension-mediainfo.json；音频保存在 /your-path/music/FileNameWithoutExtension-mediainfo.json。若当前值为空，JSON 保存到媒体文件同目录。")]
         [EditFolderPicker]
-        public string MediaInfoJsonRootFolder { get; set; } = GetDefaultMediaInfoJsonRootFolder();
+        public string MediaInfoJsonRootFolder { get; set; } = MediaInfoOptions.GetDefaultMediaInfoJsonRootFolder();
 
+        [Browsable(false)]
         [DisplayName("扫描最多并发数")]
         [Description("设置插件刷新任务的最大并发数，媒体信息提取和元数据刷新共用此限制，默认 3。")]
         [MinValue(1), MaxValue(20)]
@@ -147,12 +149,6 @@ namespace MediaInfoKeeper.Options
                 nameof(PlugginEnabled),
                 nameof(FileChangeRefreshDelaySeconds));
 
-            AddGroup("媒体信息", "插件会持续监听 .strm 文件内容变更，并阻止 Emby 系统 ffprobe/ffmpeg 运行；仅在插件内部需要提取媒体信息时按需放行。",
-                nameof(ExtractMediaInfoOnItemAdded),
-                nameof(DeleteMediaInfoJsonOnRemove),
-                nameof(MediaInfoJsonRootFolder),
-                nameof(MaxConcurrentCount));
-
             AddGroup("媒体库范围", "",
                 nameof(CatchupLibraries),
                 nameof(ScheduledTaskLibraries));
@@ -187,23 +183,6 @@ namespace MediaInfoKeeper.Options
             }
 
             return container;
-        }
-
-        private static string GetDefaultMediaInfoJsonRootFolder()
-        {
-            try
-            {
-                var programDataPath = Plugin.Instance?.AppHost?.Resolve<IApplicationPaths>()?.ProgramDataPath;
-                if (!string.IsNullOrWhiteSpace(programDataPath))
-                {
-                    return Path.Combine(programDataPath, "data", Plugin.PluginName);
-                }
-            }
-            catch
-            {
-            }
-
-            return Path.Combine("/config", "data", Plugin.PluginName);
         }
     }
 }
