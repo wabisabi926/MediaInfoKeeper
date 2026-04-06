@@ -413,6 +413,16 @@ namespace MediaInfoKeeper.Patch
                 IsReady = () => SystemLog.IsReady,
                 Notes = () => SystemLog.IsReady ? null : "NamedLogger.Log 未命中"
             });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "PluginUiTabTitle",
+                Initialize = _ => PluginUiTabTitle.Initialize(logger),
+                Configure = _ => PluginUiTabTitle.Configure(),
+                IsEnabled = _ => true,
+                IsReady = () => PluginUiTabTitle.IsReady,
+                Notes = () => "always enabled"
+            });
         }
 
         private static void RegisterTrackers()

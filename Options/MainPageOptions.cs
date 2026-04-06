@@ -21,7 +21,7 @@ namespace MediaInfoKeeper.Options
             Replace
         }
 
-        public override string EditorTitle => "MediaInfo Keeper";
+        public override string EditorTitle => "General";
 
         public override string EditorDescription => "媒体信息处理、媒体库范围和计划任务这些常用设置。改完记得保存。";
 
