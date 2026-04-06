@@ -19,7 +19,7 @@ namespace MediaInfoKeeper.Options
             Replace
         }
 
-        public override string EditorTitle => "General";
+        public override string EditorTitle => "基础设置";
 
         public override string EditorDescription => "媒体信息处理、媒体库范围和计划任务这些常用设置。改完记得保存。";
 
@@ -149,11 +149,11 @@ namespace MediaInfoKeeper.Options
                 nameof(PlugginEnabled),
                 nameof(FileChangeRefreshDelaySeconds));
 
-            AddGroup("媒体库范围", "",
+            AddGroup("媒体库范围", "限制生效媒体库范围",
                 nameof(CatchupLibraries),
                 nameof(ScheduledTaskLibraries));
 
-            AddGroup("计划任务", "",
+            AddGroup("计划任务", "计划任务中，各项任务用到的参数设置",
                 nameof(RecentItemsDays),
                 nameof(RecentItemsLimit),
                 nameof(RefreshMetadataMode),

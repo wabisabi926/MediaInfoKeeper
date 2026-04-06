@@ -25,7 +25,7 @@ namespace MediaInfoKeeper.Options
             "yue",
         };
 
-        public override string EditorTitle => "MetaData";
+        public override string EditorTitle => "元数据";
 
         public override string EditorDescription => "元数据相关设置，包括刷新过程处理、TMDB 回退和 TVDB 回退。改完记得保存。";
 

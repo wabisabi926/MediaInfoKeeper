@@ -18,7 +18,7 @@ namespace MediaInfoKeeper.Options
             Overwrite
         }
 
-        public override string EditorTitle => "IntroSkip";
+        public override string EditorTitle => "片头片尾";
 
         public override string EditorDescription => "片头相关设置都放在这里，包括扫描、标记保护和播放行为打标。改完记得保存。";
 

@@ -40,22 +40,22 @@ namespace MediaInfoKeeper.Options.View
                 IsMainConfigPage = true
             };
 
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MediaInfoPageView), "MediaInfo",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MediaInfoPageView), "媒体信息",
                 e => new MediaInfoPageView(pluginInfo, mediaInfoOptionsStore)));
             
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "MetaData",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(MetaDataPageView), "元数据",
                 e => new MetaDataPageView(pluginInfo, metaDataOptionsStore)));
             
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(IntroSkipPageView), "IntroSkip",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(IntroSkipPageView), "片头片尾",
                 e => new IntroSkipPageView(pluginInfo, introSkipOptionsStore)));
 
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(EnhancePageView), "Enhance",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(EnhancePageView), "增强功能",
                 e => new EnhancePageView(pluginInfo, enhanceOptionsStore)));
             
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(NetWorkPageView), "Network",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(NetWorkPageView), "网络代理",
                 e => new NetWorkPageView(pluginInfo, netWorkOptionsStore)));
 
-            this.tabPages.Add(new TabPageController(pluginInfo, nameof(GitHubPageView), "GitHub & Update",
+            this.tabPages.Add(new TabPageController(pluginInfo, nameof(GitHubPageView), "GitHub",
                 e => new GitHubPageView(pluginInfo, gitHubOptionsStore)));
 
 #if DEBUG

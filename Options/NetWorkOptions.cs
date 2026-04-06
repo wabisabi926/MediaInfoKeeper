@@ -9,7 +9,7 @@ namespace MediaInfoKeeper.Options
 {
     public class NetWorkOptions : EditableOptionsBase
     {
-        public override string EditorTitle => "Network";
+        public override string EditorTitle => "网络代理";
 
         public override string EditorDescription => "网络相关设置页，用来调整本地发现地址、代理和 TMDB 请求替换。改完记得保存。";
 
