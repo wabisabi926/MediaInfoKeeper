@@ -143,6 +143,15 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "PlaybackFfprocessAllowance",
+                Initialize = _ => PlaybackFfprocess.Initialize(logger, true),
+                Configure = _ => PlaybackFfprocess.Configure(true),
+                IsEnabled = options => IsPluginEnabled(options),
+                IsReady = () => PlaybackFfprocess.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "ImageCapture",
                 Initialize = options => ImageCapture.Initialize(logger, options.MetaData.EnableImageCapture),
                 Configure = options => ImageCapture.Configure(IsPluginEnabled(options) && options.MetaData.EnableImageCapture),

@@ -56,7 +56,7 @@ namespace MediaInfoKeeper
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
         public static IntroSkipPlaySessionMonitor IntroSkipPlaySessionMonitor { get; private set; }
         public static IntroScanService IntroScanService { get; private set; }
-        public static PlaybackExtractService PlaybackExtractService { get; private set; }
+        public static PrefetchService PrefetchService { get; private set; }
         public static StrmFileWatcher StrmFileWatcher { get; private set; }
         public static ExternalSubtitle ExternalSubtitle { get; private set; }
 
@@ -197,11 +197,11 @@ namespace MediaInfoKeeper
             IntroScanService = new IntroScanService(logManager, libraryManager, fileSystem);
             IntroSkipPlaySessionMonitor = new IntroSkipPlaySessionMonitor(
                 libraryManager, userManager, sessionManager, this.logger);
-            PlaybackExtractService = new PlaybackExtractService(
+            PrefetchService = new PrefetchService(
                 libraryManager, sessionManager, this.logger);
             StrmFileWatcher = new StrmFileWatcher(libraryManager, LibraryService, this.logger);
             PluginWebResourceLoader.Initialize(serverConfigurationManager);
-            PlaybackExtractService.Initialize();
+            PrefetchService.Initialize();
 
             if (this.Options.IntroSkip?.EnableIntroMarker == true || this.Options.IntroSkip?.EnableCreditsMarker == true)
             {

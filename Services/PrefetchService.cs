@@ -14,7 +14,7 @@ using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Services
 {
-    public sealed class PlaybackExtractService : IDisposable
+    public sealed class PrefetchService : IDisposable
     {
         private static readonly TimeSpan NextEpisodePrefetchDelay = TimeSpan.FromSeconds(5);
         private readonly ILibraryManager libraryManager;
@@ -24,7 +24,7 @@ namespace MediaInfoKeeper.Services
         private readonly ConcurrentDictionary<string, CancellationTokenSource> prefetchSessions = new ConcurrentDictionary<string, CancellationTokenSource>(StringComparer.OrdinalIgnoreCase);
         private bool initialized;
 
-        public PlaybackExtractService(
+        public PrefetchService(
             ILibraryManager libraryManager,
             ISessionManager sessionManager,
             ILogger logger)
@@ -64,38 +64,33 @@ namespace MediaInfoKeeper.Services
             }
 
             var targetItem = ResolvePlaybackItem(e);
-            if (targetItem is not Video && targetItem is not Audio)
+            if (targetItem is not Episode episode)
             {
                 return;
             }
 
-            QueueExtractIfNeeded(targetItem, "开播提取");
-
-            if (targetItem is Episode episode)
+            var nextEpisodeIds = Plugin.LibraryService.NextEpisodesId(episode, 1);
+            if (nextEpisodeIds.Count == 0)
             {
-                var nextEpisodeIds = Plugin.LibraryService.NextEpisodesId(episode, 1);
-                if (nextEpisodeIds.Count == 0)
-                {
-                    return;
-                }
-
-                var nextEpisode = libraryManager.GetItemById(nextEpisodeIds[0]) as Episode;
-                if (nextEpisode == null)
-                {
-                    return;
-                }
-
-                if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
-                {
-                    logger.Info($"下一集预提取: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
-                    return;
-                }
-
-                var sessionKey = !string.IsNullOrWhiteSpace(e.PlaySessionId)
-                    ? e.PlaySessionId
-                    : e.Session?.Id;
-                ScheduleNextEpisodePrefetch(nextEpisode.InternalId, nextEpisode.FileName ?? nextEpisode.Name, sessionKey, "下一集预提取");
+                return;
             }
+
+            var nextEpisode = libraryManager.GetItemById(nextEpisodeIds[0]) as Episode;
+            if (nextEpisode == null)
+            {
+                return;
+            }
+
+            if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
+            {
+                logger.Info($"下一集预提取: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
+                return;
+            }
+
+            var sessionKey = !string.IsNullOrWhiteSpace(e.PlaySessionId)
+                ? e.PlaySessionId
+                : e.Session?.Id;
+            ScheduleNextEpisodePrefetch(nextEpisode.InternalId, nextEpisode.FileName ?? nextEpisode.Name, sessionKey, "下一集预提取");
         }
 
         private void ScheduleNextEpisodePrefetch(long nextEpisodeId, string nextEpisodeName, string sessionKey, string source)
