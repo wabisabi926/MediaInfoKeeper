@@ -325,7 +325,6 @@ namespace MediaInfoKeeper
             if (options.IntroSkip != null)
             {
                 options.IntroSkip.LibraryScope = NormalizeScopedLibraries(options.IntroSkip.LibraryScope);
-                options.IntroSkip.MarkerEnabledLibraryScope = NormalizeScopedLibraries(options.IntroSkip.MarkerEnabledLibraryScope);
             }
             options.GitHub ??= new GitHubOptions();
             if (string.IsNullOrWhiteSpace(options.GitHub.UpdateChannel))
@@ -491,7 +490,6 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("IntroSkip.ProtectMarkers", "IntroSkip", "保护片头标记", "开"),
                 new OptionLogEntry("IntroSkip.EnableIntroMarker", "IntroSkip", "启用片头打标", options.IntroSkip.EnableIntroMarker.ToString()),
                 new OptionLogEntry("IntroSkip.EnableCreditsMarker", "IntroSkip", "启用片尾打标", options.IntroSkip.EnableCreditsMarker.ToString()),
-                new OptionLogEntry("IntroSkip.MarkerEnabledLibraryScope", "IntroSkip", "片头检测库范围", FormatOptionValue(options.IntroSkip.MarkerEnabledLibraryScope)),
                 new OptionLogEntry("IntroSkip.LibraryScope", "IntroSkip", "打标库范围", FormatOptionValue(options.IntroSkip.LibraryScope)),
                 new OptionLogEntry("IntroSkip.UserScope", "IntroSkip", "用户范围", FormatOptionValue(options.IntroSkip.UserScope)),
                 new OptionLogEntry("Enhance.EnhanceChineseSearch", "Enhance", "启用增强搜索", options.Enhance.EnhanceChineseSearch.ToString()),

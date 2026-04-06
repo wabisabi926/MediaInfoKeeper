@@ -27,12 +27,12 @@ namespace MediaInfoKeeper.Options
         public bool UnlockIntroSkip { get; set; } = true;
 
         [DisplayName("入库时扫描片头")]
-        [Description("新剧集入库时触发片头检测。")]
+        [Description("新剧集入库时触发片头检测，不判断媒体库的片头标记设置。因为片头标记必须参与计划任务，不想存量全部扫。")]
         public bool ScanIntroOnItemAdded { get; set; } = true;
 
         [DisplayName("收藏时扫描片头")]
-        [Description("收藏时触发对应媒体片头检测。")]
-        public bool ScanIntroOnFavorite { get; set; } = true;
+        [Description("收藏时触发对应媒体片头检测，同上。")]
+        public bool ScanIntroOnFavorite { get; set; } = false;
 
         [DisplayName("启用片头打标")]
         [Description("根据播放行为自动标记片头。")]
@@ -94,12 +94,6 @@ namespace MediaInfoKeeper.Options
 
         [Browsable(false)]
         public IEnumerable<EditorSelectOption> LibraryList { get; set; }
-
-        [DisplayName("片头检测库范围")]
-        [Description("留空表示所有开启片头检测的剧集库。")]
-        [EditMultilSelect]
-        [SelectItemsSource(nameof(LibraryList))]
-        public string MarkerEnabledLibraryScope { get; set; } = string.Empty;
 
         [DisplayName("打标库范围")]
         [Description("用于播放行为打标，留空表示所有剧集库。")]
@@ -182,8 +176,7 @@ namespace MediaInfoKeeper.Options
                 nameof(ScanIntroOnItemAdded),
                 nameof(ScanIntroOnFavorite),
                 nameof(IntroDetectionFingerprintMinutes),
-                nameof(IntroDetectionMaxConcurrentCount),
-                nameof(MarkerEnabledLibraryScope));
+                nameof(IntroDetectionMaxConcurrentCount));
 
             AddGroup("播放行为打标",
                 "最短剧情起始前: 优先视为前置剧情保护区；最短剧情起始到最大片头时长: 片头更可信；" +

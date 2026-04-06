@@ -137,7 +137,7 @@ namespace MediaInfoKeeper.Patch
             }
 
             Configure(options.IntroSkip.UnlockIntroSkip);
-            UpdateLibraryPathsInScope(options.IntroSkip.MarkerEnabledLibraryScope);
+            UpdateLibraryPathsInScope();
             UpdateLibraryIntroDetectionFingerprintLength(options.IntroSkip.IntroDetectionFingerprintMinutes);
         }
 
@@ -174,21 +174,16 @@ namespace MediaInfoKeeper.Patch
             isPatched = false;
         }
 
-        private static void UpdateLibraryPathsInScope(string currentScope)
+        private static void UpdateLibraryPathsInScope()
         {
             if (Plugin.LibraryManager == null)
             {
                 return;
             }
 
-            var libraryIds = currentScope?.Split(new[] { ',', ';', '\n', '\r', '\t' },
-                StringSplitOptions.RemoveEmptyEntries).Select(id => id.Trim()).ToArray();
-
             var folders = Plugin.LibraryManager.GetVirtualFolders()
-                .Where(f => libraryIds != null && libraryIds.Any()
-                    ? libraryIds.Contains(f.ItemId)
-                    : f.LibraryOptions.EnableMarkerDetection &&
-                      (f.CollectionType == CollectionType.TvShows.ToString() || f.CollectionType is null))
+                .Where(f => f.LibraryOptions.EnableMarkerDetection &&
+                    (f.CollectionType == CollectionType.TvShows.ToString() || f.CollectionType is null))
                 .ToList();
 
             libraryPathsInScope = folders

@@ -308,7 +308,7 @@ namespace MediaInfoKeeper.Services
             IProgress<double> progress,
             Func<int> onCompleted)
         {
-            var displayName = episode?.Path ?? episode?.Name;
+            var displayName = episode?.FileName ?? episode?.Path;
             if (episode == null)
             {
                 return;
