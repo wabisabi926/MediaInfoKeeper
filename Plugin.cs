@@ -969,8 +969,6 @@ namespace MediaInfoKeeper
         {
             try
             {
-                var sb = new StringBuilder();
-                var latestAssigned = false;
                 var latestVersion = "未知";
                 var preferBeta = string.Equals(
                     updateChannel,
@@ -1005,6 +1003,7 @@ namespace MediaInfoKeeper
                 using var document = JsonDocument.Parse(responseBody);
                 if (document.RootElement.ValueKind == JsonValueKind.Array)
                 {
+                    var releases = new List<ReleaseHistoryEntry>();
                     foreach (var release in document.RootElement.EnumerateArray())
                     {
                         var isDraft = release.TryGetProperty("draft", out var draftElement) &&
@@ -1016,10 +1015,6 @@ namespace MediaInfoKeeper
 
                         var isPrerelease = release.TryGetProperty("prerelease", out var prereleaseElement) &&
                                            prereleaseElement.ValueKind == JsonValueKind.True;
-                        if (!preferBeta && isPrerelease)
-                        {
-                            continue;
-                        }
 
                         var tag = release.TryGetProperty("tag_name", out var tagElement)
                             ? tagElement.GetString()
@@ -1032,6 +1027,9 @@ namespace MediaInfoKeeper
                             : string.Empty;
                         var publishedAt = release.TryGetProperty("published_at", out var publishedElement)
                             ? publishedElement.GetString()
+                            : string.Empty;
+                        var createdAt = release.TryGetProperty("created_at", out var createdElement)
+                            ? createdElement.GetString()
                             : string.Empty;
                         var publishedAtLocal = publishedAt;
                         if (!string.IsNullOrWhiteSpace(publishedAt) &&
@@ -1047,41 +1045,63 @@ namespace MediaInfoKeeper
                             body = "无更新说明";
                         }
 
-                        if (!latestAssigned)
-                        {
-                            latestVersion = !string.IsNullOrWhiteSpace(tag) ? tag.Trim()
-                                : !string.IsNullOrWhiteSpace(name) ? name.Trim()
-                                : "未知";
-                            latestAssigned = true;
-                        }
+                        releases.Add(new ReleaseHistoryEntry(
+                            tag,
+                            name,
+                            body,
+                            publishedAtLocal,
+                            isPrerelease,
+                            GetReleaseSortTimeUtc(publishedAt, createdAt)));
+                    }
 
-                        sb.Append(string.IsNullOrWhiteSpace(tag) ? "Release" : tag.Trim());
-                        if (!string.IsNullOrWhiteSpace(name))
+                    var orderedReleases = releases
+                        .OrderByDescending(r => r.SortTimeUtc)
+                        .ThenByDescending(r => r.Tag ?? string.Empty, StringComparer.OrdinalIgnoreCase)
+                        .ThenByDescending(r => r.Name ?? string.Empty, StringComparer.OrdinalIgnoreCase)
+                        .ToList();
+
+                    var latestRelease = preferBeta
+                        ? orderedReleases.FirstOrDefault()
+                        : orderedReleases.FirstOrDefault(r => !r.IsPrerelease);
+                    if (latestRelease != null)
+                    {
+                        latestVersion = !string.IsNullOrWhiteSpace(latestRelease.Tag) ? latestRelease.Tag.Trim()
+                            : !string.IsNullOrWhiteSpace(latestRelease.Name) ? latestRelease.Name.Trim()
+                            : "未知";
+                    }
+
+                    var sb = new StringBuilder();
+                    foreach (var release in orderedReleases)
+                    {
+                        sb.Append(string.IsNullOrWhiteSpace(release.Tag) ? "Release" : release.Tag.Trim());
+                        if (!string.IsNullOrWhiteSpace(release.Name))
                         {
-                            sb.Append(" - ").Append(name.Trim());
+                            sb.Append(" - ").Append(release.Name.Trim());
                         }
-                        if (preferBeta && isPrerelease)
+                        if (release.IsPrerelease)
                         {
                             sb.Append(" [Prerelease]");
                         }
 
-                        if (!string.IsNullOrWhiteSpace(publishedAtLocal))
+                        if (!string.IsNullOrWhiteSpace(release.PublishedAtLocal))
                         {
-                            sb.Append(" (").Append(publishedAtLocal.Trim()).Append(')');
+                            sb.Append(" (").Append(release.PublishedAtLocal.Trim()).Append(')');
                         }
 
                         sb.AppendLine();
-                        sb.AppendLine(body.Trim());
+                        sb.AppendLine(release.Body.Trim());
                         sb.AppendLine("----");
                     }
-                }
 
-                if (sb.Length == 0)
-                {
-                    return new ReleaseHistoryInfo("暂无发布记录", latestVersion);
-                }
+                    if (sb.Length == 0)
+                    {
+                        return new ReleaseHistoryInfo("暂无发布记录", latestVersion);
+                    }
 
-                return new ReleaseHistoryInfo(sb.ToString().TrimEnd(), latestVersion);
+                    return new ReleaseHistoryInfo(sb.ToString().TrimEnd(), latestVersion);
+                }
+                
+                return new ReleaseHistoryInfo("暂无发布记录", latestVersion);
             }
             catch (Exception ex)
             {
@@ -1099,6 +1119,21 @@ namespace MediaInfoKeeper
                 : updateChannel;
         }
 
+        internal static DateTimeOffset GetReleaseSortTimeUtc(string publishedAt, string createdAt)
+        {
+            if (DateTimeOffset.TryParse(publishedAt, out var publishedOffset))
+            {
+                return publishedOffset;
+            }
+
+            if (DateTimeOffset.TryParse(createdAt, out var createdOffset))
+            {
+                return createdOffset;
+            }
+
+            return DateTimeOffset.MinValue;
+        }
+
         private readonly struct ReleaseHistoryInfo
         {
             public ReleaseHistoryInfo(string historyBody, string latestVersion)
@@ -1110,6 +1145,37 @@ namespace MediaInfoKeeper
             public string HistoryBody { get; }
 
             public string LatestVersion { get; }
+        }
+
+        private sealed class ReleaseHistoryEntry
+        {
+            public ReleaseHistoryEntry(
+                string tag,
+                string name,
+                string body,
+                string publishedAtLocal,
+                bool isPrerelease,
+                DateTimeOffset sortTimeUtc)
+            {
+                Tag = tag;
+                Name = name;
+                Body = body;
+                PublishedAtLocal = publishedAtLocal;
+                IsPrerelease = isPrerelease;
+                SortTimeUtc = sortTimeUtc;
+            }
+
+            public string Tag { get; }
+
+            public string Name { get; }
+
+            public string Body { get; }
+
+            public string PublishedAtLocal { get; }
+
+            public bool IsPrerelease { get; }
+
+            public DateTimeOffset SortTimeUtc { get; }
         }
     }
 }

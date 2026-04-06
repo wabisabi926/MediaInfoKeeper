@@ -342,31 +342,11 @@ namespace MediaInfoKeeper.ScheduledTask
                 StringComparison.OrdinalIgnoreCase);
             var candidates = releases?
                 .Where(r => r != null && !r.draft)
-                .OrderByDescending(GetReleaseSortTimeUtc)
+                .OrderByDescending(r => Plugin.GetReleaseSortTimeUtc(r?.published_at, r?.created_at))
                 .ToList() ?? new List<ApiResponseInfo>();
             return preferBeta
                 ? candidates.FirstOrDefault()
                 : candidates.FirstOrDefault(r => !r.prerelease);
-        }
-
-        private static DateTimeOffset GetReleaseSortTimeUtc(ApiResponseInfo release)
-        {
-            if (release == null)
-            {
-                return DateTimeOffset.MinValue;
-            }
-
-            if (DateTimeOffset.TryParse(release.published_at, out var publishedAt))
-            {
-                return publishedAt;
-            }
-
-            if (DateTimeOffset.TryParse(release.created_at, out var createdAt))
-            {
-                return createdAt;
-            }
-
-            return DateTimeOffset.MinValue;
         }
 
         private static PluginCompatibilityInfo SelectCompatibilityInfo(

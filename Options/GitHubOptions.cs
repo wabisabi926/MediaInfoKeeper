@@ -54,7 +54,7 @@ namespace MediaInfoKeeper.Options
         public string LatestReleaseVersion { get; set; } = "加载中";
 
         [DisplayName("更新说明")]
-        [Description("按当前更新频道显示发布记录。Stable 仅显示正式版；Beta 同时显示正式版和预发布版。")]
+        [Description("始终显示全部 GitHub Releases 的发布记录；预发布版会额外标记为 [Prerelease]。")]
         public string ReleaseHistoryBody { get; set; } = "加载中";
 
         public void Initialize()
