@@ -63,8 +63,7 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            var targetItem = ResolvePlaybackItem(e);
-            if (targetItem is not Episode episode)
+            if (e?.Item is not Episode episode)
             {
                 return;
             }
@@ -264,30 +263,5 @@ namespace MediaInfoKeeper.Services
             });
         }
 
-        private BaseItem ResolvePlaybackItem(PlaybackProgressEventArgs e)
-        {
-            var item = e?.Item;
-            if (item == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrEmpty(e.MediaSourceId) || item.GetDefaultMediaSourceId() == e.MediaSourceId)
-            {
-                return item;
-            }
-
-            var mediaSource = item.GetMediaSources(true, false, null)
-                .FirstOrDefault(source => source.Id == e.MediaSourceId);
-
-            if (mediaSource != null &&
-                long.TryParse(mediaSource.ItemId, out var mediaSourceItemId) &&
-                mediaSourceItemId > 0)
-            {
-                return libraryManager.GetItemById(mediaSourceItemId) ?? item;
-            }
-
-            return item;
-        }
     }
 }

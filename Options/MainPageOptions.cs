@@ -50,7 +50,7 @@ namespace MediaInfoKeeper.Options
         public int MaxConcurrentCount { get; set; } = 3;
 
         [DisplayName("Emby入库扫描延迟（秒）")]
-        [Description("控制 Emby 实时入库扫描的等待时间，Emby 默认值 90。光速入库，不再需要通知刷新。")]
+        [Description("控制 Emby 实时入库扫描的等待时间，Emby 默认值 90。光速入库。")]
         [MinValue(1), MaxValue(90)]
         public int FileChangeRefreshDelaySeconds { get; set; } = 5;
 
