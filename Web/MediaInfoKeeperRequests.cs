@@ -127,6 +127,8 @@ namespace MediaInfoKeeper.Web
 
         public bool IsShortcut { get; set; }
 
+        public bool? IsRemote { get; set; }
+
         public string ExtraType { get; set; }
 
         public bool HasMediaInfo { get; set; }

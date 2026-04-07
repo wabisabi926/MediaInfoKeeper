@@ -116,6 +116,9 @@ namespace MediaInfoKeeper.Web
             var mediaInfoPath = MediaInfoDocument.GetMediaInfoJsonPath(item);
             var coverPath = MediaInfoDocument.GetCoverPath(item);
             var streams = item.GetMediaStreams().ToList();
+            var primaryMediaSource = Plugin.MediaInfoService
+                .GetStaticMediaSources(item, false)
+                .FirstOrDefault();
             var directoryService = new DirectoryService(Plugin.Instance.Logger, Plugin.FileSystem);
             var primaryImage = BuildPrimaryImageInfo(item);
             var chapterImages = BuildChapterImagesInfo(item);
@@ -137,6 +140,7 @@ namespace MediaInfoKeeper.Web
                     ParentId = item.ParentId,
                     ImageDisplayParentId = item.ImageDisplayParentId,
                     IsShortcut = item.IsShortcut,
+                    IsRemote = primaryMediaSource?.IsRemote,
                     ExtraType = item.ExtraType?.ToString(),
                     HasMediaInfo = Plugin.MediaInfoService.HasMediaInfo(item),
                     HasCover = Plugin.LibraryService?.HasCover(item) == true,
