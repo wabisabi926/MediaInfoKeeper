@@ -20,10 +20,13 @@ namespace MediaInfoKeeper.Services
         private readonly LibraryService libraryService;
         private readonly ILogger logger;
         private readonly object syncRoot = new object();
+
         private readonly Dictionary<string, FileSystemWatcher> watchers =
             new Dictionary<string, FileSystemWatcher>(StringComparer.OrdinalIgnoreCase);
+
         private readonly Dictionary<string, bool> pendingPaths =
             new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+
         private Timer flushTimer;
 
         private volatile bool enabled;
@@ -132,7 +135,7 @@ namespace MediaInfoKeeper.Services
 
             try
             {
-                if (!this.libraryManager.IsVideoFile(path.AsSpan()))
+                if (!this.libraryManager.IsVideoFile(path.AsSpan()) || !this.libraryManager.IsAudioFile(path.AsSpan()))
                 {
                     return;
                 }
@@ -146,7 +149,7 @@ namespace MediaInfoKeeper.Services
 
             if (LibraryService.IsFileShortcut(path))
             {
-                this.logger?.Info($"新入库文件，{Path.GetFileName(path) ?? path}");
+                this.logger?.Info($"新增媒体文件，{Path.GetFileName(path) ?? path}");
                 try
                 {
                     this.libraryMonitor?.ReportFileSystemChanged(path);
@@ -195,7 +198,8 @@ namespace MediaInfoKeeper.Services
                 var delay = TimeSpan.FromSeconds(this.refreshDelaySeconds);
                 if (this.flushTimer == null)
                 {
-                    this.flushTimer = new Timer(_ => _ = Task.Run(FlushPendingPathsAsync), null, delay, Timeout.InfiniteTimeSpan);
+                    this.flushTimer = new Timer(_ => _ = Task.Run(FlushPendingPathsAsync), null, delay,
+                        Timeout.InfiniteTimeSpan);
                 }
                 else
                 {
@@ -236,7 +240,7 @@ namespace MediaInfoKeeper.Services
                 }
 
                 var item = this.libraryManager.FindByPath(strmPath, false) as BaseItem
-                    ?? this.libraryManager.FindByPath(strmPath, true) as BaseItem;
+                           ?? this.libraryManager.FindByPath(strmPath, true) as BaseItem;
                 if (item == null || item.InternalId == 0)
                 {
                     return;

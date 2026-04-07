@@ -635,10 +635,8 @@ namespace MediaInfoKeeper
         /// <summary>处理新入库条目，按配置执行持久化或恢复。</summary>
         private async void OnItemAdded(object sender, ItemChangeEventArgs e)
         {
-
             try
             {
-                this.logger.Info($"{e.Item.Path} 新增媒体事件");
                 if (!this.PlugginEnabled)
                 {
                     // 未启用持久化，直接跳过。
@@ -650,6 +648,7 @@ namespace MediaInfoKeeper
                     // 仅处理音视频条目。
                     return;
                 }
+                this.logger.Info($"新入库事件 {e.Item.FileName ?? e.Item.Path}");
 
                 if (!LibraryService.IsItemInScope(e.Item))
                 {
