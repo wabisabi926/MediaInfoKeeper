@@ -204,7 +204,9 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            var options = Plugin.Instance.Options.GetNetWorkOptions();
+            var pluginOptions = Plugin.Instance.Options;
+            var options = pluginOptions.GetNetWorkOptions();
+            var enhanceOptions = pluginOptions.Enhance ?? new Options.EnhanceOptions();
             var httpMethod = __args.Length > 1 ? __args[1] as string : null;
             var requestOptions = __args[0];
             var urlProperty = requestOptions.GetType().GetProperty("Url", BindingFlags.Instance | BindingFlags.Public);
@@ -227,7 +229,7 @@ namespace MediaInfoKeeper.Patch
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(finalUrl))
+            if (enhanceOptions.EnableDetailedNetworkRequestLogging && !string.IsNullOrWhiteSpace(finalUrl))
             {
                 logger?.Info("{0} {1}", string.IsNullOrWhiteSpace(httpMethod) ? "UNKNOWN" : httpMethod, finalUrl);
             }

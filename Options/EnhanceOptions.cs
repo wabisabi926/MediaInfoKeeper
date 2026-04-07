@@ -108,6 +108,10 @@ namespace MediaInfoKeeper.Options
         [Description("按 logger.Name 匹配需要屏蔽的系统日志来源，支持逗号、分号或换行分隔。支持精确匹配；对于带动态后缀的来源可填写前缀，如 SessionsService-。")]
         public string SystemLogNameBlacklist { get; set; } = "HttpClient;TheMovieDb;SessionsService-;PlaystateService-;MediaInfoService-";
 
+        [DisplayName("日志显示详细网络请求")]
+        [Description("控制是否输出详细网络请求日志，例如 HTTP 方法和最终请求地址。默认开启。")]
+        public bool EnableDetailedNetworkRequestLogging { get; set; } = true;
+
         public void Initialize()
         {
             SearchItemTypeList.Clear();
@@ -210,7 +214,8 @@ namespace MediaInfoKeeper.Options
                 nameof(EnforceLibraryOrder));
 
             AddGroup("日志", "",
-                nameof(SystemLogNameBlacklist));
+                nameof(SystemLogNameBlacklist),
+                nameof(EnableDetailedNetworkRequestLogging));
             
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)
