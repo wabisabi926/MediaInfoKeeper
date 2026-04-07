@@ -7,6 +7,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.ScheduledTask
 {
@@ -57,16 +58,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 try
                 {
-                    Plugin.MediaSourceInfoStore.OverWriteToFile(item);
-                    if (item is Video)
-                    {
-                        Plugin.ChaptersStore.OverWriteToFile(item);
-                    }
-                    else if (item is Audio)
-                    {
-                        Plugin.AudioMetadataStore.OverWriteToFile(item);
-                        Plugin.CoverStore.OverWriteToFile(item);
-                    }
+                    MediaInfoPersistService.OverWritePersistedMedia(item);
                 }
                 catch (OperationCanceledException)
                 {

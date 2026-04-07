@@ -135,6 +135,7 @@ namespace MediaInfoKeeper
             ISessionManager sessionManager,
             INotificationManager notificationManager,
             IMediaMountManager mediaMountManager,
+            IMediaSourceManager mediaSourceManager,
             IMediaProbeManager mediaProbeManager,
             IHttpClient httpClient,
             IServerConfigurationManager serverConfigurationManager,
@@ -191,7 +192,7 @@ namespace MediaInfoKeeper
             LogOptionsSnapshot(initialOptions, "已加载");
 
             LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager, mediaMountManager);
-            MediaInfoService = new MediaInfoService(libraryManager, fileSystem);
+            MediaInfoService = new MediaInfoService(libraryManager, mediaSourceManager, fileSystem);
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
@@ -711,14 +712,7 @@ namespace MediaInfoKeeper
                                         .RefreshSingleItem(e.Item, metadataRefreshOptions, itemCollectionFolders, itemLibraryOptions, CancellationToken.None))
                                 .ConfigureAwait(false);
                         }
-                        // 提取完成后写入 JSON。
                         this.logger.Info($"入库媒体信息: 提取完成并写入 JSON item={e.Item.FileName ?? e.Item.Path}");
-                        MediaSourceInfoStore.OverWriteToFile(e.Item);
-                        if (e.Item is Audio)
-                        {
-                            AudioMetadataStore.OverWriteToFile(e.Item);
-                            CoverStore.OverWriteToFile(e.Item);
-                        }
                     }
                     // 使用Json媒体信息数据，恢复成功后扫描所在物理路径，确保库状态刷新。
                     else if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
@@ -780,16 +774,7 @@ namespace MediaInfoKeeper
                 else
                 {
                     this.logger.Debug("已有 MediaInfo，覆盖写入 JSON");
-                    MediaSourceInfoStore.OverWriteToFile(e.Item);
-                    if (e.Item is Video)
-                    {
-                        ChaptersStore.OverWriteToFile(e.Item);
-                    }
-                    else if (e.Item is Audio)
-                    {
-                        AudioMetadataStore.OverWriteToFile(e.Item);
-                        CoverStore.OverWriteToFile(e.Item);
-                    }
+                    MediaInfoPersistService.OverWritePersistedMedia(e.Item);
                 }
                 // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)

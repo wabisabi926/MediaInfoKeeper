@@ -207,15 +207,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 await Plugin.ProviderManager
                     .RefreshSingleItem(item, refreshOptions, collectionFolders, dummyLibraryOptions, cancellationToken)
                     .ConfigureAwait(false);
-
-                this.logger.Info($"写入 JSON: {displayName}");
-                Plugin.MediaSourceInfoStore.OverWriteToFile(item);
-                if (item is Audio)
-                {
-                    Plugin.AudioMetadataStore.OverWriteToFile(item);
-                    Plugin.CoverStore.OverWriteToFile(item);
-                }
-
                 this.logger.Info($"完成: {displayName}");
             }
         }

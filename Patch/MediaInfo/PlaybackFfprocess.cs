@@ -1,8 +1,10 @@
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
+using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.MediaInfo;
 
@@ -123,12 +125,14 @@ namespace MediaInfoKeeper.Patch
             // 跟随 FfProcessGuard 启用状态，此补丁当前为一次性安装。
         }
 
-        private static void PlaybackInfoPrefix(out FfProcessGuard.AllowanceHandle __state)
+        private static void PlaybackInfoPrefix(object __0, out FfProcessGuard.AllowanceHandle __state)
         {
-            __state = FfProcessGuard.BeginAllow();
+            var requestType = __0?.GetType();
+            var itemId = requestType?.GetProperty("Id")?.GetValue(__0) as string;
+            __state = FfProcessGuard.BeginAllow(CreatePlaybackContext(ParseItemId(itemId)));
         }
 
-        private static void OpenLiveStreamPrefix(out FfProcessGuard.AllowanceHandle __state)
+        private static void OpenLiveStreamPrefix(LiveStreamRequest __0, out FfProcessGuard.AllowanceHandle __state)
         {
             __state = FfProcessGuard.BeginAllow();
         }
@@ -192,5 +196,33 @@ namespace MediaInfoKeeper.Patch
                 FfProcessGuard.EndAllow(allowance);
             }
         }
+
+        private static long? ParseItemId(string itemId)
+        {
+            return long.TryParse(itemId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedItemId)
+                ? parsedItemId
+                : null;
+        }
+
+        private static FfProcessGuard.AllowanceContext CreatePlaybackContext(long? itemId)
+        {
+            BaseItem item = null;
+            if (itemId.GetValueOrDefault() > 0)
+            {
+                item = Plugin.LibraryManager?.GetItemById(itemId.Value);
+            }
+
+            var itemInternalId = item?.InternalId > 0
+                ? item.InternalId
+                : itemId.GetValueOrDefault();
+
+            return new FfProcessGuard.AllowanceContext
+            {
+                ItemInternalId = itemInternalId,
+                ItemPath = item?.Path ?? item?.FileName,
+                AllowFfprocess = true
+            };
+        }
+
     }
 }

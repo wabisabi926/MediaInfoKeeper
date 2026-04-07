@@ -200,11 +200,6 @@ namespace MediaInfoKeeper.Services
                     {
                         return null;
                     }
-
-                    if (Plugin.MediaInfoService.HasMediaInfo(workEpisode))
-                    {
-                        Plugin.MediaSourceInfoStore.OverWriteToFile(workEpisode);
-                    }
                 }
             }
 

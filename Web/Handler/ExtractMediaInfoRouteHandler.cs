@@ -132,12 +132,6 @@ namespace MediaInfoKeeper.Web.Handler
                      deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
                     !shouldRefreshAudioForMissingCover)
                 {
-                    Plugin.MediaSourceInfoStore.OverWriteToFile(item);
-                    if (item is Audio)
-                    {
-                        Plugin.AudioMetadataStore.OverWriteToFile(item);
-                        Plugin.CoverStore.OverWriteToFile(item);
-                    }
                     return true;
                 }
 
@@ -160,13 +154,6 @@ namespace MediaInfoKeeper.Web.Handler
                 {
                     Plugin.Instance.Logger.Info($"快捷菜单提取媒体信息失败 无媒体流: {displayName}");
                     return false;
-                }
-
-                Plugin.MediaSourceInfoStore.OverWriteToFile(item);
-                if (item is Audio)
-                {
-                    Plugin.AudioMetadataStore.OverWriteToFile(item);
-                    Plugin.CoverStore.OverWriteToFile(item);
                 }
                 return true;
             }

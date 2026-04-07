@@ -219,18 +219,7 @@ namespace MediaInfoKeeper.Services
                 logger.Warn($"{logPrefix}: 提取后仍无 MediaInfo {displayName}");
                 return;
             }
-
-            Plugin.MediaSourceInfoStore.OverWriteToFile(workItem);
-            if (workItem is Video)
-            {
-                Plugin.ChaptersStore.OverWriteToFile(workItem);
-            }
-            else if (workItem is Audio)
-            {
-                Plugin.AudioMetadataStore.OverWriteToFile(workItem);
-                Plugin.CoverStore.OverWriteToFile(workItem);
-            }
-
+            
             logger.Info($"{logPrefix}: 完成 {workItem.FileName ?? workItem.Name ?? displayName}");
         }
 

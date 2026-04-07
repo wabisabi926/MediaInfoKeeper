@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
+using MediaInfoKeeper.Services;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
@@ -17,10 +18,11 @@ namespace MediaInfoKeeper.Patch
     {
         public sealed class AllowanceContext
         {
-            public long? ItemInternalId { get; set; }
+            public long ItemInternalId { get; set; }
             public string ItemPath { get; set; }
             public bool IsShortcut { get; set; }
             public bool AllowFfprocess { get; set; }
+            public bool WasFfprocessCalled { get; set; }
         }
 
         public sealed class AllowanceHandle
@@ -38,6 +40,7 @@ namespace MediaInfoKeeper.Patch
         private static MethodInfo runFfProcess;
         private static MethodInfo diagnosticsRunFfProcess;
         private static MethodInfo runExtraction;
+        private static PropertyInfo exitCode;
         private static PropertyInfo standardOutput;
         private static PropertyInfo standardError;
         private static object emptyResult;
@@ -75,6 +78,7 @@ namespace MediaInfoKeeper.Patch
 
                 var processRun = Assembly.Load("Emby.ProcessRun");
                 var processResult = processRun?.GetType("Emby.ProcessRun.Common.ProcessResult");
+                exitCode = FindProperty(processResult, "ExitCode");
                 standardOutput = FindProperty(processResult, "StandardOutput");
                 standardError = FindProperty(processResult, "StandardError");
 
@@ -144,18 +148,7 @@ namespace MediaInfoKeeper.Patch
 
         public static bool HasExplicitAllowance()
         {
-            var scope = CurrentScope.Value;
-            while (scope != null)
-            {
-                if (scope.Handle?.Context == null)
-                {
-                    return true;
-                }
-
-                scope = scope.Previous;
-            }
-
-            return false;
+            return FindAllowedScope() != null;
         }
 
         public static void EndAllow(AllowanceHandle handle = null)
@@ -173,8 +166,9 @@ namespace MediaInfoKeeper.Patch
         }
 
         private static bool RunFfProcessPrefix(object __instance, object __0, string __1, string __2,
-            ref int __3, CancellationToken __4, ref object __result)
+            ref int __3, CancellationToken __4, ref object __result, out bool __state)
         {
+            __state = false;
             if (!isEnabled)
             {
                 return true;
@@ -186,6 +180,7 @@ namespace MediaInfoKeeper.Patch
             var runTypeText = __0?.ToString() ?? string.Empty;
             var isFfprobe = runTypeText.IndexOf("ffprobe", StringComparison.OrdinalIgnoreCase) >= 0;
             var isFfmpeg = runTypeText.IndexOf("ffmpeg", StringComparison.OrdinalIgnoreCase) >= 0;
+            __state = isFfprobe;
             if (!isFfprobe && !isFfmpeg)
             {
                 return true;
@@ -193,18 +188,16 @@ namespace MediaInfoKeeper.Patch
 
             var displayTarget = $"{(isFfmpeg ? "ffmpeg" : "ffprobe")} {inputHint}";
 
-            var scope = CurrentScope.Value;
+            var scope = FindAllowedScope();
             if (scope != null)
             {
                 var context = scope.Handle?.Context;
-                if (context != null && !context.AllowFfprocess)
-                {
-                    logger?.Info($"拦截 {displayTarget}");
-                    __result = emptyResult;
-                    return false;
-                }
-
                 logger?.Info($"允许 {displayTarget}");
+                if ((isFfprobe || isFfmpeg) && context != null)
+                {
+                    context.WasFfprocessCalled = true;
+                }
+                __state = isFfprobe && context?.ItemInternalId > 0 && context.AllowFfprocess;
                 __3 = Math.Max(__3, 60000);
                 return true;
             }
@@ -214,8 +207,9 @@ namespace MediaInfoKeeper.Patch
         }
 
         private static bool DiagnosticsRunFfProcessPrefix(object __instance, object __0, string __1, string __2,
-            ref TimeSpan __3, bool __4, CancellationToken __5, ref object __result)
+            ref TimeSpan __3, bool __4, CancellationToken __5, ref object __result, out bool __state)
         {
+            __state = false;
             if (!isEnabled)
             {
                 return true;
@@ -227,6 +221,7 @@ namespace MediaInfoKeeper.Patch
             var runTypeText = __0?.ToString() ?? string.Empty;
             var isFfprobe = runTypeText.IndexOf("ffprobe", StringComparison.OrdinalIgnoreCase) >= 0;
             var isFfmpeg = runTypeText.IndexOf("ffmpeg", StringComparison.OrdinalIgnoreCase) >= 0;
+            __state = isFfprobe;
             if (!isFfprobe && !isFfmpeg)
             {
                 return true;
@@ -234,18 +229,16 @@ namespace MediaInfoKeeper.Patch
 
             var displayTarget = $"{(isFfmpeg ? "ffmpeg" : "ffprobe")} {inputHint}";
 
-            var scope = CurrentScope.Value;
+            var scope = FindAllowedScope();
             if (scope != null)
             {
                 var context = scope.Handle?.Context;
-                if (context != null && !context.AllowFfprocess)
-                {
-                    logger?.Info($"拦截 {displayTarget}");
-                    __result = emptyResult;
-                    return false;
-                }
-
                 logger?.Info($"允许 {displayTarget}");
+                if ((isFfprobe || isFfmpeg) && context != null)
+                {
+                    context.WasFfprocessCalled = true;
+                }
+                __state = isFfprobe && context?.ItemInternalId > 0 && context.AllowFfprocess;
                 if (__3 < TimeSpan.FromSeconds(60))
                 {
                     __3 = TimeSpan.FromSeconds(60);
@@ -278,31 +271,14 @@ namespace MediaInfoKeeper.Patch
             return false;
         }
 
-        private static void RunFfProcessPostfix(ref object __result)
+        private static void RunFfProcessPostfix(ref object __result, bool __state)
         {
-            if (__result is Task task)
+            if (__result is not Task task)
             {
-                var result = task.GetType().GetProperty("Result")?.GetValue(task);
-                if (result == null) return;
-
-                var stdout = standardOutput?.GetValue(result) as string;
-                var stderr = standardError?.GetValue(result) as string;
-                if (stdout == null || stderr == null) return;
-
-                var trimmed = new string((stdout ?? string.Empty)
-                    .Where(c => !char.IsWhiteSpace(c))
-                    .ToArray());
-                if (!string.Equals(trimmed, "{}", StringComparison.Ordinal)) return;
-
-                var lines = stderr.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length == 0) return;
-
-                var message = lines[lines.Length - 1].Trim();
-                if (!string.IsNullOrEmpty(message))
-                {
-                    logger.Error("ffprobe/ffmpeg 错误: " + message);
-                }
+                return;
             }
+
+            __result = AwaitProcessTask(task, __state);
         }
 
         private static object CreateEmptyResult(Type returnType)
@@ -484,18 +460,158 @@ namespace MediaInfoKeeper.Patch
 
         private static bool HasFfprocessAllowanceInCurrentScope()
         {
+            return FindAllowedScope() != null;
+        }
+
+        private static ScopeFrame FindAllowedScope()
+        {
             var scope = CurrentScope.Value;
             while (scope != null)
             {
                 if (scope.Handle?.Context == null || scope.Handle.Context.AllowFfprocess)
                 {
-                    return true;
+                    return scope;
                 }
 
                 scope = scope.Previous;
             }
 
-            return false;
+            return null;
+        }
+
+        private static object AwaitProcessTask(Task task, bool shouldPersistAfterSuccess)
+        {
+            var taskType = task.GetType();
+            if (taskType == typeof(Task))
+            {
+                return AwaitTask(task, shouldPersistAfterSuccess);
+            }
+
+            var resultType = GetTaskResultType(taskType);
+            if (resultType != null)
+            {
+                var method = typeof(FfProcessGuard)
+                    .GetMethod(nameof(AwaitGenericTask), BindingFlags.Static | BindingFlags.NonPublic)
+                    ?.MakeGenericMethod(resultType);
+                return method?.Invoke(null, new object[] { task, shouldPersistAfterSuccess }) ?? task;
+            }
+
+            return task;
+        }
+
+        private static async Task AwaitTask(Task task, bool shouldPersistAfterSuccess)
+        {
+            await task.ConfigureAwait(false);
+            if (shouldPersistAfterSuccess)
+            {
+                _ = PersistCurrentScopeMediaInfoAsync();
+            }
+        }
+
+        private static async Task<T> AwaitGenericTask<T>(Task<T> task, bool shouldPersistAfterSuccess)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            var stdout = standardOutput?.GetValue(result) as string;
+            var stderr = standardError?.GetValue(result) as string;
+            if (stdout != null && stderr != null)
+            {
+                var trimmed = new string((stdout ?? string.Empty)
+                    .Where(c => !char.IsWhiteSpace(c))
+                    .ToArray());
+                if (string.Equals(trimmed, "{}", StringComparison.Ordinal))
+                {
+                    var lines = stderr.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (lines.Length > 0)
+                    {
+                        var message = lines[lines.Length - 1].Trim();
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            logger.Error("ffprobe/ffmpeg 错误: " + message);
+                        }
+                    }
+                }
+            }
+
+            if (shouldPersistAfterSuccess)
+            {
+                var exitCodeValue = exitCode?.GetValue(result);
+                var nullableExitCode = exitCodeValue as int?;
+                if ((exitCodeValue is int exitCodeNumber && exitCodeNumber == 0) ||
+                    (nullableExitCode.HasValue && nullableExitCode.GetValueOrDefault(-1) == 0))
+                {
+                    _ = PersistCurrentScopeMediaInfoAsync();
+                }
+            }
+
+            return result;
+        }
+
+        private static async Task PersistCurrentScopeMediaInfoAsync()
+        {
+            if (Plugin.Instance?.Options?.MainPage?.PlugginEnabled != true)
+            {
+                return;
+            }
+
+            var scope = FindScopeWithItemContext();
+            if (scope == null)
+            {
+                logger?.Info("ffprobe 落盘未触发: 当前作用域没有条目上下文");
+                return;
+            }
+
+            var context = scope.Handle.Context;
+            for (var attempt = 0; attempt <= 5; attempt++)
+            {
+                var item = Plugin.LibraryManager?.GetItemById(context.ItemInternalId);
+                var displayName = item?.FileName ?? item?.Path;
+                
+                if (item != null && Plugin.MediaInfoService?.HasMediaInfo(item) == true)
+                {
+                    logger?.Info($"ffprobe 新提取，覆盖写入Json: {displayName}");
+                    MediaInfoPersistService.OverWritePersistedMedia(item);
+                    return;
+                }
+
+                if (attempt < 5)
+                {
+                    await Task.Delay(1000).ConfigureAwait(false);
+                }
+            }
+        }
+
+        private static Type GetTaskResultType(Type taskType)
+        {
+            var current = taskType;
+            while (current != null)
+            {
+                if (current.IsGenericType && current.GetGenericTypeDefinition() == typeof(Task<>))
+                {
+                    return current.GetGenericArguments()[0];
+                }
+
+                current = current.BaseType;
+            }
+
+            return null;
+        }
+
+        private static ScopeFrame FindScopeWithItemContext()
+        {
+            var scope = CurrentScope.Value;
+            while (scope != null)
+            {
+                var context = scope.Handle?.Context;
+                if (context?.ItemInternalId > 0 && context.AllowFfprocess)
+                {
+                    return scope;
+                }
+
+                scope = scope.Previous;
+            }
+
+            return null;
         }
 
         private static PropertyInfo FindProperty(Type type, string propertyName)

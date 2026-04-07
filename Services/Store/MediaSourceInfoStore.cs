@@ -201,8 +201,12 @@ namespace MediaInfoKeeper.Services
 
         private MediaSourceInfo CreateForPersist(BaseItem item)
         {
-            var options = this.libraryManager.GetLibraryOptions(item);
-            var mediaSource = item.GetMediaSources(false, false, options).FirstOrDefault();
+            var mediaSource = Plugin.MediaInfoService?
+                .GetStaticMediaSources(item, false)
+                ?.FirstOrDefault(source =>
+                    source?.RunTimeTicks.HasValue == true &&
+                    (source.MediaStreams ?? new List<MediaStream>()).Any(stream =>
+                        stream.Type == MediaStreamType.Video || stream.Type == MediaStreamType.Audio));
             if (mediaSource == null)
             {
                 return null;

@@ -174,9 +174,9 @@ namespace MediaInfoKeeper.Patch
             __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshItemPostfix(ref Task __result, FfProcessGuard.AllowanceHandle __state)
+        private static void RefreshItemPostfix(BaseItem __0, ref Task __result, FfProcessGuard.AllowanceHandle __state)
         {
-            CompleteRefreshFfprocessAllowance(ref __result, __state);
+            CompleteRefreshFfprocessAllowance(__0, ref __result, __state);
         }
 
         private static void RefreshItemByNameChildrenPrefix(MusicAlbum __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
@@ -184,9 +184,9 @@ namespace MediaInfoKeeper.Patch
             __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshItemByNameChildrenPostfix(ref Task __result, FfProcessGuard.AllowanceHandle __state)
+        private static void RefreshItemByNameChildrenPostfix(MusicAlbum __0, ref Task __result, FfProcessGuard.AllowanceHandle __state)
         {
-            CompleteRefreshFfprocessAllowance(ref __result, __state);
+            CompleteRefreshFfprocessAllowance(__0, ref __result, __state);
         }
 
         private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
@@ -194,7 +194,7 @@ namespace MediaInfoKeeper.Patch
             __state = BeginRefreshFfprocessAllowance(__0);
         }
 
-        private static void RefreshSingleItemPostfix(ref object __result, FfProcessGuard.AllowanceHandle __state)
+        private static void RefreshSingleItemPostfix(BaseItem __0, ref object __result, FfProcessGuard.AllowanceHandle __state)
         {
             if (__state == null)
             {
@@ -203,7 +203,7 @@ namespace MediaInfoKeeper.Patch
 
             if (__result is Task task)
             {
-                __result = AwaitWithScope(task, __state);
+                __result = AwaitWithScope(task, __state, __0);
                 return;
             }
 
@@ -236,26 +236,26 @@ namespace MediaInfoKeeper.Patch
             });
         }
 
-        private static void CompleteRefreshFfprocessAllowance(ref Task task, FfProcessGuard.AllowanceHandle allowance)
+        private static void CompleteRefreshFfprocessAllowance(BaseItem item, ref Task task, FfProcessGuard.AllowanceHandle allowance)
         {
             if (allowance == null)
             {
                 return;
             }
 
-            task = task == null ? null : AwaitTask(task, allowance);
+            task = task == null ? null : AwaitTask(task, allowance, item);
             if (task == null)
             {
                 FfProcessGuard.EndAllow(allowance);
             }
         }
 
-        private static object AwaitWithScope(Task task, FfProcessGuard.AllowanceHandle allowance)
+        private static object AwaitWithScope(Task task, FfProcessGuard.AllowanceHandle allowance, BaseItem item)
         {
             var taskType = task.GetType();
             if (taskType == typeof(Task))
             {
-                return AwaitTask(task, allowance);
+                return AwaitTask(task, allowance, item);
             }
 
             if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<>))
@@ -264,13 +264,13 @@ namespace MediaInfoKeeper.Patch
                 var method = typeof(ProviderManager)
                     .GetMethod(nameof(AwaitGenericTask), BindingFlags.Static | BindingFlags.NonPublic)
                     ?.MakeGenericMethod(resultType);
-                return method?.Invoke(null, new object[] { task, allowance }) ?? task;
+                return method?.Invoke(null, new object[] { task, allowance, item }) ?? task;
             }
 
             return task;
         }
 
-        private static async Task AwaitTask(Task task, FfProcessGuard.AllowanceHandle allowance)
+        private static async Task AwaitTask(Task task, FfProcessGuard.AllowanceHandle allowance, BaseItem item)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        private static async Task<T> AwaitGenericTask<T>(Task<T> task, FfProcessGuard.AllowanceHandle allowance)
+        private static async Task<T> AwaitGenericTask<T>(Task<T> task, FfProcessGuard.AllowanceHandle allowance, BaseItem item)
         {
             try
             {
