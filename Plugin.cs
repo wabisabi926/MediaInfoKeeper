@@ -297,6 +297,7 @@ namespace MediaInfoKeeper
             options.Debug ??= new DebugOptions();
 #endif
             options.IntroSkip.Initialize();
+            options.GetMediaInfoOptions().Initialize();
             options.GitHub.Initialize();
             options.Enhance.Initialize();
             options.MetaData.Initialize();
