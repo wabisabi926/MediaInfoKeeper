@@ -435,6 +435,19 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "SystemLogReverse",
+                Initialize = options => SystemLogReverse.Initialize(
+                    logger,
+                    IsPluginEnabled(options) && options.Enhance.EnableSystemLogReverse),
+                Configure = options => SystemLogReverse.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableSystemLogReverse),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableSystemLogReverse,
+                IsReady = () => SystemLogReverse.IsReady,
+                Notes = () => SystemLogReverse.IsReady ? null : "SystemService.Get 日志接口未命中"
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "PluginUiTabTitle",
                 Initialize = _ => PluginUiTabTitle.Initialize(logger),
                 Configure = _ => PluginUiTabTitle.Configure(),

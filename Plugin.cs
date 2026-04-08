@@ -509,6 +509,7 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.ExcludeOriginalTitleFromSearch", "Enhance", "排除原始标题", options.Enhance.ExcludeOriginalTitleFromSearch.ToString()),
                 new OptionLogEntry("Enhance.SystemLogNameBlacklist", "Enhance", "日志来源黑名单", FormatOptionValue(options.Enhance.SystemLogNameBlacklist)),
                 new OptionLogEntry("Enhance.EnableDetailedNetworkRequestLogging", "Enhance", "日志显示详细网络请求", options.Enhance.EnableDetailedNetworkRequestLogging.ToString()),
+                new OptionLogEntry("Enhance.EnableSystemLogReverse", "Enhance", "系统日志倒序显示", options.Enhance.EnableSystemLogReverse.ToString()),
                 new OptionLogEntry("MetaData.MetadataChangeWatcher", "MetaData", "启用剧集元数据变动监听", "开"),
                 new OptionLogEntry("MetaData.EnableAlternativeTitleFallback", "MetaData", "启用 TMDB 中文回退", options.MetaData.EnableAlternativeTitleFallback.ToString()),
                 new OptionLogEntry("MetaData.EnableTvdbFallback", "MetaData", "启用 TVDB 中文回退", options.MetaData.EnableTvdbFallback.ToString()),
