@@ -1,47 +1,63 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name         Emby danmaku extension - Emby style
 // @description  Emby弹幕插件 - Emby风格
-// @namespace    https://github.com/chen3861229/dd-danmaku
-// @author       chen3861229
-// @version      1.47
-// @copyright    2022, RyoLee (https://github.com/RyoLee)
+// @namespace    https://github.com/l429609201/dd-danmaku
+// @author       misaka10876, chen3861229
+// @version      1.2.1
+// @copyright    2024, misaka10876 (https://github.com/l429609201)
 // @license      MIT; https://raw.githubusercontent.com/RyoLee/emby-danmaku/master/LICENSE
 // @icon         https://github.githubassets.com/pinned-octocat.svg
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/l429609201/dd-danmaku/main/ede.js
 // @match        *://*/web/index.html
 // @match        *://*/web/
 // ==/UserScript==
 
 (async function () {
     'use strict';
+    // [修复] 防止脚本被多次加载（index.html 引入 + CustomCssJS 注入等场景）
+    if (window._ddDanmakuLoaded) {
+        console.log('[dd-danmaku] 脚本已加载过，跳过重复执行');
+        return;
+    }
+    window._ddDanmakuLoaded = true;
+
     // ------ 用户配置 start ------
-    let requireDanmakuPath = 'https://danmaku.7o7o.cc/danmaku.min.js';
+    let requireDanmakuPath = 'https://danmu-api.misaka10876.top/tools/danmaku.min.js';
+    // SparkMD5 库路径 (用于文件哈希计算)
+    let requireSparkMD5Path = 'https://danmu-api.misaka10876.top/tools/spark-md5.min.js';
     // 跨域代理 cf_worker
-    let corsProxy = 'https://ddplay-api.7o7o.cc/cors/';
+    let corsProxy = 'https://danmu-api.misaka10876.top/cors/';
+    // 用户代理标识
+    let userAgent = 'misaka10876/v1.0.0';
+    // 日志级别: 0=关闭, 1=ERROR, 2=WARN, 3=INFO, 4=DEBUG (默认 INFO)
+    let logLevel = 3;
     // ------ 用户配置 end ------
     // note01: 部分 AndroidTV 仅支持最高 ES9 (支持 webview 内核版本 60 以上)
     // note02: url 禁止使用相对路径,非 web 环境的根路径为文件路径,非 http
     // ------ 程序内部使用,请勿更改 start ------
     const openSourceLicense = {
-        self: { version: '1.47', name: 'Emby Danmaku Extension(Forked from original:1.11)', license: 'MIT License', url: 'https://github.com/chen3861229/dd-danmaku' },
+        self: { version: '1.2.1', name: 'Emby Danmaku Extension (misaka10876 Fork)', license: 'MIT License', url: 'https://github.com/l429609201/dd-danmaku' },
+        chen3861229: { version: '1.45', name: 'Emby Danmaku Extension(Forked from original:1.11)', license: 'MIT License', url: 'https://github.com/chen3861229/dd-danmaku' },
         original: { version: '1.11', name: 'Emby Danmaku Extension', license: 'MIT License', url: 'https://github.com/RyoLee/emby-danmaku' },
         jellyfinFork: { version: '1.52', name: 'Jellyfin Danmaku Extension', license: 'MIT License', url: 'https://github.com/Izumiko/jellyfin-danmaku' },
         danmaku: { version: '2.0.8', name: 'Danmaku', license: 'MIT License', url: 'https://github.com/weizhenye/Danmaku' },
         dandanplayApi: { version: 'v2', name: '弹弹 play API', license: 'MIT License', url: 'https://github.com/kaedei/dandanplay-libraryindex' },
-        dandanplayDoc: { version: 'PC', name: '赞助弹弹 play 官方', license: 'None', url: 'https://doc.dandanplay.com/other/donate.html' },
         bangumiApi: { version: '2025-02-5', name: 'Bangumi API', license: 'None', url: 'https://github.com/bangumi/api' },
         embyPluginDanmu: { version: '1.0.2', name: 'EmbyPluginDanmu', license: 'None', url: 'https://github.com/fengymi/emby-plugin-danmu' },
     };
     const dandanplayApi = {
         get prefix() {
-            const custom = lsGetItem(lsKeys.customApiPrefix.id);
+            // [修改] 支持多源：使用第一个自定义源
+            const customList = typeof getCustomApiList === 'function' ? getCustomApiList() : [];
+            const custom = customList.length > 0 ? customList[0] : lsGetItem(lsKeys.customApiPrefix.id);
             if (custom && custom.length > 0 && !lsGetItem(lsKeys.useOfficialApi.id)) {
                 return custom;
             }
             // 官方API强制走代理
             return corsProxy + 'https://api.dandanplay.net/api/v2';
         },
-        getSearchEpisodes: (anime, episode, tmdbId) => `${dandanplayApi.prefix}/search/episodes?anime=${anime}${episode ? `&episode=${episode}` : ''}${tmdbId ? `&tmdbId=${tmdbId}` : ''}`,
+        getSearchEpisodes: (anime, episode) => `${dandanplayApi.prefix}/search/episodes?anime=${anime}${episode ? `&episode=${episode}` : ''}`,
         getComment: (episodeId, chConvert) => `${dandanplayApi.prefix}/comment/${episodeId}?withRelated=true&chConvert=${chConvert}`,
         getExtcomment: (url) => `${dandanplayApi.prefix}/extcomment?url=${encodeURI(url)}`,
         getBangumi: (animeId) => `${dandanplayApi.prefix}/bangumi/${animeId}`,
@@ -49,12 +65,14 @@
     };
     const dandanplayApiCustom = {
         get prefix() {
-            const custom = lsGetItem(lsKeys.customApiPrefix.id);
+            // [修改] 支持多源：使用第一个自定义源
+            const customList = typeof getCustomApiList === 'function' ? getCustomApiList() : [];
+            const custom = customList.length > 0 ? customList[0] : lsGetItem(lsKeys.customApiPrefix.id);
             // 自定义API可以不走代理
-            return custom && custom.length > 0 ? custom : corsProxy + 'https://api.dandanplay.net/api/v2';
+            return custom && custom.length > 0 ? custom : dandanplayApi.prefix;
         },
         getMatchUrl: () => `${dandanplayApiCustom.prefix}/match`,
-    };
+    }
     const bangumiApi = {
         prefix: 'https://api.bgm.tv/v0',
         accessTokenUrl: 'https://next.bgm.tv/demo/access-token',
@@ -88,6 +106,7 @@
         replay: 'replay',
         reset: 'repeat',
         forward_media: 'forward_media', // electron 中图标不正确,使用 replay 反转
+        drag_indicator: 'drag_indicator',
         forward_5: 'forward_5',
         forward_10: 'forward_10',
         forward_30: 'forward_30',
@@ -108,6 +127,7 @@
         sentiment_very_satisfied: 'sentiment_very_satisfied',
         check: 'check',
         edit: 'edit',
+        layers_clear: 'layers_clear',  // 防重叠图标
     };
     // 此 id 等同于 danmakuTabOpts 内的弹幕信息的 id
     const currentDanmakuInfoContainerId = 'danmakuTab2';
@@ -152,10 +172,20 @@
         { id: 'canvas', name: 'canvas' },
         { id: 'dom', name: 'dom' },
     ];
+    const danmakuMatchModeOpts = [
+        { id: 'hashAndFileName', name: '哈希+文件名' },
+        { id: 'fileNameOnly', name: '仅文件名' },
+    ];
     const danmakuChConverOpts = [
         { id: '0', name: '未启用' },
         { id: '1', name: '转换为简体' },
         { id: '2', name: '转换为繁体' },
+    ];
+    // 日志级别选项
+    const logLevelOpts = [
+        { id: '2', name: 'WARN' },
+        { id: '3', name: 'INFO' },
+        { id: '4', name: 'DEBUG' },
     ];
     const embyOffsetBtnStyle = 'margin: 0;padding: 0;';
     const timeOffsetBtns = [
@@ -175,19 +205,33 @@
     const hasToastPrefixes = (comment, prefixes) => Object.values(prefixes).some(prefix => comment.text.startsWith(prefix));
     const getDanmakuComments = (ede) => {
         if (ede.danmaku && ede.danmaku.comments) {
-            return ede.danmaku.comments.filter(c => !hasToastPrefixes(c, toastPrefixes));
+          return ede.danmaku.comments.filter(c => !hasToastPrefixes(c, toastPrefixes));
         }
         return [];
-    };
+      };
     const danmuListOpts = [
         { id: '0', name: '不展示' , onChange: () => [] },
         { id: '1', name: '屏中', onChange: (ede) => ede.danmaku ? ede.danmaku._.runningList : [] },
         { id: '2', name: '所有', onChange: (ede) => ede.commentsParsed },
         { id: '3', name: '已加载', onChange: getDanmakuComments },
-        { id: '4', name: '被过滤', onChange: (ede) => { // 取差集慢,减轻负担,默认不启用
-                return ede.commentsParsed.filter(p => !getDanmakuComments(ede).some(c => p.cuid === c.cuid))
-            } },
-        { id: '5', name: '已相似合并', onChange: (ede) => ede.commentsParsed.filter(p => p.xCount) },
+        { id: '4', name: '被过滤', onChange: (ede) => {
+            // [优化] 使用 Set 优化差集计算性能，防止卡死
+            const loadedComments = getDanmakuComments(ede);
+            if (!loadedComments || loadedComments.length === 0) return ede.commentsParsed;
+
+            // 将已加载弹幕的 cuid 存入 Set，查找速度极快
+            const loadedCuids = new Set(loadedComments.map(c => c.cuid));
+
+            // 只需要遍历一次即可
+            return ede.commentsParsed.filter(p => !loadedCuids.has(p.cuid));
+        } },
+        { id: '5', name: '已相似合并', onChange: (ede) => {
+        if (ede.danmaku && ede.danmaku.comments) {
+            return ede.danmaku.comments.filter(p => p.xCount);
+        }
+        return [];
+        }
+    },
         { id: '100', name: '通知', onChange: (ede) => ede.danmaku ? ede.danmaku.comments.filter(c => hasToastPrefixes(c, toastPrefixes)) : [] },
     ];
     const timeoutCallbackUnitOpts = [
@@ -195,38 +239,31 @@
         { id: '1', name: '分', msRate: 1000 * 60 },
         { id: '2', name: '时', msRate: 1000 * 60 * 60 },
     ];
-    const apiPriorityOpts = [
-        { id: 'official', name: '官方API优先' },
-        { id: 'custom', name: '自定义API优先' },
-    ];
     let timeoutCallbackId;
     const timeoutCallbackClear = () => timeoutCallbackId && clearTimeout(timeoutCallbackId);
     const timeoutCallbackTypeOpts = [
         { id: '0', name: '不启用' , onChange: () => timeoutCallbackClear() },
         { id: '1', name: '退出播放', onChange: (ms) => {
-                timeoutCallbackClear(), timeoutCallbackId = setTimeout(() => { closeEmbyDialog(), Emby.InputManager.trigger('back') }, ms);
-            } },
+            timeoutCallbackClear(), timeoutCallbackId = setTimeout(() => { closeEmbyDialog(), Emby.InputManager.trigger('back') }, ms);
+        } },
         { id: '2', name: '返回主页', onChange: (ms) => { // Native 播放器不支持.trigger('home'),虽底层一样,但原因未知
-                timeoutCallbackClear(), timeoutCallbackId = setTimeout(() => { closeEmbyDialog(), Emby.Page.goHome() }, ms);
-            } },
+            timeoutCallbackClear(), timeoutCallbackId = setTimeout(() => { closeEmbyDialog(), Emby.Page.goHome() }, ms);
+        } },
     ];
-    const getApiTl = (fn) => {
-        if (!fn || typeof fn.toString !== 'function') { return ''; }
-        const match = fn.toString().match(/\=>\s*(.*)$/);
-        if (!match || !match[1]) { return ''; }
-        return match[1].trim().replace(/`/g, '');
-    };
+    const getApiTl = fn => fn.toString().match(/\=>\s*(.*)$/)[1].trim().replace(/`/g, '');
     const labels = {
         enable: '启用',
     };
     const lsKeys = { // id 统一使用 danmaku 前缀
         chConvert: { id: 'danmakuChConvert', defaultValue: 1, name: '简繁转换' },
         switch: { id: 'danmakuSwitch', defaultValue: true, name: '弹幕开关' },
+        autoLoadSwitch: { id: 'danmakuAutoLoadSwitch', defaultValue: true, name: '自动加载弹幕' },
+        antiOverlap: { id: 'danmakuAntiOverlap', defaultValue: false, name: '防重叠' },
         filterLevel: { id: 'danmakuFilterLevel', defaultValue: 0, name: '过滤强度', min: 0, max: 3, step: 1 },
-        heightPercent: { id: 'danmakuHeightPercent', defaultValue: 100, name: '显示区域', min: 3, max: 100, step: 1 },
-        fontSizeRate: { id: 'danmakuFontSizeRate', defaultValue: 1, name: '弹幕大小', min: 0.1, max: 3, step: 0.1 },
-        fontOpacity: { id: 'danmakuFontOpacity', defaultValue: 1, name: '透明度', min: 0.1, max: 1, step: 0.1 },
-        speed: { id: 'danmakuBaseSpeed', defaultValue: 1, name: '速度', min: 0.1, max: 3, step: 0.1 },
+        heightPercent: { id: 'danmakuHeightPercent', defaultValue: 70, name: '显示区域', min: 3, max: 100, step: 1 },
+        fontSizeRate: { id: 'danmakuFontSizeRate', defaultValue: 150, name: '弹幕大小', min: 10, max: 300, step: 10 },
+        fontOpacity: { id: 'danmakuFontOpacity', defaultValue: 100, name: '透明度', min: 10, max: 100, step: 10 },
+        speed: { id: 'danmakuBaseSpeed', defaultValue: 100, name: '速度', min: 10, max: 300, step: 10 },
         timelineOffset: { id: 'danmakuTimelineOffset', defaultValue: 0, name: '轴偏秒' },
         fontWeight: { id: 'danmakuFontWeight', defaultValue: 400, name: '弹幕粗细', min: 100, max: 1000, step: 100 },
         fontStyle: { id: 'danmakuFontStyle', defaultValue: 0, name: '弹幕斜体', min: 0, max: 2, step: 1 },
@@ -238,7 +275,7 @@
         autoFilterCount: { id: 'danmakuAutoFilterCount', defaultValue: 0, name: '自动过滤弹幕数阈值', min: 0, max: 10000, step: 500 },
         mergeSimilarEnable: { id: 'danmakuMergeSimilarEnable', defaultValue: false, name: '合并相似弹幕' },
         mergeSimilarPercent: { id: 'danmakuMergeSimilarPercent', defaultValue: 80, name: '相似度百分比', min: 20, max: 100, step: 1 },
-        mergeSimilarTime: { id: 'danmakuMergeSimilarTime', defaultValue: 10, name: '相似度时间窗口秒', min: 1, max: 60, step: 1 },
+        mergeSimilarTime: { id: 'danmakuMergeSimilarTime', defaultValue: 10, name: '相似度时间窗口', min: 1, max: 60, step: 1 },
         filterKeywords: { id: 'danmakuFilterKeywords', defaultValue: '', name: '屏蔽关键词' },
         filterKeywordsEnable: { id: 'danmakuFilterKeywordsEnable', defaultValue: true, name: '屏蔽关键词启用' },
         // removeEmojiEnable: { id: 'danmakuRemoveEmojiEnable', defaultValue: false, name: '移除弹幕中的emoji' },
@@ -246,29 +283,36 @@
         osdTitleEnable: { id: 'danmakuOsdTitleEnable', defaultValue: false, name: '播放界面右下角显示弹幕信息' },
         osdLineChartEnable: { id: 'danmakuOsdLineChartEnable', defaultValue: false, name: '弹幕高能进度条' },
         osdLineChartSkipFilter: { id: 'danmakuOsdLineChartSkipFilter', defaultValue: false, name: '弹幕高能进度条免过滤' },
-        osdLineChartTime: { id: 'danmakuOsdLineChartTime', defaultValue: 10, name: '弹幕高能进度条颗粒度秒', min: 1, max: 60, step: 1  },
+        osdLineChartTime: { id: 'danmakuOsdLineChartTime', defaultValue: 10, name: '弹幕高能进度条颗粒度', min: 1, max: 60, step: 1  },
         osdHeaderClockEnable: { id: 'danmakuOsdHeaderClockEnable', defaultValue: false, name: '播放界面头中显示时钟' },
         timeoutCallbackUnit: { id: 'danmakuTimeoutCallbackUnit', defaultValue: 1, name: '定时单位' },
         timeoutCallbackValue: { id: 'danmakuTimeoutCallbackValue', defaultValue: 0, name: '定时值' },
         bangumiEnable: { id: 'danmakuBangumiEnable', defaultValue: false, name: '启用并填写个人令牌' },
         bangumiToken: { id: 'danmakuBangumiToken', defaultValue: '', name: '个人令牌' },
         bangumiPostPercent: { id: 'danmakuBangumiPostPercent', defaultValue: 95, name: '时长比', min: 1, max: 99, step: 1 },
+        tmdbApiKey: { id: 'danmakuTmdbApiKey', defaultValue: '', name: 'TMDB API Key' },
+        tmdbApiBaseUrl: { id: 'danmakuTmdbApiBaseUrl', defaultValue: 'https://api.themoviedb.org', name: 'TMDB API 域名' },
+        tmdbEpisodeMappingEnable: { id: 'danmakuTmdbEpisodeMappingEnable', defaultValue: false, name: '启用集数映射' },
         consoleLogEnable: { id: 'danmakuConsoleLogEnable', defaultValue: false, name: '控制台日志' },
+        logLevel: { id: 'danmakuLogLevel', defaultValue: '3', name: '日志级别' },
         useFetchPluginXml: { id: 'danmakuUseFetchPluginXml', defaultValue: false, name: '加载媒体服务端xml弹幕' },
         // refreshPluginXml: { id: 'danmakuRefreshPluginXml', defaultValue: false, name: '加载前刷新媒体服务端xml弹幕' },
+        useOfficialApi: { id: 'danmakuUseOfficialApi', defaultValue: true, name: '使用弹弹play' },
+        useCustomApi: { id: 'danmakuUseCustomApi', defaultValue: false, name: '使用自定义API' },
+        matchApiEnable: { id: 'danmakuMatchApiEnable', defaultValue: false, name: '启用 /match 匹配' },
+        matchMode: { id: 'danmakuMatchMode', defaultValue: 'fileNameOnly', name: '匹配模式' },
+        episodeOffsetRules: { id: 'danmakuEpisodeOffsetRules', defaultValue: [], name: '集数偏移规则' },
         debugShowDanmakuWrapper: { id: 'danmakuDebugShowDanmakuWrapper', defaultValue: false, name: '弹幕容器边界' },
         debugShowDanmakuCtrWrapper: { id: 'danmakuDebugShowDanmakuCtrWrapper', defaultValue: false, name: '按钮容器边界' },
         debugReverseDanmu: { id: 'danmakuDebugReverseDanmu', defaultValue: false, name: '反转弹幕方向' },
         debugRandomDanmuColor: { id: 'danmakuDebugRandomDanmuColor', defaultValue: false, name: '随机弹幕颜色' },
         debugForceDanmuWhite: { id: 'danmakuDebugForceDanmuWhite', defaultValue: false, name: '强制弹幕白色' },
-        debugTopBottomToScroll: { id: 'danmakuDebugTopBottomToScroll', defaultValue: false, name: '顶底弹幕滚动' },
         debugGenerateLarge: { id: 'danmakuDebugGenerateLarge', defaultValue: false, name: '测试大量弹幕' },
         debugDialogHyalinize: { id: 'danmakuDebugDialogHyalinize', defaultValue: false, name: '透明弹窗背景' },
         debugDialogWindow: { id: 'danmakuDebugDialogWindow', defaultValue: false, name: '弹窗窗口化' },
         debugDialogRight: { id: 'danmakuDebugDialogRight', defaultValue: false, name: '弹窗靠右布局' }, // Emby Android 上暂时存在 bug
         debugTabIframeEnable: { id: 'danmakuDebugTabIframeEnable', defaultValue: false, name: '打开内嵌网页' },
         debugH5VideoAdapterEnable: { id: 'danmakuDebugH5VideoAdapterEnable', defaultValue: false, name: '查看视频适配器情况' },
-        debugDanmuAnywhereEnable: { id: 'danmakuDebugDanmuAnywhereEnable', defaultValue: false, name: '在任意处测试弹幕' },
         quickDebugOn: { id: 'danmakuQuickDebugOn', defaultValue: false, name: '快速调试' },
         customeCorsProxyUrl: { id: 'danmakuCustomeCorsProxyUrl', defaultValue: corsProxy, name: '跨域代理前缀' },
         customeDanmakuUrl: { id: 'danmakuCustomeDanmakuUrl', defaultValue: requireDanmakuPath, name: '弹幕引擎依赖' },
@@ -276,9 +320,17 @@
         customeGetExtcommentUrl: { id: 'danmakuCustomeGetExtcommentUrl', defaultValue: getApiTl(dandanplayApi.getExtcomment), name: '获取指定第三方url的弹幕' },
         customePosterImgUrl: { id: 'danmakuCustomePosterImgUrl', defaultValue: getApiTl(dandanplayApi.posterImg), name: '媒体海报' },
         customApiPrefix: { id: 'danmakuCustomApiPrefix', defaultValue: '', name: '自定义弹弹play API地址' },
-        useOfficialApi: { id: 'danmakuUseOfficialApi', defaultValue: true, name: '使用官方API' },
-        useCustomApi: { id: 'danmakuUseCustomApi', defaultValue: false, name: '使用自定义API' },
+        customApiList: { id: 'danmakuCustomApiList', defaultValue: [], name: '自定义弹幕源列表' },
         apiPriority: { id: 'danmakuApiPriority', defaultValue: ['official', 'custom'], name: 'API 优先级' },
+        excludedLibraries: { id: 'danmakuExcludedLibraries', defaultValue: [], name: '排除的媒体库' },
+        animeTitleBlacklist: { id: 'danmakuAnimeTitleBlacklist', defaultValue: '', name: '标题黑名单正则' },
+        episodeTitleBlacklist: { id: 'danmakuEpisodeTitleBlacklist', defaultValue: '^(.*?)(特番|特典|特辑|花絮|预告|PV|CM|NCED|NCOP|Opening|Ending|OP|ED|Menu|刊行.*記念|作曲家|音楽|BGM|OST|主题曲|片尾曲|插曲|C\\d+|S\\d+|OVA|OAD|SP|Special|番外|外传|衍生|制作花絮|幕后|访谈|采访|发布会|宣传|推广)(.*?)$', name: '分集名称黑名单正则' },
+        blacklistApplyToCustomApi: { id: 'danmakuBlacklistApplyToCustomApi', defaultValue: false, name: '黑名单应用于自定义接口' },
+        convertTopTo: { id: 'danmakuConvertTopTo', defaultValue: 'default', name: '顶部弹幕转换为' },
+        convertBottomTo: { id: 'danmakuConvertBottomTo', defaultValue: 'default', name: '底部弹幕转换为' },
+        configPersistenceEnable: { id: 'danmakuConfigPersistenceEnable', defaultValue: false, name: '启用配置持久化' },
+        configPersistenceAutoSync: { id: 'danmakuConfigPersistenceAutoSync', defaultValue: false, name: '实时同步' },
+        configPersistenceNamespace: { id: 'danmakuConfigPersistenceNamespace', defaultValue: 'dd-danmaku', name: '同步标识符' },
     };
     const lsLocalKeys = {
         animePrefix: '_anime_id_rel_',
@@ -286,8 +338,6 @@
         animeEpisodePrefix: '_episode_id_rel_',
         bangumiEpInfoPrefix: '_bangumi_episode_id_rel_',
         bangumiMe: '_bangumi_me',
-        // customApiPrefix
-        apiPrefix: '_api_',
     };
     const eleIds = {
         danmakuSwitchBtn: 'danmakuSwitchBtn',
@@ -296,6 +346,8 @@
         h5VideoAdapter: 'h5VideoAdapter',
         dialogContainer: 'dialogContainer',
         danmakuSwitchDiv: 'danmakuSwitchDiv',
+        autoLoadSwitchDiv: 'autoLoadSwitchDiv',
+        autoLoadSwitchBtn: 'autoLoadSwitchBtn',
         danmakuSwitch: 'danmakuSwitch',
         filterLevelDiv: 'filterLevelDiv',
         danmakuSearchNameDiv: 'danmakuSearchNameDiv',
@@ -311,10 +363,7 @@
         searchImgDiv: 'searchImgDiv',
         searchImg: 'searchImg',
         searchApiSource: 'searchApiSource',
-        apiCheckboxListDiv: 'apiCheckboxListDiv',
-        apiPriorityDiv: 'apiPriorityDiv',
-        customApiPrefixInputDiv: 'customApiPrefixInputDiv',
-        clearLocalMatchCacheBtn: 'clearLocalMatchCacheBtn',
+        apiSelectDiv: 'apiSelectDiv',
         extCommentSearchDiv: 'extCommentSearchDiv',
         extUrlsDiv: 'extUrlsDiv',
         currentMatchedDiv: 'currentMatchedDiv',
@@ -370,6 +419,21 @@
         bangumiTokenLabel: 'bangumiTokenInputLabel',
         bangumiTokenLinkDiv: 'bangumiTokenLinkDiv',
         bangumiPostPercentDiv: 'bangumiPostPercentDiv',
+        tmdbEnableLabel: 'tmdbEnableLabel',
+        tmdbSettingsDiv: 'tmdbSettingsDiv',
+        tmdbApiKeyInput: 'tmdbApiKeyInput',
+        tmdbApiKeyInputDiv: 'tmdbApiKeyInputDiv',
+        tmdbApiKeyLabel: 'tmdbApiKeyLabel',
+        tmdbApiKeyLinkDiv: 'tmdbApiKeyLinkDiv',
+        tmdbApiBaseUrlInput: 'tmdbApiBaseUrlInput',
+        tmdbApiBaseUrlInputDiv: 'tmdbApiBaseUrlInputDiv',
+        tmdbApiBaseUrlLabel: 'tmdbApiBaseUrlLabel',
+        persistenceEnableLabel: 'persistenceEnableLabel',
+        persistenceAutoSyncLabel: 'persistenceAutoSyncLabel',
+        persistenceNamespaceInput: 'persistenceNamespaceInput',
+        persistenceNamespaceLabel: 'persistenceNamespaceLabel',
+        persistenceSettingsDiv: 'persistenceSettingsDiv',
+        persistenceStatusLabel: 'persistenceStatusLabel',
         customeUrlsDiv: 'customeUrlsDiv',
         customeCorsProxyDiv: 'customeCorsProxyDiv',
         customeDanmakuDiv: 'customeDanmakuDiv',
@@ -377,10 +441,12 @@
         customeGetExtcommentDiv: 'customeGetExtcommentDiv',
         customePosterImgDiv: 'customePosterImgDiv',
         consoleLogCtrl: 'consoleLogCtrl',
+        consoleLogCtrlLeft: 'consoleLogCtrlLeft',
         consoleLogInfo: 'consoleLogInfo',
         consoleLogText: 'consoleLogText',
         consoleLogTextInput: 'consoleLogTextInput',
         consoleLogCountLabel: 'consoleLogCountLabel',
+        logLevelDiv: 'logLevelDiv',
         debugCheckbox: 'debugCheckbox',
         debugButton: 'debugButton',
         tabIframe: 'tabIframe',
@@ -397,6 +463,18 @@
         danmuPluginDiv: 'danmuPluginDiv',
         danmakuSettingBtnDebug: 'danmakuSettingBtnDebug',
         progressBarLineChart: 'progressBarLineChart',
+        antiOverlapBtn: 'antiOverlapBtn',
+        antiOverlapDiv: 'antiOverlapDiv',
+        excludedLibrariesDiv: 'excludedLibrariesDiv',
+        excludedLibrariesInput: 'excludedLibrariesInput',
+        currentLibraryInfo: 'currentLibraryInfo',
+        searchBlacklistDiv: 'searchBlacklistDiv',
+        animeTitleBlacklistInput: 'animeTitleBlacklistInput',
+        episodeTitleBlacklistInput: 'episodeTitleBlacklistInput',
+        blacklistApplyToCustomApiCheckbox: 'blacklistApplyToCustomApiCheckbox',
+        matchApiEnableDiv: 'matchApiEnableDiv',
+        matchModeDiv: 'matchModeDiv',
+        episodeOffsetRulesDiv: 'episodeOffsetRulesDiv',
     };
     // 播放界面下方按钮
     const mediaBtnOpts = [
@@ -416,14 +494,14 @@
                 , msg1: '仅弹弹 play API 跨域使用,限 URL 前缀反代方式,例如 cf_worker'
                 , msg2: '以下共用变量: { dandanplayApi.prefix: 反代前缀拼接的弹弹 play API 路径前缀, }' },
             { divId: eleIds.customeGetCommentDiv, lsKey: lsKeys.customeGetCommentUrl, rewrite: (tl) => {
-                    dandanplayApi.getComment = (episodeId, chConvert) => eval('`' + tl + '`');
-                }, msg1: customeUrlMsg1, msg2: '变量: { episodeId: 章节 ID, chConvert: 简繁转换, }' },
+                dandanplayApi.getComment = (episodeId, chConvert) => eval('`' + tl + '`');
+            }, msg1: customeUrlMsg1, msg2: '变量: { episodeId: 章节 ID, chConvert: 简繁转换, }' },
             { divId: eleIds.customeGetExtcommentDiv, lsKey: lsKeys.customeGetExtcommentUrl, rewrite: (tl) => {
-                    dandanplayApi.getExtcomment = (url) => eval('`' + tl + '`');
-                }, msg1: customeUrlMsg1, msg2: '变量: { url: 附加弹幕输入框中的网址, }' },
+                dandanplayApi.getExtcomment = (url) => eval('`' + tl + '`');
+            }, msg1: customeUrlMsg1, msg2: '变量: { url: 附加弹幕输入框中的网址, }' },
             { divId: eleIds.customePosterImgDiv, lsKey: lsKeys.customePosterImgUrl, rewrite: (tl) => {
-                    dandanplayApi.posterImg = (animeId) => eval('`' + tl + '`');
-                }, msg1: customeUrlMsg1, msg2: '变量: { animeId: 弹弹 play 的作品 ID, }' },
+                dandanplayApi.posterImg = (animeId) => eval('`' + tl + '`');
+            }, msg1: customeUrlMsg1, msg2: '变量: { animeId: 弹弹 play 的作品 ID, }' },
         ],
     };
     // emby ui class
@@ -504,11 +582,19 @@
         isUbuntu: () => /Ubuntu/i.test(navigator.userAgent),
         isAndroidEmbyNoisyX: () => OS.isAndroid() && ApiClient.appVersion().includes('-'),
         isEmbyNoisyX: () => ApiClient.appVersion().includes('-'),
-        isEmbyTheater: () => ApiClient.appName() === 'Emby Theater',
-        isEmbyUWP: () => ApiClient.appName() === 'Emby Windows',
         isOthers: () => objectEntries(OS).filter(([key, val]) => key !== 'isOthers').every(([key, val]) => !val()),
     };
     const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}]/gu;
+
+    // 日志级别常量
+    const LOG_LEVEL = { OFF: 0, ERROR: 1, WARN: 2, INFO: 3, DEBUG: 4 };
+    // 日志工具函数
+    const logger = {
+        debug: (...args) => logLevel >= LOG_LEVEL.DEBUG && console.log('[DEBUG]', ...args),
+        info: (...args) => logLevel >= LOG_LEVEL.INFO && console.log('[INFO]', ...args),
+        warn: (...args) => logLevel >= LOG_LEVEL.WARN && console.warn('[WARN]', ...args),
+        error: (...args) => logLevel >= LOG_LEVEL.ERROR && console.error('[ERROR]', ...args),
+    };
 
     // ------ 程序内部使用,请勿更改 end ------
 
@@ -525,47 +611,217 @@
         /* https://cdn.jsdelivr.net/npm/danmaku@2.0.8/dist/danmaku.min.js */
         /* eslint-disable */
         // prettier-ignore
-        !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).Danmaku=e()}(this,(function(){"use strict";var t=function(){if("undefined"==typeof document)return"transform";for(var t=["oTransform","msTransform","mozTransform","webkitTransform","transform"],e=document.createElement("div").style,i=0;i<t.length;i++)if(t[i]in e)return t[i];return"transform"}();function e(t){var e=document.createElement("div");if(e.style.cssText="position:absolute;","function"==typeof t.render){var i=t.render();if(i instanceof HTMLElement)return e.appendChild(i),e}if(e.textContent=t.text,t.style)for(var n in t.style)e.style[n]=t.style[n];return e}var i={name:"dom",init:function(){var t=document.createElement("div");return t.style.cssText="overflow:hidden;white-space:nowrap;transform:translateZ(0);",t},clear:function(t){for(var e=t.lastChild;e;)t.removeChild(e),e=t.lastChild},resize:function(t,e,i){t.style.width=e+"px",t.style.height=i+"px"},framing:function(){},setup:function(t,i){var n=document.createDocumentFragment(),s=0,r=null;for(s=0;s<i.length;s++)(r=i[s]).node=r.node||e(r),n.appendChild(r.node);for(i.length&&t.appendChild(n),s=0;s<i.length;s++)(r=i[s]).width=r.width||r.node.offsetWidth,r.height=r.height||r.node.offsetHeight},render:function(e,i){i.node.style[t]="translate("+i.x+"px,"+i.y+"px)"},remove:function(t,e){t.removeChild(e.node),this.media||(e.node=null)}},n="undefined"!=typeof window&&window.devicePixelRatio||1,s=Object.create(null);function r(t,e){if("function"==typeof t.render){var i=t.render();if(i instanceof HTMLCanvasElement)return t.width=i.width,t.height=i.height,i}var r=document.createElement("canvas"),h=r.getContext("2d"),o=t.style||{};o.font=o.font||"10px sans-serif",o.textBaseline=o.textBaseline||"bottom";var a=1*o.lineWidth;for(var d in a=a>0&&a!==1/0?Math.ceil(a):1*!!o.strokeStyle,h.font=o.font,t.width=t.width||Math.max(1,Math.ceil(h.measureText(t.text).width)+2*a),t.height=t.height||Math.ceil(function(t,e){if(s[t])return s[t];var i=12,n=t.match(/(\d+(?:\.\d+)?)(px|%|em|rem)(?:\s*\/\s*(\d+(?:\.\d+)?)(px|%|em|rem)?)?/);if(n){var r=1*n[1]||10,h=n[2],o=1*n[3]||1.2,a=n[4];"%"===h&&(r*=e.container/100),"em"===h&&(r*=e.container),"rem"===h&&(r*=e.root),"px"===a&&(i=o),"%"===a&&(i=r*o/100),"em"===a&&(i=r*o),"rem"===a&&(i=e.root*o),void 0===a&&(i=r*o)}return s[t]=i,i}(o.font,e))+2*a,r.width=t.width*n,r.height=t.height*n,h.scale(n,n),o)h[d]=o[d];var u=0;switch(o.textBaseline){case"top":case"hanging":u=a;break;case"middle":u=t.height>>1;break;default:u=t.height-a}return o.strokeStyle&&h.strokeText(t.text,a,u),h.fillText(t.text,a,u),r}function h(t){return 1*window.getComputedStyle(t,null).getPropertyValue("font-size").match(/(.+)px/)[1]}var o={name:"canvas",init:function(t){var e=document.createElement("canvas");return e.context=e.getContext("2d"),e._fontSize={root:h(document.getElementsByTagName("html")[0]),container:h(t)},e},clear:function(t,e){t.context.clearRect(0,0,t.width,t.height);for(var i=0;i<e.length;i++)e[i].canvas=null},resize:function(t,e,i){t.width=e*n,t.height=i*n,t.style.width=e+"px",t.style.height=i+"px"},framing:function(t){t.context.clearRect(0,0,t.width,t.height)},setup:function(t,e){for(var i=0;i<e.length;i++){var n=e[i];n.canvas=r(n,t._fontSize)}},render:function(t,e){t.context.drawImage(e.canvas,e.x*n,e.y*n)},remove:function(t,e){e.canvas=null}},a=("undefined"!=typeof window&&(window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame)||function(t){return setTimeout(t,50/3)}).bind(window),d=("undefined"!=typeof window&&(window.cancelAnimationFrame||window.mozCancelAnimationFrame||window.webkitCancelAnimationFrame)||clearTimeout).bind(window);function u(t,e,i){for(var n=0,s=0,r=t.length;s<r-1;)i>=t[n=s+r>>1][e]?s=n:r=n;return t[s]&&i<t[s][e]?s:r}function m(t){return/^(ltr|top|bottom)$/i.test(t)?t.toLowerCase():"rtl"}function c(){var t=9007199254740991;return[{range:0,time:-t,width:t,height:0},{range:t,time:t,width:0,height:0}]}function l(t){t.ltr=c(),t.rtl=c(),t.top=c(),t.bottom=c()}function f(){return void 0!==window.performance&&window.performance.now?window.performance.now():Date.now()}function p(t){var e=this,i=this.media?this.media.currentTime:f()/1e3,n=this.media?this.media.playbackRate:1;function s(t,s){if("top"===s.mode||"bottom"===s.mode)return i-t.time<e._.duration;var r=(e._.width+t.width)*(i-t.time)*n/e._.duration;if(t.width>r)return!0;var h=e._.duration+t.time-i,o=e._.width+s.width,a=e.media?s.time:s._utc,d=o*(i-a)*n/e._.duration,u=e._.width-d;return h>e._.duration*u/(e._.width+s.width)}for(var r=this._.space[t.mode],h=0,o=0,a=1;a<r.length;a++){var d=r[a],u=t.height;if("top"!==t.mode&&"bottom"!==t.mode||(u+=d.height),d.range-d.height-r[h].range>=u){o=a;break}s(d,t)&&(h=a)}var m=r[h].range,c={range:m+t.height,time:this.media?t.time:t._utc,width:t.width,height:t.height};return r.splice(h+1,o-h-1,c),"bottom"===t.mode?this._.height-t.height-m%this._.height:m%(this._.height-t.height)}function g(){if(!this._.visible||!this._.paused)return this;if(this._.paused=!1,this.media)for(var t=0;t<this._.runningList.length;t++){var e=this._.runningList[t];e._utc=f()/1e3-(this.media.currentTime-e.time)}var i=this,n=function(t,e,i,n){return function(s){t(this._.stage);var r=(s||f())/1e3,h=this.media?this.media.currentTime:r,o=this.media?this.media.playbackRate:1,a=null,d=0,u=0;for(u=this._.runningList.length-1;u>=0;u--)a=this._.runningList[u],h-(d=this.media?a.time:a._utc)>this._.duration&&(n(this._.stage,a),this._.runningList.splice(u,1));for(var m=[];this._.position<this.comments.length&&(a=this.comments[this._.position],!((d=this.media?a.time:a._utc)>=h));)h-d>this._.duration||(this.media&&(a._utc=r-(this.media.currentTime-a.time)),m.push(a)),++this._.position;for(e(this._.stage,m),u=0;u<m.length;u++)(a=m[u]).y=p.call(this,a),this._.runningList.push(a);for(u=0;u<this._.runningList.length;u++){a=this._.runningList[u];var c=(this._.width+a.width)*(r-a._utc)*o/this._.duration;"ltr"===a.mode&&(a.x=c-a.width),"rtl"===a.mode&&(a.x=this._.width-c),"top"!==a.mode&&"bottom"!==a.mode||(a.x=this._.width-a.width>>1),i(this._.stage,a)}}}(this._.engine.framing.bind(this),this._.engine.setup.bind(this),this._.engine.render.bind(this),this._.engine.remove.bind(this));return this._.requestID=a((function t(e){n.call(i,e),i._.requestID=a(t)})),this}function _(){return!this._.visible||this._.paused||(this._.paused=!0,d(this._.requestID),this._.requestID=0),this}function v(){if(!this.media)return this;this.clear(),l(this._.space);var t=u(this.comments,"time",this.media.currentTime);return this._.position=Math.max(0,t-1),this}function w(t){t.play=g.bind(this),t.pause=_.bind(this),t.seeking=v.bind(this),this.media.addEventListener("play",t.play),this.media.addEventListener("pause",t.pause),this.media.addEventListener("playing",t.play),this.media.addEventListener("waiting",t.pause),this.media.addEventListener("seeking",t.seeking)}function y(t){this.media.removeEventListener("play",t.play),this.media.removeEventListener("pause",t.pause),this.media.removeEventListener("playing",t.play),this.media.removeEventListener("waiting",t.pause),this.media.removeEventListener("seeking",t.seeking),t.play=null,t.pause=null,t.seeking=null}function x(t){this._={},this.container=t.container||document.createElement("div"),this.media=t.media,this._.visible=!0,this.engine=(t.engine||"DOM").toLowerCase(),this._.engine="canvas"===this.engine?o:i,this._.requestID=0,this._.speed=Math.max(0,t.speed)||144,this._.duration=4,this.comments=t.comments||[],this.comments.sort((function(t,e){return t.time-e.time}));for(var e=0;e<this.comments.length;e++)this.comments[e].mode=m(this.comments[e].mode);return this._.runningList=[],this._.position=0,this._.paused=!0,this.media&&(this._.listener={},w.call(this,this._.listener)),this._.stage=this._.engine.init(this.container),this._.stage.style.cssText+="position:relative;pointer-events:none;",this.resize(),this.container.appendChild(this._.stage),this._.space={},l(this._.space),this.media&&this.media.paused||(v.call(this),g.call(this)),this}function b(){if(!this.container)return this;for(var t in _.call(this),this.clear(),this.container.removeChild(this._.stage),this.media&&y.call(this,this._.listener),this)Object.prototype.hasOwnProperty.call(this,t)&&(this[t]=null);return this}var L=["mode","time","text","render","style"];function T(t){if(!t||"[object Object]"!==Object.prototype.toString.call(t))return this;for(var e={},i=0;i<L.length;i++)void 0!==t[L[i]]&&(e[L[i]]=t[L[i]]);if(e.text=(e.text||"").toString(),e.mode=m(e.mode),e._utc=f()/1e3,this.media){var n=0;void 0===e.time?(e.time=this.media.currentTime,n=this._.position):(n=u(this.comments,"time",e.time))<this._.position&&(this._.position+=1),this.comments.splice(n,0,e)}else this.comments.push(e);return this}function E(){return this._.visible?this:(this._.visible=!0,this.media&&this.media.paused||(v.call(this),g.call(this)),this)}function k(){return this._.visible?(_.call(this),this.clear(),this._.visible=!1,this):this}function C(){return this._.engine.clear(this._.stage,this._.runningList),this._.runningList=[],this}function z(){return this._.width=this.container.offsetWidth,this._.height=this.container.offsetHeight,this._.engine.resize(this._.stage,this._.width,this._.height),this._.duration=this._.width/this._.speed,this}var D={get:function(){return this._.speed},set:function(t){return"number"!=typeof t||isNaN(t)||!isFinite(t)||t<=0?this._.speed:(this._.speed=t,this._.width&&(this._.duration=this._.width/t),t)}};function M(t){t&&x.call(this,t)}return M.prototype.destroy=function(){return b.call(this)},M.prototype.emit=function(t){return T.call(this,t)},M.prototype.show=function(){return E.call(this)},M.prototype.hide=function(){return k.call(this)},M.prototype.clear=function(){return C.call(this)},M.prototype.resize=function(){return z.call(this)},Object.defineProperty(M.prototype,"speed",D),M}));
+        // 注意: 原版使用 this 作为全局对象，但在严格模式下 this 为 undefined，改用 window 确保兼容性
+        logger.info('[弹幕引擎] 使用内联模式加载 Danmaku 库 (非 CustomCssJS 环境)');
+        !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():false && "function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).Danmaku=e()}(window,(function(){"use strict";var t=function(){if("undefined"==typeof document)return"transform";for(var t=["oTransform","msTransform","mozTransform","webkitTransform","transform"],e=document.createElement("div").style,i=0;i<t.length;i++)if(t[i]in e)return t[i];return"transform"}();function e(t){var e=document.createElement("div");if(e.style.cssText="position:absolute;","function"==typeof t.render){var i=t.render();if(i instanceof HTMLElement)return e.appendChild(i),e}if(e.textContent=t.text,t.style)for(var n in t.style)e.style[n]=t.style[n];return e}var i={name:"dom",init:function(){var t=document.createElement("div");return t.style.cssText="overflow:hidden;white-space:nowrap;transform:translateZ(0);",t},clear:function(t){for(var e=t.lastChild;e;)t.removeChild(e),e=t.lastChild},resize:function(t,e,i){t.style.width=e+"px",t.style.height=i+"px"},framing:function(){},setup:function(t,i){var n=document.createDocumentFragment(),s=0,r=null;for(s=0;s<i.length;s++)(r=i[s]).node=r.node||e(r),n.appendChild(r.node);for(i.length&&t.appendChild(n),s=0;s<i.length;s++)(r=i[s]).width=r.width||r.node.offsetWidth,r.height=r.height||r.node.offsetHeight},render:function(e,i){i.node.style[t]="translate("+i.x+"px,"+i.y+"px)"},remove:function(t,e){t.removeChild(e.node),this.media||(e.node=null)}},n="undefined"!=typeof window&&window.devicePixelRatio||1,s=Object.create(null);function r(t,e){if("function"==typeof t.render){var i=t.render();if(i instanceof HTMLCanvasElement)return t.width=i.width,t.height=i.height,i}var r=document.createElement("canvas"),h=r.getContext("2d"),o=t.style||{};o.font=o.font||"10px sans-serif",o.textBaseline=o.textBaseline||"bottom";var a=1*o.lineWidth;for(var d in a=a>0&&a!==1/0?Math.ceil(a):1*!!o.strokeStyle,h.font=o.font,t.width=t.width||Math.max(1,Math.ceil(h.measureText(t.text).width)+2*a),t.height=t.height||Math.ceil(function(t,e){if(s[t])return s[t];var i=12,n=t.match(/(\d+(?:\.\d+)?)(px|%|em|rem)(?:\s*\/\s*(\d+(?:\.\d+)?)(px|%|em|rem)?)?/);if(n){var r=1*n[1]||10,h=n[2],o=1*n[3]||1.2,a=n[4];"%"===h&&(r*=e.container/100),"em"===h&&(r*=e.container),"rem"===h&&(r*=e.root),"px"===a&&(i=o),"%"===a&&(i=r*o/100),"em"===a&&(i=r*o),"rem"===a&&(i=e.root*o),void 0===a&&(i=r*o)}return s[t]=i,i}(o.font,e))+2*a,r.width=t.width*n,r.height=t.height*n,h.scale(n,n),o)h[d]=o[d];var u=0;switch(o.textBaseline){case"top":case"hanging":u=a;break;case"middle":u=t.height>>1;break;default:u=t.height-a}return o.strokeStyle&&h.strokeText(t.text,a,u),h.fillText(t.text,a,u),r}function h(t){return 1*window.getComputedStyle(t,null).getPropertyValue("font-size").match(/(.+)px/)[1]}var o={name:"canvas",init:function(t){var e=document.createElement("canvas");return e.context=e.getContext("2d"),e._fontSize={root:h(document.getElementsByTagName("html")[0]),container:h(t)},e},clear:function(t,e){t.context.clearRect(0,0,t.width,t.height);for(var i=0;i<e.length;i++)e[i].canvas=null},resize:function(t,e,i){t.width=e*n,t.height=i*n,t.style.width=e+"px",t.style.height=i+"px"},framing:function(t){t.context.clearRect(0,0,t.width,t.height)},setup:function(t,e){for(var i=0;i<e.length;i++){var n=e[i];n.canvas=r(n,t._fontSize)}},render:function(t,e){t.context.drawImage(e.canvas,e.x*n,e.y*n)},remove:function(t,e){e.canvas=null}},a=("undefined"!=typeof window&&(window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame)||function(t){return setTimeout(t,50/3)}).bind(window),d=("undefined"!=typeof window&&(window.cancelAnimationFrame||window.mozCancelAnimationFrame||window.webkitCancelAnimationFrame)||clearTimeout).bind(window);function u(t,e,i){for(var n=0,s=0,r=t.length;s<r-1;)i>=t[n=s+r>>1][e]?s=n:r=n;return t[s]&&i<t[s][e]?s:r}function m(t){return/^(ltr|top|bottom)$/i.test(t)?t.toLowerCase():"rtl"}function c(){var t=9007199254740991;return[{range:0,time:-t,width:t,height:0},{range:t,time:t,width:0,height:0}]}function l(t){t.ltr=c(),t.rtl=c(),t.top=c(),t.bottom=c()}function f(){return void 0!==window.performance&&window.performance.now?window.performance.now():Date.now()}function p(t){var e=this,i=this.media?this.media.currentTime:f()/1e3,n=this.media?this.media.playbackRate:1;function s(t,s){if("top"===s.mode||"bottom"===s.mode)return i-t.time<e._.duration;var r=(e._.width+t.width)*(i-t.time)*n/e._.duration;if(t.width>r)return!0;var h=e._.duration+t.time-i,o=e._.width+s.width,a=e.media?s.time:s._utc,d=o*(i-a)*n/e._.duration,u=e._.width-d;return h>e._.duration*u/(e._.width+s.width)}for(var r=this._.space[t.mode],h=0,o=0,a=1;a<r.length;a++){var d=r[a],u=t.height;if("top"!==t.mode&&"bottom"!==t.mode||(u+=d.height),d.range-d.height-r[h].range>=u){o=a;break}s(d,t)&&(h=a)}var m=r[h].range,c={range:m+t.height,time:this.media?t.time:t._utc,width:t.width,height:t.height};return r.splice(h+1,o-h-1,c),"bottom"===t.mode?this._.height-t.height-m%this._.height:m%(this._.height-t.height)}function g(){if(!this._.visible||!this._.paused)return this;if(this._.paused=!1,this.media)for(var t=0;t<this._.runningList.length;t++){var e=this._.runningList[t];e._utc=f()/1e3-(this.media.currentTime-e.time)}var i=this,n=function(t,e,i,n){return function(s){t(this._.stage);var r=(s||f())/1e3,h=this.media?this.media.currentTime:r,o=this.media?this.media.playbackRate:1,a=null,d=0,u=0;for(u=this._.runningList.length-1;u>=0;u--)a=this._.runningList[u],h-(d=this.media?a.time:a._utc)>this._.duration&&(n(this._.stage,a),this._.runningList.splice(u,1));for(var m=[];this._.position<this.comments.length&&(a=this.comments[this._.position],!((d=this.media?a.time:a._utc)>=h));)h-d>this._.duration||(this.media&&(a._utc=r-(this.media.currentTime-a.time)),m.push(a)),++this._.position;for(e(this._.stage,m),u=0;u<m.length;u++)(a=m[u]).y=p.call(this,a),this._.runningList.push(a);for(u=0;u<this._.runningList.length;u++){a=this._.runningList[u];var c=(this._.width+a.width)*(r-a._utc)*o/this._.duration;"ltr"===a.mode&&(a.x=c-a.width),"rtl"===a.mode&&(a.x=this._.width-c),"top"!==a.mode&&"bottom"!==a.mode||(a.x=this._.width-a.width>>1),i(this._.stage,a)}}}(this._.engine.framing.bind(this),this._.engine.setup.bind(this),this._.engine.render.bind(this),this._.engine.remove.bind(this));return this._.requestID=a((function t(e){n.call(i,e),i._.requestID=a(t)})),this}function _(){return!this._.visible||this._.paused||(this._.paused=!0,d(this._.requestID),this._.requestID=0),this}function v(){if(!this.media)return this;this.clear(),l(this._.space);var t=u(this.comments,"time",this.media.currentTime);return this._.position=Math.max(0,t-1),this}function w(t){t.play=g.bind(this),t.pause=_.bind(this),t.seeking=v.bind(this),this.media.addEventListener("play",t.play),this.media.addEventListener("pause",t.pause),this.media.addEventListener("playing",t.play),this.media.addEventListener("waiting",t.pause),this.media.addEventListener("seeking",t.seeking)}function y(t){this.media.removeEventListener("play",t.play),this.media.removeEventListener("pause",t.pause),this.media.removeEventListener("playing",t.play),this.media.removeEventListener("waiting",t.pause),this.media.removeEventListener("seeking",t.seeking),t.play=null,t.pause=null,t.seeking=null}function x(t){this._={},this.container=t.container||document.createElement("div"),this.media=t.media,this._.visible=!0,this.engine=(t.engine||"DOM").toLowerCase(),this._.engine="canvas"===this.engine?o:i,this._.requestID=0,this._.speed=Math.max(0,t.speed)||144,this._.duration=4,this.comments=t.comments||[],this.comments.sort((function(t,e){return t.time-e.time}));for(var e=0;e<this.comments.length;e++)this.comments[e].mode=m(this.comments[e].mode);return this._.runningList=[],this._.position=0,this._.paused=!0,this.media&&(this._.listener={},w.call(this,this._.listener)),this._.stage=this._.engine.init(this.container),this._.stage.style.cssText+="position:relative;pointer-events:none;",this.resize(),this.container.appendChild(this._.stage),this._.space={},l(this._.space),this.media&&this.media.paused||(v.call(this),g.call(this)),this}function b(){if(!this.container)return this;for(var t in _.call(this),this.clear(),this.container.removeChild(this._.stage),this.media&&y.call(this,this._.listener),this)Object.prototype.hasOwnProperty.call(this,t)&&(this[t]=null);return this}var L=["mode","time","text","render","style"];function T(t){if(!t||"[object Object]"!==Object.prototype.toString.call(t))return this;for(var e={},i=0;i<L.length;i++)void 0!==t[L[i]]&&(e[L[i]]=t[L[i]]);if(e.text=(e.text||"").toString(),e.mode=m(e.mode),e._utc=f()/1e3,this.media){var n=0;void 0===e.time?(e.time=this.media.currentTime,n=this._.position):(n=u(this.comments,"time",e.time))<this._.position&&(this._.position+=1),this.comments.splice(n,0,e)}else this.comments.push(e);return this}function E(){return this._.visible?this:(this._.visible=!0,this.media&&this.media.paused||(v.call(this),g.call(this)),this)}function k(){return this._.visible?(_.call(this),this.clear(),this._.visible=!1,this):this}function C(){return this._.engine.clear(this._.stage,this._.runningList),this._.runningList=[],this}function z(){return this._.width=this.container.offsetWidth,this._.height=this.container.offsetHeight,this._.engine.resize(this._.stage,this._.width,this._.height),this._.duration=this._.width/this._.speed,this}var D={get:function(){return this._.speed},set:function(t){return"number"!=typeof t||isNaN(t)||!isFinite(t)||t<=0?this._.speed:(this._.speed=t,this._.width&&(this._.duration=this._.width/t),t)}};function M(t){t&&x.call(this,t)}return M.prototype.destroy=function(){return b.call(this)},M.prototype.emit=function(t){return T.call(this,t)},M.prototype.show=function(){return E.call(this)},M.prototype.hide=function(){return k.call(this)},M.prototype.clear=function(){return C.call(this)},M.prototype.resize=function(){return z.call(this)},Object.defineProperty(M.prototype,"speed",D),M}));
         /* eslint-enable */
-    } else {
-        window.Danmaku || Emby.importModule(requireDanmakuPath).then(f => {
-            console.log(f);
-            window.Danmaku = f;
-        }).catch(error => {
-            console.error(`fail Emby.importModule error:`, error);
-        });
-    }
-    // ------ require end ------
-
-    /*
-     * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
-     * Digest Algorithm, as defined in RFC 1321.
-     * Version 2.2 Copyright (C) Paul Johnston 1999 - 2009
-     * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
-     * Distributed under the BSD License
-     * See http://pajhome.org.uk/crypt/md5 for more info.
-     */
-    // 简化的MD5实现，用于文件哈希计算
-    var SparkMD5 = {
-        ArrayBuffer: function() {
-            this._buff = new DataView(new ArrayBuffer(0));
-            this._length = 0;
-            this._hash = [1732584193, -271733879, -1732584194, 271733878];
+        // 内联加载后立即验证
+        if (typeof window.Danmaku !== 'undefined') {
+            logger.info('[弹幕引擎] 内联加载成功, window.Danmaku 已就绪');
+        } else if (typeof Danmaku !== 'undefined') {
+            logger.info('[弹幕引擎] 内联加载成功, Danmaku (局部变量) 已就绪');
+        } else {
+            logger.error('[弹幕引擎] 内联加载异常: window.Danmaku 和 Danmaku 均为 undefined，可能存在 AMD/模块系统冲突');
         }
-    };
+     } else {
+        // 网络加载 + 动态修复 AMD
+        // 必须使用 fetch 下载 -> 修改 -> Blob 执行，才能拦截 define 调用
+        logger.info('[弹幕引擎] 使用网络模式加载 Danmaku 库 (CustomCssJS 环境), 路径:', requireDanmakuPath);
 
-    SparkMD5.ArrayBuffer.prototype.append = function(arrayBuffer) {
-        console.log('[SparkMD5] append called with buffer size:', arrayBuffer.byteLength);
-        // 简化实现：直接使用crypto API如果可用
-        return this;
-    };
+        fetch(requireDanmakuPath)
+            .then(response => {
+                if (!response.ok) throw new Error("网络请求失败: " + response.status);
+                logger.info('[弹幕引擎] 网络下载成功, 正在应用 AMD 修复补丁...');
+                return response.text();
+            })
+            .then(rawScript => {
+                // 把 AMD 检测代码短路掉
+                // 将 "function"==typeof define 替换为 false&&"function"==typeof define
+                const patchedScript = rawScript.replace(
+                    /"function"==typeof define&&define\.amd/g,
+                    'false&&"function"==typeof define&&define.amd'
+                );
+                logger.info('[弹幕引擎] AMD 补丁已应用, 正在通过 Blob URL 执行脚本...');
 
-    SparkMD5.ArrayBuffer.prototype.end = function() {
-        // 返回32位MD5哈希值（官方API要求）
-        const mockHash = 'a1b2c3d4e5f6789012345678901234567890abcd'.substring(0, 32);
-        console.log('[SparkMD5] end called, returning 32-bit MD5 hash:', mockHash);
-        return mockHash;
+                // 创建 Blob 对象，欺骗浏览器这是一个本地 JS 文件
+                const blob = new Blob([patchedScript], { type: 'text/javascript' });
+                const url = URL.createObjectURL(blob);
+
+                const script = document.createElement('script');
+                script.src = url;
+                script.onload = () => {
+                    URL.revokeObjectURL(url); // 用完释放内存
+                    if (typeof window.Danmaku !== 'undefined') {
+                        logger.info('[弹幕引擎] 网络加载成功, window.Danmaku 已就绪');
+                    } else {
+                        logger.error('[弹幕引擎] Blob 脚本执行完毕但 window.Danmaku 仍为 undefined, 可能被 AMD/RequireJS 劫持');
+                    }
+                };
+                script.onerror = (e) => {
+                    logger.error('[弹幕引擎] Blob 脚本执行失败, 尝试回退到 Emby.importModule 加载...', e);
+                    // 最后的保底：如果 Blob 失败，尝试回退到普通加载
+                    Emby.importModule(requireDanmakuPath).then(f => {
+                        window.Danmaku = f;
+                        logger.info('[弹幕引擎] Emby.importModule 回退加载成功');
+                    }).catch(err => {
+                        logger.error('[弹幕引擎] Emby.importModule 回退加载也失败:', err);
+                    });
+                };
+                document.head.appendChild(script);
+            })
+            .catch(error => {
+                logger.error('[弹幕引擎] Fetch 下载失败, 尝试回退到 Emby.importModule 加载:', error);
+                Emby.importModule(requireDanmakuPath).then(f => {
+                    window.Danmaku = f;
+                    logger.info('[弹幕引擎] Emby.importModule 回退加载成功');
+                }).catch(err => {
+                    logger.error('[弹幕引擎] Emby.importModule 回退加载也失败:', err);
+                });
+            });
+    }
+
+    // ------ require end ------
+    // ================== Worker 核心定义开始 ==================
+    // 1. 通用 Worker 创建器
+    // replacements: 可选的替换映射，如 { '__SPARK_MD5_URL__': 'https://...' }
+    function createWorker(workerFunction, replacements = {}) {
+        let dataObj = `(${workerFunction})();`;
+        // 替换占位符
+        for (const [placeholder, value] of Object.entries(replacements)) {
+            dataObj = dataObj.replace(placeholder, value);
+        }
+        const blob = new Blob([dataObj], { type: 'application/javascript' });
+        const workerUrl = URL.createObjectURL(blob);
+        const worker = new Worker(workerUrl);
+        // 创建完实例后，URL 就可以释放了，不影响 worker 运行
+        URL.revokeObjectURL(workerUrl);
+        return worker;
+    }
+
+    // 2. MD5 Worker (从外部加载 SparkMD5 库计算文件哈希)
+    // SparkMD5 库路径通过 requireSparkMD5Path 配置
+    const md5WorkerBody = function() {
+        // 从外部加载 SparkMD5 库
+        importScripts('__SPARK_MD5_URL__');
+
+        let spark = null;
+
+        self.onmessage = function(e) {
+            const { type, chunk, isLast } = e.data;
+            if (type === 'INIT') {
+                spark = new SparkMD5.ArrayBuffer();
+            } else if (type === 'APPEND') {
+                if (!spark) spark = new SparkMD5.ArrayBuffer();
+                spark.append(chunk);
+                if (isLast) {
+                    const hash = spark.end();
+                    self.postMessage({ success: true, hash: hash });
+                    spark = null;
+                    self.close();
+                }
+            }
+        };
     };
+    // 3. 弹幕去重 Worker (高性能版：只接收轻量数据)
+    const mergeWorkerBody = function() {
+        self.onmessage = function(e) {
+            // 接收的数据结构变化了：lightComments 只有 {t: text, m: time, i: index}
+            const { lightComments, threshold, timeWindow, enable } = e.data;
+
+            if (!enable || !lightComments || lightComments.length === 0) {
+                // 如果没开启，返回 null，主线程会直接使用原数据
+                self.postMessage(null);
+                return;
+            }
+
+            // --- 移植原本的 similarityPercentage 函数 ---
+            function similarityPercentage(a, b, maxAllowedDiff, buffer) {
+                if (a === b) return 100;
+                const n = a.length; const m = b.length;
+                if (n === 0 || m === 0) return 0;
+                if (n > m) return similarityPercentage(b, a, maxAllowedDiff, buffer);
+                if (buffer.length <= n + 1) {
+                    const newBuffer = new Int32Array(n + 128);
+                    const score = similarityPercentage(a, b, maxAllowedDiff, newBuffer);
+                    return { score: score, buffer: newBuffer };
+                }
+                const v = buffer;
+                for (let i = 0; i <= n; i++) v[i] = i;
+                for (let j = 1; j <= m; j++) {
+                    let pre = v[0]; v[0] = j; let rowMin = j;
+                    const charB = b.charCodeAt(j - 1);
+                    for (let i = 1; i <= n; i++) {
+                        const tmp = v[i];
+                        const cost = (a.charCodeAt(i - 1) === charB) ? 0 : 1;
+                        let val = v[i] + 1;
+                        const ins = v[i-1] + 1; if (ins < val) val = ins;
+                        const sub = pre + cost; if (sub < val) val = sub;
+                        v[i] = val; pre = tmp; if (val < rowMin) rowMin = val;
+                    }
+                    if (rowMin > maxAllowedDiff) return 0;
+                }
+                const maxLen = m; const distance = v[n];
+                return ((maxLen - distance) / maxLen) * 100;
+            }
+
+            const resultIndices = []; // 只存保留下来的索引和修改后的文本
+            const mergedIndices = new Set();
+            const totalLen = lightComments.length;
+            const errorRate = (100 - threshold) / 100;
+            let sharedBuffer = new Int32Array(1024);
+
+            // 预处理 Mask (使用简写属性 t, m)
+            for (let i = 0; i < totalLen; i++) {
+                const text = lightComments[i].t;
+                let mask = 0;
+                const len = text.length > 50 ? 50 : text.length;
+                for (let k = 0; k < len; k++) { mask |= (1 << (text.charCodeAt(k) & 31)); }
+                lightComments[i]._mask = mask;
+            }
+
+            for (let i = 0; i < totalLen; i++) {
+                if (mergedIndices.has(i)) continue;
+                const root = lightComments[i];
+                // 注意这里取的是 root.t (text) 和 root.m (time)
+                const rootText = root.t;
+                const rootLen = rootText.length;
+                let count = 1;
+
+                for (let j = i + 1; j < totalLen; j++) {
+                    if (mergedIndices.has(j)) continue;
+                    const compare = lightComments[j];
+                    if ((compare.m - root.m) > timeWindow) break;
+
+                    const compareLen = compare.t.length;
+                    const maxLen = rootLen > compareLen ? rootLen : compareLen;
+                    const maxDiff = maxLen * errorRate;
+
+                    if (Math.abs(rootLen - compareLen) > maxDiff) continue;
+                    if ((root._mask & compare._mask) === 0 && rootLen > 2) continue;
+
+                    let res = similarityPercentage(rootText, compare.t, maxDiff, sharedBuffer);
+                    let score = typeof res === 'object' ? (sharedBuffer = res.buffer, res.score) : res;
+
+                    if (score >= threshold) {
+                        count++;
+                        mergedIndices.add(j);
+                    }
+                }
+
+                // 我们不返回整个对象，只返回：原始索引(i) 和 最终文本(t)
+                // 这样回传的数据量非常小
+                const finalStr = count > 1 ? (rootText + " [x" + count + "]") : null;
+                resultIndices.push({
+                    i: root.i, // 原始数组的下标
+                    t: finalStr // 如果没合并，传null省流量；合并了传新文本
+                });
+            }
+
+            // 传回轻量级结果
+            self.postMessage(resultIndices);
+        };
+    };
+    // ================== Worker 核心定义结束 ==================
 
     class EDE {
         constructor() {
@@ -574,15 +830,18 @@
             this.episode_info = null;
             this.ob = null;
             this.loading = false;
-            this.danmuCache = {}; // 只包含 comment 未解析
-            this.commentsParsed = []; // 包含 comment 和 extComment 解析后全量
-            this.extCommentCache = {}; // 只包含 extComment 未解析
+            this.danmuCache = {};   // 只包含 comment 未解析
+            this.commentsParsed = [];   // 包含 comment 和 extComment 解析后全量
+            this.extCommentCache = {};   // 只包含 extComment 未解析
             this.destroyIntervalIds = [];
-            this.searchDanmakuOpts = {}; // 手动搜索变量
-            this.appLogAspect = null; // 应用日志切面
+            this.searchDanmakuOpts = {};   // 手动搜索变量
+            this.appLogAspect = null;   // 应用日志切面
             this.bangumiInfo = {};
             this.itemId = '';
-            this.tempLsValues = {}; // 临时存储的由程序更改后的 ls 值
+            this.tempLsValues = {};   // 临时存储的由程序更改后的 ls 值
+            this.asymmetricAuthEnabled = false;
+            this.publicKeyPem = null;   // 客户端公钥（用于验证Worker签名）
+            this.abortControllers = new Set();  // 全局请求控制器集合 (用于组件销毁时取消所有网络请求)
         }
     }
 
@@ -598,23 +857,68 @@
             this.ERROR = { text: 'ERROR', emoji: '❗️' };
             this.WARN = { text: 'WARN', emoji: '⚠️' };
             this.INFO = { text: 'INFO', emoji: '❕' };
+            this.DEBUG = { text: 'DEBUG', emoji: '🔍' };
+            // Emby 内部日志关键词（这些日志会被降级为 DEBUG）
+            this.embyInternalPatterns = [
+                'apiclient.', 'ApiClient.', 'fetchWithFailover',
+                'ConnectionManager', 'ServerDiscovery', 'MediaSource',
+                'getJsUrlWithExtension', 'updateTransparency', 'validateFeature',
+                'getRegistrationInfo', 'nowplaying event', "on 'Cache'",
+                'WEBVTT', 'HLS Error'
+            ];
+        }
+        // 检测是否为 Emby 内部日志
+        isEmbyInternalLog(args) {
+            const str = args.map(arg => typeof arg === 'string' ? arg : '').join(' ');
+            return this.embyInternalPatterns.some(pattern => str.toLowerCase().includes(pattern.toLowerCase()));
+        }
+        // 根据日志级别决定是否记录
+        shouldLog(level) {
+            const levelMap = { 'ERROR': 1, 'WARN': 2, 'INFO': 3, 'DEBUG': 4 };
+            return logLevel >= levelMap[level.text];
         }
         init() {
             if (this.initialized) { return this; }
             console.error = (...args) => {
                 this.originalError.apply(console, args);
-                this.value += this.format(this.ERROR, args);
-                this.notifyListeners();
+                if (this.shouldLog(this.ERROR)) {
+                    // 去掉插件自身的 [ERROR] 前缀，避免重复
+                    const logArgs = (args.length > 0 && args[0] === '[ERROR]') ? args.slice(1) : args;
+                    this.value += this.format(this.ERROR, logArgs);
+                    this.notifyListeners();
+                }
             };
             console.warn = (...args) => {
                 this.originalWarn.apply(console, args);
-                this.value += this.format(this.WARN, args);
-                this.notifyListeners();
+                if (this.shouldLog(this.WARN)) {
+                    // 去掉插件自身的 [WARN] 前缀，避免重复
+                    const logArgs = (args.length > 0 && args[0] === '[WARN]') ? args.slice(1) : args;
+                    this.value += this.format(this.WARN, logArgs);
+                    this.notifyListeners();
+                }
             };
             console.log = (...args) => {
                 this.originalLog.apply(console, args);
-                this.value += this.format(this.INFO, args);
-                this.notifyListeners();
+                // 检测插件自身的日志级别前缀，避免双重标记
+                let level;
+                let logArgs = args;
+                const firstArg = args.length > 0 && typeof args[0] === 'string' ? args[0] : '';
+                if (firstArg === '[DEBUG]') {
+                    level = this.DEBUG;
+                    logArgs = args.slice(1); // 去掉前缀，避免重复
+                } else if (firstArg === '[INFO]') {
+                    level = this.INFO;
+                    logArgs = args.slice(1);
+                } else if (this.isEmbyInternalLog(args)) {
+                    // Emby 内部日志降级为 DEBUG
+                    level = this.DEBUG;
+                } else {
+                    level = this.INFO;
+                }
+                if (this.shouldLog(level)) {
+                    this.value += this.format(level, logArgs);
+                    this.notifyListeners();
+                }
             };
             this.originalOnerror = window.onerror;
             window.onerror = (...args) => {
@@ -642,7 +946,7 @@
             const emoji = level.emoji ? `[${level.emoji}] ` : '';
             return `[${new Date(Date.now()).toLocaleString()}] [${level.text}] ${emoji}: `
                 + args.map(arg => arg instanceof Error ? arg.message : (typeof arg === 'string' ? arg : JSON.stringify(arg)))
-                    .join(' ') + '\n';
+                .join(' ') + '\n';
         }
         on(valueChangedCallback) {
             if (valueChangedCallback.toString().includes('console.log')
@@ -663,57 +967,74 @@
             return;
         }
         if (_media.getAttribute('ede_listening')) { return; }
-        console.log('正在初始化Listener');
+        logger.info('正在初始化事件监听器 (Listener)');
         playbackEventsRefresh({ 'playbackstart': onPlaybackStart });
         playbackEventsRefresh({ 'playbackstop': onPlaybackStop });
         _media.setAttribute('ede_listening', true);
         refreshEventListener({ 'video-osd-show': onVideoOsdShow });
         refreshEventListener({ 'video-osd-hide': onVideoOsdHide });
-        console.log('Listener初始化完成');
-        if (OS.isAndroidEmbyNoisyX() || OS.isEmbyUWP()) {
-            console.log('检测为特定平台版(安卓小秘版或UWP版),首次播放未触发 playbackstart 事件,手动初始化弹幕环境');
+        logger.info('事件监听器 (Listener) 初始化完成');
+        if (OS.isAndroidEmbyNoisyX()) {
+            logger.info('检测为安卓魔改版客户端，首次播放可能不触发 playbackstart 事件，在此手动初始化弹幕环境');
             loadDanmaku(LOAD_TYPE.INIT);
         }
     }
 
     function onPlaybackStart(e, state) {
-        console.log(e.type);
+        logger.debug('监听到事件: 播放开始 (playbackstart)');
         loadDanmaku(LOAD_TYPE.INIT);
     }
 
     function onPlaybackStop(e, state) {
-        console.log(e.type);
+        logger.debug('监听到事件: 播放停止 (playbackstop)');
         onPlaybackStopPct(e, state);
-        if (lsGetItem(lsKeys.osdHeaderClockEnable.id)) {
-            removeHeaderClock();
-        }
+        removeHeaderClock();
         danmakuAutoFilterCancel();
     }
 
     function onVideoOsdShow(e) {
-        console.log(e.type, e);
+        logger.debug('监听到事件: OSD显示 (video-osd-show)');
         if (lsGetItem(lsKeys.osdLineChartEnable.id)) {
             buildProgressBarChart(20);
         }
         if (lsGetItem(lsKeys.osdHeaderClockEnable.id)) {
-            addHeaderClock();
+          addHeaderClock();
         }
     }
 
     function onVideoOsdHide(e) {
-        console.log(e.type, e);
+        logger.debug('监听到事件: OSD隐藏 (video-osd-hide)');
         if (lsGetItem(lsKeys.osdHeaderClockEnable.id)) {
-            removeHeaderClock();
+          removeHeaderClock();
         }
     }
 
     function initUI() {
-        // 已初始化
-        if (getById(eleIds.danmakuCtr)) { return; }
-        console.log('正在初始化UI');
+        // 已初始化（全局锁 + DOM 检查双保险，防止脚本被加载多次时各自的局部变量互不影响）
+        if (window._ddDanmakuInitUILock || getById(eleIds.danmakuCtr)) { return; }
+        window._ddDanmakuInitUILock = true; // 挂在 window 上，跨脚本实例共享
+        logger.info('正在初始化UI');
 
-        // ApiClient.isMinServerVersion("4.8.0.00"); 可以精确对比客户端指定版本小于当前版本,但此处暂时不需要
-        if (parseFloat(ApiClient.serverVersion()) < 4.8) {
+        // [修复] 使用 Emby 提供的版本比较方法，避免 parseFloat("4.10.0.1") = 4.1 的问题
+        // ApiClient.isMinServerVersion("4.8.0.0") 返回 true 表示当前版本 >= 4.8.0.0
+        const serverVersion = ApiClient.serverVersion ? ApiClient.serverVersion() : '';
+        logger.info('[dd-danmaku] 服务器版本:', serverVersion);
+
+        let isOldVersion = false;
+        if (ApiClient.isMinServerVersion) {
+            // 使用 Emby 官方的版本比较方法
+            isOldVersion = !ApiClient.isMinServerVersion("4.8.0.0");
+        } else {
+            // 回退方案：手动比较版本号
+            const versionParts = serverVersion.split('.').map(Number);
+            const major = versionParts[0] || 0;
+            const minor = versionParts[1] || 0;
+            isOldVersion = major < 4 || (major === 4 && minor < 8);
+        }
+
+        logger.debug('[dd-danmaku] 是否旧版本 (<4.8):', isOldVersion);
+
+        if (isOldVersion) {
             mediaContainerQueryStr = 'div[data-type="video-osd"]';
             isVersionOld = true;
         }
@@ -724,6 +1045,11 @@
         // 弹幕按钮父容器 div,延时判断,精确 dom query 时播放器 UI 小概率暂未渲染
         const ctrlWrapperQueryStr = `${mediaContainerQueryStr} .videoOsdBottom-maincontrols`;
         waitForElement(ctrlWrapperQueryStr, (wrapper) => {
+            // [修复] 异步回调内二次检查，防止小秘等客户端上 initUI 被快速调用两次导致按钮重复
+            if (getById(eleIds.danmakuCtr)) {
+                logger.debug('[initUI] 弹幕按钮容器已存在，跳过重复创建');
+                return;
+            }
             const commonWrapper = getByClass(classes.videoOsdBottomButtons += notHide, wrapper);
             if (commonWrapper) {
                 wrapper = commonWrapper;
@@ -747,7 +1073,13 @@
             mediaBtnOpts.forEach(opt => {
                 menubar.appendChild(embyButton(opt, opt.onClick));
             });
-            console.log('UI初始化完成');
+            // [修复] 初始化时检查弹幕开关状态，确保按钮图标与实际状态一致
+            const danmakuEnabled = lsGetItem(lsKeys.switch.id);
+            const osdDanmakuSwitchBtn = getById(eleIds.danmakuSwitchBtn);
+            if (osdDanmakuSwitchBtn && osdDanmakuSwitchBtn.firstChild) {
+                osdDanmakuSwitchBtn.firstChild.innerHTML = danmakuEnabled ? iconKeys.comment : iconKeys.comments_disabled;
+            }
+            logger.info('播放器弹幕UI初始化完成');
         }, 0);
     }
 
@@ -762,437 +1094,252 @@
 
     async function fetchSearchEpisodes(anime, episode, prefix) {
         if (!anime) { throw new Error('anime is required'); }
-        // 使用传入的 prefix 构造 URL
-        const url = `${prefix}/search/episodes?anime=${anime}${episode ? `&episode=${episode}` : ''}`;
-        const searchResult = await fetchJson(url)
+
+        // 步骤1: 使用 /api/v2/search/anime 搜索动画
+        const searchUrl = `${prefix}/search/anime?keyword=${encodeURIComponent(anime)}`;
+        const searchResult = await fetchJson(searchUrl)
             .catch((error) => {
-                console.error(`[API请求] search/episodes 查询失败: ${error.message}`);
+                logger.error(`[API请求] /search/anime 查询失败: ${error.message}`);
                 return null;
             });
-        console.log(`[API请求] search/episodes 查询成功`, searchResult);
-        return searchResult;
-    }
 
-    async function fetchSearchEpisodesByTmdbId(tmdbId, prefix) {
-        if (!tmdbId) return null;
-        const url = `${prefix}/search/episodes?tmdbId=${tmdbId}`;
-        const searchResult = await fetchJson(url)
-            .catch((error) => {
-                console.error(`[API请求] search/episodes(tmdbId) 查询失败: ${error.message}`);
-                return null;
-            });
-        if (searchResult && searchResult.animes?.length > 0) {
-            console.log(`[API请求] search/episodes(tmdbId=${tmdbId}) 查询成功, animes: ${searchResult.animes.length}`);
+        if (!searchResult || !searchResult.animes || searchResult.animes.length === 0) {
+            logger.debug(`[API请求] /search/anime 查询结果为空`);
+            return { animes: [] };
         }
-        return searchResult;
-    }
 
-    async function fetchComment(episodeId) {
-        // 优先使用当前匹配信息中记录的 API 地址
-        const prefix = window.ede.episode_info?.apiPrefix || dandanplayApi.prefix;
-        const url = `${prefix}/comment/${episodeId}?withRelated=true&chConvert=${window.ede.chConvert}`;
-        return fetchJson(url)
-            .then((data) => {
-                console.log('[获取]弹幕成功: ' + data.comments.length);
-                return data.comments;
-            })
-            .catch((error) => {
-                console.log('[获取]弹幕失败:', error);
-                return null;
-            });
-    }
+        logger.info(`[API请求] /search/anime 查询成功，共 ${searchResult.animes.length} 个结果`);
 
-    async function fetchExtcommentActual(extUrl, comments) {
-        if (!extUrl) {
-            return null;
-        }
-        let extComments  = (await fetchJson(dandanplayApi.getExtcomment(extUrl))).comments;
-        if (extComments.length === 0) { // 只重试一遍进行弹弹 play 服务器缓存覆盖加载触发
-            extComments = (await fetchJson(dandanplayApi.getExtcomment(extUrl))).comments;
-        }
-        extComments.map(c => c.fromUrl = extUrl);
-        const itemId = window.ede.itemId;
-        if (!window.ede.extCommentCache[itemId]) {
-            window.ede.extCommentCache = { [itemId]: {} };
-        }
-        if (comments) {
-            console.log(`取差集并覆盖: ${extUrl}`);
-            extComments = extComments.filter(extC => !comments.some(c => c.cid === extC.cid));
-        }
-        window.ede.extCommentCache[itemId][extUrl] = extComments;
-        return extComments;
-    }
+        // 步骤2: 只为第一个动画获取详细的分集信息（默认选择）
+        if (searchResult.animes.length > 0 && searchResult.animes[0].bangumiId) {
+            const firstAnime = searchResult.animes[0];
+            const bangumiUrl = `${prefix}/bangumi/${firstAnime.bangumiId}`;
+            const bangumiResult = await fetchJson(bangumiUrl)
+                .catch((error) => {
+                    logger.error(`[API请求] /bangumi/${firstAnime.bangumiId} 查询失败: ${error.message}`);
+                    return null;
+                });
 
-    function onPlaybackStopPct(e, state) {
-        if (!state.NowPlayingItem) { return console.log('跳过 Web 端自身错误触发的第二次播放停止事件'); }
-        console.log(e.type);
-        const positionTicks = state.PlayState.PositionTicks;
-        const runtimeTicks = state.NowPlayingItem.RunTimeTicks;
-        if (!runtimeTicks) { return console.log('无可播放时长,跳过处理'); }
-        const pct = parseInt(positionTicks / runtimeTicks * 100);
-        console.log(`结束播放百分比: ${pct}%`);
-        const bangumiPostPercent = lsGetItem(lsKeys.bangumiPostPercent.id);
-        const bangumiToken = lsGetItem(lsKeys.bangumiToken.id);
-        if (lsGetItem(lsKeys.bangumiEnable.id) && bangumiToken
-            && pct >= bangumiPostPercent && window.ede.episode_info.episodeId
-        ) {
-            console.log(`大于需提交的设定百分比: ${bangumiPostPercent}%`);
-            const { animeTitle, episodeTitle } = window.ede.episode_info;
-            const targetName = `${animeTitle} - ${episodeTitle}`;
-            putBangumiEpStatus(bangumiToken).then(res => {
-                embyToast({ text: `putBangumiEpStatus 成功, 目标: ${targetName}, 结束播放百分比: ${pct}%, 大于需提交的设定百分比: ${bangumiPostPercent}%`});
-                console.log(`putBangumiEpStatus 成功, 目标: ${targetName}`);
-            }).catch(error => {
-                embyToast({ text: `putBangumiEpStatus 失败, 目标: ${targetName}, ${error.message}` });
-                console.error(`putBangumiEpStatus 失败, 目标: ${targetName}`, error);
-            });
-        }
-    }
-
-    async function getEpisodeBangumiRel() {
-        const episode_info = window.ede.episode_info;
-        const _bangumi_key = lsLocalKeys.bangumiEpInfoPrefix + episode_info.episodeId;
-        let bangumiInfoLs = localStorage.getItem(_bangumi_key);
-        if (bangumiInfoLs) {
-            bangumiInfoLs = JSON.parse(bangumiInfoLs);
-        }
-        let bangumiEpsRes = bangumiInfoLs ? bangumiInfoLs.bangumiEpsRes : null;
-        let subjectId = bangumiInfoLs ? bangumiInfoLs.subjectId : null;
-        let bangumiUrl = bangumiInfoLs ? bangumiInfoLs.bangumiUrl : null;
-        const animeId = episode_info.animeId;
-        if (!subjectId) {
-            if (!animeId) { throw new Error('未获取到 animeId'); }
-            const danDanPlayBangumiRes = await fetchJson(dandanplayApi.getBangumi(animeId));
-            episode_info.bgmEpisodeIndex = offsetBgmEpisodeIndex(episode_info.bgmEpisodeIndex, danDanPlayBangumiRes.bangumi);
-            bangumiUrl = danDanPlayBangumiRes.bangumi.bangumiUrl;
-            if (!bangumiUrl) { throw new Error('未请求到 bangumiUrl'); }
-            subjectId = parseInt(bangumiUrl.match(/\/(\d+)$/)[1]);
-        }
-        const episodeIndex = episode_info ? episode_info.episodeIndex : null;
-        const bgmEpisodeIndex = episode_info ? episode_info.bgmEpisodeIndex : null;
-        const bangumiInfo = { animeId, bangumiUrl, subjectId, episodeIndex, bgmEpisodeIndex, bangumiEpsRes, _bangumi_key };
-        window.ede.bangumiInfo = bangumiInfo;
-        localStorage.setItem(bangumiInfo._bangumi_key, JSON.stringify(bangumiInfo));
-        return bangumiInfo;
-    }
-
-    function offsetBgmEpisodeIndex(currentBgmEpisodeIndex, danDanPlayBangumi) {
-        if (!danDanPlayBangumi) {
-            return currentBgmEpisodeIndex;
-        }
-        let bangumiEp = danDanPlayBangumi.episodes[currentBgmEpisodeIndex];
-        if (!bangumiEp) {
-            console.log(`未匹配到 danDanPlayBangumi 番剧集数,剧集不为第一季,尝试切换接口数据匹配返回修正后的 bgmEpisodeIndex`);
-            return danDanPlayBangumi.episodes.findIndex(ep => ep.episodeNumber == currentBgmEpisodeIndex + 1);
-        } else {
-            return currentBgmEpisodeIndex;
-        }
-    }
-
-    async function putBangumiEpStatus(token) {
-        const bangumiInfo = await getEpisodeBangumiRel();
-        const { subjectId, bgmEpisodeIndex, } = bangumiInfo;
-        const episodeIndex = bgmEpisodeIndex ? bgmEpisodeIndex : bangumiInfo.episodeIndex;
-        console.log('准备校验 Bangumi 条目收藏状态是否为看过');
-        let bangumiMe = localStorage.getItem(lsLocalKeys.bangumiMe);
-        if (bangumiMe) {
-            bangumiMe = JSON.parse(bangumiMe);
-        } else {
-            bangumiMe = await fetchBangumiApiGetMe(token);
-        }
-        let msg = '';
-        let bangumiUserColl = null;
-        try {
-            bangumiUserColl = await fetchJson(bangumiApi.getUserCollection(bangumiMe.username, subjectId), { token });
-        } catch (error) {
-            console.warn('Bangumi 条目未收藏');
-        }
-        if (bangumiUserColl && bangumiUserColl.type === 2) { // 看过状态
-            msg = 'Bangumi 条目已为看过状态,跳过更新';
-            console.log(msg, bangumiUserColl);
-            throw new Error(msg);
-        }
-        console.log('准备修改 Bangumi 条目收藏状态为在看, 如果不存在则创建, 如果存在则修改');
-        let body = { type: 3 }; // 在看状态
-        await fetchJson(bangumiApi.postUserCollection(subjectId), { token, body });
-        if (!bangumiInfo.bangumiEpsRes) {
-            const fetchUrl = bangumiApi.getUserSubjectEpisodeCollection(subjectId);
-            const bangumiEpsRes = await fetchJson(fetchUrl, { token });
-            bangumiInfo.bangumiEpsRes = bangumiEpsRes;
-            const bangumiEpColl = bangumiEpsRes.data[episodeIndex];
-            if (!bangumiEpColl) { throw new Error('未匹配到 bangumiEpColl'); }
-            // bangumiInfo.episodeIndex = episodeIndex;
-        }
-        const bangumiEpColl = bangumiInfo.bangumiEpsRes.data[episodeIndex];
-        const bangumiEp = bangumiEpColl.episode;
-        if (bangumiEpColl.type === 2) {
-            msg = 'Bangumi 章节收藏已是看过状态,跳过更新';
-            console.log(msg, bangumiEp);
-            throw new Error(msg);
-        }
-        console.log('准备更新 Bangumi 章节收藏状态, 详情: ', bangumiEp);
-        body.type = 2; // 看过状态
-        await fetchJson(bangumiApi.putUserEpisodeCollection(bangumiEp.id), { token, body, method: 'PUT' });
-        bangumiEp.type = body.type;
-        console.log(`成功更新 Bangumi 章节收藏状态, 在看 => 看过, 详情: `, bangumiEp);
-        window.ede.bangumiInfo = bangumiInfo;
-        localStorage.setItem(bangumiInfo._bangumi_key, JSON.stringify(bangumiInfo));
-        return bangumiInfo;
-    }
-
-    async function fetchJson(url, opts = {}) {
-        const { token, headers, body } = opts;
-        let { method = 'GET' } = opts;
-        if (method === 'GET' && body) {
-            method = 'POST';
-        }
-        const requestHeaders = {
-            'Accept-Encoding': 'gzip',
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'User-Agent': navigator.userAgent,
-        };
-        if (token) {
-            requestHeaders.Authorization = `Bearer ${token}`;
-        }
-        if (headers) {
-            Object.assign(requestHeaders, headers);
-        }
-        const requestBody = body ? JSON.stringify(body) : null;
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: requestHeaders,
-                body: requestBody,
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const responseText = await response.text();
-            if (responseText.length > 0) {
-                try {
-                    return JSON.parse(responseText);
-                } catch (parseError) {
-                    console.warn('responseText not is JSON:', parseError);
+            // 兼容不同 API 的返回格式：
+            // - 标准格式: { bangumi: { episodes: [...] } }
+            // - 简化格式: { episodes: [...] } 或直接返回 bangumi 对象
+            let episodes = null;
+            let seasons = null;
+            if (bangumiResult) {
+                if (bangumiResult.bangumi && bangumiResult.bangumi.episodes) {
+                    // 标准格式: { bangumi: { episodes: [...] } }
+                    episodes = bangumiResult.bangumi.episodes;
+                    seasons = bangumiResult.bangumi.seasons;
+                } else if (bangumiResult.episodes) {
+                    // 简化格式: { episodes: [...] }
+                    episodes = bangumiResult.episodes;
+                    seasons = bangumiResult.seasons;
                 }
             }
-            return { success: true };
-        } catch (error) {
-            throw error;
-        }
-    }
 
-    async function getMapByEmbyItemInfo() {
-        let item = await getEmbyItemInfo();
-        if (!item) {
-            // this only working on quickDebug
-            item = await fatchEmbyItemInfo(window.ede.itemId);
-        }
-        if (!item) { return null; } // getEmbyItemInfo from playbackManager null, will next called
+            if (episodes && episodes.length > 0) {
+                // 按 episodeId 排序，确保集数顺序正确
+                episodes.sort((a, b) => {
+                    const idA = parseInt(a.episodeId) || 0;
+                    const idB = parseInt(b.episodeId) || 0;
+                    return idA - idB;
+                });
 
-        // 获取整部剧的 tmdbId：剧集从 Series 的 ProviderIds 获取，电影从 item 的 ProviderIds 获取
-        const getProviderId = (providerIds, key) => {
-            if (!providerIds || typeof providerIds !== 'object') return null;
-            const k = Object.keys(providerIds).find(kk => kk.toLowerCase() === key.toLowerCase());
-            return k ? providerIds[k] : null;
-        };
-        let seriesTmdbId = null;
-        if (item.Type === 'Episode' && item.SeriesId) {
-            try {
-                const seriesInfo = await ApiClient.getItem(ApiClient.getCurrentUserId(), item.SeriesId);
-                seriesTmdbId = getProviderId(seriesInfo?.ProviderIds, 'Tmdb');
-            } catch (e) {
-                console.warn('[tmdbId] 获取剧集 tmdbId 失败:', e);
-            }
-        } else if (item.Type === 'Movie') {
-            seriesTmdbId = getProviderId(item.ProviderIds, 'Tmdb');
-        }
-        if (!['Episode', 'Movie'].includes(item.Type)) {
-            return console.error('不支持的类型');
-        }
-        window.ede.itemId = item.Id;
-        let _id;
-        let animeName;
-        let episodeName;
-        let animeId = -1;
-        let episode;
-        const seriesName = item.SeriesName;
-        const seasonNumber = item.ParentIndexNumber;
-        const episodeNumber = item.IndexNumber;
-        if (item.Type == 'Episode') {
-            _id = item.SeasonId;
-            episode = episodeNumber;
-            if (seasonNumber !== undefined && episodeNumber !== undefined) {
-                episodeName = `${seriesName} S${String(seasonNumber).padStart(2, '0')}E${String(episodeNumber).padStart(2, '0')}`;
+                // 为第一个动画添加分集信息
+                // 同时更新 imageUrl（bangumi 接口返回的可能更准确）
+                let imageUrl = firstAnime.imageUrl;
+                if (bangumiResult?.bangumi?.imageUrl) {
+                    imageUrl = bangumiResult.bangumi.imageUrl;
+                } else if (bangumiResult?.imageUrl) {
+                    imageUrl = bangumiResult.imageUrl;
+                }
+                searchResult.animes[0] = {
+                    ...firstAnime,
+                    episodes: episodes,
+                    seasons: seasons,
+                    imageUrl: imageUrl
+                };
+                logger.info(`[API请求] 已获取第一个动画的分集信息: ${firstAnime.animeTitle}, 共 ${episodes.length} 集`);
             } else {
-                episodeName = seriesName + (seasonNumber && seasonNumber !== 1 ? ` ${seasonNumber}` : '');
+                logger.debug(`[API请求] 未能获取分集信息，bangumiResult 结构:`, bangumiResult ? Object.keys(bangumiResult) : 'null');
             }
-            animeName = seriesName;
-            if (seasonNumber != 1) {
-                animeName += ' ' + seasonNumber;
-            }
-        } else {
-            _id = item.Id;
-            animeName = item.Name;
-            episode = 'movie';
-        }
-        let _id_key = lsLocalKeys.animePrefix + _id;
-        let _season_key = lsLocalKeys.animeSeasonPrefix + _id;
-        let _episode_key = lsLocalKeys.animeEpisodePrefix + _id + '_' + episode;
-        if (window.localStorage.getItem(_id_key)) {
-            animeId = window.localStorage.getItem(_id_key);
         }
 
-        // 检查是否需要重新获取完整的item信息
-        if (!item.MediaSources || item.MediaSources.length === 0) {
-            console.log(`[Stream] MediaSources为空，通过API重新获取完整信息...`);
-            try {
-                const fullItem = await fatchEmbyItemInfo(item.Id);
-                if (fullItem && fullItem.MediaSources && fullItem.MediaSources.length > 0) {
-                    item = fullItem;
-                    console.log(`[Stream] 重新获取成功，MediaSources数量: ${item.MediaSources.length}`);
-                } else {
-                    console.warn(`[Stream] 重新获取失败或仍无MediaSources`);
+        // 如果指定了集数，过滤第一个动画的集数
+        if (episode && searchResult.animes.length > 0 && searchResult.animes[0].episodes) {
+            const firstAnime = searchResult.animes[0];
+            const matchedEpisode = firstAnime.episodes.find(ep =>
+                ep.episodeId === episode ||
+                ep.episodeNumber === String(episode) ||
+                ep.episodeTitle.includes(`第${episode}集`) ||
+                ep.episodeTitle.includes(`${episode}话`)
+            );
+
+            if (matchedEpisode) {
+                logger.info(`[API请求] 匹配到集数 ${episode}: ${matchedEpisode.episodeTitle}`);
+            } else {
+                logger.debug(`[API请求] 未匹配到集数 ${episode}`);
+            }
+        }
+
+        return searchResult;
+    }
+
+    /**
+     * 应用搜索内容黑名单过滤
+     * @param {Array} animes - 番剧列表
+     * @param {boolean} filterEpisodes - 是否同时过滤分集
+     * @param {string} apiKey - API 类型标识 ('official' 或 'custom')
+     * @returns {Array} 过滤后的番剧列表
+     */
+    function applySearchBlacklist(animes, filterEpisodes = true, apiKey = 'official') {
+        if (!animes || animes.length === 0) return animes;
+
+        // 检查是否应该应用黑名单
+        const blacklistApplyToCustomApi = lsGetItem(lsKeys.blacklistApplyToCustomApi.id) ?? lsKeys.blacklistApplyToCustomApi.defaultValue;
+
+        // 如果是自定义接口且未开启自定义接口黑名单，直接返回
+        if (apiKey !== 'official' && !blacklistApplyToCustomApi) {
+            logger.debug('[黑名单] 自定义接口未启用黑名单过滤');
+            return animes;
+        }
+
+        const animeTitleBlacklist = lsGetItem(lsKeys.animeTitleBlacklist.id) || '';
+        const episodeTitleBlacklist = lsGetItem(lsKeys.episodeTitleBlacklist.id) || '';
+
+        let animeTitleRegex = null;
+        let episodeTitleRegex = null;
+
+        // 编译正则表达式
+        try {
+            if (animeTitleBlacklist) {
+                animeTitleRegex = new RegExp(animeTitleBlacklist, 'i');
+            }
+        } catch (e) {
+            logger.warn(`[黑名单] 番剧标题正则表达式无效: ${e.message}`);
+        }
+
+        try {
+            if (episodeTitleBlacklist) {
+                episodeTitleRegex = new RegExp(episodeTitleBlacklist, 'i');
+            }
+        } catch (e) {
+            logger.warn(`[黑名单] 分集名称正则表达式无效: ${e.message}`);
+        }
+
+        // 如果两个正则都无效，直接返回原数组
+        if (!animeTitleRegex && !episodeTitleRegex) {
+            return animes;
+        }
+
+        const originalCount = animes.length;
+        let filteredAnimeCount = 0;
+        let filteredEpisodeCount = 0;
+
+        // 过滤番剧
+        const filteredAnimes = animes.filter(anime => {
+            // 检查番剧标题是否匹配黑名单
+            if (animeTitleRegex && anime.animeTitle && animeTitleRegex.test(anime.animeTitle)) {
+                logger.debug(`[黑名单] 过滤番剧: "${anime.animeTitle}"`);
+                filteredAnimeCount++;
+                return false;
+            }
+            return true;
+        }).map(anime => {
+            // 过滤分集
+            if (filterEpisodes && episodeTitleRegex && anime.episodes && anime.episodes.length > 0) {
+                const originalEpisodeCount = anime.episodes.length;
+                anime.episodes = anime.episodes.filter(ep => {
+                    if (ep.episodeTitle && episodeTitleRegex.test(ep.episodeTitle)) {
+                        logger.debug(`[黑名单] 过滤分集: "${anime.animeTitle}" - "${ep.episodeTitle}"`);
+                        filteredEpisodeCount++;
+                        return false;
+                    }
+                    return true;
+                });
+
+                // 如果所有分集都被过滤了，也过滤掉这个番剧
+                if (anime.episodes.length === 0 && originalEpisodeCount > 0) {
+                    logger.debug(`[黑名单] 番剧 "${anime.animeTitle}" 所有分集都被过滤，移除该番剧`);
+                    return null;
                 }
-            } catch (error) {
-                console.error(`[Stream] 重新获取item信息失败:`, error);
             }
+            return anime;
+        }).filter(anime => anime !== null);
+
+        if (filteredAnimeCount > 0 || filteredEpisodeCount > 0) {
+            logger.info(`[黑名单] 过滤完成: 番剧 ${originalCount} -> ${filteredAnimes.length} (过滤 ${filteredAnimeCount} 个), 分集过滤 ${filteredEpisodeCount} 个`);
         }
 
-        const mediaSource = item.MediaSources && item.MediaSources[0];
-        console.log(`[Stream] 最终MediaSources数量: ${item.MediaSources ? item.MediaSources.length : 0}`);
-
-        // 参考embyToLocalPlayer项目的方式构建流媒体URL
-        let streamUrl = null;
-        if (mediaSource) {
-            const itemId = item.Id;
-            const mediaSourceId = mediaSource.Id;
-            const deviceId = ApiClient.deviceId();
-            const apiKey = ApiClient.accessToken();
-            const serverAddress = ApiClient.serverAddress();
-
-            // 检测是否为Emby服务器
-            const isEmby = serverAddress.includes('/emby/') || ApiClient.appName().toLowerCase().includes('emby');
-            const extraStr = isEmby ? '/emby' : '';
-
-            // 构建流媒体URL，参考embyToLocalPlayer的方式
-            const container = item.Path ? item.Path.split('.').pop() : 'mkv';
-            streamUrl = `${serverAddress}${extraStr}/videos/${itemId}/stream?DeviceId=${deviceId}&MediaSourceId=${mediaSourceId}&api_key=${apiKey}&Static=true&Container=${container}`;
-
-            console.log(`[Stream] 认证信息 - ApiKey: ${apiKey ? '已获取' : '未获取'}, DeviceId: ${deviceId}`);
-        } else {
-            console.warn(`[Stream] 无MediaSource，无法构建流媒体URL`);
-        }
-
-        return {
-            _id: _id,
-            _id_key: _id_key,
-            _season_key: _season_key,
-            _episode_key: _episode_key,
-            animeId: animeId,
-            episode: episode, // this is episode index, not a program index
-            animeName: animeName,
-            seriesOrMovieId: item.SeriesId || item.Id,
-            seriesTmdbId,   // 整部剧的 tmdbId（剧集从 Series 获取，电影从 item 获取）
-            // 新增：提取匹配所需的文件信息
-            streamUrl: streamUrl,
-            size: mediaSource?.Size,
-            duration: (mediaSource?.RunTimeTicks || 0) / 10000000, // Ticks to seconds
-            episodeName: episodeName,
-            seriesName,
-            seasonNumber,
-            episodeNumber,
-        };
+        return filteredAnimes;
     }
 
-    // 通过缓存中的剧集名称与偏移量进行匹配
-    async function lsSeasonSearchEpisodes(_season_key, episode, prefix) {
-        const seasonInfoListStr = window.localStorage.getItem(_season_key);
-        if (!seasonInfoListStr) {
-            return null;
+    /**
+     * 应用分集黑名单过滤（仅过滤分集，用于 /match 接口返回的结果）
+     * @param {Array} matches - match 接口返回的匹配列表
+     * @returns {Array} 过滤后的匹配列表
+     */
+    function applyEpisodeBlacklist(matches) {
+        if (!matches || matches.length === 0) return matches;
+
+        const episodeTitleBlacklist = lsGetItem(lsKeys.episodeTitleBlacklist.id) || '';
+
+        if (!episodeTitleBlacklist) return matches;
+
+        let episodeTitleRegex = null;
+        try {
+            episodeTitleRegex = new RegExp(episodeTitleBlacklist, 'i');
+        } catch (e) {
+            logger.warn(`[黑名单] 分集名称正则表达式无效: ${e.message}`);
+            return matches;
         }
-        const seasonInfoList = JSON.parse(seasonInfoListStr);
-        let minPositiveDiff = Infinity;
-        let selectedSeasonInfo = null;
-        for (let i = 0; i < seasonInfoList.length; i++) {
-            const seasonInfo = seasonInfoList[i];
-            const adjustedEpisode = episode + seasonInfo.episodeOffset;
-            if (adjustedEpisode > 0 && adjustedEpisode < minPositiveDiff) {
-                minPositiveDiff = adjustedEpisode;
-                selectedSeasonInfo = seasonInfo;
+
+        const originalCount = matches.length;
+        const filteredMatches = matches.filter(match => {
+            if (match.episodeTitle && episodeTitleRegex.test(match.episodeTitle)) {
+                logger.debug(`[黑名单] 过滤匹配结果: "${match.animeTitle}" - "${match.episodeTitle}"`);
+                return false;
             }
+            return true;
+        });
+
+        if (filteredMatches.length < originalCount) {
+            logger.info(`[黑名单] 匹配结果过滤: ${originalCount} -> ${filteredMatches.length}`);
         }
-        if (selectedSeasonInfo) {
-            const newEpisode = episode + selectedSeasonInfo.episodeOffset;
-            console.log(`命中seasonInfo缓存: ${selectedSeasonInfo.name},偏移量: ${selectedSeasonInfo.episodeOffset},集: ${newEpisode}`);
-            const animaInfo = await fetchSearchEpisodes(selectedSeasonInfo.name, newEpisode, prefix);
-            return { animaInfo, newEpisode, };
-        }
-        return null;
-    }
 
-    async function autoFailback(animeName, episodeIndex, seriesOrMovieId) {
-        let rvt = await movieAutoFailback(animeName, episodeIndex);
-        if (rvt) { return rvt; }
-
-        const seriesOrMovieInfo = await ApiClient.getItem(ApiClient.getCurrentUserId(), seriesOrMovieId);
-
-
-        const animeOriginalTitle = seriesOrMovieInfo.OriginalTitle;
-        rvt = await oriTitleAutoFailback(animeName, episodeIndex, animeOriginalTitle);
-        if (rvt) { return rvt; }
-    }
-
-    async function tmdbAutoFailback(animeName, episodeIndex, tmdbId) {
-        if (!tmdbId) { return null; }
-        console.log(`标题名: ${animeName},自动匹配未查询到结果,将使用元信息中的 tmdbId,重试一次`);
-        animaInfo = await fetchSearchEpisodes(animeOriginalTitle, episodeIndex);
-        if (animaInfo.animes.length < 1) { return null; }
-        console.log(`使用原标题名: ${animeOriginalTitle},自动匹配成功`);
-        return { animeName, animaInfo, animeOriginalTitle, };
-    }
-
-    async function oriTitleAutoFailback(animeName, episodeIndex, animeOriginalTitle) {
-        // from: https://github.com/Izumiko/jellyfin-danmaku/blob/jellyfin/ede.js#L886
-        // const seriesOrMovieInfo = await ApiClient.getItem(ApiClient.getCurrentUserId(), seriesOrMovieId);
-        // if (!seriesOrMovieInfo.OriginalTitle) { return null; }
-        if (!animeOriginalTitle) { return null; }
-        console.log(`标题名: ${animeName},自动匹配未查询到结果,将使用原标题名,重试一次`);
-        // const animeOriginalTitle = seriesOrMovieInfo.OriginalTitle;
-        animaInfo = await fetchSearchEpisodes(animeOriginalTitle, episodeIndex);
-        if (animaInfo.animes.length < 1) { return null; }
-        console.log(`使用原标题名: ${animeOriginalTitle},自动匹配成功`);
-        return { animeName, animaInfo, animeOriginalTitle, };
-    }
-
-    async function movieAutoFailback(animeName, episodeIndex) {
-        console.log(`自动匹配未查询到结果,可能为非番剧,将移除章节过滤,重试一次`);
-        let animaInfo = await fetchSearchEpisodes(animeName);
-        if (animaInfo.animes.length > 0) {
-            console.log(`移除章节过滤,自动匹配成功,转换为目标章节索引 0`);
-            if (isNaN(episodeIndex)) { episodeIndex = 0; }
-            // const episodeInfo = animaInfo.animes[0].episodes[episodeIndex - 1 ?? 0];
-            const episodeInfo = animaInfo.animes[0].episodes[episodeIndex];
-            if (!episodeInfo) {
-                return null;
-            }
-            animaInfo.animes[0].episodes = [episodeInfo];
-            return { animeName, animaInfo, };
-        }
+        return filteredMatches;
     }
 
     // 智能匹配函数：从候选列表中选择最佳匹配
-    function selectBestMatch(searchTitle, candidates) {
+    // minSimilarity: 最低相似度阈值，低于此值的候选会被过滤掉
+    function selectBestMatch(searchTitle, candidates, minSimilarity = 0.3) {
         if (!candidates || candidates.length === 0) return null;
 
-        console.log(`[智能匹配] 搜索标题: "${searchTitle}", 候选数量: ${candidates.length}`);
+        logger.info(`[智能匹配] 搜索标题: "${searchTitle}", 候选数量: ${candidates.length}, 最低相似度: ${minSimilarity}`);
 
         // 解析搜索标题
         const parsedSearch = parseSearchKeyword(searchTitle);
-        console.log(`[智能匹配] 解析搜索标题: ${JSON.stringify(parsedSearch)}`);
+        logger.info(`[智能匹配] 解析搜索标题: ${JSON.stringify(parsedSearch)}`);
 
-        // 计算相似度得分
-        const scoredCandidates = candidates.map(candidate => {
+        // [第一步] 相似度过滤：先过滤掉明显不相关的候选
+        const filteredCandidates = candidates.filter(candidate => {
+            const similarity = calculateStringSimilarity(parsedSearch.title, candidate.animeTitle);
+            if (similarity < minSimilarity) {
+                logger.debug(`[智能匹配] 过滤低相似度候选: "${candidate.animeTitle}" (相似度: ${similarity.toFixed(2)} < ${minSimilarity})`);
+                return false;
+            }
+            return true;
+        });
+
+        logger.info(`[智能匹配] 相似度过滤后剩余候选: ${filteredCandidates.length}/${candidates.length}`);
+
+        if (filteredCandidates.length === 0) {
+            logger.info(`[智能匹配] 所有候选都被过滤，没有足够相似的结果`);
+            return null;
+        }
+
+        // [第二步] 计算综合得分
+        const scoredCandidates = filteredCandidates.map(candidate => {
             const score = calculateMatchScore(parsedSearch.title, candidate);
 
             // 季度和集数匹配加分
@@ -1200,7 +1347,7 @@
                 const candidateParsed = parseSearchKeyword(candidate.animeTitle);
                 if (candidateParsed.season === parsedSearch.season) {
                     score.total += 0.15; // 季度匹配加分
-                    console.log(`[智能匹配] 季度匹配加分: ${candidate.animeTitle}`);
+                    logger.debug(`[智能匹配] 季度匹配加分: ${candidate.animeTitle}`);
                 }
             }
 
@@ -1214,7 +1361,7 @@
                     if (episodeFromId === parsedSearch.episode) {
                         score.total += 0.25; // episodeId匹配加分更高
                         episodeMatched = true;
-                        console.log(`[智能匹配] episodeId集数匹配加分: ${candidate.animeTitle} (${episodeFromId})`);
+                        logger.debug(`[智能匹配] episodeId集数匹配加分: ${candidate.animeTitle} (${episodeFromId})`);
                     }
                 }
 
@@ -1223,12 +1370,12 @@
                     const episodeMatch = candidate.episodeTitle.match(/第?(\d+)[话集]/);
                     if (episodeMatch && parseInt(episodeMatch[1]) === parsedSearch.episode) {
                         score.total += 0.2; // episodeTitle匹配加分
-                        console.log(`[智能匹配] episodeTitle集数匹配加分: ${candidate.animeTitle} - ${candidate.episodeTitle}`);
+                        logger.debug(`[智能匹配] episodeTitle集数匹配加分: ${candidate.animeTitle} - ${candidate.episodeTitle}`);
                     }
                 }
             }
 
-            console.log(`[智能匹配] "${candidate.animeTitle}" (${candidate.typeDescription}) - 得分: ${score.total.toFixed(2)}`);
+            logger.debug(`[智能匹配] "${candidate.animeTitle}" (${candidate.typeDescription}) - 得分: ${score.total.toFixed(2)}`);
             return { ...candidate, score: score.total, scoreDetails: score };
         });
 
@@ -1238,11 +1385,11 @@
         // 选择得分最高的候选
         const bestMatch = scoredCandidates[0];
         if (bestMatch.score > 0.15) { // 进一步降低阈值，提高匹配成功率
-            console.log(`[智能匹配] 选择最佳匹配: "${bestMatch.animeTitle}" (得分: ${bestMatch.score.toFixed(2)})`);
+            logger.info(`[智能匹配] 选择最佳匹配: "${bestMatch.animeTitle}" (得分: ${bestMatch.score.toFixed(2)})`);
             return bestMatch;
         }
 
-        console.log(`[智能匹配] 没有找到足够好的匹配 (最高得分: ${bestMatch.score.toFixed(2)})`);
+        logger.debug(`[智能匹配] 没有找到足够好的匹配 (最高得分: ${bestMatch.score.toFixed(2)})`);
         return null;
     }
 
@@ -1300,6 +1447,11 @@
             .replace(/[：:]/g, '')
             .replace(/\s+/g, ' ')
             .replace(/[^\w\s\u4e00-\u9fff]/g, '') // 保留中文、英文、数字和空格
+            // 处理常见的同义词替换
+            .replace(/柜台/g, '前台')
+            .replace(/讨伐/g, '讨伐')
+            .replace(/头目/g, 'boss')
+            .replace(/迷宫/g, '迷宫')
             .trim();
     }
 
@@ -1324,17 +1476,17 @@
             { pattern: /^(.*?)\s*(?:S|Season)\s*(\d{1,2})$/i, handler: (m) => parseInt(m[2]) },
             // 第一季, 第二部
             { pattern: /^(.*?)\s*第\s*([一二三四五六七八九十\d]+)\s*[季部]$/i,
-                handler: (m) => {
-                    const seasonMap = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10};
-                    return seasonMap[m[2]] || parseInt(m[2]);
-                }
+              handler: (m) => {
+                  const seasonMap = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10};
+                  return seasonMap[m[2]] || parseInt(m[2]);
+              }
             },
             // 罗马数字 Ⅰ-Ⅻ
             { pattern: /^(.*?)\s*([Ⅰ-Ⅻ])$/,
-                handler: (m) => {
-                    const romanMap = {'Ⅰ': 1, 'Ⅱ': 2, 'Ⅲ': 3, 'Ⅳ': 4, 'Ⅴ': 5, 'Ⅵ': 6, 'Ⅶ': 7, 'Ⅷ': 8, 'Ⅸ': 9, 'Ⅹ': 10, 'Ⅺ': 11, 'Ⅻ': 12};
-                    return romanMap[m[2].toUpperCase()];
-                }
+              handler: (m) => {
+                  const romanMap = {'Ⅰ': 1, 'Ⅱ': 2, 'Ⅲ': 3, 'Ⅳ': 4, 'Ⅴ': 5, 'Ⅵ': 6, 'Ⅶ': 7, 'Ⅷ': 8, 'Ⅸ': 9, 'Ⅹ': 10, 'Ⅺ': 11, 'Ⅻ': 12};
+                  return romanMap[m[2].toUpperCase()];
+              }
             },
             // 普通数字
             { pattern: /^(.*?)\s+(\d{1,2})$/, handler: (m) => parseInt(m[2]) }
@@ -1398,11 +1550,7 @@
     // 提取关键词
     function extractKeywords(title) {
         // 移除常见的无意义词汇
-        const stopWords = [
-            '第', '季', '部', '篇', '章', '话', '集', '期',
-            'season', 'episode', 'ep', 'ova', 'tv', 'movie',
-            'special', 'the', 'of', 'and', 'in', 'to', 'a', 'an'
-        ];
+        const stopWords = ['第', '季', '部', '篇', '章', '话', '集', '期', 'season', 'episode', 'ep', 'ova', 'tv', 'movie', 'special', 'the', 'of', 'and', 'in', 'to', 'a', 'an'];
 
         return title
             .toLowerCase()
@@ -1416,31 +1564,53 @@
     }
 
     async function fetchMatchApi(payload, prefix) {
+        // [测试] 尝试不同的路径格式
         const url = `${prefix}/match`;
-        console.log(`[自动匹配] 尝试 match 接口`);
+        logger.debug(`[API请求] match 请求详情 - URL: ${url}`);
+        logger.debug(`[API请求] match 请求详情 - Payload:`, payload);
+        logger.debug(`[API请求] match 请求详情 - Prefix: ${prefix}`);
         try {
+            // [修复] 判断是否为自定义 API（非弹弹play官方API）
+            // 自定义 API 不发送 X-User-Agent 头，避免 CORS 问题
+            const isDandanplayApi = prefix.includes('api.dandanplay.net') || prefix.includes('dandanplay');
+
             const requestHeaders = {
                 'Accept-Encoding': 'gzip',
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             };
 
+            // 只有弹弹play官方API才发送 X-User-Agent
+            if (isDandanplayApi) {
+                requestHeaders['X-User-Agent'] = userAgent;
+            } else {
+                logger.debug(`[API请求] match 跳过 X-User-Agent (自定义API)`);
+            }
+
             const requestBody = JSON.stringify(payload);
 
+            logger.debug(`[API请求] match 请求头:`, requestHeaders);
+            logger.debug(`[API请求] match 请求体长度:`, requestBody.length);
+            logger.debug(`[API请求] match 请求体内容:`, requestBody);
+
+            // [修复] 直接使用 fetch，模仿 fetchJson 的请求头设置
             const response = await fetch(url, {
                 method: 'POST',
                 headers: requestHeaders,
                 body: requestBody
             });
 
+            logger.debug(`[API请求] match 响应状态:`, response.status);
+            logger.debug(`[API请求] match 响应头:`, [...response.headers.entries()]);
+
             if (!response.ok) {
                 const responseText = await response.text();
-                console.warn(`[自动匹配] match 失败: HTTP ${response.status}`);
+                logger.debug(`[API请求] match 错误响应体:`, responseText);
                 throw new Error(`HTTP error! Status: ${response.status}, Body: ${responseText}`);
             }
 
             const matchResult = await response.json();
-            console.log(`[自动匹配] match 成功`);
+            logger.debug(`[API请求] match 查询响应:`, matchResult);
 
             // 统一 /match 和 /search/episodes 的返回格式
             if (matchResult && matchResult.matches) {
@@ -1449,107 +1619,827 @@
             }
             return matchResult;
         } catch (error) {
-            console.warn(`[自动匹配] match 失败:`, error.message || error);
+            logger.warn(`[API请求] match 查询失败:`, error.message || error);
+            logger.warn(`[API请求] match 失败详情 - URL: ${url}, Payload:`, payload);
+            return null; // 匹配失败时返回 null
+        }
+    }
+    async function fetchComment(episodeId) {
+         // [修正] 优先使用当前匹配信息中记录的 API 地址
+        const prefix = window.ede.episode_info?.apiPrefix || dandanplayApi.prefix;
+        const url = `${prefix}/comment/${episodeId}?withRelated=true&chConvert=${window.ede.chConvert}`;
+
+        const startTime = performance.now(); // [Log] 开始计时
+
+        return fetchJson(url)   // 直接使用 fetchJson
+            .then((data) => {
+                const endTime = performance.now();
+                const duration = (endTime - startTime).toFixed(0);
+
+                 // 兼容不同 API 的返回格式：
+                // - 标准格式: { comments: [...] }
+                // - 嵌套格式: { data: { comments: [...] } }
+                // - 直接数组: [...]
+                let comments = null;
+                // 直接返回数组
+                if (Array.isArray(data)) comments = data;
+                // 标准格式: { comments: [...] }
+                else if (data?.comments) comments = data.comments;
+                // 嵌套格式: { data: { comments: [...] } }
+                else if (data?.data?.comments) comments = data.data.comments;
+                // 其他格式: { result: [...] }
+                else if (data?.result) comments = data.result;
+
+                if (comments) {
+                    logger.info(`[API请求] comment 获取弹幕成功, 耗时: ${duration}ms, 数量: ${comments.length}`);
+                    return comments;
+                } else {
+                    logger.error(`[API请求] comment 返回数据格式不兼容，结构: ${data ? JSON.stringify(Object.keys(data)) : 'null'}, 耗时: ${duration}ms`);
+                    return null;
+                }
+            })
+            .catch((error) => {
+                logger.error(`[API请求] comment 获取弹幕失败: ${error.message}`);
+                return null;
+            });
+    }
+
+    async function fetchExtcommentActual(extUrl, comments) {
+        if (!extUrl) {
             return null;
+        }
+        let extComments  = (await fetchJson(dandanplayApi.getExtcomment(extUrl))).comments;
+        if (extComments.length === 0) { // 只重试一遍进行弹弹 play 服务器缓存覆盖加载触发
+            extComments = (await fetchJson(dandanplayApi.getExtcomment(extUrl))).comments;
+        }
+        extComments.map(c => c.fromUrl = extUrl);
+        const itemId = window.ede.itemId;
+        if (!window.ede.extCommentCache[itemId]) {
+            window.ede.extCommentCache = { [itemId]: {} };
+        }
+        if (comments) {
+            logger.debug(`[附加弹幕] 正在为 ${extUrl} 的结果与已有弹幕取差集并覆盖`);
+            extComments = extComments.filter(extC => !comments.some(c => c.cid === extC.cid));
+        }
+        window.ede.extCommentCache[itemId][extUrl] = extComments;
+        return extComments;
+    }
+
+    function onPlaybackStopPct(e, state) {
+        if (!state.NowPlayingItem) { return logger.debug('跳过 Web 端自身错误触发的第二次播放停止事件'); }
+        logger.debug('监听到事件: 播放停止 (playbackstop)');
+        const positionTicks = state.PlayState.PositionTicks;
+        const runtimeTicks = state.NowPlayingItem.RunTimeTicks;
+        if (!runtimeTicks) { return logger.debug('无可播放时长,跳过处理'); }
+        const pct = parseInt(positionTicks / runtimeTicks * 100);
+        logger.debug(`结束播放百分比: ${pct}%`);
+        const bangumiPostPercent = lsGetItem(lsKeys.bangumiPostPercent.id);
+        const bangumiToken = lsGetItem(lsKeys.bangumiToken.id);
+        if (lsGetItem(lsKeys.bangumiEnable.id) && bangumiToken
+            && pct >= bangumiPostPercent && window.ede.episode_info.episodeId
+        ) {
+            logger.debug(`大于需提交的设定百分比: ${bangumiPostPercent}%`);
+            const { animeTitle, episodeTitle } = window.ede.episode_info;
+            const targetName = `${animeTitle} - ${episodeTitle}`;
+            putBangumiEpStatus(bangumiToken).then(res => {
+                embyToast({ text: `Bangumi收藏更新成功, 目标: ${targetName}, 结束播放百分比: ${pct}%, 大于需提交的设定百分比: ${bangumiPostPercent}%`});
+                logger.info(`Bangumi收藏更新成功, 目标: ${targetName}`);
+            }).catch(error => {
+                embyToast({ text: `Bangumi收藏更新失败, 目标: ${targetName}, ${error.message}` });
+                logger.error(`putBangumiEpStatus 失败, 目标: ${targetName}`, error);
+            });
         }
     }
 
-    async function calculateFileHash(streamUrl, fileSize) {
-        if (!streamUrl || !fileSize) {
-            console.warn('缺少 streamUrl 或 fileSize，无法计算哈希。');
-            return null;
+    async function getEpisodeBangumiRel() {
+        const episode_info = window.ede.episode_info;
+        const _bangumi_key = lsLocalKeys.bangumiEpInfoPrefix + episode_info.episodeId;
+        let bangumiInfoLs = localStorage.getItem(_bangumi_key);
+        if (bangumiInfoLs) {
+            bangumiInfoLs = JSON.parse(bangumiInfoLs);
+        }
+        let bangumiEpsRes = bangumiInfoLs ? bangumiInfoLs.bangumiEpsRes : null;
+        let subjectId = bangumiInfoLs ? bangumiInfoLs.subjectId : null;
+        let bangumiUrl = bangumiInfoLs ? bangumiInfoLs.bangumiUrl : null;
+        const animeId = episode_info.animeId;
+        if (!subjectId) {
+            if (!animeId) { throw new Error('未获取到 animeId'); }
+            const danDanPlayBangumiRes = await fetchJson(dandanplayApi.getBangumi(animeId));
+            episode_info.bgmEpisodeIndex = offsetBgmEpisodeIndex(episode_info.bgmEpisodeIndex, danDanPlayBangumiRes.bangumi);
+            bangumiUrl = danDanPlayBangumiRes.bangumi.bangumiUrl;
+            if (!bangumiUrl) { throw new Error('未请求到 bangumiUrl'); }
+            subjectId = parseInt(bangumiUrl.match(/\/(\d+)$/)[1]);
+        }
+        const episodeIndex = episode_info ? episode_info.episodeIndex : null;
+        const bgmEpisodeIndex = episode_info ? episode_info.bgmEpisodeIndex : null;
+        const bangumiInfo = { animeId, bangumiUrl, subjectId, episodeIndex, bgmEpisodeIndex, bangumiEpsRes, _bangumi_key };
+        window.ede.bangumiInfo = bangumiInfo;
+        localStorage.setItem(bangumiInfo._bangumi_key, JSON.stringify(bangumiInfo));
+        return bangumiInfo;
+    }
+
+    function offsetBgmEpisodeIndex(currentBgmEpisodeIndex, danDanPlayBangumi) {
+        if (!danDanPlayBangumi) {
+            return currentBgmEpisodeIndex;
+        }
+        let bangumiEp = danDanPlayBangumi.episodes[currentBgmEpisodeIndex];
+        if (!bangumiEp) {
+            logger.debug(`未匹配到 danDanPlayBangumi 番剧集数,剧集不为第一季,尝试切换接口数据匹配返回修正后的 bgmEpisodeIndex`);
+            return danDanPlayBangumi.episodes.findIndex(ep => ep.episodeNumber == currentBgmEpisodeIndex + 1);
+        } else {
+            return currentBgmEpisodeIndex;
+        }
+    }
+
+    async function putBangumiEpStatus(token) {
+        const bangumiInfo = await getEpisodeBangumiRel();
+        const { subjectId, bgmEpisodeIndex, } = bangumiInfo;
+        const episodeIndex = bgmEpisodeIndex ? bgmEpisodeIndex : bangumiInfo.episodeIndex;
+        logger.debug('准备校验 Bangumi 条目收藏状态是否为看过');
+        let bangumiMe = localStorage.getItem(lsLocalKeys.bangumiMe);
+        if (bangumiMe) {
+            bangumiMe = JSON.parse(bangumiMe);
+        } else {
+            bangumiMe = await fetchBangumiApiGetMe(token);
+        }
+        let msg = '';
+        const bangumiUserColl = await fetchJson(bangumiApi.getUserCollection(bangumiMe.username, subjectId), { token });
+        if (bangumiUserColl.type === 2) { // 看过状态
+            msg = 'Bangumi 条目已为看过状态,跳过更新';
+            logger.debug(msg, bangumiUserColl);
+            throw new Error(msg);
+        }
+        logger.debug('准备修改 Bangumi 条目收藏状态为在看, 如果不存在则创建, 如果存在则修改');
+        let body = { type: 3 }; // 在看状态
+        await fetchJson(bangumiApi.postUserCollection(subjectId), { token, body });
+        if (!bangumiInfo.bangumiEpsRes) {
+            const fetchUrl = bangumiApi.getUserSubjectEpisodeCollection(subjectId);
+            const bangumiEpsRes = await fetchJson(fetchUrl, { token });
+            bangumiInfo.bangumiEpsRes = bangumiEpsRes;
+            const bangumiEpColl = bangumiEpsRes.data[episodeIndex];
+            if (!bangumiEpColl) { throw new Error('未匹配到 bangumiEpColl'); }
+            // bangumiInfo.episodeIndex = episodeIndex;
+        }
+        const bangumiEpColl = bangumiInfo.bangumiEpsRes.data[episodeIndex];
+        const bangumiEp = bangumiEpColl.episode;
+        if (bangumiEpColl.type === 2) {
+            msg = 'Bangumi 章节收藏已是看过状态,跳过更新';
+            logger.debug(msg, bangumiEp);
+            throw new Error(msg);
+        }
+        logger.debug('准备更新 Bangumi 章节收藏状态, 详情: ', bangumiEp);
+        body.type = 2; // 看过状态
+        await fetchJson(bangumiApi.putUserEpisodeCollection(bangumiEp.id), { token, body, method: 'PUT' });
+        bangumiEp.type = body.type;
+        logger.info(`成功更新 Bangumi 章节收藏状态, 在看 => 看过, 详情: `, bangumiEp);
+        window.ede.bangumiInfo = bangumiInfo;
+        localStorage.setItem(bangumiInfo._bangumi_key, JSON.stringify(bangumiInfo));
+        return bangumiInfo;
+    }
+
+    async function fetchJson(url, opts = {}) {
+    const { token, headers, body } = opts;
+    let { method = 'GET' } = opts;
+    if (method === 'GET' && body) method = 'POST';
+
+    // 判断是否为弹弹play 或 Bangumi 官方 API，用于决定是否发送 X-User-Agent
+    const isDandanplayApi = url.includes('api.dandanplay.net') || url.includes('dandanplay');
+    const isBangumiApi = url.includes('api.bgm.tv') || url.includes('bgm.tv');
+    const shouldSendUserAgent = isDandanplayApi || isBangumiApi;
+
+    const requestHeaders = {
+        'Accept-Encoding': 'gzip',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    };
+    // 只有弹弹play和Bangumi官方API才发送 X-User-Agent
+    if (shouldSendUserAgent) {
+        requestHeaders['X-User-Agent'] = userAgent;
+        logger.debug(`fetchJson 使用的 X-User-Agent: ${userAgent}`);
+    } else {
+        logger.debug(`fetchJson 跳过 X-User-Agent (自定义API): ${url.substring(0, 80)}...`);
+    }
+
+    if (token) requestHeaders.Authorization = `Bearer ${token}`;
+    if (headers) Object.assign(requestHeaders, headers);
+
+    const requestBody = body ? JSON.stringify(body) : null;
+
+    // 统一生命周期管理：可中止的请求
+    const controller = new AbortController();
+    const timeoutMs = 30000;
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs); // 30s 超时
+
+    // 将控制器注册到全局集合，便于销毁时统一取消
+    if (window.ede?.abortControllers) {
+        window.ede.abortControllers.add(controller);
+    }
+
+    const startTime = performance.now(); // 网络请求开始时间（用于测量耗时）
+    try {
+        // 优先使用传入的 signal，否则使用内部创建的
+        const signal = opts.signal || controller.signal;
+
+        // 发起请求（fetch resolves when response headers are received）
+        const response = await fetch(url, {
+            method,
+            headers: requestHeaders,
+            body: requestBody,
+            signal: signal,
+        });
+
+        const ttfbMs = (performance.now() - startTime).toFixed(0); // time to first byte (近似: fetch resolve 时刻)
+
+        clearTimeout(timeoutId);
+
+        // 试图从 PerformanceResourceTiming 获取更细粒度的网络阶段耗时（若可用）
+        let perfTiming = null;
+        try {
+            // Performance entries 可能需要服务器返回 Timing-Allow-Origin 才能看到跨域详细信息
+            const entries = performance.getEntriesByName(url);
+            if (entries && entries.length > 0) {
+                // 取最近的一条同名记录
+                const entry = entries[entries.length - 1];
+                perfTiming = {
+                    name: entry.name,
+                    startTime: entry.startTime,
+                    fetchStart: entry.fetchStart,
+                    domainLookupTime: (entry.domainLookupEnd && entry.domainLookupStart) ? (entry.domainLookupEnd - entry.domainLookupStart) : null,
+                    connectTime: (entry.connectEnd && entry.connectStart) ? (entry.connectEnd - entry.connectStart) : null,
+                    secureConnectionTime: (entry.secureConnectionStart && entry.connectEnd) ? (entry.connectEnd - entry.secureConnectionStart) : null,
+                    requestStartToResponseStart: (entry.responseStart && entry.requestStart) ? (entry.responseStart - entry.requestStart) : null,
+                    responseDownloadTime: (entry.responseEnd && entry.responseStart) ? (entry.responseEnd - entry.responseStart) : null,
+                    totalTime: (entry.responseEnd && entry.startTime) ? (entry.responseEnd - entry.startTime) : null,
+                };
+            } else {
+                // 另一次尝试：按短名匹配（有些平台会在 URL 加上额外查询）
+                const all = performance.getEntries();
+                for (let i = all.length - 1; i >= 0; i--) {
+                    if (all[i].name && all[i].name.indexOf(url) !== -1) {
+                        const entry = all[i];
+                        perfTiming = {
+                            name: entry.name,
+                            startTime: entry.startTime,
+                            domainLookupTime: (entry.domainLookupEnd && entry.domainLookupStart) ? (entry.domainLookupEnd - entry.domainLookupStart) : null,
+                            connectTime: (entry.connectEnd && entry.connectStart) ? (entry.connectEnd - entry.connectStart) : null,
+                            secureConnectionTime: (entry.secureConnectionStart && entry.connectEnd) ? (entry.connectEnd - entry.secureConnectionStart) : null,
+                            requestStartToResponseStart: (entry.responseStart && entry.requestStart) ? (entry.responseStart - entry.requestStart) : null,
+                            responseDownloadTime: (entry.responseEnd && entry.responseStart) ? (entry.responseEnd - entry.responseStart) : null,
+                            totalTime: (entry.responseEnd && entry.startTime) ? (entry.responseEnd - entry.startTime) : null,
+                        };
+                        break;
+                    }
+                }
+            }
+        } catch (perfErr) {
+            // ignore perf errors
+            perfTiming = null;
         }
 
-        console.log(`[Hash] 使用流媒体URL: ${streamUrl ? '已获取' : '未获取'}`);
+        // 读取 body（测量下载耗时）
+        const downloadStart = performance.now();
+        const responseText = await response.text();
+        const downloadMs = (performance.now() - downloadStart).toFixed(0);
+        const totalMs = (performance.now() - startTime).toFixed(0);
 
-        if (!streamUrl.includes('api_key=')) {
-            console.warn('[Hash] 流媒体URL缺少api_key参数，可能导致认证失败');
+        // 统一日志输出（包含 PerformanceResourceTiming 的更精细数据，如果可用）
+        if (perfTiming) {
+            logger.debug(`[Network] fetch ${url} | status=${response.status} | ttfb=${ttfbMs}ms | download=${downloadMs}ms | total=${totalMs}ms | perfTiming=`, perfTiming);
+        } else {
+            logger.debug(`[Network] fetch ${url} | status=${response.status} | ttfb=${ttfbMs}ms | download=${downloadMs}ms | total=${totalMs}ms`);
+            logger.debug(`[Network] Tip: 若需更详细的 DNS/TCP/TLS/响应头到首字节等分段耗时，请确保后端返回 Timing-Allow-Origin 响应头以允许 PerformanceResourceTiming 获取跨域详细信息。`);
         }
 
-        const authHeaders = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': '*/*',
-            'Accept-Encoding': 'identity'
-        };
+        if (!response.ok) {
+            logger.warn(`[Network] fetch 错误响应: ${url} | status=${response.status} | total=${totalMs}ms | bodySnippet=${responseText?.slice(0,200)}`);
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-        const CHUNK_SIZE = 16 * 1024 * 1024; // 16MB
-        const spark = new SparkMD5.ArrayBuffer();
+        if (responseText?.length > 0) {
+            try {
+                return JSON.parse(responseText);
+            } catch (parseError) {
+                logger.warn('responseText is not JSON:', parseError);
+            }
+        }
+        return { success: true };
+    } catch (error) {
+        clearTimeout(timeoutId);
+        const endTime = performance.now();
+        const duration = (endTime - startTime).toFixed(0);
+
+        if (error.name === 'AbortError') {
+            // 区分是被组件销毁取消的(人为)，还是超时取消的
+            if (window.ede?.lastLoadId?.toString().startsWith('DESTROYED')) {
+                logger.debug(`[Network] 请求已因组件销毁而取消: ${url} | duration=${duration}ms`);
+            } else {
+                logger.warn(`[Network] 请求超时或被中断: ${url} | duration=${duration}ms`);
+            }
+            throw error;
+        }
+
+        logger.error(`[Network] fetch 异常: ${url} | duration=${duration}ms | error: ${error.message || error}`);
+        throw error;
+    } finally {
+        // 请求结束（无论成功失败），从集合中移除控制器
+        if (window.ede?.abortControllers) {
+            window.ede.abortControllers.delete(controller);
+        }
+    }
+}
+
+    /**
+     * 获取所有媒体库列表
+     * @returns {Promise<Array<{id: string, name: string, collectionType: string}>>}
+     */
+    async function getAllLibraries() {
+        try {
+            const userId = ApiClient.getCurrentUserId();
+            // 通过 Views API 获取用户可见的媒体库
+            const viewsUrl = ApiClient.getUrl(`Users/${userId}/Views`);
+            const viewsResult = await ApiClient.getJSON(viewsUrl).catch(() => null);
+
+            if (viewsResult && viewsResult.Items && viewsResult.Items.length > 0) {
+                return viewsResult.Items.map(item => ({
+                    id: item.Id,
+                    name: item.Name,
+                    collectionType: item.CollectionType || item.Type || ''
+                }));
+            }
+        } catch (error) {
+            logger.error('[dd-danmaku] 获取媒体库列表失败:', error);
+        }
+        return [];
+    }
+
+    /**
+     * 获取当前播放项目所属的媒体库信息
+     * 使用多种方法尝试获取，确保稳定性（兼容网盘/302反代用户）
+     * @param {Object} item - Emby item 对象
+     * @returns {Promise<{libraryId: string, libraryName: string, collectionType: string}|null>}
+     */
+    async function getItemLibraryInfo(item) {
+        if (!item) return null;
 
         try {
-            if (fileSize < CHUNK_SIZE * 2) {
-                console.log(`[Hash] 文件大小 (${(fileSize / 1024 / 1024).toFixed(2)}MB) 小于32MB，将下载整个文件计算哈希。`);
-
-                const response = await fetch(streamUrl, {
-                    headers: authHeaders,
-                    timeout: 30000
-                });
-
-                if (!response.ok) {
-                    throw new Error(`下载文件失败: ${response.status} ${response.statusText}`);
-                }
-
-                console.log(`[Hash] 响应状态: ${response.status}, Content-Length: ${response.headers.get('content-length')}`);
-                const arrayBuffer = await response.arrayBuffer();
-                spark.append(arrayBuffer);
-            } else {
-                console.log(`[Hash] 文件大小 (${(fileSize / 1024 / 1024).toFixed(2)}MB)，将分块下载计算哈希。`);
-
-                console.log('[Hash] 正在下载文件头部 16MB...');
-                const headRequestHeaders = {
-                    ...authHeaders,
-                    'Range': `bytes=0-${CHUNK_SIZE - 1}`,
-                    'Accept-Ranges': 'bytes'
-                };
-
-                const headResponse = await fetch(streamUrl, {
-                    headers: headRequestHeaders,
-                    timeout: 30000
-                });
-
-                if (!headResponse.ok) {
-                    throw new Error(`下载文件头部失败: ${headResponse.status} ${headResponse.statusText}`);
-                }
-
-                console.log(`[Hash] 头部响应状态: ${headResponse.status}, Content-Range: ${headResponse.headers.get('content-range')}`);
-                const headBuffer = await headResponse.arrayBuffer();
-                spark.append(headBuffer);
-                console.log('[Hash] 文件头部下载完成。');
-
-                console.log('[Hash] 正在下载文件尾部 16MB...');
-                const tailRequestHeaders = {
-                    ...authHeaders,
-                    'Range': `bytes=${fileSize - CHUNK_SIZE}-${fileSize - 1}`,
-                    'Accept-Ranges': 'bytes'
-                };
-
-                const tailResponse = await fetch(streamUrl, {
-                    headers: tailRequestHeaders,
-                    timeout: 30000
-                });
-
-                if (!tailResponse.ok) {
-                    throw new Error(`下载文件尾部失败: ${tailResponse.status} ${tailResponse.statusText}`);
-                }
-
-                console.log(`[Hash] 尾部响应状态: ${tailResponse.status}, Content-Range: ${tailResponse.headers.get('content-range')}`);
-                const tailBuffer = await tailResponse.arrayBuffer();
-                spark.append(tailBuffer);
-                console.log('[Hash] 文件尾部下载完成。');
+            // 获取所有媒体库列表
+            const libraries = await getAllLibraries();
+            logger.info('[dd-danmaku] 媒体库列表:', libraries.map(l => ({ id: l.id, name: l.name })));
+            if (!libraries || libraries.length === 0) {
+                logger.warn('[dd-danmaku] 无法获取媒体库列表');
+                return null;
             }
-            const hash = spark.end();
-            console.log(`[Hash] 文件哈希计算成功: ${hash}`);
-            console.log(`[Hash] 哈希值详情 - 长度: ${hash.length}, 值: ${hash}`);
-            return hash;
-        } catch (error) {
-            console.warn('[Hash] 文件哈希计算过程中发生错误:', error);
-            console.warn('[Hash] 错误详情:', {
-                message: error.message,
-                streamUrl: streamUrl,
-                fileSize: fileSize,
-                authHeaders: Object.keys(authHeaders)
+
+            // 通过 API 获取完整的 item 信息（包含 ParentId 等字段）
+            const userId = ApiClient.getCurrentUserId();
+            const itemUrl = ApiClient.getUrl(`Users/${userId}/Items/${item.Id}`, {
+                Fields: 'ParentId,Path,SeriesId,SeasonId,ProviderIds,LocationType'
             });
+            const fullItem = await ApiClient.getJSON(itemUrl).catch(() => null) || item;
+
+            logger.debug('[dd-danmaku] Item 完整信息:', {
+                Id: fullItem.Id,
+                Name: fullItem.Name,
+                Type: fullItem.Type,
+                ParentId: fullItem.ParentId,
+                SeriesId: fullItem.SeriesId,
+                SeasonId: fullItem.SeasonId,
+                Path: fullItem.Path,
+                LocationType: fullItem.LocationType
+            });
+
+            // 方法1: 通过 ParentId 递归查找媒体库
+            let currentId = fullItem.SeriesId || fullItem.SeasonId || fullItem.ParentId;
+            logger.debug('[dd-danmaku] 开始 ParentId 递归查找, 起始ID:', currentId);
+
+            let maxDepth = 10;
+            let lastFolderBeforeRoot = null; // 记录 root 之前的最后一个文件夹
+
+            while (currentId && maxDepth > 0) {
+                // 检查当前 ID 是否是媒体库
+                const matchedLib = libraries.find(lib => lib.id === currentId);
+                if (matchedLib) {
+                    logger.info(`[dd-danmaku] 通过 ParentId 匹配到媒体库: ${matchedLib.name}`);
+                    return {
+                        libraryId: matchedLib.id,
+                        libraryName: matchedLib.name,
+                        collectionType: matchedLib.collectionType || ''
+                    };
+                }
+
+                // 获取父级信息继续查找
+                const parentUrl = ApiClient.getUrl(`Users/${userId}/Items/${currentId}`, {
+                    Fields: 'ParentId,Name,Type,CollectionType'
+                });
+                const parentItem = await ApiClient.getJSON(parentUrl).catch(() => null);
+                logger.debug('[dd-danmaku] 递归查找父级:', parentItem ? { Id: parentItem.Id, Name: parentItem.Name, ParentId: parentItem.ParentId, Type: parentItem.Type } : 'null');
+
+                if (!parentItem) break;
+
+                // 检查父级名称是否匹配媒体库名称
+                const matchedByName = libraries.find(lib => lib.name === parentItem.Name);
+                if (matchedByName) {
+                    logger.info(`[dd-danmaku] 通过父级名称匹配到媒体库: ${matchedByName.name}`);
+                    return {
+                        libraryId: matchedByName.id,
+                        libraryName: matchedByName.name,
+                        collectionType: matchedByName.collectionType || ''
+                    };
+                }
+
+                // 检查父级类型是否为 CollectionFolder（媒体库根目录）
+                if (parentItem.Type === 'CollectionFolder' || parentItem.Type === 'UserView') {
+                    logger.info(`[dd-danmaku] 找到媒体库根目录: ${parentItem.Name}`);
+                    return {
+                        libraryId: parentItem.Id,
+                        libraryName: parentItem.Name,
+                        collectionType: parentItem.CollectionType || ''
+                    };
+                }
+
+                // 如果遇到 AggregateFolder (root)，使用之前记录的文件夹通过 VirtualFolders 匹配
+                if (parentItem.Type === 'AggregateFolder') {
+                    logger.debug('[dd-danmaku] 到达 AggregateFolder (root)，尝试通过 VirtualFolders 匹配');
+                    if (lastFolderBeforeRoot) {
+                        const vfResult = await matchLibraryByFolderName(lastFolderBeforeRoot.Name, libraries);
+                        if (vfResult) return vfResult;
+                    }
+                    break;
+                }
+
+                // 记录当前文件夹（作为 root 之前的最后一个文件夹）
+                if (parentItem.Type === 'Folder') {
+                    lastFolderBeforeRoot = parentItem;
+                }
+
+                currentId = parentItem.ParentId;
+                maxDepth--;
+            }
+
+            // 方法2: 通过 Path 路径匹配媒体库（适用于网盘/302反代用户）
+            if (fullItem.Path) {
+                logger.debug('[dd-danmaku] 尝试通过 Path 匹配媒体库, Path:', fullItem.Path);
+
+                // 标准化 item 路径（统一使用正斜杠，转小写用于比较）
+                const normalizedItemPath = fullItem.Path.replace(/\\/g, '/').toLowerCase();
+
+                // 获取媒体库的路径信息（需要管理员权限，可能失败）
+                try {
+                    const virtualFoldersUrl = ApiClient.getUrl('Library/VirtualFolders');
+                    const virtualFolders = await ApiClient.getJSON(virtualFoldersUrl).catch(() => null);
+
+                    if (virtualFolders && virtualFolders.length > 0) {
+                        logger.debug('[dd-danmaku] VirtualFolders:', virtualFolders.map(f => ({ Name: f.Name, Locations: f.Locations })));
+
+                        for (const folder of virtualFolders) {
+                            if (folder.Locations && folder.Locations.length > 0) {
+                                for (const location of folder.Locations) {
+                                    // 标准化媒体库路径
+                                    const normalizedLocation = location.replace(/\\/g, '/').toLowerCase();
+
+                                    // 检查 item 的 Path 是否以媒体库路径开头或包含媒体库路径
+                                    if (normalizedItemPath.startsWith(normalizedLocation) ||
+                                        normalizedItemPath.includes(normalizedLocation + '/') ||
+                                        normalizedItemPath.includes('/' + normalizedLocation.split('/').pop() + '/')) {
+                                        const matchedLib = libraries.find(lib => lib.name === folder.Name);
+                                        if (matchedLib) {
+                                            logger.info(`[dd-danmaku] 通过 Path 匹配到媒体库: ${matchedLib.name}`);
+                                            return {
+                                                libraryId: matchedLib.id,
+                                                libraryName: matchedLib.name,
+                                                collectionType: matchedLib.collectionType || ''
+                                            };
+                                        }
+                                        // 即使在 libraries 中找不到，也返回 folder 信息
+                                        logger.info(`[dd-danmaku] 通过 Path 匹配到媒体库 (VirtualFolder): ${folder.Name}`);
+                                        return {
+                                            libraryId: folder.ItemId || folder.Name,
+                                            libraryName: folder.Name,
+                                            collectionType: folder.CollectionType || ''
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {
+                    logger.debug('[dd-danmaku] VirtualFolders API 失败 (可能需要管理员权限):', e);
+                }
+
+                // 方法3: 从 Path 中提取可能的媒体库名称（最后的回退方案）
+                // 路径格式可能是: /媒体库名/子文件夹/文件名 或 D:\媒体库名\子文件夹\文件名
+                const pathParts = fullItem.Path.replace(/\\/g, '/').split('/').filter(p => p);
+                logger.debug('[dd-danmaku] Path 分段:', pathParts);
+
+                // 尝试匹配路径中的每个部分与媒体库名称
+                for (const part of pathParts) {
+                    const matchedLib = libraries.find(lib =>
+                        lib.name === part ||
+                        lib.name.toLowerCase() === part.toLowerCase()
+                    );
+                    if (matchedLib) {
+                        logger.info(`[dd-danmaku] 通过 Path 分段匹配到媒体库: ${matchedLib.name}`);
+                        return {
+                            libraryId: matchedLib.id,
+                            libraryName: matchedLib.name,
+                            collectionType: matchedLib.collectionType || ''
+                        };
+                    }
+                }
+            }
+
+            logger.warn('[dd-danmaku] 无法匹配到媒体库');
+        } catch (error) {
+            logger.warn('[dd-danmaku] 获取媒体库信息失败:', error);
+        }
+
+        return null;
+    }
+
+    /**
+     * 通过文件夹名称匹配媒体库（使用 VirtualFolders API）
+     * 适用于媒体库名称与实际文件夹名称不同的情况
+     * @param {string} folderName - 文件夹名称
+     * @param {Array} libraries - 媒体库列表
+     * @returns {Promise<Object|null>}
+     */
+    async function matchLibraryByFolderName(folderName, libraries) {
+        try {
+            const virtualFoldersUrl = ApiClient.getUrl('Library/VirtualFolders');
+            const virtualFolders = await ApiClient.getJSON(virtualFoldersUrl).catch(() => null);
+
+            if (virtualFolders && virtualFolders.length > 0) {
+                logger.debug('[dd-danmaku] VirtualFolders:', virtualFolders.map(f => ({ Name: f.Name, Locations: f.Locations, ItemId: f.ItemId })));
+
+                for (const folder of virtualFolders) {
+                    if (folder.Locations && folder.Locations.length > 0) {
+                        for (const location of folder.Locations) {
+                            // 标准化路径并检查是否包含文件夹名称
+                            const normalizedLocation = location.replace(/\\/g, '/');
+                            const locationParts = normalizedLocation.split('/').filter(p => p);
+                            const lastPart = locationParts[locationParts.length - 1];
+
+                            // 检查路径最后一部分是否匹配文件夹名称
+                            if (lastPart === folderName || lastPart.toLowerCase() === folderName.toLowerCase()) {
+                                const matchedLib = libraries.find(lib => lib.name === folder.Name);
+                                if (matchedLib) {
+                                    logger.debug(`[dd-danmaku] 通过 VirtualFolders 匹配到媒体库: ${matchedLib.name} (文件夹: ${folderName})`);
+                                    return {
+                                        libraryId: matchedLib.id,
+                                        libraryName: matchedLib.name,
+                                        collectionType: matchedLib.collectionType || ''
+                                    };
+                                }
+                                // 即使在 libraries 中找不到，也返回 folder 信息
+                                logger.debug(`[dd-danmaku] 通过 VirtualFolders 匹配到媒体库: ${folder.Name} (文件夹: ${folderName})`);
+                                return {
+                                    libraryId: folder.ItemId || folder.Name,
+                                    libraryName: folder.Name,
+                                    collectionType: folder.CollectionType || ''
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            logger.debug('[dd-danmaku] VirtualFolders API 失败:', e);
+        }
+        return null;
+    }
+
+    /**
+     * 检查当前媒体库是否在排除列表中
+     * @param {Object} libraryInfo - 媒体库信息
+     * @returns {boolean} - true 表示应该禁用弹幕
+     */
+    function isLibraryExcluded(libraryInfo) {
+        if (!libraryInfo) return false;
+
+        const excludedLibraries = lsGetItem(lsKeys.excludedLibraries.id) || [];
+        if (excludedLibraries.length === 0) return false;
+
+        // 检查媒体库名称是否在排除列表中
+        const isExcluded = excludedLibraries.some(excluded => excluded === libraryInfo.libraryName);
+        logger.info(`[dd-danmaku] 检查媒体库排除: "${libraryInfo.libraryName}" 在排除列表 [${excludedLibraries.join(', ')}] 中: ${isExcluded}`);
+        return isExcluded;
+    }
+
+    async function getMapByEmbyItemInfo() {
+        let item = await getEmbyItemInfo();
+        if (!item) {
+            // this only working on quickDebug
+            item = await fatchEmbyItemInfo(window.ede.itemId);
+        }
+        if (!item) { return null; } // getEmbyItemInfo from playbackManager null, will next called
+        if (!['Episode', 'Movie'].includes(item.Type)) {
+            return logger.error('不支持的类型');
+        }
+
+        // [新增] 获取并记录媒体库信息（仅记录，不在此处检查排除）
+        const libraryInfo = await getItemLibraryInfo(item);
+        if (libraryInfo) {
+            logger.info(`[dd-danmaku] 媒体库信息 - ID: ${libraryInfo.libraryId}, 名称: ${libraryInfo.libraryName}, 类型: ${libraryInfo.collectionType}`);
+            window.ede.currentLibraryInfo = libraryInfo;
+        }
+
+        window.ede.itemId = item.Id;
+        let _id;
+        let animeName;
+        let animeId = -1;
+        let episode;
+        if (item.Type === 'Episode') {
+            _id = item.SeasonId;
+            const seriesName = item.SeriesName;
+            const seasonNumber = item.ParentIndexNumber;
+            const episodeNumber = item.IndexNumber;
+            episode = episodeNumber;
+            if (seasonNumber !== undefined && episodeNumber !== undefined) {
+                animeName = `${seriesName} S${String(seasonNumber).padStart(2, '0')}E${String(episodeNumber).padStart(2, '0')}`;
+            } else {
+                animeName = seriesName + (seasonNumber && seasonNumber !== 1 ? ` ${seasonNumber}` : '');
+            }
+        } else {
+            _id = item.Id;
+            animeName = item.Name;
+            episode = 'movie';
+        }
+        let _id_key = lsLocalKeys.animePrefix + _id;
+        let _season_key = lsLocalKeys.animeSeasonPrefix + _id;
+        let _episode_key = lsLocalKeys.animeEpisodePrefix + _id + '_' + episode;
+        if (window.localStorage.getItem(_id_key)) {
+            animeId = window.localStorage.getItem(_id_key);
+        }
+        // 检查是否需要重新获取完整的item信息
+        if (!item.MediaSources || item.MediaSources.length === 0) {
+            logger.debug(`[Stream] MediaSources为空，通过API重新获取完整信息...`);
+            try {
+                const fullItem = await fatchEmbyItemInfo(item.Id);
+                if (fullItem && fullItem.MediaSources && fullItem.MediaSources.length > 0) {
+                    item = fullItem;
+                    logger.debug(`[Stream] 重新获取成功，MediaSources数量: ${item.MediaSources.length}`);
+                } else {
+                    logger.warn(`[Stream] 重新获取失败或仍无MediaSources`);
+                }
+            } catch (error) {
+                logger.error(`[Stream] 重新获取item信息失败:`, error);
+            }
+        }
+
+        const mediaSource = item.MediaSources && item.MediaSources[0];
+        logger.debug(`[Stream] 最终MediaSources数量: ${item.MediaSources ? item.MediaSources.length : 0}`);
+
+        // 参考embyToLocalPlayer项目的方式构建流媒体URL
+        let streamUrl = null;
+        if (mediaSource) {
+            const itemId = item.Id;
+            const mediaSourceId = mediaSource.Id;
+            const deviceId = ApiClient.deviceId();
+            const apiKey = ApiClient.accessToken();
+            const serverAddress = ApiClient.serverAddress();
+
+            // 检测是否为Emby服务器
+            const isEmby = serverAddress.includes('/emby/') || ApiClient.appName().toLowerCase().includes('emby');
+            const extraStr = isEmby ? '/emby' : '';
+
+            // 构建流媒体URL，参考embyToLocalPlayer的方式
+            const container = item.Path ? item.Path.split('.').pop() : 'mkv';
+            streamUrl = `${serverAddress}${extraStr}/videos/${itemId}/stream?DeviceId=${deviceId}&MediaSourceId=${mediaSourceId}&api_key=${apiKey}&Static=true&Container=${container}`;
+
+            logger.debug(`[Stream] 认证信息 - ApiKey: ${apiKey ? '已获取' : '未获取'}, DeviceId: ${deviceId ? '已获取' : '未获取'}`);
+        } else {
+            logger.warn(`[Stream] 无MediaSource，无法构建流媒体URL`);
+        }
+
+        const map = {
+            _id: _id,
+            _id_key: _id_key,
+            _season_key: _season_key,
+            _episode_key: _episode_key,
+            animeId: animeId,
+            episode: episode, // this is episode index, not a program index
+            animeName: animeName,
+            seriesName: item.SeriesName || item.Name || '',   // [新增] 系列名称，供集数偏移规则匹配
+            seasonNumber: item.ParentIndexNumber || null,     // [新增] 季号，供集数偏移规则匹配
+            seriesOrMovieId: item.SeriesId || item.Id,
+            // 新增：提取匹配所需的文件信息
+            streamUrl: streamUrl,
+            size: mediaSource?.Size,
+            duration: (mediaSource?.RunTimeTicks || 0) / 10000000, // Ticks to seconds
+        };
+        return map;
+    }
+
+    // 通过缓存中的剧集名称与偏移量进行匹配
+    async function lsSeasonSearchEpisodes(_season_key, episode) {
+        const seasonInfoListStr = window.localStorage.getItem(_season_key);
+        if (!seasonInfoListStr) {
             return null;
         }
+        const seasonInfoList = JSON.parse(seasonInfoListStr);
+        let minPositiveDiff = Infinity;
+        let selectedSeasonInfo = null;
+        for (let i = 0; i < seasonInfoList.length; i++) {
+            const seasonInfo = seasonInfoList[i];
+            const adjustedEpisode = episode + seasonInfo.episodeOffset;
+            if (adjustedEpisode > 0 && adjustedEpisode < minPositiveDiff) {
+                minPositiveDiff = adjustedEpisode;
+                selectedSeasonInfo = seasonInfo;
+            }
+        }
+        if (selectedSeasonInfo) {
+            const newEpisode = episode + selectedSeasonInfo.episodeOffset;
+            logger.info(`命中seasonInfo缓存: ${selectedSeasonInfo.name},偏移量: ${selectedSeasonInfo.episodeOffset},集: ${newEpisode}`);
+            const animaInfo = await fetchSearchEpisodes(selectedSeasonInfo.name, newEpisode);
+            return { animaInfo, newEpisode, };
+        }
+        return null;
+    }
+
+    async function autoFailback(animeName, episodeIndex, seriesOrMovieId) {
+        logger.info(`自动匹配未查询到结果,可能为非番剧,将移除章节过滤,重试一次`);
+        let animaInfo = await fetchSearchEpisodes(animeName);
+        if (animaInfo.animes.length > 0) {
+            logger.debug(`移除章节过滤,自动匹配成功,转换为目标章节索引 0`);
+            if (isNaN(episodeIndex)) { episodeIndex = 0; }
+            // const episodeInfo = animaInfo.animes[0].episodes[episodeIndex - 1 ?? 0];
+            const episodeInfo = animaInfo.animes[0].episodes[episodeIndex];
+            if (!episodeInfo) {
+                return null;
+            }
+            animaInfo.animes[0].episodes = [episodeInfo];
+            return { animeName, animaInfo, };
+        }
+        // from: https://github.com/Izumiko/jellyfin-danmaku/blob/jellyfin/ede.js#L886
+        const seriesOrMovieInfo = await fatchEmbyItemInfo(seriesOrMovieId);
+        if (!seriesOrMovieInfo.OriginalTitle) { return null; }
+        logger.info(`标题名: ${animeName},自动匹配未查询到结果,将使用原标题名,重试一次`);
+        const animeOriginalTitle = seriesOrMovieInfo.OriginalTitle;
+        animaInfo = await fetchSearchEpisodes(animeOriginalTitle, episodeIndex);
+        if (animaInfo.animes.length < 1) { return null; }
+        logger.info(`使用原标题名: ${animeOriginalTitle},自动匹配成功`);
+        return { animeName, animeOriginalTitle, animaInfo, };
+    }
+
+    // --- 替换后的 calculateFileHash (使用 Worker) ---
+    async function calculateFileHash(streamUrl, fileSize) {
+        if (!streamUrl || !fileSize) {
+            logger.warn('缺少 streamUrl 或 fileSize，无法计算哈希。');
+            return null;
+        }
+
+        return new Promise(async (resolve, reject) => {
+            const worker = createWorker(md5WorkerBody, {
+                '__SPARK_MD5_URL__': requireSparkMD5Path
+            });
+            worker.onmessage = (e) => {
+                if (e.data.success) {
+                    logger.debug(`[Hash-Worker] 计算完成: ${e.data.hash}`);
+                    resolve(e.data.hash);
+                    worker.terminate();
+                }
+            };
+            worker.onerror = (err) => {
+                logger.error("[Hash-Worker] Error:", err);
+                worker.terminate();
+                resolve(null);
+            };
+            worker.postMessage({ type: 'INIT' });
+
+            const authHeaders = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Accept': '*/*',
+                'Accept-Encoding': 'identity'
+            };
+            const CHUNK_SIZE = 16 * 1024 * 1024;
+
+            try {
+                if (fileSize < CHUNK_SIZE * 2) {
+                    logger.debug(`[Hash] 文件较小，下载全量计算...`);
+                    const response = await fetch(streamUrl, { headers: authHeaders });
+                    if (!response.ok) throw new Error(`Fetch error: ${response.status}`);
+                    const buffer = await response.arrayBuffer();
+                    worker.postMessage({ type: 'APPEND', chunk: buffer, isLast: true }, [buffer]);
+                } else {
+                    logger.debug(`[Hash] 文件较大，下载头尾分片计算...`);
+                    const headRes = await fetch(streamUrl, {
+                        headers: { ...authHeaders, 'Range': `bytes=0-${CHUNK_SIZE - 1}` }
+                    });
+                    const headBuffer = await headRes.arrayBuffer();
+                    worker.postMessage({ type: 'APPEND', chunk: headBuffer, isLast: false }, [headBuffer]);
+
+                    const tailRes = await fetch(streamUrl, {
+                        headers: { ...authHeaders, 'Range': `bytes=${fileSize - CHUNK_SIZE}-${fileSize - 1}` }
+                    });
+                    const tailBuffer = await tailRes.arrayBuffer();
+                    worker.postMessage({ type: 'APPEND', chunk: tailBuffer, isLast: true }, [tailBuffer]);
+                }
+            } catch (error) {
+                logger.error('[Hash] 下载或通信失败:', error);
+                worker.terminate();
+                resolve(null);
+            }
+        });
     }
 
     /**
@@ -1574,269 +2464,256 @@
         };
     }
 
+    // --- 优化：串行请求 (节省流量) & 耗时日志 ---
     async function searchEpisodes(itemInfoMap) {
-        const { _season_key, animeName, episodeName, episode, seriesOrMovieId, streamUrl, size, duration } = itemInfoMap;
-        console.log(`[自动匹配] 标题名: ${episodeName}` + (episode ? `,章节过滤: ${episode}` : ''));
-        console.log(`[Debug] searchEpisodes调用 - streamUrl: ${streamUrl ? '已获取' : '未获取'}, size: ${size}, duration: ${duration}`);
+        const { animeName, episode, seriesOrMovieId, streamUrl, size, duration, seriesName, seasonNumber } = itemInfoMap;
+        logger.debug(`[Debug] searchEpisodes调用 - streamUrl: ${streamUrl ? '已获取' : '未获取'}, size: ${size}, duration: ${duration}`);
+        const startTime = performance.now();
+
+        // [新增] 手动集数偏移规则 - 优先级最高
+        let seasonEpisodeCandidates = [{ season: null, episode: episode }]; // 候选列表，默认包含原始集数
+        const offsetRules = lsGetItem(lsKeys.episodeOffsetRules.id) || [];
+        if (offsetRules.length > 0 && seriesName && seasonNumber) {
+            const matchedRule = offsetRules.find(rule =>
+                rule.seriesName && seriesName.includes(rule.seriesName) &&
+                rule.fromSeason === seasonNumber
+            );
+            if (matchedRule) {
+                const mappedEpisode = episode + (matchedRule.episodeOffset || 0);
+                logger.info(`[手动偏移] 命中规则: "${matchedRule.seriesName}" S${String(seasonNumber).padStart(2, '0')}E${String(episode).padStart(2, '0')} → S${String(matchedRule.toSeason).padStart(2, '0')}E${String(mappedEpisode).padStart(2, '0')} (偏移: ${matchedRule.episodeOffset >= 0 ? '+' : ''}${matchedRule.episodeOffset})`);
+                seasonEpisodeCandidates.unshift({ season: matchedRule.toSeason, episode: mappedEpisode });
+            }
+        }
+
+        // [新增] TMDB Episode Mapper 集成 - 双向匹配策略（季集格式）
+        const itemId = window.ede?.itemId;
+        if (itemId && episode) {
+            try {
+                const mappingResult = await getEpisodeMappingForCurrentItem(itemId);
+                if (mappingResult && mappingResult.mapping) {
+                    const currentSeason = mappingResult.currentSeason || 1;
+                    const mappedSeasonEpisode = convertSeasonEpisode(currentSeason, episode, mappingResult.mapping);
+                    if (mappedSeasonEpisode && (mappedSeasonEpisode.season !== currentSeason || mappedSeasonEpisode.episode !== episode)) {
+                        // 优先使用映射后的季集作为第一候选
+                        seasonEpisodeCandidates = [
+                            { season: mappedSeasonEpisode.season, episode: mappedSeasonEpisode.episode }, // 第一候选：映射后
+                            { season: currentSeason, episode: episode } // 第二候选：原始（备用）
+                        ];
+                        logger.info(`[集数映射] 双向匹配: S${String(currentSeason).padStart(2, '0')}E${String(episode).padStart(2, '0')} <-> S${String(mappedSeasonEpisode.season).padStart(2, '0')}E${String(mappedSeasonEpisode.episode).padStart(2, '0')}`);
+                    }
+                }
+            } catch (error) {
+                logger.error('[集数映射] 映射过程出错，使用原始集数:', error);
+            }
+        }
 
         // 读取用户定义的API优先级
         const apiPriority = lsGetItem(lsKeys.apiPriority.id);
+        // 构建API配置，支持多个自定义源（新数据结构）
+        const customApiList = getCustomApiList();
         const apiConfigs = {
-            official: { name: '官方API', prefix: corsProxy + 'https://api.dandanplay.net/api/v2', enabled: lsGetItem(lsKeys.useOfficialApi.id) },
-            custom: { name: '自定义API', prefix: lsGetItem(lsKeys.customApiPrefix.id), enabled: lsGetItem(lsKeys.useCustomApi.id) }
+            official: { name: '弹弹play', prefix: corsProxy + 'https://api.dandanplay.net/api/v2', enabled: lsGetItem(lsKeys.useOfficialApi.id) },
         };
-        // 计算默认 API 配置（用于赛季缓存和默认匹配）
-        const currentPriority = (Array.isArray(apiPriority) && apiPriority[0] === 'custom' && apiConfigs.custom.enabled && apiConfigs.custom.prefix?.trim())
-            ? 'custom'
-            : 'official';
-        const selectedApiConfig = (apiConfigs[currentPriority].enabled && apiConfigs[currentPriority].prefix?.trim())
-            ? apiConfigs[currentPriority]
-            : apiConfigs.custom;
-
-        // 有赛季缓存时优先用赛季缓存（手动匹配后写入的 _anime_season_rel_*），避免哈希+智能匹配选错
-        const animaRes = await lsSeasonSearchEpisodes(_season_key, episode, selectedApiConfig.prefix);
-        if (animaRes && animaRes.animaInfo && animaRes.animaInfo.animes.length > 0) {
-            const bgmEpisodeIndex = animaRes.newEpisode - 1;
-            console.log(`[自动匹配] 命中赛季缓存，直接使用`);
-            return { animeOriginalTitle: '', animaInfo: animaRes.animaInfo, bgmEpisodeIndex };
-        }
-
-        // 尝试 tmdbId 匹配（季度剧集含 tvseries/tvspecial/web，电影取首个正片）
-        const tmdbMatchResult = await tryMatchByTmdbId(itemInfoMap, apiConfigs, apiPriority);
-        if (tmdbMatchResult) {
-            debugger;
-            return tmdbMatchResult;
-        }
-
-        const enableHashMatch = true;
-        // 尝试哈希匹配(含 /match 调用)
-        if (enableHashMatch) {
-            const hashMatchResult = await tryMatchByHash(episodeName, streamUrl, size, duration, apiConfigs, apiPriority);
-            if (hashMatchResult) {
-                return hashMatchResult;
-            }
-        } else {
-            console.log('[自动匹配] 哈希匹配已关闭');
-        }
-
-        for (const apiKey of apiPriority) {
-            const config = apiConfigs[apiKey];
-            if (!config || !config.enabled || (apiKey === 'custom' && !config.prefix)) {
-                continue;
-            }
-
-            // 尝试 /search/episodes 接口 (带集数)
-            let searchTitle = episodeName;
-            let searchEpisode = episode;
-
-            if (apiKey === 'official') {
-                const parsed = parseAnimeName(episodeName);
-                if (parsed.season !== null) {
-                    searchTitle = parsed.season === 1 ? parsed.title : `${parsed.title} 第${parsed.season}季`;
-                    searchEpisode = parsed.episode;
-                    console.log(`[自动匹配][官方API优化] 格式化搜索: 标题='${searchTitle}', 集数=${searchEpisode}`);
+        // 为每个启用的自定义源创建配置
+        if (lsGetItem(lsKeys.useCustomApi.id) && customApiList.length > 0) {
+            customApiList.forEach((item, index) => {
+                if (item.enabled) {
+                    apiConfigs[`custom_${index}`] = { name: item.name || `自定义源${index + 1}`, prefix: item.url, enabled: true };
                 }
-            }
-            console.log(`[自动匹配][${config.name}] 尝试 /search/episodes 接口, 标题名: ${searchTitle}, 集数: ${searchEpisode}`);
-            let searchAnimaInfo = await fetchSearchEpisodes(searchTitle, searchEpisode, config.prefix);
-            if (searchAnimaInfo && searchAnimaInfo.animes.length > 0) {
-                console.log(`[${config.name}] 带集数搜索成功`);
-                return { animaInfo: searchAnimaInfo, apiPrefix: config.prefix };
-            }
-
-            // 尝试 /search/episodes 接口 (不带集数)
-            console.log(`[${config.name}] 带集数搜索失败，尝试不带集数...`);
-            searchAnimaInfo = await fetchSearchEpisodes(episodeName, null, config.prefix);
-            if (searchAnimaInfo && searchAnimaInfo.animes.length > 0) {
-                console.log(`[${config.name}] 不带集数搜索成功`);
-                return { animaInfo: searchAnimaInfo, apiPrefix: config.prefix };
-            }
+            });
         }
 
-        // 默认匹配方式（复用前文已计算的 selectedApiConfig）
-        const animaInfo = await fetchSearchEpisodes(animeName, episode, selectedApiConfig.prefix);
-        if (animaInfo && animaInfo.animes.length > 0) {
-            return { animeOriginalTitle: '', animaInfo };
+        // 构建优先级队列
+        const actualPriority = [];
+        for (const key of apiPriority) {
+            if (key === 'official') actualPriority.push('official');
+            else if (key === 'custom') customApiList.forEach((item, i) => item.enabled && actualPriority.push(`custom_${i}`));
         }
 
-        const res = await autoFailback(animeName, episode, seriesOrMovieId);
-        if (res) {
-            return res;
-        }
-    }
+        // 读取 /match 接口开关和匹配模式
+        const matchApiEnabled = lsGetItem(lsKeys.matchApiEnable.id);
+        const userMatchMode = lsGetItem(lsKeys.matchMode.id);
+        const useHash = matchApiEnabled && userMatchMode === 'hashAndFileName';
 
-    /** 排除特典集（Sn/Cn 开头），返回正片数组（按原顺序） */
-    function filterMainEpisodes(episodes) {
-        if (!episodes || !Array.isArray(episodes)) return [];
-        return episodes.filter((ep) => !/^[SC]\d+\s/.test(ep.episodeTitle || ''));
-    }
+        // 准备 /match 接口的请求体 (仅在启用时才需要)
+        let matchPayload = null;
+        if (matchApiEnabled) {
+            const FALLBACK_HASH = 'a1b2c3d4e5f67890abcd1234ef567890';
+            let fileHash = FALLBACK_HASH;
 
-    async function tryMatchByTmdbId(itemInfoMap, apiConfigs, apiPriority) {
-        const { seriesTmdbId, seasonNumber, episodeNumber, episode } = itemInfoMap;
-        if (!seriesTmdbId) return null;
-
-        for (const apiKey of apiPriority) {
-            const config = apiConfigs[apiKey];
-            if (!config || !config.enabled || (apiKey === 'custom' && !config.prefix)) continue;
-
-            const animaInfo = await fetchSearchEpisodesByTmdbId(seriesTmdbId, config.prefix);
-            if (!animaInfo || !animaInfo.animes?.length) continue;
-
-            const animes = animaInfo.animes;
-
-            // 电影：取第一个 anime 的首个正片
-            if (episode === 'movie') {
-                const firstAnime = animes[0];
-                const mainEps = filterMainEpisodes(firstAnime.episodes);
-                const ep = mainEps[0] || firstAnime.episodes?.[0];
-                if (ep) {
-                    console.log(`[tmdbId匹配] 电影匹配成功: ${firstAnime.animeTitle}`);
-                    return {
-                        directMatch: true,
-                        apiPrefix: config.prefix,
-                        apiName: config.name,
-                        episodeInfo: {
-                            episodeId: ep.episodeId,
-                            episodeTitle: ep.episodeTitle,
-                            animeId: firstAnime.animeId,
-                            animeTitle: firstAnime.animeTitle,
-                            imageUrl: dandanplayApi.posterImg(firstAnime.animeId)
-                        }
-                    };
+            if (useHash && streamUrl && size > 0) {
+                logger.info('[自动匹配] 匹配模式: 哈希+文件名, 正在计算文件哈希...');
+                fileHash = await calculateFileHash(streamUrl, size) || FALLBACK_HASH;
+                if (fileHash === FALLBACK_HASH) {
+                    logger.warn('[自动匹配] 文件哈希计算失败, 已回退为假哈希');
+                } else {
+                    logger.info(`[自动匹配] 文件哈希计算成功: ${fileHash}`);
                 }
-                continue;
-            }
-
-            // 季度剧集：tvseries、tvspecial、web 参与；ova 单独处理
-            const seasonAnimes = animes.filter((a) => ['tvseries', 'tvspecial', 'web'].includes(a.type));
-            const ovaAnimes = animes.filter((a) => a.type === 'ova');
-            const epNum = typeof episodeNumber === 'number' ? episodeNumber : parseInt(episode, 10);
-            if (isNaN(epNum) || epNum < 1) continue;
-            const season = seasonNumber != null ? seasonNumber : 1;
-
-            let matchedEp = null;
-            let matchedAnime = null;
-
-            if (season === 0) {
-                // 第 0 季 = OVA，按季度数组顺序拼接 OVA，取 episodeNumber 对应集
-                const ovaPairs = ovaAnimes.flatMap((a) =>
-                    filterMainEpisodes(a.episodes).map((ep) => ({ anime: a, ep }))
-                );
-                const pair = ovaPairs[epNum - 1];
-                if (pair) {
-                    matchedEp = pair.ep;
-                    matchedAnime = pair.anime;
-                }
-            } else if (season >= 2) {
-                // 非第 0/1 季：直接按季度顺序和集数匹配
-                const targetAnime = seasonAnimes[season - 1];
-                if (targetAnime) {
-                    const mainEps = filterMainEpisodes(targetAnime.episodes);
-                    matchedEp = mainEps[epNum - 1];
-                    matchedAnime = targetAnime;
-                }
+            } else if (useHash) {
+                logger.warn('[自动匹配] 匹配模式: 哈希+文件名, 但缺少 streamUrl 或 size, 使用假哈希');
             } else {
-                // 第 1 季：可能为 TMDB 合并多季，按累计集数判断实际季度
-                let acc = 0;
-                for (let i = 0; i < seasonAnimes.length; i++) {
-                    const mainEps = filterMainEpisodes(seasonAnimes[i].episodes);
-                    const count = mainEps.length;
-                    if (epNum <= acc + count) {
-                        matchedEp = mainEps[epNum - acc - 1];
-                        matchedAnime = seasonAnimes[i];
-                        break;
-                    }
-                    acc += count;
-                }
+                logger.info('[自动匹配] 匹配模式: 仅文件名 (跳过哈希计算)');
             }
 
-            if (matchedEp && matchedAnime) {
-                console.log(`[tmdbId匹配] 季度剧集匹配成功: ${matchedAnime.animeTitle} - ${matchedEp.episodeTitle}`);
-                return {
-                    directMatch: true,
-                    apiPrefix: config.prefix,
-                    apiName: config.name,
-                    episodeInfo: {
-                        episodeId: matchedEp.episodeId,
-                        episodeTitle: matchedEp.episodeTitle,
-                        animeId: matchedAnime.animeId,
-                        animeTitle: matchedAnime.animeTitle,
-                        imageUrl: dandanplayApi.posterImg(matchedAnime.animeId)
-                    }
-                };
-            }
-        }
-        return null;
-    }
-
-    async function tryMatchByHash(animeName, streamUrl, size, duration, apiConfigs, apiPriority) {
-        const matchPayload = {
-            fileName: animeName,
-            fileHash: 'a1b2c3d4e5f67890abcd1234ef567890', // 默认假哈希
-            fileSize: size || 0,
-            videoDuration: Math.floor(duration || 0),
-            matchMode: "hashAndFileName"
-        };
-
-        // 仅在有文件路径时才计算哈希值
-        if (streamUrl && size > 0) {
-            console.log(`准备通过播放链接计算文件哈希`);
-            matchPayload.fileHash = await calculateFileHash(streamUrl, size);
-            if (matchPayload.fileHash) {
-                console.log(`文件哈希计算完成: ${matchPayload.fileHash}`);
-            } else {
-                console.warn('[Hash] 文件哈希计算失败，将使用假哈希值进行匹配。');
-                // matchPayload.fileHash = 'a1b2c3d4e5f67890abcd1234ef567890';
-            }
+            matchPayload = {
+                fileName: animeName,
+                fileHash: fileHash,
+                fileSize: size || 0,
+                videoDuration: Math.floor(duration || 0),
+                matchMode: useHash ? 'hashAndFileName' : 'fileNameOnly'
+            };
         } else {
-            console.warn('未找到播放链接或文件大小，将使用假哈希值进行匹配。');
-            // matchPayload.fileHash = 'a1b2c3d4e5f67890abcd1234ef567890';
+            logger.info('[自动匹配] /match 接口已关闭, 将直接使用 /search/episodes 接口');
         }
 
-        // 尝试 /match 接口（按优先级）
-        for (const apiKey of apiPriority) {
+        logger.info(`[自动匹配] 开始串行搜索... 目标: ${animeName}`);
+
+        // --- 3. 串行执行逻辑 (回归) ---
+        for (const apiKey of actualPriority) {
             const config = apiConfigs[apiKey];
-            if (!config || !config.enabled || (apiKey === 'custom' && !config.prefix)) {
-                continue;
-            }
+            // 跳过未启用或配置错误的源
+            if (!config?.enabled || !config?.prefix) continue;
 
-            console.log(`[自动匹配] 尝试 ${config.name} /match 接口, 请求体:`, {...matchPayload, fileHash: matchPayload.fileHash ? '...' : null});
-            const matchResult = await fetchMatchApi(matchPayload, config.prefix);
-            if (matchResult && matchResult.isMatched && matchResult.animes && matchResult.animes.length > 0) {
-                console.log(`${config.name} /match 接口直接匹配成功，将直接使用返回的 episodeId`);
-                const match = matchResult.animes[0];
-                return {
-                    directMatch: true,
-                    apiPrefix: config.prefix,
-                    apiName: config.name,
-                    episodeInfo: {
-                        ...match,
-                        episodes: [{ episodeId: match.episodeId, episodeTitle: match.episodeTitle }],
-                        imageUrl: match.imageUrl
-                    }
-                };
-            }
+            logger.info(`[自动匹配] 正在尝试源: ${config.name}...`);
+            const providerStart = performance.now();
 
-            // 如果 /match 接口返回了候选列表但没有直接匹配，尝试智能选择
-            if (matchResult && !matchResult.isMatched && matchResult.animes && matchResult.animes.length > 0) {
-                console.log(`[${config.name}] /match 接口返回候选列表，尝试智能匹配...`);
-                const bestMatch = selectBestMatch(animeName, matchResult.animes);
-                if (bestMatch) {
-                    console.log(`[${config.name}] 智能匹配选择:`, bestMatch.animeTitle);
-                    return {
-                        directMatch: true,
-                        apiPrefix: config.prefix,
-                        apiName: config.name,
-                        episodeInfo: {
-                            ...bestMatch,
-                            episodes: [{ episodeId: bestMatch.episodeId, episodeTitle: bestMatch.episodeTitle }],
-                            imageUrl: bestMatch.imageUrl
-                        }
-                    };
+            try {
+                let result = null;
+
+                // A. 尝试 /match 接口 (仅在启用时调用)
+                if (matchApiEnabled && matchPayload) {
+                const matchResult = await fetchMatchApi(matchPayload, config.prefix);
+
+                // [黑名单] 对官方 API 的 match 结果应用分集黑名单过滤
+                if (apiKey === 'official' && matchResult?.animes?.length > 0) {
+                    matchResult.animes = applyEpisodeBlacklist(matchResult.animes);
                 }
+
+                // A1. 精确匹配：isMatched: true 时直接使用第一个结果
+                if (matchResult?.isMatched && matchResult?.animes?.length > 0) {
+                    const match = matchResult.animes[0];
+                    result = { directMatch: true, apiPrefix: config.prefix, apiName: config.name, episodeInfo: { ...match, episodes: [{ episodeId: match.episodeId, episodeTitle: match.episodeTitle }], imageUrl: match.imageUrl } };
+                }
+                // A2. 模糊匹配：isMatched: false 时，先过滤再智能匹配
+                else if (matchResult?.animes?.length > 0) {
+                    // 使用相似度过滤 + 智能匹配，minSimilarity=0.3 过滤掉明显不相关的结果
+                    const bestMatch = selectBestMatch(animeName, matchResult.animes, 0.3);
+                    if (bestMatch) {
+                        result = { directMatch: true, apiPrefix: config.prefix, apiName: config.name, episodeInfo: { ...bestMatch, episodes: [{ episodeId: bestMatch.episodeId, episodeTitle: bestMatch.episodeTitle }], imageUrl: bestMatch.imageUrl } };
+                    }
+                }
+                }
+
+                // B. 尝试 /search/episodes 接口 (如果 match 没有结果)
+                if (!result) {
+                    let searchTitle = animeName;
+
+                    // 官方源特殊优化
+                    if (apiKey === 'official') {
+                        const parsed = parseAnimeName(animeName);
+                        if (parsed.season !== null) {
+                            searchTitle = parsed.season === 1 ? parsed.title : `${parsed.title} 第${parsed.season}季`;
+                        }
+                    }
+
+                    // 双向匹配：尝试所有候选季集，选择最佳结果
+                    let bestAnimaInfo = null;
+                    let bestCandidate = null;
+
+                    // 解析基础标题（去掉季度后缀），用于根据候选季度动态构建搜索标题
+                    const parsedBase = parseAnimeName(animeName);
+                    const baseName = parsedBase.title || animeName;
+
+                    for (const candidate of seasonEpisodeCandidates) {
+                        const candidateEpisode = candidate.episode;
+                        const candidateSeason = candidate.season;
+
+                        let logMsg = `[双向匹配] 尝试集数: ${candidateEpisode}`;
+                        if (candidateSeason) {
+                            logMsg = `[双向匹配] 尝试: S${String(candidateSeason).padStart(2, '0')}E${String(candidateEpisode).padStart(2, '0')}`;
+                        }
+                        logger.debug(logMsg);
+
+                        // 根据候选的季度动态调整搜索标题
+                        let candidateSearchTitle = searchTitle;
+                        if (candidateSeason && candidateSeason > 1) {
+                            candidateSearchTitle = `${baseName} 第${candidateSeason}季`;
+                            logger.debug(`[双向匹配] 根据候选季度调整搜索标题: "${candidateSearchTitle}"`);
+                        } else if (candidateSeason === 1) {
+                            // 第1季使用纯标题（不带季度后缀）
+                            candidateSearchTitle = baseName;
+                        }
+
+                        const animaInfo = await fetchSearchEpisodes(candidateSearchTitle, candidateEpisode, config.prefix);
+
+                        // [黑名单] 对搜索结果应用黑名单过滤
+                        if (animaInfo?.animes?.length > 0) {
+                            animaInfo.animes = applySearchBlacklist(animaInfo.animes, true, apiKey);
+                        }
+
+                        if (animaInfo?.animes?.length > 0) {
+                            // 候选列表按优先级排序（映射后优先），第一个有效结果即为最优
+                            bestAnimaInfo = animaInfo;
+                            bestCandidate = candidate;
+                            logger.debug(`[双向匹配] 候选 S${String(candidateSeason).padStart(2, '0')}E${String(candidateEpisode).padStart(2, '0')} 匹配成功，停止搜索`);
+                            break;
+                        }
+                    }
+
+                    if (bestAnimaInfo) {
+                        let logMsg = `[双向匹配] 最佳匹配使用集数: ${bestCandidate.episode}`;
+                        if (bestCandidate.season) {
+                            logMsg = `[双向匹配] 最佳匹配: S${String(bestCandidate.season).padStart(2, '0')}E${String(bestCandidate.episode).padStart(2, '0')}`;
+                        }
+                        logger.info(`${logMsg}, 结果数: ${bestAnimaInfo.animes.length}`);
+                        result = { animaInfo: bestAnimaInfo, apiPrefix: config.prefix, apiName: config.name };
+                    }
+                    // 降级：不带集数搜索
+                    else {
+                        const animaInfo = await fetchSearchEpisodes(animeName, null, config.prefix);
+
+                        // [黑名单] 对搜索结果应用黑名单过滤
+                        if (animaInfo?.animes?.length > 0) {
+                            animaInfo.animes = applySearchBlacklist(animaInfo.animes, true, apiKey);
+                        }
+
+                        if (animaInfo?.animes?.length > 0) {
+                            result = { animaInfo, apiPrefix: config.prefix, apiName: config.name };
+                        }
+                        // 降级：原始标题搜索
+                        else {
+                            const seriesOrMovieInfo = await fatchEmbyItemInfo(seriesOrMovieId);
+                            if (seriesOrMovieInfo?.OriginalTitle) {
+                                const animaInfoOriginal = await fetchSearchEpisodes(seriesOrMovieInfo.OriginalTitle, seasonEpisodeCandidates[0].episode, config.prefix);
+
+                                // [黑名单] 对搜索结果应用黑名单过滤
+                                if (animaInfoOriginal?.animes?.length > 0) {
+                                    animaInfoOriginal.animes = applySearchBlacklist(animaInfoOriginal.animes, true, apiKey);
+                                }
+
+                                if (animaInfoOriginal?.animes?.length > 0) {
+                                    result = { animaInfo: animaInfoOriginal, animeOriginalTitle: seriesOrMovieInfo.OriginalTitle, apiPrefix: config.prefix, apiName: config.name };
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // --- 4. 关键：如果找到了，直接返回 (Short-Circuit) ---
+                if (result) {
+                    const totalTime = (performance.now() - startTime).toFixed(0);
+                    logger.info(`[自动匹配] 在源 [${config.name}] 匹配成功! 耗时: ${(performance.now() - providerStart).toFixed(0)}ms (累计: ${totalTime}ms)`);
+                    appendvideoOsdDanmakuInfo(null, `匹配耗时: ${totalTime}ms`);
+                    return result; // <--- 之后的循环不会执行，请求被节省了
+                }
+
+            } catch (e) {
+                logger.warn(`[自动匹配] 源 ${config.name} 发生错误:`, e);
+                // 继续下一个循环
             }
         }
 
+        logger.info(`[自动匹配] 所有源均未匹配成功, 总耗时: ${(performance.now() - startTime).toFixed(0)}ms`);
         return null;
     }
 
@@ -1845,23 +2722,9 @@
         if (!itemInfoMap) { return null; }
         const { _episode_key, animeId, episode, seriesOrMovieId } = itemInfoMap;
 
-        // 修正缓存键，区分官方和自定义API
-        const useOfficialApi = lsGetItem(lsKeys.useOfficialApi.id);
-        const useCustomApi = lsGetItem(lsKeys.useCustomApi.id);
-        const apiPriority = lsGetItem(lsKeys.apiPriority.id);
-        const enabledApis = apiPriority.filter(apiKey => {
-            if (apiKey === 'official') return useOfficialApi;
-            if (apiKey === 'custom') return useCustomApi;
-            return false;
-        });
-        const unique_episode_key = lsLocalKeys.apiPrefix + `${enabledApis.join('_')}_` + _episode_key;
-        // 单集缓存优先于上下集推理
-        if (is_auto && window.localStorage.getItem(unique_episode_key)) {
-            return JSON.parse(window.localStorage.getItem(unique_episode_key));
-        }
-
-        // 下一集/上一集推理逻辑
+        // [新增] 下一集/上一集推理逻辑
         const previous_info = window.ede.previous_episode_info;
+        // ... (下一集/上一集推理逻辑保持不变)
         if (is_auto && previous_info && previous_info.episodeId && previous_info.seriesOrMovieId === seriesOrMovieId) {
             const previousEpisodeIndex = previous_info.episodeIndex; // 0-based
             const currentEpisodeNumber = episode; // 1-based
@@ -1882,27 +2745,40 @@
             }
 
             if (predictedEpisodeId) {
-                console.log(`[推理匹配] 检测到播放'${direction}'，尝试使用推理的 episodeId: ${predictedEpisodeId}`);
+                logger.info(`[推理匹配] 检测到播放'${direction}'，尝试使用推断的 episodeId: ${predictedEpisodeId}`);
                 const comments = await fetchComment(predictedEpisodeId);
                 if (comments && comments.length > 0) {
-                    console.log(`[推理匹配] 成功！使用 episodeId: ${predictedEpisodeId}`);
+                    logger.info(`[推理匹配] 成功！使用 episodeId: ${predictedEpisodeId}`);
                     const predictedEpisodeInfo = {
                         ...itemInfoMap,
                         episodeId: predictedEpisodeId,
-                        episodeTitle: `第 ${currentEpisodeNumber} 集 (推理)`,
+                        episodeTitle: `第 ${currentEpisodeNumber} 集 (推断)`,
                         animeId: previous_info.animeId,
                         animeTitle: previous_info.animeTitle,
                         imageUrl: previous_info.imageUrl,
-                        seriesOrMovieId: seriesOrMovieId,
+                        seriesOrMovieId: seriesOrMovieId, // 确保系列ID更新
                         episodeIndex: currentEpisodeNumber - 1,
-                        bgmEpisodeIndex: currentEpisodeNumber - 1,
                     };
-                    // 不写入缓存，因为这只是一个快速的推理
+                    // 不写入缓存，因为这只是一个快速的推断
                     return predictedEpisodeInfo;
                 } else {
-                    console.log(`[推理匹配] 失败，episodeId: ${predictedEpisodeId} 无弹幕，回退到常规匹配。`);
+                    logger.info(`[推理匹配] 失败，episodeId: ${predictedEpisodeId} 无弹幕，回退到常规匹配。`);
                 }
             }
+        }
+
+        // 修正缓存键，区分官方和自定义API
+        const useOfficialApi = lsGetItem(lsKeys.useOfficialApi.id);
+        const useCustomApi = lsGetItem(lsKeys.useCustomApi.id);
+        const apiPriority = lsGetItem(lsKeys.apiPriority.id);
+        const enabledApis = apiPriority.filter(apiKey => {
+            if (apiKey === 'official') return useOfficialApi;
+            if (apiKey === 'custom') return useCustomApi;
+            return false;
+        });
+        const unique_episode_key = `_api_${enabledApis.join('_')}_` + _episode_key;
+        if (is_auto && window.localStorage.getItem(unique_episode_key)) {
+            return JSON.parse(window.localStorage.getItem(unique_episode_key));
         }
 
         const res = await searchEpisodes(itemInfoMap);
@@ -1912,43 +2788,34 @@
         if (!useOfficial && !useCustom) {
             return null;
         }
-        if (!res) {
-            console.log(`弹弹 Play 章节匹配失败`);
+        if (!res || (!res.directMatch && (!res.animaInfo || res.animaInfo.animes.length === 0))) {
+            logger.info(`弹弹 Play 章节匹配失败`);
             // 播放界面右下角添加弹幕信息
             appendvideoOsdDanmakuInfo();
             // toastByDanmaku('弹弹 Play 章节匹配失败', 'error');
             return null;
         }
-
-        // 处理 directMatch 的情况
-        if (res.directMatch && res.episodeInfo) {
-            console.log(`使用 /match 接口直接匹配的结果`);
-            const episodeIndex = isNaN(episode) ? 0 : episode - 1;
+        // 处理来自 /match 的直接匹配结果
+        if (res.directMatch) {
             const episodeInfo = {
                 episodeId: res.episodeInfo.episodeId,
                 episodeTitle: res.episodeInfo.episodeTitle,
-                episodeIndex,
-                bgmEpisodeIndex: episodeIndex,
+                episodeIndex: 0,
                 animeId: res.episodeInfo.animeId,
                 animeTitle: res.episodeInfo.animeTitle,
                 animeOriginalTitle: '',
                 imageUrl: res.episodeInfo.imageUrl,
-                apiName: res.apiName,
+                apiName: res.apiName, // [新增] 保存API名称
                 apiPrefix: res.apiPrefix,
-                seriesOrMovieId: seriesOrMovieId,
             };
-            window.localStorage.setItem(unique_episode_key, JSON.stringify(episodeInfo));
+        // 将系列ID也存入，用于下一集/上一集的判断
+        episodeInfo.seriesOrMovieId = seriesOrMovieId;
+            localStorage.setItem(unique_episode_key, JSON.stringify(episodeInfo));
             return episodeInfo;
         }
 
-        // 处理传统搜索结果
-        if (!res.animaInfo || res.animaInfo.animes.length === 0) {
-            console.log(`弹弹 Play 章节匹配失败`);
-            appendvideoOsdDanmakuInfo();
-            return null;
-        }
-
-        const { animeOriginalTitle, animaInfo } = res;
+        // [修正] 从 res 中解构出 apiPrefix 和 apiName
+        const { animeOriginalTitle, animaInfo, apiPrefix, apiName } = res;
         let selectAnime_id = 1;
         if (animeId != -1) {
             for (let index = 0; index < animaInfo.animes.length; index++) {
@@ -1959,15 +2826,50 @@
         }
         selectAnime_id = parseInt(selectAnime_id) - 1;
         const episodeIndex = isNaN(episode) ? 0 : episode - 1;
+        // 健壮性检查：确保 animes[selectAnime_id] 和 episodes 存在
+        if (!animaInfo.animes[selectAnime_id] || !animaInfo.animes[selectAnime_id].episodes || animaInfo.animes[selectAnime_id].episodes.length === 0) {
+            logger.error('匹配逻辑错误：未能找到有效的分集信息。');
+            return null;
+        }
+        // [修复] 根据 episodeIndex 定位到正确的分集，而非永远取 episodes[0]
+        const selectedAnimeEpisodes = animaInfo.animes[selectAnime_id].episodes;
+        let targetEpisode = selectedAnimeEpisodes[0]; // 默认回退到第一集
+
+        if (episodeIndex >= 0 && episodeIndex < selectedAnimeEpisodes.length) {
+            // 优先使用 episodeIndex 直接定位
+            targetEpisode = selectedAnimeEpisodes[episodeIndex];
+            logger.info(`[自动匹配] 使用 episodeIndex(${episodeIndex}) 定位到分集: ${targetEpisode.episodeTitle} (episodeId: ${targetEpisode.episodeId})`);
+        } else if (selectedAnimeEpisodes.length === 1) {
+            // 搜索结果只有一集（fetchSearchEpisodes 已经根据集数过滤了），直接使用
+            targetEpisode = selectedAnimeEpisodes[0];
+            logger.info(`[自动匹配] 搜索结果仅一集, 直接使用: ${targetEpisode.episodeTitle} (episodeId: ${targetEpisode.episodeId})`);
+        } else {
+            // episodeIndex 超出范围，尝试从 episodeTitle 或 episodeNumber 匹配
+            const epNumber = episode; // 1-based
+            const matched = selectedAnimeEpisodes.find(ep =>
+                ep.episodeNumber == epNumber ||
+                (ep.episodeTitle && (ep.episodeTitle.includes(`第${epNumber}话`) || ep.episodeTitle.includes(`第${epNumber}集`)))
+            );
+            if (matched) {
+                targetEpisode = matched;
+                logger.info(`[自动匹配] episodeIndex(${episodeIndex}) 超出范围, 通过集数号(${epNumber})匹配到: ${targetEpisode.episodeTitle} (episodeId: ${targetEpisode.episodeId})`);
+            } else {
+                logger.warn(`[自动匹配] episodeIndex(${episodeIndex}) 超出范围(共${selectedAnimeEpisodes.length}集), 且无法通过集数号匹配, 回退使用第一集: ${targetEpisode.episodeTitle}`);
+            }
+        }
+
         const episodeInfo = {
-            episodeId: animaInfo.animes[selectAnime_id].episodes[0].episodeId,
-            episodeTitle: animaInfo.animes[selectAnime_id].episodes[0].episodeTitle,
+            episodeId: targetEpisode.episodeId,
+            episodeTitle: targetEpisode.episodeTitle,
             episodeIndex,
             bgmEpisodeIndex: res.bgmEpisodeIndex ? res.bgmEpisodeIndex : episodeIndex,
             animeId: animaInfo.animes[selectAnime_id].animeId,
             animeTitle: animaInfo.animes[selectAnime_id].animeTitle,
             animeOriginalTitle,
+            imageUrl: animaInfo.animes[selectAnime_id].imageUrl,
             seriesOrMovieId: seriesOrMovieId,
+            apiPrefix: apiPrefix, // [修正] 保存API前缀
+            apiName: apiName, // [新增] 保存API名称
         };
         localStorage.setItem(unique_episode_key, JSON.stringify(episodeInfo));
         return episodeInfo;
@@ -2010,7 +2912,7 @@
 
             return comments;
         } catch (error) {
-            console.error('Failed to parse XML data:', error);
+            logger.error('Failed to parse XML data:', error);
             return null;
         }
     }
@@ -2019,23 +2921,47 @@
         const url = `${ApiClient.serverAddress()}/api/danmu/${mediaServerItemId}?option=Refresh&X-Emby-Token=${ApiClient.accessToken()}`;
         const response = await fetch(url);
         if (response.ok) {
-            console.log(lsKeys.refreshPluginXml.name + ':成功');
+            logger.info(lsKeys.refreshPluginXml.name + ':成功');
         } else {
             throw new Error(lsKeys.refreshPluginXml.name + ':失败');
         }
     }
 
-    async function createDanmaku(comments) {
+    async function createDanmaku(comments, sessionId) {
+        // [核心修复] 1. 入口身份核验
+        // 如果调用者传了身份证(sessionId)，必须和全局最新的(lastLoadId)一致
+        if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) {
+            logger.warn(`[防串台] 拦截旧任务(入口): ${sessionId}, 当前: ${window.ede.lastLoadId}`);
+            return;
+        }
+
         if (!comments) { return; }
-        if (window.ede.danmaku != null) {
-            window.ede.danmaku.destroy();
+
+        if (window.ede.danmaku) {
+            try { window.ede.danmaku.hide(); window.ede.danmaku.destroy(); } catch (e) {
+                logger.warn('旧弹幕实例销毁异常', e);
+            }
             window.ede.danmaku = null;
         }
-        window.ede.commentsOriginal = comments;
+
+        const ghostWrappers = document.querySelectorAll(`#${eleIds.danmakuWrapper}`);
+        ghostWrappers.forEach(el => el.remove());
+
         const commentsParsed = danmakuParser(comments);
         window.ede.commentsParsed = commentsParsed;
-        let _comments = danmakuFilter(commentsParsed);
-        console.log('[加载]弹幕成功: ' + _comments.length);
+
+        logger.debug('开始过滤和合并弹幕 (异步)...');
+
+        // --- 异步等待 (这里耗时 1秒左右) ---
+        let _comments = await danmakuFilter(commentsParsed);
+
+        // [核心修复] 2. 出口身份核验 (防止 await 期间切集)
+        if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) {
+            logger.warn(`[防串台] 拦截旧任务(出口): ${sessionId}, 当前: ${window.ede.lastLoadId}`);
+            return;
+        }
+
+        logger.info('弹幕加载成功: ' + _comments.length);
 
         const _media = document.querySelector(mediaQueryStr);
         if (!_media) {
@@ -2045,11 +2971,14 @@
             }
             // 设置弹窗内的弹幕信息
             buildCurrentDanmakuInfo(currentDanmakuInfoContainerId);
-            throw new Error('用户已退出视频播放');
+            // throw new Error('创建弹幕失败：用户已退出视频播放页面。');
+            logger.warn('用户已退出视频播放页面，停止创建。');
+            return;
         }
         if (!isVersionOld) { _media.style.position = 'absolute'; }
         // from https://github.com/Izumiko/jellyfin-danmaku/blob/jellyfin/ede.js#L1104
-        const wrapperTop = 0; // 播放器 UI 顶部阴影
+        const wrapperTop = 0;
+        // 播放器 UI 顶部阴影
         let wrapper = getById(eleIds.danmakuWrapper);
         wrapper && wrapper.remove();
         wrapper = document.createElement('div');
@@ -2058,40 +2987,103 @@
         wrapper.style.width = '100%';
         wrapper.style.height = `calc(${lsGetItem(lsKeys.heightPercent.id)}% - ${wrapperTop}px)`;
         wrapper.style.backgroundColor = lsGetItem(lsKeys.debugShowDanmakuWrapper.id) ? styles.colors.highlight : '';
-        // wrapper.style.opacity = lsGetItem(lsKeys.fontOpacity.id); // 弹幕整体透明度
+        // wrapper.style.opacity = lsGetItem(lsKeys.fontOpacity.id);
+        // 弹幕整体透明度
         wrapper.style.top = wrapperTop + 'px';
         wrapper.style.pointerEvents = 'none';
+        // [优化] 告诉浏览器这个层是会变的，让 GPU 提前准备
+        wrapper.style.willChange = 'transform, opacity';
         // const _container = document.querySelector(mediaContainerQueryStr);
         const _container = await waitForElement(mediaContainerQueryStr);
         _container.prepend(wrapper);
-        let _speed = 144 * lsGetItem(lsKeys.speed.id);
-        window.ede.danmaku = new Danmaku({
+        let _speed = 144 * (lsGetItem(lsKeys.speed.id) / 100);
+        // 检查 Danmaku 库是否已加载，如果未加载则等待
+        const danmakuAvailable = typeof Danmaku !== 'undefined';
+        const windowDanmakuAvailable = typeof window.Danmaku !== 'undefined';
+        logger.info(`[弹幕引擎] 检测可用性: window.Danmaku=${windowDanmakuAvailable}, Danmaku(局部)=${danmakuAvailable}, skipInnerModule=${skipInnerModule}`);
+
+        if (!danmakuAvailable && !windowDanmakuAvailable) {
+            logger.warn('[弹幕引擎] 弹幕库未就绪，开始轮询等待 (最多3秒)...');
+            // 尝试等待 Danmaku 库加载完成，最多等待 3 秒
+            let waitCount = 0;
+            const maxWait = 30; // 30 * 100ms = 3秒
+            while (typeof window.Danmaku === 'undefined' && waitCount < maxWait) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                waitCount++;
+            }
+            if (typeof window.Danmaku === 'undefined') {
+                logger.error(`[弹幕引擎] 轮询等待超时 (${maxWait * 100}ms), window.Danmaku 仍为 undefined`);
+                logger.info('[弹幕引擎] 尝试通过 Emby.importModule 重试加载, 路径:', requireDanmakuPath);
+                // 尝试重新加载
+                try {
+                    const module = await Emby.importModule(requireDanmakuPath);
+                    window.Danmaku = module;
+                    logger.info('[弹幕引擎] Emby.importModule 重试加载成功, window.Danmaku 已就绪');
+                } catch (error) {
+                    logger.error('[弹幕引擎] Emby.importModule 重试加载失败:', error);
+                    throw new Error('创建弹幕失败：Danmaku 库未能加载。请检查网络连接或刷新页面重试。');
+                }
+            } else {
+                logger.info(`[弹幕引擎] 轮询等待成功, 等待了 ${waitCount * 100}ms, window.Danmaku 已就绪`);
+            }
+        }
+        const DanmakuClass = window.Danmaku || Danmaku;
+        logger.info(`[弹幕引擎] 使用的引擎类: ${DanmakuClass ? DanmakuClass.name || 'Danmaku(anonymous)' : 'undefined'}`);
+        window.ede.danmaku = new DanmakuClass({
             container: wrapper,
             media: _media,
             comments: _comments,
             engine: lsGetItem(lsKeys.engine.id),
             speed: _speed,
         });
-        lsGetItem(lsKeys.switch.id) ? window.ede.danmaku.show() : window.ede.danmaku.hide();
+        // [优化] 始终让引擎 show() 保持运行，通过 CSS visibility 控制可见性
+        // 避免 hide()/show() 导致 runningList 被 clear，弹幕位置信息丢失
+        window.ede.danmaku.show();
+        if (!lsGetItem(lsKeys.switch.id)) {
+            wrapper.style.visibility = 'hidden';
+        }
         if (window.ede.ob) {
             window.ede.ob.disconnect();
         }
-        window.ede.ob = new ResizeObserver(() => {
-            if (window.ede.danmaku) {
-                console.log('Resizing');
-                window.ede.danmaku.resize();
-                if (lsGetItem(lsKeys.osdLineChartEnable.id)) {
-                    buildProgressBarChart(20);
+
+        // 增加尺寸比对
+        // 1. 记录上一次的宽高
+        let lastWidth = _container.offsetWidth;
+        let lastHeight = _container.offsetHeight;
+        let resizeTimer;
+
+        window.ede.ob = new ResizeObserver((entries) => {
+            // ResizeObserver 可能会在初始化时立即触发一次，或者在微小布局调整时触发
+            // 通过 entries 获取精确的尺寸
+            for (let entry of entries) {
+                const { width, height } = entry.contentRect;
+
+                // 判断尺寸变化幅度
+                // 只有当 宽 或 高 的变化超过 20px 时，才执行重载逻辑
+                if (Math.abs(width - lastWidth) < 20 && Math.abs(height - lastHeight) < 20) {
+                    return; // 变化太小，认为是抖动，忽略
                 }
+
+                // 只有真的发生了大变化，才更新记录并启动计时器
+                lastWidth = width;
+                lastHeight = height;
+                if (resizeTimer) clearTimeout(resizeTimer);
+
+                resizeTimer = setTimeout(() => {
+                    // 再次检查弹幕对象是否存在，防止报错
+                    if (window.ede.danmaku) {
+                        logger.debug(`[Resize] 尺寸变化 (${width|0}x${height|0})，重载弹幕轨道...`);
+                        loadDanmaku(LOAD_TYPE.RELOAD);
+                    }
+                }, 500);
             }
         });
+
         window.ede.ob.observe(_container);
         // 自定义的 initH5VideoAdapter 下,解决暂停时暂停的弹幕再次加载会自动恢复问题
         if (_media.id) {
             require(['playbackManager'], (playbackManager) => {
-                if (playbackManager.getCurrentPlayer()
-                    && playbackManager.getPlayerState().PlayState.IsPaused
-                ) {
+                if (playbackManager.getPlayerState().PlayState.IsPaused) {
                     _media.dispatchEvent(new Event('pause'));
                 }
             });
@@ -2121,7 +3113,7 @@
             return;
         }
         const progressBarWidth = container.offsetWidth;
-        console.log('progressBarWidth: ' + progressBarWidth);
+        logger.debug('进度条宽度 (progressBarWidth): ' + progressBarWidth);
         const bulletChartCanvas = document.createElement('canvas');
         bulletChartCanvas.id = eleIds.progressBarLineChart;
         bulletChartCanvas.width = progressBarWidth;
@@ -2131,7 +3123,8 @@
         container.prepend(bulletChartCanvas);
         const ctx = bulletChartCanvas.getContext('2d');
         // 计算每个时间点的弹幕数量
-        const maxTime = Math.max(...comments.map(c => c.time));
+        // [修复] 使用 reduce 代替 Math.max(...array) 避免大数组栈溢出
+        const maxTime = comments.reduce((max, c) => c.time > max ? c.time : max, 0);
         const timeStep = lsGetItem(lsKeys.osdLineChartTime.id);
         const timeCounts = Array.from({ length: Math.ceil(maxTime / timeStep) }, () => 0);
         comments.forEach(c => {
@@ -2140,49 +3133,187 @@
                 timeCounts[index]++;
             }
         });
+        // [修改] 内部绘制函数：改为平滑波浪线
         function drawLineChart(data) {
             ctx.clearRect(0, 0, progressBarWidth, chartHeightNum);
-            const maxY = Math.max(...data);
+            // [修复] 使用 reduce 代替 Math.max(...array) 避免大数组栈溢出
+            const maxY = data.reduce((max, val) => val > max ? val : max, 0);
+            if (maxY <= 0) return; // 防止除以0
+
             const scale = chartHeightNum / maxY; // 用于拉长 y 轴间距
+
+            // 1. 预计算坐标点，方便后续计算控制点
+            const points = data.map((val, i) => ({
+                x: (i / (data.length - 1)) * progressBarWidth,
+                y: chartHeightNum - val * scale
+            }));
+
+            // 2. 开始绘制路径
             ctx.beginPath();
-            ctx.moveTo(0, chartHeightNum - data[0] * scale);
-            for (let i = 1; i < data.length; i++) {
-                const x = (i / (data.length - 1)) * progressBarWidth;
-                const y = chartHeightNum - data[i] * scale;
-                ctx.lineTo(x, y);
+            ctx.moveTo(0, chartHeightNum); // 起点：左下角
+            ctx.lineTo(points[0].x, points[0].y); // 连接到第一个数据点
+
+            // 3. 使用贝塞尔曲线连接数据点 (张力系数 tension)
+            const tension = 0.4; // 0.3~0.5 比较圆滑，0 为折线
+
+            for (let i = 0; i < points.length - 1; i++) {
+                const p0 = points[Math.max(0, i - 1)];
+                const p1 = points[i];
+                const p2 = points[i + 1];
+                const p3 = points[Math.min(points.length - 1, i + 2)];
+
+                // 计算控制点
+                const cp1x = p1.x + (p2.x - p0.x) * tension;
+                const cp1y = p1.y + (p2.y - p0.y) * tension;
+                const cp2x = p2.x - (p3.x - p1.x) * tension;
+                const cp2y = p2.y - (p3.y - p1.y) * tension;
+
+                ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
             }
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)'; // 与次标题同色
-            ctx.lineWidth = 2;
+
+            // 4. 闭合路径 (右下角 -> 左下角)
+            ctx.lineTo(progressBarWidth, chartHeightNum);
+            ctx.closePath();
+
+            // 5. 填充颜色
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // 内部填充淡淡的白色
+            ctx.fill();
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)'; // 边缘描边
+            ctx.lineWidth = 1.5;
             ctx.stroke();
         }
+
         drawLineChart(timeCounts);
-        console.log('已重绘进度条弹幕数量折线图');
+        logger.info('已重绘进度条弹幕数量折线图');
     }
 
-    function loadDanmaku(loadType = LOAD_TYPE.CHECK) {
+
+    // [新增] 强制清理 UI 函数
+    function clearDanmakuUI() {
+    // 1. 隐藏并清空现有弹幕
+    if (window.ede.danmaku) {
+        window.ede.danmaku.hide();
+        window.ede.danmaku.clear();
+    }
+
+    // 2. [关键修改] 立即重置剧集元数据信息，防止旧标题残留
+    if (window.ede) {
+        window.ede.episode_info = null;
+    }
+
+    // 3. 重置右下角 OSD 信息
+    const videoOsdDanmakuTitle = getById(eleIds.videoOsdDanmakuTitle);
+    if (videoOsdDanmakuTitle) {
+        videoOsdDanmakuTitle.innerText = '';
+    }
+
+    // 4. 移除高能进度条
+    const chartEle = getById(eleIds.progressBarLineChart);
+    if (chartEle) {
+        chartEle.remove();
+    }
+
+    // 5. 清空当前的弹幕数据缓存
+    window.ede.commentsParsed = [];
+}
+
+    async function loadDanmaku(loadType = LOAD_TYPE.CHECK) {
         const _media = document.querySelector(mediaQueryStr);
         if (!_media) {
-            return console.warn('用户已退出视频播放,停止加载弹幕');
+            return logger.warn('用户已退出视频播放，停止加载弹幕');
         }
-        if (window.ede.loading) {
-            console.log('正在重新加载');
-            return;
+
+        // [新增] 自动加载弹幕总开关检查 (手动搜索 SEARCH 和重载 RELOAD 不受此限制)
+        if (loadType !== LOAD_TYPE.SEARCH && loadType !== LOAD_TYPE.RELOAD) {
+            if (!lsGetItem(lsKeys.autoLoadSwitch.id)) {
+                logger.info('[dd-danmaku] 自动加载弹幕已关闭，跳过自动匹配 (可通过弹幕设置手动匹配)');
+                return;
+            }
         }
-        window.ede.loading = true;
+
+        // [新增] 先获取媒体库信息并检查排除
+        logger.info('[dd-danmaku] 开始检查媒体库排除...');
+        const item = await getEmbyItemInfo();
+
+        logger.debug('[dd-danmaku] getEmbyItemInfo 返回:', item ? item.Name : 'null');
+        if (item) {
+            const libraryInfo = await getItemLibraryInfo(item);
+            logger.debug('[dd-danmaku] getItemLibraryInfo 返回:', libraryInfo);
+            if (libraryInfo) {
+                window.ede.currentLibraryInfo = libraryInfo;
+
+                // 直接获取排除列表进行判断 (实装逻辑)
+                const excludedList = lsGetItem(lsKeys.excludedLibraries.id) || [];
+                if (excludedList.includes(libraryInfo.libraryName)) {
+                    logger.info(`[dd-danmaku] 媒体库 "${libraryInfo.libraryName}" 在排除列表中，跳过弹幕搜索和加载`);
+
+                    // 更新 UI 显示“已禁用”
+                    appendvideoOsdDanmakuInfo(0);
+
+                    // 即使跳过，也要初始化 ID 并清空可能存在的旧弹幕
+                    const skipSessionId = Date.now().toString();
+                    window.ede.lastLoadId = skipSessionId;
+                    createDanmaku([], skipSessionId);
+
+                    return; // 停止后续加载
+                }
+            }
+        }
+
+        // [关键修复] 2. 在加载的最开始就生成新的任务 ID (Session ID)
+        // 这样 B 剧集一开始加载，A 的 ID (上一个时间戳) 就已经失效了
+        const currentSessionId = Date.now().toString();
+        if (window.ede) {
+            window.ede.lastLoadId = currentSessionId;
+
+            // =========== [修改开始] ===========
+            // 在这里调用清理函数，确保发起请求前，上一集的 UI 已经被清除
+            if (typeof clearDanmakuUI === 'function') {
+                clearDanmakuUI();
+            }
+            logger.info('开始加载新弹幕，已清除上一集 UI');
+            // =========== [修改结束] ===========
+        }
+
+        // 注意：这里不再设置 window.ede.loading = true，因为并发时无法准确控制
+        // 我们改用 ID 校验来控制
+
         if (lsGetItem(lsKeys.useFetchPluginXml.id)) {
             // if (lsGetItem(lsKeys.refreshPluginXml.id)) {
-            //     refreshPluginXml(window.ede.itemId).catch((error) => {
-            //         console.error(error);
-            //     });
+            //      refreshPluginXml(window.ede.itemId).catch((error) => {
+            //          console.error(error);
+            //      });
             // }
             getMapByEmbyItemInfo().then((itemInfoMap) => {
+                // 检查是否获取到信息
+                if (!itemInfoMap) {
+                    logger.debug('[dd-danmaku] 获取视频信息失败，停止弹幕加载');
+                    return;
+                }
+
+                // [新增] 在插件API成功时也计算文件哈希
+                if (itemInfoMap.streamUrl && itemInfoMap.size > 0) {
+                    logger.debug(`[插件API] 准备计算文件哈希`);
+                    calculateFileHash(itemInfoMap.streamUrl, itemInfoMap.size).then(hash => {
+                        if (hash) {
+                            logger.info(`[插件API] 文件哈希计算完成: ${hash}`);
+                        } else {
+                            logger.warn('[插件API] 文件哈希计算失败');
+                        }
+                    }).catch(error => {
+                        logger.error('[插件API] 文件哈希计算出错:', error);
+                    });
+                }
+
                 getCommentsByPluginApi(window.ede.itemId)
-                    .then((comments) => {
-                        if (comments && comments.length > 0) {
-                            return createDanmaku(comments).then(() => {
-                                console.log(lsKeys.useFetchPluginXml.name + ':就位');
-                            }).then(() => {
-                                window.ede.loading = false;
+                .then((comments) => {
+                    if (comments && comments.length > 0) {
+                        // [传证] 将 currentSessionId 传给 createDanmaku 进行核验
+                        return createDanmaku(comments, currentSessionId).then(() => {
+                            // 只有当全局 ID 依然匹配时，才做后续 UI 更新
+                            if (window.ede && window.ede.lastLoadId === currentSessionId) {
+                                logger.info('服务端Danmu插件弹幕加载就位');
                                 const danmakuCtrEle = getById(eleIds.danmakuCtr);
                                 if (danmakuCtrEle && danmakuCtrEle.style.opacity !== '1') {
                                     danmakuCtrEle.style.opacity = '1';
@@ -2191,34 +3322,48 @@
                                 if (videoOsdDanmakuTitle && videoOsdDanmakuTitle.innerText.includes('未匹配')) {
                                     videoOsdDanmakuTitle.innerText = `弹幕：${lsKeys.useFetchPluginXml.name} - ${comments.length}条`;
                                 }
-                            }).catch((error) => {
-                                console.error(error);
-                                console.error('useFetchPluginXml createDanmaku error');
-                            });
-                        }
-                        throw new Error(lsKeys.useFetchPluginXml.name + '失败,尝试在线加载');
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        return loadOnlineDanmaku(loadType);
-                    });
+                            }
+                        }).catch((error) => {
+                            logger.error(error);
+                            logger.error('使用服务端Danmu插件弹幕创建Danmaku实例时出错');
+                        });
+                    }
+                    throw new Error('从服务端Danmu插件获取弹幕失败，尝试在线加载...');
+                })
+                .catch((error) => {
+                    logger.error(error);
+                    // [传证] 将 ID 传给 loadOnlineDanmaku
+                    return loadOnlineDanmaku(loadType, currentSessionId);
+                });
             });
         } else {
-            loadOnlineDanmaku(loadType);
+            // [传证] 将 ID 传给 loadOnlineDanmaku
+            loadOnlineDanmaku(loadType, currentSessionId);
         }
     }
 
-    function loadOnlineDanmaku(loadType) {
-        // TODO: 快速切换剧集时正确处理集数
+    function loadOnlineDanmaku(loadType, sessionId) {
+        // 安全检查：如果这个任务还没开始跑就已经过时了，直接停止
+        if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) {
+            logger.warn('任务已过期，停止在线加载');
+            return;
+        }
+
         getEpisodeInfo(loadType !== LOAD_TYPE.SEARCH)
             .then((info) => {
                 return new Promise((resolve, reject) => {
+                    // 二次检查
+                    if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) {
+                        reject('任务已过期'); return;
+                    }
+
                     if (!info) {
                         if (loadType !== LOAD_TYPE.INIT) {
-                            reject('播放器未完成加载');
+                            reject('播放器未完成加载或媒体库被排除');
                         } else {
                             reject(null);
                         }
+                        return; // [修复] 添加 return 防止继续执行
                     }
                     if (
                         loadType !== LOAD_TYPE.SEARCH &&
@@ -2231,11 +3376,6 @@
                     ) {
                         reject('当前播放视频未变动');
                     } else {
-                        // // 保存上一集的信息，用于下一集/上一集推理
-                        // 交给最后一个then
-                        // if (window.ede.episode_info) {
-                        //     window.ede.previous_episode_info = { ...window.ede.episode_info };
-                        // }
                         window.ede.episode_info = info;
                         resolve(info.episodeId);
                     }
@@ -2244,24 +3384,32 @@
             .then(
                 (episodeId) => {
                     if (episodeId) {
+                        // 再次检查
+                        if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) return;
+
                         if (loadType === LOAD_TYPE.RELOAD && window.ede.danmuCache[episodeId]) {
-                            createDanmaku(window.ede.danmuCache[episodeId])
+                            // [传证]
+                            createDanmaku(window.ede.danmuCache[episodeId], sessionId)
                                 .then(() => {
-                                    console.log('弹幕就位');
+                                    if (window.ede && sessionId === window.ede.lastLoadId)
+                                        logger.info('弹幕已从缓存加载就位');
                                 })
                                 .catch((err) => {
-                                    console.log(err);
+                                    logger.debug(err);
                                 });
                         } else {
                             fetchComment(episodeId).then((comments) => {
+                                // [传证]
+                                if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) return;
+
                                 window.ede.danmuCache[episodeId] = comments;
-                                createDanmaku(comments)
+                                createDanmaku(comments, sessionId)
                                     .then(() => {
-                                        console.log('弹幕就位');
-                                        // embyToast({ text: `弹幕就位,已获取 ${comments.length} 条弹幕` });
+                                        if (window.ede && sessionId === window.ede.lastLoadId)
+                                            logger.info('弹幕已从网络加载就位');
                                     })
                                     .catch((err) => {
-                                        console.log(err);
+                                        logger.debug(err);
                                     });
                             });
                         }
@@ -2269,18 +3417,17 @@
                 },
                 (msg) => {
                     if (msg) {
-                        console.log(msg);
+                        logger.debug(msg);
                     }
                 },
             )
             .then(() => {
+                if (sessionId && window.ede && sessionId !== window.ede.lastLoadId) return;
+
                 const extCommentCache = window.ede.extCommentCache[window.ede.itemId] || {};
                 objectEntries(extCommentCache).forEach(([key, val]) => {
                     addExtComments(key, val);
                 })
-                if (window.ede.episode_info) {
-                    window.ede.previous_episode_info = { ...window.ede.episode_info };
-                }
                 window.ede.loading = false;
                 const danmakuCtrEle = getById(eleIds.danmakuCtr);
                 if (danmakuCtrEle && danmakuCtrEle.style.opacity !== '1') {
@@ -2288,20 +3435,195 @@
                 }
             })
             .catch((err) => {
-                console.log(err);
+                logger.debug(err);
             });
     }
 
-    function danmakuFilter(comments) {
+    async function danmakuFilter(comments) {
         let _comments = [...comments];
         danmakuAutoFilter(_comments);
         _comments = danmakuTypeFilter(_comments);
         _comments = danmakuSourceFilter(_comments);
         _comments = danmakuDensityLevelFilter(_comments);
         _comments = danmakuKeywordsFilter(_comments);
-        _comments = danmakuMergeSimilar(_comments, lsGetItem(lsKeys.mergeSimilarPercent.id), lsGetItem(lsKeys.mergeSimilarTime.id));
+        _comments = await danmakuMergeSimilar(_comments, lsGetItem(lsKeys.mergeSimilarPercent.id), lsGetItem(lsKeys.mergeSimilarTime.id));
+        _comments = danmakuAntiOverlapFilter(_comments);
         return _comments;
     }
+   /**
+     * [新增] 获取统一的弹幕字体大小 (公共方法)
+     * 逻辑提取自原 danmakuParser，供 parser 和 antiOverlapFilter 复用
+     */
+    function getDanmakuFontSize() {
+        const fontSizeRate = lsGetItem(lsKeys.fontSizeRate.id) / 100;
+        let fontSize = 25;
+        // 播放页媒体次级标题 h3 元素
+        const fontSizeReferent = getByClass(classes.videoOsdTitle);
+        if (fontSizeReferent) {
+            const computed = getComputedStyle(fontSizeReferent).fontSize;
+            if (computed) {
+                fontSize = parseFloat(computed.replace('px', '')) * fontSizeRate;
+            }
+        } else {
+            fontSize = Math.round(
+                (window.screen.height > window.screen.width
+                    ? window.screen.width
+                    : window.screen.height / 1080) * 18 * fontSizeRate
+            );
+        }
+        return fontSize;
+    }
+
+
+    /**
+     * 防重叠过滤器
+     * 根据显示区域计算可用轨道数，模拟轨道分配，过滤掉会超出轨道的弹幕
+     *
+     * 原理：
+     * 1. 根据 heightPercent 和字体大小计算可用轨道数
+     * 2. 按时间顺序遍历弹幕，模拟轨道分配
+     * 3. 滚动弹幕的轨道占用时间 = 弹幕完全进入屏幕的时间 + 缓冲时间
+     * 4. 顶部/底部弹幕的轨道占用时间 = 整个显示时间
+     * 5. 无法分配轨道的弹幕被过滤掉
+     */
+    function danmakuAntiOverlapFilter(comments) {
+
+    if (!lsGetItem(lsKeys.antiOverlap.id)) {
+        return comments;
+    }
+
+    const beforeCount = comments.length;
+    if (beforeCount === 0) return comments;
+
+    // 获取配置参数
+    const heightPercent = lsGetItem(lsKeys.heightPercent.id);
+    const speedRate = lsGetItem(lsKeys.speed.id) / 100;
+
+    // 获取容器尺寸
+    const container = document.querySelector(mediaContainerQueryStr);
+    const containerHeight = container ? container.offsetHeight : (window.innerHeight || 720);
+    const containerWidth = container ? container.offsetWidth : (window.innerWidth || 1280);
+
+    // 使用公共函数获取字体大小
+    const fontSize = getDanmakuFontSize();
+
+    // 为滚动弹幕和固定弹幕使用不同的高度计算
+
+    // 滚动弹幕高度
+    const verticalPadding = 2;
+    const scrollDanmakuHeight = (fontSize * 1.3) + verticalPadding;
+
+    // 固定弹幕高度（顶部/底部需要更大的间距）
+    const fixedLineHeight = 1.4;  // 固定弹幕的行高系数
+    const fixedVerticalGap = Math.max(10, fontSize * 0.4);  // 固定弹幕的额外间距
+    const fixedDanmakuHeight = (fontSize * fixedLineHeight) + fixedVerticalGap;
+
+    // 计算实际可用高度和轨道数
+    const availableHeight = containerHeight * (heightPercent / 100);
+
+    // 为滚动弹幕和固定弹幕分别计算轨道数
+    const scrollMaxTracks = Math.max(1, Math.floor(availableHeight / scrollDanmakuHeight));
+    const fixedMaxTracks = Math.max(1, Math.floor(availableHeight / fixedDanmakuHeight));
+
+    // 顶部和底部弹幕轨道各占一部分
+    const topMaxTracks = Math.max(1, Math.floor(fixedMaxTracks / 3));
+    const bottomMaxTracks = Math.max(1, Math.floor(fixedMaxTracks / 4));
+
+    // 速度计算
+    const baseSpeed = 144;
+    const speed = baseSpeed * speedRate;
+    const duration = containerWidth / speed;
+    const screenDuration = duration;
+
+    // 估算文字宽度
+    const estimateWidth = (text) => {
+        let width = 0;
+        for (let i = 0; i < text.length; i++) {
+            width += (text.charCodeAt(i) > 127 ? 1 : 0.6);
+        }
+        return (width * fontSize) + 35;
+    };
+
+    const tracks = {
+        rtl: new Array(scrollMaxTracks).fill(null),
+        ltr: new Array(scrollMaxTracks).fill(null),
+        top: new Array(topMaxTracks).fill(null),
+        bottom: new Array(bottomMaxTracks).fill(null),
+    };
+
+    // 按时间排序
+    const sortedComments = [...comments].sort((a, b) => a.time - b.time);
+
+    const filteredComments = sortedComments.filter(curr => {
+        const mode = curr.mode || 'rtl';
+        const trackType = (mode === 'ltr') ? 'rtl' : mode;
+        const trackList = tracks[trackType] || tracks['rtl'];
+
+        if (!trackList || trackList.length === 0) return true;
+
+        const currWidth = estimateWidth(curr.text);
+        const currTime = curr.time;
+
+        // 顶部/底部弹幕处理
+        if (mode === 'top' || mode === 'bottom') {
+            // 固定弹幕的显示时长
+            const displayDuration = 5;
+            const occupyTime = displayDuration;
+
+            for (let i = 0; i < trackList.length; i++) {
+                const last = trackList[i];
+
+                if (!last || currTime >= last.time + occupyTime) {
+                    trackList[i] = { time: currTime, width: 0 };
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // 滚动弹幕碰撞检测
+        const buffer = 0.5;
+
+        for (let i = 0; i < trackList.length; i++) {
+            const last = trackList[i];
+
+            if (!last) {
+                trackList[i] = { time: currTime, width: currWidth };
+                return true;
+            }
+
+            // 进场追尾检测
+            const timeToFullyEnter = screenDuration * (last.width / (containerWidth + last.width));
+            const safeTimeEnter = last.time + timeToFullyEnter + buffer;
+
+            // 离场追尾检测
+            const timeToCatchUp = screenDuration * (currWidth / (containerWidth + currWidth));
+            const safeTimeExit = last.time + timeToCatchUp + buffer;
+
+            const safeTime = Math.max(safeTimeEnter, safeTimeExit);
+
+            if (currTime >= safeTime) {
+                trackList[i] = { time: currTime, width: currWidth };
+                return true;
+            }
+        }
+        return false;
+    });
+
+    const afterCount = filteredComments.length;
+    const filteredCount = beforeCount - afterCount;
+    if (filteredCount > 0) {
+        logger.debug(`[防重叠] 容器: ${containerWidth}x${containerHeight}, 字体: ${fontSize}px`);
+        logger.debug(`  - 滚动弹幕高度: ${scrollDanmakuHeight.toFixed(1)}px, 轨道数: ${scrollMaxTracks}`);
+        logger.debug(`  - 固定弹幕高度: ${fixedDanmakuHeight.toFixed(1)}px (行高: ${fixedLineHeight}, 间距: ${fixedVerticalGap.toFixed(1)}px)`);
+        logger.debug(`  - 顶部轨道: ${topMaxTracks}, 底部轨道: ${bottomMaxTracks}`);
+        logger.debug(`  - 过滤: ${beforeCount} -> ${afterCount} (丢弃 ${filteredCount})`);
+    }
+
+    return filteredComments;
+}
+
 
     function danmakuAutoFilter(comments) {
         const autoFilterCount = lsGetItem(lsKeys.autoFilterCount.id);
@@ -2331,7 +3653,7 @@
         }
         if (msg.length != initMsgLenth) {
             embyToast({ text: msg });
-            console.log(msg);
+            logger.debug('[自动过滤] ' + msg);
         }
     }
 
@@ -2339,7 +3661,7 @@
         if (Object.keys(window.ede.tempLsValues).length > 0) {
             objectEntries(window.ede.tempLsValues).forEach(([key, val]) => lsSetItem(key, val));
             window.ede.tempLsValues = {};
-            console.log('从临时值恢复用户值并重置');
+            logger.debug('[自动过滤] 已从临时值恢复用户设置');
         }
     }
 
@@ -2425,128 +3747,189 @@
         );
     }
 
+    // --- 优化：复用 Worker 实例的合并函数 ---
     function danmakuMergeSimilar(comments, threshold = 50, timeWindow = 15) {
-        if (!lsGetItem(lsKeys.mergeSimilarEnable.id)) { return comments; }
+        return new Promise((resolve) => {
+            const enable = lsGetItem(lsKeys.mergeSimilarEnable.id);
+            if (!enable || !comments || comments.length === 0) {
+                resolve(comments);
+                return;
+            }
 
-        const mergedComments = [];
-        const mergedIndexes = [];
-        const startTime = new Date().getTime();
+            // [优化] 复用 Worker，避免重复创建销毁的开销
+            if (!window.ede.mergeWorker) {
+                logger.debug('[合并Worker] 初始化新线程...');
+                window.ede.mergeWorker = createWorker(mergeWorkerBody);
+            }
 
-        for (let i = 0; i < comments.length; i++) {
-            if (mergedIndexes.includes(i)) { continue; }
+            const worker = window.ede.mergeWorker;
+            const startTime = performance.now();
 
-            let mergedComment = comments[i];
-            let count = 1;
-            let totalSimilarity = 0;
+            // 1. 数据精简 (Data Slimming)
+            // 只提取 text(t) 和 time(m) 以及原始索引(i)
+            // 5万条数据，这个 map 操作非常快 (<10ms)，但能减少传输体积 80%
+            const lightComments = comments.map((c, index) => ({
+                t: c.text,
+                m: c.time,
+                i: index
+            }));
 
-            for (let j = i + 1; j < comments.length && Math.abs(comments[j].time - comments[i].time) <= timeWindow; j++) {
-                if (mergedIndexes.includes(j)) { continue; }
+            const onMessage = (e) => {
+                const results = e.data; // 这是一个轻量数组 [{i:0, t:null}, {i:3, t:"xxx [x2]"}...]
+                const endTime = performance.now();
 
-                const similarity = similarityPercentage(mergedComment.text, comments[j].text);
-                if (similarity >= threshold) {
-                    count++;
-                    mergedIndexes.push(j);
-                    totalSimilarity += similarity;
+                worker.removeEventListener('message', onMessage);
+
+                if (!results) { // Worker 说没开启或出错
+                    resolve(comments);
+                    return;
                 }
-            }
 
-            if (count > 1) {
-                mergedComment.text += ` [x${count}]`;
-                mergedComment.xCount = count;
-                mergedComment.xTotalSimilarity = totalSimilarity / count;
-            }
+                // 2. 数据重组 (Rehydration)
+                // 根据 Worker 返回的“保留名单”和“新文本”，重建完整的弹幕对象数组
+                const finalComments = results.map(item => {
+                    const originalComment = comments[item.i]; // 通过索引找回原始完整对象(带style等)
+                    if (item.t) {
+                        // 如果有合并，创建一个新对象修改 text，避免污染源数据
+                        // 浅拷贝速度很快
+                        return { ...originalComment, text: item.t, xCount: true }; // 标记一下
+                    }
+                    return originalComment;
+                });
 
-            mergedComments.push(mergedComment);
-        }
+                logger.info(`[合并相似弹幕] 完成, 耗时: ${(endTime - startTime).toFixed(2)}ms, 屏蔽: ${comments.length - finalComments.length}`);
+                resolve(finalComments);
+            };
 
-        const endTime = new Date().getTime();
-        console.log(`danmakuMergeSimilar 耗时: ${endTime - startTime} 毫秒`);
+            worker.addEventListener('message', onMessage);
 
-        return mergedComments;
+            // 发送精简数据
+            worker.postMessage({
+                lightComments: lightComments,
+                threshold: threshold,
+                timeWindow: timeWindow,
+                enable: enable
+            });
+        });
     }
 
     /**
-     * 计算两个字符串之间的 Levenshtein 距离和相似度百分比
-     * Levenshtein 距离表示将一个字符串转换为另一个字符串所需的最少单字符编辑操作次数(插入、删除、替换)
-     * 相似度百分比是基于 Levenshtein 距离计算的,它表示两个字符串的相似程度,范围为 0 到 100
-     * 相似度百分比的计算方式为：100 - (Levenshtein 距离 / 最大长度) * 100,确保结果在 0 到 100 的范围内
-     *
-     * @param {string} a - 第一个字符串
-     * @param {string} b - 第二个字符串
-     * @returns {Object} - 包含 Levenshtein 距离和相似度百分比的对象
-     * @returns {number} - 两个字符串之间的相似度百分比,范围为 0 到 100
+     * Levenshtein 距离算法 (高性能魔改版)
+     * 特性:
+     * 1. Buffer Reuse: 复用传入的 Int32Array，零内存分配
+     * 2. Early Exit: 差异超过 maxAllowedDiff 立即停止
+     * 3. CharCode: 使用 charCodeAt 代替字符串访问，微幅提升速度
      */
-    function similarityPercentage(a, b) {
-        if (a === b) {
-            return 100;
+    function similarityPercentage(a, b, maxAllowedDiff, buffer) {
+        if (a === b) return 100;
+
+        const n = a.length;
+        const m = b.length;
+
+        if (n === 0 || m === 0) return 0;
+
+        // 确保 a 是短的，减少内层循环次数
+        if (n > m) return similarityPercentage(b, a, maxAllowedDiff, buffer);
+
+        // 检查 buffer 是否够用，不够则扩容并返回新 buffer (这种情况极少)
+        if (buffer.length <= n + 1) {
+            const newBuffer = new Int32Array(n + 128);
+            const score = similarityPercentage(a, b, maxAllowedDiff, newBuffer);
+            return { score: score, buffer: newBuffer };
         }
 
-        if (a.length > b.length) {
-            [a, b] = [b, a];
-        }
+        const v = buffer; // 使用共享内存
 
-        let previousRow = Array.from({ length: a.length + 1 }, (_, i) => i);
-        let currentRow = Array(a.length + 1);
+        // 初始化第一行
+        for (let i = 0; i <= n; i++) v[i] = i;
 
-        for (let j = 1; j <= b.length; j++) {
-            currentRow[0] = j;
+        for (let j = 1; j <= m; j++) {
+            let pre = v[0];
+            v[0] = j;
 
-            for (let i = 1; i <= a.length; i++) {
-                const substitutionCost = (a[i - 1] === b[j - 1]) ? 0 : 1;
-                const insertionCost = previousRow[i] + 1;
-                const deletionCost = currentRow[i - 1] + 1;
+            // 记录当前行的最小值，用于提前退出判断
+            let rowMin = j;
 
-                currentRow[i] = Math.min(
-                    previousRow[i - 1] + substitutionCost,
-                    insertionCost,
-                    deletionCost,
-                );
+            // [微调] 使用 charCodeAt 提升比较速度
+            const charB = b.charCodeAt(j - 1);
+
+            for (let i = 1; i <= n; i++) {
+                const tmp = v[i];
+                const cost = (a.charCodeAt(i - 1) === charB) ? 0 : 1;
+
+                // 手写 Math.min 逻辑，JS中比调用 Math.min 快
+                let val = v[i] + 1;       // 删除
+                const ins = v[i-1] + 1;   // 插入
+                if (ins < val) val = ins;
+                const sub = pre + cost;   // 替换
+                if (sub < val) val = sub;
+
+                v[i] = val;
+                pre = tmp;
+
+                if (val < rowMin) rowMin = val;
             }
 
-            [previousRow, currentRow] = [currentRow, previousRow];
+            // [核心优化] 提前退出：如果当前行所有位置的差异都已超过允许值，后续只会更大，直接放弃
+            if (rowMin > maxAllowedDiff) {
+                return 0;
+            }
         }
 
-        const distance = previousRow[a.length];
-        const maxLength = Math.max(a.length, b.length);
-        const similarity = ((maxLength - distance) / maxLength) * 100;
-
-        return similarity;
+        const maxLen = m; // m 是较长的那个
+        const distance = v[n];
+        return ((maxLen - distance) / maxLen) * 100;
     }
 
     function danmakuParser($obj) {
-        //const fontSize = Number(values[2]) || 25
-        // 弹幕大小
-        const fontSizeRate = lsGetItem(lsKeys.fontSizeRate.id);
-        let fontSize = 25;
-        // 播放页媒体次级标题 h3 元素
-        const fontSizeReferent = getByClass(classes.videoOsdTitle);
-        if (fontSizeReferent) {
-            fontSize = parseFloat(getComputedStyle(fontSizeReferent).fontSize.replace('px', '')) * fontSizeRate;
-        } else {
-            fontSize = Math.round(
-                (window.screen.height > window.screen.width
-                    ? window.screen.width
-                    : window.screen.height / 1080) * 18 * fontSizeRate
-            );
-        }
+        const fontSize = getDanmakuFontSize();
         const fontWeight = lsGetItem(lsKeys.fontWeight.id);
-        const fontStyle = styles.fontStyles[lsGetItem(lsKeys.fontStyle.id)].id;
+        const fontStyleIdx = lsGetItem(lsKeys.fontStyle.id);
+        const fontStyleObj = styles.fontStyles[fontStyleIdx] || styles.fontStyles[0];
+        const fontStyle = fontStyleObj.id;
         const fontFamily = lsGetItem(lsKeys.fontFamily.id);
         // 弹幕透明度
-        const fontOpacity = Math.round(lsGetItem(lsKeys.fontOpacity.id) * 255).toString(16).padStart(2, '0');
+        const fontOpacity = Math.round(lsGetItem(lsKeys.fontOpacity.id) / 100 * 255).toString(16).padStart(2, '0');
         // 时间轴偏移秒数
         const timelineOffset = lsGetItem(lsKeys.timelineOffset.id);
         const sourceUidReg = /\[(.*)\](.*)/;
         const showSourceIds = lsGetItem(lsKeys.showSource.id);
-        // const removeEmojiEnable = lsGetItem(lsKeys.removeEmojiEnable.id);
-        //const $xml = new DOMParser().parseFromString(string, 'text/xml')
-        return $obj
+
+        // 读取转换设置 & 初始化统计
+        const convertTopTo = lsGetItem(lsKeys.convertTopTo.id);
+        const convertBottomTo = lsGetItem(lsKeys.convertBottomTo.id);
+        let stat = { t2b: 0, t2r: 0, b2t: 0, b2r: 0 };
+        // -------------------------------------
+       // const removeEmojiEnable = lsGetItem(lsKeys.removeEmojiEnable.id);
+       //const $xml = new DOMParser().parseFromString(string, 'text/xml')
+        const parsedComments = $obj
             .map(($comment) => {
                 const p = $comment.p;
                 //if (p === null || $comment.childNodes[0] === undefined) return null;
                 const values = p.split(',');
-                const mode = { 6: 'ltr', 1: 'rtl', 5: 'top', 4: 'bottom' }[values[1]];
+                let mode = { 6: 'ltr', 1: 'rtl', 5: 'top', 4: 'bottom' }[values[1]];
                 if (!mode) return null;
+
+                // 位置转换逻辑
+                if (mode === 'top') {
+                    if (convertTopTo === 'bottom') {
+                        mode = 'bottom';
+                        stat.t2b++;
+                    } else if (convertTopTo === 'rolling') {
+                        mode = 'rtl';
+                        stat.t2r++;
+                    }
+                } else if (mode === 'bottom') {
+                    if (convertBottomTo === 'top') {
+                        mode = 'top';
+                        stat.b2t++;
+                    } else if (convertBottomTo === 'rolling') {
+                        mode = 'rtl';
+                        stat.b2r++;
+                    }
+                }
+                // -------------------------
+
                 // 弹幕颜色+透明度
                 const baseColor = Number(values[2]).toString(16).padStart(6, '0');
                 const color = `${baseColor}${fontOpacity}`; // 生成8位十六进制颜色
@@ -2568,14 +3951,26 @@
                     cmt.originalText = cmt.text;
                     cmt.text += showSourceIds.map(id => id === showSource.source.id ? `,[${cmt[id]}]` : ',' + cmt[id]).join('');
                 }
-                cmt.cuid = cmt[showSource.cid.id] + ',' + cmt[showSource.originalUserId.id];
-                // if (removeEmojiEnable) {
+                 // if (removeEmojiEnable) {
                 //     cmt.text = cmt.text.replace(emojiRegex, '');
                 // }
+                cmt.cuid = cmt[showSource.cid.id] + ',' + cmt[showSource.originalUserId.id];
+
                 return cmt;
             })
             .filter((x) => x)
             .sort((a, b) => a.time - b.time);
+
+        // 日志输出
+        if (stat.t2b + stat.t2r + stat.b2t + stat.b2r > 0) {
+            let msg = [];
+            if (stat.t2b) msg.push(`顶部转换为底部 ${stat.t2b}条`);
+            if (stat.t2r) msg.push(`顶部转换为滚动 ${stat.t2r}条`);
+            if (stat.b2t) msg.push(`底部转换为顶部 ${stat.b2t}条`);
+            if (stat.b2r) msg.push(`底部转换为滚动 ${stat.b2r}条`);
+            logger.info(`[转换成功]: ${msg.join(' ')}`);
+        }
+        return parsedComments;
     }
 
     function getCommentStyle(color, shadowColor, fontStyle, fontWeight, fontSize, fontFamily) {
@@ -2666,7 +4061,7 @@
             try {
                 tab.buildMethod(tab.id);
             } catch (error) {
-                console.error(error);
+                logger.error(error);
             }
         });
         if (formDialogFooter) {
@@ -2679,13 +4074,21 @@
         let template =  `
             <div style="display: flex; justify-content: center;">
                 <div>
-                    <div id="${eleIds.danmakuSwitchDiv}" style="margin-bottom: 0.2em;">
-                        <label class="${classes.embyLabel}">${lsKeys.switch.name} </label>
+                    <div id="${eleIds.danmakuSwitchDiv}" style="margin-bottom: 0.2em; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center;">
+                            <label class="${classes.embyLabel}">${lsKeys.switch.name} </label>
+                        </div>
+                        <div id="${eleIds.antiOverlapDiv}" style="display: flex; align-items: center;">
+                            <label class="${classes.embyLabel}">${lsKeys.antiOverlap.name} </label>
+                        </div>
                     </div>
                     <div style="${styles.embySlider}">
                         <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.filterLevel.name}: </label>
                         <div id="${eleIds.filterLevelDiv}" style="width: 15.5em; text-align: center;"></div>
-                        <label style="${styles.embySliderLabel}"></label>
+                        <label>
+                            <label style="${styles.embySliderLabel}"></label>
+                            <label></label>
+                        </label>
                     </div>
                     <div style="${styles.embySlider}">
                         <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.heightPercent.name}: </label>
@@ -2700,20 +4103,23 @@
                         <div id="${eleIds.danmakuSizeDiv}" style="width: 15.5em; text-align: center;"></div>
                         <label>
                             <label style="${styles.embySliderLabel}"></label>
-                            <label>倍</label>
+                            <label>%</label>
                         </label>
                     </div>
                     <div style="${styles.embySlider}">
                         <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.fontOpacity.name}: </label>
                         <div id="${eleIds.danmakuOpacityDiv}" style="width: 15.5em; text-align: center;"></div>
-                        <label style="${styles.embySliderLabel}"></label>
+                        <label>
+                            <label style="${styles.embySliderLabel}"></label>
+                            <label>%</label>
+                        </label>
                     </div>
                     <div style="${styles.embySlider}">
                         <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.speed.name}: </label>
                         <div id="${eleIds.danmakuSpeedDiv}" style="width: 15.5em; text-align: center;"></div>
                         <label>
                             <label style="${styles.embySliderLabel}"></label>
-                            <label>倍</label>
+                            <label>%</label>
                         </label>
                     </div>
                     <div style="${styles.embySlider}">
@@ -2726,13 +4132,18 @@
                             <div style="${styles.embySlider}">
                                 <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.fontWeight.name}: </label>
                                 <div id="${eleIds.danmakuFontWeightDiv}" style="width: 15.5em; text-align: center;"></div>
-                                <label style="${styles.embySliderLabel}"></label>
+                                <label>
+                                    <label style="${styles.embySliderLabel}"></label>
+                                </label>
                             </div>
                             <div style="${styles.embySlider}">
                                 <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.fontStyle.name}: </label>
                                 <div id="${eleIds.danmakuFontStyleDiv}" style="width: 15.5em; text-align: center;"></div>
-                                <label style="${styles.embySliderLabel}"></label>
+                                <label>
+                                    <label style="${styles.embySliderLabel}"></label>
+                                </label>
                             </div>
+
                             <div id="${eleIds.fontFamilyCtrl}" style="margin: 0.6em 0;"></div>
                             <div style="${styles.embySlider}">
                                 <label class="${classes.embyLabel}" style="width: 5em;">${lsKeys.fontFamily.name}: </label>
@@ -2766,12 +4177,19 @@
         `;
         container.innerHTML = template.trim();
 
-        getById(eleIds.danmakuSwitchDiv, container).prepend(
+        getById(eleIds.danmakuSwitchDiv, container).querySelector('div:first-child').prepend(
             embyButton({ id: eleIds.danmakuSwitch, label: '弹幕开关'
-                    , iconKey: lsGetItem(lsKeys.switch.id) ? iconKeys.switch_on : iconKeys.switch_off
-                    , style: (lsGetItem(lsKeys.switch.id) ? 'color:#52b54b;' : '') + 'font-size:1.5em;padding:0;' }
+                , iconKey: lsGetItem(lsKeys.switch.id) ? iconKeys.switch_on : iconKeys.switch_off
+                , style: (lsGetItem(lsKeys.switch.id) ? 'color:#52b54b;' : '') + 'font-size:1.5em;padding:0;' }
                 // , style: lsGetItem(lsKeys.switch.id) ? 'color:#52b54b;font-size:1.5em;padding:0;': 'font-size:1.5em;padding:0;'}
                 , doDanmakuSwitch)
+        );
+        // 防重叠按钮
+        getById(eleIds.antiOverlapDiv, container).prepend(
+            embyButton({ id: eleIds.antiOverlapBtn, label: '防重叠开关'
+                , iconKey: lsGetItem(lsKeys.antiOverlap.id) ? iconKeys.switch_on : iconKeys.switch_off
+                , style: (lsGetItem(lsKeys.antiOverlap.id) ? 'color:#52b54b;' : '') + 'font-size:1.5em;padding:0;' }
+                , doAntiOverlapSwitch)
         );
         // 滑块
         getById(eleIds.filterLevelDiv, container).append(
@@ -2785,16 +4203,14 @@
         );
         getById(eleIds.danmakuOpacityDiv, container).append(
             embySlider({ lsKey: lsKeys.fontOpacity }, onSliderChange, onSliderChangeLabel
-            )
+        )
         );
         getById(eleIds.danmakuSpeedDiv, container).append(
             embySlider({ lsKey: lsKeys.speed }, onSliderChange, onSliderChangeLabel)
         );
         // 弹幕时间轴偏移秒数
         const btnContainer = getById(eleIds.timelineOffsetDiv, container);
-        const nextEle = btnContainer.nextElementSibling;
-        const labelEle = nextEle.children.length > 0 ? nextEle.children[0] : nextEle;
-        const timelineOffsetOpts = { lsKey: lsKeys.timelineOffset, labelEle };
+        const timelineOffsetOpts = { lsKey: lsKeys.timelineOffset };
         onSliderChangeLabel(lsGetItem(lsKeys.timelineOffset.id), timelineOffsetOpts);
         timeOffsetBtns.forEach(btn => {
             btnContainer.append(embyButton(btn, (e) => {
@@ -2844,17 +4260,38 @@
     }
 
     function buildFontStyleSetting() {
-        getById(eleIds.danmakuFontWeightDiv).append(
+        // --- 1. 弹幕粗细 ---
+        var weightDiv = getById(eleIds.danmakuFontWeightDiv);
+        weightDiv.append(
             embySlider({ lsKey: lsKeys.fontWeight }, onSliderChange, onSliderChangeLabel)
         );
-        getById(eleIds.danmakuFontStyleDiv).append(
+        var savedWeight = lsGetItem(lsKeys.fontWeight.id);
+        if (weightDiv.nextElementSibling) {
+            var label = weightDiv.nextElementSibling.querySelector('label');
+            if (label) label.innerText = savedWeight;
+        }
+
+        // --- 2. 弹幕斜体 ---
+        var styleDiv = getById(eleIds.danmakuFontStyleDiv);
+        styleDiv.append(
             embySlider({ lsKey: lsKeys.fontStyle }
-                , (val, opts) => {
-                    opts.label = styles.fontStyles[val].id;
-                    onSliderChange(val, opts);
-                }
-                , (val, opts) => onSliderChangeLabel(styles.fontStyles[val].id, opts))
+            , (val, opts) => {
+                onSliderChange(val, opts); // 保存
+                onSliderChangeLabel(styles.fontStyles[val].name, opts);
+            }
+            , (val, opts) => {
+                onSliderChangeLabel(styles.fontStyles[val].name, opts);
+            })
         );
+        // 使用 || 0 确保如果是空值或0，也能正确识别为第0项
+        var savedStyleIdx = parseInt(lsGetItem(lsKeys.fontStyle.id)) || 0;
+        var styleName = (styles.fontStyles[savedStyleIdx] || styles.fontStyles[0]).name;
+
+        if (styleDiv.nextElementSibling) {
+             var label = styleDiv.nextElementSibling.querySelector('label');
+             if (label) label.innerText = styleName;
+        }
+
         buildFontFamilySetting();
     }
 
@@ -2868,6 +4305,20 @@
             { family: 'KaiTi', fullName: '楷体' },
             { family: 'Microsoft YaHei', fullName: '微软雅黑' },
         ];
+        if ('queryLocalFonts' in window) {
+            queryLocalFonts().then(fonts => {
+                availableFonts = [...availableFonts, ...fonts].reduce((acc, font) => {
+                    if (!acc.some(f => f.family === font.family)) acc.push(font);
+                    return acc;
+                }, []);
+                const selectedIndex = availableFonts.findIndex(f => f.family === fontFamilyVal);
+                resetFontFamilyDiv(selectedIndex, availableFonts);
+            }).catch(err => {
+                logger.error(err);
+            });
+        } else {
+            logger.info('queryLocalFonts 高级查询 API 不可用,使用预定字体列表');
+        }
         const selectedIndex = availableFonts.findIndex(f => f.family === fontFamilyVal);
         resetFontFamilyDiv(selectedIndex, availableFonts);
         buildFontFamilyCtrl();
@@ -2907,7 +4358,7 @@
             embySelect({ id: eleIds.fontFamilySelect, label: `${lsKeys.fontFamily.name}: `, }
                 , selectedIndexOrValue, opts, 'family', 'family'
                 , (value, index, option) => {
-                    console.log('fontFamilyDivChange: ', value, index, option);
+                    logger.debug('fontFamilyDivChange: ', value, index, option);
                     // loadLocalFont(option.family);
                     if (lsCheckSet(lsKeys.fontFamily.id, value)) {
                         changeFontStylePreview();
@@ -2915,26 +4366,11 @@
                         onSliderChangeLabel(labelVal, { labelId: eleIds.fontFamilyLabel });
                         loadDanmaku(LOAD_TYPE.RELOAD);
                     }
-                }, (e) => {
-                    if ('queryLocalFonts' in window && opts.length <= 6) {
-                        queryLocalFonts().then(fonts => {
-                            opts = [...opts, ...fonts].reduce((acc, font) => {
-                                if (!acc.some(f => f.family === font.family)) acc.push(font);
-                                return acc;
-                            }, []);
-                            const fontFamilyVal = lsGetItem(lsKeys.fontFamily.id);
-                            const selectedIndex = opts.findIndex(f => f.family === fontFamilyVal);
-                            resetFontFamilyDiv(selectedIndex, opts);
-                        }).catch(err => {
-                            console.error(err);
-                        });
-                        console.info('queryLocalFonts 高级查询 API 可用,已补充字体列表');
-                    }
                 })
         );
         fontFamilyDiv.append(
             embyInput({ id: eleIds.fontFamilyInput, value: lsGetItem(lsKeys.fontFamily.id)
-                    , type: 'search', style: 'display: none;' }
+                , type: 'search', style: 'display: none;' }
                 , (e) => {
                     const inputVal = getTargetInput(e).value.trim();
                     if (!inputVal) { return; }
@@ -2966,18 +4402,22 @@
         const font = new FontFace(family, `local("${family}")`);
         font.load().then(loadedFont => {
             document.fonts.add(loadedFont);
-            console.log(`The local font "${family}" has been added under the name "${family}"`);
+            logger.debug(`The local font "${family}" has been added under the name "${family}"`);
         }).catch(err => {
-            console.error(`Failed to load or add the local font "${family}"`, err);
+            logger.error(`Failed to load or add the local font "${family}"`, err);
         });
     }
 
     function changeFontStylePreview() {
-        const fontStylePreview = getById(eleIds.fontStylePreview);
-        const fontWeight = lsGetItem(lsKeys.fontWeight.id);
-        const fontStyle = styles.fontStyles[lsGetItem(lsKeys.fontStyle.id)].id;
+    const fontStylePreview = getById(eleIds.fontStylePreview);
+    if (!fontStylePreview) return; // 增加判空
+    const fontWeight = lsGetItem(lsKeys.fontWeight.id);
+    const fontStyleIdx = lsGetItem(lsKeys.fontStyle.id);
+    const fontStyleObj = styles.fontStyles[fontStyleIdx] || styles.fontStyles[0];
+    const fontStyle = fontStyleObj.id;
+
         const fontFamily = lsGetItem(lsKeys.fontFamily.id);
-        const fontOpacity = Math.round(lsGetItem(lsKeys.fontOpacity.id) * 255).toString(16).padStart(2, '0');
+        const fontOpacity = Math.round(lsGetItem(lsKeys.fontOpacity.id) / 100 * 255).toString(16).padStart(2, '0');
         const baseColor = Number(styles.colors.info).toString(16).padStart(6, '0');
         const color = `${baseColor}${fontOpacity}`;
         const shadowColor = baseColor === '000000' ? `#ffffff${fontOpacity}` : `#000000${fontOpacity}`;
@@ -3029,10 +4469,7 @@
                             </div>
                             <label class="${classes.embyLabel}">弹弹 play 附加的第三方 url: </label>
                         </div>
-                        <button is="emby-button" type="button"
-                            class="${classes.embyButtons.basic}" id="${eleIds.clearLocalMatchCacheBtn}">
-                            清除本地匹配缓存
-                        </button>
+                        <button is="emby-button" type="button" class="raised emby-button" id="btnClearLocalMatchCache">清除本地匹配缓存</button>
                     </div>
                     <div id="${eleIds.extUrlsDiv}"></div>
                 </div>
@@ -3046,60 +4483,52 @@
                         <div class="${classes.embyFieldDesc}">
                             仅[ 爱奇艺视频, ]需要注意网址后不能带 ? 的参数,其余网址带不带都可以
                         </div>
-                        <div class="${classes.embyFieldDesc}">
-                            详细网址示例: 弹弹 play PC 官方客户端 -> 添加更多弹幕 -> 查看支持解析的网址示例
-                        </div>
                     </div>
                 </div>
                 <div is="emby-collapse" title="服务端 Danmu 插件">
                     <div class="${classes.collapseContentNav}">
                         <div id="${eleIds.danmuPluginDiv}" class="${classes.embyCheckboxList}" style="${styles.embyCheckboxList}"></div>
                     </div>
-                </div>
-                <div is="emby-collapse" title="API选择、自定义API配置">
-                    <div class="${classes.collapseContentNav}">
-                        <div id="${eleIds.apiCheckboxListDiv}" class="${classes.embyCheckboxList}" style="${styles.embyCheckboxList} align-items: center;">
-                            <!-- API 复选框将在这里创建 -->
-                        </div>
-                        <label class="${classes.embyLabel}">${lsKeys.apiPriority.name}: </label>
-                        <div id="${eleIds.apiPriorityDiv}" style="margin: 1% 0;">
-                            <!-- API 优先级列表将在这里创建 -->
-                        </div>
-                        <label class="${classes.embyLabel}">${lsKeys.customApiPrefix.name}: </label>
-                        <div id="${eleIds.customApiPrefixInputDiv}" style="display: flex;">
-                            <!-- 自定义API地址输入框将在这里创建 -->
-                        </div>
-                        <div class="${classes.embyFieldDesc}">
-                            如需自定义弹幕API地址,请填写完整URL(如 https://api.example.com ),<br>留空则使用原生API
-                        </div>
+            <div is="emby-collapse" title="API选择、自定义API配置">
+                <div class="${classes.collapseContentNav}">
+                    <div id="${eleIds.apiSelectDiv}" class="${classes.embyCheckboxList}" style="${styles.embyCheckboxList} align-items: center;">
+                        <!-- API 优先级列表将在这里创建 -->
                     </div>
-                </div>
+                    <div id="customApiContainer" style="margin-top: 1em;">
+                        <!-- 自定义API地址输入框将在这里创建 -->
+                    </div>
+            </div>
             </div>
         `;
         container.innerHTML = template.trim();
         buildSearchEpisodeEle();
         buildExtCommentDiv();
         buildDanmuPluginDiv();
+
+        // 绑定手动匹配页面的额外按钮事件
         bindManualMatchButtons();
-        buildCustomApiDiv();
     }
 
     function bindManualMatchButtons() {
+        const searchNameDiv = getById(eleIds.danmakuSearchNameDiv);
+        // 这部分逻辑保持不变，只是从 buildSearchEpisodeEle 移到这里
+        // ...
+
         // 绑定清除本地匹配缓存按钮事件
-        const btnClearCache = getById(eleIds.clearLocalMatchCacheBtn);
+        const btnClearCache = getById('btnClearLocalMatchCache');
         if (btnClearCache) {
             btnClearCache.addEventListener('click', () => {
                 const prefixesToClear = [
                     lsLocalKeys.animeEpisodePrefix,
                     lsLocalKeys.animeSeasonPrefix,
                     lsLocalKeys.animePrefix,
-                    lsLocalKeys.bangumiEpInfoPrefix,
-                    lsLocalKeys.bangumiMe,
-                    lsLocalKeys.apiPrefix,
+                    lsLocalKeys.bangumiEpInfoPrefix, // [修复] 添加Bangumi集数信息缓存
+                    lsLocalKeys.bangumiMe, // [修复] 添加Bangumi用户信息缓存
+                    '_api_' // [修复] 清除带API前缀的弹幕匹配缓存
                 ];
                 lsBatchRemove(prefixesToClear);
 
-                // 清除当前episode_info中的匹配信息
+                // [修复] 清除当前episode_info中的匹配信息
                 if (window.ede.episode_info) {
                     window.ede.episode_info.episodeId = null;
                     window.ede.episode_info.animeId = null;
@@ -3107,23 +4536,267 @@
                     window.ede.episode_info.episodeTitle = null;
                 }
 
-                // 清除搜索选项中的缓存数据
+                // [修复] 清除搜索选项中的缓存数据
                 if (window.ede.searchDanmakuOpts) {
                     window.ede.searchDanmakuOpts.animes = [];
                     window.ede.searchDanmakuOpts.episodes = [];
                 }
 
-                embyToast({ text: '本地匹配缓存已清除,包括animeId、episodeId等所有匹配信息' });
-                loadDanmaku(LOAD_TYPE.REFRESH);
+                // [修复] 清除TMDB映射缓存
+                episodeMappingCache.clear();
+
+                embyToast({ text: '本地匹配缓存已清除，包括animeId、episodeId等所有匹配信息' });
+                loadDanmaku(LOAD_TYPE.REFRESH); // 强制重新匹配和加载弹幕
             });
         }
     }
 
     function buildSearchEpisodeEle() {
+        const customApiContainer = getById('customApiContainer');
+        if (!customApiContainer) return;
+        customApiContainer.innerHTML = '';
+
+        // --- 多自定义弹幕源列表 UI (PR #167 优化) ---
+        const renderSourceList = () => {
+            customApiContainer.innerHTML = '';
+            const list = getCustomApiList();
+
+            // 添加表单
+            const addForm = document.createElement('div');
+            addForm.style.cssText = 'display: flex; gap: 0.5em; align-items: center; background: rgba(0, 0, 0, 0.3); padding: 1em; border-radius: 4px; margin-bottom: 1em; flex-wrap: wrap;';
+
+            const nameInput = document.createElement('input');
+            nameInput.setAttribute('is', 'emby-input');
+            nameInput.className = classes.embyInput;
+            nameInput.type = 'text';
+            nameInput.placeholder = '源名称 (备注)';
+            nameInput.style.cssText = 'flex: 1; min-width: 120px;';
+
+            const urlInput = document.createElement('input');
+            urlInput.setAttribute('is', 'emby-input');
+            urlInput.className = classes.embyInput;
+            urlInput.type = 'text';
+            urlInput.placeholder = 'API 地址 (http://...)';
+            urlInput.style.cssText = 'flex: 2; min-width: 200px;';
+
+            const addBtn = document.createElement('button');
+            addBtn.setAttribute('is', 'emby-button');
+            addBtn.className = 'raised button-submit emby-button';
+            addBtn.innerHTML = '<i class="md-icon">check</i> 添加';
+            addBtn.style.cssText = 'height: 2.5em; flex: 0 0 auto;';
+            addBtn.onclick = () => {
+                const name = nameInput.value.trim();
+                let url = urlInput.value.trim();
+                if (!name || !url) {
+                    embyToast({ text: '请填写完整' });
+                    return;
+                }
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    embyToast({ text: '请输入有效的URL（以 http:// 或 https:// 开头）' });
+                    return;
+                }
+                if (url.endsWith('/')) url = url.slice(0, -1);
+                addCustomApiSource(name, url);
+                nameInput.value = '';
+                urlInput.value = '';
+                renderSourceList();
+                embyToast({ text: '已添加弹幕源', secondaryText: name });
+            };
+
+            // 回车添加
+            urlInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') addBtn.click();
+            });
+
+            addForm.append(nameInput, urlInput, addBtn);
+            customApiContainer.append(addForm);
+
+            // 列表容器
+            const listDiv = document.createElement('div');
+            listDiv.style.cssText = 'max-height: 250px; overflow-y: auto; overflow-x: hidden; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 0.5em;';
+
+            if (list.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'fieldDescription';
+                empty.style.cssText = 'color: #888; padding: 0.5em; font-size: 0.9em;';
+                empty.textContent = '暂无自定义源，请在上方添加';
+                listDiv.append(empty);
+            } else {
+                list.forEach((item, index) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'display: flex; align-items: center; margin-bottom: 0.5em; background: rgba(0,0,0,0.2); padding: 0.5em; border-radius: 4px;';
+
+                    // 启用开关
+                    const switchDiv = document.createElement('div');
+                    switchDiv.style.cssText = 'margin-right: 0.5em; flex-shrink: 0;';
+                    switchDiv.append(embyCheckbox({ label: '' }, item.enabled, (checked) => {
+                        toggleCustomApiSource(index, checked);
+                        renderSourceList();
+                    }));
+                    row.append(switchDiv);
+
+                    // 信息显示
+                    const infoDiv = document.createElement('div');
+                    infoDiv.style.cssText = 'flex: 1; min-width: 0; overflow: hidden;';
+                    const nameStyle = item.enabled ? 'font-weight:bold;' : 'font-weight:bold; color: #999;';
+                    const urlStyle = 'font-size:0.8em; opacity:0.7; word-break: break-all; overflow: hidden; text-overflow: ellipsis;';
+                    infoDiv.innerHTML = `<div style="${nameStyle}">${item.name}</div><div style="${urlStyle}" title="${item.url}">${item.url}</div>`;
+                    row.append(infoDiv);
+
+                    // 上移按钮
+                    if (index > 0) {
+                        const upBtn = document.createElement('button');
+                        upBtn.setAttribute('is', 'emby-button');
+                        upBtn.className = 'paper-icon-button-light';
+                        upBtn.innerHTML = '<i class="md-icon">arrow_upward</i>';
+                        upBtn.title = '上移';
+                        upBtn.style.cssText = 'padding: 0.2em; flex-shrink: 0;';
+                        upBtn.onclick = () => {
+                            moveCustomApiSource(index, index - 1);
+                            renderSourceList();
+                        };
+                        row.append(upBtn);
+                    }
+
+                    // 下移按钮
+                    if (index < list.length - 1) {
+                        const downBtn = document.createElement('button');
+                        downBtn.setAttribute('is', 'emby-button');
+                        downBtn.className = 'paper-icon-button-light';
+                        downBtn.innerHTML = '<i class="md-icon">arrow_downward</i>';
+                        downBtn.title = '下移';
+                        downBtn.style.cssText = 'padding: 0.2em; flex-shrink: 0;';
+                        downBtn.onclick = () => {
+                            moveCustomApiSource(index, index + 1);
+                            renderSourceList();
+                        };
+                        row.append(downBtn);
+                    }
+
+                    // 删除按钮
+                    const delBtn = document.createElement('button');
+                    delBtn.setAttribute('is', 'emby-button');
+                    delBtn.className = 'paper-icon-button-light';
+                    delBtn.innerHTML = '<i class="md-icon">close</i>';
+                    delBtn.title = '删除';
+                    delBtn.style.cssText = 'padding: 0.2em; color: #f44336; flex-shrink: 0;';
+                    delBtn.onclick = () => {
+                        removeCustomApiSource(index);
+                        renderSourceList();
+                        embyToast({ text: '已删除弹幕源' });
+                    };
+                    row.append(delBtn);
+
+                    listDiv.append(row);
+                });
+            }
+
+            customApiContainer.append(listDiv);
+        };
+
+        // 初始渲染列表
+        renderSourceList();
+
         const searchNameDiv = getById(eleIds.danmakuSearchNameDiv);
         searchNameDiv.append(embyInput({ id: eleIds.danmakuSearchName, value: window.ede.searchDanmakuOpts.animeName, type: 'search' }
             , doDanmakuSearchEpisode));
         searchNameDiv.append(embyButton({ label: '搜索', iconKey: iconKeys.search}, doDanmakuSearchEpisode));
+
+        // --- API选择和优先级设置 (PR #167 优化布局) ---
+        const apiSelectDiv = getById(eleIds.apiSelectDiv);
+        apiSelectDiv.innerHTML = '';
+        apiSelectDiv.style.display = 'block';
+
+        // 控制栏：左侧优先级滑块，右侧启用开关组 - 同一行
+        const controlBar = document.createElement('div');
+        controlBar.style.cssText = 'display: flex; align-items: center; gap: 15px; margin-bottom: 1em;';
+
+        // --- 左侧：优先级滑块 ---
+        const leftGroup = document.createElement('div');
+        leftGroup.style.cssText = 'display: flex; align-items: center; gap: 8px; flex-shrink: 0;';
+
+        const priorityLabel = document.createElement('label');
+        priorityLabel.className = classes.embyLabel;
+        priorityLabel.textContent = '优先级:';
+        priorityLabel.style.cssText = 'margin-bottom: 0; white-space: nowrap;';
+
+        const prioritySwitch = document.createElement('div');
+        prioritySwitch.className = 'emby-toggle-switch';
+        prioritySwitch.style.cssText = 'position: relative; width: 160px; height: 32px; background-color: #333; border-radius: 16px; cursor: pointer; transition: all 0.3s ease; flex-shrink: 0;';
+
+        const prioritySlider = document.createElement('div');
+        prioritySlider.style.cssText = 'position: absolute; top: 2px; width: 80px; height: 28px; background-color: #4a90e2; border-radius: 14px; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;';
+
+        const leftLabel = document.createElement('div');
+        leftLabel.style.cssText = 'position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #999; pointer-events: none;';
+        leftLabel.textContent = '自定义';
+
+        const rightLabel = document.createElement('div');
+        rightLabel.style.cssText = 'position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #999; pointer-events: none;';
+        rightLabel.textContent = '弹弹play';
+
+        prioritySwitch.append(leftLabel, rightLabel, prioritySlider);
+
+        const currentPriority = lsGetItem(lsKeys.apiPriority.id);
+        const isOfficialFirst = currentPriority[0] === 'official';
+
+        const updatePrioritySwitch = (officialFirst) => {
+            if (officialFirst) {
+                prioritySlider.style.left = '78px';
+                prioritySlider.textContent = '弹弹play';
+                leftLabel.style.color = '#999';
+                rightLabel.style.color = 'white';
+            } else {
+                prioritySlider.style.left = '2px';
+                prioritySlider.textContent = '自定义';
+                leftLabel.style.color = 'white';
+                rightLabel.style.color = '#999';
+            }
+        };
+        updatePrioritySwitch(isOfficialFirst);
+
+        prioritySwitch.onclick = () => {
+            const currentPriority = lsGetItem(lsKeys.apiPriority.id);
+            const newPriority = currentPriority[0] === 'official' ? ['custom', 'official'] : ['official', 'custom'];
+            lsSetItem(lsKeys.apiPriority.id, newPriority);
+            updatePrioritySwitch(newPriority[0] === 'official');
+        };
+
+        leftGroup.append(priorityLabel, prioritySwitch);
+
+        // --- 右侧：启用开关组 (官方 / 自定义) - 同一行显示 ---
+        const rightGroup = document.createElement('div');
+        rightGroup.style.cssText = 'display: flex; align-items: center; gap: 15px;';
+
+        // 弹弹play API开关
+        const officialCb = embyCheckbox({ label: '启用弹弹play' }, lsGetItem(lsKeys.useOfficialApi.id), (checked) => {
+            lsSetItem(lsKeys.useOfficialApi.id, checked);
+        });
+        officialCb.style.cssText = 'display: inline-flex !important; align-items: center; margin: 0 !important; white-space: nowrap;';
+
+        // 自定义API开关
+        const customCb = embyCheckbox({ label: '启用自定义' }, lsGetItem(lsKeys.useCustomApi.id), (checked) => {
+            lsSetItem(lsKeys.useCustomApi.id, checked);
+            const customContainer = getById('customApiContainer');
+            if (customContainer) {
+                customContainer.style.opacity = checked ? '1' : '0.5';
+                customContainer.style.pointerEvents = checked ? 'auto' : 'none';
+            }
+        });
+        customCb.style.cssText = 'display: inline-flex !important; align-items: center; margin: 0 !important; white-space: nowrap;';
+
+        rightGroup.append(officialCb, customCb);
+        controlBar.append(leftGroup, rightGroup);
+        apiSelectDiv.append(controlBar);
+
+        // 初始化自定义API容器的透明度
+        const customContainer = getById('customApiContainer');
+        if (customContainer) {
+            const customEnabled = lsGetItem(lsKeys.useCustomApi.id);
+            customContainer.style.opacity = customEnabled ? '1' : '0.5';
+            customContainer.style.pointerEvents = customEnabled ? 'auto' : 'none';
+        }
+
         searchNameDiv.append(embyButton({ label: '切换[原]标题', iconKey: iconKeys.text_format }, doSearchTitleSwtich));
         getById(eleIds.danmakuEpisodeLoad).append(
             embyButton({ id: eleIds.danmakuSwitchEpisode, label: '加载弹幕', iconKey: iconKeys.done }, doDanmakuSwitchEpisode)
@@ -3168,46 +4841,6 @@
         });
     }
 
-    function buildCustomApiDiv() {
-        // API选择设置
-        const apiCheckboxListDiv = getById(eleIds.apiCheckboxListDiv);
-        // 官方API启用开关
-        apiCheckboxListDiv.append(embyCheckbox({ label: lsKeys.useOfficialApi.name }, lsGetItem(lsKeys.useOfficialApi.id), (checked) => {
-            lsSetItem(lsKeys.useOfficialApi.id, checked);
-        }));
-        // 自定义API启用开关
-        apiCheckboxListDiv.append(embyCheckbox({ label: lsKeys.useCustomApi.name }, lsGetItem(lsKeys.useCustomApi.id), (checked) => {
-            lsSetItem(lsKeys.useCustomApi.id, checked);
-        }));
-
-        // API优先级切换
-        getById(eleIds.apiPriorityDiv).append(
-            embyTabs(apiPriorityOpts, lsGetItem(lsKeys.apiPriority.id)[0], 'id', 'name', (value, tabIndex) => {
-                const currentPriority = lsGetItem(lsKeys.apiPriority.id);
-                const apiPriorityArr = apiPriorityOpts.map(opt => opt.id);
-                const newPriority = currentPriority[0] === apiPriorityArr[1]
-                    ? [apiPriorityArr[0], apiPriorityArr[1]]
-                    : [apiPriorityArr[1], apiPriorityArr[0]];
-                lsSetItem(lsKeys.apiPriority.id, newPriority);
-                console.log('[API优先级] 切换为:', newPriority[0] === apiPriorityOpts[0].id ? apiPriorityOpts[0].name : apiPriorityOpts[1].name);
-            })
-        );
-
-        // 添加自定义API地址输入框
-        getById(eleIds.customApiPrefixInputDiv).append(
-            embyInput({
-                id: 'customApiPrefixInput',
-                value: lsGetItem(lsKeys.customApiPrefix.id) || '',
-                type: 'search'
-            }, null, (e) => {
-                // 失焦自动保存
-                const val = e.target.value.trim();
-                lsSetItem(lsKeys.customApiPrefix.id, val);
-                embyToast({ text: '自定义API地址已保存', secondaryText: val });
-            })
-        );
-    }
-
     async function onEnterExtComment(e) {
         const extUrl = getTargetInput(e).value.trim();
         if (!extUrl.startsWith('http')) { return embyToast({ text: '输入的 url 应以 http 开头!' }); }
@@ -3226,13 +4859,13 @@
         }
         const allComments = comments.concat(extComments);
         createDanmaku(allComments)
-            .then(() => {
-                const beforeLength = window.ede.commentsParsed.length - extComments.length;
-                embyToast({ text: `此次附加总量: ${extComments.length}, 附加前总量: ${beforeLength}, 附加后总量: ${allComments.length}` });
-                console.log(`附加弹幕就位, 附加前总量: ${beforeLength}`);
-                buildExtUrlsDiv();
-            })
-            .catch(err => console.log(err));
+        .then(() => {
+            const beforeLength = window.ede.commentsParsed.length - extComments.length;
+            embyToast({ text: `此次附加总量: ${extComments.length}, 附加前总量: ${beforeLength}, 附加后总量: ${allComments.length}` });
+            logger.info(`附加弹幕就位, 附加前总量: ${beforeLength}`);
+            buildExtUrlsDiv();
+        })
+        .catch(err => logger.debug(err));
     }
 
     function buildDanmuPluginDiv() {
@@ -3251,7 +4884,7 @@
     function buildCurrentDanmakuInfo(containerId) {
         const container = getById(containerId);
         if (!container) { return; }
-        const { episodeTitle, animeId, animeTitle, apiName } = window.ede.episode_info || {};
+        const { episodeTitle, animeId, animeTitle, imageUrl, apiName, apiPrefix } = window.ede.episode_info || {};
         const loadSum = getDanmakuComments(window.ede).length;
         const downloadSum = window.ede.commentsParsed.length;
         let template = `
@@ -3263,15 +4896,14 @@
                         <div class="${classes.embyFieldDesc}">${animeTitle}</div>
                     </div>
                     ${!episodeTitle ? '' :
-            `<div>
+                    `<div>
                         <label class="${classes.embyLabel}">章节名: </label>
                         <div class="${classes.embyFieldDesc}">${episodeTitle}</div>
                     </div>`}
-                    ${!apiName ? '' :
-            `<div>
-                        <label class="${classes.embyLabel}">来源: </label>
+                    <div>
+                        <label class="${classes.embyLabel}">匹配来源: </label>
+                        <div class="${classes.embyFieldDesc}">${apiName || '未知'}</div>
                     </div>
-                    <div class="${classes.embyFieldDesc}">${apiName}</div>`}
                     <div>
                         <label class="${classes.embyLabel}">其它信息: </label>
                         <div class="${classes.embyFieldDesc}">
@@ -3285,8 +4917,10 @@
             <div style="margin-top: 2%;">
                 <label class="${classes.embyLabel}">${lsKeys.danmuList.name}: </label>
                 <div id="${eleIds.danmuListDiv}" style="margin: 1% 0;"></div>
-                <textarea id="${eleIds.danmuListText}" readOnly style="display: none;resize: vertical;width: 100%" rows="8"
-                    is="emby-textarea" class="txtOverview emby-textarea"></textarea>
+                <div id="${eleIds.danmuListText}" style="display: none; height: 300px; overflow-y: auto; position: relative; border: 1px solid #444; background:                       rgba(0,0,0,0.3);">
+                <div id="danmuListPhantom" style="position: absolute; left: 0; top: 0; right: 0; z-index: -1;"></div>
+                <div id="danmuListContent" style="position: absolute; left: 0; right: 0; top: 0;"></div>
+                </div>
                 <div class="${classes.embyFieldDesc}">列表展示格式为: [序号][分:秒] : 弹幕正文 [来源平台][用户ID][弹幕CID][模式]</div>
             </div>
             <div id="${eleIds.extInfoCtrlDiv}" style="margin: 0.6em 0;"></div>
@@ -3304,10 +4938,29 @@
             </div>
         `;
         container.innerHTML = template.trim();
-        if (animeId) {
-            getById(eleIds.posterImgDiv, container).append(
-                embyImgButton(embyImg(dandanplayApi.posterImg(animeId)), 'width: calc((var(--videoosd-tabs-height) - 3em) * (2 / 3)); margin-right: 1em;')
-            );
+
+        let posterSrc = '';
+        // 修正海报显示逻辑：
+        // 根据使用的API源来决定图片来源
+        if (imageUrl) {
+            // 如果 episode_info 中有 imageUrl，直接使用
+            posterSrc = imageUrl;
+        } else if (animeId) {
+            // 如果没有 imageUrl，只有官方 API 才显示图片
+            const isCustomApi = apiPrefix && apiPrefix !== dandanplayApi.prefix;
+            if (!isCustomApi) {
+                // 使用弹弹play API时，用弹弹play图片
+                posterSrc = dandanplayApi.posterImg(animeId);
+            }
+            // 使用自定义API且无 imageUrl 时，不显示图片
+        }
+        const posterStyle = 'width: calc((var(--videoosd-tabs-height) - 3em) * (2 / 3)); margin-right: 1em;';
+        const posterDiv = getById(eleIds.posterImgDiv, container);
+        if (posterSrc) {
+            posterDiv.append(embyImgButton(embyImg(posterSrc), posterStyle));
+        } else {
+            // 没有图片时也保留空位
+            posterDiv.style.cssText = posterStyle;
         }
         buildDanmuListDiv(container);
         // 额外信息
@@ -3323,9 +4976,9 @@
         let danmuListTabOpts = danmuListOpts;
         if (danmuListExts.length > 0) {
             const dandanplayListOpt = { id: 'dandanplay', name: '弹弹 play', onChange: () => {
-                    const comments = window.ede.danmuCache[episodeId];
-                    return comments ? danmakuParser(comments) : [];
-                } };
+                const comments = window.ede.danmuCache[episodeId];
+                return comments ? danmakuParser(comments) : [];
+            } };
             danmuListTabOpts = danmuListTabOpts.concat(dandanplayListOpt).concat(danmuListExts);
         }
         getById(eleIds.danmuListDiv, container).append(
@@ -3430,15 +5083,32 @@
                                 </label>
                             </div>
                             <div style="${styles.embySlider}">
-                                <label class="${classes.embyLabel}" style="width: 10em;">${lsKeys.mergeSimilarTime.name}: </label>
-                                <div id="${eleIds.mergeSimilarTimeDiv}" style="width: 15.5em; text-align: center;"></div>
-                                <label style="${styles.embySliderLabel}">-1</label>
-                            </div>
+                            <label class="${classes.embyLabel}" style="width: 10em;">${lsKeys.mergeSimilarTime.name}: </label>
+                            <div id="${eleIds.mergeSimilarTimeDiv}" style="width: 15.5em; text-align: center;"></div>
+                            <label>
+                               <label style="${styles.embySliderLabel}"></label>
+                               <label>秒</label>
+                            </label>
+                        </div>
                         </div>
                         <div id="${eleIds.filterKeywordsDiv}" style="margin-bottom: 0.2em;">
                             <label class="${classes.embyLabel}">${lsKeys.filterKeywords.name}: </label>
                         </div>
                     </div>
+                </div>
+                <div is="emby-collapse" title="弹幕位置转换">
+                    <div class="${classes.collapseContentNav}">
+                        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1em; padding: 0.5em 0;">
+                    <div style="flex: 1; display: flex; align-items: center; min-width: 250px;">
+                    <label class="${classes.embyLabel}" style="width: auto; margin-right: 1em; white-space: nowrap;">顶部转:</label>
+                    <div id="danmakuConvertTopToDiv" style="flex: 1;"></div>
+                </div>
+                <div style="flex: 1; display: flex; align-items: center; min-width: 250px;">
+                    <label class="${classes.embyLabel}" style="width: auto; margin-right: 1em; white-space: nowrap;">底部转:</label>
+                    <div id="danmakuConvertBottomToDiv" style="flex: 1;"></div>
+                </div>
+                </div>
+                </div>
                 </div>
                 <div is="emby-collapse" title="额外设置">
                     <div class="${classes.collapseContentNav}" style="padding-top: 0.5em !important;">
@@ -3451,16 +5121,34 @@
                         </div>
                     </div>
                 </div>
+                <div is="emby-collapse" title="自动匹配">
+                    <div class="${classes.collapseContentNav}" style="padding-top: 0.5em !important;">
+                        <div id="${eleIds.autoLoadSwitchDiv}" style="margin-bottom: 0.5em;"></div>
+                        <div id="${eleIds.matchApiEnableDiv}" style="margin-bottom: 0.5em;"></div>
+                        <div id="${eleIds.matchModeDiv}"></div>
+                        <div class="${classes.embyFieldDesc}" style="margin-top: 0.5em;">
+                            自动加载弹幕：关闭后播放视频时不会自动搜索和加载弹幕，但仍可通过弹幕设置弹窗手动匹配。<br/>
+                            /match 接口：关闭后跳过 /match 接口，直接使用 /search/episodes 文件名搜索。<br/>
+                            匹配模式：「哈希+文件名」会下载视频分片计算 MD5 进行精确匹配；「仅文件名」跳过哈希计算（网盘/strm 用户建议选此项）。
+                        </div>
+                    </div>
+                </div>
+                <div is="emby-collapse" title="集数偏移">
+                    <div id="${eleIds.episodeOffsetRulesDiv}" class="${classes.collapseContentNav}"></div>
+                </div>
                 <div is="emby-collapse" title="播放界面设置">
                     <div class="${classes.collapseContentNav}">
                         <div id="${eleIds.osdCheckboxDiv}" class="${classes.embyCheckboxList}" style="${styles.embyCheckboxList}"></div>
                         <div>
                             <div id="${eleIds.osdLineChartDiv}" class="${classes.embyCheckboxList}" style="${styles.embyCheckboxList}"></div>
                             <div style="${styles.embySlider}">
-                                <label class="${classes.embyLabel}" style="width: 12em;">${lsKeys.osdLineChartTime.name}: </label>
-                                <div id="${eleIds.osdLineChartTimeDiv}" style="width: 15.5em; text-align: center;"></div>
-                                <label style="${styles.embySliderLabel}"></label>
-                            </div>
+                    <label class="${classes.embyLabel}" style="width: 12em;">${lsKeys.osdLineChartTime.name}: </label>
+                          <div id="${eleIds.osdLineChartTimeDiv}" style="width: 15.5em; text-align: center;"></div>
+                          <label>
+                             <label style="${styles.embySliderLabel}"></label>
+                          <label>秒</label>
+                          </label>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -3504,17 +5192,102 @@
                         </div>
                     </div>
                 </div>
+                <div is="emby-collapse" title="TMDB 集数映射设置">
+                    <div class="${classes.collapseContentNav}" style="padding-top: 0.5em !important;">
+                        <label id="${eleIds.tmdbEnableLabel}" class="${classes.embyLabel}"></label>
+                        <div id="${eleIds.tmdbSettingsDiv}">
+                            <div id="${eleIds.tmdbApiKeyInputDiv}" style="display: flex;" ></div>
+                            <div id="${eleIds.tmdbApiKeyLabel}" class="${classes.embyFieldDesc}"></div>
+                            <div class="${classes.embyFieldDesc}">
+                                你可以在以下链接申请 TMDB API Key
+                            </div>
+                            <div id="${eleIds.tmdbApiKeyLinkDiv}" style="padding-bottom: 0.5em;"></div>
+                            <label class="${classes.embyLabel}">TMDB API 域名: </label>
+                            <div id="${eleIds.tmdbApiBaseUrlInputDiv}" style="display: flex; margin-bottom: 0.5em;" ></div>
+                            <div id="${eleIds.tmdbApiBaseUrlLabel}" class="${classes.embyFieldDesc}"></div>
+                            <div class="${classes.embyFieldDesc}">
+                                通过 TMDB Episode Group 自动处理集数偏移问题（如 S02E01→S01E25）
+                            </div>
+                            <div class="${classes.embyFieldDesc}">
+                                启用后，将自动从 Emby 获取 TMDB Episode Group ID，并建立季集映射关系。
+                                适用于解决 DanDanPlay 和 TMDB 集数不一致的问题。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div is="emby-collapse" title="配置持久化">
+                    <div class="${classes.collapseContentNav}" style="padding-top: 0.5em !important;">
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <label id="${eleIds.persistenceEnableLabel}" class="${classes.embyLabel}"></label>
+                            <label id="${eleIds.persistenceAutoSyncLabel}" class="${classes.embyLabel}"></label>
+                        </div>
+                        <div id="${eleIds.persistenceSettingsDiv}">
+                            <div style="margin-top: 1em;">
+                                <label id="${eleIds.persistenceNamespaceLabel}" class="${classes.embyLabel}" for="${eleIds.persistenceNamespaceInput}">
+                                    ${lsKeys.configPersistenceNamespace.name}
+                                </label>
+                                <input id="${eleIds.persistenceNamespaceInput}" is="emby-input" type="text" class="${classes.embyInput}" />
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 1em;">
+                                <button id="btnPersistenceUpload" is="emby-button" type="button" class="raised" style="flex: 1;">
+                                    <span>同步到服务器</span>
+                                </button>
+                                <button id="btnPersistenceLoad" is="emby-button" type="button" class="raised" style="flex: 1;">
+                                    <span>从服务器恢复</span>
+                                </button>
+                            </div>
+                            <div id="${eleIds.persistenceStatusLabel}" class="${classes.embyFieldDesc}" style="margin-top: 1em;"></div>
+                            <div class="${classes.embyFieldDesc}">
+                                需要安装 <a href="https://github.com/l429609201/Parameter_persistence/releases" target="_blank" style="color: #4ea1d3; text-decoration: underline;">Parameter_persistence</a> 插件。开启后可手动同步配置到服务器，启用实时同步后配置变更会自动同步。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div is="emby-collapse" title="媒体库排除设置">
+                    <div id="${eleIds.excludedLibrariesDiv}" class="${classes.collapseContentNav}"></div>
+                </div>
+                <div is="emby-collapse" title="搜索内容黑名单">
+                    <div id="${eleIds.searchBlacklistDiv}" class="${classes.collapseContentNav}"></div>
+                </div>
                 <div is="emby-collapse" title="自定义接口地址">
                     <div id="${eleIds.customeUrlsDiv}" class="${classes.collapseContentNav}"></div>
                 </div>
             </div>
         `;
         container.innerHTML = template.trim();
+        const topOpts = [
+        { id: 'default', name: '默认' },
+        { id: 'bottom', name: '底部' },
+        { id: 'rolling', name: '滚动' }
+    ];
+    getById('danmakuConvertTopToDiv', container).append(
+        embyTabs(topOpts, lsGetItem(lsKeys.convertTopTo.id), 'id', 'name', (val) => {
+            lsSetItem(lsKeys.convertTopTo.id, val.id);
+            loadDanmaku(LOAD_TYPE.RELOAD);
+        })
+    );
+    const bottomOpts = [
+        { id: 'default', name: '默认' },
+        { id: 'top', name: '顶部' },
+        { id: 'rolling', name: '滚动' }
+    ];
+    getById('danmakuConvertBottomToDiv', container).append(
+        embyTabs(bottomOpts, lsGetItem(lsKeys.convertBottomTo.id), 'id', 'name', (val) => {
+            lsSetItem(lsKeys.convertBottomTo.id, val.id);
+            loadDanmaku(LOAD_TYPE.RELOAD);
+        })
+    );
         buildDanmakuFilterSetting(container);
         buildExtSetting(container);
+        buildAutoMatchSetting(container);
+        buildEpisodeOffsetTab(eleIds.episodeOffsetRulesDiv);
         buildOsdSetting();
         buildPlaySetting(container);
         buildBangumiSetting(container);
+        buildTmdbSetting(container);
+        buildPersistenceSetting(container);
+        buildExcludedLibrariesSetting(container);
+        buildSearchBlacklistSetting(container);
         buildCustomUrlSetting(container);
     }
 
@@ -3538,11 +5311,11 @@
         // 合并相似弹幕
         getById(eleIds.danmakuFilterProDiv, container).append(
             embyCheckbox({ label: labels.enable }, lsGetItem(lsKeys.mergeSimilarEnable.id)
-                , (checked) => {
-                    lsSetItem(lsKeys.mergeSimilarEnable.id, checked);
-                    loadDanmaku(LOAD_TYPE.RELOAD);
-                }
-            ));
+            , (checked) => {
+                lsSetItem(lsKeys.mergeSimilarEnable.id, checked);
+                loadDanmaku(LOAD_TYPE.RELOAD);
+            }
+        ));
         getById(eleIds.mergeSimilarPercentDiv).append(
             embySlider({ lsKey: lsKeys.mergeSimilarPercent }, onSliderChange, onSliderChangeLabel)
         );
@@ -3573,17 +5346,159 @@
     }
 
     function buildExtSetting(container) {
-        // getById(eleIds.extCheckboxDiv, container).append(embyCheckbox(
-        //     { label: lsKeys.removeEmojiEnable.name }, lsGetItem(lsKeys.removeEmojiEnable.id), (checked) => {
-        //         lsSetItem(lsKeys.removeEmojiEnable.id, checked);
-        //     }
-        // ));
         getById(eleIds.danmakuChConverDiv, container).append(
             embyTabs(danmakuChConverOpts, window.ede.chConvert, 'id', 'name', doDanmakuChConverChange)
         );
         getById(eleIds.danmakuEngineDiv, container).append(
             embyTabs(danmakuEngineOpts, lsGetItem(lsKeys.engine.id), 'id', 'name', doDanmakuEngineSelect)
         );
+    }
+
+    function buildAutoMatchSetting(container) {
+        // 自动加载弹幕总开关
+        const autoLoadDiv = getById(eleIds.autoLoadSwitchDiv, container);
+        const autoLoadEnabled = lsGetItem(lsKeys.autoLoadSwitch.id);
+        autoLoadDiv.append(
+            embyCheckbox({ id: eleIds.autoLoadSwitchBtn, label: lsKeys.autoLoadSwitch.name }, autoLoadEnabled, (checked) => {
+                lsSetItem(lsKeys.autoLoadSwitch.id, checked);
+            })
+        );
+
+        // /match 接口开关
+        const matchModeDiv = getById(eleIds.matchModeDiv, container);
+        const matchEnabled = lsGetItem(lsKeys.matchApiEnable.id);
+        matchModeDiv.style.display = matchEnabled ? '' : 'none';
+        getById(eleIds.matchApiEnableDiv, container).append(
+            embyCheckbox({ label: lsKeys.matchApiEnable.name }, matchEnabled, (checked) => {
+                lsSetItem(lsKeys.matchApiEnable.id, checked);
+                matchModeDiv.style.display = checked ? '' : 'none';
+            })
+        );
+
+        // 匹配模式选择
+        const matchModeLabelEle = document.createElement('label');
+        matchModeLabelEle.className = classes.embyLabel;
+        matchModeLabelEle.textContent = lsKeys.matchMode.name + ': ';
+        matchModeDiv.append(matchModeLabelEle);
+        matchModeDiv.append(
+            embyTabs(danmakuMatchModeOpts, lsGetItem(lsKeys.matchMode.id), 'id', 'name', (value) => {
+                lsSetItem(lsKeys.matchMode.id, value.id);
+            })
+        );
+    }
+
+    function buildEpisodeOffsetTab(containerId) {
+        const container = getById(containerId);
+        if (!container) return;
+
+        // 生成示例 JSON
+        const exampleRules = [
+            { seriesName: '葬送的芙莉莲', fromSeason: 2, toSeason: 1, episodeOffset: 28 },
+            { seriesName: '某剧第三季', fromSeason: 3, toSeason: 2, episodeOffset: 12 }
+        ];
+        const exampleJson = JSON.stringify(exampleRules, null, 2);
+
+        const currentRules = lsGetItem(lsKeys.episodeOffsetRules.id) || [];
+        const currentJson = currentRules.length > 0 ? JSON.stringify(currentRules, null, 2) : '[]';
+
+        container.innerHTML = `
+            <div style="padding: 0.5em 0;">
+                <div class="${classes.embyFieldDesc}" style="margin-bottom: 1em;">
+                    用于解决 Emby (TMDB) 和弹弹Play 集数不一致的问题。优先级高于 TMDB 剧集组映射。
+                </div>
+                <div style="margin-bottom: 0.8em;">
+                    <label class="${classes.embyLabel}">当前规则 (JSON):</label>
+                    <textarea id="episodeOffsetJsonEditor" is="emby-textarea" class="txtOverview emby-textarea"
+                        style="width: 100%; resize: vertical; font-family: monospace; font-size: 0.9em;" rows="10">${escapeHtml(currentJson)}</textarea>
+                </div>
+                <div style="display: flex; gap: 0.5em; margin-bottom: 1em;">
+                    <button id="episodeOffsetSaveBtn" is="emby-button" type="button" class="raised button-submit emby-button">
+                        <span>保存规则</span>
+                    </button>
+                    <button id="episodeOffsetLoadExampleBtn" is="emby-button" type="button" class="raised emby-button">
+                        <span>加载示例</span>
+                    </button>
+                    <button id="episodeOffsetClearBtn" is="emby-button" type="button" class="raised emby-button">
+                        <span>清空规则</span>
+                    </button>
+                </div>
+                <div id="episodeOffsetStatus" class="${classes.embyFieldDesc}" style="margin-bottom: 1em;"></div>
+                <div is="emby-collapse" title="字段说明" data-expanded="true">
+                    <div class="${classes.collapseContentNav}">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.15);">
+                                <td style="padding: 0.4em; font-weight: bold; width: 130px;">seriesName</td>
+                                <td style="padding: 0.4em;">系列名称，包含匹配（填的文字被包含在 Emby 系列名中即命中）</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.15);">
+                                <td style="padding: 0.4em; font-weight: bold;">fromSeason</td>
+                                <td style="padding: 0.4em;">来源季号 — 当 Emby 播放的季号等于此值时触发偏移</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.15);">
+                                <td style="padding: 0.4em; font-weight: bold;">toSeason</td>
+                                <td style="padding: 0.4em;">目标季号 — 搜索弹幕时使用的季号</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.4em; font-weight: bold;">episodeOffset</td>
+                                <td style="padding: 0.4em;">集数偏移 — 搜索集号 = 原集号 + 此值（可以为负数）</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div is="emby-collapse" title="映射示例">
+                    <div class="${classes.collapseContentNav}">
+                        <pre style="background: rgba(0,0,0,0.3); padding: 0.8em; border-radius: 4px; font-size: 0.85em; overflow-x: auto; white-space: pre-wrap;">${escapeHtml(exampleJson)}</pre>
+                        <div class="${classes.embyFieldDesc}" style="margin-top: 0.5em;">
+                            上面的示例表示：<br/>
+                            ① 葬送的芙莉莲: Emby S02E01 → 搜索 S01E29, S02E05 → 搜索 S01E33<br/>
+                            ② 某剧第三季: Emby S03E01 → 搜索 S02E13, S03E05 → 搜索 S02E17
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `.trim();
+
+        // 保存按钮
+        getById('episodeOffsetSaveBtn').addEventListener('click', () => {
+            const editor = getById('episodeOffsetJsonEditor');
+            const statusLabel = getById('episodeOffsetStatus');
+            try {
+                const parsed = JSON.parse(editor.value);
+                if (!Array.isArray(parsed)) throw new Error('JSON 必须是数组格式 [...]');
+                // 校验每条规则
+                for (let i = 0; i < parsed.length; i++) {
+                    const r = parsed[i];
+                    if (!r.seriesName || typeof r.seriesName !== 'string') throw new Error(`第 ${i + 1} 条: seriesName 必须是非空字符串`);
+                    if (typeof r.fromSeason !== 'number') throw new Error(`第 ${i + 1} 条: fromSeason 必须是数字`);
+                    if (typeof r.toSeason !== 'number') throw new Error(`第 ${i + 1} 条: toSeason 必须是数字`);
+                    if (typeof r.episodeOffset !== 'number') throw new Error(`第 ${i + 1} 条: episodeOffset 必须是数字`);
+                }
+                lsSetItem(lsKeys.episodeOffsetRules.id, parsed);
+                statusLabel.innerText = `✅ 已保存 ${parsed.length} 条偏移规则`;
+                statusLabel.style.color = 'green';
+                embyToast({ text: `已保存 ${parsed.length} 条集数偏移规则` });
+            } catch (e) {
+                statusLabel.innerText = `❌ JSON 格式错误: ${e.message}`;
+                statusLabel.style.color = 'red';
+                embyToast({ text: `保存失败: ${e.message}` });
+            }
+        });
+
+        // 加载示例
+        getById('episodeOffsetLoadExampleBtn').addEventListener('click', () => {
+            getById('episodeOffsetJsonEditor').value = exampleJson;
+            getById('episodeOffsetStatus').innerText = '已加载示例，请修改后点击「保存规则」';
+            getById('episodeOffsetStatus').style.color = '';
+        });
+
+        // 清空
+        getById('episodeOffsetClearBtn').addEventListener('click', () => {
+            getById('episodeOffsetJsonEditor').value = '[]';
+            lsSetItem(lsKeys.episodeOffsetRules.id, []);
+            getById('episodeOffsetStatus').innerText = '✅ 已清空所有偏移规则';
+            getById('episodeOffsetStatus').style.color = 'green';
+            embyToast({ text: '已清空集数偏移规则' });
+        });
     }
 
     function buildOsdSetting() {
@@ -3624,12 +5539,7 @@
         ));
         getById(eleIds.osdLineChartTimeDiv).append(
             embySlider({ lsKey: lsKeys.osdLineChartTime, needReload: false }
-                , (val, opts) => {
-                    onSliderChange(val, opts);
-                    if (lsGetItem(lsKeys.osdLineChartEnable.id)) {
-                        buildProgressBarChart(20);
-                    }
-                }, onSliderChangeLabel)
+                , (val, opts) => { onSliderChange(val, opts);buildProgressBarChart(20); }, onSliderChangeLabel)
         );
     }
 
@@ -3701,13 +5611,847 @@
     async function fetchBangumiApiGetMe(bangumiToken) {
         try {
             const res = await fetchJson(bangumiApi.getMe(), { token: bangumiToken });
-            console.log('Bangumi Token 验证成功', res);
+            logger.debug('Bangumi Token 验证成功', res);
             localStorage.setItem(lsLocalKeys.bangumiMe, JSON.stringify(res));
             return res;
         } catch (error) {
-            console.error('Bangumi Token 验证失败', error);
+            logger.error('Bangumi Token 验证失败', error);
             throw error;
         }
+    }
+
+    function buildTmdbSetting(container) {
+        const tmdbSettingsDiv = getById(eleIds.tmdbSettingsDiv, container);
+        const tmdbEnable = lsGetItem(lsKeys.tmdbEpisodeMappingEnable.id);
+        tmdbSettingsDiv.hidden = !tmdbEnable;
+        const tmdbEnableLabel = getById(eleIds.tmdbEnableLabel, container);
+        tmdbEnableLabel.append(embyCheckbox(
+            { label: lsKeys.tmdbEpisodeMappingEnable.name }, tmdbEnable, (checked) => {
+                lsSetItem(lsKeys.tmdbEpisodeMappingEnable.id, checked);
+                tmdbSettingsDiv.hidden = !checked;
+            }
+        ));
+        const tmdbApiKeyInputDiv = getById(eleIds.tmdbApiKeyInputDiv, container);
+        tmdbApiKeyInputDiv.append(embyInput(
+            { id: eleIds.tmdbApiKeyInput, type: 'password', value: lsGetItem(lsKeys.tmdbApiKey.id) }, onEnterTmdbApiKey
+        ));
+        tmdbApiKeyInputDiv.append(embyButton({ label: '校验', iconKey: iconKeys.check}, onEnterTmdbApiKey));
+        const tmdbApiKeyLinkDiv = getById(eleIds.tmdbApiKeyLinkDiv, container);
+        tmdbApiKeyLinkDiv.append(embyALink('https://www.themoviedb.org/settings/api', 'https://www.themoviedb.org/settings/api'));
+
+        // TMDB API 域名输入框
+        const tmdbApiBaseUrlInputDiv = getById(eleIds.tmdbApiBaseUrlInputDiv, container);
+        tmdbApiBaseUrlInputDiv.append(embyInput(
+            { id: eleIds.tmdbApiBaseUrlInput, type: 'text', value: lsGetItem(lsKeys.tmdbApiBaseUrl.id) }, onEnterTmdbApiBaseUrl
+        ));
+        const tmdbApiBaseUrlLabel = getById(eleIds.tmdbApiBaseUrlLabel, container);
+        tmdbApiBaseUrlLabel.innerText = '默认: https://api.themoviedb.org (如需使用代理或镜像站，可修改此域名)';
+    }
+
+    function onEnterTmdbApiBaseUrl(e) {
+        const tmdbApiBaseUrl = getById(eleIds.tmdbApiBaseUrlInput).value.trim();
+        lsSetItem(lsKeys.tmdbApiBaseUrl.id, tmdbApiBaseUrl);
+        const label = getById(eleIds.tmdbApiBaseUrlLabel);
+        label.innerText = `已保存: ${tmdbApiBaseUrl}`;
+        label.style.color = 'green';
+    }
+
+    function onEnterTmdbApiKey(e) {
+        const tmdbApiKey = getById(eleIds.tmdbApiKeyInput).value.trim();
+        lsSetItem(lsKeys.tmdbApiKey.id, tmdbApiKey);
+        const label = getById(eleIds.tmdbApiKeyLabel);
+        verifyTmdbApiKey(tmdbApiKey).then(res => {
+            label.innerText = 'TMDB API Key 验证成功';
+            label.style.color = 'green';
+        }).catch(error => {
+            label.innerText = 'TMDB API Key 验证失败';
+            label.style.color = 'red';
+            throw error;
+        });
+    }
+
+    async function verifyTmdbApiKey(apiKey) {
+        try {
+            const tmdbBaseUrl = lsGetItem(lsKeys.tmdbApiBaseUrl.id) || 'https://api.themoviedb.org';
+            const url = `${tmdbBaseUrl}/3/configuration?api_key=${apiKey}`;
+            const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`TMDB API 请求失败: ${res.status}`);
+            }
+            const data = await res.json();
+            logger.debug('TMDB API Key 验证成功', data);
+            return data;
+        } catch (error) {
+            logger.error('TMDB API Key 验证失败', error);
+            throw error;
+        }
+    }
+
+
+    function buildPersistenceSetting(container) {
+        const persistenceSettingsDiv = getById(eleIds.persistenceSettingsDiv, container);
+        const persistenceEnable = lsGetItem(lsKeys.configPersistenceEnable.id);
+        persistenceSettingsDiv.hidden = !persistenceEnable;
+
+        const persistenceEnableLabel = getById(eleIds.persistenceEnableLabel, container);
+        persistenceEnableLabel.append(embyCheckbox(
+            { label: lsKeys.configPersistenceEnable.name }, persistenceEnable, (checked) => {
+                lsSetItem(lsKeys.configPersistenceEnable.id, checked, true); // 持久化开关自身不同步
+                persistenceSettingsDiv.hidden = !checked;
+            }
+        ));
+
+        // 实时同步开关（在同一行）
+        const persistenceAutoSyncLabel = getById(eleIds.persistenceAutoSyncLabel, container);
+        const autoSyncEnable = lsGetItem(lsKeys.configPersistenceAutoSync.id);
+        persistenceAutoSyncLabel.append(embyCheckbox(
+            { label: lsKeys.configPersistenceAutoSync.name }, autoSyncEnable, (checked) => {
+                lsSetItem(lsKeys.configPersistenceAutoSync.id, checked, true); // 实时同步开关自身不同步
+            }
+        ));
+
+        // Namespace 输入框
+        const namespaceInput = getById(eleIds.persistenceNamespaceInput, container);
+        namespaceInput.value = lsGetItem(lsKeys.configPersistenceNamespace.id) || 'dd-danmaku';
+        namespaceInput.addEventListener('change', () => {
+            const newValue = namespaceInput.value.trim();
+            if (newValue) {
+                lsSetItem(lsKeys.configPersistenceNamespace.id, newValue, true); // Namespace 自身不同步
+            }
+        });
+
+        // 同步到服务器按钮
+        const btnUpload = getById('btnPersistenceUpload', container);
+        if (btnUpload) {
+            btnUpload.addEventListener('click', async () => {
+                const statusLabel = getById(eleIds.persistenceStatusLabel);
+                statusLabel.innerText = '正在同步配置到服务器...';
+                statusLabel.style.color = '';
+                try {
+                    const result = await persistenceUploadAll();
+                    statusLabel.innerText = `✅ 同步完成: 新建 ${result.created} 个, 更新 ${result.updated} 个`;
+                    statusLabel.style.color = 'green';
+                    embyToast({ text: `配置已同步到服务器` });
+                } catch (error) {
+                    statusLabel.innerText = `❌ 同步失败: ${error.message}`;
+                    statusLabel.style.color = 'red';
+                    embyToast({ text: `同步失败: ${error.message}` });
+                }
+            });
+        }
+
+        // 从服务器恢复按钮
+        const btnLoad = getById('btnPersistenceLoad', container);
+        if (btnLoad) {
+            btnLoad.addEventListener('click', async () => {
+                const statusLabel = getById(eleIds.persistenceStatusLabel);
+                statusLabel.innerText = '正在从服务器恢复配置...';
+                statusLabel.style.color = '';
+                try {
+                    const count = await persistenceLoadAll();
+                    if (count > 0) {
+                        statusLabel.innerText = `✅ 恢复完成: 已加载 ${count} 个配置，刷新页面生效`;
+                        statusLabel.style.color = 'green';
+                        embyToast({ text: `已从服务器恢复 ${count} 个配置，刷新页面生效` });
+                    } else if (count === 0) {
+                        statusLabel.innerText = '⚠️ 服务器无配置数据，请先同步';
+                        statusLabel.style.color = 'orange';
+                    } else {
+                        statusLabel.innerText = '❌ 恢复失败: 无法连接持久化服务';
+                        statusLabel.style.color = 'red';
+                    }
+                } catch (error) {
+                    statusLabel.innerText = `❌ 恢复失败: ${error.message}`;
+                    statusLabel.style.color = 'red';
+                    embyToast({ text: `恢复失败: ${error.message}` });
+                }
+            });
+        }
+    }
+
+
+    // =============================================
+    // 配置持久化服务 - 通过 Parameter_persistence 插件
+    // =============================================
+
+    function getPersistenceNamespace() {
+        return lsGetItem(lsKeys.configPersistenceNamespace.id) || 'dd-danmaku';
+    }
+
+    function getPersistenceBaseUrl() {
+        return `${ApiClient.serverAddress()}/emby/ParameterPersistence`;
+    }
+
+    function getPersistenceHeaders() {
+        return {
+            'Content-Type': 'application/json',
+            'X-Emby-Token': ApiClient.accessToken()
+        };
+    }
+
+    // 查询服务器上所有持久化配置
+    async function persistenceQueryAll() {
+        try {
+            // 使用 GET + query string 方式查询（Emby ServiceStack 对 POST body 解析有兼容问题）
+            const url = `${getPersistenceBaseUrl()}/Query?Namespace=${encodeURIComponent(getPersistenceNamespace())}&api_key=${ApiClient.accessToken()}`;
+            const response = await fetch(url, { method: 'GET' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const result = await response.json();
+            // API 返回字段是 PascalCase
+            if (result.Success) {
+                return result.DataList || [];
+            }
+            logger.warn('[持久化] 查询失败:', result.Message);
+            return [];
+        } catch (error) {
+            logger.error('[持久化] 查询服务器配置失败:', error);
+            return null;
+        }
+    }
+
+    // 批量保存配置到服务器（自动区分 Create / Update）
+    async function persistenceSaveBatch(paramsMap) {
+        try {
+            const existingList = await persistenceQueryAll();
+            if (existingList === null) throw new Error('无法连接持久化服务');
+            const existingKeys = new Set(existingList.map(p => p.Key));
+
+            const toCreate = [];
+            const toUpdate = [];
+            for (const [key, value] of Object.entries(paramsMap)) {
+                const param = {
+                    Namespace: getPersistenceNamespace(),
+                    Key: key,
+                    Value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+                    Type: typeof value === 'object' ? 'json' : typeof value,
+                    Description: lsGetKeyById(key) ? lsKeys[lsGetKeyById(key)].name : key
+                };
+                if (existingKeys.has(key)) {
+                    toUpdate.push(param);
+                } else {
+                    toCreate.push(param);
+                }
+            }
+
+            let created = 0, updated = 0;
+            if (toCreate.length > 0) {
+                const resp = await fetch(`${getPersistenceBaseUrl()}/Create`, {
+                    method: 'POST',
+                    headers: getPersistenceHeaders(),
+                    body: JSON.stringify({ Parameters: toCreate })
+                });
+                const r = await resp.json();
+                if (r.Success) created = toCreate.length;
+            }
+            if (toUpdate.length > 0) {
+                const resp = await fetch(`${getPersistenceBaseUrl()}/Update`, {
+                    method: 'POST',
+                    headers: getPersistenceHeaders(),
+                    body: JSON.stringify({ Parameters: toUpdate })
+                });
+                const r = await resp.json();
+                if (r.Success) updated = toUpdate.length;
+            }
+
+            logger.info(`[持久化] 批量保存完成: 新建 ${created} 个, 更新 ${updated} 个`);
+            return { created, updated };
+        } catch (error) {
+            logger.error('[持久化] 批量保存失败:', error);
+            throw error;
+        }
+    }
+
+    // 保存单个配置到服务器（防抖）
+    const _persistenceSaveTimers = {};
+    function persistenceSaveOneDebounced(key, value) {
+        if (_persistenceSaveTimers[key]) clearTimeout(_persistenceSaveTimers[key]);
+        _persistenceSaveTimers[key] = setTimeout(async () => {
+            try {
+                // 先尝试 Update，如果不存在则 Create
+                let resp = await fetch(`${getPersistenceBaseUrl()}/Update`, {
+                    method: 'POST',
+                    headers: getPersistenceHeaders(),
+                    body: JSON.stringify({
+                        Namespace: getPersistenceNamespace(),
+                        Key: key,
+                        Value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+                        Type: typeof value === 'object' ? 'json' : typeof value
+                    })
+                });
+                let result = await resp.json();
+                if (!result.Success) {
+                    // 不存在则创建
+                    resp = await fetch(`${getPersistenceBaseUrl()}/Create`, {
+                        method: 'POST',
+                        headers: getPersistenceHeaders(),
+                        body: JSON.stringify({
+                            Namespace: getPersistenceNamespace(),
+                            Key: key,
+                            Value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+                            Type: typeof value === 'object' ? 'json' : typeof value,
+                            Description: lsGetKeyById(key) ? lsKeys[lsGetKeyById(key)].name : key
+                        })
+                    });
+                }
+            } catch (error) {
+                logger.debug(`[持久化] 同步 ${key} 失败:`, error.message);
+            }
+        }, 1000); // 1秒防抖
+    }
+
+    // 从服务器加载所有配置到 localStorage
+    async function persistenceLoadAll() {
+        try {
+            const list = await persistenceQueryAll();
+            if (!list || list.length === 0) {
+                logger.info('[持久化] 服务器无配置数据');
+                return 0;
+            }
+            let count = 0;
+            for (const param of list) {
+                const keyName = lsGetKeyById(param.Key);
+                if (!keyName) continue;
+                const defaultValue = lsKeys[keyName].defaultValue;
+                let parsedValue;
+                if (param.Type === 'json' || Array.isArray(defaultValue) || typeof defaultValue === 'object') {
+                    try { parsedValue = JSON.parse(param.Value); } catch { parsedValue = param.Value; }
+                } else if (typeof defaultValue === 'boolean') {
+                    parsedValue = param.Value === 'true';
+                } else if (typeof defaultValue === 'number') {
+                    parsedValue = parseFloat(param.Value);
+                } else {
+                    parsedValue = param.Value;
+                }
+                lsSetItem(param.Key, parsedValue, true); // skipSync=true 避免循环
+                count++;
+            }
+            logger.info(`[持久化] 从服务器加载了 ${count} 个配置`);
+            return count;
+        } catch (error) {
+            logger.error('[持久化] 从服务器加载配置失败:', error);
+            return -1;
+        }
+    }
+
+    // 将当前 localStorage 所有 lsKeys 配置上传到服务器
+    async function persistenceUploadAll() {
+        const paramsMap = {};
+        for (const [, keyConfig] of Object.entries(lsKeys)) {
+            if (keyConfig.id === lsKeys.configPersistenceEnable.id) continue;
+            const value = lsGetItem(keyConfig.id);
+            if (value !== null && value !== undefined) {
+                paramsMap[keyConfig.id] = value;
+            }
+        }
+        return await persistenceSaveBatch(paramsMap);
+    }
+
+    /**
+     * TMDB Episode Mapper - 集数映射功能
+     * 通过 TMDB Episode Group 自动处理集数偏移问题
+     */
+    const episodeMappingCache = new Map();
+
+    async function getEmbyItemProviderIds(itemId) {
+        try {
+            const userId = ApiClient.getCurrentUserId();
+            const url = `${ApiClient.serverAddress()}/emby/Users/${userId}/Items/${itemId}?api_key=${ApiClient.accessToken()}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Emby API 请求失败: ${response.status}`);
+            }
+            const data = await response.json();
+
+            // 获取 Episode 的基本信息
+            const episodeInfo = {
+                providerIds: data.ProviderIds || {},
+                season: data.ParentIndexNumber,
+                episode: data.IndexNumber,
+                seriesId: data.SeriesId,
+                seriesName: data.SeriesName
+            };
+
+            // 如果有 SeriesId，从 Series 获取 TMDB Episode Group ID
+            if (data.SeriesId) {
+                try {
+                    const seriesUrl = `${ApiClient.serverAddress()}/emby/Users/${userId}/Items/${data.SeriesId}?api_key=${ApiClient.accessToken()}`;
+                    const seriesResponse = await fetch(seriesUrl);
+                    if (seriesResponse.ok) {
+                        const seriesData = await seriesResponse.json();
+                        // 合并 Series 的 ProviderIds（TMDB Episode Group ID 通常在这里）
+                        episodeInfo.providerIds = {
+                            ...episodeInfo.providerIds,
+                            ...(seriesData.ProviderIds || {})
+                        };
+                        logger.debug(`[集数映射] 已从 Series (${data.SeriesId}) 获取 ProviderIds:`, seriesData.ProviderIds);
+                    }
+                } catch (seriesError) {
+                    logger.warn('[集数映射] 获取 Series ProviderIds 失败:', seriesError);
+                }
+            }
+
+            return episodeInfo;
+        } catch (error) {
+            logger.error('获取 Emby ProviderIds 失败:', error);
+            return null;
+        }
+    }
+
+    async function getTmdbEpisodeGroups(tmdbId, tmdbApiKey) {
+        try {
+            const tmdbBaseUrl = lsGetItem(lsKeys.tmdbApiBaseUrl.id) || 'https://api.themoviedb.org';
+            const url = `${tmdbBaseUrl}/3/tv/${tmdbId}/episode_groups?api_key=${tmdbApiKey}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`TMDB API 请求失败: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            logger.error('[集数映射] 获取 TMDB Episode Groups 失败:', error);
+            return null;
+        }
+    }
+
+    async function getTmdbEpisodeGroup(episodeGroupId, tmdbApiKey) {
+        if (episodeMappingCache.has(episodeGroupId)) {
+            logger.debug('[集数映射] 使用缓存的 TMDB Episode Group 数据');
+            return episodeMappingCache.get(episodeGroupId);
+        }
+
+        try {
+            const tmdbBaseUrl = lsGetItem(lsKeys.tmdbApiBaseUrl.id) || 'https://api.themoviedb.org';
+            const url = `${tmdbBaseUrl}/3/tv/episode_group/${episodeGroupId}?api_key=${tmdbApiKey}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`TMDB API 请求失败: ${response.status}`);
+            }
+            const data = await response.json();
+            episodeMappingCache.set(episodeGroupId, data);
+            return data;
+        } catch (error) {
+            logger.error('[集数映射] 获取 TMDB Episode Group 失败:', error);
+            return null;
+        }
+    }
+
+    function buildEpisodeMapping(episodeGroup) {
+        if (!episodeGroup || !episodeGroup.groups) {
+            return null;
+        }
+
+        const mapping = {
+            absoluteToSeason: {},
+            seasonToAbsolute: {},
+            totalEpisodes: 0,
+            tmdbToCustom: {},  // 反向映射: TMDB季集 → Custom季集
+            customToTmdb: {}   // 正向映射: Custom季集 → TMDB季集
+        };
+
+        let absoluteEpisode = 1;
+
+        episodeGroup.groups.forEach((group, groupIndex) => {
+            if (group.episodes && Array.isArray(group.episodes)) {
+                group.episodes.forEach((episode, episodeIndex) => {
+                    // 参考 misaka_danmu_server 的映射逻辑
+                    // customSeasonNumber = group.order（TMDB 返回的分组顺序号）
+                    // customEpisodeNumber = episodeIndex + 1（从1开始）
+                    // tmdbSeasonNumber/tmdbEpisodeNumber = TMDB 原始季集号
+                    const customSeason = group.order !== undefined ? group.order : (groupIndex + 1);
+                    const customEpisode = episodeIndex + 1;
+                    const tmdbSeason = episode.season_number;
+                    const tmdbEpisode = episode.episode_number;
+
+                    const seasonEpisodeKey = `S${String(customSeason).padStart(2, '0')}E${String(customEpisode).padStart(2, '0')}`;
+
+                    mapping.absoluteToSeason[absoluteEpisode] = {
+                        season: customSeason,
+                        episode: customEpisode,
+                        tmdbSeason: tmdbSeason,
+                        tmdbEpisode: tmdbEpisode
+                    };
+
+                    mapping.seasonToAbsolute[seasonEpisodeKey] = absoluteEpisode;
+
+                    // 双向映射表
+                    const tmdbKey = `S${String(tmdbSeason).padStart(2, '0')}E${String(tmdbEpisode).padStart(2, '0')}`;
+                    mapping.customToTmdb[seasonEpisodeKey] = { season: tmdbSeason, episode: tmdbEpisode };
+                    mapping.tmdbToCustom[tmdbKey] = { season: customSeason, episode: customEpisode };
+
+                    logger.debug(`[集数映射] 映射: Custom S${String(customSeason).padStart(2, '0')}E${String(customEpisode).padStart(2, '0')} <-> TMDB S${String(tmdbSeason).padStart(2, '0')}E${String(tmdbEpisode).padStart(2, '0')}`);
+
+                    absoluteEpisode++;
+                });
+            }
+        });
+
+        mapping.totalEpisodes = absoluteEpisode - 1;
+        return mapping;
+    }
+
+    function convertSeasonEpisode(season, episode, mapping) {
+        if (!mapping) {
+            return null;
+        }
+
+        const key = `S${String(season).padStart(2, '0')}E${String(episode).padStart(2, '0')}`;
+
+        // 方向1: 作为 Custom 季集查 → 返回 TMDB 季集
+        if (mapping.customToTmdb[key]) {
+            const mapped = mapping.customToTmdb[key];
+            logger.info(`[集数映射] Custom ${key} -> TMDB S${String(mapped.season).padStart(2, '0')}E${String(mapped.episode).padStart(2, '0')} (custom_to_tmdb)`);
+            return { season: mapped.season, episode: mapped.episode, direction: 'custom_to_tmdb' };
+        }
+
+        // 方向2: 作为 TMDB 季集查 → 返回 Custom 季集
+        if (mapping.tmdbToCustom[key]) {
+            const mapped = mapping.tmdbToCustom[key];
+            logger.info(`[集数映射] TMDB ${key} -> Custom S${String(mapped.season).padStart(2, '0')}E${String(mapped.episode).padStart(2, '0')} (tmdb_to_custom)`);
+            return { season: mapped.season, episode: mapped.episode, direction: 'tmdb_to_custom' };
+        }
+
+        logger.debug(`[集数映射] ${key} 未找到任何映射`);
+        return null;
+    }
+
+    async function getEpisodeMappingForCurrentItem(itemId) {
+        try {
+            const tmdbApiKey = lsGetItem(lsKeys.tmdbApiKey.id);
+            const mappingEnabled = lsGetItem(lsKeys.tmdbEpisodeMappingEnable.id);
+
+            if (!mappingEnabled || !tmdbApiKey) {
+                logger.debug('[集数映射] 未启用或未配置 TMDB API Key');
+                return null;
+            }
+
+            const itemInfo = await getEmbyItemProviderIds(itemId);
+            if (!itemInfo || !itemInfo.providerIds) {
+                logger.debug('[集数映射] 无法获取 ProviderIds');
+                return null;
+            }
+
+            // 只对电视节目类型（Episode）进行映射，电影不触发
+            const itemDetail = await fatchEmbyItemInfo(itemId);
+            if (!itemDetail || itemDetail.Type !== 'Episode') {
+                logger.debug(`[集数映射] 当前类型为 ${itemDetail?.Type}，跳过映射（仅支持 Episode 类型）`);
+                return null;
+            }
+
+            let tmdbEgId = itemInfo.providerIds.TmdbEg;
+
+            // 冗余处理：如果没有 TmdbEg，尝试通过 Tmdb ID 获取 Episode Groups
+            if (!tmdbEgId && itemInfo.providerIds.Tmdb) {
+                logger.info(`[集数映射] 未找到 TmdbEg，尝试通过 Tmdb ID (${itemInfo.providerIds.Tmdb}) 获取 Episode Groups`);
+                const episodeGroups = await getTmdbEpisodeGroups(itemInfo.providerIds.Tmdb, tmdbApiKey);
+
+                if (episodeGroups && episodeGroups.length > 0) {
+                    // 优先选择 type 为 "Original air date" 的分组
+                    const originalAirDateGroup = episodeGroups.find(g => g.type === 7); // type 7 = Original air date
+                    const selectedGroup = originalAirDateGroup || episodeGroups[0];
+
+                    tmdbEgId = selectedGroup.id;
+                    logger.info(`[集数映射] 自动选择 Episode Group: ${selectedGroup.name} (ID: ${tmdbEgId}, Type: ${selectedGroup.type})`);
+                } else {
+                    logger.debug('[集数映射] 该剧集没有可用的 Episode Groups');
+                    return null;
+                }
+            }
+
+            if (!tmdbEgId) {
+                logger.debug('[集数映射] 该剧集没有 TMDB Episode Group ID');
+                return null;
+            }
+
+            logger.info(`[集数映射] 发现 TMDB Episode Group ID: ${tmdbEgId}`);
+
+            const episodeGroup = await getTmdbEpisodeGroup(tmdbEgId, tmdbApiKey);
+            if (!episodeGroup) {
+                logger.debug('[集数映射] 无法获取 Episode Group 数据');
+                return null;
+            }
+
+            const mapping = buildEpisodeMapping(episodeGroup);
+            if (!mapping) {
+                logger.debug('[集数映射] 无法构建映射表');
+                return null;
+            }
+
+            logger.info(`[集数映射] 成功构建映射表，共 ${mapping.totalEpisodes} 集`);
+
+            return {
+                mapping,
+                currentSeason: itemInfo.season,
+                currentEpisode: itemInfo.episode,
+                seriesName: itemInfo.seriesName,
+                tmdbEgId
+            };
+        } catch (error) {
+            logger.error('[集数映射] 获取集数映射失败:', error);
+            return null;
+        }
+    }
+
+    /**
+     * 构建媒体库排除设置界面
+     */
+    function buildExcludedLibrariesSetting(container) {
+        const excludedDiv = getById(eleIds.excludedLibrariesDiv, container);
+        if (!excludedDiv) return;
+         // 初始模板 - 显示加载中
+        excludedDiv.innerHTML = `
+            <div class="${classes.embyFieldDesc}" style="margin-bottom: 0.5em;">
+                勾选不需要加载弹幕的媒体库：
+            </div>
+            <div id="libraryListContainer" style="padding: 0.5em;">
+                <span style="color: #888;">正在加载媒体库列表...</span>
+            </div>
+        `;
+
+        // 异步加载媒体库列表
+        getAllLibraries().then(libraries => {
+            const listContainer = getById('libraryListContainer');
+            if (!listContainer) return;
+
+            if (libraries.length === 0) {
+                listContainer.innerHTML = '<span style="color: #f44;">无法获取媒体库列表，请确保已登录</span>';
+                return;
+            }
+
+            const excludedList = lsGetItem(lsKeys.excludedLibraries.id) || [];
+            // 构建复选框列表
+            let checkboxHtml = '';
+            libraries.forEach(lib => {
+                const isChecked = excludedList.includes(lib.name) || excludedList.includes(lib.id);
+                const typeLabel = lib.collectionType ? ` <span style="color: #888; font-size: 0.85em;">(${lib.collectionType})</span>` : '';
+                checkboxHtml += `
+                    <label class="emby-checkbox-label" style="display: flex; align-items: center; padding: 0.4em 0; cursor: pointer;">
+                        <input type="checkbox" is="emby-checkbox" class="libraryExcludeCheckbox"
+                            data-library-id="${lib.id}" data-library-name="${lib.name}"
+                            ${isChecked ? 'checked' : ''} />
+                        <span style="margin-left: 0.5em;">${lib.name}${typeLabel}</span>
+                    </label>
+                `;
+            });
+
+            listContainer.innerHTML = `
+                <div style="max-height: 200px; overflow-y: auto; border: 1px solid rgba(128,128,128,0.3); border-radius: 4px; padding: 0.5em;">
+                    ${checkboxHtml}
+                </div>
+                <div style="margin-top: 0.5em; color: #888; font-size: 0.85em;">
+                    共 ${libraries.length} 个媒体库，已排除 ${excludedList.length} 个
+                </div>
+            `;
+
+            // 绑定复选框事件 - 实时保存
+            const checkboxes = listContainer.querySelectorAll('.libraryExcludeCheckbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    const newExcludedList = [];
+                    listContainer.querySelectorAll('.libraryExcludeCheckbox:checked').forEach(cb => {
+                        newExcludedList.push(cb.dataset.libraryName);
+                    });
+                    lsSetItem(lsKeys.excludedLibraries.id, newExcludedList);
+                    logger.info('[dd-danmaku] 已更新排除媒体库列表:', newExcludedList);
+
+                    // 检查当前播放的视频是否受影响
+                    if (window.ede && window.ede.currentLibraryInfo) {
+                        const currentLibName = window.ede.currentLibraryInfo.libraryName;
+                        const isNowExcluded = newExcludedList.includes(currentLibName);
+
+                        // 如果当前播放的媒体库刚被排除 -> 清空弹幕
+                        if (isNowExcluded) {
+                            if (window.ede.danmaku) {
+                                logger.info(`[设置] 媒体库 "${currentLibName}" 被排除，关闭弹幕`);
+                                // 传入空数组，清空弹幕
+                                createDanmaku([]);
+                                // 可选：给个提示
+                                // embyToast({ text: '当前媒体库弹幕已关闭' });
+                            }
+                        }
+                        // 如果当前播放的媒体库刚被允许 -> 重新加载
+                        else {
+                            logger.info(`[设置] 媒体库 "${currentLibName}" 已允许，重新加载`);
+                            loadDanmaku(LOAD_TYPE.RELOAD);
+                        }
+                    }
+                });
+            });
+        });
+    }
+
+    /**
+     * 构建搜索内容黑名单设置界面
+     */
+    function buildSearchBlacklistSetting(container) {
+        const blacklistDiv = getById(eleIds.searchBlacklistDiv, container);
+        if (!blacklistDiv) return;
+
+        // 获取当前保存的值
+        const animeTitleBlacklist = lsGetItem(lsKeys.animeTitleBlacklist.id) || '';
+        const episodeTitleBlacklist = lsGetItem(lsKeys.episodeTitleBlacklist.id) || lsKeys.episodeTitleBlacklist.defaultValue;
+        const blacklistApplyToCustomApi = lsGetItem(lsKeys.blacklistApplyToCustomApi.id) ?? lsKeys.blacklistApplyToCustomApi.defaultValue;
+
+        blacklistDiv.innerHTML = `
+            <div class="${classes.embyFieldDesc}" style="margin-bottom: 0.8em;">
+                用于过滤官方搜索接口返回的内容，支持正则表达式。匹配到的内容将被排除。
+            </div>
+
+            <div style="margin-bottom: 1.5em;">
+                <label class="${classes.embyCheckboxLabel}">
+                    <input type="checkbox" is="emby-checkbox" id="${eleIds.blacklistApplyToCustomApiCheckbox}"
+                        ${blacklistApplyToCustomApi ? 'checked' : ''} />
+                    <span>应用黑名单到自定义接口</span>
+                </label>
+                <div class="${classes.embyFieldDesc}" style="margin-top: 0.3em;">
+                    默认仅对官方接口生效，开启后自定义接口也会应用黑名单过滤
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.2em; margin-top: 1.5em;">
+                <label class="${classes.embyLabel}" style="font-size: 1em;">番剧标题黑名单（过滤整个番剧）:</label>
+                <div class="${classes.embyFieldDesc}" style="margin-bottom: 0.5em;">
+                    示例: <code>剧场版|OVA|特别篇</code> 将过滤标题包含这些关键词的番剧
+                </div>
+                <input type="text" is="emby-input" id="${eleIds.animeTitleBlacklistInput}"
+                    class="${classes.embyInput}"
+                    value="${escapeHtml(animeTitleBlacklist)}"
+                    placeholder="留空表示不过滤，示例: 剧场版|OVA|特别篇" />
+            </div>
+
+            <div style="margin-bottom: 1.2em;">
+                <label class="${classes.embyLabel}" style="font-size: 1em;">分集名称黑名单（过滤番剧下的分集）:</label>
+                <div class="${classes.embyFieldDesc}" style="margin-bottom: 0.5em;">
+                    用于过滤 OP、ED、特典、PV 等非正片内容
+                </div>
+                <textarea is="emby-textarea" id="${eleIds.episodeTitleBlacklistInput}"
+                    class="${classes.embyInput}"
+                    style="min-height: 100px; font-family: monospace;"
+                    placeholder="留空表示不过滤">${escapeHtml(episodeTitleBlacklist)}</textarea>
+            </div>
+
+            <div style="display: flex; gap: 0.5em;">
+                <button is="emby-button" type="button" class="raised" id="saveBlacklistBtn">
+                    <span>保存设置</span>
+                </button>
+                <button is="emby-button" type="button" class="raised" id="resetBlacklistBtn">
+                    <span>恢复默认</span>
+                </button>
+                <button is="emby-button" type="button" class="raised" id="testBlacklistBtn">
+                    <span>测试正则</span>
+                </button>
+            </div>
+            <div id="blacklistTestResult" style="margin-top: 0.5em; padding: 0.5em; display: none;"></div>
+        `;
+
+        // 保存按钮事件
+        blacklistDiv.querySelector('#saveBlacklistBtn').addEventListener('click', () => {
+            const animeInput = getById(eleIds.animeTitleBlacklistInput);
+            const episodeInput = getById(eleIds.episodeTitleBlacklistInput);
+            const applyToCustomCheckbox = getById(eleIds.blacklistApplyToCustomApiCheckbox);
+
+            const animeValue = animeInput.value.trim();
+            const episodeValue = episodeInput.value.trim();
+            const applyToCustomValue = applyToCustomCheckbox.checked;
+
+            // 验证正则表达式是否有效
+            try {
+                if (animeValue) new RegExp(animeValue, 'i');
+                if (episodeValue) new RegExp(episodeValue, 'i');
+            } catch (e) {
+                embyToast({ text: `正则表达式语法错误: ${e.message}` });
+                return;
+            }
+
+            lsSetItem(lsKeys.animeTitleBlacklist.id, animeValue);
+            lsSetItem(lsKeys.episodeTitleBlacklist.id, episodeValue);
+            lsSetItem(lsKeys.blacklistApplyToCustomApi.id, applyToCustomValue);
+            embyToast({ text: '搜索内容黑名单设置已保存' });
+            logger.info('[设置] 搜索内容黑名单已更新:', { animeValue, episodeValue, applyToCustomValue });
+        });
+
+        // 恢复默认按钮事件
+        blacklistDiv.querySelector('#resetBlacklistBtn').addEventListener('click', () => {
+            const animeInput = getById(eleIds.animeTitleBlacklistInput);
+            const episodeInput = getById(eleIds.episodeTitleBlacklistInput);
+            const applyToCustomCheckbox = getById(eleIds.blacklistApplyToCustomApiCheckbox);
+
+            animeInput.value = '';
+            episodeInput.value = lsKeys.episodeTitleBlacklist.defaultValue;
+            applyToCustomCheckbox.checked = lsKeys.blacklistApplyToCustomApi.defaultValue;
+
+            lsSetItem(lsKeys.animeTitleBlacklist.id, '');
+            lsSetItem(lsKeys.episodeTitleBlacklist.id, lsKeys.episodeTitleBlacklist.defaultValue);
+            lsSetItem(lsKeys.blacklistApplyToCustomApi.id, lsKeys.blacklistApplyToCustomApi.defaultValue);
+            embyToast({ text: '已恢复默认设置' });
+        });
+
+        // 测试按钮事件
+        blacklistDiv.querySelector('#testBlacklistBtn').addEventListener('click', () => {
+            const animeInput = getById(eleIds.animeTitleBlacklistInput);
+            const episodeInput = getById(eleIds.episodeTitleBlacklistInput);
+            const resultDiv = blacklistDiv.querySelector('#blacklistTestResult');
+
+            const animeRegex = animeInput.value.trim();
+            const episodeRegex = episodeInput.value.trim();
+
+            // 测试用例
+            const testAnimeTitles = ['刀剑神域', '刀剑神域剧场版', '进击的巨人 OVA', '鬼灭之刃', '某科学的超电磁炮 特别篇'];
+            const testEpisodeTitles = ['第1话 开始', 'C1 Opening 1a', 'S1 Special Edition', '第15话 决战', 'NCED', 'PV1', '特番 放送直前'];
+
+            let html = '<div style="font-size: 0.9em;">';
+
+            // 测试番剧标题
+            html += '<div style="margin-bottom: 0.5em;"><strong>番剧标题测试:</strong></div>';
+            if (animeRegex) {
+                try {
+                    const regex = new RegExp(animeRegex, 'i');
+                    testAnimeTitles.forEach(title => {
+                        const matched = regex.test(title);
+                        const color = matched ? '#f44336' : '#4caf50';
+                        const status = matched ? '✗ 过滤' : '✓ 保留';
+                        html += `<div style="color: ${color}; padding: 0.2em 0;">${status}: ${title}</div>`;
+                    });
+                } catch (e) {
+                    html += `<div style="color: #f44336;">正则错误: ${e.message}</div>`;
+                }
+            } else {
+                html += '<div style="color: #888;">未设置，全部保留</div>';
+            }
+
+            // 测试分集名称
+            html += '<div style="margin: 0.5em 0;"><strong>分集名称测试:</strong></div>';
+            if (episodeRegex) {
+                try {
+                    const regex = new RegExp(episodeRegex, 'i');
+                    testEpisodeTitles.forEach(title => {
+                        const matched = regex.test(title);
+                        const color = matched ? '#f44336' : '#4caf50';
+                        const status = matched ? '✗ 过滤' : '✓ 保留';
+                        html += `<div style="color: ${color}; padding: 0.2em 0;">${status}: ${title}</div>`;
+                    });
+                } catch (e) {
+                    html += `<div style="color: #f44336;">正则错误: ${e.message}</div>`;
+                }
+            } else {
+                html += '<div style="color: #888;">未设置，全部保留</div>';
+            }
+
+            html += '</div>';
+            resultDiv.innerHTML = html;
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = 'rgba(0,0,0,0.3)';
+            resultDiv.style.borderRadius = '4px';
+        });
+    }
+
+    // HTML 转义函数
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#039;');
     }
 
     function buildCustomUrlSetting(container) {
@@ -3717,21 +6461,21 @@
             <div class="${classes.embyFieldDesc}">${obj.msg2 ? obj.msg2 : ''}</div>
         `;
         customeUrl.mapping.map(obj => { getById(eleIds.customeUrlsDiv, container).innerHTML += getTemplate(obj); return obj; })
-            .map(obj => {
-                const inputDiv = getById(obj.divId, container);
-                const onEnter = (e) => {
-                    const target = getTargetInput(e);
-                    let value = target.value.trim();
-                    if (!value) {
-                        value = obj.lsKey.defaultValue;
-                        target.value = value;
-                    }
-                    lsSetItem(obj.lsKey.id, value);
-                    obj.rewrite(value);
-                };
-                inputDiv.append(embyInput({ type: 'search', value: lsGetItem(obj.lsKey.id) }, onEnter));
-                inputDiv.append(embyButton({ label: '确认', iconKey: iconKeys.check }, onEnter));
-            });
+        .map(obj => {
+            const inputDiv = getById(obj.divId, container);
+            const onEnter = (e) => {
+                const target = getTargetInput(e);
+                let value = target.value.trim();
+                if (!value) {
+                    value = obj.lsKey.defaultValue;
+                    target.value = value;
+                }
+                lsSetItem(obj.lsKey.id, value);
+                obj.rewrite(value);
+            };
+            inputDiv.append(embyInput({ type: 'search', value: lsGetItem(obj.lsKey.id) }, onEnter));
+            inputDiv.append(embyButton({ label: '确认', iconKey: iconKeys.check }, onEnter));
+        });
     }
 
     function buildAbout(containerId) {
@@ -3739,7 +6483,10 @@
         if (!container) { return; }
         const template = `
             <div style="height: 30em;">
-                <div id="${eleIds.consoleLogCtrl}"></div>
+                <div id="${eleIds.consoleLogCtrl}" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                    <div id="${eleIds.consoleLogCtrlLeft}" style="display: flex; align-items: center;"></div>
+                    <div id="${eleIds.logLevelDiv}" style="display: flex; align-items: center;"></div>
+                </div>
                 <div id="${eleIds.consoleLogInfo}">
                     <textarea id="${eleIds.consoleLogText}" readOnly style="resize: vertical;margin-top: 0.6em;"
                         rows="12" is="emby-textarea" class="txtOverview emby-textarea"></textarea>
@@ -3772,11 +6519,12 @@
         const consoleLogEnable = lsGetItem(lsKeys.consoleLogEnable.id);
         getById(eleIds.consoleLogInfo, container).style.display = consoleLogEnable ? '' : 'none';
         if (consoleLogEnable) { doConsoleLogChange(consoleLogEnable); }
-        const consoleLogCtrlEle = getById(eleIds.consoleLogCtrl, container);
-        consoleLogCtrlEle.append(embyCheckbox({ label: lsKeys.consoleLogEnable.name }, consoleLogEnable, doConsoleLogChange));
+        // 左侧：日志开关和清空按钮
+        const consoleLogCtrlLeftEle = getById(eleIds.consoleLogCtrlLeft, container);
+        consoleLogCtrlLeftEle.append(embyCheckbox({ label: lsKeys.consoleLogEnable.name }, consoleLogEnable, doConsoleLogChange));
         const consoleLogCountLabel = document.createElement('label');
         consoleLogCountLabel.id = eleIds.consoleLogCountLabel;
-        consoleLogCtrlEle.append(
+        consoleLogCtrlLeftEle.append(
             embyButton({ label: '清空', iconKey: iconKeys.block }, () => {
                 getById(eleIds.consoleLogText, container).value = '';
                 getById(eleIds.consoleLogCountLabel).innerHTML = '';
@@ -3784,13 +6532,17 @@
             })
             , consoleLogCountLabel
         );
+        // 右侧：日志级别选择器
+        getById(eleIds.logLevelDiv, container).append(
+            embyTabs(logLevelOpts, lsGetItem(lsKeys.logLevel.id), 'id', 'name', doLogLevelChange)
+        );
         const consoleLogTextInput = getById(eleIds.consoleLogTextInput, container);
         consoleLogTextInput.style.display = consoleLogEnable && lsGetItem(lsKeys.quickDebugOn.id) ? '' : 'none';
         consoleLogTextInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 const inputVal = e.target.value.trim();
-                console.log('输入内容为: \n', inputVal);
+                logger.debug('输入内容为: \n', inputVal);
                 eval(inputVal);
                 e.target.value = '';
             }
@@ -3805,9 +6557,9 @@
                 const wrapper = getById(eleIds.danmakuWrapper);
                 wrapper.style.backgroundColor = checked ? styles.colors.highlight : '';
                 if (!checked) { return; }
-                console.log(`弹幕容器(#${eleIds.danmakuWrapper})宽高像素:`, wrapper.offsetWidth, wrapper.offsetHeight);
+                logger.debug(`弹幕容器(#${eleIds.danmakuWrapper})宽高像素:`, wrapper.offsetWidth, wrapper.offsetHeight);
                 const stage = wrapper.firstChild;
-                console.log(`实际舞台(${stage.tagName})宽高像素:`, stage.offsetWidth, stage.offsetHeight);
+                logger.debug(`实际舞台(${stage.tagName})宽高像素:`, stage.offsetWidth, stage.offsetHeight);
             }
         ));
         debugWrapper.append(embyCheckbox({ label: lsKeys.debugShowDanmakuCtrWrapper.name }
@@ -3816,26 +6568,25 @@
                 const wrapper = getById(eleIds.danmakuCtr);
                 wrapper.style.backgroundColor = checked ? styles.colors.highlight : '';
                 if (!checked) { return; }
-                console.log(`按钮容器(#${eleIds.danmakuCtr})宽高像素:`, wrapper.offsetWidth, wrapper.offsetHeight);
+                logger.debug(`按钮容器(#${eleIds.danmakuCtr})宽高像素:`, wrapper.offsetWidth, wrapper.offsetHeight);
             }
         ));
         debugWrapper.append(embyCheckbox({ label: lsKeys.debugReverseDanmu.name }
             , lsGetItem(lsKeys.debugReverseDanmu.id), (checked) => {
                 lsSetItem(lsKeys.debugReverseDanmu.id, checked);
-                // const comments = window.ede.danmuCache[window.ede.episode_info.episodeId];
-                const comments = window.ede.commentsOriginal;
+                const comments = window.ede.danmuCache[window.ede.episode_info.episodeId];
                 comments.map(c => {
                     const values = c.p.split(',');
                     values[1]= { '6': '1', '1': '6', '5': '4', '4': '5' }[values[1]];
                     c.p = values.join();
                 });
-                console.log('已' + lsKeys.debugReverseDanmu.name);
+                logger.debug('已' + lsKeys.debugReverseDanmu.name);
                 createDanmaku(comments);
             }
         ));
         const toggleDanmuColor = (checked, lsKey, colorFn) => {
             lsSetItem(lsKey.id, checked);
-            let comments = window.ede.commentsOriginal;
+            let comments = window.ede.danmuCache[window.ede.episode_info.episodeId];
             if (checked) {
                 window.ede._oriComments = structuredClone(comments);
                 comments = comments.map(c => {
@@ -3843,11 +6594,11 @@
                     values[2] = colorFn();
                     return { ...c, p: values.join() };
                 });
-                console.log('已' + lsKey.name);
+                logger.debug('已' + lsKey.name);
             } else {
                 comments = window.ede._oriComments;
-                window.ede.commentsOriginal = comments;
-                console.log('已还原' + lsKey.name);
+                window.ede.danmuCache[window.ede.episode_info.episodeId] = comments;
+                logger.debug('已还原' + lsKey.name);
             }
             createDanmaku(comments);
         };
@@ -3861,31 +6612,6 @@
             , lsGetItem(lsKeys.debugForceDanmuWhite.id), (checked) => {
                 toggleDanmuColor(checked, lsKeys.debugForceDanmuWhite
                     , () => parseInt(styles.colors.info.toString(16).padStart(6, '0'), 16));
-            }
-        ));
-        const toggleTopBottomToScroll = (checked, lsKey) => {
-            lsSetItem(lsKey.id, checked);
-            let comments = window.ede.commentsOriginal;
-            if (checked) {
-                window.ede._oriComments = structuredClone(comments);
-                comments = comments.map(c => {
-                    const values = c.p.split(',');
-                    if (values[1] === '4' || values[1] === '5') {
-                        values[1] = '1'; // 改为从右往左滚动
-                    }
-                    return { ...c, p: values.join() };
-                });
-                console.log('已' + lsKey.name);
-            } else {
-                comments = window.ede._oriComments;
-                window.ede.commentsOriginal = comments;
-                console.log('已还原' + lsKey.name);
-            }
-            createDanmaku(comments);
-        };
-        debugWrapper.append(embyCheckbox({ label: lsKeys.debugTopBottomToScroll.name }
-            , lsGetItem(lsKeys.debugTopBottomToScroll.id), (checked) => {
-                toggleTopBottomToScroll(checked, lsKeys.debugTopBottomToScroll);
             }
         ));
         // debugWrapper.append(embyCheckbox({ label: lsKeys.debugGenerateLarge.name }, lsGetItem(lsKeys.debugGenerateLarge.id), (checked) => {
@@ -3956,7 +6682,8 @@
         // lsKeys.debugTabIframeEnable
         if (lsGetItem(lsKeys.quickDebugOn.id)) { // @deprecated 已废弃,因跨域无法登录网站,无太大意义
             debugWrapper.append(embyCheckbox({ label: lsKeys.debugTabIframeEnable.name }
-                , false, (checked) => {
+                , lsGetItem(lsKeys.debugTabIframeEnable.id), (checked) => {
+                    lsSetItem(lsKeys.debugTabIframeEnable.id, checked);
                     getById(tabIframeId + 'Btn').style.display = checked ? '' : 'none';
                 }
             ));
@@ -3972,103 +6699,44 @@
                 }
             ));
         }
-        // lsKeys.debugDanmuAnywhereEnable
-        if (lsGetItem(lsKeys.quickDebugOn.id)) {
-            debugWrapper.append(embyCheckbox({ label: lsKeys.debugDanmuAnywhereEnable.name }
-                , false, (checked) => {
-                    if (checked) {
-                        const bodyEle = document.body;
-                        const media = document.createElement('video');
-                        media.id = 'test-media';
-                        const containerEle = document.createElement('div');
-                        containerEle.id = 'test-media-container';
-                        containerEle.className = mediaContainerQueryStr.replace('.', '');
-                        containerEle.style.position = 'fixed';
-                        containerEle.style.zIndex = '255';
-                        containerEle.prepend(media);
-                        bodyEle.prepend(containerEle);
-                        media.play();
-                        setInterval(() => {
-                            media.currentTime += 100 / 1e3;
-                            media.dispatchEvent(new Event('timeupdate'));
-                        }, 100);
-                        createDanmaku(generateRandomDanmu(50000, 600))
-                            .then(() => {
-                                console.log('弹幕就位');
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
-                    } else {
-                        if (window.ede.danmaku) {
-                            window.ede.danmaku.destroy();
-                            window.ede.danmaku = null;
-                        }
-                        getById('test-media-container')?.remove();
-                    }
-                }
-            ));
-        }
-    }
-
-    function generateRandomDanmu(count, duration) {
-        count = count || 10000;
-        duration = duration || 600;
-        const comments = [];
-        const modes = [1, 4, 5, 6]; // 1=rtl, 6=ltr, 5=top, 4=bottom
-        for (let i = 0; i < count; i++) {
-            const time = parseFloat((Math.random() * duration).toFixed(2));
-            const mode = modes[Math.floor(Math.random() * modes.length)];
-            const color = Math.floor(Math.random() * 16777216);
-            const p = time + ',' + mode + ',' + color + ',0';
-            const cid = 1000000000 + i;
-            comments.push({
-                cid: cid,
-                p: p,
-                m: '这是第' + (i + 1) + '条弹幕'
-            });
-        }
-        return comments;
     }
 
     function buildDebugButton(container) {
         const debugWrapper = getById(eleIds.debugButton, container);
         debugWrapper.append(embyButton({ label: '打印环境信息', style: 'margin: 0.3em;' }, () => {
             require(['browser'], (browser) => {
-                console.log('Emby 内部自身判断: ', browser);
+                logger.debug('Emby 内部自身判断: ', browser);
             });
-            console.log('Emby appName: ', ApiClient.appName());
-            console.log('Emby appVersion: ', ApiClient.appVersion());
         }));
         debugWrapper.append(embyButton({ label: '打印弹幕引擎信息', style: 'margin: 0.3em;' }, () => {
             const msg = `弹幕引擎是否存在: ${!!window.Danmaku}, 弹幕引擎是否实例化成功: ${!!window.ede.danmaku}`;
-            console.log(msg);
+            logger.debug(msg);
             embyToast({ text: msg });
         }));
         debugWrapper.append(embyButton({ label: '打印视频加载方', style: 'margin: 0.3em;' }, () => {
             const _media = document.querySelector(mediaQueryStr);
-            if (!_media) { return console.error('严重错误,页面中依旧不存在 <video> 标签') }
-            if (_media.currentTime < 1) { console.error('严重错误,<video> 的 currentTime < 1') }
+            if (!_media) { return logger.error('严重错误,页面中依旧不存在 <video> 标签') }
+            if (_media.currentTime < 1) { logger.error('严重错误,<video> 的 currentTime < 1') }
             if (!_media.id) {
-                console.log('视频加载方为 Web 端 <video> 标签:', _media.parentNode.outerHTML);
+                logger.debug('视频加载方为 Web 端 <video> 标签:', _media.parentNode.outerHTML);
             } else {
-                console.log('当前 <video> 标签为虚拟适配器:', _media.outerHTML);
+                logger.debug('当前 <video> 标签为虚拟适配器:', _media.outerHTML);
                 const _embed = document.querySelector('embed');
                 if (_embed) {
-                    console.log('视频加载方为 <embed> 标签占位的 Native 播放器:', _embed.parentNode.outerHTML);
+                    logger.debug('视频加载方为 <embed> 标签占位的 Native 播放器:', _embed.parentNode.outerHTML);
                 } else {
-                    console.log('视频加载方为无占位标签的 Native 播放器,无信息');
+                    logger.debug('视频加载方为无占位标签的 Native 播放器,无信息');
                 }
             }
         }));
-        // debugWrapper.append(embyButton({ label: '清空章节引用缓存', class: classes.embyButtons.submit, style: 'margin: 0.3em;' }, () => {
-        //     lsBatchRemove([lsLocalKeys.animeEpisodePrefix, lsLocalKeys.bangumiEpInfoPrefix]);
-        //     console.log('已清空章节引用缓存');
-        //     embyToast({ text: '已清空章节引用缓存' });
-        // }));
+        debugWrapper.append(embyButton({ label: '清空章节引用缓存', class: classes.embyButtons.submit, style: 'margin: 0.3em;' }, () => {
+            lsBatchRemove([lsLocalKeys.animeEpisodePrefix, lsLocalKeys.bangumiEpInfoPrefix]);
+            logger.debug('已清空章节引用缓存');
+            embyToast({ text: '已清空章节引用缓存' });
+        }));
         debugWrapper.append(embyButton({ label: '重置设置', class: classes.embyButtons.submit, style: 'margin: 0.3em;' }, () => {
             settingsReset();
-            console.log(`已重置设置, 跳过了 ${lsKeys.filterKeywords.name} 重置`);
+            logger.debug(`已重置设置, 跳过了 ${lsKeys.filterKeywords.name} 重置`);
             embyToast({ text: `已重置设置, 跳过了 ${lsKeys.filterKeywords.name} 重置` });
             loadDanmaku(LOAD_TYPE.INIT);
             closeEmbyDialog();
@@ -4122,23 +6790,41 @@
         if (!lsGetItem(lsKeys.osdTitleEnable.id)) {
             return;
         }
+
         const episode_info = window.ede.episode_info || {};
         const { episodeId, animeTitle, episodeTitle } = episode_info;
+
         const videoOsdContainer = document.querySelector(`${mediaContainerQueryStr} .videoOsdSecondaryText`);
         let videoOsdDanmakuTitle = getById(eleIds.videoOsdDanmakuTitle, videoOsdContainer);
+
         if (!videoOsdDanmakuTitle) {
             videoOsdDanmakuTitle = document.createElement('h3');
             videoOsdDanmakuTitle.id = eleIds.videoOsdDanmakuTitle;
             videoOsdDanmakuTitle.classList.add(classes.videoOsdTitle);
             videoOsdDanmakuTitle.style = 'margin-left: auto; white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word; position: absolute; right: 0px; bottom: 0px;';
         }
+
+        //  检查排除状态
+        const currentLibName = window.ede && window.ede.currentLibraryInfo ? window.ede.currentLibraryInfo.libraryName : null;
+        // 获取当前排除列表
+        const excludedList = lsGetItem(lsKeys.excludedLibraries.id) || [];
+        const isExcluded = currentLibName && excludedList.includes(currentLibName);
+
         let text = '弹幕：';
-        if (episodeId) {
-            text += `${animeTitle} - ${episodeTitle} - ${loadSum}条`;
+
+        if (isExcluded) {
+            // 情况1：已被排除
+            text += '已禁用';
         } else {
-            text += `未匹配`;
+            // 情况2：正常加载
+            if (episodeId) {
+                text += `${animeTitle} - ${episodeTitle} - ${loadSum}条`;
+            } else {
+                text += `未匹配`;
+            }
         }
         videoOsdDanmakuTitle.innerText = text;
+
         if (videoOsdContainer) {
             videoOsdContainer.append(videoOsdDanmakuTitle);
         }
@@ -4165,18 +6851,50 @@
     }
 
     function checkRuntimeVars(exposeGlobalThis = true) {
-        console.log('运行时变量检查');
-        console.log(lsKeys.customeCorsProxyUrl.name ,corsProxy);
-        console.log(lsKeys.customeDanmakuUrl.name, requireDanmakuPath);
-        console.log('弹弹 play API 模板', dandanplayApi);
+        logger.debug('运行时变量检查');
+        logger.debug(lsKeys.customeCorsProxyUrl.name ,corsProxy);
+        logger.debug(lsKeys.customeDanmakuUrl.name, requireDanmakuPath);
+        logger.debug('弹弹play API 模板', dandanplayApi);
         if (exposeGlobalThis) { window.checkRuntimeVars = checkRuntimeVars; }
     }
 
     function doDanmakuSwitch() {
+        logger.debug('切换' + lsKeys.switch.name);
         const flag = !lsGetItem(lsKeys.switch.id);
-        console.log(`切换${lsKeys.switch.name}: ${flag}`);
         if (window.ede.danmaku) {
-            flag ? window.ede.danmaku.show() : window.ede.danmaku.hide();
+            // [优化] 使用 CSS visibility 切换弹幕显隐，而非引擎的 hide()/show()
+            // hide() 会调用 clear() 清空 runningList，导致弹幕位置信息丢失
+            // visibility:hidden 保留引擎运行状态，弹幕位置完全保留
+            const wrapper = getById(eleIds.danmakuWrapper);
+            if (flag) {
+                // 开启弹幕：恢复可见性
+                if (wrapper) { wrapper.style.visibility = 'visible'; }
+                // 确保引擎处于 show 状态（首次可能是 hide 状态）
+                window.ede.danmaku.show();
+                // [修复] 如果视频处于暂停状态，确保弹幕也暂停
+                const _media = document.querySelector(mediaQueryStr);
+                if (_media) {
+                    logger.debug('[弹幕开关] 开启弹幕, video.paused=' + _media.paused);
+                    if (_media.paused) {
+                        _media.dispatchEvent(new Event('pause'));
+                    } else {
+                        try {
+                            require(['playbackManager'], function (playbackManager) {
+                                try {
+                                    var isPaused = playbackManager.getPlayerState().PlayState.IsPaused;
+                                    if (isPaused) {
+                                        logger.debug('[弹幕开关] Emby 暂停但 video.paused=false, 强制 dispatch pause');
+                                        _media.dispatchEvent(new Event('pause'));
+                                    }
+                                } catch (e) { /* ignore */ }
+                            });
+                        } catch (e) { /* ignore */ }
+                    }
+                }
+            } else {
+                // 关闭弹幕：仅隐藏容器，引擎继续运行
+                if (wrapper) { wrapper.style.visibility = 'hidden'; }
+            }
         }
         const osdDanmakuSwitchBtn = getById(eleIds.danmakuSwitchBtn);
         if (osdDanmakuSwitchBtn) {
@@ -4190,54 +6908,110 @@
         lsSetItem(lsKeys.switch.id, flag);
     }
 
+    /**
+     * 防重叠开关
+     * 开启后会根据显示区域计算可用轨道数，过滤掉超出轨道的弹幕，避免弹幕重叠
+     * 适用于显示区域较小（如 10%-50%）时，防止弹幕挤在一起
+     */
+    function doAntiOverlapSwitch() {
+        logger.debug('切换' + lsKeys.antiOverlap.name);
+        const flag = !lsGetItem(lsKeys.antiOverlap.id);
+        lsSetItem(lsKeys.antiOverlap.id, flag);
+        // 更新弹幕设置弹窗中的按钮状态
+        const antiOverlapBtn = getById(eleIds.antiOverlapBtn);
+        if (antiOverlapBtn) {
+            antiOverlapBtn.firstChild.innerHTML = flag ? iconKeys.switch_on : iconKeys.switch_off;
+            antiOverlapBtn.style.color = flag ? styles.colors.switchActiveColor : '';
+        }
+        // 重新加载弹幕以应用过滤
+        loadDanmaku(LOAD_TYPE.RELOAD);
+        embyToast({ text: `防重叠: ${flag ? '开启 - 超出轨道的弹幕将被过滤' : '关闭 - 允许弹幕重叠显示'}` });
+    }
+
+    // --- 手动搜索：并行模式 (速度优先，聚合结果) ---
     async function doDanmakuSearchEpisode() {
         let embySearch = getById(eleIds.danmakuSearchName);
         if (!embySearch) { return; }
-        let searchName = embySearch.value
+        let searchName = embySearch.value;
         const danmakuRemarkEle = getById(eleIds.danmakuRemark);
         danmakuRemarkEle.parentNode.hidden = false;
         danmakuRemarkEle.innerText = searchName ? '' : '请填写标题';
         const spinnerEle = getByClass(classes.mdlSpinner);
         spinnerEle && spinnerEle.classList.remove('hide');
 
-        // 合并所有启用源的搜索结果，并按优先级排序
+        // --- 1. 准备 API 配置 ---
         const apiPriority = lsGetItem(lsKeys.apiPriority.id);
+        const customApiList = getCustomApiList();
         const apiConfigs = {
-            official: { name: '官方API', prefix: corsProxy + 'https://api.dandanplay.net/api/v2', enabled: lsGetItem(lsKeys.useOfficialApi.id) },
-            custom: { name: '自定义API', prefix: lsGetItem(lsKeys.customApiPrefix.id), enabled: lsGetItem(lsKeys.useCustomApi.id) }
+            official: { name: '弹弹play', prefix: corsProxy + 'https://api.dandanplay.net/api/v2', enabled: lsGetItem(lsKeys.useOfficialApi.id) },
         };
+        if (lsGetItem(lsKeys.useCustomApi.id) && customApiList.length > 0) {
+            customApiList.forEach((item, index) => {
+                if (item.enabled) {
+                    apiConfigs[`custom_${index}`] = { name: item.name || `自定义源${index + 1}`, prefix: item.url, enabled: true };
+                }
+            });
+        }
+
+        const actualPriority = [];
+        for (const key of apiPriority) {
+            if (key === 'official') actualPriority.push('official');
+            else if (key === 'custom') customApiList.forEach((item, i) => item.enabled && actualPriority.push(`custom_${i}`));
+        }
 
         let allAnimes = [];
-        for (const apiKey of apiPriority) {
+        logger.info(`[手动匹配] 开始并行搜索: ${searchName}`);
+
+        // --- 2. 定义单个搜索任务 ---
+        const searchTask = async (apiKey) => {
             const config = apiConfigs[apiKey];
-            // 确保自定义API有地址时才使用
-            if (!config || !config.enabled || (apiKey === 'custom' && !config.prefix)) {
-                continue;
-            }
+            if (!config?.enabled || !config?.prefix) return [];
 
             let manualSearchTitle = searchName;
             let manualSearchEpisode = null;
 
-            // 手动搜索时，同样为官方API优化SXXEXX格式
             if (apiKey === 'official') {
                 const parsed = parseAnimeName(searchName);
                 if (parsed.season !== null) {
                     manualSearchTitle = parsed.season === 1 ? parsed.title : `${parsed.title} 第${parsed.season}季`;
-                    manualSearchEpisode = parsed.episode; // 使用从文件名解析出的集数
-                    console.log(`[手动匹配][官方API优化] 格式化搜索: 标题='${manualSearchTitle}', 集数=${manualSearchEpisode}`);
+                    manualSearchEpisode = parsed.episode;
+                    logger.info(`[手动匹配][弹弹play优化] 格式化搜索: 标题='${manualSearchTitle}', 集数=${manualSearchEpisode}`);
                 }
             }
-            console.log(`[手动匹配][${config.name}] 正在搜索: 标题='${manualSearchTitle}', 集数=${manualSearchEpisode || '无'}`);
-            const animaInfo = await fetchSearchEpisodes(manualSearchTitle, manualSearchEpisode, config.prefix);
-            if (animaInfo && animaInfo.animes.length > 0) {
-                console.log(`[手动匹配][${config.name}] 搜索成功，找到 ${animaInfo.animes.length} 个结果。`);
-                // 为每个结果打上来源标签
-                animaInfo.animes.forEach(anime => { anime.apiPrefix = config.prefix; anime.apiName = config.name; });
-                allAnimes.push(...animaInfo.animes);
-            } else {
-                console.log(`[手动匹配][${config.name}] 未找到结果。`);
+
+            try {
+                const animaInfo = await fetchSearchEpisodes(manualSearchTitle, manualSearchEpisode, config.prefix);
+                if (animaInfo && animaInfo.animes.length > 0) {
+                    // [黑名单] 对搜索结果应用黑名单过滤
+                    animaInfo.animes = applySearchBlacklist(animaInfo.animes, true, apiKey);
+
+                    // 标记来源
+                    animaInfo.animes.forEach(anime => {
+                        anime.apiPrefix = config.prefix;
+                        anime.apiName = config.name;
+                    });
+                    return animaInfo.animes;
+                }
+            } catch (e) {
+                logger.warn(`[手动匹配] 源 ${config.name} 搜索失败`, e);
+            }
+            return [];
+        };
+
+        // --- 3. 并行执行所有任务 ---
+        const promises = actualPriority.map(key => searchTask(key));
+        const results = await Promise.allSettled(promises);
+
+        // --- 4. 按优先级顺序合并结果 ---
+        // 虽然是并行请求，但展示顺序依然遵循你的优先级设置
+        for (let i = 0; i < actualPriority.length; i++) {
+            const result = results[i];
+            if (result.status === 'fulfilled' && result.value.length > 0) {
+                allAnimes.push(...result.value);
             }
         }
+
+        logger.info(`[手动匹配] 搜索完成，共找到 ${allAnimes.length} 个结果`);
 
         spinnerEle && spinnerEle.classList.add('hide');
         if (allAnimes.length < 1) {
@@ -4248,6 +7022,8 @@
         } else {
             danmakuRemarkEle.innerText = '';
         }
+
+
         const danmakuAnimeDiv = getById(eleIds.danmakuAnimeDiv);
         const danmakuEpisodeNumDiv = getById(eleIds.danmakuEpisodeNumDiv);
         danmakuAnimeDiv.innerHTML = '';
@@ -4259,17 +7035,19 @@
         const animeSelect = embySelect({ id: eleIds.danmakuAnimeSelect, label: '剧集: ', style: 'width: auto;max-width: 100%;' }
             , selectAnimeIdx, allAnimes, 'animeId', opt => `${opt.animeTitle} 类型：${opt.typeDescription} 来源：${opt.apiName}`, doDanmakuAnimeSelect);
         danmakuAnimeDiv.append(animeSelect);
-        const episodeNumSelect = embySelect({ id: eleIds.danmakuEpisodeNumSelect, label: '集数: ', style: 'width: auto;max-width: 100%;' }
-            , window.ede.searchDanmakuOpts.episode - 1, allAnimes[selectAnimeIdx].episodes, 'episodeId', (opt, i) => `${i + 1} - ${opt.episodeTitle}`);
-        danmakuEpisodeNumDiv.append(episodeNumSelect);
+        // [修改] 只有当选中的动画有 episodes 时才显示集数选择器
+        const selectedAnime = allAnimes[selectAnimeIdx];
+        if (selectedAnime.episodes && selectedAnime.episodes.length > 0) {
+            const episodeNumSelect = embySelect({ id: eleIds.danmakuEpisodeNumSelect, label: '集数: ', style: 'width: auto;max-width: 100%;' }
+                , window.ede.searchDanmakuOpts.episode, selectedAnime.episodes, 'episodeId', (opt, i) => `${i + 1} - ${opt.episodeTitle}`);
+            danmakuEpisodeNumDiv.append(episodeNumSelect);
+        } else {
+            danmakuEpisodeNumDiv.innerHTML = '<span style="color: #52b54b;">请选择动画以加载分集信息</span>';
+        }
+
         getById(eleIds.danmakuEpisodeFlag).hidden = false;
         getById(eleIds.danmakuSwitchEpisode).disabled = false;
-
-        const selectedAnime = allAnimes[selectAnimeIdx];
-        // 始终使用匹配到的海报，如果没有则使用官方API拼接
         getById(eleIds.searchImg).src = selectedAnime.imageUrl || dandanplayApi.posterImg(selectedAnime.animeId);
-
-        // 显示API来源
         const apiSourceDiv = getById(eleIds.searchApiSource);
         if (apiSourceDiv) apiSourceDiv.innerText = `来源: ${selectedAnime.apiName}`;
     }
@@ -4299,19 +7077,76 @@
         });
     }
 
-    function doDanmakuAnimeSelect(value, index, option) {
+    async function doDanmakuAnimeSelect(value, index, option) {
         const numDiv = getById(eleIds.danmakuEpisodeNumDiv);
         numDiv.innerHTML = '';
         const anime = window.ede.searchDanmakuOpts.animes[index];
+
+        // [新增] 如果该动画还没有分集信息，先获取
+        if (!anime.episodes && anime.bangumiId) {
+            logger.debug(`[手动匹配] 动画 ${anime.animeTitle} 缺少分集信息，正在获取...`);
+            numDiv.innerHTML = '<span style="color: #52b54b;">正在加载分集信息...</span>';
+
+            const apiPrefix = anime.apiPrefix || window.ede.searchDanmakuOpts.apiPrefix;
+            const bangumiUrl = `${apiPrefix}/bangumi/${anime.bangumiId}`;
+
+            try {
+                const bangumiResult = await fetchJson(bangumiUrl);
+                if (bangumiResult && bangumiResult.bangumi && bangumiResult.bangumi.episodes) {
+                    // 更新动画对象，添加分集信息
+                    anime.episodes = bangumiResult.bangumi.episodes;
+                    anime.seasons = bangumiResult.bangumi.seasons;
+                    logger.info(`[手动匹配] 获取分集信息成功: ${anime.animeTitle}, 共 ${anime.episodes.length} 集`);
+                } else {
+                    logger.error(`[手动匹配] 获取分集信息失败: 返回数据格式错误`);
+                    numDiv.innerHTML = '<span style="color: #e23636;">获取分集信息失败</span>';
+                    return;
+                }
+            } catch (error) {
+                logger.error(`[手动匹配] 获取分集信息失败: ${error.message}`);
+                numDiv.innerHTML = '<span style="color: #e23636;">获取分集信息失败</span>';
+                return;
+            }
+
+            numDiv.innerHTML = '';
+        }
+
+        // [黑名单] 对官方 API 的分集列表应用黑名单过滤（用于显示）
+        let displayEpisodes = anime.episodes || [];
+        if (anime.apiName && anime.apiName.includes('弹弹play')) {
+            const episodeTitleBlacklist = lsGetItem(lsKeys.episodeTitleBlacklist.id) || '';
+            if (episodeTitleBlacklist) {
+                try {
+                    const regex = new RegExp(episodeTitleBlacklist, 'i');
+                    const originalCount = displayEpisodes.length;
+                    displayEpisodes = displayEpisodes.filter(ep => {
+                        if (ep.episodeTitle && regex.test(ep.episodeTitle)) {
+                            logger.debug(`[黑名单] 过滤分集显示: "${ep.episodeTitle}"`);
+                            return false;
+                        }
+                        return true;
+                    });
+                    if (displayEpisodes.length < originalCount) {
+                        logger.info(`[黑名单] 分集显示过滤: ${originalCount} -> ${displayEpisodes.length}`);
+                    }
+                } catch (e) {
+                    logger.warn(`[黑名单] 分集名称正则表达式无效: ${e.message}`);
+                }
+            }
+        }
+
         // 切换剧集时，默认选中第一个分集
-        const episodeNumSelect = embySelect({ id: eleIds.danmakuEpisodeNumSelect, label: '集数: ' }, 0, anime.episodes, 'episodeId', (opt, i) => `${i + 1} - ${opt.episodeTitle}`);
+        const episodeNumSelect = embySelect({ id: eleIds.danmakuEpisodeNumSelect, label: '集数: ' }, 0, displayEpisodes, 'episodeId', (opt, i) => `${i + 1} - ${opt.episodeTitle}`);
         episodeNumSelect.style.maxWidth = '100%';
         numDiv.append(episodeNumSelect);
 
-        // 始终使用匹配到的海报
+        // [黑名单] 存储过滤后的分集列表，供 doDanmakuSwitchEpisode 使用
+        anime.filteredEpisodes = displayEpisodes;
+
+        // [修正] 始终使用匹配到的海报
         getById(eleIds.searchImg).src = anime.imageUrl || dandanplayApi.posterImg(anime.animeId);
 
-        // 更新API来源显示
+        // [新增] 更新API来源显示
         const apiSourceDiv = getById(eleIds.searchApiSource);
         if (apiSourceDiv) apiSourceDiv.innerText = `来源: ${anime.apiName}`;
     }
@@ -4321,28 +7156,29 @@
         const episodeNumSelect = getById(eleIds.danmakuEpisodeNumSelect);
         const anime = window.ede.searchDanmakuOpts.animes[animeSelect.selectedIndex];
 
-        // 构造一个更完整的 episodeInfo 对象
+        // [修正] 构造一个更完整的 episodeInfo 对象，并使用正确的 unique_episode_key
         const { _episode_key, seriesOrMovieId } = window.ede.searchDanmakuOpts;
         const episodeInfo = {
             episodeId: episodeNumSelect.value,
             episodeTitle: episodeNumSelect.options[episodeNumSelect.selectedIndex].text,
             episodeIndex: episodeNumSelect.selectedIndex,
-            bgmEpisodeIndex: episodeNumSelect.selectedIndex,
+            bgmEpisodeIndex: episodeNumSelect.selectedIndex, // 假设与剧集索引相同
             animeId: anime.animeId,
             animeTitle: anime.animeTitle,
-            animeOriginalTitle: '',
+            animeOriginalTitle: '', // 手动匹配时通常没有
             imageUrl: anime.imageUrl,
+            apiPrefix: anime.apiPrefix, // [修正] 携带API前缀
+            apiName: anime.apiName, // [新增] 携带API名称
             seriesOrMovieId: seriesOrMovieId,
-            apiPrefix: anime.apiPrefix,
-            apiName: anime.apiName,
         };
+
         const seasonInfo = {
             name: anime.animeTitle,
             episodeOffset: episodeNumSelect.selectedIndex - window.ede.searchDanmakuOpts.episode,
         }
         writeLsSeasonInfo(window.ede.searchDanmakuOpts._season_key, seasonInfo);
 
-        // 使用与 getEpisodeInfo 中相同的逻辑来构造缓存键
+        // [修正] 使用与 getEpisodeInfo 中相同的逻辑来构造缓存键
         const useOfficialApi = lsGetItem(lsKeys.useOfficialApi.id);
         const useCustomApi = lsGetItem(lsKeys.useCustomApi.id);
         const apiPriority = lsGetItem(lsKeys.apiPriority.id);
@@ -4351,26 +7187,17 @@
             if (apiKey === 'custom') return useCustomApi;
             return false;
         });
-        const unique_episode_key = lsLocalKeys.apiPrefix + `${enabledApis.join('_')}_` + _episode_key;
+        const unique_episode_key = `_api_${enabledApis.join('_')}_` + _episode_key;
         localStorage.setItem(unique_episode_key, JSON.stringify(episodeInfo));
 
-        // 推理时，基于这个正确的数据进行操作
-        if (window.ede.episode_info) {
-            // 仅覆盖属性，保留原对象引用
-            Object.assign(window.ede.episode_info, episodeInfo);
-        } else {
-            window.ede.episode_info = episodeInfo;
-        }
-        window.ede.previous_episode_info = { ...window.ede.episode_info };
-
-        console.log(`手动匹配成功，已加载新弹幕信息:`, episodeInfo);
+        logger.info(`手动匹配成功，已加载新弹幕信息:`, episodeInfo);
         loadDanmaku(LOAD_TYPE.RELOAD);
         closeEmbyDialog();
     }
 
     function writeLsSeasonInfo(_season_key, newSeasonInfo) {
         if (!_season_key) {
-            return console.log(`_season_key is undefined, skip`);
+            return logger.debug(`_season_key is undefined, skip`);
         }
         let seasonInfoListStr = localStorage.getItem(_season_key);
         let seasonInfoList = seasonInfoListStr ? JSON.parse(seasonInfoListStr) : [];
@@ -4388,7 +7215,7 @@
     function doDanmakuEngineSelect(value) {
         let selectedValue = value.id;
         if (lsCheckSet(lsKeys.engine.id, selectedValue)) {
-            console.log(`已更改弹幕引擎为: ${selectedValue}`);
+            logger.debug(`已更改弹幕引擎为: ${selectedValue}`);
             loadDanmaku(LOAD_TYPE.RELOAD);
         }
     }
@@ -4397,23 +7224,90 @@
         window.ede.chConvert = value.id;
         lsSetItem(lsKeys.chConvert.id, window.ede.chConvert);
         loadDanmaku(LOAD_TYPE.REFRESH);
-        console.log(value.name);
+        logger.debug(`简繁转换已切换为: ${value.name}`);
     }
 
     function doDanmuListOptsChange(value, index) {
-        const danmuListEle = getById(eleIds.danmuListText);
-        danmuListEle.style.display = index == lsKeys.danmuList.defaultValue ? 'none' : '';
-        const f = new Intl.DateTimeFormat('default', { minute: '2-digit', second: '2-digit' });
+    const container = getById(eleIds.danmuListText);
+    const phantom = getById('danmuListPhantom');
+    const content = getById('danmuListContent');
+
+    // 1. 清理旧事件
+    if (container._scrollHandler) {
+        container.removeEventListener('scroll', container._scrollHandler);
+    }
+
+    // 2. 处理“不展示”
+    if (index == lsKeys.danmuList.defaultValue) {
+        container.style.display = 'none';
+        return;
+    }
+    container.style.display = 'block';
+
+    // 3. 获取数据
+    const list = value.onChange(window.ede);
+    if (!list || list.length === 0) {
+        content.innerHTML = '无数据';
+        phantom.style.height = '0px';
+        return;
+    }
+
+    // --- 配置项 ---
+    const ITEM_HEIGHT = 28; // 单行高度(px)，根据字号微调
+    const TOTAL_COUNT = list.length;
+    const CONTAINER_HEIGHT = container.clientHeight || 350;
+
+    // 设置幽灵高度，撑开滚动条
+    phantom.style.height = `${TOTAL_COUNT * ITEM_HEIGHT}px`;
+
+    // 辅助函数：时间格式化 mm:ss
+    const formatTime = (seconds) => {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    };
+
+    // 核心渲染函数
+    const render = () => {
+        const scrollTop = container.scrollTop;
+
+        // 计算渲染范围 (缓冲区加大一点，防止快速滚动白屏)
+        const BUFFER = 10;
+        let startIndex = Math.floor(scrollTop / ITEM_HEIGHT) - BUFFER;
+        let endIndex = Math.ceil((scrollTop + CONTAINER_HEIGHT) / ITEM_HEIGHT) + BUFFER;
+
+        if (startIndex < 0) startIndex = 0;
+        if (endIndex > TOTAL_COUNT) endIndex = TOTAL_COUNT;
+
+        let html = '';
         const hasShowSourceIds = lsGetItem(lsKeys.showSource.id).length > 0;
-        danmuListEle.value = value.onChange(window.ede)
-            .map((c, i) => `[${i + 1}][${f.format(new Date(c.time * 1000))}] : `
+
+        for (let i = startIndex; i < endIndex; i++) {
+            const c = list[i];
+            const textContent =
+                `[${i + 1}][${formatTime(c.time)}] : `
                 + (hasShowSourceIds ? c.originalText : c.text)
                 + (c.source ? ` [${c.source}]` : '')
                 + (c.originalUserId ? `[${c.originalUserId}]` : '')
                 + (c.cid ? `[${c.cid}]` : '')
-                + `[${c.mode}]`
-            ).join('\n');
-    }
+                + `[${c.mode}]`;
+
+            // 使用 div 包裹纯文本，单行显示
+            html += `<div style="height:${ITEM_HEIGHT}px; line-height:${ITEM_HEIGHT}px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${textContent.replace(/</g, '&lt;')}</div>`;
+        }
+
+        content.innerHTML = html;
+        // 关键：偏移 content 位置，让它永远处于可视区域
+        content.style.transform = `translateY(${startIndex * ITEM_HEIGHT}px)`;
+    };
+
+    // 首次渲染
+    render();
+
+    // 绑定滚动事件 (使用 rAF 保证丝滑)
+    container._scrollHandler = () => window.requestAnimationFrame(render);
+    container.addEventListener('scroll', container._scrollHandler);
+}
 
     function doDanmakuTypeFilterSelect() {
         const checkList = Array.from(document.getElementsByName(eleIds.danmakuTypeFilterSelectName))
@@ -4421,7 +7315,7 @@
         lsSetItem(lsKeys.typeFilter.id, checkList);
         loadDanmaku(LOAD_TYPE.RELOAD);
         const idNameMap = new Map(Object.values(danmakuTypeFilterOpts).map(opt => [opt.id, opt.name]));
-        console.log(`当前弹幕类型过滤为: ${JSON.stringify(checkList.map(s => idNameMap.get(s)))}`);
+        logger.debug(`当前弹幕类型过滤为: ${JSON.stringify(checkList.map(s => idNameMap.get(s)))}`);
     }
 
     function doDanmakuSourceFilterSelect() {
@@ -4429,7 +7323,7 @@
             .filter(item => item.checked).map(item => item.value);
         lsSetItem(lsKeys.sourceFilter.id, checkList);
         loadDanmaku(LOAD_TYPE.RELOAD);
-        console.log(`当前弹幕来源平台过滤为: ${JSON.stringify(checkList)}`);
+        logger.debug(`当前弹幕来源平台过滤为: ${JSON.stringify(checkList)}`);
     }
 
     function doDanmakuShowSourceSelect() {
@@ -4438,17 +7332,17 @@
         lsSetItem(lsKeys.showSource.id, checkList);
         loadDanmaku(LOAD_TYPE.RELOAD);
         const idNameMap = new Map(Object.values(showSource).map(opt => [opt.id, opt.name]));
-        console.log(`当前弹幕显示来源为: ${JSON.stringify(checkList.map(s => idNameMap.get(s)))}`);
+        logger.debug(`当前弹幕显示来源为: ${JSON.stringify(checkList.map(s => idNameMap.get(s)))}`);
     }
 
     function onSliderChange(val, opts) {
-        onSliderChangeLabel(opts.label ? opts.label : val, opts);
-        if (opts.lsKey.id && lsCheckSet(opts.lsKey.id, val)) {
-            let needReload = opts.needReload === undefined ? true : opts.needReload;
+        onSliderChangeLabel(val, opts);
+        if (opts.key && lsCheckSet(opts.key, val)) {
+            let needReload = opts.needReload !== false;
             if (opts.isManual) {
                 needReload = false;
             }
-            console.log(`${opts.lsKey.id} changed to ${val}, needReload: ${needReload}`);
+            logger.debug(`${opts.key} changed to ${val}, needReload: ${needReload}`);
             if (needReload) {
                 changeFontStylePreview();
                 loadDanmaku(LOAD_TYPE.RELOAD);
@@ -4457,8 +7351,16 @@
     }
 
     function onSliderChangeLabel(val, opts) {
-        if (opts.labelId) { getById(opts.labelId).innerText = val; }
-        if (opts.labelEle) { opts.labelEle.innerText = val; }
+        if (opts.labelId) {
+            const labelEle = getById(opts.labelId);
+            if (labelEle) {
+                labelEle.innerText = val;
+            }
+        }
+        const nextEle = opts.labelEle?.parentNode;
+        if (nextEle && nextEle.children) {
+            (nextEle.children.length > 0 ? nextEle.children[0] : nextEle).innerText = val;
+        }
     }
 
     function doDanmakuFilterKeywordsBtnClick(event) {
@@ -4508,8 +7410,13 @@
         }
     }
 
+    function doLogLevelChange(value) {
+        logLevel = parseInt(value.id);
+        lsSetItem(lsKeys.logLevel.id, value.id);
+        logger.info(`日志级别已切换为: ${value.name}`);
+    }
+
     function getById(childId, parentNode = document) {
-        if (!parentNode) { return null; }
         return parentNode.querySelector(`#${childId}`);
     }
 
@@ -4519,7 +7426,6 @@
      * @returns {HTMLElement | null} - 返回找到的单个元素或 null
      */
     function getByClass(className, parentNode = document) {
-        if (!parentNode) { return null; }
         return parentNode.querySelector(`.${className}`);
     }
 
@@ -4534,7 +7440,13 @@
     function embyInput(props, onEnter, onChange) {
         const input = document.createElement('input', { is: 'emby-input' });
         objectEntries(props).forEach(([key, value]) => {
-            if (typeof value !== 'function') { input.setAttribute(key, value); }
+            if (typeof value !== 'function') {
+                input.setAttribute(key, value);
+                // [修复] 对于 value 属性，需要同时设置 DOM 属性才能正确显示
+                if (key === 'value') {
+                    input.value = value;
+                }
+            }
         });
         input.className = classes.embyInput; // searchfields-txtSearch: 半圆角
         if (typeof onEnter === 'function') {
@@ -4544,8 +7456,8 @@
         // 控制器输入左右超出边界时切换元素
         input.addEventListener('keydown', (event) => {
             if ((event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-                ((input.selectionStart === 0 && event.key === 'ArrowLeft') ||
-                    (input.selectionEnd === input.value.length && event.key === 'ArrowRight'))) {
+                    ((input.selectionStart === 0 && event.key === 'ArrowLeft') ||
+                        (input.selectionEnd === input.value.length && event.key === 'ArrowRight'))) {
                 event.stopPropagation();
                 event.preventDefault()
                 var options = {sourceElement: event.target, repeat: event.repeat, originalEvent: event };
@@ -4564,6 +7476,8 @@
         iNode.innerHTML = iconKey;
         return iNode;
     }
+
+
 
     /** props: {id: 'btnId', label: 'label text', style: '', iconKey: '',...} for setAttribute(key, value)
      * 'iconKey' will innerHTML <i>iconKey</i>|function will not setAttribute
@@ -4601,7 +7515,7 @@
             aEle.addEventListener('click', (event) => {
                 event.preventDefault();
                 navigator.clipboard.writeText(href).then(() => {
-                    console.log('Link copied to clipboard:', href);
+                    logger.debug('Link copied to clipboard:', href);
                     const label = document.createElement('label');
                     label.textContent = '已复制';
                     label.style.color = 'green';
@@ -4611,7 +7525,7 @@
                         aEle.removeChild(label);
                     }, 3000);
                 }, (err) => {
-                    console.error('Failed to copy link:', err);
+                    logger.error('Failed to copy link:', err);
                 });
             });
         }
@@ -4645,7 +7559,7 @@
         return tabs;
     }
 
-    function embySelect(props, selectedIndexOrValue, options, optionValueKey, optionTitleKey, onChange, onFocus) {
+    function embySelect(props, selectedIndexOrValue, options, optionValueKey, optionTitleKey, onChange) {
         const defaultProps = { class: 'emby-select' };
         props = { ...defaultProps, ...props };
         if (!Number.isInteger(selectedIndexOrValue)) {
@@ -4662,7 +7576,7 @@
             if (typeof value !== 'function') { selectElement.setAttribute(key, value); }
         });
         options.forEach((option, index) => {
-            const value = getValueOrInvoke(option, optionValueKey, index);
+            const value = getValueOrInvoke(option, optionValueKey);
             const title = getValueOrInvoke(option, optionTitleKey, index);
             const optionElement = document.createElement('option');
             optionElement.value = value;
@@ -4676,9 +7590,6 @@
             selectElement.addEventListener('change', e => {
                 onChange(e.target.value, e.target.selectedIndex, options[e.target.selectedIndex]);
             });
-        }
-        if (typeof onFocus === 'function') {
-            selectElement.addEventListener('focus', onFocus);
         }
         // return selectElement;
         // !!! important, only emby-select must have selectLabel class wrapper
@@ -4743,17 +7654,17 @@
         return textarea;
     }
 
-    /**
-     * @param {Object} opts { id: 'slider id', labelId: 'label id', orient: 'vertical' | 'horizontal' 垂直/水平, ... }
-     *   , will return to the callback
-     * @param {Function} onChange Trigger after end of tap/swipe, AndroidTV use this
-     * @param {Function} onSliding when init/clicking/sliding, trigger every step, AndroidTV not trigger
-     *   , but not trigger when init and options.value === options.min
-     * @returns HTMLElement
-     */
+   /**
+    * @param {Object} opts { id: 'slider id', labelId: 'label id', orient: 'vertical' | 'horizontal' 垂直/水平, ... }
+    *   , will return to the callback
+    * @param {Function} onChange Trigger after end of tap/swipe, AndroidTV use this
+    * @param {Function} onSliding when init/clicking/sliding, trigger every step, AndroidTV not trigger
+    *   , but not trigger when init and options.value === options.min
+    * @returns HTMLElement
+    */
     function embySlider(opts = {}, onChange, onSliding) {
         const defaultOpts = {
-            min: 0.1, max: 3, step: 0.1, orient: 'horizontal',
+            orient: 'horizontal',
             'data-bubble': false, 'data-hoverthumb': true , style: '',
         };
         const options = { ...defaultOpts, ...opts };
@@ -4763,12 +7674,12 @@
         if (opts.id) { slider.setAttribute('id', opts.id); }
         objectEntries(options).forEach(([key, value]) => {
             if (key === 'lsKey') {
-                // opts.key = value.id;
+                opts.key = value.id;
                 const optsKeys = Object.keys(opts);
                 if (!optsKeys.includes('value')) { options.value = lsGetItem(value.id); }
-                if (!optsKeys.includes('min')) { slider.setAttribute('min', value.min); }
-                if (!optsKeys.includes('max')) { slider.setAttribute('max', value.max); }
-                if (!optsKeys.includes('step')) { slider.setAttribute('step', value.step); }
+                if (!optsKeys.includes('min') && value.min !== undefined) { slider.setAttribute('min', value.min); }
+                if (!optsKeys.includes('max') && value.max !== undefined) { slider.setAttribute('max', value.max); }
+                if (!optsKeys.includes('step') && value.step !== undefined) { slider.setAttribute('step', value.step); }
             } else {
                 slider.setAttribute(key, value);
             }
@@ -4789,24 +7700,28 @@
                 return onSliding(e.target.value, opts);
             });
         }
-        if (options.value || options.value === 0) {
+        if (options.value) {
             slider.setValue(options.value);
             waitForElement({ element: slider, needParent: true }, (ele) => {
                 const e = new Event('change');
                 e.isManual = true;
                 slider.dispatchEvent(e);
+            }).catch(error => {
+                logger.warn('waitForElement error:', error);
             });
         }
-        {
-            // 控制器操作锁定滑块焦点,防止方向键触发空间导航跳转焦点
-            slider.addEventListener('keydown', e => {
-                const orient = slider.getAttribute('orient') || 'horizontal';
-                if ((orient === 'horizontal' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) ||
-                    (orient === 'vertical' && (e.key === 'ArrowUp' || e.key === 'ArrowDown'))) {
-                    e.stopPropagation();
-                }
-            });
-        }
+        require(['browser'], (browser) => {
+            if (browser.electron && browser.windows) { // Emby Theater
+                // 以下兼容旧版本emby,控制器操作锁定滑块焦点
+                slider.addEventListener('keydown', e => {
+                    const orient = slider.getAttribute('orient') || 'horizontal';
+                    if ((orient === 'horizontal' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) ||
+                        (orient === 'vertical' && (e.key === 'ArrowUp' || e.key === 'ArrowDown'))) {
+                        e.stopPropagation();
+                    }
+                });
+            }
+        });
         return slider;
     }
 
@@ -4819,7 +7734,7 @@
         const defaultOpts = { text: '', title: '', timeout: 0, html: '', buttons: [] };
         opts = { ...defaultOpts, ...opts };
         return require(['dialog']).then(items => items[0](opts))
-            .catch(error => { console.log('点击弹出框外部取消: ' + error) });
+            .catch(error => { logger.debug('点击弹出框外部取消: ' + error) });
     }
 
     function closeEmbyDialog() {
@@ -4829,7 +7744,12 @@
     function embyImg(src, style, id, draggable = false) {
         const img = document.createElement('img');
         img.id = id;
-        img.src = src;
+        // 处理混合内容问题：如果当前页面是 HTTPS，将 HTTP 图片 URL 转换为 HTTPS
+        let imgSrc = src;
+        if (src && window.location.protocol === 'https:' && src.startsWith('http:')) {
+            imgSrc = src.replace('http:', 'https:');
+        }
+        img.src = imgSrc;
         img.style = style;
         img.loading = 'lazy';
         img.decoding = 'async';
@@ -4857,7 +7777,7 @@
         const defaultOpts = { text: '', title: '', timeout: 0, html: ''};
         opts = { ...defaultOpts, ...opts };
         return require(['alert']).then(items => items[0](opts))
-            .catch(error => { console.log('点击弹出框外部取消: ' + error) });
+            .catch(error => { logger.debug('点击弹出框外部取消: ' + error) });
     }
 
     // see: ../web/modules/toast/toast.js, 严禁滥用,因遮挡画面影响体验,不建议使用 icon,会导致小秘版弹窗居中且图标过大
@@ -4867,23 +7787,127 @@
         return require(['toast'], toast => toast(opts));
     }
 
-    function getValueOrInvoke(option, keyOrFunc, index) {
-        return typeof keyOrFunc === 'function' ? keyOrFunc(option, index) : option[keyOrFunc];
+
+
+    function getValueOrInvoke(option, keyOrFunc) {
+        if (typeof keyOrFunc === 'function') {
+            const args = [option, ...Array.from(arguments).slice(2)];
+            return keyOrFunc.apply(null, args);
+        }
+        return option[keyOrFunc];
     }
 
     function getSettingsJson(space = 4) {
         return JSON.stringify(Object.fromEntries(objectEntries(lsKeys).map(
             ([key, value]) => [value.id, lsGetItem(value.id)])), null, space);
-        // ([key, value]) => [value.id, { value: lsGetItem(value.id), name: value.name }])), null, space);
+            // ([key, value]) => [value.id, { value: lsGetItem(value.id), name: value.name }])), null, space);
     }
 
     function settingsReset() {
         const defaultSettings = Object.fromEntries(
             objectEntries(lsKeys)
-                .filter(([key, value]) => lsKeys.filterKeywords.id !== value.id)
-                .map(([key, value]) => [value.id, value.defaultValue])
+            .filter(([key, value]) => lsKeys.filterKeywords.id !== value.id)
+            .map(([key, value]) => [value.id, value.defaultValue])
         );
         lsBatchSet(defaultSettings);
+    }
+
+    // --- 自定义弹幕源列表操作函数 ---
+
+    /**
+     * 获取自定义弹幕源列表
+     * 数据结构: [{name: string, url: string, enabled: boolean}]
+     * 兼容旧版单一 customApiPrefix 配置和旧版字符串数组
+     */
+    function getCustomApiList() {
+        let list = lsGetItem(lsKeys.customApiList.id) || [];
+
+        // 兼容旧版字符串数组格式，转换为新格式
+        if (list.length > 0 && typeof list[0] === 'string') {
+            list = list.map((url, index) => ({
+                name: `自定义源${index + 1}`,
+                url: url,
+                enabled: true
+            }));
+            lsSetItem(lsKeys.customApiList.id, list);
+        }
+
+        // 兼容旧版：如果列表为空但旧配置有值，则迁移
+        if (list.length === 0) {
+            const oldPrefix = lsGetItem(lsKeys.customApiPrefix.id);
+            if (oldPrefix && oldPrefix.trim()) {
+                list.push({ name: '自定义源1', url: oldPrefix.trim(), enabled: true });
+                lsSetItem(lsKeys.customApiList.id, list);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 获取启用的自定义弹幕源URL列表（用于搜索逻辑）
+     */
+    function getEnabledCustomApiUrls() {
+        const list = getCustomApiList();
+        return list.filter(item => item.enabled).map(item => item.url);
+    }
+
+    /**
+     * 添加自定义弹幕源
+     */
+    function addCustomApiSource(name, url) {
+        const list = getCustomApiList();
+        // 检查URL是否已存在
+        if (!list.some(item => item.url === url)) {
+            list.push({ name: name || `自定义源${list.length + 1}`, url: url, enabled: true });
+            lsSetItem(lsKeys.customApiList.id, list);
+            // 同时更新旧配置（兼容性）
+            if (list.length === 1) {
+                lsSetItem(lsKeys.customApiPrefix.id, url);
+            }
+        }
+    }
+
+    /**
+     * 删除自定义弹幕源
+     */
+    function removeCustomApiSource(index) {
+        const list = getCustomApiList();
+        if (index >= 0 && index < list.length) {
+            list.splice(index, 1);
+            lsSetItem(lsKeys.customApiList.id, list);
+            // 更新旧配置（兼容性）
+            const enabledUrls = list.filter(item => item.enabled).map(item => item.url);
+            lsSetItem(lsKeys.customApiPrefix.id, enabledUrls[0] || '');
+        }
+    }
+
+    /**
+     * 切换自定义弹幕源启用状态
+     */
+    function toggleCustomApiSource(index, enabled) {
+        const list = getCustomApiList();
+        if (index >= 0 && index < list.length) {
+            list[index].enabled = enabled;
+            lsSetItem(lsKeys.customApiList.id, list);
+            // 更新旧配置（兼容性）
+            const enabledUrls = list.filter(item => item.enabled).map(item => item.url);
+            lsSetItem(lsKeys.customApiPrefix.id, enabledUrls[0] || '');
+        }
+    }
+
+    /**
+     * 移动自定义弹幕源位置
+     */
+    function moveCustomApiSource(fromIndex, toIndex) {
+        const list = getCustomApiList();
+        if (fromIndex >= 0 && fromIndex < list.length && toIndex >= 0 && toIndex < list.length) {
+            const [item] = list.splice(fromIndex, 1);
+            list.splice(toIndex, 0, item);
+            lsSetItem(lsKeys.customApiList.id, list);
+            // 更新旧配置（兼容性）
+            const enabledUrls = list.filter(item => item.enabled).map(item => item.url);
+            lsSetItem(lsKeys.customApiPrefix.id, enabledUrls[0] || '');
+        }
     }
 
     // 缓存相关方法
@@ -4892,7 +7916,8 @@
         if (!key) { return null; }
         const defaultValue = lsKeys[key].defaultValue;
         const item = localStorage.getItem(id);
-        if (item === null) { return defaultValue; }
+        // [修复] 如果 localStorage 中没有值，或者值为空字符串且默认值不为空，则返回默认值
+        if (item === null || (item === '' && defaultValue !== '')) { return defaultValue; }
         if (Array.isArray(defaultValue)) { return JSON.parse(item); }
         if (Array.isArray(defaultValue) || typeof defaultValue === 'object') { return JSON.parse(item); }
         if (typeof defaultValue === 'boolean') { return item === 'true'; }
@@ -4918,7 +7943,7 @@
             objectEntries(keyValues).forEach(([key, value]) => lsSetItem(key, value));
         }
     }
-    function lsSetItem(id, value) {
+    function lsSetItem(id, value, skipSync) {
         if (!lsGetKeyById(id)) { return; }
         let stringValue;
         if (Array.isArray(value)) {
@@ -4929,14 +7954,22 @@
             stringValue = value;
         }
         localStorage.setItem(id, stringValue);
+        // 持久化同步：开启持久化且开启实时同步时，配置变更自动同步到服务器
+        if (!skipSync
+            && lsGetItem(lsKeys.configPersistenceEnable.id)
+            && lsGetItem(lsKeys.configPersistenceAutoSync.id)
+            && id !== lsKeys.configPersistenceEnable.id
+            && id !== lsKeys.configPersistenceAutoSync.id) {
+            persistenceSaveOneDebounced(id, value);
+        }
     }
     function lsGetKeyById(id) {
         return Object.keys(lsKeys).find(key => lsKeys[key].id === id);
     }
     function lsBatchRemove(prefixes) {
         return Object.keys(localStorage)
-            .filter(key => prefixes.some(prefix => key.startsWith(prefix)))
-            .map(key => localStorage.removeItem(key))
+        .filter(key => prefixes.some(prefix => key.startsWith(prefix)))
+            .map(key => { logger.debug('Removing cache key:', key); localStorage.removeItem(key); })
             .length > 0;
     }
 
@@ -4953,7 +7986,7 @@
      * @returns {Promise<HTMLElement|null>} - 返回一个 Promise 对象:
      *   - 如果目标元素在超时时间内被找到,Promise 将 resolve 为目标元素 (HTMLElement)
      *   - 如果超时且未找到目标元素,Promise 将 reject 为一个 Error 对象,表示查找失败
-     */
+    */
     function waitForElement(target, callback, timeout = 10000, interval = check_interval) {
         let intervalId = null;
         let timeoutId = null;
@@ -4962,13 +7995,15 @@
 
         const promise = new Promise((resolve, reject) => {
             function checkElement() {
-                console.log(`waitForElement: checking element[${elementMark}]`);
+                logger.debug(`waitForElement: checking element[${elementMark}]`);
                 let element = null;
                 if (isSelector) {
                     element = document.querySelector(target);
                 } else {
                     if (target.needParent) {
-                        element = target.element.parentNode;
+                        if (target.element) {
+                            element = target.element.parentNode;
+                        }
                     } else {
                         element = target.element;
                     }
@@ -4989,7 +8024,7 @@
             if (timeout > 0) {
                 timeoutId = setTimeout(() => {
                     clearInterval(intervalId);
-                    console.log(`waitForElement: unable to find element[${elementMark}], timeout: ${timeout}`);
+                    logger.warn(`[waitForElement] 查找元素 [${elementMark}] 超时 (${timeout}ms)`);
                     reject(new Error(`Element [${elementMark}] not found within ${timeout}ms`));
                 }, timeout);
             }
@@ -5004,7 +8039,7 @@
         let longPressTimeout;
         function startLongPress() {
             longPressTimeout = setTimeout(() => {
-                console.log('恭喜你发现了隐藏功能, 长按了 2 秒!');
+                logger.debug('恭喜你发现了隐藏功能, 长按了 2 秒!');
                 quickDebug();
             }, 2000);
         }
@@ -5105,7 +8140,7 @@
      * @returns null
      */
     async function playbackEventsRefresh(eventsMap) {
-        const [playbackManager, events] = await require(['playbackManager', 'events']);
+        const [playbackManager, events] = await Promise.all([new Promise(resolve => require(['playbackManager'], resolve)), new Promise(resolve => require(['events'], resolve))]);
         const player = playbackManager.getCurrentPlayer();
         if (!player) { return; }
         objectEntries(eventsMap).forEach(([eventName, fn]) => {
@@ -5123,99 +8158,183 @@
             }
             return;
         }
-        console.log('播放页不存在 video 标签,适配器处理开始');
+        logger.info('播放页不存在 video 标签,适配器处理开始');
         _media = document.createElement('video');
         // !!! Apple 设备上此属性必须存在,否则 currentTime = 0 无法更新; 而其他设备反而不能有
         if (OS.isApple()) { _media.src = ''; }
         _media.style.display = 'none';
         _media.id = eleIds.h5VideoAdapter;
-        _media.classList.add('htmlvideoplayer', 'moveUpSubtitles');
+        _media.classList.add('htmlvideoplayer', 'moveUpSubtitles');   // 沿用 Emby class
         document.body.prepend(_media);
 
         _media.play();
         videoTimeUpdateInterval(_media, true);
+         // 以下暂未遇到匿名函数导致的事件重复,等出现时再匿名转命名函数
+        // [修复] 添加seeking检测的防抖和初始化标志
+        let lastSeekingTime = 0;
+        let isFirstTimeUpdate = true;
+        const SEEKING_THRESHOLD = 2;    // 时间差阈值（秒）
+        const SEEKING_DEBOUNCE = 500;   // 防抖时间（毫秒）
 
-        // 以下暂未遇到匿名函数导致的事件重复,等出现时再匿名转命名函数
         require(['playbackManager'], (playbackManager) => {
             playbackEventsRefresh({
                 'timeupdate': (e) => {
+                    // [修复] 安全获取播放器状态，防止报错
+                    const player = playbackManager.getCurrentPlayer();
+                    if (!player) return; // 播放器都没了，直接退出
+
                     // conver to seconds from Ticks
-                    const realCurrentTime = playbackManager.currentTime(playbackManager.getCurrentPlayer()) / 1e7;
+                    const realCurrentTime = playbackManager.currentTime(player) / 10000000;
                     const mediaTime = _media.currentTime;
+                    const timeDiff = Math.abs(mediaTime - realCurrentTime);
+
                     _media.currentTime = realCurrentTime;
-                    // playbackRate 同步依赖至少 100ms currentTime 变更
-                    const embyPlaybackRate = playbackManager.getPlayerState().PlayState.PlaybackRate;
+
+                    // [关键修复] 安全获取 PlaybackRate
+                    const playerState = playbackManager.getPlayerState();
+                    // 使用可选链 (?.) 避免 undefined 报错
+                    const embyPlaybackRate = playerState?.PlayState?.PlaybackRate;
                     _media.playbackRate = embyPlaybackRate ? embyPlaybackRate : 1;
-                    // 当前时间与上次记录时间差值大于2秒,则判定为用户操作进度,seeking 事件必须在 currentTime 更改后触发,否则回退后弹幕将消失
-                    if (Math.abs(mediaTime - realCurrentTime) > 2) {
-                        _media.dispatchEvent(new Event('seeking'));
-                        console.warn('seeking', realCurrentTime, mediaTime);
+
+                     // [修复] 跳过第一次时间更新（初始化时可能有大的时间差）
+                    if (isFirstTimeUpdate) {
+                        isFirstTimeUpdate = false;
+                        if (lsGetItem(lsKeys.debugH5VideoAdapterEnable.id)) {
+                             logger.debug(`[虚拟播放器] 初始化时间: ${realCurrentTime}, 跳过seeking检测`);
+                        }
+                        return;
                     }
-                    if (lsGetItem(lsKeys.debugH5VideoAdapterEnable.id)) {
-                        console.warn(`${eleIds.h5VideoAdapter}, currentTime: ${_media.currentTime}, playbackRate: ${_media.playbackRate}`);
+                     // [修复] 当前时间与上次记录时间差值大于阈值,且距离上次seeking超过防抖时间,则判定为用户操作进度
+                     // seeking 事件必须在 currentTime 更改后触发,否则回退后弹幕将消失
+                    const now = Date.now();
+                    if (timeDiff > SEEKING_THRESHOLD && (now - lastSeekingTime) > SEEKING_DEBOUNCE) {
+                        lastSeekingTime = now;
+                        _media.dispatchEvent(new Event('seeking'));
+                        // console.warn(`[虚拟播放器] seeking detected...`);
                     }
                 },
             });
         });
+
         playbackEventsRefresh({
             'pause': (e) => {
-                console.warn(e.type);
+                logger.debug('[虚拟播放器] 监听到暂停事件 (pause)');
                 _media.dispatchEvent(new Event('pause'));
                 videoTimeUpdateInterval(_media, false);
             },
             'unpause': (e) => {
-                console.warn(e.type);
+                logger.debug('[虚拟播放器] 监听到取消暂停/播放事件 (unpause)');
+                // [修复] 播放开始时重置seeking检测标志
+                isFirstTimeUpdate = true;
                 _media.dispatchEvent(new Event('play'));
                 videoTimeUpdateInterval(_media, true);
             },
         });
-        console.log('已创建虚拟 video 标签,适配器处理正确结束');
+       logger.info('已创建虚拟 video 标签,适配器处理正确结束');
     }
 
-    // 平滑补充<video> timeupdate 中秒级间隔缺失的 100ms 间隙
+   // 平滑补充<video> timeupdate 中秒级间隔缺失的 100ms 间隙
     function videoTimeUpdateInterval(media, enable) {
         const _media = media || document.querySelector(mediaQueryStr);
         if (!_media) { return; }
         if (enable && !_media.timeupdateIntervalId) {
-            _media.timeupdateIntervalId = setInterval(() => { _media.currentTime += 100 / 1e3 }, 100);
+             // [修复] 移除重复的 setInterval 调用，只保留一个
+             _media.timeupdateIntervalId = setInterval(() => { _media.currentTime += 100 / 1000 }, 100);
         } else if (!enable && _media.timeupdateIntervalId) {
-            clearInterval(_media.timeupdateIntervalId);
-            _media.timeupdateIntervalId = null;
+             clearInterval(_media.timeupdateIntervalId);
+             _media.timeupdateIntervalId = null;
         }
     }
 
     function beforeDestroy(e) {
-        if (e.detail.type !== 'video-osd') {
-            return;
+        if (e.detail.type !== 'video-osd') { return; }
+
+        // [备份逻辑] 智能推断需要这个，必须放在清空前
+        if (window.ede && window.ede.episode_info) {
+            window.ede.previous_episode_info = window.ede.episode_info;
         }
-        // 此段销毁不重要,可有可无,仅是规范使用,清除弹幕,但未销毁 danmaku 实例
+
+        // =========== [UI 瞬间清空区] ===========
+        // 1. 立即清空 OSD 文字 (解决右下角残留)
+        const videoOsdDanmakuTitle = getById(eleIds.videoOsdDanmakuTitle);
+        if (videoOsdDanmakuTitle) {
+            videoOsdDanmakuTitle.innerText = ''; // <--- 关键：直接置空 DOM，不要等数据
+        }
+
+        // 2. 立即隐藏/清空弹幕画布 (解决屏幕弹幕残留)
+        if (window.ede && window.ede.danmaku) {
+            window.ede.danmaku.hide();
+            window.ede.danmaku.clear();
+        }
+
+        // 3. 移除高能进度条 (如果有)
+        const chartEle = getById(eleIds.progressBarLineChart);
+        if (chartEle) chartEle.remove();
+        // =====================================
+
+        // [数据清空]
+        if (window.ede) {
+            window.ede.episode_info = null; // 防止数据串台
+            window.ede.lastLoadId = 'DESTROYED_' + Date.now();
+
+            // [新增] 终止所有挂起的网络请求 (Fetch/Worker)
+            if (window.ede.abortControllers) {
+                for (const controller of window.ede.abortControllers) {
+                    controller.abort();
+                }
+                window.ede.abortControllers.clear();
+                logger.debug('[GC] 已终止所有挂起的网络请求');
+            }
+
+            // [新增] 修复 ResizeObserver 内存泄漏：必须显式断开连接
+            if (window.ede.ob) {
+                window.ede.ob.disconnect();
+                window.ede.ob = null;
+                logger.debug('[GC] ResizeObserver 已断开');
+            }
+        }
+
+        // 清理弹幕实例
         if (window.ede.danmaku) {
             window.ede.danmaku.clear();
         }
+
         // 销毁弹幕按钮容器简单,双 mediaContainerQueryStr 下免去 DOM 位移操作
         const danmakuCtr = getById(eleIds.danmakuCtr);
         if (danmakuCtr) {
             danmakuCtr.remove();
         }
-        // const h5VideoAdapterEle = getById(eleIds.h5VideoAdapter);
-        // if (h5VideoAdapterEle) {
-        //     h5VideoAdapterEle.remove();
-        // }
-        // 销毁平滑补充 timeupdate 定时器
+        window._ddDanmakuInitUILock = false; // [修复] 重置全局锁，允许下次播放重新初始化
+       // const h5VideoAdapterEle = getById(eleIds.h5VideoAdapter);
+       // if (h5VideoAdapterEle) {
+       //     h5VideoAdapterEle.remove();
+       // }
+       // 销毁平滑补充 timeupdate 定时器
         videoTimeUpdateInterval(null, false);
-        // 销毁可能残留的定时器
+
+         // 销毁可能残留的定时器
         destroyAllInterval();
+
         // 退出播放页面重置轴偏秒
         lsSetItem(lsKeys.timelineOffset.id, lsKeys.timelineOffset.defaultValue);
+
+        logger.debug('[生命周期] 播放页环境已销毁 (beforeDestroy)');
     }
 
     function onViewShow(e) {
-        console.log(e.type, e);
+        logger.debug(`监听到视图切换事件 (viewshow), 类型: ${e.detail.type}`);
         customeUrl.init();
         lsGetItem(lsKeys.quickDebugOn.id) && !getById(eleIds.danmakuSettingBtnDebug) && quickDebug();
         addEasterEggListener();
+
+        // 仅在进入播放页(video-osd)时才初始化和设置数据
         if (e.detail.type === 'video-osd') {
+            // 1. 确保对象已初始化
             if (!window.ede) { window.ede = new EDE(); }
+
+            // [修复] 2. 移到这里：确保 window.ede 存在后再赋值
+            window.ede.itemId = e.detail.params.id ? e.detail.params.id : '';
+
             if (!window.ede.appLogAspect && lsGetItem(lsKeys.consoleLogEnable.id)) {
                 window.ede.appLogAspect = new AppLogAspect().init();
             }
@@ -5225,11 +8344,61 @@
             initListener();
             initCss();
         }
-        window.ede.itemId = e.detail.params.id ? e.detail.params.id : '';
     }
 
     // emby/jellyfin CustomEvent. see: https://github.com/MediaBrowser/emby-web-defaultskin/blob/822273018b82a4c63c2df7618020fb837656868d/nowplaying/videoosd.js#L698
+    // 初始化日志级别（从 localStorage 读取）
+    logLevel = parseInt(lsGetItem(lsKeys.logLevel.id)) || 3;
+
+    // 配置持久化：启动时自动从服务器加载配置
+    if (lsGetItem(lsKeys.configPersistenceEnable.id)) {
+        logger.info('[持久化] 检测到持久化已开启，正在从服务器加载配置...');
+        persistenceLoadAll().then(count => {
+            if (count > 0) {
+                logger.info(`[持久化] 启动加载完成，已恢复 ${count} 个配置`);
+                // 重新读取日志级别（可能被持久化覆盖）
+                logLevel = parseInt(lsGetItem(lsKeys.logLevel.id)) || 3;
+            }
+        }).catch(error => {
+            logger.warn('[持久化] 启动加载失败，使用本地配置:', error.message);
+        });
+    }
+
     refreshEventListener({ 'viewshow': onViewShow });
     refreshEventListener({ 'viewbeforehide': beforeDestroy });
+
+    // [修复] CustomCssJS 兼容：如果脚本在页面已加载后注入，viewshow 事件可能已经错过
+    // 需要立即检查当前是否已在播放页面，如果是则手动触发初始化
+    logger.info('[dd-danmaku] 插件已加载，正在检查当前页面状态...');
+
+    // 延迟执行，确保 Emby 的路由系统已经就绪
+    setTimeout(() => {
+        // 检查当前 URL 是否包含 videoosd（播放页面）
+        const currentPath = window.location.hash || window.location.pathname;
+        const isVideoOsdPage = currentPath.includes('videoosd') ||
+                               document.querySelector(mediaContainerQueryStr + ' video');
+
+        // 检查是否已经有视频元素（说明已经在播放页面）
+        const hasVideoElement = document.querySelector('video');
+
+        logger.debug(`[dd-danmaku] 当前路径: ${currentPath}, 是否播放页: ${isVideoOsdPage}, 是否有视频元素: ${!!hasVideoElement}`);
+
+        if (isVideoOsdPage || hasVideoElement) {
+            logger.info('[dd-danmaku] 检测到已在播放页面，手动触发初始化...');
+
+            // 模拟 viewshow 事件的参数
+            const mockEvent = {
+                detail: {
+                    type: 'video-osd',
+                    params: {
+                        id: new URLSearchParams(window.location.search).get('id') || ''
+                    }
+                }
+            };
+
+            // 手动调用初始化
+            onViewShow(mockEvent);
+        }
+    }, 500); // 延迟 500ms 确保 DOM 已就绪
 
 })();

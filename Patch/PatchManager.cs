@@ -412,14 +412,10 @@ namespace MediaInfoKeeper.Patch
                 Name = "DashboardResourcePatch",
                 Initialize = options => DashboardResourcePatch.Initialize(
                     logger,
-                    options.Enhance.DisableVideoSubtitleCrossOrigin,
-                    options.Enhance.EnableDanmakuJs),
-                Configure = options => DashboardResourcePatch.Configure(
-                    IsPluginEnabled(options) && options.Enhance.DisableVideoSubtitleCrossOrigin,
                     IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs),
-                IsEnabled = options =>
-                    IsPluginEnabled(options) &&
-                    (options.Enhance.DisableVideoSubtitleCrossOrigin || options.Enhance.EnableDanmakuJs),
+                Configure = options => DashboardResourcePatch.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs,
                 IsReady = () => DashboardResourcePatch.IsReady
             });
 

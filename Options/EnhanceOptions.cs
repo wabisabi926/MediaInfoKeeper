@@ -96,12 +96,8 @@ namespace MediaInfoKeeper.Options
         [Description("让所有用户的媒体库顺序跟随首个管理员的 OrderedViews 配置。")]
         public bool EnforceLibraryOrder { get; set; } = false;
 
-        [DisplayName("移除 Web 客户端跨域校验")]
-        [Description("修改 htmlvideoplayer/plugin.js，移除 crossOrigin 设置。")]
-        public bool DisableVideoSubtitleCrossOrigin { get; set; } = false;
-
         [DisplayName("加载 dd-danmaku 弹幕")]
-        [Description("修改 index.html，注入 ede.js (目前似乎有点问题，等后续更新)。")]
+        [Description("修改 index.html，注入 ede.js。")]
         public bool EnableDanmakuJs { get; set; } = false;
 
         [DisplayName("日志来源黑名单")]
@@ -200,7 +196,6 @@ namespace MediaInfoKeeper.Options
                 nameof(ExcludeOriginalTitleFromSearch));
             
             AddGroup("Emby Web", "",
-                nameof(DisableVideoSubtitleCrossOrigin),
                 nameof(EnableDanmakuJs));
             
             AddGroup("深度删除", "",

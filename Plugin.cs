@@ -502,7 +502,6 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.EnablePinyinSortName", "Enhance", "拼音首字母排序", options.Enhance.EnablePinyinSortName.ToString()),
                 new OptionLogEntry("Enhance.NoBoxsetsAutoCreation", "Enhance", "禁止自动合集", options.Enhance.NoBoxsetsAutoCreation.ToString()),
                 new OptionLogEntry("Enhance.EnforceLibraryOrder", "Enhance", "统一媒体库顺序", options.Enhance.EnforceLibraryOrder.ToString()),
-                new OptionLogEntry("Enhance.DisableVideoSubtitleCrossOrigin", "Enhance", "关闭 Web 客户端跨域校验", options.Enhance.DisableVideoSubtitleCrossOrigin.ToString()),
                 new OptionLogEntry("Enhance.EnableDanmakuJs", "Enhance", "加载弹幕 JS", options.Enhance.EnableDanmakuJs.ToString()),
                 new OptionLogEntry("Enhance.TakeOverSystemLibraryNew", "Enhance", "接管系统入库通知", options.Enhance.TakeOverSystemLibraryNew.ToString()),
                 new OptionLogEntry("Enhance.SearchScope", "Enhance", "搜索范围", FormatOptionValue(options.Enhance.SearchScope)),
