@@ -5,6 +5,12 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - "README.md"
+      - "Docs/**"
+      - ".gitignore"
+      - "LICENSE"
+      - ".github/workflows/**"
   workflow_dispatch:
     inputs:
       channel:
@@ -29,18 +35,21 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '8.x'
+          cache: true
+          cache-dependency-path: |
+            Directory.Build.props
 
       - name: Restore
         run: dotnet restore MediaInfoKeeper.csproj
@@ -75,10 +84,6 @@ jobs:
           fi
 
           echo "release_channel=$release_channel" >> "$GITHUB_OUTPUT"
-
-      - name: Fetch tags
-        shell: bash
-        run: git fetch --force --tags origin
 
       - name: Resolve beta version
         id: beta_version

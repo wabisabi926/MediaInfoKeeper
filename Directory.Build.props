@@ -2,5 +2,6 @@
   <PropertyGroup>
     <BaseIntermediateOutputPath>Build\obj\</BaseIntermediateOutputPath>
     <DefaultItemExcludes>$(DefaultItemExcludes);obj\**;Build\**;artifacts\**</DefaultItemExcludes>
+    <NuGetCacheVersion>20260408</NuGetCacheVersion>
   </PropertyGroup>
 </Project>
