@@ -2,8 +2,9 @@ name: Build MediaInfoKeeper
 
 on:
   push:
-    paths:
-      - "MediaInfoKeeper.csproj"
+    branches:
+      - master
+      - main
   workflow_dispatch:
     inputs:
       channel:
@@ -19,7 +20,7 @@ on:
         required: false
         type: string
       beta_suffix:
-        description: "Beta suffix (optional, default: github.run_number)"
+        description: "Beta suffix (optional, default: next available beta number)"
         required: false
         type: string
 
@@ -51,6 +52,56 @@ jobs:
           app_version=$(cat MediaInfoKeeper.csproj | sed -ne "s/.*<AssemblyVersion>\\(.*\\)<\\/AssemblyVersion>.*/\\1/p")
           echo "app_version=$app_version" >> $GITHUB_ENV
 
+      - name: Detect push release channel
+        id: detect_push_channel
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          before_sha="${{ github.event.before }}"
+          current_sha="${{ github.sha }}"
+          release_channel="beta"
+
+          if [[ "$before_sha" =~ ^0+$ ]]; then
+            if git show "$current_sha:MediaInfoKeeper.csproj" >/dev/null 2>&1; then
+              release_channel="stable"
+            fi
+          elif git diff --name-only "$before_sha" "$current_sha" -- MediaInfoKeeper.csproj | grep -q '^MediaInfoKeeper\.csproj$'; then
+            before_version="$(git show "$before_sha:MediaInfoKeeper.csproj" | sed -nE 's/.*<AssemblyVersion>([^<]+)<\/AssemblyVersion>.*/\1/p')"
+            current_version="$(sed -nE 's/.*<AssemblyVersion>([^<]+)<\/AssemblyVersion>.*/\1/p' MediaInfoKeeper.csproj)"
+
+            if [[ -n "$current_version" && "$before_version" != "$current_version" ]]; then
+              release_channel="stable"
+            fi
+          fi
+
+          echo "release_channel=$release_channel" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch tags
+        shell: bash
+        run: git fetch --force --tags origin
+
+      - name: Resolve beta version
+        id: beta_version
+        shell: bash
+        run: |
+          increment_version() {
+            local major minor build revision
+            IFS='.' read -r major minor build revision <<< "$1"
+            printf '%d.%d.%d.%d\n' "${major:-0}" "${minor:-0}" "${build:-0}" "$((10#${revision:-0} + 1))"
+          }
+
+          next_beta_version="$(increment_version "$app_version")"
+
+          latest_beta_suffix="$(git tag -l "v${next_beta_version}-beta.*" | sed -E 's/.*-beta\.([0-9]+)$/\1/' | sort -n | tail -n 1)"
+          if [[ -z "$latest_beta_suffix" ]]; then
+            next_beta_suffix="1"
+          else
+            next_beta_suffix="$((10#${latest_beta_suffix} + 1))"
+          fi
+
+          echo "next_beta_version=$next_beta_version" >> "$GITHUB_OUTPUT"
+          echo "next_beta_suffix=$next_beta_suffix" >> "$GITHUB_OUTPUT"
+
       - name: Resolve release metadata
         shell: bash
         run: |
@@ -61,13 +112,22 @@ jobs:
 
             if [[ "$channel" == "beta" ]]; then
               if [[ -z "$input_version" ]]; then
-                base_tag="${app_version}"
+                base_tag="${{ steps.beta_version.outputs.next_beta_version }}"
               else
                 base_tag="$input_version"
               fi
 
               if [[ -z "$input_beta_suffix" ]]; then
-                beta_suffix="${{ github.run_number }}"
+                if [[ -z "$input_version" ]]; then
+                  beta_suffix="${{ steps.beta_version.outputs.next_beta_suffix }}"
+                else
+                  latest_manual_suffix="$(git tag -l "v${base_tag}-beta.*" | sed -E 's/.*-beta\.([0-9]+)$/\1/' | sort -n | tail -n 1)"
+                  if [[ -z "$latest_manual_suffix" ]]; then
+                    beta_suffix="1"
+                  else
+                    beta_suffix="$((10#${latest_manual_suffix} + 1))"
+                  fi
+                fi
               else
                 beta_suffix="$input_beta_suffix"
               fi
@@ -77,19 +137,43 @@ jobs:
               release_channel="Beta"
               release_tag="v${base_tag}-beta.${beta_suffix}"
               release_name="MediaInfoKeeper v${base_tag}-beta.${beta_suffix}"
+              package_version="${base_tag}-beta.${beta_suffix}"
+              assembly_version="$base_tag"
+              file_version="$base_tag"
             else
               pre_release="false"
               release_mode="manual_stable_replace"
               release_channel="Stable"
               release_tag=""
               release_name=""
+              package_version="${app_version}"
+              assembly_version="${app_version}"
+              file_version="${app_version}"
             fi
           else
-            pre_release="false"
-            release_mode="push_stable"
-            release_channel="Stable"
-            release_tag="v${app_version}"
-            release_name="MediaInfoKeeper v${app_version}"
+            push_channel="${{ steps.detect_push_channel.outputs.release_channel }}"
+
+            if [[ "$push_channel" == "stable" ]]; then
+              pre_release="false"
+              release_mode="push_stable"
+              release_channel="Stable"
+              release_tag="v${app_version}"
+              release_name="MediaInfoKeeper v${app_version}"
+              package_version="${app_version}"
+              assembly_version="${app_version}"
+              file_version="${app_version}"
+            else
+              base_tag="${{ steps.beta_version.outputs.next_beta_version }}"
+              beta_suffix="${{ steps.beta_version.outputs.next_beta_suffix }}"
+              pre_release="true"
+              release_mode="push_beta"
+              release_channel="Beta"
+              release_tag="v${base_tag}-beta.${beta_suffix}"
+              release_name="MediaInfoKeeper v${base_tag}-beta.${beta_suffix}"
+              package_version="${base_tag}-beta.${beta_suffix}"
+              assembly_version="${base_tag}"
+              file_version="${base_tag}"
+            fi
           fi
 
           echo "release_mode=$release_mode" >> $GITHUB_ENV
@@ -97,6 +181,9 @@ jobs:
           echo "pre_release=$pre_release" >> $GITHUB_ENV
           echo "release_tag=$release_tag" >> $GITHUB_ENV
           echo "release_name=$release_name" >> $GITHUB_ENV
+          echo "package_version=$package_version" >> $GITHUB_ENV
+          echo "assembly_version=$assembly_version" >> $GITHUB_ENV
+          echo "file_version=$file_version" >> $GITHUB_ENV
 
       - name: Resolve latest stable release
         if: env.release_mode == 'manual_stable_replace'
@@ -129,7 +216,12 @@ jobs:
         run: dotnet tool install -g dotnet-ilrepack --version 2.0.44
 
       - name: Build
-        run: dotnet build MediaInfoKeeper.csproj -c Release --no-restore
+        run: >
+          dotnet build MediaInfoKeeper.csproj -c Release --no-restore
+          /p:AssemblyVersion=${{ env.assembly_version }}
+          /p:FileVersion=${{ env.file_version }}
+          /p:Version=${{ env.package_version }}
+          /p:InformationalVersion=${{ env.package_version }}
 
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
