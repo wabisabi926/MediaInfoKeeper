@@ -176,6 +176,8 @@ namespace MediaInfoKeeper.Services
                     item.Width = videoStream.Width.GetValueOrDefault();
                     item.Height = videoStream.Height.GetValueOrDefault();
                 }
+
+                item.UpdateToRepository(ItemUpdateType.MetadataImport);
                 this.logger.Debug($"MediaSourceInfoStore 恢复媒体源信息到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
             }
