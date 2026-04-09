@@ -59,6 +59,13 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
             : (['zh-hk', 'zh-tw'].includes(locale) ? '掃描片頭' : 'Scan Intro');
     }
 
+    function getDownloadDanmuCommandName() {
+        const locale = (globalize.getCurrentLocale() || '').toLowerCase();
+        return locale === 'zh-cn'
+            ? '获取弹幕'
+            : (['zh-hk', 'zh-tw'].includes(locale) ? '獲取彈幕' : 'Fetch Danmu');
+    }
+
     function getSetIntroCommandName() {
         const locale = (globalize.getCurrentLocale() || '').toLowerCase();
         return locale === 'zh-cn'
@@ -77,10 +84,11 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
         const normalized = normalizeResult(result);
         const isDelete = action === 'delete';
         const isScanIntro = action === 'scan_intro';
+        const isDownloadDanmu = action === 'download_danmu';
         const isSetIntro = action === 'set_intro';
         const isClearIntro = action === 'clear_intro';
         if (!result) {
-            return (isDelete ? getDeleteCommandName() : (isScanIntro ? getScanIntroCommandName() : (isSetIntro ? getSetIntroCommandName() : (isClearIntro ? getClearIntroCommandName() : getCommandName())))) + ' finished';
+            return (isDelete ? getDeleteCommandName() : (isScanIntro ? getScanIntroCommandName() : (isDownloadDanmu ? getDownloadDanmuCommandName() : (isSetIntro ? getSetIntroCommandName() : (isClearIntro ? getClearIntroCommandName() : getCommandName()))))) + ' finished';
         }
 
         const locale = (globalize.getCurrentLocale() || '').toLowerCase();
@@ -88,19 +96,22 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
             if (locale === 'zh-cn') {
                 return (isDelete ? '删除完成' : (isScanIntro ? '扫描完成' : (isSetIntro ? '设置完成' : (isClearIntro ? '清除完成' : '提取完成')))) + '（返回体无统计字段，请看日志）';
             }
+            if (isDownloadDanmu) {
+                return '下载完成（返回体无统计字段，请看日志）';
+            }
             if (['zh-hk', 'zh-tw'].includes(locale)) {
-                return (isDelete ? '刪除完成' : (isScanIntro ? '掃描完成' : (isSetIntro ? '設置完成' : (isClearIntro ? '清除完成' : '提取完成')))) + '（返回體無統計字段，請看日誌）';
+                return (isDelete ? '刪除完成' : (isScanIntro ? '掃描完成' : (isDownloadDanmu ? '下載完成' : (isSetIntro ? '設置完成' : (isClearIntro ? '清除完成' : '提取完成'))))) + '（返回體無統計字段，請看日誌）';
             }
             return 'Completed (no stats in response, check server logs)';
         }
 
         if (locale === 'zh-cn') {
-            const prefix = isDelete ? '删除完成' : (isScanIntro ? '扫描完成' : (isSetIntro ? '设置完成' : (isClearIntro ? '清除完成' : '提取完成')));
+            const prefix = isDelete ? '删除完成' : (isScanIntro ? '扫描完成' : (isDownloadDanmu ? '下载完成' : (isSetIntro ? '设置完成' : (isClearIntro ? '清除完成' : '提取完成'))));
             return prefix + `：成功 ${normalized.succeeded}，失败 ${normalized.failed}，跳过 ${normalized.skipped}`;
         }
 
         if (['zh-hk', 'zh-tw'].includes(locale)) {
-            const prefix = isDelete ? '刪除完成' : (isScanIntro ? '掃描完成' : (isSetIntro ? '設置完成' : (isClearIntro ? '清除完成' : '提取完成')));
+            const prefix = isDelete ? '刪除完成' : (isScanIntro ? '掃描完成' : (isDownloadDanmu ? '下載完成' : (isSetIntro ? '設置完成' : (isClearIntro ? '清除完成' : '提取完成'))));
             return prefix + `：成功 ${normalized.succeeded}，失敗 ${normalized.failed}，跳過 ${normalized.skipped}`;
         }
 
@@ -213,9 +224,10 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
     function getErrorMessage(action, err) {
         const isDelete = action === 'delete';
         const isScanIntro = action === 'scan_intro';
+        const isDownloadDanmu = action === 'download_danmu';
         const isSetIntro = action === 'set_intro';
         const isClearIntro = action === 'clear_intro';
-        const commandName = isDelete ? getDeleteCommandName() : (isScanIntro ? getScanIntroCommandName() : (isSetIntro ? getSetIntroCommandName() : (isClearIntro ? getClearIntroCommandName() : getCommandName())));
+        const commandName = isDelete ? getDeleteCommandName() : (isScanIntro ? getScanIntroCommandName() : (isDownloadDanmu ? getDownloadDanmuCommandName() : (isSetIntro ? getSetIntroCommandName() : (isClearIntro ? getClearIntroCommandName() : getCommandName()))));
         const detail = (err && (err.message || err.statusText || err.responseText)) ? ` (${err.message || err.statusText || err.responseText})` : '';
         return commandName + ' failed' + detail;
     }
@@ -375,6 +387,30 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                     toast(getResultMessage(result, 'scan_intro'));
                 }).catch(function (err) {
                     toast(getErrorMessage('scan_intro', err));
+                }).finally(function () {
+                    loading.hide();
+                });
+            });
+        },
+
+        downloadDanmu: function (ids) {
+            if (!ids || !ids.length) {
+                return Promise.resolve();
+            }
+
+            const commandName = getDownloadDanmuCommandName();
+            return confirm({
+                text: globalize.translate('AreYouSureToContinue'),
+                title: commandName,
+                confirmText: commandName,
+                primary: 'cancel'
+            }).then(function () {
+                loading.show();
+                const apiClient = connectionManager.currentApiClient();
+                return postJson(apiClient, 'MediaInfoKeeper/Items/DownloadDanmu', { Ids: ids }).then(function (result) {
+                    toast(getResultMessage(result, 'download_danmu'));
+                }).catch(function (err) {
+                    toast(getErrorMessage('download_danmu', err));
                 }).finally(function () {
                     loading.hide();
                 });
@@ -578,6 +614,11 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
                 commands.push({ name: getCommandName(), id: 'extract_media_info', icon: '4k' });
                 commands.push({ name: getDeleteCommandName(), id: 'delete_media_info_persist', icon: 'delete_forever' });
 
+                const danmuSupportedTypes = { Movie: true, Episode: true, Season: true, Series: true };
+                if (items.every(item => danmuSupportedTypes[item.Type])) {
+                    commands.push({ name: getDownloadDanmuCommandName(), id: 'download_danmu', icon: 'subtitles' });
+                }
+
                 const introSupportedTypes = { Episode: true, Season: true, Series: true };
                 if (items.every(item => introSupportedTypes[item.Type])) {
                     commands.push({ name: getScanIntroCommandName(), id: 'scan_intro', icon: 'graphic_eq' });
@@ -607,6 +648,10 @@ define(['connectionManager', 'globalize', 'loading', 'toast', 'confirm'], functi
 
                 if (command === 'scan_intro') {
                     return api.scanIntro(ids);
+                }
+
+                if (command === 'download_danmu') {
+                    return api.downloadDanmu(ids);
                 }
 
                 if (command === 'set_intro') {

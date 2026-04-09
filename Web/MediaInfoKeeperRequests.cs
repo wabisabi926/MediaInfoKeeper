@@ -26,6 +26,13 @@ namespace MediaInfoKeeper.Web
         public string Web { get; set; }
     }
 
+    [Route("/api/danmu/{ItemId}/raw", "GET")]
+    [Unauthenticated]
+    public class DanmuRawRequest : IReturnVoid
+    {
+        public string ItemId { get; set; }
+    }
+
     [Route("/MediaInfoKeeper/Items/ExtractMediaInfo", "POST")]
     [Authenticated(Roles = "Admin")]
     public class ExtractMediaInfoRequest : IReturn<MediaInfoMenuResponse>
@@ -43,6 +50,13 @@ namespace MediaInfoKeeper.Web
     [Route("/MediaInfoKeeper/Items/ScanIntro", "POST")]
     [Authenticated(Roles = "Admin")]
     public class ScanIntroRequest : IReturn<MediaInfoMenuResponse>
+    {
+        public string[] Ids { get; set; }
+    }
+
+    [Route("/MediaInfoKeeper/Items/DownloadDanmu", "POST")]
+    [Authenticated(Roles = "Admin")]
+    public class DownloadDanmuRequest : IReturn<MediaInfoMenuResponse>
     {
         public string[] Ids { get; set; }
     }

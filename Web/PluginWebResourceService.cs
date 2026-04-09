@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MediaBrowser.Common.Extensions;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.TV;
@@ -11,6 +12,7 @@ using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Services;
 using MediaBrowser.Model.Entities;
+using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Serialization;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Web.Handler;
@@ -27,6 +29,7 @@ namespace MediaInfoKeeper.Web
         private readonly ExtractMediaInfoRouteHandler _extractHandler;
         private readonly DeleteMediaInfoPersistRouteHandler _deletePersistHandler;
         private readonly ScanIntroRouteHandler _scanIntroHandler;
+        private readonly DownloadDanmuRouteHandler _downloadDanmuHandler;
         private readonly SetIntroRouteHandler _setIntroHandler;
         private readonly ClearIntroRouteHandler _clearIntroHandler;
 
@@ -43,6 +46,7 @@ namespace MediaInfoKeeper.Web
             _extractHandler = new ExtractMediaInfoRouteHandler(ExpandToTargetItems);
             _deletePersistHandler = new DeleteMediaInfoPersistRouteHandler(ExpandToTargetItems, libraryManager, itemRepository);
             _scanIntroHandler = new ScanIntroRouteHandler(ExpandToTargetItems);
+            _downloadDanmuHandler = new DownloadDanmuRouteHandler(ExpandToTargetItems);
             _setIntroHandler = new SetIntroRouteHandler(ExpandToTargetItems, libraryManager, itemRepository);
             _clearIntroHandler = new ClearIntroRouteHandler(ExpandToTargetItems, libraryManager, itemRepository);
         }
@@ -67,6 +71,29 @@ namespace MediaInfoKeeper.Web
                 "application/x-javascript");
         }
 
+        public object Get(DanmuRawRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.ItemId))
+            {
+                throw new ResourceNotFoundException();
+            }
+
+            var item = _libraryManager.GetItemById(request.ItemId);
+            if (item == null || string.IsNullOrWhiteSpace(item.ContainingFolderPath) ||
+                string.IsNullOrWhiteSpace(item.FileNameWithoutExtension))
+            {
+                throw new ResourceNotFoundException();
+            }
+
+            var danmuXmlPath = Path.Combine(item.ContainingFolderPath, item.FileNameWithoutExtension + ".xml");
+            if (!File.Exists(danmuXmlPath))
+            {
+                throw new ResourceNotFoundException();
+            }
+
+            return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
+        }
+
         public MediaInfoMenuResponse Post(ExtractMediaInfoRequest request)
         {
             return _extractHandler.HandleAsync(request).GetAwaiter().GetResult();
@@ -80,6 +107,11 @@ namespace MediaInfoKeeper.Web
         public MediaInfoMenuResponse Post(ScanIntroRequest request)
         {
             return _scanIntroHandler.Handle(request);
+        }
+
+        public MediaInfoMenuResponse Post(DownloadDanmuRequest request)
+        {
+            return _downloadDanmuHandler.HandleAsync(request).GetAwaiter().GetResult();
         }
 
         public MediaInfoMenuResponse Post(SetIntroRequest request)
