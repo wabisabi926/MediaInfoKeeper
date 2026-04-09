@@ -1,7 +1,10 @@
 namespace MediaInfoKeeper.Options.UIBaseClasses.Store
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
     using Emby.Web.GenericEdit;
     using MediaBrowser.Common;
     using MediaBrowser.Common.Configuration;
@@ -12,6 +15,27 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
     internal class SimpleFileStore<TOptionType> : SimpleContentStore<TOptionType>
         where TOptionType : EditableOptionsBase, new()
     {
+        private static readonly HashSet<string> NonPersistentPropertyNames = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "EditorTitle",
+            "EditorDescription",
+            "FeatureRequiresPremiere",
+            "IsNewItem",
+            "LibraryList",
+            "IsRemoteOverrideList",
+            "SubsequentMarkerModeList",
+            "SearchItemTypeList",
+            "HidePersonOptionList",
+            "FallbackLanguageList",
+            "TvdbFallbackLanguageList",
+            "UpdateChannelList",
+            "ProjectUrl",
+            "CurrentVersion",
+            "LatestReleaseVersion",
+            "ReleaseHistoryBody",
+            "DebugMediaInfoUrl"
+        };
+
         private readonly ILogger logger;
         private readonly string pluginFullName;
         private readonly object lockObj = new object();
@@ -132,8 +156,7 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
             {
                 using (var stream = this.fileSystem.GetFileStream(this.OptionsFilePath, FileOpenMode.Create, FileAccessMode.Write))
                 {
-                    this.jsonSerializer.SerializeToStream(newOptions, stream,
-                        new MediaBrowser.Model.Serialization.JsonSerializerOptions { Indent = true });
+                    WriteSanitizedOptions(stream, newOptions);
                 }
             }
 
@@ -146,6 +169,78 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
             {
                 var savedArgs = new FileSavedEventArgs(newOptions);
                 this.FileSaved?.Invoke(this, savedArgs);
+            }
+        }
+
+        private void WriteSanitizedOptions(Stream destination, TOptionType options)
+        {
+            using var buffer = new MemoryStream();
+            this.jsonSerializer.SerializeToStream(
+                options,
+                buffer,
+                new MediaBrowser.Model.Serialization.JsonSerializerOptions { Indent = true });
+
+            buffer.Position = 0;
+            JsonNode rootNode = null;
+            try
+            {
+                rootNode = JsonNode.Parse(buffer);
+            }
+            catch (Exception ex)
+            {
+                this.logger.Warn("无法解析配置 JSON，回退为原始序列化结果：{0}", ex.Message);
+            }
+
+            if (rootNode == null)
+            {
+                buffer.Position = 0;
+                buffer.CopyTo(destination);
+                return;
+            }
+
+            SanitizeJsonNode(rootNode);
+            using var writer = new Utf8JsonWriter(destination, new JsonWriterOptions { Indented = true });
+            rootNode.WriteTo(writer);
+            writer.Flush();
+        }
+
+        private static void SanitizeJsonNode(JsonNode node)
+        {
+            if (node is JsonObject jsonObject)
+            {
+                var propertyNames = new List<string>();
+                foreach (var property in jsonObject)
+                {
+                    propertyNames.Add(property.Key);
+                }
+
+                foreach (var propertyName in propertyNames)
+                {
+                    if (NonPersistentPropertyNames.Contains(propertyName))
+                    {
+                        jsonObject.Remove(propertyName);
+                        continue;
+                    }
+
+                    var childNode = jsonObject[propertyName];
+                    if (childNode != null)
+                    {
+                        SanitizeJsonNode(childNode);
+                    }
+                }
+
+                return;
+            }
+
+            if (node is JsonArray jsonArray)
+            {
+                foreach (var childNode in jsonArray)
+                {
+                    if (childNode != null)
+                    {
+                        SanitizeJsonNode(childNode);
+                    }
+                }
             }
         }
     }
