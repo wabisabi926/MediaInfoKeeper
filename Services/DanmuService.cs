@@ -271,7 +271,7 @@ namespace MediaInfoKeeper.Services
             }
 
             await File.WriteAllBytesAsync(targetPath, xmlBytes, cancellationToken).ConfigureAwait(false);
-            this.logger.Info($"弹幕下载: 成功 {item.FileName} {targetPath}");
+            this.logger.Info($"弹幕下载: 成功 {item.FileName}");
             return true;
         }
 
