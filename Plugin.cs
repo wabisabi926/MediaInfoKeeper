@@ -25,6 +25,7 @@ using MediaBrowser.Controller.Notifications;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
 using MediaBrowser.Controller.Entities.TV;
+using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.MediaEncoding;
 using MediaBrowser.Model.Drawing;
 using MediaBrowser.Model.Globalization;
@@ -59,6 +60,7 @@ namespace MediaInfoKeeper
         public static PrefetchService PrefetchService { get; private set; }
         public static StrmFileWatcher StrmFileWatcher { get; private set; }
         public static ExternalSubtitle ExternalSubtitle { get; private set; }
+        public static DanmuService DanmuService { get; private set; }
 
         private readonly Guid id = new Guid("874D7056-072D-43A4-16DD-BC32665B9563");
         private readonly ILogger logger;
@@ -197,6 +199,7 @@ namespace MediaInfoKeeper
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
             CoverStore = new CoverStore(libraryManager, fileSystem, jsonSerializer);
+            DanmuService = new DanmuService(logManager, httpClient);
 
             NotificationApi = new NotificationApi(notificationManager, userManager, sessionManager);
             IntroSkipChapterApi = new IntroSkipChapterApi(libraryManager, itemRepository, this.logger);
@@ -502,7 +505,6 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.EnablePinyinSortName", "Enhance", "拼音首字母排序", options.Enhance.EnablePinyinSortName.ToString()),
                 new OptionLogEntry("Enhance.NoBoxsetsAutoCreation", "Enhance", "禁止自动合集", options.Enhance.NoBoxsetsAutoCreation.ToString()),
                 new OptionLogEntry("Enhance.EnforceLibraryOrder", "Enhance", "统一媒体库顺序", options.Enhance.EnforceLibraryOrder.ToString()),
-                new OptionLogEntry("Enhance.EnableDanmakuJs", "Enhance", "加载弹幕 JS", options.Enhance.EnableDanmakuJs.ToString()),
                 new OptionLogEntry("Enhance.TakeOverSystemLibraryNew", "Enhance", "接管系统入库通知", options.Enhance.TakeOverSystemLibraryNew.ToString()),
                 new OptionLogEntry("Enhance.SearchScope", "Enhance", "搜索范围", FormatOptionValue(options.Enhance.SearchScope)),
                 new OptionLogEntry("Enhance.ExcludeOriginalTitleFromSearch", "Enhance", "排除原始标题", options.Enhance.ExcludeOriginalTitleFromSearch.ToString()),
@@ -514,6 +516,10 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("MetaData.EnableTvdbFallback", "MetaData", "启用 TVDB 中文回退", options.MetaData.EnableTvdbFallback.ToString()),
                 new OptionLogEntry("MetaData.FallbackLanguages", "MetaData", "TMDB 备选语言", FormatOptionValue(options.MetaData.FallbackLanguages)),
                 new OptionLogEntry("MetaData.TvdbFallbackLanguages", "MetaData", "TVDB 备选语言", FormatOptionValue(options.MetaData.TvdbFallbackLanguages)),
+                new OptionLogEntry("MetaData.DanmuApiBaseUrl", "MetaData", "弹幕 API BaseUrl", FormatOptionValue(options.MetaData.DanmuApiBaseUrl)),
+                new OptionLogEntry("MetaData.OverwriteExistingDanmuXml", "MetaData", "覆盖已有弹幕 xml", options.MetaData.OverwriteExistingDanmuXml.ToString()),
+                new OptionLogEntry("MetaData.DownloadDanmuOnItemAddedDelayMinutes", "MetaData", "入库后延迟获取弹幕（分钟）", options.MetaData.DownloadDanmuOnItemAddedDelayMinutes.ToString()),
+                new OptionLogEntry("MetaData.EnableDanmakuJs", "MetaData", "加载弹幕 JS", options.MetaData.EnableDanmakuJs.ToString()),
                 new OptionLogEntry("MetaData.BlockNonFallbackLanguage", "MetaData", "屏蔽非备选语言简介", options.MetaData.BlockNonFallbackLanguage.ToString()),
                 new OptionLogEntry("MetaData.EnableMovieDbEpisodeGroup", "MetaData", "启用 TMDB 剧集组刮削", options.MetaData.EnableMovieDbEpisodeGroup.ToString()),
                 new OptionLogEntry("MetaData.EnableOriginalPoster", "MetaData", "优先原语言海报", options.MetaData.EnableOriginalPoster.ToString()),
@@ -783,6 +789,12 @@ namespace MediaInfoKeeper
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)
                 {
                     IntroScanService.QueueEpisodeScan(episode, "OnItemAdded");
+                }
+
+                if ((this.Options.MetaData?.DownloadDanmuOnItemAddedDelayMinutes ?? -1) >= 0 &&
+                    DanmuService?.IsSupportedItem(e.Item) == true)
+                {
+                    DanmuService.QueueDownloadOnItemAdded(e.Item.InternalId);
                 }
 
                 // 收藏入库通知分支

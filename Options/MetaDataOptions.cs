@@ -79,6 +79,24 @@ namespace MediaInfoKeeper.Options
         [Description("开启后在剧集目录读取 episodegroup.json；当在线剧集组可用时会自动写入本地文件用于后续复用。")]
         public bool EnableLocalEpisodeGroup { get; set; } = false;
 
+        [DisplayName("加载 dd-danmaku 弹幕js")]
+        [Description("修改 index.html，注入 ede.js")]
+        public bool EnableDanmakuJs { get; set; } = false;
+
+        [DisplayName("弹幕 API BaseUrl")]
+        [Description("例如 http://192.168.33.100:9321/token 。插件会调用 /search/episodes 和 /comment/{episodeId}?format=xml。danmu_api 项目 https://github.com/huangxd-/danmu_api")]
+        public string DanmuApiBaseUrl { get; set; } = string.Empty;
+        
+        [DisplayName("入库后延迟下载弹幕（分钟）")]
+        [Description("-1 表示入库不下载；入库后延迟对应分钟数再自动尝试下载弹幕。本插件兼容 emby-plugin-danmu 弹幕路由")]
+        [MinValue(-1)]
+        [MaxValue(360)]
+        public int DownloadDanmuOnItemAddedDelayMinutes { get; set; } = -1;
+
+        [DisplayName("覆盖已有弹幕文件")]
+        [Description("开启后，弹幕下载任务会覆盖条目目录中已有的同名 .xml 文件；关闭时遇到现有文件会跳过")]
+        public bool OverwriteExistingDanmuXml { get; set; } = false;
+        
         public void Initialize()
         {
             FallbackLanguageList.Clear();
@@ -160,7 +178,13 @@ namespace MediaInfoKeeper.Options
                 nameof(EnableImageCapture),
                 nameof(EnableOriginalPoster),
                 nameof(BlockNonFallbackLanguage));
-
+            
+            AddGroup("Danmaku", "",
+                nameof(EnableDanmakuJs),
+                nameof(DanmuApiBaseUrl),
+                nameof(OverwriteExistingDanmuXml),
+                nameof(DownloadDanmuOnItemAddedDelayMinutes));
+            
             AddGroup("TMDB", "",
                 nameof(EnableAlternativeTitleFallback),
                 nameof(FallbackLanguages),
@@ -171,7 +195,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("TVDB", "",
                 nameof(EnableTvdbFallback),
                 nameof(TvdbFallbackLanguages));
-
+            
             var remaining = new List<EditorBase>();
             foreach (var item in root.EditorItems)
             {

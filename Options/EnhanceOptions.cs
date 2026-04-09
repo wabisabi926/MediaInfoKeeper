@@ -96,10 +96,6 @@ namespace MediaInfoKeeper.Options
         [Description("让所有用户的媒体库顺序跟随首个管理员的 OrderedViews 配置。")]
         public bool EnforceLibraryOrder { get; set; } = false;
 
-        [DisplayName("加载 dd-danmaku 弹幕")]
-        [Description("修改 index.html，注入 ede.js。")]
-        public bool EnableDanmakuJs { get; set; } = false;
-
         [DisplayName("日志来源黑名单")]
         [Description("按 logger.Name 匹配需要屏蔽的系统日志来源，支持逗号、分号或换行分隔。支持精确匹配；对于带动态后缀的来源可填写前缀，如 SessionsService-。")]
         public string SystemLogNameBlacklist { get; set; } = "HttpClient;TheMovieDb;SessionsService-;PlaystateService-;MediaInfoService-";
@@ -194,10 +190,7 @@ namespace MediaInfoKeeper.Options
                 nameof(EnhanceChineseSearch),
                 nameof(SearchScope),
                 nameof(ExcludeOriginalTitleFromSearch));
-            
-            AddGroup("Emby Web", "",
-                nameof(EnableDanmakuJs));
-            
+
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
             

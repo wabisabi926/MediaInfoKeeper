@@ -393,10 +393,10 @@ namespace MediaInfoKeeper.Patch
                 Name = "DashboardResourcePatch",
                 Initialize = options => DashboardResourcePatch.Initialize(
                     logger,
-                    IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs),
+                    IsPluginEnabled(options) && options.MetaData.EnableDanmakuJs),
                 Configure = options => DashboardResourcePatch.Configure(
-                    IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs),
-                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableDanmakuJs,
+                    IsPluginEnabled(options) && options.MetaData.EnableDanmakuJs),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnableDanmakuJs,
                 IsReady = () => DashboardResourcePatch.IsReady
             });
 
