@@ -304,25 +304,6 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
-                Name = "MediaSourceIsRemoteOverride",
-                Initialize = options => MediaSourceIsRemoteOverride.Initialize(
-                    logger,
-                    IsPluginEnabled(options) && MediaSourceIsRemoteOverride.IsOverrideEnabled()),
-                Configure = options => MediaSourceIsRemoteOverride.Configure(
-                    IsPluginEnabled(options) && MediaSourceIsRemoteOverride.IsOverrideEnabled()),
-                IsEnabled = options => IsPluginEnabled(options) && MediaSourceIsRemoteOverride.IsOverrideEnabled(),
-                IsReady = () => MediaSourceIsRemoteOverride.IsReady,
-                Notes = () =>
-                {
-                    var configured = Plugin.Instance?.Options?.GetMediaInfoOptions()?.IsRemoteOverride;
-                    return string.IsNullOrWhiteSpace(configured) || string.Equals(configured, MediaInfoOptions.IsRemoteOverrideOption.EmbyDefault.ToString(), StringComparison.Ordinal)
-                        ? null
-                        : $"override IsRemote={configured}";
-                }
-            });
-
-            registrations.Add(new PatchRegistration
-            {
                 Name = "ChineseSearch",
                 Initialize = options =>
                 {

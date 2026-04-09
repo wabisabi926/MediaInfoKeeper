@@ -26,7 +26,12 @@ namespace MediaInfoKeeper.Options
         [DisplayName("启用插件")]
         [Description("关闭后将不执行任何行为。")]
         public bool PlugginEnabled { get; set; } = true;
-
+        
+        [DisplayName("Emby入库扫描延迟（秒）")]
+        [Description("控制 Emby 实时入库扫描的等待时间，Emby 默认值 90。光速入库。")]
+        [MinValue(1), MaxValue(90)]
+        public int FileChangeRefreshDelaySeconds { get; set; } = 5;
+        
         [Browsable(false)]
         [DisplayName("入库时提取媒体信息")]
         [Description("入库时若 JSON 不存在或恢复失败，提取媒体信息并写入 JSON。")]
@@ -48,11 +53,6 @@ namespace MediaInfoKeeper.Options
         [Description("设置插件刷新任务的最大并发数，媒体信息提取和元数据刷新共用此限制，默认 3。")]
         [MinValue(1), MaxValue(20)]
         public int MaxConcurrentCount { get; set; } = 3;
-
-        [DisplayName("Emby入库扫描延迟（秒）")]
-        [Description("控制 Emby 实时入库扫描的等待时间，Emby 默认值 90。光速入库。")]
-        [MinValue(1), MaxValue(90)]
-        public int FileChangeRefreshDelaySeconds { get; set; } = 5;
 
         [Browsable(false)]
         public IEnumerable<EditorSelectOption> LibraryList { get; set; }

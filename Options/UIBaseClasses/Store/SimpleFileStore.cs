@@ -22,7 +22,6 @@ namespace MediaInfoKeeper.Options.UIBaseClasses.Store
             "FeatureRequiresPremiere",
             "IsNewItem",
             "LibraryList",
-            "IsRemoteOverrideList",
             "SubsequentMarkerModeList",
             "SearchItemTypeList",
             "HidePersonOptionList",
