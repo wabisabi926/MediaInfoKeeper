@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Emby.Web.GenericEdit;
 using Emby.Web.GenericEdit.Editors;
 using MediaBrowser.Model.GenericEdit;
+using MediaBrowser.Model.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -9,6 +10,8 @@ namespace MediaInfoKeeper.Options
 {
     public class NetWorkOptions : EditableOptionsBase
     {
+        private const string DefaultProxyDomains = "mb3admin.com, embydata.com, emby.media, emby.tv, github.com, githubusercontent.com, themoviedb.org, tmdb.org, thetvdb.com, omdbapi.com, fanart.tv, anidb.net, anilist.co, anisearch.de, trakt.tv, opensubtitles.com, musicbrainz.org, theaudiodb.com, discogs.com, telegram.org, discord.com, wikidata.org, mdblist.com";
+
         public override string EditorTitle => "网络代理";
 
         public override string EditorDescription => "网络相关设置页，用来调整本地发现地址、代理和 TMDB 请求替换。改完记得保存。";
@@ -18,19 +21,24 @@ namespace MediaInfoKeeper.Options
         public string CustomLocalDiscoveryAddress { get; set; } = string.Empty;
         
         [DisplayName("启用代理")]
-        [Description("开启后所有 HttpClient 请求将走代理。")]
+        [Description("开启后将使用代理；如果下方域名列表留空，则所有 HttpClient 请求都走代理。")]
         public bool EnableProxyServer { get; set; } = false;
 
         [DisplayName("代理服务器地址")]
         [Description("示例：http://user:pass@127.0.0.1:7890 或 socks5://127.0.0.1:1080")]
         public string ProxyServerUrl { get; set; } = "http://127.0.0.1:7890";
 
+        [DisplayName("需要使用代理的域名")]
+        [Description("每行一个域名，也可使用 ; 或 , 分隔，命中该域名及其子域名时才会走代理。留空表示所有 Emby 内部 HttpClient 请求都走代理。")]
+        [EditMultiline(6)]
+        public string ProxyDomains { get; set; } = DefaultProxyDomains;
+
         [DisplayName("忽略证书验证")]
         [Description("开启后忽略代理或远端证书错误。")]
         public bool IgnoreCertificateValidation { get; set; } = false;
 
         [DisplayName("写入环境变量")]
-        [Description("同步写入 http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY，便于 ffprobe 等外部进程访问需要代理的资源。注意！如果你的代理无法访问strm的http可能会导致无法提取与播放。")]
+        [Description("同步写入 http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY，便于 ffprobe 等外部进程访问需要代理的资源。注意：进程通常无法识别上面的域名列表，开启后可能仍会对所有域名走代理。")]
         public bool WriteProxyEnvVars { get; set; } = false;
 
         [DisplayName("启用压缩传输")]
@@ -107,6 +115,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("Proxy","代理服务器相关设置",
                 nameof(EnableProxyServer),
                 nameof(ProxyServerUrl),
+                nameof(ProxyDomains),
                 nameof(IgnoreCertificateValidation),
                 nameof(WriteProxyEnvVars),
                 nameof(EnableGzip));

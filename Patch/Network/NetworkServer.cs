@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -12,6 +13,7 @@ namespace MediaInfoKeeper.Patch
     /// </summary>
     public static class NetworkServer
     {
+        private static readonly char[] ProxyDomainSeparators = { ';', ',', '\r', '\n' };
         private static readonly string[] BypassAddressList =
         {
             @"^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$",
@@ -172,11 +174,12 @@ namespace MediaInfoKeeper.Patch
                 BypassList = BypassAddressList,
                 Credentials = credentials
             };
+            var selectiveProxy = CreateSelectiveProxy(proxy, options.ProxyDomains);
 
             if (primaryHandler is HttpClientHandler httpClientHandler)
             {
-                httpClientHandler.Proxy = proxy;
-                httpClientHandler.UseProxy = true;
+                httpClientHandler.Proxy = selectiveProxy;
+                httpClientHandler.UseProxy = selectiveProxy != null;
                 if (options.IgnoreCertificateValidation)
                 {
                     httpClientHandler.ServerCertificateCustomValidationCallback =
@@ -185,8 +188,8 @@ namespace MediaInfoKeeper.Patch
             }
             else if (primaryHandler is SocketsHttpHandler socketsHttpHandler)
             {
-                socketsHttpHandler.Proxy = proxy;
-                socketsHttpHandler.UseProxy = true;
+                socketsHttpHandler.Proxy = selectiveProxy;
+                socketsHttpHandler.UseProxy = selectiveProxy != null;
                 if (options.IgnoreCertificateValidation)
                 {
                     socketsHttpHandler.SslOptions.RemoteCertificateValidationCallback =
@@ -295,6 +298,94 @@ namespace MediaInfoKeeper.Patch
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyUrl);
                 logger.Info($"设置代理环境变量 {proxyUrl} 注意！如果你的代理无法访问 strm 的 http 可能会导致无法通过 ffprobe 提取与播放。");
             }
+        }
+
+        private static IWebProxy CreateSelectiveProxy(WebProxy proxy, string rawDomains)
+        {
+            var domains = ParseProxyDomains(rawDomains);
+            if (domains.Count == 0)
+            {
+                logger?.Debug("未配置需要代理的域名，Emby 内部 HttpClient 请求将全部走代理。");
+                return proxy;
+            }
+
+            return new SelectiveWebProxy(proxy, domains);
+        }
+
+        private static List<string> ParseProxyDomains(string rawDomains)
+        {
+            var results = new List<string>();
+            if (string.IsNullOrWhiteSpace(rawDomains))
+            {
+                return results;
+            }
+
+            var segments = rawDomains.Split(ProxyDomainSeparators, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var segment in segments)
+            {
+                if (!TryNormalizeProxyDomain(segment, out var domain) || results.Contains(domain))
+                {
+                    continue;
+                }
+
+                results.Add(domain);
+            }
+
+            return results;
+        }
+
+        private static bool TryNormalizeProxyDomain(string raw, out string domain)
+        {
+            domain = null;
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return false;
+            }
+
+            var value = raw.Trim();
+            if (value.Contains("://"))
+            {
+                return false;
+            }
+
+            value = value.Trim().Trim('.').ToLowerInvariant();
+            if (value.StartsWith("*.", StringComparison.Ordinal))
+            {
+                value = value.Substring(2);
+            }
+
+            if (string.IsNullOrWhiteSpace(value) ||
+                value.Contains("/") ||
+                value.Contains("?") ||
+                value.Contains("#") ||
+                value.Contains(":"))
+            {
+                return false;
+            }
+
+            domain = value;
+            return true;
+        }
+
+        private static bool ShouldProxyHost(string host, IReadOnlyList<string> domains)
+        {
+            if (string.IsNullOrWhiteSpace(host) || domains == null || domains.Count == 0)
+            {
+                return false;
+            }
+
+            var normalizedHost = host.Trim().Trim('.').ToLowerInvariant();
+            for (var i = 0; i < domains.Count; i++)
+            {
+                var domain = domains[i];
+                if (string.Equals(normalizedHost, domain, StringComparison.OrdinalIgnoreCase) ||
+                    normalizedHost.EndsWith("." + domain, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static Uri RewriteTmdbUri(Uri uri, Options.NetWorkOptions options)
@@ -413,6 +504,39 @@ namespace MediaInfoKeeper.Patch
 
             builder.Query = string.Join("&", pairs);
             return builder.Uri;
+        }
+
+        private sealed class SelectiveWebProxy : IWebProxy
+        {
+            private readonly IWebProxy innerProxy;
+            private readonly IReadOnlyList<string> domains;
+
+            public SelectiveWebProxy(IWebProxy innerProxy, IReadOnlyList<string> domains)
+            {
+                this.innerProxy = innerProxy;
+                this.domains = domains;
+            }
+
+            public ICredentials Credentials
+            {
+                get => innerProxy.Credentials;
+                set => innerProxy.Credentials = value;
+            }
+
+            public Uri GetProxy(Uri destination)
+            {
+                return IsBypassed(destination) ? destination : innerProxy.GetProxy(destination);
+            }
+
+            public bool IsBypassed(Uri host)
+            {
+                if (host == null || !ShouldProxyHost(host.Host, domains))
+                {
+                    return true;
+                }
+
+                return innerProxy.IsBypassed(host);
+            }
         }
     }
 }

@@ -526,6 +526,7 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("GitHub.LatestReleaseVersion", "GitHub", "最新版本", FormatOptionValue(options.GitHub.LatestReleaseVersion)),
                 new OptionLogEntry("NetWork.EnableProxyServer", "NetWork", "启用代理", netWorkOptions.EnableProxyServer.ToString()),
                 new OptionLogEntry("NetWork.ProxyServerUrl", "NetWork", "代理服务器地址", FormatOptionValue(netWorkOptions.ProxyServerUrl)),
+                new OptionLogEntry("NetWork.ProxyDomains", "NetWork", "需要使用代理的域名", FormatOptionValue(netWorkOptions.ProxyDomains)),
                 new OptionLogEntry("NetWork.IgnoreCertificateValidation", "NetWork", "忽略证书验证", netWorkOptions.IgnoreCertificateValidation.ToString()),
                 new OptionLogEntry("NetWork.WriteProxyEnvVars", "NetWork", "写入环境变量", netWorkOptions.WriteProxyEnvVars.ToString()),
                 new OptionLogEntry("NetWork.EnableGzip", "NetWork", "启用压缩传输", netWorkOptions.EnableGzip.ToString()),
