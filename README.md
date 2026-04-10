@@ -25,6 +25,7 @@
 ----
 
 - [Wiki](https://github.com/honue/MediaInfoKeeper/wiki)
+- [Channel](https://t.me/EmbyPatch_Channel)
 
 ⏬ 安装
 --------
@@ -57,8 +58,8 @@
 
 本项目在部分功能设计与架构思路上参考了开源项目：
 
-https://github.com/sjtuross/StrmAssistant
+部分功能 Patch https://github.com/sjtuross/StrmAssistant
 
-如果您认可 StrmAssistant 项目的功能，可以关注其Pro版本并支持原作者，感谢原作者对社区的贡献。
+弹幕 ede.js https://github.com/l429609201/dd-danmaku
 
-本项目主要针对 Emby 最新稳定版本进行适配与支持，针对我个人使用感受，优化体验。
+感谢各位大佬对社区的贡献！
