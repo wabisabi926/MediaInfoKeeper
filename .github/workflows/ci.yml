@@ -228,17 +228,60 @@ jobs:
           /p:Version=${{ env.package_version }}
           /p:InformationalVersion=${{ env.package_version }}
 
+      - name: Generate release body from tag history
+        id: release_body
+        shell: bash
+        run: |
+          body_file="$RUNNER_TEMP/release_body.md"
+          release_channel="${{ env.release_channel }}"
+          boundary_tag=""
+          changes_title=""
+
+          if [[ "$release_channel" == "Stable" ]]; then
+            # Stable: list commits since the latest stable tag.
+            boundary_tag="$(git tag --merged HEAD --list | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1 || true)"
+            changes_title="Changes since previous stable tag"
+          else
+            # Beta: list commits since the previous tag (stable or beta).
+            boundary_tag="$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || true)"
+            changes_title="Changes since previous tag"
+          fi
+
+          {
+            echo "Release channel: \`${{ env.release_channel }}\`"
+            echo
+            if [[ -n "$boundary_tag" ]]; then
+              echo "$changes_title: \`$boundary_tag\`"
+              echo
+
+              commit_lines="$(git log --no-merges --pretty='* %h %s' "${boundary_tag}..HEAD")"
+              if [[ -n "$commit_lines" ]]; then
+                echo "$commit_lines"
+              else
+                echo "* No code changes found since \`$boundary_tag\`."
+              fi
+            else
+              echo "$changes_title:"
+              echo
+              commit_lines="$(git log --no-merges --pretty='* %h %s')"
+              if [[ -n "$commit_lines" ]]; then
+                echo "$commit_lines"
+              else
+                echo "* No commits found."
+              fi
+            fi
+          } > "$body_file"
+
+          echo "release_body_path=$body_file" >> "$GITHUB_OUTPUT"
+
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ env.release_name }}
           tag_name: ${{ env.release_tag }}
           target_commitish: ${{ github.sha }}
-          body: |
-            Release channel: `${{ env.release_channel }}`
-            
-            ---
+          body_path: ${{ steps.release_body.outputs.release_body_path }}
           overwrite_files: true
           prerelease: ${{ env.pre_release }}
-          generate_release_notes: true
+          generate_release_notes: false
           files: Build/bin/Release/net8.0/MediaInfoKeeper.dll

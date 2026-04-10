@@ -1,0 +1,218 @@
+name: Cleanup Prereleases After Stable
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - "MediaInfoKeeper.csproj"
+  release:
+    types:
+      - published
+      - released
+      - edited
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cleanup-prereleases-after-stable
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        if: github.event_name == 'push'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+
+      - name: Cleanup prereleases older than latest stable
+        if: |
+          github.event_name == 'workflow_dispatch' ||
+          github.event_name == 'push' ||
+          (
+            github.event_name == 'release' &&
+            github.event.release.draft == false &&
+            github.event.release.prerelease == false
+          )
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const betaTagPattern = /^v\d+\.\d+\.\d+\.\d+-beta\.\d+$/i;
+            const stableTagPattern = /^v(\d+)\.(\d+)\.(\d+)\.(\d+)$/i;
+            const prereleaseTagPattern = /^v(\d+)\.(\d+)\.(\d+)\.(\d+)-beta\.\d+$/i;
+
+            const parseVersionParts = (tagName, pattern) => {
+              const match = typeof tagName === "string" ? tagName.match(pattern) : null;
+              return match ? match.slice(1).map((part) => Number.parseInt(part, 10)) : null;
+            };
+
+            const compareVersionParts = (left, right) => {
+              for (let index = 0; index < Math.max(left.length, right.length); index += 1) {
+                const leftPart = left[index] ?? 0;
+                const rightPart = right[index] ?? 0;
+                if (leftPart !== rightPart) {
+                  return leftPart - rightPart;
+                }
+              }
+              return 0;
+            };
+
+            const getSortTime = (release) =>
+              release.published_at || release.created_at || release.createdAt || null;
+
+            const releases = await github.paginate(github.rest.repos.listReleases, {
+              owner,
+              repo,
+              per_page: 100,
+            });
+
+            const stableReleases = releases
+              .filter((release) => !release.draft && !release.prerelease)
+              .sort((a, b) => new Date(getSortTime(b)).getTime() - new Date(getSortTime(a)).getTime());
+
+            if (stableReleases.length === 0) {
+              core.setFailed("No stable release found.");
+              return;
+            }
+
+            const releaseTagNames = new Set(
+              releases
+                .map((release) => release.tag_name)
+                .filter((tagName) => typeof tagName === "string" && tagName.length > 0)
+            );
+
+            const latestStable = stableReleases[0];
+            const latestStableTime = new Date(getSortTime(latestStable)).getTime();
+            const latestStableVersion = parseVersionParts(latestStable.tag_name, stableTagPattern);
+
+            if (!latestStableVersion) {
+              core.setFailed(`Unable to parse latest stable tag: ${latestStable.tag_name}`);
+              return;
+            }
+
+            const stalePrereleases = releases
+              .filter((release) => !release.draft && release.prerelease)
+              .filter((release) => {
+                const prereleaseVersion = parseVersionParts(release.tag_name, prereleaseTagPattern);
+                if (prereleaseVersion) {
+                  return compareVersionParts(prereleaseVersion, latestStableVersion) < 0;
+                }
+
+                const releaseTime = new Date(getSortTime(release)).getTime();
+                return Number.isFinite(releaseTime) && releaseTime < latestStableTime;
+              })
+              .sort((a, b) => new Date(getSortTime(b)).getTime() - new Date(getSortTime(a)).getTime());
+
+            core.info(
+              `Latest stable: ${latestStable.tag_name} (${getSortTime(latestStable)}), matched prereleases: ${stalePrereleases.length}`
+            );
+
+            for (const release of stalePrereleases) {
+              core.info(`Matched prerelease: ${release.tag_name} (${getSortTime(release)})`);
+            }
+
+            for (const release of stalePrereleases) {
+              core.info(`Deleting prerelease ${release.tag_name} (id=${release.id})`);
+
+              await github.rest.repos.deleteRelease({
+                owner,
+                repo,
+                release_id: release.id,
+              });
+
+              try {
+                await github.rest.git.deleteRef({
+                  owner,
+                  repo,
+                  ref: `tags/${release.tag_name}`,
+                });
+                core.info(`Deleted tag ${release.tag_name}`);
+              } catch (error) {
+                if (error.status === 404) {
+                  core.warning(`Tag ${release.tag_name} was already missing.`);
+                } else {
+                  throw error;
+                }
+              }
+            }
+
+            const candidateRefs = await github.paginate(github.rest.git.listMatchingRefs, {
+              owner,
+              repo,
+              ref: "tags/v",
+              per_page: 100,
+            });
+
+            const orphanBetaTags = [];
+
+            for (const ref of candidateRefs) {
+              const tagName = ref.ref.replace("refs/tags/", "");
+              if (!betaTagPattern.test(tagName)) {
+                continue;
+              }
+
+              if (releaseTagNames.has(tagName)) {
+                continue;
+              }
+
+              const betaVersion = parseVersionParts(tagName, prereleaseTagPattern);
+              if (betaVersion && compareVersionParts(betaVersion, latestStableVersion) < 0) {
+                orphanBetaTags.push({ tagName, refTime: "version-match" });
+                continue;
+              }
+
+              let refTime = null;
+
+              if (ref.object?.type === "tag") {
+                const tagObject = await github.rest.git.getTag({
+                  owner,
+                  repo,
+                  tag_sha: ref.object.sha,
+                });
+                refTime = tagObject.data?.tagger?.date || null;
+              } else if (ref.object?.type === "commit") {
+                const commitObject = await github.rest.git.getCommit({
+                  owner,
+                  repo,
+                  commit_sha: ref.object.sha,
+                });
+                refTime =
+                  commitObject.data?.committer?.date ||
+                  commitObject.data?.author?.date ||
+                  null;
+              }
+
+              const refTimestamp = refTime ? new Date(refTime).getTime() : Number.NaN;
+              if (!Number.isFinite(refTimestamp) || refTimestamp >= latestStableTime) {
+                continue;
+              }
+
+              orphanBetaTags.push({ tagName, refTime });
+            }
+
+            orphanBetaTags.sort((a, b) => new Date(b.refTime).getTime() - new Date(a.refTime).getTime());
+
+            for (const tag of orphanBetaTags) {
+              core.info(`Matched orphan beta tag: ${tag.tagName} (${tag.refTime})`);
+            }
+
+            for (const tag of orphanBetaTags) {
+              await github.rest.git.deleteRef({
+                owner,
+                repo,
+                ref: `tags/${tag.tagName}`,
+              });
+              core.info(`Deleted orphan beta tag ${tag.tagName}`);
+            }
+
+            core.notice(
+              `Deleted ${stalePrereleases.length} prerelease(s) and ${orphanBetaTags.length} orphan beta tag(s) older than ${latestStable.tag_name}.`
+            );
