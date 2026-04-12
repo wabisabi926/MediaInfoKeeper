@@ -24,6 +24,10 @@ namespace MediaInfoKeeper.Options
         [Description("启用后，条目移除时删除已持久化的 JSON。")]
         public bool DeleteMediaInfoJsonOnRemove { get; set; } = false;
 
+        [DisplayName("启用 MediaInfo 预加载")]
+        [Description("播放剧集时，预加载下一集媒体信息；关闭后不再自动预加载。")]
+        public bool EnableMediaInfoPrefetch { get; set; } = true;
+
         [DisplayName("MediaInfo JSON 存储根目录")]
         [Description("默认使用 Emby的 /config/data/MediaInfoKeeper 子目录保存。视频等媒体保存在 /your-path/FileNameWithoutExtension-mediainfo.json；音频保存在 /your-path/music/FileNameWithoutExtension-mediainfo.json。若当前值为空，JSON 保存到媒体文件同目录。")]
         [EditFolderPicker]

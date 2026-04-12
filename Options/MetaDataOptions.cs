@@ -104,7 +104,12 @@ namespace MediaInfoKeeper.Options
 
         [Browsable(false)]
         public List<EditorSelectOption> DanmuFetchModeList { get; set; } = new List<EditorSelectOption>();
-
+        
+        [DisplayName("预加载弹幕")]
+        [Description("播放剧集时，预加载下一集弹幕到本地；遵循弹幕拉取策略。")]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public bool EnableDanmuPrefetch { get; set; } = false;
+        
         [DisplayName("弹幕拉取策略")]
         [Description("本地优先：存在本地 xml 直接返回；不存在时临时拉取网络兜底。网络优先：先拉取最新 xml 返回；失败则本地 xml 兜底。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
@@ -224,10 +229,11 @@ namespace MediaInfoKeeper.Options
             AddGroup("Douban", "",
                 nameof(EnablePersonRoleDoubanFallback));
             
-            AddGroup("Danmaku", "访问弹幕 API 时按所选策略拉取：本地优先或网络优先。",
+            AddGroup("Danmaku", "",
                 nameof(EnableDanmakuJs),
                 nameof(EnableDanmuApi),
                 nameof(DanmuApiBaseUrl),
+                nameof(EnableDanmuPrefetch),
                 nameof(DanmuFetchMode));
             
             AddGroup("TVDB", "",

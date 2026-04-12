@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Patch;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
@@ -21,6 +22,7 @@ namespace MediaInfoKeeper.Services
         private readonly ISessionManager sessionManager;
         private readonly ILogger logger;
         private readonly ConcurrentDictionary<long, byte> extractingItemIds = new ConcurrentDictionary<long, byte>();
+        private readonly ConcurrentDictionary<long, byte> prefetchingDanmuItemIds = new ConcurrentDictionary<long, byte>();
         private readonly ConcurrentDictionary<string, CancellationTokenSource> prefetchSessions = new ConcurrentDictionary<string, CancellationTokenSource>(StringComparer.OrdinalIgnoreCase);
         private bool initialized;
 
@@ -63,6 +65,13 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
+            var enableMediaInfoPrefetch = Plugin.Instance?.Options?.GetMediaInfoOptions()?.EnableMediaInfoPrefetch == true;
+            var enableDanmuPrefetch = Plugin.Instance?.Options?.MetaData?.EnableDanmuPrefetch == true;
+            if (!enableMediaInfoPrefetch && !enableDanmuPrefetch)
+            {
+                return;
+            }
+
             if (e?.Item is not Episode episode)
             {
                 return;
@@ -80,16 +89,10 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
-            {
-                logger.Info($"下一集预提取: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
-                return;
-            }
-
             var sessionKey = !string.IsNullOrWhiteSpace(e.PlaySessionId)
                 ? e.PlaySessionId
                 : e.Session?.Id;
-            ScheduleNextEpisodePrefetch(nextEpisode.InternalId, nextEpisode.FileName ?? nextEpisode.Name, sessionKey, "下一集预提取");
+            ScheduleNextEpisodePrefetch(nextEpisode.InternalId, nextEpisode.FileName ?? nextEpisode.Name, sessionKey, "下一集预加载");
         }
 
         private void ScheduleNextEpisodePrefetch(long nextEpisodeId, string nextEpisodeName, string sessionKey, string source)
@@ -106,7 +109,7 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            logger.Info($"{source}: 5s后提取 {nextEpisodeName}");
+            logger.Info($"{source}: 5s后执行 {nextEpisodeName}");
 
             _ = Task.Run(async () =>
             {
@@ -124,13 +127,15 @@ namespace MediaInfoKeeper.Services
                         return;
                     }
 
-                    if (Plugin.MediaInfoService.HasMediaInfo(nextEpisode))
+                    if (Plugin.Instance?.Options?.GetMediaInfoOptions()?.EnableMediaInfoPrefetch == true)
                     {
-                        logger.Info($"{source}: 跳过，已存在媒体信息 {nextEpisode.FileName ?? nextEpisode.Name}");
-                        return;
+                        QueueMediaInfoPrefetchIfNeeded(nextEpisode, source);
                     }
 
-                    QueueExtractIfNeeded(nextEpisode, source);
+                    if (Plugin.Instance?.Options?.MetaData?.EnableDanmuPrefetch == true)
+                    {
+                        QueueDanmuPrefetchIfNeeded(nextEpisode, source);
+                    }
                 }
                 catch (OperationCanceledException)
                 {
@@ -222,7 +227,7 @@ namespace MediaInfoKeeper.Services
             logger.Info($"{logPrefix}: 完成 {workItem.FileName ?? workItem.Name ?? displayName}");
         }
 
-        private void QueueExtractIfNeeded(BaseItem item, string source)
+        private void QueueMediaInfoPrefetchIfNeeded(BaseItem item, string source)
         {
             if (item is not Video && item is not Audio)
             {
@@ -259,6 +264,66 @@ namespace MediaInfoKeeper.Services
                 finally
                 {
                     extractingItemIds.TryRemove(item.InternalId, out _);
+                }
+            });
+        }
+
+        private void QueueDanmuPrefetchIfNeeded(BaseItem item, string source)
+        {
+            if (item is not Episode && item is not MediaBrowser.Controller.Entities.Movies.Movie)
+            {
+                return;
+            }
+
+            if (Plugin.DanmuService?.IsEnabled != true || Plugin.DanmuService.IsSupportedItem(item) != true)
+            {
+                return;
+            }
+
+            if (Plugin.DanmuService.ShouldSkipAutoDownload(item))
+            {
+                logger.Info($"{source} 弹幕预加载: 跳过，已存在弹幕文件 {item.FileName ?? item.Name}");
+                return;
+            }
+
+            if (!prefetchingDanmuItemIds.TryAdd(item.InternalId, 0))
+            {
+                logger.Info($"{source} 弹幕预加载: 跳过，拉取中 {item.FileName ?? item.Name}");
+                return;
+            }
+
+            var networkFirst = string.Equals(
+                Plugin.Instance?.Options?.MetaData?.DanmuFetchMode,
+                MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(),
+                StringComparison.Ordinal);
+
+            logger.Info($"{source} 弹幕预加载: 开始 {item.FileName ?? item.Name}");
+
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    var succeeded = await Plugin.DanmuService
+                        .QueueDownloadAsync(item.InternalId, networkFirst, CancellationToken.None)
+                        .ConfigureAwait(false);
+                    if (succeeded)
+                    {
+                        logger.Info($"{source} 弹幕预加载: 完成 {item.FileName ?? item.Name}");
+                    }
+                    else
+                    {
+                        logger.Info($"{source} 弹幕预加载: 跳过 {item.FileName ?? item.Name}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"{source} 弹幕预加载: 失败 {item.FileName ?? item.Name}");
+                    logger.Error(ex.Message);
+                    logger.Debug(ex.StackTrace);
+                }
+                finally
+                {
+                    prefetchingDanmuItemIds.TryRemove(item.InternalId, out _);
                 }
             });
         }

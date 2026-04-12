@@ -98,10 +98,12 @@ namespace MediaInfoKeeper.Web
             var localExists = File.Exists(danmuXmlPath);
             var fetchMode = Plugin.Instance?.Options?.MetaData?.DanmuFetchMode;
             var networkFirst = string.Equals(fetchMode, MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(), StringComparison.Ordinal);
+            var modeLabel = networkFirst ? "网络优先" : "本地优先";
+            var logContext = $"mode={modeLabel} itemId={request.ItemId} item={item.FileName}";
 
             if (!networkFirst && localExists)
             {
-                logger?.Info($"弹幕API: 返回本地 xml item={item.FileName} path={danmuXmlPath}");
+                logger?.Info($"弹幕API: 本地命中，直接返回 {logContext} path={danmuXmlPath}");
                 return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
             }
 
@@ -119,32 +121,32 @@ namespace MediaInfoKeeper.Web
                         if (networkFirst)
                         {
                             File.WriteAllBytes(danmuXmlPath, xmlBytes);
-                            logger?.Info($"弹幕API: 网络优先，拉取并更新本地 xml item={item.FileName} path={danmuXmlPath} size={xmlBytes.Length}");
+                            logger?.Info($"弹幕API: 网络拉取成功并写入本地 {logContext} path={danmuXmlPath}");
                         }
                         else
                         {
-                            logger?.Info($"弹幕API: 本地优先，临时拉取 xml 兜底返回 item={item.FileName} size={xmlBytes.Length}");
+                            logger?.Info($"弹幕API: 本地未命中，临时拉取返回 {logContext}");
                         }
 
                         return _resultFactory.GetResult(Request, (ReadOnlyMemory<byte>)xmlBytes, "application/xml");
                     }
 
-                    logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 拉取结果为空 item={item.FileName}");
+                    logger?.Info($"弹幕API: 网络拉取结果为空 {logContext}");
                 }
                 catch (Exception ex)
                 {
-                    logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 拉取失败 item={item.FileName} error={ex.Message}");
+                    logger?.Info($"弹幕API: 网络拉取失败 {logContext} error={ex.Message}");
                     logger?.Debug(ex.StackTrace);
                 }
             }
 
             if (networkFirst && localExists)
             {
-                logger?.Info($"弹幕API: 网络优先拉取失败，回退本地 xml item={item.FileName} path={danmuXmlPath}");
+                logger?.Info($"弹幕API: 网络优先回退本地 {logContext} path={danmuXmlPath}");
                 return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
             }
 
-            logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 未命中可用结果，返回 404 item={item.FileName}");
+            logger?.Info($"弹幕API: 无可用弹幕，返回404 {logContext}");
             throw new ResourceNotFoundException();
         }
 
