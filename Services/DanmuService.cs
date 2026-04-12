@@ -10,6 +10,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Logging;
+using MediaInfoKeeper.Options;
 
 namespace MediaInfoKeeper.Services
 {
@@ -20,8 +21,6 @@ namespace MediaInfoKeeper.Services
             public long InternalId { get; set; }
 
             public bool OverwriteExisting { get; set; }
-
-            public bool RequireItemAddedOption { get; set; }
 
             public TaskCompletionSource<bool> CompletionSource { get; set; }
         }
@@ -43,40 +42,12 @@ namespace MediaInfoKeeper.Services
         }
 
         public bool IsEnabled =>
+            Plugin.Instance?.Options?.MetaData?.EnableDanmuApi == true &&
             !string.IsNullOrWhiteSpace(Plugin.Instance?.Options?.MetaData?.DanmuApiBaseUrl);
 
         public bool IsSupportedItem(BaseItem item)
         {
             return item is Episode || item is Movie;
-        }
-
-        public void QueueDownloadOnItemAdded(long internalId)
-        {
-            _ = Task.Run(async () =>
-            {
-                try
-                {
-                    var delayMinutes = Plugin.Instance?.Options?.MetaData?.DownloadDanmuOnItemAddedDelayMinutes ?? -1;
-                    if (delayMinutes < 0)
-                    {
-                        return;
-                    }
-
-                    var item = Plugin.LibraryManager?.GetItemById(internalId);
-                    if (ShouldSkipAutoDownload(item))
-                    {
-                        this.logger.Info($"弹幕下载: 跳过 {item?.FileName} 文件已存在");
-                        return;
-                    }
-                    await Task.Delay(TimeSpan.FromMinutes(delayMinutes)).ConfigureAwait(false);
-                    Enqueue(internalId, false, true, null);
-                }
-                catch (Exception ex)
-                {
-                    this.logger.Info($"弹幕下载: 失败 {internalId} {ex.Message}");
-                    this.logger.Debug(ex.StackTrace);
-                }
-            });
         }
 
         public Task<bool> QueueDownloadAsync(long internalId, bool overwriteExisting, CancellationToken cancellationToken)
@@ -95,17 +66,16 @@ namespace MediaInfoKeeper.Services
                 return completionSource.Task;
             }
 
-            Enqueue(internalId, overwriteExisting, false, completionSource);
+            Enqueue(internalId, overwriteExisting, completionSource);
             return completionSource.Task;
         }
 
-        private void Enqueue(long internalId, bool overwriteExisting, bool requireItemAddedOption, TaskCompletionSource<bool> completionSource)
+        private void Enqueue(long internalId, bool overwriteExisting, TaskCompletionSource<bool> completionSource)
         {
             itemAddedQueue.Enqueue(new QueuedDanmuItem
             {
                 InternalId = internalId,
                 OverwriteExisting = overwriteExisting,
-                RequireItemAddedOption = requireItemAddedOption,
                 CompletionSource = completionSource
             });
             queueSignal.Release();
@@ -168,11 +138,6 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            if (queuedItem.RequireItemAddedOption && (Plugin.Instance.Options.MetaData?.DownloadDanmuOnItemAddedDelayMinutes ?? -1) < 0)
-            {
-                return false;
-            }
-
             if (!IsEnabled)
             {
                 return false;
@@ -193,7 +158,11 @@ namespace MediaInfoKeeper.Services
                 return true;
             }
 
-            if (Plugin.Instance.Options.MetaData.OverwriteExistingDanmuXml)
+            var networkFirst = string.Equals(
+                Plugin.Instance?.Options?.MetaData?.DanmuFetchMode,
+                MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(),
+                StringComparison.Ordinal);
+            if (networkFirst)
             {
                 return false;
             }
@@ -235,7 +204,11 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            var overwrite = overwriteExisting || Plugin.Instance.Options.MetaData.OverwriteExistingDanmuXml;
+            var networkFirst = string.Equals(
+                Plugin.Instance?.Options?.MetaData?.DanmuFetchMode,
+                MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(),
+                StringComparison.Ordinal);
+            var overwrite = overwriteExisting || networkFirst;
             var targetPath = GetDanmuXmlPath(item);
             if (!overwrite && File.Exists(targetPath))
             {
@@ -243,24 +216,10 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            if (!TryBuildSearchRequest(item, out var animeTitle, out var episodeNumber))
-            {
-                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 无法解析标题或集数");
-                return false;
-            }
-
-            var baseUrl = Plugin.Instance.Options.MetaData.DanmuApiBaseUrl?.Trim();
-            var episodeId = await SearchEpisodeIdAsync(baseUrl, animeTitle, episodeNumber, cancellationToken).ConfigureAwait(false);
-            if (string.IsNullOrWhiteSpace(episodeId))
-            {
-                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 未匹配到条目");
-                return false;
-            }
-
-            var xmlBytes = await DownloadXmlAsync(baseUrl, episodeId, cancellationToken).ConfigureAwait(false);
+            var xmlBytes = await FetchDanmuXmlBytesAsync(item, cancellationToken).ConfigureAwait(false);
             if (xmlBytes == null || xmlBytes.Length == 0)
             {
-                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 未获取到内容 episodeId={episodeId}");
+                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 未获取到内容");
                 return false;
             }
 
@@ -273,6 +232,42 @@ namespace MediaInfoKeeper.Services
             await File.WriteAllBytesAsync(targetPath, xmlBytes, cancellationToken).ConfigureAwait(false);
             this.logger.Info($"弹幕下载: 成功 {item.FileName}");
             return true;
+        }
+
+        public async Task<byte[]> FetchDanmuXmlBytesAsync(BaseItem item, CancellationToken cancellationToken)
+        {
+            if (!IsEnabled || item == null)
+            {
+                return null;
+            }
+
+            if (item is not Episode && item is not Movie)
+            {
+                return null;
+            }
+
+            if (!TryBuildSearchRequest(item, out var animeTitle, out var episodeNumber))
+            {
+                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 无法解析标题或集数");
+                return null;
+            }
+
+            var baseUrl = Plugin.Instance?.Options?.MetaData?.DanmuApiBaseUrl?.Trim();
+            var episodeId = await SearchEpisodeIdAsync(baseUrl, animeTitle, episodeNumber, cancellationToken).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(episodeId))
+            {
+                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 未匹配到条目");
+                return null;
+            }
+
+            var xmlBytes = await DownloadXmlAsync(baseUrl, episodeId, cancellationToken).ConfigureAwait(false);
+            if (xmlBytes == null || xmlBytes.Length == 0)
+            {
+                this.logger.Info($"弹幕下载: 跳过 {item.FileName} 未获取到内容 episodeId={episodeId}");
+                return null;
+            }
+
+            return xmlBytes;
         }
 
         private async Task<string> SearchEpisodeIdAsync(string baseUrl, string animeTitle, int episodeNumber, CancellationToken cancellationToken)

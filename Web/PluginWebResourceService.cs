@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using MediaBrowser.Common.Extensions;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
@@ -14,6 +15,7 @@ using MediaBrowser.Model.Services;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Serialization;
+using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Web.Handler;
 
@@ -78,6 +80,13 @@ namespace MediaInfoKeeper.Web
                 throw new ResourceNotFoundException();
             }
 
+            var logger = Plugin.Instance?.Logger;
+            if (Plugin.Instance?.Options?.MetaData?.EnableDanmuApi != true)
+            {
+                logger?.Info("弹幕API: 已禁用，返回 404");
+                throw new ResourceNotFoundException();
+            }
+
             var item = _libraryManager.GetItemById(request.ItemId);
             if (item == null || string.IsNullOrWhiteSpace(item.ContainingFolderPath) ||
                 string.IsNullOrWhiteSpace(item.FileNameWithoutExtension))
@@ -86,12 +95,57 @@ namespace MediaInfoKeeper.Web
             }
 
             var danmuXmlPath = Path.Combine(item.ContainingFolderPath, item.FileNameWithoutExtension + ".xml");
-            if (!File.Exists(danmuXmlPath))
+            var localExists = File.Exists(danmuXmlPath);
+            var fetchMode = Plugin.Instance?.Options?.MetaData?.DanmuFetchMode;
+            var networkFirst = string.Equals(fetchMode, MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(), StringComparison.Ordinal);
+
+            if (!networkFirst && localExists)
             {
-                throw new ResourceNotFoundException();
+                logger?.Info($"弹幕API: 返回本地 xml item={item.FileName} path={danmuXmlPath}");
+                return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
             }
 
-            return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
+            if (Plugin.DanmuService?.IsSupportedItem(item) == true && Plugin.DanmuService.IsEnabled)
+            {
+                try
+                {
+                    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                    var xmlBytes = Plugin.DanmuService
+                        .FetchDanmuXmlBytesAsync(item, cancellationTokenSource.Token)
+                        .GetAwaiter()
+                        .GetResult();
+                    if (xmlBytes != null && xmlBytes.Length > 0)
+                    {
+                        if (networkFirst)
+                        {
+                            File.WriteAllBytes(danmuXmlPath, xmlBytes);
+                            logger?.Info($"弹幕API: 网络优先，拉取并更新本地 xml item={item.FileName} path={danmuXmlPath} size={xmlBytes.Length}");
+                        }
+                        else
+                        {
+                            logger?.Info($"弹幕API: 本地优先，临时拉取 xml 兜底返回 item={item.FileName} size={xmlBytes.Length}");
+                        }
+
+                        return _resultFactory.GetResult(Request, (ReadOnlyMemory<byte>)xmlBytes, "application/xml");
+                    }
+
+                    logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 拉取结果为空 item={item.FileName}");
+                }
+                catch (Exception ex)
+                {
+                    logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 拉取失败 item={item.FileName} error={ex.Message}");
+                    logger?.Debug(ex.StackTrace);
+                }
+            }
+
+            if (networkFirst && localExists)
+            {
+                logger?.Info($"弹幕API: 网络优先拉取失败，回退本地 xml item={item.FileName} path={danmuXmlPath}");
+                return _resultFactory.GetStaticFileResult(Request, danmuXmlPath, FileShareMode.Read).GetAwaiter().GetResult();
+            }
+
+            logger?.Info($"弹幕API: {(networkFirst ? "网络优先" : "本地优先")} 未命中可用结果，返回 404 item={item.FileName}");
+            throw new ResourceNotFoundException();
         }
 
         public MediaInfoMenuResponse Post(ExtractMediaInfoRequest request)

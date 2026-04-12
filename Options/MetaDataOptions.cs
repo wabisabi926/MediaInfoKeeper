@@ -11,6 +11,12 @@ namespace MediaInfoKeeper.Options
 {
     public class MetaDataOptions : EditableOptionsBase
     {
+        public enum DanmuFetchModeOption
+        {
+            LocalFirst,
+            NetworkFirst
+        }
+
         private static readonly string[] SupportedFallbackLanguages =
         {
             "zh-SG",
@@ -87,19 +93,24 @@ namespace MediaInfoKeeper.Options
         [Description("修改 index.html，注入 ede.js")]
         public bool EnableDanmakuJs { get; set; } = false;
 
-        [DisplayName("弹幕 API BaseUrl")]
-        [Description("例如 http://192.168.33.100:9321/token 。插件会调用 /search/episodes 和 /comment/{episodeId}?format=xml。danmu_api 项目 https://github.com/huangxd-/danmu_api")]
-        public string DanmuApiBaseUrl { get; set; } = string.Empty;
-        
-        [DisplayName("入库后延迟下载弹幕（分钟）")]
-        [Description("-1 表示入库不下载；入库后延迟对应分钟数再自动尝试下载弹幕。本插件兼容 emby-plugin-danmu 弹幕路由")]
-        [MinValue(-1)]
-        [MaxValue(360)]
-        public int DownloadDanmuOnItemAddedDelayMinutes { get; set; } = -1;
+        [DisplayName("启用弹幕 API")]
+        [Description("开启后启用 /api/danmu/{ItemId}/raw 路由的弹幕能力；Senplayer，FileBar、弹幕js等可以直接使Emby提供的弹幕文件，关闭后该路由不提供弹幕返回。")]
+        public bool EnableDanmuApi { get; set; } = false;
 
-        [DisplayName("覆盖已有弹幕文件")]
-        [Description("开启后，弹幕下载任务会覆盖条目目录中已有的同名 .xml 文件；关闭时遇到现有文件会跳过")]
-        public bool OverwriteExistingDanmuXml { get; set; } = false;
+        [DisplayName("弹幕 API BaseUrl")]
+        [Description("例如 http://192.168.33.100:9321/token ，danmu_api 项目 https://github.com/huangxd-/danmu_api")]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public string DanmuApiBaseUrl { get; set; } = string.Empty;
+
+        [Browsable(false)]
+        public List<EditorSelectOption> DanmuFetchModeList { get; set; } = new List<EditorSelectOption>();
+
+        [DisplayName("弹幕拉取策略")]
+        [Description("本地优先：存在本地 xml 直接返回；不存在时临时拉取网络兜底。网络优先：先拉取最新 xml 返回；失败则本地 xml 兜底。")]
+        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
+        [SelectItemsSource(nameof(DanmuFetchModeList))]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public string DanmuFetchMode { get; set; } = DanmuFetchModeOption.LocalFirst.ToString();
         
         public void Initialize()
         {
@@ -124,6 +135,26 @@ namespace MediaInfoKeeper.Options
                     IsEnabled = true
                 });
             }
+
+            if (!string.Equals(DanmuFetchMode, DanmuFetchModeOption.LocalFirst.ToString(), StringComparison.Ordinal) &&
+                !string.Equals(DanmuFetchMode, DanmuFetchModeOption.NetworkFirst.ToString(), StringComparison.Ordinal))
+            {
+                DanmuFetchMode = DanmuFetchModeOption.LocalFirst.ToString();
+            }
+
+            DanmuFetchModeList.Clear();
+            DanmuFetchModeList.Add(new EditorSelectOption
+            {
+                Name = "本地优先",
+                Value = DanmuFetchModeOption.LocalFirst.ToString(),
+                IsEnabled = true
+            });
+            DanmuFetchModeList.Add(new EditorSelectOption
+            {
+                Name = "网络优先",
+                Value = DanmuFetchModeOption.NetworkFirst.ToString(),
+                IsEnabled = true
+            });
         }
 
         public override IEditObjectContainer CreateEditContainer()
@@ -193,11 +224,11 @@ namespace MediaInfoKeeper.Options
             AddGroup("Douban", "",
                 nameof(EnablePersonRoleDoubanFallback));
             
-            AddGroup("Danmaku", "",
+            AddGroup("Danmaku", "访问弹幕 API 时按所选策略拉取：本地优先或网络优先。",
                 nameof(EnableDanmakuJs),
+                nameof(EnableDanmuApi),
                 nameof(DanmuApiBaseUrl),
-                nameof(OverwriteExistingDanmuXml),
-                nameof(DownloadDanmuOnItemAddedDelayMinutes));
+                nameof(DanmuFetchMode));
             
             AddGroup("TVDB", "",
                 nameof(EnableTvdbFallback),

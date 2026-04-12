@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
+using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.Web.Handler
@@ -56,13 +57,18 @@ namespace MediaInfoKeeper.Web.Handler
                 return response;
             }
 
+            var networkFirst = string.Equals(
+                Plugin.Instance?.Options?.MetaData?.DanmuFetchMode,
+                MetaDataOptions.DanmuFetchModeOption.NetworkFirst.ToString(),
+                StringComparison.Ordinal);
+
             foreach (var item in targetItems)
             {
                 response.Processed++;
                 try
                 {
                     var result = await Plugin.DanmuService
-                        .TryDownloadDanmuXmlAsync(item, CancellationToken.None, overwriteExisting: true)
+                        .TryDownloadDanmuXmlAsync(item, CancellationToken.None, overwriteExisting: networkFirst)
                         .ConfigureAwait(false);
                     if (result)
                     {
@@ -83,7 +89,7 @@ namespace MediaInfoKeeper.Web.Handler
 
             response.Message = "ok";
             Plugin.Instance.Logger.Info(
-                $"弹幕下载 result: total={response.Total}, processed={response.Processed}, succeeded={response.Succeeded}, failed={response.Failed}, skipped={response.Skipped}, message={response.Message}");
+                $"弹幕下载 result: mode={(networkFirst ? "NetworkFirst" : "LocalFirst")}, total={response.Total}, processed={response.Processed}, succeeded={response.Succeeded}, failed={response.Failed}, skipped={response.Skipped}, message={response.Message}");
             return response;
         }
     }
