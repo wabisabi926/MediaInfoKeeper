@@ -9,6 +9,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaInfoKeeper.Common;
+using MediaInfoKeeper.Provider;
 
 namespace MediaInfoKeeper.Services
 {
@@ -238,11 +239,18 @@ namespace MediaInfoKeeper.Services
                 var imdbLookup = GetDoubanSubjectFromImdb(imdbId);
                 if (!string.IsNullOrWhiteSpace(imdbLookup))
                 {
+                    PersistDoubanSubjectId(item, imdbLookup);
                     return imdbLookup;
                 }
             }
 
-            return SearchDoubanSubject(item, subjectType);
+            var searchResult = SearchDoubanSubject(item, subjectType);
+            if (!string.IsNullOrWhiteSpace(searchResult))
+            {
+                PersistDoubanSubjectId(item, searchResult);
+            }
+
+            return searchResult;
         }
 
         private static string GetDoubanSubjectFromImdb(string imdbId)
@@ -414,6 +422,46 @@ namespace MediaInfoKeeper.Services
 
             var match = DoubanSubjectIdRegex.Match(trimmed);
             return match.Success ? match.Groups[1].Value : trimmed;
+        }
+
+        private static void PersistDoubanSubjectId(BaseItem item, string subjectId)
+        {
+            var normalizedSubjectId = NormalizeDoubanSubjectId(subjectId);
+            if (item == null || string.IsNullOrWhiteSpace(normalizedSubjectId))
+            {
+                return;
+            }
+
+            if (Plugin.Instance?.Options?.MetaData?.EnableDoubanLinkWriteback != true)
+            {
+                return;
+            }
+
+            var existing = GetProviderId(item, DoubanExternalId.StaticName, "douban", "DoubanId", "doubanid");
+            if (string.Equals(NormalizeDoubanSubjectId(existing), normalizedSubjectId, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            try
+            {
+                item.SetProviderId(DoubanExternalId.StaticName, normalizedSubjectId);
+                Plugin.Instance?.ItemRepository?.SaveItem(item, CancellationTokenUtility.None);
+                Plugin.Instance?.Logger?.Info(
+                    "DoubanService 豆瓣链接写入: {0} ({1}) doubanid={2}",
+                    item.FileName ?? string.Empty,
+                    item.ProductionYear,
+                    normalizedSubjectId);
+            }
+            catch (Exception ex)
+            {
+                Plugin.Instance?.Logger?.Info(
+                    "DoubanService 豆瓣链接写入失败: {0} ({1}) doubanid={2}, msg={3}",
+                    item?.FileName ?? string.Empty,
+                    item?.ProductionYear,
+                    normalizedSubjectId,
+                    ex.Message);
+            }
         }
 
         private static string GetProviderId(IHasProviderIds item, params string[] keys)

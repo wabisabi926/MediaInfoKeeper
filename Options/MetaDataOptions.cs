@@ -46,6 +46,10 @@ namespace MediaInfoKeeper.Options
         [DisplayName("启用豆瓣角色中文化")]
         [Description("当演员角色为空或非中文时，尝试用豆瓣演员表补全中文角色名。")]
         public bool EnablePersonRoleDoubanFallback { get; set; } = true;
+
+        [DisplayName("写入豆瓣链接")]
+        [Description("IMDb 反查或豆瓣搜索命中后，将豆瓣 subject id 写入条目数据库，用于显示豆瓣外链。")]
+        public bool EnableDoubanLinkWriteback { get; set; } = true;
         
         [Browsable(false)]
         public List<EditorSelectOption> FallbackLanguageList { get; set; } = new List<EditorSelectOption>();
@@ -227,7 +231,8 @@ namespace MediaInfoKeeper.Options
                 nameof(EnableLocalEpisodeGroup));
 
             AddGroup("Douban", "",
-                nameof(EnablePersonRoleDoubanFallback));
+                nameof(EnablePersonRoleDoubanFallback),
+                nameof(EnableDoubanLinkWriteback));
             
             AddGroup("Danmaku", "",
                 nameof(EnableDanmakuJs),
