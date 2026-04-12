@@ -153,7 +153,7 @@ namespace MediaInfoKeeper.Patch
             }
 
             logger?.Debug("DashboardResourcePatch target hit: {0}", path);
-            logger?.Info("DashboardResourcePatch: 捕获 dashboard 资源请求 path={0}", path);
+            logger?.Debug("DashboardResourcePatch: 捕获 dashboard 资源请求 path={0}", path);
             __result = RewriteModifyHtmlTaskAsync(__result, path);
         }
 
@@ -186,14 +186,14 @@ namespace MediaInfoKeeper.Patch
 
             if (!enableDanmakuJs)
             {
-                logger?.Info("DashboardResourcePatch: index.html 命中但 EnableDanmakuJs=false，跳过注入");
+                logger?.Debug("DashboardResourcePatch: index.html 命中但 EnableDanmakuJs=false，跳过注入");
                 return content;
             }
 
             const string scriptTag = "<script src=\"components/mediainfokeeper/ede.js\" charset=\"utf-8\"></script>";
             if (content.Contains(scriptTag, StringComparison.OrdinalIgnoreCase))
             {
-                logger?.Info("DashboardResourcePatch: index.html 已包含 ede.js，跳过重复注入");
+                logger?.Debug("DashboardResourcePatch: index.html 已包含 ede.js，跳过重复注入");
                 return content;
             }
 
@@ -205,7 +205,7 @@ namespace MediaInfoKeeper.Patch
             }
 
             var rewritten = content.Insert(bodyCloseIndex, scriptTag + Environment.NewLine);
-            logger?.Info("DashboardResourcePatch: index.html 注入弹幕js ede.js 成功");
+            logger?.Debug("DashboardResourcePatch: index.html 注入弹幕js ede.js 成功");
             return rewritten;
         }
     }
