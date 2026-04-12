@@ -174,9 +174,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            var inputHint = Regex.Match(__2 ?? string.Empty, @"-i\s+file:""[^""]+""").Value
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n");
+            var inputHint = ExtractInputHint(__2);
             var runTypeText = __0?.ToString() ?? string.Empty;
             var isFfprobe = runTypeText.IndexOf("ffprobe", StringComparison.OrdinalIgnoreCase) >= 0;
             var isFfmpeg = runTypeText.IndexOf("ffmpeg", StringComparison.OrdinalIgnoreCase) >= 0;
@@ -192,7 +190,7 @@ namespace MediaInfoKeeper.Patch
             if (scope != null)
             {
                 var context = scope.Handle?.Context;
-                logger?.Info($"允许 {displayTarget}");
+                logger?.Debug($"允许 {displayTarget}");
                 if ((isFfprobe || isFfmpeg) && context != null)
                 {
                     context.WasFfprocessCalled = true;
@@ -201,7 +199,7 @@ namespace MediaInfoKeeper.Patch
                 __3 = Math.Max(__3, 60000);
                 return true;
             }
-            logger?.Info($"拦截 {displayTarget}");
+            logger?.Debug($"拦截 {displayTarget}");
             __result = emptyResult;
             return false;
         }
@@ -215,9 +213,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            var inputHint = Regex.Match(__2 ?? string.Empty, @"-i\s+file:""[^""]+""").Value
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n");
+            var inputHint = ExtractInputHint(__2);
             var runTypeText = __0?.ToString() ?? string.Empty;
             var isFfprobe = runTypeText.IndexOf("ffprobe", StringComparison.OrdinalIgnoreCase) >= 0;
             var isFfmpeg = runTypeText.IndexOf("ffmpeg", StringComparison.OrdinalIgnoreCase) >= 0;
@@ -233,7 +229,7 @@ namespace MediaInfoKeeper.Patch
             if (scope != null)
             {
                 var context = scope.Handle?.Context;
-                logger?.Info($"允许 {displayTarget}");
+                logger?.Debug($"允许 {displayTarget}");
                 if ((isFfprobe || isFfmpeg) && context != null)
                 {
                     context.WasFfprocessCalled = true;
@@ -247,7 +243,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            logger?.Info($"拦截 {displayTarget}");
+            logger?.Debug($"拦截 {displayTarget}");
             __result = emptyResult;
             return false;
         }
@@ -259,14 +255,15 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            var displayTarget = $"ffmpeg -i file:\"{(__0 ?? string.Empty).Replace("\r", "\\r").Replace("\n", "\\n")}\"";
+            var inputHint = ExtractInputHint($"-i file:\"{__0 ?? string.Empty}\"");
+            var displayTarget = $"ffmpeg {inputHint}";
             if (HasFfprocessAllowanceInCurrentScope())
             {
-                logger?.Info($"允许 {displayTarget}");
+                logger?.Debug($"允许 {displayTarget}");
                 return true;
             }
 
-            logger?.Info($"拦截 {displayTarget}");
+            logger?.Debug($"拦截 {displayTarget}");
             __result = Task.CompletedTask;
             return false;
         }
@@ -279,6 +276,27 @@ namespace MediaInfoKeeper.Patch
             }
 
             __result = AwaitProcessTask(task, __state);
+        }
+
+        private static string ExtractInputHint(string arguments)
+        {
+            if (string.IsNullOrWhiteSpace(arguments))
+            {
+                return string.Empty;
+            }
+
+            var match = Regex.Match(arguments, @"-i\s+(file:""[^""]+""|""[^""]+""|\S+)");
+            if (!match.Success)
+            {
+                // 某些 ffprobe 调用会把输入作为最后一个参数直接追加，而不是放在 -i 后面。
+                match = Regex.Match(arguments, @"(file:""[^""]+""|""[^""]+://[^""]+""|\S+://\S+)\s*$");
+            }
+
+            var value = match.Value
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n");
+
+            return value;
         }
 
         private static object CreateEmptyResult(Type returnType)
