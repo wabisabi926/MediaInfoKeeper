@@ -200,6 +200,15 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "RoleChineseName",
+                Initialize = options => RoleChineseName.Initialize(logger, options.MetaData.EnablePersonRoleDoubanFallback),
+                Configure = options => RoleChineseName.Configure(IsPluginEnabled(options) && options.MetaData.EnablePersonRoleDoubanFallback),
+                IsEnabled = options => IsPluginEnabled(options) && options.MetaData.EnablePersonRoleDoubanFallback,
+                IsReady = () => RoleChineseName.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "TvdbTitle",
                 Initialize = options => TvdbTitle.Initialize(logger, options.MetaData.EnableTvdbFallback),
                 Configure = options => TvdbTitle.Configure(IsPluginEnabled(options) && options.MetaData.EnableTvdbFallback),

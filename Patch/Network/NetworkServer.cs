@@ -226,7 +226,7 @@ namespace MediaInfoKeeper.Patch
                     if (!ReferenceEquals(rewritten, uri) && rewritten != uri)
                     {
                         finalUrl = rewritten.ToString();
-                        logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
+                        // logger?.Debug("TMDB 请求已替换: {0} -> {1}", originalUrl, finalUrl);
                         urlProperty.SetValue(requestOptions, finalUrl);
                     }
                 }

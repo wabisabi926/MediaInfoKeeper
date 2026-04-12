@@ -37,6 +37,10 @@ namespace MediaInfoKeeper.Options
         [Description("按备选语言顺序补全 TMDB 电影/剧集/季/集元数据，并尽量把英文放到最后。")]
         public bool EnableAlternativeTitleFallback { get; set; } = true;
 
+        [DisplayName("启用豆瓣角色中文化")]
+        [Description("当演员角色为空或非中文时，尝试用豆瓣演员表补全中文角色名。")]
+        public bool EnablePersonRoleDoubanFallback { get; set; } = true;
+        
         [Browsable(false)]
         public List<EditorSelectOption> FallbackLanguageList { get; set; } = new List<EditorSelectOption>();
 
@@ -179,12 +183,6 @@ namespace MediaInfoKeeper.Options
                 nameof(EnableOriginalPoster),
                 nameof(BlockNonFallbackLanguage));
             
-            AddGroup("Danmaku", "",
-                nameof(EnableDanmakuJs),
-                nameof(DanmuApiBaseUrl),
-                nameof(OverwriteExistingDanmuXml),
-                nameof(DownloadDanmuOnItemAddedDelayMinutes));
-            
             AddGroup("TMDB", "",
                 nameof(EnableAlternativeTitleFallback),
                 nameof(FallbackLanguages),
@@ -192,6 +190,15 @@ namespace MediaInfoKeeper.Options
                 nameof(EnableMissingEpisodesEnhance),
                 nameof(EnableLocalEpisodeGroup));
 
+            AddGroup("Douban", "",
+                nameof(EnablePersonRoleDoubanFallback));
+            
+            AddGroup("Danmaku", "",
+                nameof(EnableDanmakuJs),
+                nameof(DanmuApiBaseUrl),
+                nameof(OverwriteExistingDanmuXml),
+                nameof(DownloadDanmuOnItemAddedDelayMinutes));
+            
             AddGroup("TVDB", "",
                 nameof(EnableTvdbFallback),
                 nameof(TvdbFallbackLanguages));

@@ -464,12 +464,6 @@ namespace MediaInfoKeeper.Patch
             try
             {
                 var item = seriesResult.Item;
-                logger?.Debug(
-                    "TMDB Series ImportData: item={0}, firstLanguage={1}, preferredCountry={2}, currentName='{3}'",
-                    item.FileName ?? item.Path ?? item.Id.ToString(),
-                    isFirstLanguage,
-                    preferredCountryCode ?? string.Empty,
-                    item.Name ?? string.Empty);
 
                 if (IsUpdateNeeded(item.Name))
                 {
@@ -477,7 +471,6 @@ namespace MediaInfoKeeper.Patch
                     if (!string.IsNullOrWhiteSpace(title))
                     {
                         item.Name = title;
-                        logger?.Debug("TMDB Series 标题更新: '{0}'", title);
                     }
                 }
 
@@ -485,7 +478,6 @@ namespace MediaInfoKeeper.Patch
                 if (IsUpdateNeeded(item.Overview) && !string.IsNullOrWhiteSpace(overview))
                 {
                     item.Overview = DecodeOverview(overview);
-                    logger?.Debug("TMDB Series 简介更新: len={0}", item.Overview?.Length ?? 0);
                 }
 
                 if (isFirstLanguage &&
@@ -519,11 +511,6 @@ namespace MediaInfoKeeper.Patch
                     !string.IsNullOrEmpty(language) && language.Contains("-")
                         ? language.Split('-')[1]
                         : null;
-                logger?.Debug(
-                    "TMDB EnsureSeriesInfo: tmdbId={0}, language={1}, country={2}",
-                    tmdbId ?? string.Empty,
-                    language ?? string.Empty,
-                    CurrentLookupLanguageCountryCode.Value ?? string.Empty);
 
                 var seriesInfo = GetTaskResult(__result);
                 if (seriesInfo == null)

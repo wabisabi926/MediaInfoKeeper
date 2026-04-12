@@ -513,6 +513,7 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.EnableSystemLogReverse", "Enhance", "系统日志倒序显示", options.Enhance.EnableSystemLogReverse.ToString()),
                 new OptionLogEntry("MetaData.MetadataChangeWatcher", "MetaData", "启用剧集元数据变动监听", "开"),
                 new OptionLogEntry("MetaData.EnableAlternativeTitleFallback", "MetaData", "启用 TMDB 中文回退", options.MetaData.EnableAlternativeTitleFallback.ToString()),
+                new OptionLogEntry("MetaData.EnablePersonRoleDoubanFallback", "MetaData", "启用豆瓣角色中文化", options.MetaData.EnablePersonRoleDoubanFallback.ToString()),
                 new OptionLogEntry("MetaData.EnableTvdbFallback", "MetaData", "启用 TVDB 中文回退", options.MetaData.EnableTvdbFallback.ToString()),
                 new OptionLogEntry("MetaData.FallbackLanguages", "MetaData", "TMDB 备选语言", FormatOptionValue(options.MetaData.FallbackLanguages)),
                 new OptionLogEntry("MetaData.TvdbFallbackLanguages", "MetaData", "TVDB 备选语言", FormatOptionValue(options.MetaData.TvdbFallbackLanguages)),
