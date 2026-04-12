@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using MediaInfoKeeper.Services;
@@ -8,6 +9,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Configuration;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
@@ -20,9 +22,12 @@ namespace MediaInfoKeeper.Patch
         private static Harmony harmony;
         private static MethodInfo staticCanRefresh;
         private static MethodInfo instanceCanRefresh;
+        private static MethodInfo clearImages;
         private static ILogger logger;
         private static bool isEnabled;
-        public static bool IsReady => harmony != null && (staticCanRefresh != null || instanceCanRefresh != null);
+        public static bool IsReady => harmony != null &&
+                                      clearImages != null &&
+                                      (staticCanRefresh != null || instanceCanRefresh != null);
         public static void Initialize(ILogger pluginLogger, bool enableWatcher)
         {
             if (harmony != null) return;
@@ -42,10 +47,11 @@ namespace MediaInfoKeeper.Patch
 
                 staticCanRefresh = ResolveStaticCanRefresh(providerManager);
                 instanceCanRefresh = ResolveInstanceCanRefresh(providerManager);
+                clearImages = ResolveClearImages(providerManager.Assembly);
 
-                if (staticCanRefresh == null && instanceCanRefresh == null)
+                if ((staticCanRefresh == null && instanceCanRefresh == null) || clearImages == null)
                 {
-                    PatchLog.InitFailed(logger, nameof(MetadataProvidersWatcher), "未找到 CanRefresh 重载");
+                    PatchLog.InitFailed(logger, nameof(MetadataProvidersWatcher), "未找到 CanRefresh/ClearImages 重载");
                     return;
                 }
 
@@ -72,6 +78,13 @@ namespace MediaInfoKeeper.Patch
                         harmony.Patch(instanceCanRefresh,
                             prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(CanRefreshPrefix)));
                     }
+
+                    PatchLog.Patched(
+                        logger,
+                        nameof(MetadataProvidersWatcher),
+                        clearImages);
+                    harmony.Patch(clearImages,
+                        prefix: new HarmonyMethod(typeof(MetadataProvidersWatcher), nameof(ClearImagesPrefix)));
                 }
                 catch (Exception patchEx)
                 {
@@ -89,6 +102,32 @@ namespace MediaInfoKeeper.Patch
                 logger.Error(e.ToString());
                 harmony = null;
             }
+        }
+
+        private static void ClearImagesPrefix(BaseItem item, ref ImageType[] imageTypesToClear, int numBackdropToKeep)
+        {
+            if (!isEnabled ||
+                item is not Video ||
+                item.InternalId == 0 ||
+                !item.HasImage(ImageType.Primary) ||
+                imageTypesToClear == null ||
+                !imageTypesToClear.Contains(ImageType.Primary) ||
+                !LibraryService.IsFileShortcut(item.Path ?? item.FileName))
+            {
+                return;
+            }
+
+            var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
+            if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
+            {
+                return;
+            }
+
+            // Keep the existing primary when no provider produced a replacement.
+            // Provider ordering still decides who wins because successful SaveImage calls happen before ClearImages.
+            imageTypesToClear = imageTypesToClear
+                .Where(imageType => imageType != ImageType.Primary)
+                .ToArray();
         }
 
         public static void Configure(bool enableWatcher)
@@ -215,6 +254,43 @@ namespace MediaInfoKeeper.Patch
                     },
                     logger,
                     "MetadataProvidersWatcher.InstanceCanRefresh");
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static MethodInfo ResolveClearImages(Assembly embyProvidersAssembly)
+        {
+            try
+            {
+                var itemImageProvider = embyProvidersAssembly?.GetType("Emby.Providers.Manager.ItemImageProvider");
+                if (itemImageProvider == null)
+                {
+                    return null;
+                }
+
+                var embyProvidersVersion = embyProvidersAssembly.GetName().Version;
+                return PatchMethodResolver.Resolve(
+                    itemImageProvider,
+                    embyProvidersVersion,
+                    new MethodSignatureProfile
+                    {
+                        Name = "itemimageprovider-clearimages-exact",
+                        MethodName = "ClearImages",
+                        BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                        ParameterTypes = new[]
+                        {
+                            typeof(BaseItem),
+                            typeof(ImageType[]),
+                            typeof(int)
+                        },
+                        ReturnType = typeof(void),
+                        IsStatic = false
+                    },
+                    logger,
+                    "MetadataProvidersWatcher.ClearImages");
             }
             catch
             {
