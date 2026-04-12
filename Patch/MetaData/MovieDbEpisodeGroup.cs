@@ -16,6 +16,7 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Providers;
+using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Provider;
 
 namespace MediaInfoKeeper.Patch
@@ -78,8 +79,8 @@ namespace MediaInfoKeeper.Patch
         private static readonly AsyncLocal<Series> CurrentSeries = new AsyncLocal<Series>();
         private static readonly ConcurrentDictionary<string, (DateTimeOffset At, EpisodeGroupResponse Data)> OnlineCache =
             new ConcurrentDictionary<string, (DateTimeOffset At, EpisodeGroupResponse Data)>(StringComparer.OrdinalIgnoreCase);
-        private static readonly ConcurrentDictionary<string, (DateTime LastWriteUtc, EpisodeGroupResponse Data)> LocalCache =
-            new ConcurrentDictionary<string, (DateTime LastWriteUtc, EpisodeGroupResponse Data)>(StringComparer.OrdinalIgnoreCase);
+        private static readonly ConcurrentDictionary<string, (DateTime LastWrite, EpisodeGroupResponse Data)> LocalCache =
+            new ConcurrentDictionary<string, (DateTime LastWrite, EpisodeGroupResponse Data)>(StringComparer.OrdinalIgnoreCase);
 
         private static Harmony harmony;
         private static ILogger logger;
@@ -846,7 +847,7 @@ namespace MediaInfoKeeper.Patch
             try
             {
                 var lastWrite = File.GetLastWriteTimeUtc(localEpisodeGroupPath);
-                if (LocalCache.TryGetValue(localEpisodeGroupPath, out var cached) && cached.LastWriteUtc == lastWrite)
+                if (LocalCache.TryGetValue(localEpisodeGroupPath, out var cached) && cached.LastWrite == lastWrite)
                 {
                     return cached.Data;
                 }
@@ -886,7 +887,7 @@ namespace MediaInfoKeeper.Patch
         {
             var cacheKey = $"{seriesTmdbId}|{episodeGroupId}|{language}";
             if (OnlineCache.TryGetValue(cacheKey, out var cached) &&
-                DateTimeOffset.UtcNow - cached.At < CacheDuration)
+                ConfiguredDateTime.NowOffset - cached.At < CacheDuration)
             {
                 return cached.Data;
             }
@@ -938,7 +939,7 @@ namespace MediaInfoKeeper.Patch
                     data.id = episodeGroupId;
                 }
 
-                OnlineCache[cacheKey] = (DateTimeOffset.UtcNow, data);
+                OnlineCache[cacheKey] = (ConfiguredDateTime.NowOffset, data);
                 logger?.Debug("MovieDbEpisodeGroup 已加载在线剧集组: tmdb={0}, id={1}, groups={2}",
                     seriesTmdbId,
                     data.id ?? episodeGroupId,

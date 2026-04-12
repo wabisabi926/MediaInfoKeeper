@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Services;
 
@@ -93,7 +94,7 @@ namespace MediaInfoKeeper.ScheduledTask
         private List<BaseItem> FetchRecentScopedItems()
         {
             var cutoff = Plugin.Instance.Options.MainPage.RecentItemsDays > 0
-                ? DateTime.UtcNow.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
+                ? ConfiguredDateTime.Now.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
                 : (DateTime?)null;
             var scopePaths = Plugin.LibraryService.GetScopedLibraryPaths(
                 Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,

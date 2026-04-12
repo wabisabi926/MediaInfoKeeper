@@ -369,18 +369,18 @@ namespace MediaInfoKeeper.Patch
 
         private static Task BackfillSortNamesAsync()
         {
-            var startedAtUtc = DateTimeOffset.UtcNow;
+            var startedAt = ConfiguredDateTime.NowOffset;
 
             try
             {
-                var checkpointUtc = Plugin.Instance?.Options?.Enhance?.PinyinSortNameLastProcessedUtc
+                var checkpointAt = Plugin.Instance?.Options?.Enhance?.PinyinSortNameLastProcessedAt
                     ?? DateTimeOffset.MinValue;
                 var query = new InternalItemsQuery
                 {
                     Recursive = true,
-                    MinDateLastSaved = checkpointUtc == DateTimeOffset.MinValue
+                    MinDateLastSaved = checkpointAt == DateTimeOffset.MinValue
                         ? DateTimeOffset.MinValue
-                        : checkpointUtc.AddSeconds(-1)
+                        : checkpointAt.AddSeconds(-1)
                 };
 
                 var candidates = Plugin.LibraryManager.GetItemList(query);
@@ -405,12 +405,15 @@ namespace MediaInfoKeeper.Patch
                     }
                 }
 
-                Plugin.Instance?.UpdatePinyinSortNameLastProcessedUtc(startedAtUtc);
+                Plugin.Instance?.UpdatePinyinSortNameLastProcessedAt(startedAt);
+                var checkpointLocal = checkpointAt == DateTimeOffset.MinValue
+                    ? DateTimeOffset.MinValue
+                    : ConfiguredDateTime.ToConfiguredOffset(checkpointAt);
                 logger?.Info(
                     "PinyinSortName 已同步排序名：候选 {0} 项，更新 {1} 项，时间起点 {2:O}。",
                     candidateCount,
                     updatedCount,
-                    checkpointUtc);
+                    checkpointLocal);
             }
             catch (Exception ex)
             {

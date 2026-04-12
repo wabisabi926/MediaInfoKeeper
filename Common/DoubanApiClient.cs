@@ -14,7 +14,7 @@ namespace MediaInfoKeeper.Common
         public static string BuildSearchUrl(string query)
         {
             var url = "https://frodo.douban.com/api/v2/search/weixin";
-            var ts = DateTime.UtcNow.ToString("yyyyMMdd");
+            var ts = ConfiguredDateTime.Now.ToString("yyyyMMdd");
             var signedUrl = url + "?q=" + Uri.EscapeDataString(query);
             var sig = BuildSignature(signedUrl, ts, "GET");
             return url + "?q=" + Uri.EscapeDataString(query) + "&start=0&count=10&apiKey=0dad551ec0f84ed02907ff5c42e8ec70&os_rom=android&_ts=" + Uri.EscapeDataString(ts) + "&_sig=" + Uri.EscapeDataString(sig);
@@ -25,7 +25,7 @@ namespace MediaInfoKeeper.Common
             var endpoint = string.Equals(subjectType, "movie", StringComparison.OrdinalIgnoreCase)
                 ? "https://frodo.douban.com/api/v2/movie/" + Uri.EscapeDataString(subjectId) + "/celebrities"
                 : "https://frodo.douban.com/api/v2/tv/" + Uri.EscapeDataString(subjectId) + "/celebrities";
-            var ts = DateTime.UtcNow.ToString("yyyyMMdd");
+            var ts = ConfiguredDateTime.Now.ToString("yyyyMMdd");
             var sig = BuildSignature(endpoint, ts, "GET");
             return endpoint + "?apiKey=0dad551ec0f84ed02907ff5c42e8ec70&os_rom=android&_ts=" + Uri.EscapeDataString(ts) + "&_sig=" + Uri.EscapeDataString(sig);
         }

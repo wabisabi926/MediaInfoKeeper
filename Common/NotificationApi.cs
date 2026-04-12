@@ -85,7 +85,7 @@ namespace MediaInfoKeeper.Common
                 {
                     var request = new NotificationRequest
                     {
-                        Date = DateTimeOffset.UtcNow,
+                        Date = ConfiguredDateTime.NowOffset,
                         EventId = eventId,
                         User = user,
                         Item = episode,

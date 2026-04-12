@@ -8,6 +8,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
+using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 using static MediaInfoKeeper.Options.MainPageOptions;
@@ -104,7 +105,7 @@ namespace MediaInfoKeeper.ScheduledTask
         private List<BaseItem> FetchRecentItems()
         {
             var cutoff = Plugin.Instance.Options.MainPage.RecentItemsDays > 0
-                ? DateTime.UtcNow.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
+                ? ConfiguredDateTime.Now.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
                 : (DateTime?)null;
 
             return Plugin.LibraryService.FetchRecentItems(cutoff, true, includeAudio: true);
@@ -132,7 +133,9 @@ namespace MediaInfoKeeper.ScheduledTask
             bool replaceThumbnails,
             CancellationToken cancellationToken)
         {
-            var created = item.DateCreated == default ? "unknown" : item.DateCreated.ToString("u");
+            var created = item.DateCreated == default
+                ? "unknown"
+                : ConfiguredDateTime.ToConfiguredOffset(item.DateCreated).ToString("yyyy-MM-dd HH:mm:ss zzz");
             this.logger.Info($"刷新元数据 {item.FileName ?? item.Path} 入库日期 = {created}");
 
             var options = BuildRefreshOptions(replaceMetadata, replaceImages, replaceThumbnails);

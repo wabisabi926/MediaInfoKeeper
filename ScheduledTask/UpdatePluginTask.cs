@@ -342,7 +342,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 StringComparison.OrdinalIgnoreCase);
             var candidates = releases?
                 .Where(r => r != null && !r.draft)
-                .OrderByDescending(r => Plugin.GetReleaseSortTimeUtc(r?.published_at, r?.created_at))
+                    .OrderByDescending(r => Plugin.GetReleaseSortTime(r?.published_at, r?.created_at))
                 .ToList() ?? new List<ApiResponseInfo>();
             return preferBeta
                 ? candidates.FirstOrDefault()

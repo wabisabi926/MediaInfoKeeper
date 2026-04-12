@@ -12,6 +12,7 @@ using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Querying;
 using MediaBrowser.Model.Services;
+using MediaInfoKeeper.Common;
 
 namespace MediaInfoKeeper.Patch
 {
@@ -254,10 +255,10 @@ namespace MediaInfoKeeper.Patch
             IFileSystem fileSystem,
             object sanitationManager,
             string fullName,
-            DateTimeOffset lastWriteTimeUtc,
+            DateTimeOffset lastWriteTime,
             bool sanitize)
         {
-            var lines = await ReadReversedLogLinesAsync(fileSystem, sanitationManager, fullName, lastWriteTimeUtc, sanitize)
+            var lines = await ReadReversedLogLinesAsync(fileSystem, sanitationManager, fullName, lastWriteTime, sanitize)
                 .ConfigureAwait(false);
             return string.Join(Environment.NewLine, lines);
         }
@@ -266,10 +267,10 @@ namespace MediaInfoKeeper.Patch
             IFileSystem fileSystem,
             object sanitationManager,
             string fullName,
-            DateTimeOffset lastWriteTimeUtc,
+            DateTimeOffset lastWriteTime,
             bool sanitize)
         {
-            var shareMode = lastWriteTimeUtc < DateTimeOffset.UtcNow.AddHours(-1.0)
+            var shareMode = lastWriteTime < ConfiguredDateTime.NowOffset.AddHours(-1.0)
                 ? FileShareMode.Read
                 : FileShareMode.ReadWrite;
             var lines = new List<string>();

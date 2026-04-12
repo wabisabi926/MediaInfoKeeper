@@ -70,7 +70,7 @@ namespace MediaInfoKeeper.Options
         public bool EnablePinyinSortName { get; set; } = false;
 
         [Browsable(false)]
-        public DateTimeOffset? PinyinSortNameLastProcessedUtc { get; set; } = null;
+        public DateTimeOffset? PinyinSortNameLastProcessedAt { get; set; } = null;
 
         public enum HidePersonOption
         {

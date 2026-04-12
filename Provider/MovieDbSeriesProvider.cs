@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MediaInfoKeeper.Common;
 using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
@@ -136,7 +137,7 @@ namespace MediaInfoKeeper.Provider
                 var normalizedFallbackResults = fallbackResults;
                 if (existingEpisodeNumbers != null && fallbackResults.Length > 0)
                 {
-                    var today = new DateTimeOffset(DateTime.UtcNow.Date, TimeSpan.Zero);
+                    var today = new DateTimeOffset(ConfiguredDateTime.Today, ConfiguredDateTime.Offset);
                     var missingDateCount = 0;
                     normalizedFallbackResults = fallbackResults.Select(result =>
                     {

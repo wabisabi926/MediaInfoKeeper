@@ -103,7 +103,7 @@ namespace MediaInfoKeeper
         private static string latestReleaseVersionCache;
         private static string releaseHistoryChannelCache;
         private static readonly object ReleaseHistoryLock = new object();
-        private static DateTimeOffset releaseHistoryCheckedUtc = DateTimeOffset.MinValue;
+        private static DateTimeOffset releaseHistoryCheckedAt = DateTimeOffset.MinValue;
         private static string releaseHistoryBodyCache;
         private static readonly TimeSpan LatestVersionCacheDuration = TimeSpan.FromMinutes(30);
         private const string GitHubReleaseHistoryUrl = "https://api.github.com/repos/honue/MediaInfoKeeper/releases?per_page=100&page=";
@@ -395,18 +395,18 @@ namespace MediaInfoKeeper
 
         }
 
-        internal void UpdatePinyinSortNameLastProcessedUtc(DateTimeOffset processedUtc)
+        internal void UpdatePinyinSortNameLastProcessedAt(DateTimeOffset processedAt)
         {
             var options = this.OptionsStore.GetOptions();
             options.Enhance ??= new EnhanceOptions();
 
-            var current = options.Enhance.PinyinSortNameLastProcessedUtc;
-            if (current.HasValue && current.Value >= processedUtc)
+            var current = options.Enhance.PinyinSortNameLastProcessedAt;
+            if (current.HasValue && current.Value >= processedAt)
             {
                 return;
             }
 
-            options.Enhance.PinyinSortNameLastProcessedUtc = processedUtc;
+            options.Enhance.PinyinSortNameLastProcessedAt = processedAt;
             this.OptionsStore.SetOptionsSilently(options);
         }
 
@@ -944,9 +944,9 @@ namespace MediaInfoKeeper
 
         private void EnsureReleaseHistoryCache()
         {
-            var now = DateTimeOffset.UtcNow;
+            var now = ConfiguredDateTime.NowOffset;
             var currentChannel = GetSelectedUpdateChannel();
-            if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+            if (now - releaseHistoryCheckedAt < LatestVersionCacheDuration &&
                 string.Equals(releaseHistoryChannelCache, currentChannel, StringComparison.Ordinal) &&
                 !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
             {
@@ -955,14 +955,14 @@ namespace MediaInfoKeeper
 
             lock (ReleaseHistoryLock)
             {
-                if (now - releaseHistoryCheckedUtc < LatestVersionCacheDuration &&
+                if (now - releaseHistoryCheckedAt < LatestVersionCacheDuration &&
                     string.Equals(releaseHistoryChannelCache, currentChannel, StringComparison.Ordinal) &&
                     !string.IsNullOrWhiteSpace(releaseHistoryBodyCache))
                 {
                     return;
                 }
 
-                releaseHistoryCheckedUtc = now;
+                releaseHistoryCheckedAt = now;
                 releaseHistoryChannelCache = currentChannel;
                 var historyInfo = FetchReleaseHistoryInfo(currentChannel);
                 releaseHistoryBodyCache = historyInfo.HistoryBody;
@@ -1040,8 +1040,8 @@ namespace MediaInfoKeeper
                         if (!string.IsNullOrWhiteSpace(publishedAt) &&
                             DateTimeOffset.TryParse(publishedAt, out var publishedOffset))
                         {
-                            publishedAtLocal = publishedOffset
-                                .ToOffset(TimeSpan.FromHours(8))
+                            publishedAtLocal = ConfiguredDateTime
+                                .ToConfiguredOffset(publishedOffset)
                                 .ToString("yyyy-MM-dd HH:mm:ss");
                         }
 
@@ -1056,11 +1056,11 @@ namespace MediaInfoKeeper
                             body,
                             publishedAtLocal,
                             isPrerelease,
-                            GetReleaseSortTimeUtc(publishedAt, createdAt)));
+                            GetReleaseSortTime(publishedAt, createdAt)));
                     }
 
                     var orderedReleases = releases
-                        .OrderByDescending(r => r.SortTimeUtc)
+                        .OrderByDescending(r => r.SortTime)
                         .ThenByDescending(r => r.Tag ?? string.Empty, StringComparer.OrdinalIgnoreCase)
                         .ThenByDescending(r => r.Name ?? string.Empty, StringComparer.OrdinalIgnoreCase)
                         .ToList();
@@ -1124,7 +1124,7 @@ namespace MediaInfoKeeper
                 : updateChannel;
         }
 
-        internal static DateTimeOffset GetReleaseSortTimeUtc(string publishedAt, string createdAt)
+        internal static DateTimeOffset GetReleaseSortTime(string publishedAt, string createdAt)
         {
             if (DateTimeOffset.TryParse(publishedAt, out var publishedOffset))
             {
@@ -1160,14 +1160,14 @@ namespace MediaInfoKeeper
                 string body,
                 string publishedAtLocal,
                 bool isPrerelease,
-                DateTimeOffset sortTimeUtc)
+                DateTimeOffset sortTime)
             {
                 Tag = tag;
                 Name = name;
                 Body = body;
                 PublishedAtLocal = publishedAtLocal;
                 IsPrerelease = isPrerelease;
-                SortTimeUtc = sortTimeUtc;
+                SortTime = sortTime;
             }
 
             public string Tag { get; }
@@ -1180,7 +1180,7 @@ namespace MediaInfoKeeper
 
             public bool IsPrerelease { get; }
 
-            public DateTimeOffset SortTimeUtc { get; }
+            public DateTimeOffset SortTime { get; }
         }
     }
 }

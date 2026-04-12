@@ -15,6 +15,7 @@ using MediaBrowser.Model.Services;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Serialization;
+using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Web.Handler;
@@ -244,10 +245,10 @@ namespace MediaInfoKeeper.Web
                     Container = item.Container,
                     Width = item.Width,
                     Height = item.Height,
-                    DateCreated = item.DateCreated == default ? null : item.DateCreated.ToString("O"),
-                    DateModified = item.DateModified == default ? null : item.DateModified.ToString("O"),
-                    DateLastRefreshed = item.DateLastRefreshed == default ? null : item.DateLastRefreshed.ToString("O"),
-                    PremiereDate = item.PremiereDate?.ToString("O"),
+                    DateCreated = item.DateCreated == default ? null : ConfiguredDateTime.ToConfiguredOffset(item.DateCreated).ToString("O"),
+                    DateModified = item.DateModified == default ? null : ConfiguredDateTime.ToConfiguredOffset(item.DateModified).ToString("O"),
+                    DateLastRefreshed = item.DateLastRefreshed == default ? null : ConfiguredDateTime.ToConfiguredOffset(item.DateLastRefreshed).ToString("O"),
+                    PremiereDate = item.PremiereDate.HasValue ? ConfiguredDateTime.ToConfiguredOffset(item.PremiereDate.Value).ToString("O") : null,
                     ProductionYear = item.ProductionYear,
                     OfficialRating = item.OfficialRating,
                     SupportsThumbnails = item is Video itemVideo ? itemVideo.SupportsThumbnails : (bool?)null
@@ -305,7 +306,7 @@ namespace MediaInfoKeeper.Web
                     ImageTag = chapter.ImageTag,
                     ImageDateModified = chapter.ImageDateModified == default
                         ? null
-                        : chapter.ImageDateModified.ToString("O")
+                        : ConfiguredDateTime.ToConfiguredOffset(chapter.ImageDateModified).ToString("O")
                 })
                 .ToArray();
 

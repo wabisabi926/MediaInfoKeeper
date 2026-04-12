@@ -141,7 +141,7 @@ namespace MediaInfoKeeper.Services
             }
 
             if (DoubanCelebrityCache.TryGetValue(context.CacheKey, out var cached) &&
-                DateTimeOffset.UtcNow - cached.At < (cached.Value == null ? DoubanFailureCacheDuration : DoubanCelebrityCacheDuration))
+                ConfiguredDateTime.NowOffset - cached.At < (cached.Value == null ? DoubanFailureCacheDuration : DoubanCelebrityCacheDuration))
             {
                 return cached.Value;
             }
@@ -151,7 +151,7 @@ namespace MediaInfoKeeper.Services
             {
                 DoubanCelebrityCache[context.CacheKey] = new CacheEntry<List<DoubanCelebrity>>
                 {
-                    At = DateTimeOffset.UtcNow,
+                    At = ConfiguredDateTime.NowOffset,
                     Value = null
                 };
                 return null;
@@ -162,7 +162,7 @@ namespace MediaInfoKeeper.Services
                 var actors = JsonSerializer.Deserialize<DoubanCelebrityResponse>(body, JsonOptions)?.actors ?? new List<DoubanCelebrity>();
                 DoubanCelebrityCache[context.CacheKey] = new CacheEntry<List<DoubanCelebrity>>
                 {
-                    At = DateTimeOffset.UtcNow,
+                    At = ConfiguredDateTime.NowOffset,
                     Value = actors
                 };
                 return actors;
@@ -171,7 +171,7 @@ namespace MediaInfoKeeper.Services
             {
                 DoubanCelebrityCache[context.CacheKey] = new CacheEntry<List<DoubanCelebrity>>
                 {
-                    At = DateTimeOffset.UtcNow,
+                    At = ConfiguredDateTime.NowOffset,
                     Value = null
                 };
                 return null;
@@ -248,7 +248,7 @@ namespace MediaInfoKeeper.Services
         private static string GetDoubanSubjectFromImdb(string imdbId)
         {
             if (DoubanImdbSubjectCache.TryGetValue(imdbId, out var cached) &&
-                DateTimeOffset.UtcNow - cached.At < (string.IsNullOrWhiteSpace(cached.Value) ? DoubanFailureCacheDuration : DoubanCelebrityCacheDuration))
+                ConfiguredDateTime.NowOffset - cached.At < (string.IsNullOrWhiteSpace(cached.Value) ? DoubanFailureCacheDuration : DoubanCelebrityCacheDuration))
             {
                 return cached.Value;
             }
@@ -256,7 +256,7 @@ namespace MediaInfoKeeper.Services
             var body = DoubanApiClient.PostImdbLookup(imdbId);
             if (string.IsNullOrWhiteSpace(body))
             {
-                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = DateTimeOffset.UtcNow, Value = null };
+                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = ConfiguredDateTime.NowOffset, Value = null };
                 return null;
             }
 
@@ -264,7 +264,7 @@ namespace MediaInfoKeeper.Services
             {
                 var rawSubjectId = JsonSerializer.Deserialize<DoubanImdbLookupResponse>(body, JsonOptions)?.id;
                 var subjectId = NormalizeDoubanSubjectId(rawSubjectId);
-                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = DateTimeOffset.UtcNow, Value = subjectId };
+                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = ConfiguredDateTime.NowOffset, Value = subjectId };
                 Plugin.Instance?.Logger?.Debug(
                     "DoubanService 豆瓣 IMDb 请求完成: imdb={0}, rawSubject={1}, subject={2}",
                     imdbId,
@@ -274,7 +274,7 @@ namespace MediaInfoKeeper.Services
             }
             catch (Exception)
             {
-                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = DateTimeOffset.UtcNow, Value = null };
+                DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = ConfiguredDateTime.NowOffset, Value = null };
                 return null;
             }
         }

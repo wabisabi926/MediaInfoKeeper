@@ -109,7 +109,7 @@ namespace MediaInfoKeeper.Services
             if (last == DateTimeOffset.MinValue)
                 return false;
 
-            return last >= DateTimeOffset.UtcNow.AddMinutes(-10);
+            return last >= ConfiguredDateTime.NowOffset.AddMinutes(-10);
         }
 
         /// <summary>判断条目是否已有封面；音乐条目会同时检查展示父级（如专辑）主图。</summary>

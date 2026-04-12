@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MediaInfoKeeper.Common;
 
 namespace MediaInfoKeeper.Services.IntroSkip
 {
@@ -119,7 +120,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
 
             data.PlaybackStartTicks = e.PlaybackPositionTicks.Value;
             data.PreviousPositionTicks = e.PlaybackPositionTicks.Value;
-            data.PreviousEventTime = DateTime.UtcNow;
+            data.PreviousEventTime = ConfiguredDateTime.Now;
         }
 
         private void OnPlaybackProgress(object sender, PlaybackProgressEventArgs e)
@@ -141,7 +142,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
             }
 
             var currentPositionTicks = e.PlaybackPositionTicks.Value;
-            var currentEventTime = DateTime.UtcNow;
+            var currentEventTime = ConfiguredDateTime.Now;
             var introStart = data.IntroStart;
             var introEnd = data.IntroEnd;
 
@@ -311,7 +312,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
         private void UpdateIntroTask(Episode episode, SessionInfo session, IntroSkipPlaySessionData data,
             long introStartPositionTicks, long introEndPositionTicks)
         {
-            var now = DateTime.UtcNow;
+            var now = ConfiguredDateTime.Now;
 
             lock (introLock)
             {
@@ -357,7 +358,7 @@ namespace MediaInfoKeeper.Services.IntroSkip
         private void UpdateCreditsTask(Episode episode, SessionInfo session, IntroSkipPlaySessionData data,
             long creditsDurationTicks)
         {
-            var now = DateTime.UtcNow;
+            var now = ConfiguredDateTime.Now;
 
             lock (creditsLock)
             {
