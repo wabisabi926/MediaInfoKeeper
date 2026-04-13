@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
@@ -49,7 +50,15 @@ namespace MediaInfoKeeper.ScheduledTask
             var replaceMetadata = ShouldReplaceMetadata();
             var replaceImages = ShouldReplaceImages();
             var replaceThumbnails = ShouldReplaceThumbnails();
+            var metadataRefreshItemIds = Plugin.Instance.Options.MetaData.EnablePersonRoleDoubanFallback
+                ? CollectMetadataRefreshItemIds(items)
+                : new List<long>();
+            var totalWork = total + metadataRefreshItemIds.Count;
             this.logger.Info($"计划任务条目数{total}，元数据覆盖{replaceMetadata}，图片覆盖{replaceImages}，视频缩略图覆盖{replaceThumbnails}");
+            if (metadataRefreshItemIds.Count > 0)
+            {
+                this.logger.Info($"计划任务额外刷新剧集元数据 {metadataRefreshItemIds.Count} 个 series itemid（豆瓣角色中文化）");
+            }
 
             var completed = 0;
             var tasks = items
@@ -78,11 +87,36 @@ namespace MediaInfoKeeper.ScheduledTask
                     finally
                     {
                         var done = Interlocked.Increment(ref completed);
-                        progress?.Report(done / (double)total * 100);
+                        progress?.Report(done / (double)totalWork * 100);
                     }
                 })
                 .ToList();
             await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            foreach (var itemId in metadataRefreshItemIds)
+            {
+                try
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await RefreshMetadataForDoubanRoleAsync(itemId, cancellationToken).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException)
+                {
+                    this.logger.Info($"计划任务已取消 itemid={itemId}");
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    this.logger.Error($"计划任务刷新剧集元数据失败: itemid={itemId}");
+                    this.logger.Error(e.Message);
+                    this.logger.Debug(e.StackTrace);
+                }
+                finally
+                {
+                    var done = Interlocked.Increment(ref completed);
+                    progress?.Report(done / (double)totalWork * 100);
+                }
+            }
 
             this.logger.Info("最近条目刷新元数据计划任务完成");
         }
@@ -161,6 +195,53 @@ namespace MediaInfoKeeper.ScheduledTask
             //     Plugin.AudioMetadataStore.ApplyToItem(item);
             //     Plugin.CoverStore.ApplyToItem(item);
             // }
+        }
+
+        private async Task RefreshMetadataForDoubanRoleAsync(long itemId, CancellationToken cancellationToken)
+        {
+            var item = this.libraryManager.GetItemById(itemId) as BaseItem;
+            if (item == null)
+            {
+                this.logger.Info($"跳过剧集元数据刷新: 未找到 itemid={itemId}");
+                return;
+            }
+
+            this.logger.Info($"刷新剧集元数据 {item.Name} ({item.ProductionYear})");
+
+            var options = BuildRefreshOptions(replaceMetadata: true, replaceImages: false, replaceThumbnails: false);
+            options.Recursive = false;
+            var collectionFolders = this.libraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
+            var libraryOptions = this.libraryManager.GetLibraryOptions(item);
+
+            await RefreshTaskRunner.RunAsync(
+                    () => Plugin.ProviderManager
+                        .RefreshSingleItem(item, options, collectionFolders, libraryOptions, cancellationToken),
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        private List<long> CollectMetadataRefreshItemIds(IEnumerable<BaseItem> items)
+        {
+            var result = new List<long>();
+            var seen = new HashSet<long>();
+
+            foreach (var item in items)
+            {
+                var refreshItemId = item switch
+                {
+                    Series series => series.InternalId,
+                    Season season when season.Series?.InternalId > 0 => season.Series.InternalId,
+                    Episode episode when episode.Series?.InternalId > 0 => episode.Series.InternalId,
+                    _ => 0
+                };
+
+                if (refreshItemId > 0 && seen.Add(refreshItemId))
+                {
+                    result.Add(refreshItemId);
+                }
+            }
+
+            return result;
         }
 
         private bool ShouldReplaceMetadata()

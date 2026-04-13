@@ -38,18 +38,18 @@ namespace MediaInfoKeeper.Options
         [DisplayName("允许提取 Strm 封面")]
         [Description("为 strm 音视频启用封面/缩略图提取，ImageCapture。")]
         public bool EnableImageCapture { get; set; } = true;
-
+        
+        [DisplayName("优先原语言海报")]
+        [Description("开启后优先原语言图片结果（支持 TMDB / TVDB / Fanart）。")]
+        public bool EnableOriginalPoster { get; set; } = false;
+        
+        [DisplayName("屏蔽非备选语言简介")]
+        [Description("开启后，TMDB/TVDB 的电影/剧集/季/集简介若不在备选语言范围（如英文）将被置空。")]
+        public bool BlockNonFallbackLanguage { get; set; } = false;
+        
         [DisplayName("启用 TMDB 中文回退")]
         [Description("按备选语言顺序补全 TMDB 电影/剧集/季/集元数据，并尽量把英文放到最后。")]
         public bool EnableAlternativeTitleFallback { get; set; } = true;
-
-        [DisplayName("启用豆瓣角色中文化")]
-        [Description("当演员角色为空或非中文时，尝试用豆瓣演员表补全中文角色名。")]
-        public bool EnablePersonRoleDoubanFallback { get; set; } = true;
-
-        [DisplayName("写入豆瓣链接")]
-        [Description("IMDb 反查或豆瓣搜索命中后，将豆瓣 subject id 写入条目数据库，用于显示豆瓣外链。")]
-        public bool EnableDoubanLinkWriteback { get; set; } = true;
         
         [Browsable(false)]
         public List<EditorSelectOption> FallbackLanguageList { get; set; } = new List<EditorSelectOption>();
@@ -60,6 +60,51 @@ namespace MediaInfoKeeper.Options
         [SelectItemsSource(nameof(FallbackLanguageList))]
         public string FallbackLanguages { get; set; } = "zh-sg";
 
+        [DisplayName("启用 TMDB 剧集组刮削")]
+        [Description("开启后支持按 TMDB 剧集组映射刮削剧集元数据（需在剧集外部ID中填写 TmdbEg，或启用本地剧集组文件）。")]
+        public bool EnableMovieDbEpisodeGroup { get; set; } = true;
+
+        [DisplayName("启用缺失剧集增强")]
+        [Description("开启后让 Emby 的“查看缺少的集”优先使用 TMDB，并支持按 TMDB 剧集组映射结果展示缺失剧集。")]
+        public bool EnableMissingEpisodesEnhance { get; set; } = true;
+
+        [DisplayName("启用本地剧集组文件")]
+        [Description("开启后在剧集目录读取 episodegroup.json；当在线剧集组可用时会自动写入本地文件用于后续复用。")]
+        public bool EnableLocalEpisodeGroup { get; set; } = false;
+
+        [DisplayName("豆瓣角色中文化")]
+        [Description("刷新元数据时，演员角色为空或非中文，会尝试豆瓣演员表补全中文角色名。")]
+        public bool EnablePersonRoleDoubanFallback { get; set; } = true;
+
+        [DisplayName("写入豆瓣链接")]
+        [Description("IMDb 反查豆瓣后，将豆瓣 subject id 写入条目数据库，用于显示豆瓣外链。")]
+        public bool EnableDoubanLinkWriteback { get; set; } = true;
+        
+        [DisplayName("加载 dd-danmaku 弹幕js")]
+        [Description("修改 index.html，注入 ede.js")]
+        public bool EnableDanmakuJs { get; set; } = false;
+
+        [DisplayName("启用弹幕 API")]
+        [Description("开启后启用 /api/danmu/{ItemId}/raw 路由的弹幕能力；Senplayer，FileBar、弹幕js等可以直接使Emby提供的弹幕文件，关闭后该路由不提供弹幕返回。")]
+        public bool EnableDanmuApi { get; set; } = false;
+
+        [DisplayName("danmu_api BaseUrl")]
+        [Description("例如 http://192.168.33.100:9321/token ，danmu_api 项目 https://github.com/huangxd-/danmu_api")]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public string DanmuApiBaseUrl { get; set; } = string.Empty;
+        
+        [DisplayName("预加载弹幕")]
+        [Description("播放剧集时，预加载下一集弹幕到本地；遵循弹幕拉取策略。")]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public bool EnableDanmuPrefetch { get; set; } = false;
+        
+        [DisplayName("弹幕加载策略")]
+        [Description("本地优先：存在本地 xml 直接返回；不存在时临时拉取网络兜底。网络优先：先拉取最新 xml 返回；失败则本地 xml 兜底。")]
+        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
+        [SelectItemsSource(nameof(DanmuFetchModeList))]
+        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
+        public string DanmuFetchMode { get; set; } = DanmuFetchModeOption.LocalFirst.ToString();
+        
         [DisplayName("启用 TVDB 中文回退")]
         [Description("按备选语言顺序补全 TVDB 电影/剧集/季/集元数据，并尽量把英文放到最后。")]
         public bool EnableTvdbFallback { get; set; } = true;
@@ -73,53 +118,9 @@ namespace MediaInfoKeeper.Options
         [SelectItemsSource(nameof(TvdbFallbackLanguageList))]
         public string TvdbFallbackLanguages { get; set; } = "zhtw,yue";
 
-        [DisplayName("屏蔽非备选语言简介")]
-        [Description("开启后，TMDB/TVDB 的电影/剧集/季/集简介若不在备选语言范围（如英文）将被置空。")]
-        public bool BlockNonFallbackLanguage { get; set; } = false;
-
-        [DisplayName("启用 TMDB 剧集组刮削")]
-        [Description("开启后支持按 TMDB 剧集组映射刮削剧集元数据（需在剧集外部ID中填写 TmdbEg，或启用本地剧集组文件）。")]
-        public bool EnableMovieDbEpisodeGroup { get; set; } = true;
-
-        [DisplayName("启用缺失剧集增强")]
-        [Description("开启后让 Emby 的“查看缺少的集”优先使用 TMDB，并支持按 TMDB 剧集组映射结果展示缺失剧集。")]
-        public bool EnableMissingEpisodesEnhance { get; set; } = true;
-
-        [DisplayName("优先原语言海报")]
-        [Description("开启后优先原语言图片结果（支持 TMDB / TVDB / Fanart）。")]
-        public bool EnableOriginalPoster { get; set; } = false;
-
-        [DisplayName("启用本地剧集组文件")]
-        [Description("开启后在剧集目录读取 episodegroup.json；当在线剧集组可用时会自动写入本地文件用于后续复用。")]
-        public bool EnableLocalEpisodeGroup { get; set; } = false;
-
-        [DisplayName("加载 dd-danmaku 弹幕js")]
-        [Description("修改 index.html，注入 ede.js")]
-        public bool EnableDanmakuJs { get; set; } = false;
-
-        [DisplayName("启用弹幕 API")]
-        [Description("开启后启用 /api/danmu/{ItemId}/raw 路由的弹幕能力；Senplayer，FileBar、弹幕js等可以直接使Emby提供的弹幕文件，关闭后该路由不提供弹幕返回。")]
-        public bool EnableDanmuApi { get; set; } = false;
-
-        [DisplayName("弹幕 API BaseUrl")]
-        [Description("例如 http://192.168.33.100:9321/token ，danmu_api 项目 https://github.com/huangxd-/danmu_api")]
-        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
-        public string DanmuApiBaseUrl { get; set; } = string.Empty;
-
         [Browsable(false)]
         public List<EditorSelectOption> DanmuFetchModeList { get; set; } = new List<EditorSelectOption>();
         
-        [DisplayName("预加载弹幕")]
-        [Description("播放剧集时，预加载下一集弹幕到本地；遵循弹幕拉取策略。")]
-        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
-        public bool EnableDanmuPrefetch { get; set; } = false;
-        
-        [DisplayName("弹幕拉取策略")]
-        [Description("本地优先：存在本地 xml 直接返回；不存在时临时拉取网络兜底。网络优先：先拉取最新 xml 返回；失败则本地 xml 兜底。")]
-        [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
-        [SelectItemsSource(nameof(DanmuFetchModeList))]
-        [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
-        public string DanmuFetchMode { get; set; } = DanmuFetchModeOption.LocalFirst.ToString();
         
         public void Initialize()
         {
