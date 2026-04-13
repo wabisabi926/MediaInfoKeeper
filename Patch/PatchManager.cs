@@ -363,6 +363,15 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "EpisodeBackdropFallback",
+                Initialize = options => EpisodeBackdropFallback.Initialize(logger, options.Enhance.EnableEpisodeBackdropFallback),
+                Configure = options => EpisodeBackdropFallback.Configure(IsPluginEnabled(options) && options.Enhance.EnableEpisodeBackdropFallback),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableEpisodeBackdropFallback,
+                IsReady = () => EpisodeBackdropFallback.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "PinyinSortName",
                 Initialize = options => PinyinSortName.Initialize(logger, options.Enhance.EnablePinyinSortName),
                 Configure = options => PinyinSortName.Configure(IsPluginEnabled(options) && options.Enhance.EnablePinyinSortName),

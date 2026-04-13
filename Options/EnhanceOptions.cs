@@ -61,6 +61,10 @@ namespace MediaInfoKeeper.Options
         [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
         public bool TakeOverSystemLibraryNew { get; set; } = false;
         
+        [DisplayName("缺失封面使用背景图")]
+        [Description("当 episode 没有自己的封面图时，优先提供 series 的背景图，16:9 优化显示。")]
+        public bool EnableEpisodeBackdropFallback { get; set; } = true;
+        
         [DisplayName("启用 NFO 增强")]
         [Description("增强 NFO 人物节点解析，导入使用 actor/director 等人物中的 thumb 图片地址。")]
         public bool EnableNfoMetadataEnhance { get; set; } = true;
@@ -68,7 +72,7 @@ namespace MediaInfoKeeper.Options
         [DisplayName("按偏好隐藏演职人员")]
         [Description("按偏好隐藏电影剧集页面的演职人员，非删除，仍可搜索。")]
         public bool HidePersonNoImage { get; set; } = false;
-
+        
         [DisplayName("拼音首字母排序")]
         [Description("自动把中文标题的 SortName 转成拼音首字母，并清理 A-Z 前缀分组。每次Emby启动时，会处理增量item的SortName。")]
         public bool EnablePinyinSortName { get; set; } = false;
@@ -204,6 +208,7 @@ namespace MediaInfoKeeper.Options
                 nameof(TakeOverSystemLibraryNew));
             
             AddGroup("UI功能", "",
+                nameof(EnableEpisodeBackdropFallback),
                 nameof(HidePersonNoImage),
                 nameof(HidePersonPreference),
                 nameof(EnablePinyinSortName),
