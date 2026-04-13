@@ -507,6 +507,7 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.NoBoxsetsAutoCreation", "Enhance", "禁止自动合集", options.Enhance.NoBoxsetsAutoCreation.ToString()),
                 new OptionLogEntry("Enhance.EnforceLibraryOrder", "Enhance", "统一媒体库顺序", options.Enhance.EnforceLibraryOrder.ToString()),
                 new OptionLogEntry("Enhance.TakeOverSystemLibraryNew", "Enhance", "接管系统入库通知", options.Enhance.TakeOverSystemLibraryNew.ToString()),
+                new OptionLogEntry("Enhance.EnableNotificationEnhance", "Enhance", "通知系统增强", options.Enhance.EnableNotificationEnhance.ToString()),
                 new OptionLogEntry("Enhance.SearchScope", "Enhance", "搜索范围", FormatOptionValue(options.Enhance.SearchScope)),
                 new OptionLogEntry("Enhance.ExcludeOriginalTitleFromSearch", "Enhance", "排除原始标题", options.Enhance.ExcludeOriginalTitleFromSearch.ToString()),
                 new OptionLogEntry("Enhance.SystemLogNameBlacklist", "Enhance", "日志来源黑名单", FormatOptionValue(options.Enhance.SystemLogNameBlacklist)),

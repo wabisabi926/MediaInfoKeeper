@@ -59,7 +59,7 @@ namespace MediaInfoKeeper.Patch
         private static bool IsTakeOverLibraryNewEnabled()
         {
             return Plugin.Instance?.Options?.MainPage?.PlugginEnabled == true &&
-                   Plugin.Instance.Options.Enhance?.TakeOverSystemLibraryNew == true;
+                   Plugin.Instance.Options.Enhance?.EnableNotificationEnhance == true;
         }
 
         public static void Initialize(ILogger pluginLogger)
@@ -301,7 +301,14 @@ namespace MediaInfoKeeper.Patch
         [HarmonyFinalizer]
         private static void DeleteItemFinalizer(Exception __exception, BaseItem item, Dictionary<string, bool> __state)
         {
-            if (__state != null && __state.Count > 0 && __exception is null && Plugin.NotificationApi != null)
+            var isDeepDeleteNotificationEnabled =
+                Plugin.Instance?.Options?.Enhance?.EnableNotificationEnhance == true;
+
+            if (__state != null &&
+                __state.Count > 0 &&
+                __exception is null &&
+                Plugin.NotificationApi != null &&
+                isDeepDeleteNotificationEnabled)
             {
                 Task.Run(() =>
                         Plugin.NotificationApi.DeepDeleteSendNotification(item, new HashSet<string>(__state.Keys)))

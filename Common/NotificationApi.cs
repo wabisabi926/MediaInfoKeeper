@@ -107,6 +107,11 @@ namespace MediaInfoKeeper.Common
                 return;
             }
 
+            if (Plugin.Instance?.Options?.Enhance?.EnableNotificationEnhance != true)
+            {
+                return;
+            }
+
             if (CanDisplayMessage(session))
             {
                 var message = new MessageCommand
@@ -140,6 +145,11 @@ namespace MediaInfoKeeper.Common
         public async Task CreditsUpdateSendNotification(Episode episode, SessionInfo session, string creditsDuration)
         {
             if (episode == null || session == null)
+            {
+                return;
+            }
+
+            if (Plugin.Instance?.Options?.Enhance?.EnableNotificationEnhance != true)
             {
                 return;
             }

@@ -46,17 +46,21 @@ namespace MediaInfoKeeper.Options
             string.Join(",", new[] { SearchItemType.Movie, SearchItemType.Collection, SearchItemType.Series });
 
         [DisplayName("排除原始标题")]
-        [Description("从搜索中排除 OriginalTitle 字段，默认关闭。")]
+        [Description("从搜索中排除 OriginalTitle 字段")]
         public bool ExcludeOriginalTitleFromSearch { get; set; } = false;
-
-        [DisplayName("接管系统新入库通知")]
-        [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知，用于配合MP插件——媒体服务器通知，通知新入库；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
-        public bool TakeOverSystemLibraryNew { get; set; } = false;
         
         [DisplayName("启用深度删除")]
         [Description("删除媒体时，尝试级联删除 STRM 或软链接目标文件及相关文件和空目录。")]
         public bool EnableDeepDelete { get; set; } = false;
-
+        
+        [DisplayName("通知系统增强")]
+        [Description("提供媒体深度删除通知，喜爱更新通知和片头片尾打标更新通知。")]
+        public bool EnableNotificationEnhance { get; set; } = true;
+        
+        [DisplayName("接管系统新入库通知")]
+        [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
+        public bool TakeOverSystemLibraryNew { get; set; } = false;
+        
         [DisplayName("启用 NFO 增强")]
         [Description("增强 NFO 人物节点解析，导入使用 actor/director 等人物中的 thumb 图片地址。")]
         public bool EnableNfoMetadataEnhance { get; set; } = true;
@@ -147,6 +151,7 @@ namespace MediaInfoKeeper.Options
             foreach (var item in root.EditorItems)
             {
                 var key = item.Name ?? item.Id;
+
                 if (string.IsNullOrEmpty(key))
                 {
                     continue;
@@ -194,7 +199,8 @@ namespace MediaInfoKeeper.Options
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
             
-            AddGroup("通知", "",
+            AddGroup("通知", "", 
+                nameof(EnableNotificationEnhance),
                 nameof(TakeOverSystemLibraryNew));
             
             AddGroup("UI功能", "",

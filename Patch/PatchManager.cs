@@ -393,7 +393,7 @@ namespace MediaInfoKeeper.Patch
                 Name = "NotificationSystem",
                 Initialize = _ => NotificationSystem.Initialize(logger),
                 Configure = _ => { },
-                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.TakeOverSystemLibraryNew,
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableNotificationEnhance,
                 IsReady = () => NotificationSystem.IsReady
             });
 
