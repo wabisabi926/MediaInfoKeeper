@@ -4,9 +4,9 @@
     <Description>MediaInfoKeeper Emby plugin</Description>
     <PackageTags>emby;plugin;pms;media;server;</PackageTags>
     <BaseOutputPath>Build\bin\</BaseOutputPath>
-    <AssemblyVersion>1.6.9.8</AssemblyVersion>
-    <FileVersion>1.6.9.8</FileVersion>
-    <Version>1.6.9</Version>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
+    <Version>1.7.0</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Target Name="PrepareReleaseTagMetadata" BeforeTargets="GetAssemblyAttributes" Condition="'$(ReleaseTag)' != ''">
