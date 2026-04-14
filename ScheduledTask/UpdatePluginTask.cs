@@ -88,7 +88,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 var updateChannel = string.IsNullOrWhiteSpace(Plugin.Instance.Options.GitHub?.UpdateChannel)
                     ? Options.GitHubOptions.UpdateChannelOption.Stable.ToString()
                     : Plugin.Instance.Options.GitHub.UpdateChannel;
-                var installedReleaseTag = Plugin.Instance.Options.GitHub?.InstalledReleaseTag ?? string.Empty;
                 var currentVersionText = GetCurrentVersion();
                 var embyVersion = Plugin.Instance?.AppHost?.ApplicationVersion ?? new Version(0, 0, 0, 0);
 
@@ -117,10 +116,9 @@ namespace MediaInfoKeeper.ScheduledTask
                     minVersion?.ToString() ?? "*",
                     maxVersion?.ToString() ?? "*");
 
-                if (!string.IsNullOrWhiteSpace(installedReleaseTag) &&
-                    string.Equals(installedReleaseTag.Trim(), latestReleaseTag, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(currentVersionText, latestReleaseTag, StringComparison.OrdinalIgnoreCase))
                 {
-                    logger.Info("无需更新：目标 Tag 与当前已安装 Tag 一致，tag={0}", latestReleaseTag);
+                    logger.Info("无需更新：目标 Tag 与当前插件版本一致，tag={0}", latestReleaseTag);
                     progress.Report(100);
                     return;
                 }
@@ -206,7 +204,6 @@ namespace MediaInfoKeeper.ScheduledTask
                     Severity = LogSeverity.Info
                 });
 
-                SaveInstalledReleaseTag(latestReleaseTag);
                 applicationHost.NotifyPendingRestart();
             }
             catch (Exception ex)
@@ -454,32 +451,28 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private static string GetCurrentVersion()
         {
-            var installedReleaseTag = Plugin.Instance?.OptionsStore?.GetOptions()?.GitHub?.InstalledReleaseTag;
-            if (!string.IsNullOrWhiteSpace(installedReleaseTag))
+            var releaseTag = GetAssemblyReleaseTag(Assembly.GetExecutingAssembly());
+            if (!string.IsNullOrWhiteSpace(releaseTag))
             {
-                return installedReleaseTag.Trim();
+                return releaseTag;
             }
 
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             return version == null ? "0.0.0.0" : $"v{version.ToString(4)}";
         }
 
-        private static void SaveInstalledReleaseTag(string releaseTag)
+        private static string GetAssemblyReleaseTag(Assembly assembly)
         {
-            if (string.IsNullOrWhiteSpace(releaseTag))
+            if (assembly == null)
             {
-                return;
+                return null;
             }
 
-            var plugin = Plugin.Instance;
-            var options = plugin?.OptionsStore?.GetOptions();
-            if (options?.GitHub == null)
-            {
-                return;
-            }
+            var releaseTagAttribute = assembly
+                .GetCustomAttributes<AssemblyMetadataAttribute>()
+                .FirstOrDefault(attr => string.Equals(attr.Key, "ReleaseTag", StringComparison.Ordinal));
 
-            options.GitHub.InstalledReleaseTag = releaseTag.Trim();
-            plugin.OptionsStore.SetOptionsSilently(options);
+            return string.IsNullOrWhiteSpace(releaseTagAttribute?.Value) ? null : releaseTagAttribute.Value.Trim();
         }
 
         internal class PluginManifestInfo

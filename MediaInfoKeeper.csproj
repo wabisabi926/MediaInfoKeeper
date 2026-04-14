@@ -9,6 +9,14 @@
     <Version>1.6.9</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
+  <Target Name="PrepareReleaseTagMetadata" BeforeTargets="GetAssemblyAttributes" Condition="'$(ReleaseTag)' != ''">
+    <ItemGroup Condition="'$(ReleaseTag)' != ''">
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>ReleaseTag</_Parameter1>
+        <_Parameter2>$(ReleaseTag)</_Parameter2>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
   <ItemGroup>
     <None Remove="Resources\\ThumbImage.png" />
     <None Remove="Tokenizer\\linux\\libsimple.so" />

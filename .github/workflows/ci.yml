@@ -227,6 +227,7 @@ jobs:
           /p:FileVersion=${{ env.file_version }}
           /p:Version=${{ env.package_version }}
           /p:InformationalVersion=${{ env.package_version }}
+          /p:ReleaseTag=${{ env.release_tag }}
 
       - name: Generate release body from tag history
         id: release_body

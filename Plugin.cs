@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -928,14 +929,28 @@ namespace MediaInfoKeeper
 
         private string GetCurrentVersion()
         {
-            var installedReleaseTag = this.OptionsStore?.GetOptions()?.GitHub?.InstalledReleaseTag;
-            if (!string.IsNullOrWhiteSpace(installedReleaseTag))
+            var releaseTag = GetAssemblyReleaseTag(this.GetType().Assembly);
+            if (!string.IsNullOrWhiteSpace(releaseTag))
             {
-                return installedReleaseTag.Trim();
+                return releaseTag;
             }
 
             var version = this.GetType().Assembly.GetName().Version;
             return version == null ? "未知" : $"v{version.ToString(4)}";
+        }
+
+        private static string GetAssemblyReleaseTag(Assembly assembly)
+        {
+            if (assembly == null)
+            {
+                return null;
+            }
+
+            var releaseTagAttribute = assembly
+                .GetCustomAttributes<AssemblyMetadataAttribute>()
+                .FirstOrDefault(attr => string.Equals(attr.Key, "ReleaseTag", StringComparison.Ordinal));
+
+            return string.IsNullOrWhiteSpace(releaseTagAttribute?.Value) ? null : releaseTagAttribute.Value.Trim();
         }
 
         private string GetReleaseHistoryBody()

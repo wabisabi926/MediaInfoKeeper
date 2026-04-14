@@ -38,9 +38,6 @@ namespace MediaInfoKeeper.Options
         [SelectItemsSource(nameof(UpdateChannelList))]
         public string UpdateChannel { get; set; } = UpdateChannelOption.Stable.ToString();
 
-        [Browsable(false)]
-        public string InstalledReleaseTag { get; set; } = string.Empty;
-
         [DisplayName("项目地址")]
         [Description("项目初期，有许多不完善的地方，请及时关注更新。")]
         public string ProjectUrl { get; set; } = "https://github.com/honue/MediaInfoKeeper";
