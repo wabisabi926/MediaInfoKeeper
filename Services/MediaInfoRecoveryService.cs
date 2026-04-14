@@ -43,11 +43,6 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
-                {
-                    return;
-                }
-
                 var itemId = workItem.InternalId;
                 var now = Environment.TickCount64;
 
@@ -111,11 +106,6 @@ namespace MediaInfoKeeper.Services
                             if (workItem == null ||
                                 workItem.InternalId == 0 ||
                                 !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
-                            {
-                                return;
-                            }
-
-                            if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
                             {
                                 return;
                             }

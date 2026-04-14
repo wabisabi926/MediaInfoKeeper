@@ -96,18 +96,7 @@ namespace MediaInfoKeeper.ScheduledTask
             var cutoff = Plugin.Instance.Options.MainPage.RecentItemsDays > 0
                 ? ConfiguredDateTime.Now.AddDays(-Plugin.Instance.Options.MainPage.RecentItemsDays)
                 : (DateTime?)null;
-            var scopePaths = Plugin.LibraryService.GetScopedLibraryPaths(
-                Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,
-                out var hasScope);
-
-            if (hasScope && !scopePaths.Any())
-            {
-                this.logger.Info("弹幕下载计划任务跳过: 范围内未匹配到媒体库");
-                return new List<BaseItem>();
-            }
-
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, true)
-                .Where(item => cutoff == null || item.DateCreated >= cutoff)
+            var items = Plugin.LibraryService.FetchRecentScheduledTaskLibraryItems(cutoff, true)
                 .Where(item => item is MediaBrowser.Controller.Entities.TV.Episode || item is MediaBrowser.Controller.Entities.Movies.Movie)
                 .ToList();
 

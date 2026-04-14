@@ -92,16 +92,7 @@ namespace MediaInfoKeeper.ScheduledTask
         private List<BaseItem> FetchRecentScopedItems()
         {
             var limit = Math.Max(1, Plugin.Instance.Options.MainPage.RecentItemsLimit);
-            var scopePaths = Plugin.LibraryService.GetScopedLibraryPaths(
-                Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,
-                out var hasScope);
-            if (hasScope && !scopePaths.Any())
-            {
-                this.logger.Info("计划任务条目数 0，范围内未匹配到媒体库");
-                return new List<BaseItem>();
-            }
-
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, true, limit, includeAudio: true);
+            var items = Plugin.LibraryService.FetchScheduledTaskLibraryItems(true, limit, includeAudio: true);
             this.logger.Info($"计划任务条目数 {items.Count}");
             return items;
         }
@@ -109,12 +100,6 @@ namespace MediaInfoKeeper.ScheduledTask
         private async Task ProcessItemAsync(BaseItem item, string source, CancellationToken cancellationToken)
         {
             var displayName = item.FileName ?? item.Path;
-
-            if (!Plugin.LibraryService.IsItemInScope(item))
-            {
-                this.logger.Info($"跳过 不在库范围: {displayName}");
-                return;
-            }
 
             var persistMediaInfo = (item is Video || item is Audio) && Plugin.Instance.Options.MainPage.PlugginEnabled;
             if (!persistMediaInfo)

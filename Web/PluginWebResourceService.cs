@@ -234,7 +234,7 @@ namespace MediaInfoKeeper.Web
                     HasMediaInfo = Plugin.MediaInfoService.HasMediaInfo(item),
                     HasCover = Plugin.LibraryService?.HasCover(item) == true,
                     HasPrimaryImage = item.HasImage(ImageType.Primary),
-                    IsInScope = Plugin.LibraryService?.IsItemInScope(item) == true,
+                    IsInScope = Plugin.LibraryService?.IsItemInCatchupLibraryScope(item) == true,
                     IsRefreshedRecently = Plugin.LibraryService?.IsItemRefreshedRecently(item) == true,
                     MediaStreamCount = streams.Count,
                     AudioStreamCount = streams.Count(i => i.Type == MediaStreamType.Audio),

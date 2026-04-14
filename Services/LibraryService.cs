@@ -135,10 +135,11 @@ namespace MediaInfoKeeper.Services
             return displayParent?.HasImage(ImageType.Primary) == true;
         }
 
-        /// <summary>根据配置判断条目是否属于选定媒体库。</summary>
-        public bool IsItemInScope(BaseItem item)
+        /// <summary>根据追更媒体库配置判断条目是否属于命中范围。</summary>
+        public bool IsItemInCatchupLibraryScope(BaseItem item)
         {
-            var scopedLibraries = GetScopedLibraryKeys();
+            var raw = Plugin.Instance.Options.MainPage.CatchupLibraries;
+            var scopedLibraries= ParseScopedLibraryTokens(raw);
             if (scopedLibraries.Count == 0)
             {
                 return true;
@@ -171,12 +172,6 @@ namespace MediaInfoKeeper.Services
             }
 
             return false;
-        }
-
-        private HashSet<string> GetScopedLibraryKeys()
-        {
-            var raw = Plugin.Instance.Options.MainPage.CatchupLibraries;
-            return ParseScopedLibraryTokens(raw);
         }
 
         /// <summary>根据配置生成媒体库路径列表。</summary>
@@ -272,6 +267,28 @@ namespace MediaInfoKeeper.Services
             }
 
             return items.ToList();
+        }
+
+        /// <summary>获取计划任务媒体库范围内的音视频条目。</summary>
+        public List<BaseItem> FetchScheduledTaskLibraryItems(bool orderByDateCreatedDesc = false, int? take = null, bool includeAudio = false)
+        {
+            var scopePaths = GetScopedLibraryPaths(
+                Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,
+                out var hasScope);
+            if (hasScope && scopePaths.Count == 0)
+            {
+                return new List<BaseItem>();
+            }
+
+            return FetchScopedVideoItems(scopePaths, orderByDateCreatedDesc, take, includeAudio);
+        }
+
+        /// <summary>获取计划任务媒体库范围内、命中最近时间窗口的音视频条目。</summary>
+        public List<BaseItem> FetchRecentScheduledTaskLibraryItems(DateTime? cutoff, bool orderByDateCreatedDesc = true, int? take = null, bool includeAudio = false)
+        {
+            return FetchScheduledTaskLibraryItems(orderByDateCreatedDesc, take, includeAudio)
+                .Where(i => cutoff == null || i.DateCreated >= cutoff)
+                .ToList();
         }
 
         /// <summary>按时间窗口获取最近条目。</summary>

@@ -665,7 +665,7 @@ namespace MediaInfoKeeper
                 }
                 this.logger.Info($"新入库事件 {e.Item.FileName ?? e.Item.Path}");
 
-                if (!LibraryService.IsItemInScope(e.Item))
+                if (!LibraryService.IsItemInCatchupLibraryScope(e.Item))
                 {
                     // 条目不在选定媒体库范围内。
                     this.logger.Info("跳过处理: 不在选定媒体库范围");
@@ -910,7 +910,7 @@ namespace MediaInfoKeeper
                 return;
             }
 
-            if (!LibraryService.IsItemInScope(e.Item))
+            if (!LibraryService.IsItemInCatchupLibraryScope(e.Item))
             {
                 return;
             }

@@ -133,11 +133,6 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            if (Plugin.LibraryService?.IsItemInScope(currentItem) != true)
-            {
-                return false;
-            }
-
             if (!IsEnabled)
             {
                 return false;

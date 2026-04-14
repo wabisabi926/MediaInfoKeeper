@@ -92,16 +92,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private List<BaseItem> FetchScopedItems()
         {
-            var scopePaths = Plugin.LibraryService.GetScopedLibraryPaths(
-                Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,
-                out var hasScope);
-            if (hasScope && !scopePaths.Any())
-            {
-                this.logger.Info("计划任务条目数 0(范围内未匹配到媒体库)");
-                return new List<BaseItem>();
-            }
-
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths, includeAudio: true);
+            var items = Plugin.LibraryService.FetchScheduledTaskLibraryItems(includeAudio: true);
             this.logger.Info($"计划任务条目数 {items.Count}");
             return items;
         }

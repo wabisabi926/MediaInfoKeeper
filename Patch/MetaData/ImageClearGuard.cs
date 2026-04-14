@@ -82,12 +82,6 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-            if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
-            {
-                return;
-            }
-
             // SaveImage succeeds before ClearImages, so removing Primary here only protects
             // the current image when no replacement was actually written.
             imageTypesToClear = imageTypesToClear

@@ -322,11 +322,6 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            if (Plugin.LibraryService != null && !Plugin.LibraryService.IsItemInScope(workItem))
-            {
-                return;
-            }
-
             if (Plugin.MediaInfoService?.HasMediaInfo(workItem) != true)
             {
                 return;

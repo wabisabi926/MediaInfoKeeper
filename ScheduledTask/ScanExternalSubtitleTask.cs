@@ -85,16 +85,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private List<BaseItem> FetchScopedItems()
         {
-            var scopePaths = Plugin.LibraryService.GetScopedLibraryPaths(
-                Plugin.Instance.Options.MainPage.ScheduledTaskLibraries,
-                out var hasScope);
-            if (hasScope && !scopePaths.Any())
-            {
-                this.logger.Info("外挂字幕扫描条目数 0(范围内未匹配到媒体库)");
-                return new List<BaseItem>();
-            }
-
-            var items = Plugin.LibraryService.FetchScopedVideoItems(scopePaths);
+            var items = Plugin.LibraryService.FetchScheduledTaskLibraryItems();
             this.logger.Info($"外挂字幕扫描条目数 {items.Count}");
             return items;
         }
@@ -105,10 +96,6 @@ namespace MediaInfoKeeper.ScheduledTask
             CancellationToken cancellationToken)
         {
             var displayName = item.FileName ?? item.Path ?? item.Name;
-            if (!Plugin.LibraryService.IsItemInScope(item))
-            {
-                return;
-            }
 
             if (!Plugin.ExternalSubtitle.HasExternalSubtitleChanged(item, refreshOptions.DirectoryService, true))
             {
