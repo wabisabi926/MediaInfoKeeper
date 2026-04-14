@@ -61,8 +61,12 @@ namespace MediaInfoKeeper.Options
         [Description("开启后插件接管 Emby 的 library.new 事件并屏蔽系统原生新入库通知，仅对已收藏/喜爱的剧集新入库集发送通知；关闭则插件使用 favorites.update 事件，不影响 Emby 原有的新入库通知。")]
         public bool TakeOverSystemLibraryNew { get; set; } = false;
         
+        [DisplayName("优化封面显示")]
+        [Description("优化显示集封面 16:9 铺满，不会有上下黑边。")]
+        public bool EnableEpisodeImageAspectRatioOptimize { get; set; } = true;
+        
         [DisplayName("缺失封面使用背景图")]
-        [Description("当 episode 没有自己的封面图时，优先提供 series 的背景图，16:9 优化显示。")]
+        [Description("当 episode 没有自己的封面图时，优先提供 series 的背景图。")]
         public bool EnableEpisodeBackdropFallback { get; set; } = true;
         
         [DisplayName("启用 NFO 增强")]
@@ -208,6 +212,7 @@ namespace MediaInfoKeeper.Options
                 nameof(TakeOverSystemLibraryNew));
             
             AddGroup("UI功能", "",
+                nameof(EnableEpisodeImageAspectRatioOptimize),
                 nameof(EnableEpisodeBackdropFallback),
                 nameof(HidePersonNoImage),
                 nameof(HidePersonPreference),

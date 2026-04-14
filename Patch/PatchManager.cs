@@ -364,9 +364,15 @@ namespace MediaInfoKeeper.Patch
             registrations.Add(new PatchRegistration
             {
                 Name = "EpisodeBackdropFallback",
-                Initialize = options => EpisodeBackdropFallback.Initialize(logger, options.Enhance.EnableEpisodeBackdropFallback),
-                Configure = options => EpisodeBackdropFallback.Configure(IsPluginEnabled(options) && options.Enhance.EnableEpisodeBackdropFallback),
-                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableEpisodeBackdropFallback,
+                Initialize = options => EpisodeBackdropFallback.Initialize(
+                    logger,
+                    options.Enhance.EnableEpisodeBackdropFallback,
+                    options.Enhance.EnableEpisodeImageAspectRatioOptimize),
+                Configure = options => EpisodeBackdropFallback.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableEpisodeBackdropFallback,
+                    IsPluginEnabled(options) && options.Enhance.EnableEpisodeImageAspectRatioOptimize),
+                IsEnabled = options => IsPluginEnabled(options) &&
+                    (options.Enhance.EnableEpisodeBackdropFallback || options.Enhance.EnableEpisodeImageAspectRatioOptimize),
                 IsReady = () => EpisodeBackdropFallback.IsReady
             });
 

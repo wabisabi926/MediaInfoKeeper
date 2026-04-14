@@ -21,24 +21,26 @@ namespace MediaInfoKeeper.Patch
 
         private static Harmony harmony;
         private static ILogger logger;
-        private static bool isEnabled;
+        private static bool isBackdropFallbackEnabled;
+        private static bool isAspectRatioOptimizeEnabled;
         private static bool isPatched;
         private static MethodInfo getBaseItemDtoInternal;
         private static MethodInfo getImageTags;
         private static MethodInfo getImageCacheTag;
 
-        public static bool IsReady => harmony != null && (!isEnabled || isPatched);
+        public static bool IsReady => harmony != null && (!(isBackdropFallbackEnabled || isAspectRatioOptimizeEnabled) || isPatched);
 
-        public static void Initialize(ILogger pluginLogger, bool enable)
+        public static void Initialize(ILogger pluginLogger, bool enableBackdropFallback, bool enableAspectRatioOptimize)
         {
             lock (InitLock)
             {
                 logger = pluginLogger;
-                isEnabled = enable;
+                isBackdropFallbackEnabled = enableBackdropFallback;
+                isAspectRatioOptimizeEnabled = enableAspectRatioOptimize;
 
                 if (harmony != null)
                 {
-                    Configure(enable);
+                    Configure(enableBackdropFallback, enableAspectRatioOptimize);
                     return;
                 }
 
@@ -121,7 +123,7 @@ namespace MediaInfoKeeper.Patch
                     harmony = new Harmony("mediainfokeeper.episodebackdropfallback");
                     PatchLog.Patched(logger, nameof(EpisodeBackdropFallback), getBaseItemDtoInternal);
 
-                    if (isEnabled)
+                    if (isBackdropFallbackEnabled || isAspectRatioOptimizeEnabled)
                     {
                         Patch();
                     }
@@ -131,23 +133,25 @@ namespace MediaInfoKeeper.Patch
                     PatchLog.InitFailed(logger, nameof(EpisodeBackdropFallback), ex.Message);
                     logger?.Error("EpisodeBackdropFallback 初始化异常：{0}", ex);
                     harmony = null;
-                    isEnabled = false;
+                    isBackdropFallbackEnabled = false;
+                    isAspectRatioOptimizeEnabled = false;
                 }
             }
         }
 
-        public static void Configure(bool enable)
+        public static void Configure(bool enableBackdropFallback, bool enableAspectRatioOptimize)
         {
             lock (InitLock)
             {
-                isEnabled = enable;
+                isBackdropFallbackEnabled = enableBackdropFallback;
+                isAspectRatioOptimizeEnabled = enableAspectRatioOptimize;
 
                 if (harmony == null)
                 {
                     return;
                 }
 
-                if (isEnabled)
+                if (isBackdropFallbackEnabled || isAspectRatioOptimizeEnabled)
                 {
                     Patch();
                 }
@@ -189,7 +193,7 @@ namespace MediaInfoKeeper.Patch
             DtoOptions options,
             ref BaseItemDto __result)
         {
-            if (!isEnabled || __instance == null || item == null || __result == null)
+            if (__instance == null || item == null || __result == null)
             {
                 return;
             }
@@ -199,7 +203,17 @@ namespace MediaInfoKeeper.Patch
                 return;
             }
 
-            if (episode.GetImageInfo(ImageType.Primary, 0) != null)
+            var episodePrimaryImage = episode.GetImageInfo(ImageType.Primary, 0);
+            if (episodePrimaryImage != null)
+            {
+                if (isAspectRatioOptimizeEnabled)
+                {
+                    __result.PrimaryImageAspectRatio = 16d / 9d;
+                }
+                return;
+            }
+
+            if (!isBackdropFallbackEnabled)
             {
                 return;
             }
@@ -228,10 +242,9 @@ namespace MediaInfoKeeper.Patch
 
                     __result.ParentBackdropItemId = series.GetClientId();
                     __result.ParentBackdropImageTags = backdropTags;
-
-                    if (!__result.PrimaryImageAspectRatio.HasValue || __result.PrimaryImageAspectRatio.Value < 1.0)
+                    if (isAspectRatioOptimizeEnabled)
                     {
-                        __result.PrimaryImageAspectRatio = GetBackdropAspectRatio(seriesBackdropImages[0]);
+                        __result.PrimaryImageAspectRatio = 16d / 9d;
                     }
 
                     return;
@@ -263,10 +276,9 @@ namespace MediaInfoKeeper.Patch
             __result.PrimaryImageItemId = series.GetClientId();
             __result.PrimaryImageTag = seriesPrimaryTag;
             __result.SeriesPrimaryImageTag = seriesPrimaryTag;
-
-            if (!__result.PrimaryImageAspectRatio.HasValue || __result.PrimaryImageAspectRatio.Value < 1.0)
+            if (isAspectRatioOptimizeEnabled)
             {
-                __result.PrimaryImageAspectRatio = GetBackdropAspectRatio(seriesPrimaryImage);
+                __result.PrimaryImageAspectRatio = 16d / 9d;
             }
         }
 
@@ -299,14 +311,5 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        private static double GetBackdropAspectRatio(ItemImageInfo imageInfo)
-        {
-            if (imageInfo != null && imageInfo.Width > 0 && imageInfo.Height > 0)
-            {
-                return imageInfo.Width / imageInfo.Height;
-            }
-
-            return 16d / 9d;
-        }
     }
 }
