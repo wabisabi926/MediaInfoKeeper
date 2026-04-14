@@ -180,11 +180,11 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
-                Name = "MetadataProvidersWatcher",
-                Initialize = _ => MetadataProvidersWatcher.Initialize(logger, true),
-                Configure = options => MetadataProvidersWatcher.Configure(IsPluginEnabled(options)),
+                Name = "ItemImageClearGuard",
+                Initialize = _ => ImageClearGuard.Initialize(logger, true),
+                Configure = options => ImageClearGuard.Configure(IsPluginEnabled(options)),
                 IsEnabled = options => IsPluginEnabled(options),
-                IsReady = () => MetadataProvidersWatcher.IsReady
+                IsReady = () => ImageClearGuard.IsReady
             });
 
             registrations.Add(new PatchRegistration
