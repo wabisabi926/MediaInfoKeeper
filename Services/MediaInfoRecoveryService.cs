@@ -48,8 +48,6 @@ namespace MediaInfoKeeper.Services
                     return;
                 }
 
-                BackupIfNeeded(workItem);
-
                 var itemId = workItem.InternalId;
                 var now = Environment.TickCount64;
 
@@ -82,6 +80,8 @@ namespace MediaInfoKeeper.Services
                         break;
                     }
                 }
+
+                BackupIfNeeded(workItem);
 
                 var version = Interlocked.Increment(ref restoreSequence);
                 restoreVersionMap[itemId] = version;
