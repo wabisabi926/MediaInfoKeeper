@@ -41,6 +41,7 @@ namespace MediaInfoKeeper.ScheduledTask
             }
 
             var current = 0;
+            var hasMediaInfo = 0;
             foreach (var item in items)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -58,7 +59,11 @@ namespace MediaInfoKeeper.ScheduledTask
 
                 try
                 {
-                    MediaInfoPersistService.OverWritePersistedMedia(item);
+                    if (Plugin.MediaInfoService.HasMediaInfo(item))
+                    {
+                        MediaInfoPersistService.OverWritePersistedMedia(item);
+                        hasMediaInfo++;
+                    }
                 }
                 catch (OperationCanceledException)
                 {
@@ -76,7 +81,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 progress.Report(current / (double)total * 100);
             }
 
-            this.logger.Info("计划任务完成");
+            this.logger.Info($"计划任务完成 导出 {hasMediaInfo} 条目");
             return Task.CompletedTask;
         }
 

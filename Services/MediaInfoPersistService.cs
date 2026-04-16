@@ -13,16 +13,16 @@ namespace MediaInfoKeeper.Services
             }
 
             Plugin.MediaSourceInfoStore?.OverWriteToFile(item);
-            Plugin.CoverStore?.OverWriteToFile(item);
 
             if (item is Video)
             {
-                Plugin.ChaptersStore?.WriteToFile(item);
+                Plugin.ChaptersStore?.OverWriteToFile(item);
                 return;
             }
 
             if (item is Audio)
             {
+                Plugin.CoverStore?.OverWriteToFile(item);
                 Plugin.AudioMetadataStore?.OverWriteToFile(item);
             }
         }
