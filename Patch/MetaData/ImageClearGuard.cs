@@ -4,14 +4,13 @@ using System.Reflection;
 using HarmonyLib;
 using MediaInfoKeeper.Services;
 using MediaBrowser.Controller.Entities;
-using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 
 namespace MediaInfoKeeper.Patch
 {
     /// <summary>
-    /// 保护快捷方式视频在图片刷新失败时不被清空现有主图。
+    /// 保护快捷方式条目在图片刷新失败时不被清空现有主图。
     /// </summary>
     public static class ImageClearGuard
     {
@@ -72,7 +71,7 @@ namespace MediaInfoKeeper.Patch
         private static void ClearImagesPrefix(BaseItem item, ref ImageType[] imageTypesToClear, int numBackdropToKeep)
         {
             if (!isEnabled ||
-                item is not Video ||
+                item == null ||
                 item.InternalId == 0 ||
                 !item.HasImage(ImageType.Primary) ||
                 imageTypesToClear == null ||

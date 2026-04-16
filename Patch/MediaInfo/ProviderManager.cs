@@ -193,7 +193,6 @@ namespace MediaInfoKeeper.Patch
         private static void RefreshSingleItemPrefix(BaseItem __0, MetadataRefreshOptions __1, out FfProcessGuard.AllowanceHandle __state)
         {
             __state = BeginRefreshFfprocessAllowance(__0);
-            QueueShortcutRestoreIfNeeded(__0);
         }
 
         private static void RefreshSingleItemPostfix(BaseItem __0, ref object __result, FfProcessGuard.AllowanceHandle __state)
@@ -296,46 +295,5 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        private static void QueueShortcutRestoreIfNeeded(BaseItem item)
-        {
-            // 扫描媒体库时跳过恢复，扫描全库时不会刷新掉媒体信息
-            if (Plugin.LibraryManager?.IsScanRunning == true)
-            {
-                return;
-            }
-
-            if (item == null || item.InternalId == 0)
-            {
-                return;
-            }
-
-            if (item is not Video && item is not Audio && item is not MusicAlbum)
-            {
-                return;
-            }
-
-            var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-            if (workItem == null ||
-                workItem.InternalId == 0 ||
-                !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
-            {
-                return;
-            }
-
-            if (Plugin.MediaInfoService?.HasMediaInfo(workItem) != true)
-            {
-                return;
-            }
-
-            try
-            {
-                MediaInfoRecoveryService.QueueRestore(workItem, 5);
-            }
-            catch (Exception ex)
-            {
-                logger?.Error("ProviderManager.RefreshSingleItem 恢复 MediaInfo 失败");
-                logger?.Error(ex.Message);
-            }
-        }
     }
 }

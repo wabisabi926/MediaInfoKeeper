@@ -143,6 +143,15 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "StrmMediaInfoGuard",
+                Initialize = _ => MediaInfoClearGuard.Initialize(logger, true),
+                Configure = _ => MediaInfoClearGuard.Configure(true),
+                IsEnabled = options => IsPluginEnabled(options),
+                IsReady = () => MediaInfoClearGuard.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "LibraryMonitorDelay",
                 Initialize = options => LibraryMonitorDelay.Initialize(
                     logger,

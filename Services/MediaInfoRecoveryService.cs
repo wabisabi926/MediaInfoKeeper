@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
+using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
@@ -28,21 +29,14 @@ namespace MediaInfoKeeper.Services
         {
             logger ??= Plugin.Instance?.Logger;
 
-            if (item == null || item.InternalId == 0)
-            {
-                return;
-            }
-
             try
             {
-                var workItem = Plugin.LibraryManager?.GetItemById(item.InternalId) ?? item;
-                if (workItem == null ||
-                    workItem.InternalId == 0 ||
-                    !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
+                if (item?.InternalId <= 0 || !LibraryService.IsFileShortcut(item.Path ?? item.FileName))
                 {
                     return;
                 }
 
+                var workItem = item;
                 var itemId = workItem.InternalId;
                 var now = Environment.TickCount64;
 
@@ -76,7 +70,7 @@ namespace MediaInfoKeeper.Services
                     }
                 }
 
-                BackupIfNeeded(workItem);
+                BackupNow(workItem);
 
                 var version = Interlocked.Increment(ref restoreSequence);
                 restoreVersionMap[itemId] = version;
@@ -104,7 +98,6 @@ namespace MediaInfoKeeper.Services
 
                             workItem = Plugin.LibraryManager?.GetItemById(itemId) ?? workItem;
                             if (workItem == null ||
-                                workItem.InternalId == 0 ||
                                 !LibraryService.IsFileShortcut(workItem.Path ?? workItem.FileName))
                             {
                                 return;
@@ -166,21 +159,7 @@ namespace MediaInfoKeeper.Services
                                 logger?.Info($"{workItem.FileName ?? workItem.Path} 第 {attempt}/{MaxRestoreAttempts} 次检查发现 MediaInfo 缺失，开始恢复");
                             }
 
-                            var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(workItem)
-                                ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
-
-                            var imageRestoreResult = MediaInfoDocument.MediaInfoRestoreResult.Failed;
-                            if (workItem is Audio)
-                            {
-                                Plugin.AudioMetadataStore?.ApplyToItem(workItem);
-                                imageRestoreResult = Plugin.CoverStore?.ApplyToItem(workItem)
-                                    ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
-                            }
-                            else if (workItem is Video)
-                            {
-                                imageRestoreResult = Plugin.CoverStore?.ApplyToItem(workItem)
-                                    ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
-                            }
+                            RestoreNow(workItem);
 
                             var hasMediaInfoAfterRestore = Plugin.MediaInfoService?.HasMediaInfo(workItem) == true;
                             var hasCoverAfterRestore = workItem is Audio && Plugin.LibraryService.HasCover(workItem);
@@ -245,35 +224,108 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        private static void BackupIfNeeded(BaseItem item)
+        internal static void BackupNow(BaseItem item)
         {
-            logger?.Debug($"检查媒体信息备份: {item.FileName ?? item.Path}");
+            logger ??= Plugin.Instance?.Logger;
 
-            // 刷新元数据前备份封面
-            if (item is Video && item.HasImage(ImageType.Primary))
+            logger.Info($"备份媒体信息: {item.FileName ?? item.Path}");
+
+            if (Plugin.MediaInfoService?.HasMediaInfo(item) == true &&
+                Plugin.MediaSourceInfoStore?.HasInFile(item) != true)
             {
-                Plugin.CoverStore?.OverWriteToFile(item);
+                Plugin.MediaSourceInfoStore?.WriteToFile(item);
             }
 
-            if (!Plugin.MediaSourceInfoStore.HasInFile(item) && Plugin.MediaInfoService.HasMediaInfo(item))
+            if (item is Audio)
             {
-                Plugin.MediaSourceInfoStore.WriteToFile(item);
-                if (item is Audio)
+                if (Plugin.AudioMetadataStore?.HasInFile(item) != true)
                 {
-                    Plugin.AudioMetadataStore.WriteToFile(item);
-                    Plugin.CoverStore.WriteToFile(item);
+                    Plugin.AudioMetadataStore?.WriteToFile(item);
                 }
 
-                if (item is Video && !Plugin.ChaptersStore.HasInFile(item) && Plugin.IntroScanService.HasIntroMarkers(item))
-                {
-                    Plugin.ChaptersStore.WriteToFile(item);
-                }
-                
-                if (item is Video && item.HasImage(ImageType.Primary))
+                if (Plugin.CoverStore?.HasInFile(item) != true)
                 {
                     Plugin.CoverStore?.WriteToFile(item);
                 }
+
+                return;
             }
+
+            if (item is Video)
+            {
+                if (item.HasImage(ImageType.Primary) &&
+                    Plugin.CoverStore?.HasInFile(item) != true)
+                {
+                    Plugin.CoverStore?.WriteToFile(item);
+                }
+
+                if (Plugin.ChaptersStore?.HasInFile(item) != true &&
+                    Plugin.IntroScanService?.HasIntroMarkers(item) == true)
+                {
+                    Plugin.ChaptersStore?.WriteToFile(item);
+                }
+            }
+        }
+
+        internal static ItemUpdateType RestoreNow(BaseItem item)
+        {
+            logger ??= Plugin.Instance?.Logger;
+
+            logger.Info($"恢复媒体信息 : {item.FileName ?? item.Path}");
+            
+            var updateType = ItemUpdateType.None;
+
+            try
+            {
+                if (Plugin.MediaInfoService?.HasMediaInfo(item) != true)
+                {
+                    var restoreResult = Plugin.MediaSourceInfoStore?.ApplyToItem(item)
+                        ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                    if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
+                    {
+                        updateType |= ItemUpdateType.MetadataImport;
+                    }
+                }
+
+                if (item is Audio)
+                {
+                    var hadCover = Plugin.LibraryService?.HasCover(item) == true;
+                    Plugin.AudioMetadataStore?.ApplyToItem(item);
+                    var coverRestoreResult = Plugin.CoverStore?.ApplyToItem(item)
+                        ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                    if (!hadCover && coverRestoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
+                    {
+                        updateType |= ItemUpdateType.ImageUpdate;
+                    }
+                }
+                else if (item is Video)
+                {
+                    var hadPrimaryImage = item.HasImage(ImageType.Primary);
+                    var coverRestoreResult = Plugin.CoverStore?.ApplyToItem(item)
+                        ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                    if (!hadPrimaryImage && coverRestoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
+                    {
+                        updateType |= ItemUpdateType.ImageUpdate;
+                    }
+
+                    if (Plugin.IntroScanService?.HasIntroMarkers(item) != true)
+                    {
+                        var chapterRestoreResult = Plugin.ChaptersStore?.ApplyToItem(item)
+                            ?? MediaInfoDocument.MediaInfoRestoreResult.Failed;
+                        if (chapterRestoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
+                        {
+                            updateType |= ItemUpdateType.MetadataImport;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.Error("立即恢复 MediaInfo 失败");
+                logger?.Error(ex.Message);
+            }
+
+            return updateType;
         }
     }
 }

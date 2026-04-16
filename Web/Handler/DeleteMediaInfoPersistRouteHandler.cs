@@ -7,6 +7,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
+using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.Web.Handler
@@ -102,7 +103,11 @@ namespace MediaInfoKeeper.Web.Handler
 
             Plugin.MediaSourceInfoStore?.DeleteFromFile(workItem);
 
-            _itemRepository.SaveMediaStreams(workItem.InternalId, new List<MediaStream>(), CancellationToken.None);
+            using (MediaInfoClearGuard.Allow())
+            {
+                _itemRepository.SaveMediaStreams(workItem.InternalId, new List<MediaStream>(), CancellationToken.None);
+            }
+
             workItem.MediaStreams = new List<MediaStream>();
             workItem.RunTimeTicks = null;
             workItem.TotalBitrate = 0;

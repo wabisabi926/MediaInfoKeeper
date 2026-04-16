@@ -95,6 +95,15 @@ namespace MediaInfoKeeper.Patch
                 profile.ParameterTypes,
                 null);
 
+            if (method == null)
+            {
+                method = type
+                    .GetMethods(profile.BindingFlags)
+                    .FirstOrDefault(candidate =>
+                        string.Equals(candidate.Name, profile.MethodName, StringComparison.Ordinal) &&
+                        IsMatch(candidate, profile));
+            }
+
             return IsMatch(method, profile) ? method : null;
         }
 
@@ -128,13 +137,35 @@ namespace MediaInfoKeeper.Patch
 
             for (var i = 0; i < parameters.Length; i++)
             {
-                if (parameters[i] != profile.ParameterTypes[i])
+                if (!IsParameterTypeMatch(parameters[i], profile.ParameterTypes[i]))
                 {
                     return false;
                 }
             }
 
             return profile.Predicate == null || profile.Predicate(method);
+        }
+
+        private static bool IsParameterTypeMatch(Type actualType, Type expectedType)
+        {
+            if (actualType == expectedType)
+            {
+                return true;
+            }
+
+            if (actualType == null || expectedType == null)
+            {
+                return false;
+            }
+
+            if (expectedType.IsGenericTypeDefinition &&
+                actualType.IsGenericType &&
+                actualType.GetGenericTypeDefinition() == expectedType)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private static bool IsValidProfile(MethodSignatureProfile profile)
