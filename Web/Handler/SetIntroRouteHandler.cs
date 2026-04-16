@@ -6,6 +6,7 @@ using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
+using MediaInfoKeeper.Services.IntroSkip;
 
 namespace MediaInfoKeeper.Web.Handler
 {
@@ -71,40 +72,29 @@ namespace MediaInfoKeeper.Web.Handler
                 {
                     var chapters = _itemRepository.GetChapters(episode);
 
-                    chapters.RemoveAll(c =>
-                        c.MarkerType == MediaBrowser.Model.Entities.MarkerType.IntroStart ||
-                        c.MarkerType == MediaBrowser.Model.Entities.MarkerType.IntroEnd);
-
-                    chapters.Add(new MediaBrowser.Model.Entities.ChapterInfo
-                    {
-                        Name = "片头",
-                        MarkerType = MediaBrowser.Model.Entities.MarkerType.IntroStart,
-                        StartPositionTicks = request.IntroStartTicks
-                    });
-                    chapters.Add(new MediaBrowser.Model.Entities.ChapterInfo
-                    {
-                        Name = "片头结束",
-                        MarkerType = MediaBrowser.Model.Entities.MarkerType.IntroEnd,
-                        StartPositionTicks = request.IntroEndTicks
-                    });
+                    IntroSkipChapterApi.ReplaceIntroMarkers(chapters, request.IntroStartTicks, request.IntroEndTicks);
 
                     if (creditsStartTicks.HasValue)
                     {
-                        chapters.RemoveAll(c => c.MarkerType == MediaBrowser.Model.Entities.MarkerType.CreditsStart);
-                        chapters.Add(new MediaBrowser.Model.Entities.ChapterInfo
-                        {
-                            Name = "片尾",
-                            MarkerType = MediaBrowser.Model.Entities.MarkerType.CreditsStart,
-                            StartPositionTicks = creditsStartTicks.Value
-                        });
+                        IntroSkipChapterApi.ReplaceCreditsMarker(chapters, creditsStartTicks.Value);
                     }
 
-                    chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-
-                    using (Patch.IntroMarkerProtect.Allow(episode.InternalId))
-                    {
-                        _itemRepository.SaveChapters(episode.InternalId, chapters);
-                    }
+                    Patch.IntroMarkerProtect.SaveChapters(
+                        _itemRepository,
+                        episode,
+                        chapters,
+                        creditsStartTicks.HasValue
+                            ? new[]
+                            {
+                                MediaBrowser.Model.Entities.MarkerType.IntroStart,
+                                MediaBrowser.Model.Entities.MarkerType.IntroEnd,
+                                MediaBrowser.Model.Entities.MarkerType.CreditsStart
+                            }
+                            : new[]
+                            {
+                                MediaBrowser.Model.Entities.MarkerType.IntroStart,
+                                MediaBrowser.Model.Entities.MarkerType.IntroEnd
+                            });
 
                     try
                     {

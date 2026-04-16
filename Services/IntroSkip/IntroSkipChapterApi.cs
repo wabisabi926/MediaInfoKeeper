@@ -33,6 +33,29 @@ namespace MediaInfoKeeper.Services.IntroSkip
             return itemRepository.GetChapters(item);
         }
 
+        public static void ReplaceIntroMarkers(List<ChapterInfo> chapters, long introStartPositionTicks, long introEndPositionTicks)
+        {
+            if (chapters == null)
+            {
+                throw new ArgumentNullException(nameof(chapters));
+            }
+
+            chapters.RemoveAll(c => c.MarkerType == MarkerType.IntroStart || c.MarkerType == MarkerType.IntroEnd);
+            chapters.Add(CreateManagedMarker(MarkerType.IntroStart, introStartPositionTicks));
+            chapters.Add(CreateManagedMarker(MarkerType.IntroEnd, introEndPositionTicks));
+        }
+
+        public static void ReplaceCreditsMarker(List<ChapterInfo> chapters, long creditsStartPositionTicks)
+        {
+            if (chapters == null)
+            {
+                throw new ArgumentNullException(nameof(chapters));
+            }
+
+            chapters.RemoveAll(c => c.MarkerType == MarkerType.CreditsStart);
+            chapters.Add(CreateManagedMarker(MarkerType.CreditsStart, creditsStartPositionTicks));
+        }
+
         public long? GetIntroStart(BaseItem item)
         {
             var introStart = itemRepository.GetChapters(item)
@@ -94,26 +117,13 @@ namespace MediaInfoKeeper.Services.IntroSkip
                     continue;
                 }
 
-                chapters.RemoveAll(c => c.MarkerType == MarkerType.IntroStart || c.MarkerType == MarkerType.IntroEnd);
+                ReplaceIntroMarkers(chapters, introStartPositionTicks, introEndPositionTicks);
 
-                chapters.Add(new ChapterInfo
-                {
-                    Name = MarkerType.IntroStart + MarkerSuffix,
-                    MarkerType = MarkerType.IntroStart,
-                    StartPositionTicks = introStartPositionTicks
-                });
-                chapters.Add(new ChapterInfo
-                {
-                    Name = MarkerType.IntroEnd + MarkerSuffix,
-                    MarkerType = MarkerType.IntroEnd,
-                    StartPositionTicks = introEndPositionTicks
-                });
-
-                chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-                using (IntroMarkerProtect.Allow(episode.InternalId))
-                {
-                    itemRepository.SaveChapters(episode.InternalId, chapters);
-                }
+                IntroMarkerProtect.SaveChapters(
+                    itemRepository,
+                    episode,
+                    chapters,
+                    new[] { MarkerType.IntroStart, MarkerType.IntroEnd });
 
                 Plugin.ChaptersStore.OverWriteToFile(episode);
                 updatedEpisodes.Add(episode.FileName ?? episode.Path ?? episode.Name);
@@ -179,20 +189,13 @@ namespace MediaInfoKeeper.Services.IntroSkip
                     continue;
                 }
 
-                chapters.RemoveAll(c => c.MarkerType == MarkerType.CreditsStart);
+                ReplaceCreditsMarker(chapters, episode.RunTimeTicks.Value - creditsDurationTicks);
 
-                chapters.Add(new ChapterInfo
-                {
-                    Name = MarkerType.CreditsStart + MarkerSuffix,
-                    MarkerType = MarkerType.CreditsStart,
-                    StartPositionTicks = episode.RunTimeTicks.Value - creditsDurationTicks
-                });
-
-                chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-                using (IntroMarkerProtect.Allow(episode.InternalId))
-                {
-                    itemRepository.SaveChapters(episode.InternalId, chapters);
-                }
+                IntroMarkerProtect.SaveChapters(
+                    itemRepository,
+                    episode,
+                    chapters,
+                    new[] { MarkerType.CreditsStart });
 
                 Plugin.ChaptersStore.OverWriteToFile(episode);
                 updatedEpisodes.Add(episode.FileName ?? episode.Path ?? episode.Name);
@@ -244,11 +247,11 @@ namespace MediaInfoKeeper.Services.IntroSkip
                 return;
             }
 
-            chapters.Sort((c1, c2) => c1.StartPositionTicks.CompareTo(c2.StartPositionTicks));
-            using (IntroMarkerProtect.Allow(item.InternalId))
-            {
-                itemRepository.SaveChapters(item.InternalId, chapters);
-            }
+            IntroMarkerProtect.SaveChapters(
+                itemRepository,
+                item,
+                chapters,
+                new[] { MarkerType.IntroStart, MarkerType.IntroEnd, MarkerType.CreditsStart });
 
             Plugin.ChaptersStore.OverWriteToFile(item);
 
@@ -258,6 +261,16 @@ namespace MediaInfoKeeper.Services.IntroSkip
         private static bool IsMarkerAddedByMik(ChapterInfo chapter)
         {
             return chapter.Name?.EndsWith(MarkerSuffix, StringComparison.Ordinal) == true;
+        }
+
+        private static ChapterInfo CreateManagedMarker(MarkerType markerType, long startPositionTicks)
+        {
+            return new ChapterInfo
+            {
+                Name = markerType + MarkerSuffix,
+                MarkerType = markerType,
+                StartPositionTicks = startPositionTicks
+            };
         }
 
         private static bool HasNonMikIntro(List<ChapterInfo> chapters)

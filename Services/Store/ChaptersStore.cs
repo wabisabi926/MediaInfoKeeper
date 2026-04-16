@@ -108,10 +108,12 @@ namespace MediaInfoKeeper.Services
 
             try
             {
-                using (IntroMarkerProtect.Allow(item.InternalId))
-                {
-                    this.itemRepository.SaveChapters(item.InternalId, true, chapters ?? new List<ChapterInfo>());
-                }
+                IntroMarkerProtect.SaveChapters(
+                    this.itemRepository,
+                    item,
+                    chapters ?? new List<ChapterInfo>(),
+                    new[] { MarkerType.IntroStart, MarkerType.IntroEnd, MarkerType.CreditsStart },
+                    clearExtractionFailureResult: true);
                 this.logger.Debug($"ChaptersStore 恢复章节到条目完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
             }
