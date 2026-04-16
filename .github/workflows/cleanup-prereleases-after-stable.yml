@@ -1,12 +1,6 @@
 name: Cleanup Prereleases After Stable
 
 on:
-  push:
-    branches:
-      - master
-      - main
-    paths:
-      - "MediaInfoKeeper.csproj"
   release:
     types:
       - published
@@ -26,16 +20,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        if: github.event_name == 'push'
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
       - name: Cleanup prereleases older than latest stable
         if: |
           github.event_name == 'workflow_dispatch' ||
-          github.event_name == 'push' ||
           (
             github.event_name == 'release' &&
             github.event.release.draft == false &&
