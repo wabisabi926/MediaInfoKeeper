@@ -9,6 +9,7 @@ namespace MediaInfoKeeper.Provider
 {
     public class DoubanExternalId : IExternalId
     {
+        private const string DoubanAppDispatchUrlTemplate = "https://www.douban.com/doubanapp/dispatch?uri=/movie/{0}?from=mdouban&open=app";
         private string subjectId;
 
         public string Name => "Douban";
@@ -16,8 +17,8 @@ namespace MediaInfoKeeper.Provider
         public string Key => StaticName;
 
         public string UrlFormatString => string.IsNullOrWhiteSpace(subjectId)
-            ? "https://movie.douban.com/subject/{0}/"
-            : $"https://movie.douban.com/subject/{subjectId}/";
+            ? DoubanAppDispatchUrlTemplate
+            : $"https://www.douban.com/doubanapp/dispatch?uri=/movie/{subjectId}?from=mdouban&open=app";
 
         public bool Supports(IHasProviderIds item)
         {
