@@ -184,7 +184,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
             // 刷新完元数据要重新从json恢复媒体信息，
             // 非strm会重新 ffprobe/ffmpeg，但是没有allow所以会拦截，
-            // strm会丢失信息，所以重新恢复，启用元数据变动监听会恢复，不必重复恢复
+            // strm由 MediaInfoClearGuard 防止被写空，不必重复恢复
             // Plugin.MediaSourceInfoStore.ApplyToItem(item);
             // if (item is Video)
             // {

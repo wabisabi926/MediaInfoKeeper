@@ -475,7 +475,7 @@ namespace MediaInfoKeeper
             {
                 new OptionLogEntry("Main.PlugginEnabled", "Main", "启用插件", options.MainPage.PlugginEnabled.ToString()),
                 new OptionLogEntry("MediaInfo.ExtractMediaInfoOnItemAdded", "MediaInfo", "入库时提取媒体信息", mediaInfoOptions.ExtractMediaInfoOnItemAdded.ToString()),
-                new OptionLogEntry("Main.StrmFileWatcher", "Main", "启用 Strm 内容修改监听", "开"),
+                new OptionLogEntry("Main.StrmFileWatcher", "Main", "启用 Strm 新入库监听", "开"),
                 new OptionLogEntry("MediaInfo.MediaInfoJsonRootFolder", "MediaInfo", "MediaInfo JSON 存储根目录", FormatOptionValue(mediaInfoOptions.MediaInfoJsonRootFolder)),
                 new OptionLogEntry("MediaInfo.DeleteMediaInfoJsonOnRemove", "MediaInfo", "条目移除时删除 JSON", mediaInfoOptions.DeleteMediaInfoJsonOnRemove.ToString()),
                 new OptionLogEntry("MediaInfo.EnableMediaInfoPrefetch", "MediaInfo", "启用 MediaInfo 预加载", mediaInfoOptions.EnableMediaInfoPrefetch.ToString()),

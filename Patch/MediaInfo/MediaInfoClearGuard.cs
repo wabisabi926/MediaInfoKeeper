@@ -175,8 +175,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            logger?.Info($"已阻止媒体信息空写入: {item.FileName ?? item.Path}");
-            MediaInfoRecoveryService.QueueRestore(item, 1);
+            logger?.Info($"已阻止媒体信息丢失: {item.FileName ?? item.Path}");
             return false;
         }
 

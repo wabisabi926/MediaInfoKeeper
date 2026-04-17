@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Logging;
 
@@ -24,14 +21,8 @@ namespace MediaInfoKeeper.Services
         private readonly Dictionary<string, FileSystemWatcher> watchers =
             new Dictionary<string, FileSystemWatcher>(StringComparer.OrdinalIgnoreCase);
 
-        private readonly Dictionary<string, bool> pendingPaths =
-            new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
-
-        private Timer flushTimer;
-
         private volatile bool enabled;
         private volatile bool disposed;
-        private volatile int refreshDelaySeconds;
 
         public StrmFileWatcher(
             ILibraryManager libraryManager,
@@ -56,7 +47,6 @@ namespace MediaInfoKeeper.Services
             }
 
             this.enabled = isEnabled;
-            this.refreshDelaySeconds = Math.Max(0, delaySeconds);
             RebuildWatchers(isEnabled);
         }
 
@@ -80,8 +70,6 @@ namespace MediaInfoKeeper.Services
                 }
 
                 this.watchers.Clear();
-                DisposeFlushTimer();
-                this.pendingPaths.Clear();
 
                 if (!isEnabled)
                 {
@@ -108,7 +96,6 @@ namespace MediaInfoKeeper.Services
                         };
 
                         watcher.Created += (sender, args) => OnCreated(args?.FullPath);
-                        watcher.Changed += (sender, args) => QueueRestorePath(args?.FullPath);
                         this.watchers[root] = watcher;
                     }
                     catch (Exception ex)
@@ -162,122 +149,6 @@ namespace MediaInfoKeeper.Services
             }
         }
 
-        /// <summary>
-        /// 收集 Changed 事件，延迟后执行 restore。
-        /// </summary>
-        private void QueueRestorePath(string path)
-        {
-            if (!this.enabled || this.disposed || string.IsNullOrWhiteSpace(path))
-            {
-                return;
-            }
-
-            try
-            {
-                if (!this.libraryManager.IsVideoFile(path.AsSpan()))
-                {
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logger?.Debug($"StrmFileWatcher 判断视频文件失败: {path}");
-                this.logger?.Debug(ex.Message);
-                return;
-            }
-
-            if (!LibraryService.IsFileShortcut(path))
-            {
-                return;
-            }
-
-            lock (this.syncRoot)
-            {
-                this.pendingPaths[path] = true;
-
-                var delay = TimeSpan.FromSeconds(this.refreshDelaySeconds);
-                if (this.flushTimer == null)
-                {
-                    this.flushTimer = new Timer(_ => _ = Task.Run(FlushPendingPathsAsync), null, delay,
-                        Timeout.InfiniteTimeSpan);
-                }
-                else
-                {
-                    this.flushTimer.Change(delay, Timeout.InfiniteTimeSpan);
-                }
-            }
-        }
-
-        private async Task FlushPendingPathsAsync()
-        {
-            string[] pendingEntries;
-            lock (this.syncRoot)
-            {
-                if (this.pendingPaths.Count == 0 || !this.enabled || this.disposed)
-                {
-                    return;
-                }
-
-                pendingEntries = this.pendingPaths.Keys.ToArray();
-                this.pendingPaths.Clear();
-            }
-
-            foreach (var path in pendingEntries)
-            {
-                QueueRestore(path);
-            }
-
-            await Task.CompletedTask.ConfigureAwait(false);
-        }
-
-        private void QueueRestore(string strmPath)
-        {
-            try
-            {
-                if (!this.enabled || this.disposed)
-                {
-                    return;
-                }
-
-                var item = this.libraryManager.FindByPath(strmPath, false) as BaseItem
-                           ?? this.libraryManager.FindByPath(strmPath, true) as BaseItem;
-                if (item == null || item.InternalId == 0)
-                {
-                    return;
-                }
-
-                if (!LibraryService.IsFileShortcut(item.Path ?? item.FileName))
-                {
-                    return;
-                }
-
-                MediaInfoRecoveryService.QueueRestore(item, 5);
-            }
-            catch (Exception ex)
-            {
-                this.logger?.Error("StrmFileWatcher 排队恢复失败");
-                this.logger?.Error(ex.Message);
-            }
-        }
-
-        private void DisposeFlushTimer()
-        {
-            if (this.flushTimer == null)
-            {
-                return;
-            }
-
-            try
-            {
-                this.flushTimer.Dispose();
-            }
-            catch
-            {
-            }
-
-            this.flushTimer = null;
-        }
-
         public void Dispose()
         {
             if (this.disposed)
@@ -303,8 +174,6 @@ namespace MediaInfoKeeper.Services
                 }
 
                 this.watchers.Clear();
-                this.pendingPaths.Clear();
-                DisposeFlushTimer();
             }
         }
     }
