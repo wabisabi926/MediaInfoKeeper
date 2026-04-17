@@ -1,6 +1,7 @@
 name: Cleanup Prereleases After Stable
 
 on:
+  workflow_call:
   release:
     types:
       - published
@@ -23,6 +24,7 @@ jobs:
       - name: Cleanup prereleases older than latest stable
         if: |
           github.event_name == 'workflow_dispatch' ||
+          github.event_name == 'workflow_call' ||
           (
             github.event_name == 'release' &&
             github.event.release.draft == false &&
