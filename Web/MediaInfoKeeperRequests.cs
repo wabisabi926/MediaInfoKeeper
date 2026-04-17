@@ -110,8 +110,6 @@ namespace MediaInfoKeeper.Web
 
         public DebugFileInfo MediaInfoJson { get; set; }
 
-        public DebugBinaryFileInfo Cover { get; set; }
-
         public DebugPrimaryImageInfo PrimaryImage { get; set; }
 
         public DebugChapterImagesInfo ChapterImages { get; set; }

@@ -163,8 +163,7 @@ namespace MediaInfoKeeper.Services
             }
 
             var hasMediaInfo = Plugin.MediaInfoService.HasMediaInfo(workItem);
-            var shouldRefreshAudioForMissingCover = workItem is Audio && !Plugin.LibraryService.HasCover(workItem);
-            if (hasMediaInfo && !shouldRefreshAudioForMissingCover)
+            if (hasMediaInfo)
             {
                 return;
             }
@@ -179,13 +178,10 @@ namespace MediaInfoKeeper.Services
             else if (workItem is Audio)
             {
                 Plugin.AudioMetadataStore.ApplyToItem(workItem);
-                Plugin.CoverStore.ApplyToItem(workItem);
-                shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(workItem);
             }
 
-            if ((restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                 restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
-                !shouldRefreshAudioForMissingCover)
+            if (restoreResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                restoreResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
             {
                 logger.Info($"{logPrefix}: 命中已保存 MediaInfo，跳过提取 {workItem.FileName ?? workItem.Name ?? displayName}");
                 return;
@@ -197,10 +193,6 @@ namespace MediaInfoKeeper.Services
             refreshOptions.ImageRefreshMode = MetadataRefreshMode.ValidationOnly;
             refreshOptions.ReplaceAllImages = true;
             refreshOptions.EnableThumbnailImageExtraction = true;
-            if (shouldRefreshAudioForMissingCover)
-            {
-                refreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
-            }
             var collectionFolders = libraryManager.GetCollectionFolders(workItem).Cast<BaseItem>().ToArray();
             var libraryOptions = libraryManager.GetLibraryOptions(workItem);
 
@@ -234,8 +226,7 @@ namespace MediaInfoKeeper.Services
                 return;
             }
 
-            if (Plugin.MediaInfoService.HasMediaInfo(item) &&
-                (item is not Audio || Plugin.LibraryService.HasCover(item)))
+            if (Plugin.MediaInfoService.HasMediaInfo(item))
             {
                 logger.Info($"{source}: 跳过，已存在媒体信息 {item.FileName ?? item.Name}");
                 return;

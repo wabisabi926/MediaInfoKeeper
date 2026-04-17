@@ -137,7 +137,6 @@ namespace MediaInfoKeeper.ScheduledTask
                 var dummyLibraryOptions = LibraryService.CopyLibraryOptions(libraryOptions);
 
                 var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                var shouldRefreshAudioForMissingCover = false;
                 if (item is Video)
                 {
                     Plugin.ChaptersStore.ApplyToItem(item);
@@ -145,32 +144,18 @@ namespace MediaInfoKeeper.ScheduledTask
                 else if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.ApplyToItem(item);
-                    Plugin.CoverStore.ApplyToItem(item);
-                    shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
                 }
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored)
                 {
-                    if (shouldRefreshAudioForMissingCover)
-                    {
-                        this.logger.Info($"从JSON 恢复媒体信息成功但缺少封面，继续提取: {displayName}");
-                    }
-                    else
-                    {
-                        this.logger.Info($"从JSON 恢复成功: {displayName}");
-                        return;
-                    }
+                    this.logger.Info($"从JSON 恢复成功: {displayName}");
+                    return;
                 }
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
-                    if (item is not Audio || !shouldRefreshAudioForMissingCover)
-                    {
-                        this.logger.Info($"跳过 已存在MediaInfo: {displayName}");
-                        return;
-                    }
-
-                    this.logger.Info($"音频已存在MediaInfo但缺少封面，继续提取: {displayName}");
+                    this.logger.Info($"跳过 已存在MediaInfo: {displayName}");
+                    return;
                 }
 
                 if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Failed)
@@ -179,15 +164,10 @@ namespace MediaInfoKeeper.ScheduledTask
                 }
                 else
                 {
-                    this.logger.Info($"继续刷新并补全封面: {displayName}");
+                    this.logger.Info($"继续刷新: {displayName}");
                 }
 
                 item.DateLastRefreshed = new DateTimeOffset();
-
-                if (shouldRefreshAudioForMissingCover)
-                {
-                    refreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
-                }
                 
                 await Plugin.ProviderManager
                     .RefreshSingleItem(item, refreshOptions, collectionFolders, dummyLibraryOptions, cancellationToken)

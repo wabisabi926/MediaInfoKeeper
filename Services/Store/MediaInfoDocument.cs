@@ -24,30 +24,15 @@ namespace MediaInfoKeeper.Services
         }
 
         private const string MediaInfoFileExtension = "-mediainfo.json";
-        private const string CoverFileExtension = "-cover.jpg";
-        private const string ThumbFileExtension = "-thumb.jpg";
-
         public MediaSourceInfo MediaSourceInfo { get; set; }
 
         public List<ChapterInfo> Chapters { get; set; } = new List<ChapterInfo>();
 
         public AudioMetadataSnapshot AudioMetadata { get; set; }
 
-        public EmbeddedCoverSnapshot EmbeddedCover { get; set; }
-
         public static string GetMediaInfoJsonPath(BaseItem item)
         {
             return BuildSidecarPath(item, MediaInfoFileExtension);
-        }
-
-        public static string GetCoverPath(BaseItem item)
-        {
-            return BuildSidecarPath(item, item is Audio ? CoverFileExtension : ThumbFileExtension);
-        }
-
-        public static string GetCoverFileName(BaseItem item)
-        {
-            return item.FileNameWithoutExtension + (item is Audio ? CoverFileExtension : ThumbFileExtension);
         }
 
         private static string BuildSidecarPath(BaseItem item, string extension)
@@ -73,11 +58,6 @@ namespace MediaInfoKeeper.Services
         public static void DeleteMediaInfoJson(BaseItem item, IDirectoryService directoryService, string source)
         {
             DeleteSidecar(item, directoryService, GetMediaInfoJsonPath(item), "JSON", source);
-        }
-
-        public static void DeleteCover(BaseItem item, IDirectoryService directoryService, string source)
-        {
-            DeleteSidecar(item, directoryService, GetCoverPath(item), "封面", source);
         }
 
         private static void DeleteSidecar(BaseItem item, IDirectoryService directoryService, string path, string label, string source)
@@ -127,14 +107,4 @@ namespace MediaInfoKeeper.Services
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     }
 
-    public class EmbeddedCoverSnapshot
-    {
-        public string FileName { get; set; }
-
-        public string MimeType { get; set; }
-
-        public ImageType ImageType { get; set; } = ImageType.Primary;
-
-        public bool IsEmbedded { get; set; } = true;
-    }
 }

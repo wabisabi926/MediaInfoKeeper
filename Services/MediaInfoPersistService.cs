@@ -22,7 +22,6 @@ namespace MediaInfoKeeper.Services
 
             if (item is Audio)
             {
-                Plugin.CoverStore?.OverWriteToFile(item);
                 Plugin.AudioMetadataStore?.OverWriteToFile(item);
             }
         }

@@ -108,15 +108,13 @@ namespace MediaInfoKeeper.Web.Handler
                     }
                 }
 
-                if (Plugin.MediaInfoService.HasMediaInfo(item) &&
-                    (item is not Audio || Plugin.LibraryService.HasCover(item)))
+                if (Plugin.MediaInfoService.HasMediaInfo(item))
                 {
                     Plugin.Instance.Logger.Info($"快捷菜单提取媒体信息跳过 已存在MediaInfo: {displayName}");
                     return false;
                 }
 
                 var deserializeResult = Plugin.MediaSourceInfoStore.ApplyToItem(item);
-                var shouldRefreshAudioForMissingCover = false;
                 if (item is Video)
                 {
                     Plugin.ChaptersStore.ApplyToItem(item);
@@ -124,13 +122,10 @@ namespace MediaInfoKeeper.Web.Handler
                 else if (item is Audio)
                 {
                     Plugin.AudioMetadataStore.ApplyToItem(item);
-                    Plugin.CoverStore.ApplyToItem(item);
-                    shouldRefreshAudioForMissingCover = !Plugin.LibraryService.HasCover(item);
                 }
 
-                if ((deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
-                     deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists) &&
-                    !shouldRefreshAudioForMissingCover)
+                if (deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.Restored ||
+                    deserializeResult == MediaInfoDocument.MediaInfoRestoreResult.AlreadyExists)
                 {
                     return true;
                 }
@@ -138,11 +133,6 @@ namespace MediaInfoKeeper.Web.Handler
                 var collectionFolders = Plugin.LibraryManager.GetCollectionFolders(item).Cast<BaseItem>().ToArray();
                 var libraryOptions = Plugin.LibraryManager.GetLibraryOptions(item);
                 var copiedOptions = LibraryService.CopyLibraryOptions(libraryOptions);
-                
-                if (shouldRefreshAudioForMissingCover)
-                {
-                    refreshOptions.ImageRefreshMode = MetadataRefreshMode.FullRefresh;
-                }
                 
                 item.DateLastRefreshed = new DateTimeOffset();
                 await RefreshTaskRunner.RunAsync(

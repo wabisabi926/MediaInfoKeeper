@@ -52,7 +52,6 @@ namespace MediaInfoKeeper
         public static ChaptersStore ChaptersStore { get; private set; }
         public static MediaSourceInfoStore MediaSourceInfoStore { get; private set; }
         public static AudioMetadataStore AudioMetadataStore { get; private set; }
-        public static CoverStore CoverStore { get; private set; }
         public static LibraryService LibraryService { get; private set; }
         public static NotificationApi NotificationApi { get; private set; }
         public static IntroSkipChapterApi IntroSkipChapterApi { get; private set; }
@@ -199,7 +198,6 @@ namespace MediaInfoKeeper
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
             AudioMetadataStore = new AudioMetadataStore(jsonSerializer);
-            CoverStore = new CoverStore(libraryManager, fileSystem, jsonSerializer);
             DanmuService = new DanmuService(logManager, httpClient);
 
             NotificationApi = new NotificationApi(notificationManager, userManager, sessionManager);
@@ -675,9 +673,7 @@ namespace MediaInfoKeeper
 
                 // 判断当前条目是否已有 MediaInfo。
                 var hasMediaInfo = MediaInfoService.HasMediaInfo(e.Item);
-                var needsAudioCoverRefresh = e.Item is Audio && !LibraryService.HasCover(e.Item);
-
-                if (!hasMediaInfo || needsAudioCoverRefresh)
+                if (!hasMediaInfo)
                 {
                     // 优先尝试从 JSON 恢复，减少首次提取耗时。
                     this.logger.Debug("尝试从 JSON 恢复 MediaInfo");
@@ -690,8 +686,6 @@ namespace MediaInfoKeeper
                     else if (e.Item is Audio)
                     {
                         AudioMetadataStore.ApplyToItem(e.Item);
-                        CoverStore.ApplyToItem(e.Item);
-                        shouldRefreshAfterRestore = shouldRefreshAfterRestore || !LibraryService.HasCover(e.Item);
                     }
 
                     // 如果不存在Json文件，则使用ffprobe 提取一次
@@ -704,7 +698,7 @@ namespace MediaInfoKeeper
                         }
 
                         // 恢复失败时先触发媒体信息提取，再写入 JSON。
-                        this.logger.Info($"入库媒体信息: 媒体信息或封面缺失，开始提取 item={e.Item.FileName ?? e.Item.Path}");
+                        this.logger.Info($"入库媒体信息: 媒体信息缺失，开始提取 item={e.Item.FileName ?? e.Item.Path}");
 
                         // 触发一次刷新以提取 MediaInfo。
                         using (FfProcessGuard.Allow())
@@ -918,7 +912,6 @@ namespace MediaInfoKeeper
 
             logger.Info("同步删除 媒体信息 Json");
             MediaInfoDocument.DeleteMediaInfoJson(e.Item, this.directoryService, "Item Removed Event");
-            MediaInfoDocument.DeleteCover(e.Item, this.directoryService, "Item Removed Event");
         }
 
         private string GetLatestReleaseVersion()

@@ -203,7 +203,6 @@ namespace MediaInfoKeeper.Web
             }
 
             var mediaInfoPath = MediaInfoDocument.GetMediaInfoJsonPath(item);
-            var coverPath = MediaInfoDocument.GetCoverPath(item);
             var streams = item.GetMediaStreams().ToList();
             var primaryMediaSource = Plugin.MediaInfoService
                 .GetStaticMediaSources(item, false)
@@ -258,12 +257,6 @@ namespace MediaInfoKeeper.Web
                     Path = mediaInfoPath,
                     Exists = File.Exists(mediaInfoPath),
                     Content = ReadJsonFile<List<MediaInfoDocument>>(mediaInfoPath)
-                },
-                Cover = new DebugBinaryFileInfo
-                {
-                    Path = coverPath,
-                    Exists = File.Exists(coverPath),
-                    Length = File.Exists(coverPath) ? new FileInfo(coverPath).Length : 0
                 },
                 PrimaryImage = primaryImage,
                 ChapterImages = chapterImages,
