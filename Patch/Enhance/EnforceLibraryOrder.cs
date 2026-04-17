@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Threading;
 using HarmonyLib;
-using MediaInfoKeeper.Common;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Data;
 using MediaBrowser.Model.Library;
@@ -138,7 +137,7 @@ namespace MediaInfoKeeper.Patch
                 return true;
             }
 
-            var adminOrderedViews = LibraryApi.FetchAdminOrderedViews();
+            var adminOrderedViews = Plugin.LibraryService?.GetAdminOrderedViews();
             if (adminOrderedViews == null || adminOrderedViews.Length == 0)
             {
                 return true;

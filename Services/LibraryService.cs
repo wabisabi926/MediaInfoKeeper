@@ -16,6 +16,7 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Logging;
+using MediaBrowser.Model.Querying;
 
 namespace MediaInfoKeeper.Services
 {
@@ -49,8 +50,11 @@ namespace MediaInfoKeeper.Services
         private readonly ILibraryManager libraryManager;
         private readonly IProviderManager providerManager;
         private readonly IFileSystem fileSystem;
+        private readonly IUserManager userManager;
         private readonly IUserDataManager userDataManager;
         private readonly IMediaMountManager mediaMountManager;
+        private Dictionary<User, bool> allUsers = new Dictionary<User, bool>();
+        private string[] adminOrderedViews = Array.Empty<string>();
         private readonly MemoryCache favoriteUsersBySeriesIdCache = new MemoryCache(new MemoryCacheOptions());
         private static readonly TimeSpan FavoriteUsersCacheTtl = TimeSpan.FromSeconds(120);
         private static readonly MemoryCacheEntryOptions FavoriteUsersCacheEntryOptions = new MemoryCacheEntryOptions
@@ -63,15 +67,18 @@ namespace MediaInfoKeeper.Services
             ILibraryManager libraryManager,
             IProviderManager providerManager,
             IFileSystem fileSystem,
+            IUserManager userManager,
             IUserDataManager userDataManager,
             IMediaMountManager mediaMountManager)
         {
-            this.logger = Plugin.Instance.Logger;
+            this.logger = Plugin.SharedLogger;
             this.libraryManager = libraryManager;
             this.providerManager = providerManager;
             this.fileSystem = fileSystem;
+            this.userManager = userManager;
             this.userDataManager = userDataManager;
             this.mediaMountManager = mediaMountManager;
+            RefreshUsers();
         }
 
         /// <summary>构建媒体库选择列表，用于配置 UI 复用。</summary>
@@ -133,6 +140,36 @@ namespace MediaInfoKeeper.Services
 
             var displayParent = this.libraryManager.GetItemById(displayParentId);
             return displayParent?.HasImage(ImageType.Primary) == true;
+        }
+
+        public IReadOnlyCollection<User> GetAllUsers(bool refresh = true)
+        {
+            if (refresh)
+            {
+                RefreshUsers();
+            }
+
+            return this.allUsers.Keys.ToList();
+        }
+
+        public string[] GetAdminOrderedViews()
+        {
+            RefreshUsers();
+            return this.adminOrderedViews;
+        }
+
+        public bool HasFileChanged(BaseItem item, IDirectoryService directoryService)
+        {
+            if (item?.IsFileProtocol == true)
+            {
+                var file = directoryService.GetFile(item.Path);
+                if (file != null && item.HasDateModifiedChanged(file.LastWriteTimeUtc))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>根据追更媒体库配置判断条目是否属于命中范围。</summary>
@@ -568,8 +605,7 @@ namespace MediaInfoKeeper.Services
                 ParentIds = new[] { seriesId }
             }).OfType<Season>().ToList();
 
-            LibraryApi.FetchUsers();
-            var users = LibraryApi.AllUsers.Select(e => e.Key);
+            var users = GetAllUsers();
             var matched = new List<User>();
 
             foreach (var user in users)
@@ -616,6 +652,29 @@ namespace MediaInfoKeeper.Services
                     : path + separator)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
+        }
+
+        private void RefreshUsers()
+        {
+            if (this.userManager == null)
+            {
+                this.allUsers = new Dictionary<User, bool>();
+                this.adminOrderedViews = Array.Empty<string>();
+                return;
+            }
+
+            try
+            {
+                var users = this.userManager.GetUserList(new UserQuery()) ?? Array.Empty<User>();
+                this.allUsers = users.ToDictionary(u => u, u => u.Policy?.IsAdministrator == true);
+                this.adminOrderedViews = users.FirstOrDefault(u => u.Policy?.IsAdministrator == true)
+                    ?.Configuration?.OrderedViews ?? Array.Empty<string>();
+            }
+            catch
+            {
+                this.allUsers = new Dictionary<User, bool>();
+                this.adminOrderedViews = Array.Empty<string>();
+            }
         }
 
         public Dictionary<string, bool> PrepareDeepDelete(BaseItem item, string[] scope = null)

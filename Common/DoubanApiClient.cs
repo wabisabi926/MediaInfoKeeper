@@ -94,7 +94,7 @@ namespace MediaInfoKeeper.Common
                 var body = reader.ReadToEnd();
                 if ((int)response.StatusCode < 200 || (int)response.StatusCode >= 300)
                 {
-                    Plugin.Instance?.Logger?.Debug("DoubanApiClient 请求失败: status={0}, url={1}, body={2}", (int)response.StatusCode, url, body);
+                    Plugin.SharedLogger?.Debug("DoubanApiClient 请求失败: status={0}, url={1}, body={2}", (int)response.StatusCode, url, body);
                     return null;
                 }
 
@@ -102,7 +102,7 @@ namespace MediaInfoKeeper.Common
             }
             catch (Exception ex)
             {
-                Plugin.Instance?.Logger?.Debug("DoubanApiClient 请求异常: url={0}, msg={1}", url, ex.Message);
+                Plugin.SharedLogger?.Debug("DoubanApiClient 请求异常: url={0}, msg={1}", url, ex.Message);
                 return null;
             }
         }

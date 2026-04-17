@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
-using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
-using MediaInfoKeeper.Services;
+using MediaInfoKeeper.Store;
 
 namespace MediaInfoKeeper.ScheduledTask
 {
@@ -61,7 +59,7 @@ namespace MediaInfoKeeper.ScheduledTask
                 {
                     if (Plugin.MediaInfoService.HasMediaInfo(item))
                     {
-                        MediaInfoPersistService.OverWritePersistedMedia(item);
+                        MediaInfoPersist.OverWritePersistedMedia(item);
                         hasMediaInfo++;
                     }
                 }

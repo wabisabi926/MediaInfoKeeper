@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
-using System.Threading.Tasks;
 using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Options.Store;
@@ -14,6 +13,7 @@ using MediaInfoKeeper.Options.View;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 using MediaInfoKeeper.Services.IntroSkip;
+using MediaInfoKeeper.Store;
 using MediaBrowser.Common;
 using MediaBrowser.Common.Net;
 using MediaBrowser.Common.Plugins;
@@ -26,7 +26,6 @@ using MediaBrowser.Controller.Notifications;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Controller.Session;
 using MediaBrowser.Controller.Entities.TV;
-using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.MediaEncoding;
 using MediaBrowser.Model.Drawing;
 using MediaBrowser.Model.Globalization;
@@ -84,7 +83,9 @@ namespace MediaInfoKeeper
         internal static IProviderManager ProviderManager { get; private set; }
         internal static IFileSystem FileSystem { get; private set; }
         internal static ILibraryManager LibraryManager { get; private set; }
+        internal static IDirectoryService DirectoryService { get; private set; }
         internal static IHttpClient SharedHttpClient { get; private set; }
+        internal static ILogger SharedLogger { get; private set; }
         internal IApplicationHost AppHost => this.applicationHost;
         internal IItemRepository ItemRepository => this.itemRepository;
 
@@ -164,8 +165,9 @@ namespace MediaInfoKeeper
             ProviderManager = providerManager;
             FileSystem = fileSystem;
             LibraryManager = libraryManager;
+            DirectoryService = this.directoryService;
             SharedHttpClient = httpClient;
-            LibraryApi.Initialize(userManager);
+            SharedLogger = this.logger;
 
             OptionsStore = new PluginOptionsStore(applicationHost, this.logger, this.Name,
                 PrepareOptionsForUi, HandleOptionsSaving, HandleOptionsSaved);
@@ -193,7 +195,7 @@ namespace MediaInfoKeeper
             this.PlugginEnabled = initialOptions.MainPage?.PlugginEnabled ?? true;
             LogOptionsSnapshot(initialOptions, "已加载");
 
-            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userDataManager, mediaMountManager);
+            LibraryService = new LibraryService(libraryManager, providerManager, fileSystem, userManager, userDataManager, mediaMountManager);
             MediaInfoService = new MediaInfoService(libraryManager, mediaSourceManager, fileSystem);
             ChaptersStore = new ChaptersStore(itemRepository, fileSystem, jsonSerializer);
             MediaSourceInfoStore = new MediaSourceInfoStore(libraryManager, itemRepository, fileSystem, jsonSerializer);
@@ -783,7 +785,7 @@ namespace MediaInfoKeeper
                 else
                 {
                     this.logger.Debug("已有 MediaInfo，覆盖写入 JSON");
-                    MediaInfoPersistService.OverWritePersistedMedia(e.Item);
+                    MediaInfoPersist.OverWritePersistedMedia(e.Item);
                 }
                 // 入库加入扫描片头队列
                 if (this.Options.IntroSkip?.ScanIntroOnItemAdded == true && e.Item is Episode episode)

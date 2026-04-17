@@ -5,7 +5,6 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
-using MediaBrowser.Controller.Providers;
 using MediaInfoKeeper.Services.IntroSkip;
 
 namespace MediaInfoKeeper.Web.Handler
@@ -27,7 +26,6 @@ namespace MediaInfoKeeper.Web.Handler
         public MediaInfoMenuResponse Handle(SetIntroRequest request)
         {
             var response = new MediaInfoMenuResponse();
-            var directoryService = new DirectoryService(Plugin.Instance.Logger, Plugin.FileSystem);
             var creditsStartTicks = request?.CreditsStartTicks;
 
             if (request?.Ids == null || request.Ids.Length == 0)

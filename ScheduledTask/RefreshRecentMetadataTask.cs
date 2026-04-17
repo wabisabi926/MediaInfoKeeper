@@ -10,7 +10,6 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 using MediaInfoKeeper.Common;
-using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
 using static MediaInfoKeeper.Options.MainPageOptions;
 
@@ -147,8 +146,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         private MetadataRefreshOptions BuildRefreshOptions(bool replaceMetadata, bool replaceImages, bool replaceThumbnails)
         {
-            var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
-            return new MetadataRefreshOptions(directoryService)
+            return new MetadataRefreshOptions(Plugin.DirectoryService)
             {
                 EnableRemoteContentProbe = true,
                 MetadataRefreshMode = MetadataRefreshMode.FullRefresh,

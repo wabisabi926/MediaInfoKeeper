@@ -5,10 +5,8 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Persistence;
-using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaInfoKeeper.Patch;
-using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.Web.Handler
 {
@@ -57,14 +55,12 @@ namespace MediaInfoKeeper.Web.Handler
                 return response;
             }
 
-            var directoryService = new DirectoryService(Plugin.Instance.Logger, Plugin.FileSystem);
-
             foreach (var item in targetItems)
             {
                 response.Processed++;
                 try
                 {
-                    if (DeleteSingleItemMediaInfo(item, directoryService))
+                    if (DeleteSingleItemMediaInfo(item))
                     {
                         response.Succeeded++;
                     }
@@ -88,7 +84,7 @@ namespace MediaInfoKeeper.Web.Handler
             return response;
         }
 
-        private bool DeleteSingleItemMediaInfo(BaseItem item, DirectoryService directoryService)
+        private bool DeleteSingleItemMediaInfo(BaseItem item)
         {
             if (!(item is Video) && !(item is Audio))
             {

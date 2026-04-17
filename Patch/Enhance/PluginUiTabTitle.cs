@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Globalization;
 using System.Reflection;
 using HarmonyLib;
 using MediaBrowser.Model.Logging;

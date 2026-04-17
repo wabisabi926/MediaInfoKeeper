@@ -17,7 +17,7 @@ using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Providers;
 using MediaInfoKeeper.Common;
-using MediaInfoKeeper.Provider;
+using MediaInfoKeeper.External;
 
 namespace MediaInfoKeeper.Patch
 {

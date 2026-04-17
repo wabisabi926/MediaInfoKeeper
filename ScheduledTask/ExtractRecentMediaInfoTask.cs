@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
+using MediaInfoKeeper.Store;
 
 namespace MediaInfoKeeper.ScheduledTask
 {

@@ -3,12 +3,11 @@ using System.IO;
 using System.Collections.Generic;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
-using MediaBrowser.Model.MediaInfo;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Store
 {
     public class MediaInfoDocument
     {
@@ -62,7 +61,7 @@ namespace MediaInfoKeeper.Services
 
         private static void DeleteSidecar(BaseItem item, IDirectoryService directoryService, string path, string label, string source)
         {
-            var logger = Plugin.Instance?.Logger;
+            var logger = Plugin.SharedLogger;
             var fileSystem = Plugin.FileSystem;
             var file = directoryService.GetFile(path);
 

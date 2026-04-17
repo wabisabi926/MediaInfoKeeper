@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using System.Linq;
-using MediaInfoKeeper.Provider;
+using MediaInfoKeeper.External;
 
 namespace MediaInfoKeeper.Patch
 {

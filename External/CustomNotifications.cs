@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Emby.Notifications;
 using MediaBrowser.Controller;
 
-namespace MediaInfoKeeper.Notification
+namespace MediaInfoKeeper.External
 {
     public class CustomNotifications : INotificationTypeFactory
     {

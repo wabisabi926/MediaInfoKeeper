@@ -9,7 +9,7 @@ using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Serialization;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Store
 {
     public class AudioMetadataStore
     {
@@ -19,7 +19,7 @@ namespace MediaInfoKeeper.Services
         public AudioMetadataStore(IJsonSerializer jsonSerializer)
         {
             this.jsonSerializer = jsonSerializer;
-            this.logger = Plugin.Instance.Logger;
+            this.logger = Plugin.SharedLogger;
         }
 
         public AudioMetadataSnapshot ReadFromFile(BaseItem item)

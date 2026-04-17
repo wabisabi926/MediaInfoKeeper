@@ -11,7 +11,7 @@ using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Providers;
 
-namespace MediaInfoKeeper.Provider
+namespace MediaInfoKeeper.External
 {
     /// <summary>
     /// 在“缺失剧集”场景下对 TMDB 返回结果补入剧集组映射。

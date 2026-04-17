@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaInfoKeeper.Patch;
+using MediaInfoKeeper.Store;
 using MediaBrowser.Common;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.TV;
@@ -36,7 +37,7 @@ namespace MediaInfoKeeper.Services
             ILibraryManager libraryManager,
             IFileSystem fileSystem)
         {
-            this.logger = logManager.GetLogger(Plugin.PluginName);
+            this.logger = Plugin.SharedLogger ?? logManager.GetLogger(Plugin.PluginName);
             this.libraryManager = libraryManager;
             this.fileSystem = fileSystem;
         }
@@ -210,8 +211,7 @@ namespace MediaInfoKeeper.Services
                 return null;
             }
 
-            var hasAudioStream = workEpisode.GetMediaStreams().Any(s => s.Type == MediaStreamType.Audio);
-            if (!hasAudioStream)
+            if (!Plugin.MediaInfoService.HasAudioStream(workEpisode))
             {
                 this.logger.Warn($"{source} 片头扫描预提取: {workEpisode.FileName} MediaInfo 存在但无音频流，跳过扫描");
                 return null;
@@ -230,7 +230,7 @@ namespace MediaInfoKeeper.Services
 
             try
             {
-                var metadataRefreshOptions = new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
+                var metadataRefreshOptions = new MetadataRefreshOptions(Plugin.DirectoryService)
                 {
                     EnableRemoteContentProbe = true,
                     MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,
@@ -695,7 +695,7 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            var directoryService = new DirectoryService(this.logger, Plugin.FileSystem);
+            var directoryService = Plugin.DirectoryService;
             var libraryOptions = this.libraryManager.GetLibraryOptions(episode);
             var hasLibraryOptions = libraryOptions != null;
             this.logger.Debug($"LibraryOptions loaded: null={!hasLibraryOptions}");

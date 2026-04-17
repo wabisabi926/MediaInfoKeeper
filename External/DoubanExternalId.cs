@@ -1,11 +1,9 @@
-using System;
-using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 
-namespace MediaInfoKeeper.Provider
+namespace MediaInfoKeeper.External
 {
     public class DoubanExternalId : IExternalId
     {

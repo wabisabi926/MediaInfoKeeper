@@ -9,7 +9,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaInfoKeeper.Common;
-using MediaInfoKeeper.Provider;
+using MediaInfoKeeper.External;
 
 namespace MediaInfoKeeper.Services
 {
@@ -273,7 +273,7 @@ namespace MediaInfoKeeper.Services
                 var rawSubjectId = JsonSerializer.Deserialize<DoubanImdbLookupResponse>(body, JsonOptions)?.id;
                 var subjectId = NormalizeDoubanSubjectId(rawSubjectId);
                 DoubanImdbSubjectCache[imdbId] = new CacheEntry<string> { At = ConfiguredDateTime.NowOffset, Value = subjectId };
-                Plugin.Instance?.Logger?.Debug(
+                Plugin.SharedLogger?.Debug(
                     "DoubanService 豆瓣 IMDb 请求完成: imdb={0}, rawSubject={1}, subject={2}",
                     imdbId,
                     rawSubjectId ?? string.Empty,
@@ -447,7 +447,7 @@ namespace MediaInfoKeeper.Services
             {
                 item.SetProviderId(DoubanExternalId.StaticName, normalizedSubjectId);
                 Plugin.Instance?.ItemRepository?.SaveItem(item, CancellationTokenUtility.None);
-                Plugin.Instance?.Logger?.Info(
+                Plugin.SharedLogger?.Info(
                     "DoubanService 豆瓣链接写入: {0} ({1}) doubanid={2}",
                     item.FileName ?? string.Empty,
                     item.ProductionYear,
@@ -455,7 +455,7 @@ namespace MediaInfoKeeper.Services
             }
             catch (Exception ex)
             {
-                Plugin.Instance?.Logger?.Info(
+                Plugin.SharedLogger?.Info(
                     "DoubanService 豆瓣链接写入失败: {0} ({1}) doubanid={2}, msg={3}",
                     item?.FileName ?? string.Empty,
                     item?.ProductionYear,

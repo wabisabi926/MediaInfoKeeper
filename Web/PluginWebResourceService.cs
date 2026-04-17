@@ -17,7 +17,7 @@ using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Serialization;
 using MediaInfoKeeper.Common;
 using MediaInfoKeeper.Options;
-using MediaInfoKeeper.Services;
+using MediaInfoKeeper.Store;
 using MediaInfoKeeper.Web.Handler;
 
 namespace MediaInfoKeeper.Web
@@ -207,7 +207,7 @@ namespace MediaInfoKeeper.Web
             var primaryMediaSource = Plugin.MediaInfoService
                 .GetStaticMediaSources(item, false)
                 .FirstOrDefault();
-            var directoryService = new DirectoryService(Plugin.Instance.Logger, Plugin.FileSystem);
+            var directoryService = Plugin.DirectoryService;
             var primaryImage = BuildPrimaryImageInfo(item);
             var chapterImages = BuildChapterImagesInfo(item);
             var thumbnailSets = BuildThumbnailSetsInfo(item, directoryService);

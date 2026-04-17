@@ -2,7 +2,7 @@ using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 
-namespace MediaInfoKeeper.Provider
+namespace MediaInfoKeeper.External
 {
     public class MovieDbEpisodeGroupExternalId : IExternalId
     {

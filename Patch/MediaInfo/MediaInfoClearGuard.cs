@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Threading;
 using HarmonyLib;
 using MediaInfoKeeper.Services;
-using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
 

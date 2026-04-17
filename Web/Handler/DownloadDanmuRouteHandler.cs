@@ -7,7 +7,6 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaInfoKeeper.Options;
-using MediaInfoKeeper.Services;
 
 namespace MediaInfoKeeper.Web.Handler
 {

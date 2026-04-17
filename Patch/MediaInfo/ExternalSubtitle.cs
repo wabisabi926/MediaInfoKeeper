@@ -10,7 +10,6 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.MediaEncoding;
 using MediaBrowser.Controller.Persistence;
 using MediaBrowser.Controller.Providers;
-using MediaBrowser.Model.Configuration;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Globalization;
 using MediaBrowser.Model.IO;
@@ -167,7 +166,7 @@ namespace MediaInfoKeeper.Patch
 
         public MetadataRefreshOptions GetRefreshOptions()
         {
-            return new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
+            return new MetadataRefreshOptions(Plugin.DirectoryService)
             {
                 EnableRemoteContentProbe = true,
                 MetadataRefreshMode = MetadataRefreshMode.ValidationOnly,

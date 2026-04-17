@@ -1,8 +1,6 @@
 using System.ComponentModel;
 using System.IO;
-using System;
 using Emby.Web.GenericEdit;
-using Emby.Web.GenericEdit.Common;
 using Emby.Web.GenericEdit.Editors;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Model.Attributes;

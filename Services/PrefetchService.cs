@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediaInfoKeeper.Options;
 using MediaInfoKeeper.Patch;
+using MediaInfoKeeper.Store;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.TV;

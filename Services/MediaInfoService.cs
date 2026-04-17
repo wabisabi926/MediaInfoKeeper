@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
@@ -26,13 +23,13 @@ namespace MediaInfoKeeper.Services
             IMediaSourceManager mediaSourceManager,
             IFileSystem fileSystem)
         {
-            this.logger = Plugin.Instance.Logger;
+            this.logger = Plugin.SharedLogger;
             this.libraryManager = libraryManager;
             this.mediaSourceManager = mediaSourceManager;
             this.fileSystem = fileSystem;
         }
 
-        /// <summary>判断条目是否已存在 MediaInfo。</summary>
+        /// <summary>判断条目是否已存在可用的 MediaInfo。</summary>
         public bool HasMediaInfo(BaseItem item)
         {
             if (item is not IHasMediaSources)
@@ -40,18 +37,41 @@ namespace MediaInfoKeeper.Services
                 return false;
             }
 
-            var mediaSources = GetStaticMediaSources(item, false);
+            foreach (var source in GetStaticMediaSources(item, false))
+            {
+                if (source?.RunTimeTicks.HasValue != true)
+                {
+                    continue;
+                }
 
-            return mediaSources.Any(source =>
-                source?.RunTimeTicks.HasValue == true &&
-                (source.MediaStreams ?? new List<MediaStream>()).Any(stream =>
-                    stream.Type == MediaStreamType.Video || stream.Type == MediaStreamType.Audio));
+                foreach (var stream in source.MediaStreams ?? Enumerable.Empty<MediaStream>())
+                {
+                    if (stream.Type == MediaStreamType.Audio || stream.Type == MediaStreamType.Video)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>判断条目当前 MediaInfo 中是否存在音频流。</summary>
+        public bool HasAudioStream(BaseItem item)
+        {
+            return HasStreamType(item, MediaStreamType.Audio);
+        }
+
+        /// <summary>判断条目当前 MediaInfo 中是否存在视频流。</summary>
+        public bool HasVideoStream(BaseItem item)
+        {
+            return HasStreamType(item, MediaStreamType.Video);
         }
 
         /// <summary>构建 MediaInfo 提取所需的刷新选项。</summary>
         public MetadataRefreshOptions GetMediaInfoRefreshOptions()
         {
-            return new MetadataRefreshOptions(new DirectoryService(this.logger, this.fileSystem))
+            return new MetadataRefreshOptions(Plugin.DirectoryService)
             {
                 EnableRemoteContentProbe = true,
                 MetadataRefreshMode = MetadataRefreshMode.FullRefresh,
@@ -85,20 +105,25 @@ namespace MediaInfoKeeper.Services
                 user: null);
         }
 
-        /// <summary>生成相对路径并处理基础兼容逻辑。</summary>
-        private static string GetRelativePathCompat(string rootPath, string fullPath)
+        private bool HasStreamType(BaseItem item, MediaStreamType streamType)
         {
-            if (string.IsNullOrEmpty(rootPath) || string.IsNullOrEmpty(fullPath))
+            if (item is not IHasMediaSources)
             {
-                return fullPath;
+                return false;
             }
 
-            var root = rootPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) +
-                       Path.DirectorySeparatorChar;
+            foreach (var source in GetStaticMediaSources(item, false))
+            {
+                foreach (var stream in source?.MediaStreams ?? Enumerable.Empty<MediaStream>())
+                {
+                    if (stream.Type == streamType)
+                    {
+                        return true;
+                    }
+                }
+            }
 
-            return fullPath.StartsWith(root, StringComparison.OrdinalIgnoreCase)
-                ? fullPath.Substring(root.Length)
-                : fullPath;
+            return false;
         }
     }
 }

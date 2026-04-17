@@ -10,7 +10,7 @@ using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Serialization;
 using MediaInfoKeeper.Patch;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Store
 {
     public class ChaptersStore
     {
@@ -24,7 +24,7 @@ namespace MediaInfoKeeper.Services
             this.itemRepository = itemRepository;
             this.fileSystem = fileSystem;
             this.jsonSerializer = jsonSerializer;
-            this.logger = Plugin.Instance.Logger;
+            this.logger = Plugin.SharedLogger;
         }
 
         public List<ChapterInfo> ReadFromFile(BaseItem item)

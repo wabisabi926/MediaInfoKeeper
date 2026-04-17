@@ -14,7 +14,7 @@ using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.MediaInfo;
 using MediaBrowser.Model.Serialization;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Store
 {
     public class MediaSourceInfoStore
     {
@@ -34,7 +34,7 @@ namespace MediaInfoKeeper.Services
             this.itemRepository = itemRepository;
             this.fileSystem = fileSystem;
             this.jsonSerializer = jsonSerializer;
-            this.logger = Plugin.Instance.Logger;
+            this.logger = Plugin.SharedLogger;
         }
 
         public MediaSourceInfo ReadFromFile(BaseItem item)

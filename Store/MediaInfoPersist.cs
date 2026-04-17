@@ -1,9 +1,9 @@
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 
-namespace MediaInfoKeeper.Services
+namespace MediaInfoKeeper.Store
 {
-    internal static class MediaInfoPersistService
+    internal static class MediaInfoPersist
     {
         public static void OverWritePersistedMedia(BaseItem item)
         {

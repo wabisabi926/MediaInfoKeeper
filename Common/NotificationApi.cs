@@ -37,8 +37,6 @@ namespace MediaInfoKeeper.Common
                 return;
             }
 
-            LibraryApi.FetchUsers();
-
             var paths = mountPaths
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Distinct(StringComparer.OrdinalIgnoreCase)
@@ -48,7 +46,7 @@ namespace MediaInfoKeeper.Common
                 return;
             }
 
-            var users = LibraryApi.AllUsers.Select(e => e.Key);
+            var users = Plugin.LibraryService?.GetAllUsers() ?? Array.Empty<User>();
             foreach (var user in users)
             {
                 var request = new NotificationRequest

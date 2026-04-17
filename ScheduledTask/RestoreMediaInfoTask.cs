@@ -9,6 +9,7 @@ using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Tasks;
 using MediaInfoKeeper.Patch;
 using MediaInfoKeeper.Services;
+using MediaInfoKeeper.Store;
 
 namespace MediaInfoKeeper.ScheduledTask
 {

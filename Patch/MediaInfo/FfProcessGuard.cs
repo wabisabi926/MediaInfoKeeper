@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
-using MediaInfoKeeper.Services;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Logging;
+using MediaInfoKeeper.Store;
 
 namespace MediaInfoKeeper.Patch
 {
@@ -588,7 +588,7 @@ namespace MediaInfoKeeper.Patch
                 if (item != null && Plugin.MediaInfoService?.HasMediaInfo(item) == true)
                 {
                     logger?.Info($"ffprobe 新提取，覆盖写入Json: {displayName}");
-                    MediaInfoPersistService.OverWritePersistedMedia(item);
+                    MediaInfoPersist.OverWritePersistedMedia(item);
                     return;
                 }
 

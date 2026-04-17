@@ -37,7 +37,7 @@ namespace MediaInfoKeeper.Services
 
         public DanmuService(ILogManager logManager, IHttpClient httpClient)
         {
-            this.logger = logManager.GetLogger(Plugin.PluginName);
+            this.logger = Plugin.SharedLogger ?? logManager.GetLogger(Plugin.PluginName);
             this.httpClient = httpClient;
         }
 
