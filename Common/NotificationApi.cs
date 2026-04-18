@@ -46,25 +46,20 @@ namespace MediaInfoKeeper.Common
                 return;
             }
 
-            var users = Plugin.LibraryService?.GetAllUsers() ?? Array.Empty<User>();
-            foreach (var user in users)
+            var request = new NotificationRequest
             {
-                var request = new NotificationRequest
-                {
-                    Title = Plugin.PluginName + " - 深度删除",
-                    EventId = "deep.delete",
-                    User = user,
-                    Item = item,
-                    Description = string.Format(
-                        "Item Name:{0}{1}{0}{0}Item Path:{0}{2}{0}{0}Mount Paths:{0}{3}",
-                        Environment.NewLine,
-                        item?.Name ?? string.Empty,
-                        item?.Path ?? string.Empty,
-                        string.Join(Environment.NewLine, paths))
-                };
+                Title = Plugin.PluginName + " - 深度删除",
+                EventId = "deep.delete",
+                Item = item,
+                Description = string.Format(
+                    "Item Name:{0}{1}{0}{0}Item Path:{0}{2}{0}{0}Mount Paths:{0}{3}",
+                    Environment.NewLine,
+                    item?.Name ?? string.Empty,
+                    item?.Path ?? string.Empty,
+                    string.Join(Environment.NewLine, paths))
+            };
 
-                this.notificationManager.SendNotification(request);
-            }
+            this.notificationManager.SendNotification(request);
         }
 
         public int LibraryNewSendNotification(Series series, Episode episode, IReadOnlyCollection<User> users)
