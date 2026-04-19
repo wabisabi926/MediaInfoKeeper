@@ -3,18 +3,28 @@ set -euo pipefail
 
 NAS_HOST="${NAS_HOST:-root@192.168.33.100}"
 CONTAINER="${CONTAINER:-emby}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION_READER_SCRIPT="${VERSION_READER_SCRIPT:-${SCRIPT_DIR}/read_assembly_version.py}"
 LOCAL_DIR="${LOCAL_DIR:-/Users/honue/Documents/Emby/dlls}"
+EMBY_VERSION="${EMBY_VERSION:-}"
 OVERWRITE=0
 
 DEFAULT_DLLS=(
+  "/system/Emby.Api.dll"
+  "/system/Emby.Naming.dll"
+  "/system/Emby.Notifications.dll"
+  "/system/Emby.ProcessRun.dll"
   "/system/Emby.Providers.dll"
   "/system/Emby.Server.Implementations.dll"
-  "/system/Emby.Sqlite.dll"
   "/system/Emby.Server.MediaEncoding.dll"
-  "/system/Emby.ProcessRun.dll"
+  "/system/Emby.Sqlite.dll"
+  "/system/Emby.Web.GenericUI.dll"
+  "/system/Emby.Web.dll"
+  "/system/MediaBrowser.Controller.dll"
+  "/system/MediaBrowser.Model.dll"
   "/system/plugins/MovieDb.dll"
-  "/system/plugins/Tvdb.dll"
   "/system/SQLitePCLRawEx.core.dll"
+  "/system/plugins/Tvdb.dll"
 )
 
 print_usage() {
@@ -24,13 +34,17 @@ Usage:
   ./get_emby_dll.sh Emby.Providers.dll MovieDb.dll
   ./get_emby_dll.sh /system/Emby.Providers.dll /system/plugins/MovieDb.dll
   ./get_emby_dll.sh --host root@192.168.33.100 --container emby --local-dir "/Users/honue/Documents/Emby/dlls" Emby.Sqlite.dll
+  ./get_emby_dll.sh --emby-version 4.9.3.0 Emby.Sqlite.dll
   ./get_emby_dll.sh --overwrite Emby.Providers.dll
   ./get_emby_dll.sh --list
 
 Options:
   --host <ssh-target>       SSH target, default: ${NAS_HOST}
   --container <name>        Docker container name, default: ${CONTAINER}
-  --local-dir <path>        Local output directory, default: ${LOCAL_DIR}
+  --local-dir <path>        Local DLL root directory. Files are stored under:
+                            <local-dir>/<emby-version>/
+                            Default: ${LOCAL_DIR}
+  --emby-version <version>  Override detected Emby version for the target folder name
   --overwrite               Overwrite existing local files
   --list                    Print built-in DLL paths and exit
   -h, --help                Show this help
@@ -38,8 +52,9 @@ Options:
 Notes:
   - Without DLL arguments, the script downloads the built-in default DLL list.
   - Existing local files are skipped by default. Use --overwrite to replace them.
-  - This directory should contain DLL files only. Decompiled source goes under:
-    /Users/honue/Documents/Emby/dlls/source
+  - The script detects Emby version from /system/EmbyServer.dll by default.
+  - Decompiled source should go under:
+    <local-dir>/<emby-version>/source
   - DLL arguments can be a full container path, a bare file name, or a plugin file name.
   - Bare names ending in .dll default to /system/<name>, except MovieDb.dll and Tvdb.dll which default to /system/plugins/.
 EOF
@@ -75,6 +90,24 @@ print_default_dlls() {
   done
 }
 
+run_version_reader() {
+  local dll_path="$1"
+
+  python3 "${VERSION_READER_SCRIPT}" "${dll_path}"
+}
+
+detect_remote_emby_version() {
+  local tmp_dir
+  local tmp_dll
+
+  tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/emby-version.XXXXXX")"
+  tmp_dll="${tmp_dir}/EmbyServer.dll"
+  trap 'rm -rf "${tmp_dir}"' RETURN
+
+  ssh "${NAS_HOST}" "docker exec '${CONTAINER}' cat /system/EmbyServer.dll" > "${tmp_dll}"
+  run_version_reader "${tmp_dll}"
+}
+
 DLLS=()
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -88,6 +121,10 @@ while [ "$#" -gt 0 ]; do
       ;;
     --local-dir)
       LOCAL_DIR="${2:?missing value for --local-dir}"
+      shift 2
+      ;;
+    --emby-version)
+      EMBY_VERSION="${2:?missing value for --emby-version}"
       shift 2
       ;;
     --overwrite)
@@ -126,13 +163,18 @@ if [ "${#DLLS[@]}" -eq 0 ]; then
   DLLS=("${DEFAULT_DLLS[@]}")
 fi
 
-mkdir -p "$LOCAL_DIR"
+if [ -z "${EMBY_VERSION}" ]; then
+  EMBY_VERSION="$(detect_remote_emby_version)"
+fi
+
+TARGET_DIR="${LOCAL_DIR}/${EMBY_VERSION}"
+mkdir -p "${TARGET_DIR}"
 
 DLLS_TO_DOWNLOAD=()
 SKIPPED_LOCAL=()
 
 for dll_path in "${DLLS[@]}"; do
-  local_path="${LOCAL_DIR}/$(basename "$dll_path")"
+  local_path="${TARGET_DIR}/$(basename "$dll_path")"
   if [ "$OVERWRITE" -eq 0 ] && [ -e "$local_path" ]; then
     SKIPPED_LOCAL+=("$local_path")
     continue
@@ -160,7 +202,8 @@ done
 REMOTE_SCRIPT_LINES+=("tar -C \"\$tmp\" -cf - .")
 REMOTE_SCRIPT="$(printf '%s\n' "${REMOTE_SCRIPT_LINES[@]}")"
 
-echo "Downloading ${#DLLS_TO_DOWNLOAD[@]} file(s) from ${NAS_HOST}:${CONTAINER} -> ${LOCAL_DIR}"
+echo "Detected Emby version: ${EMBY_VERSION}"
+echo "Downloading ${#DLLS_TO_DOWNLOAD[@]} file(s) from ${NAS_HOST}:${CONTAINER} -> ${TARGET_DIR}"
 printf '  %s\n' "${DLLS_TO_DOWNLOAD[@]}"
 
 if [ "${#SKIPPED_LOCAL[@]}" -gt 0 ]; then
@@ -168,7 +211,9 @@ if [ "${#SKIPPED_LOCAL[@]}" -gt 0 ]; then
   printf '  %s\n' "${SKIPPED_LOCAL[@]}"
 fi
 
-ssh "$NAS_HOST" "$REMOTE_SCRIPT" | tar -C "$LOCAL_DIR" -xf -
+ssh "$NAS_HOST" "$REMOTE_SCRIPT" | tar -C "$TARGET_DIR" -xf -
 
-echo "Done: $LOCAL_DIR"
-ls -lh "$LOCAL_DIR"
+mkdir -p "${TARGET_DIR}/source"
+
+echo "Done: ${TARGET_DIR}"
+ls -lh "${TARGET_DIR}"

@@ -11,14 +11,15 @@
 - Primary inputs: `*_methods.txt`
 
 ## Local Dependency Layout
-- DLL directory: `/Users/honue/Documents/Emby/dlls`
-- Decompiled source directory: `/Users/honue/Documents/Emby/dlls/source`
+- DLL root directory: `/Users/honue/Documents/Emby/dlls`
+- Versioned DLL directory: `/Users/honue/Documents/Emby/dlls/<emby_version>`
+- Decompiled source directory: `/Users/honue/Documents/Emby/dlls/<emby_version>/source`
 - Decompiled folder format: `<AssemblyName>_<version>`
 - Default version suffix comes from `EMBY_DOCS_DIR`, for example `emby_4.9.3.0` -> `4.9.3.0`
 
 ## Required Research Order
 1. Read `Docs/${EMBY_DOCS_DIR}/<Assembly>_methods.txt` for exact method signatures.
-2. Read decompiled source under `/Users/honue/Documents/Emby/dlls/source/<AssemblyName>_<version>/` for real behavior, access modifiers, inheritance, and usable entry points.
+2. Read decompiled source under `/Users/honue/Documents/Emby/dlls/<emby_version>/source/<AssemblyName>_<version>/` for real behavior, access modifiers, inheritance, and usable entry points.
 3. Use both before changing any patch that targets Emby internals.
 
 ## Missing Dependency Workflow
@@ -27,7 +28,7 @@
 - If decompiled source is missing, generate it with `bash Scripts/decompile_emby_dlls.sh <DllName.dll>`.
 - Pass explicit DLL names by default. Do not use the full default set unless all default DLLs are actually needed.
 - Invoke scripts with `bash Scripts/...` by default. Do not assume the executable bit is present.
-- `Scripts/decompile_emby_dlls.sh` only writes source folders under `/Users/honue/Documents/Emby/dlls/source/`; it does not generate Markdown index files.
+- `Scripts/decompile_emby_dlls.sh` only writes source folders under `/Users/honue/Documents/Emby/dlls/<emby_version>/source/`; it does not generate Markdown index files.
 
 ## macOS Decompile Notes
 - `ilspycmd` may require .NET 8 even if newer runtimes are installed.
@@ -61,9 +62,9 @@ bash Scripts/decompile_emby_dlls.sh Emby.Providers.dll
 
 ## High-Value Decompiled Entry Points
 - External subtitle scanning usually starts from:
-  - `/Users/honue/Documents/Emby/dlls/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/BaseTrackResolver.cs`
-  - `/Users/honue/Documents/Emby/dlls/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/SubtitleResolver.cs`
-  - `/Users/honue/Documents/Emby/dlls/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/FFProbeSubtitleInfo.cs`
+  - `/Users/honue/Documents/Emby/dlls/4.9.3.0/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/BaseTrackResolver.cs`
+  - `/Users/honue/Documents/Emby/dlls/4.9.3.0/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/SubtitleResolver.cs`
+  - `/Users/honue/Documents/Emby/dlls/4.9.3.0/source/Emby.Providers_4.9.3.0/Emby.Providers.MediaInfo/FFProbeSubtitleInfo.cs`
 
 ## Project Map
 - `Patch/`: Harmony patches and method-resolution logic
