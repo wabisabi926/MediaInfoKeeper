@@ -163,6 +163,11 @@ namespace MediaInfoKeeper.Patch
             var primaryHandler = __result;
             ApplyAutomaticDecompression(primaryHandler, options.EnableGzip);
 
+            if (!options.EnableProxyServer)
+            {
+                return;
+            }
+
             if (!TryParseProxyUrl(options.ProxyServerUrl, out var proxyUri, out var credentials))
             {
                 return;
