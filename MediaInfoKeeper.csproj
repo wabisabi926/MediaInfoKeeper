@@ -19,14 +19,12 @@
   </Target>
   <ItemGroup>
     <None Remove="Resources\\ThumbImage.png" />
-    <None Remove="Tokenizer\\linux\\libsimple.so" />
-    <None Remove="Tokenizer\\win\\simple.dll" />
     <None Remove="Resources\\mediainfokeeper.js" />
     <None Remove="Resources\\ede.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Tokenizer\linux\libsimple.so" />
-    <EmbeddedResource Include="Resources\Tokenizer\win\simple.dll" />
+    <EmbeddedResource Include="Resources\\Tokenizer\\**\\*.dll" />
+    <EmbeddedResource Include="Resources\\Tokenizer\\**\\*.so" />
     <EmbeddedResource Include="Resources\\ThumbImage.png" />
     <EmbeddedResource Include="Resources\\mediainfokeeper.js" />
     <EmbeddedResource Include="Resources\\ede.js" />

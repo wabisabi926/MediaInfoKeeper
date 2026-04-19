@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -263,9 +264,9 @@ namespace MediaInfoKeeper.Patch
 
             switch (Environment.OSVersion.Platform)
             {
-                case PlatformID.Win32NT when Environment.Is64BitOperatingSystem:
+                case PlatformID.Win32NT:
                     return Path.Combine(basePath, "simple.dll");
-                case PlatformID.Unix when Environment.Is64BitOperatingSystem:
+                case PlatformID.Unix:
                     return Path.Combine(basePath, "libsimple");
                 default:
                     return Path.Combine(basePath, "simple.dll");
@@ -357,7 +358,7 @@ namespace MediaInfoKeeper.Patch
             try
             {
                 CurrentTokenizerName = DetectCurrentTokenizer(connection, ftsTableName);
-                logger?.Info($"EnhanceChineseSearch - Current tokenizer (before) is {CurrentTokenizerName}");
+                logger?.Info($"增强搜索 - 当前分词器（处理前）：{CurrentTokenizerName}");
                 var shouldEnhance = enhanceChineseSearchEnabled;
                 var shouldRestore = enhanceChineseSearchRestoreEnabled;
                 var shouldAutoRestore = !shouldEnhance && !shouldRestore;
@@ -381,6 +382,7 @@ namespace MediaInfoKeeper.Patch
                 {
                     if (!simpleTokenizerLoaded)
                     {
+                        logger?.Warn("增强搜索 - simple 分词器未加载成功，增强模式将尝试回退。");
                         if (string.Equals(CurrentTokenizerName, "simple", StringComparison.Ordinal))
                         {
                             rebuildFtsResult = RebuildFts(connection, ftsTableName, "unicode61 remove_diacritics 2");
@@ -412,8 +414,8 @@ namespace MediaInfoKeeper.Patch
             }
             catch (Exception e)
             {
-                logger?.Warn("EnhanceChineseSearch - Load Failed");
-                logger?.Warn("增强搜索 - PatchPhase2 失败。");
+                logger?.Warn("增强搜索 - 加载失败。");
+                logger?.Warn("增强搜索 - 失败。");
                 logger?.Warn(e.ToString());
             }
 
@@ -422,15 +424,15 @@ namespace MediaInfoKeeper.Patch
             var shouldResetOptions = (isEnhanceMode && !patchSearchFunctionsResult) || !rebuildFtsResult || hasUnknownTokenizer;
             if (shouldResetOptions)
             {
-                logger?.Warn("EnhanceChineseSearch - Load Failed");
+                logger?.Warn("增强搜索 - 加载失败。");
                 ResetOptions();
             }
             else if (shouldLogLoadSuccess)
             {
-                logger?.Info("EnhanceChineseSearch - Load Success");
+                logger?.Info("增强搜索 - 加载成功。");
             }
 
-            logger?.Info($"EnhanceChineseSearch - Current tokenizer (after) is {CurrentTokenizerName}");
+            logger?.Info($"增强搜索 - 当前分词器（处理后）：{CurrentTokenizerName}");
         }
 
         private static string DetectCurrentTokenizer(IDatabaseConnection connection, string ftsTableName)
@@ -463,14 +465,14 @@ namespace MediaInfoKeeper.Patch
         {
             if (!isInitialized || createConnection == null)
             {
-                logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: search module not initialized");
+                logger?.Warn("增强搜索 - 跳过重建搜索索引：搜索模块未初始化。");
                 return false;
             }
 
             var repository = Plugin.Instance?.ItemRepository;
             if (repository == null)
             {
-                logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: item repository unavailable");
+                logger?.Warn("增强搜索 - 跳过重建搜索索引：条目仓库不可用。");
                 return false;
             }
 
@@ -480,13 +482,13 @@ namespace MediaInfoKeeper.Patch
                 connection = OpenLibraryConnection(repository);
                 if (connection == null)
                 {
-                    logger?.Warn("EnhanceChineseSearch - Search index rebuild skipped: connection unavailable");
+                    logger?.Warn("增强搜索 - 跳过重建搜索索引：数据库连接不可用。");
                     return false;
                 }
 
                 const string ftsTableName = "fts_search9";
                 CurrentTokenizerName = DetectCurrentTokenizer(connection, ftsTableName);
-                logger?.Info($"EnhanceChineseSearch - Current tokenizer (before) is {CurrentTokenizerName}");
+                logger?.Info($"增强搜索 - 重建前当前分词器：{CurrentTokenizerName}");
 
                 var targetTokenizer = "unicode61 remove_diacritics 2";
                 if (enhanceChineseSearchEnabled && LoadTokenizerExtension(connection, false))
@@ -497,18 +499,18 @@ namespace MediaInfoKeeper.Patch
                 var rebuildResult = RebuildFts(connection, ftsTableName, targetTokenizer);
                 if (!rebuildResult)
                 {
-                    logger?.Warn("EnhanceChineseSearch - Load Failed");
+                    logger?.Warn("增强搜索 - 重建搜索索引失败。");
                     return false;
                 }
 
                 CurrentTokenizerName = targetTokenizer;
-                logger?.Info("EnhanceChineseSearch - Load Success");
-                logger?.Info($"EnhanceChineseSearch - Current tokenizer (after) is {CurrentTokenizerName}");
+                logger?.Info("增强搜索 - 重建搜索索引成功。");
+                logger?.Info($"增强搜索 - 重建后当前分词器：{CurrentTokenizerName}");
                 return true;
             }
             catch (Exception e)
             {
-                logger?.Warn("EnhanceChineseSearch - Load Failed");
+                logger?.Warn("增强搜索 - 重建搜索索引失败。");
                 logger?.Warn(e.ToString());
                 return false;
             }
@@ -543,12 +545,12 @@ namespace MediaInfoKeeper.Patch
                     $"CREATE VIRTUAL TABLE IF NOT EXISTS {ftsTableName} USING FTS5 (Name, OriginalTitle, SeriesName, Album, tokenize=\"{tokenizerName}\", prefix='1 2 3 4')";
                 connection.Execute(createFtsTableQuery);
 
-                logger?.Info($"EnhanceChineseSearch - Filling {ftsTableName} Start");
+                logger?.Info($"增强搜索 - 开始填充 {ftsTableName}");
 
                 connection.Execute(populateQuery);
                 connection.CommitTransaction();
 
-                logger?.Info($"EnhanceChineseSearch - Filling {ftsTableName} Complete");
+                logger?.Info($"增强搜索 - 填充 {ftsTableName} 完成");
 
                 return true;
             }
@@ -581,7 +583,9 @@ namespace MediaInfoKeeper.Patch
             var resourceName = GetTokenizerResourceName();
             var expectedSha1 = GetExpectedSha1();
 
-            if (resourceName == null || expectedSha1 == null)
+            if (string.IsNullOrWhiteSpace(tokenizerPath) ||
+                string.IsNullOrWhiteSpace(resourceName) ||
+                string.IsNullOrWhiteSpace(expectedSha1))
             {
                 return false;
             }
@@ -595,9 +599,6 @@ namespace MediaInfoKeeper.Patch
                     {
                         return true;
                     }
-
-                    ExportTokenizer(resourceName);
-                    return true;
                 }
 
                 ExportTokenizer(resourceName);
@@ -632,31 +633,79 @@ namespace MediaInfoKeeper.Patch
         private static string GetTokenizerResourceName()
         {
             var tokenizerNamespace = Assembly.GetExecutingAssembly().GetName().Name + ".Resources.Tokenizer";
-            var winSimpleTokenizer = $"{tokenizerNamespace}.win.simple.dll";
-            var linuxSimpleTokenizer = $"{tokenizerNamespace}.linux.libsimple.so";
+            var architecture = RuntimeInformation.OSArchitecture;
+            string resourceName;
 
             switch (Environment.OSVersion.Platform)
             {
-                case PlatformID.Win32NT when Environment.Is64BitOperatingSystem:
-                    return winSimpleTokenizer;
-                case PlatformID.Unix when Environment.Is64BitOperatingSystem:
-                    return linuxSimpleTokenizer;
+                case PlatformID.Win32NT:
+                    switch (architecture)
+                    {
+                        case Architecture.X64:
+                            resourceName = $"{tokenizerNamespace}.win.x64.simple.dll";
+                            break;
+                        case Architecture.Arm64:
+                            resourceName = $"{tokenizerNamespace}.win.arm64.simple.dll";
+                            break;
+                        default:
+                            resourceName = null;
+                            break;
+                    }
+                    break;
+                case PlatformID.Unix:
+                    switch (architecture)
+                    {
+                        case Architecture.X64:
+                            resourceName = $"{tokenizerNamespace}.linux.x64.libsimple.so";
+                            break;
+                        case Architecture.Arm64:
+                            resourceName = $"{tokenizerNamespace}.linux.arm64.libsimple.so";
+                            break;
+                        default:
+                            resourceName = null;
+                            break;
+                    }
+                    break;
                 default:
-                    return null;
+                    resourceName = null;
+                    break;
             }
+            return resourceName;
         }
 
         private static string GetExpectedSha1()
         {
-            switch (Environment.OSVersion.Platform)
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
-                case PlatformID.Win32NT:
+                if (RuntimeInformation.OSArchitecture == Architecture.X64)
+                {
                     return "338bb0915d6f4625b54f041bdeb6791b6e590c4e";
-                case PlatformID.Unix:
-                    return "a6188af48c0fef201cb24dbebc65c4cf5b4ddf9b";
-                default:
-                    return null;
+                }
+
+                if (RuntimeInformation.OSArchitecture == Architecture.Arm64)
+                {
+                    return "338bb0915d6f4625b54f041bdeb6791b6e590c4e";
+                }
+
+                return null;
             }
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                if (RuntimeInformation.OSArchitecture == Architecture.X64)
+                {
+                    return "a6188af48c0fef201cb24dbebc65c4cf5b4ddf9b";
+                }
+
+                if (RuntimeInformation.OSArchitecture == Architecture.Arm64)
+                {
+                    return "16d3b24f2a5d2f89c6ae56d412613f8379d1ad8a";
+                }
+
+                return null;
+            }
+
+            return null;
         }
 
         private static string ComputeSha1(string filePath)

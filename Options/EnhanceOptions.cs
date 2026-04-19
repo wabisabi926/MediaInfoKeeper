@@ -16,7 +16,7 @@ namespace MediaInfoKeeper.Options
         public override string EditorDescription => "增强功能页，搜索、Web 调整、深度删除、通知、人物显示、NFO、合集、媒体库和日志这些都在这里。改完记得保存。";
 
         [DisplayName("启用增强搜索")]
-        [Description("支持中文模糊搜索与拼音搜索，默认关闭。\n\n卸载插件前，请先关闭本功能并保存配置，再移除插件；不要直接在插件页卸载或手动删除 dll，否则可能导致数据库无法读写，并出现以下错误：\n\nSQLitePCL.pretty.SQLiteException: Error: no such tokenizer: simple\n\n如果插件版本更新，出现上述错误，本页面点击一次“保存配置”恢复正常。")]
+        [Description("支持中文模糊搜索与拼音搜索，默认关闭。\n\n修改后请先保存配置，再重启 Emby 使设置生效。\n\n卸载插件前，请先关闭本功能并保存配置，再移除插件，避免出现 no such tokenizer: simple。")]
         public bool EnhanceChineseSearch { get; set; } = false;
 
         [Browsable(false)]

@@ -5,6 +5,8 @@ Debug/
 Release/
 x64/
 x86/
+!Resources/Tokenizer/**/x64/
+!Resources/Tokenizer/**/x64/**
 *.exe
 *.lib
 *.obj
