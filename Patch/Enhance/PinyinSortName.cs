@@ -406,14 +406,17 @@ namespace MediaInfoKeeper.Patch
                 }
 
                 Plugin.Instance?.UpdatePinyinSortNameLastProcessedAt(startedAt);
-                var checkpointLocal = checkpointAt == DateTimeOffset.MinValue
-                    ? DateTimeOffset.MinValue
-                    : ConfiguredDateTime.ToConfiguredOffset(checkpointAt);
-                logger?.Info(
-                    "PinyinSortName 已同步排序名：候选 {0} 项，更新 {1} 项，时间起点 {2:O}。",
-                    candidateCount,
-                    updatedCount,
-                    checkpointLocal);
+                if (updatedCount > 0)
+                {
+                    var checkpointLocal = checkpointAt == DateTimeOffset.MinValue
+                        ? DateTimeOffset.MinValue
+                        : ConfiguredDateTime.ToConfiguredOffset(checkpointAt);
+                    logger?.Info(
+                        "PinyinSortName 已同步排序名：候选 {0} 项，更新 {1} 项，时间起点 {2:O}。",
+                        candidateCount,
+                        updatedCount,
+                        checkpointLocal);
+                }
             }
             catch (Exception ex)
             {

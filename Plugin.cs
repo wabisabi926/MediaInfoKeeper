@@ -324,7 +324,7 @@ namespace MediaInfoKeeper
             var persistedOptions = this.OptionsStore.LoadOptionsFromDisk();
             this.pendingSavedOptionsSnapshot = persistedOptions == null
                 ? null
-                : CreateOptionSnapshot(BuildOptionLogEntries(persistedOptions));
+                : CreateOptionSnapshot(BuildPersistedOptionLogEntries(persistedOptions));
 
             options.MainPage.CatchupLibraries = NormalizeScopedLibraries(options.MainPage.CatchupLibraries);
             options.MainPage.ScheduledTaskLibraries = NormalizeScopedLibraries(options.MainPage.ScheduledTaskLibraries);
@@ -438,7 +438,7 @@ namespace MediaInfoKeeper
                 return;
             }
 
-            var entries = BuildOptionLogEntries(options);
+            var entries = BuildPersistedOptionLogEntries(options);
             var currentSnapshot = CreateOptionSnapshot(entries);
             var baselineSnapshot = this.pendingSavedOptionsSnapshot ?? this.lastLoggedOptionsSnapshot;
 
@@ -550,6 +550,15 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Debug.EnableFfProcessGuard", "Debug", "启用 ffprocess 拦截", options.Debug.EnableFfProcessGuard.ToString()),
 #endif
             };
+        }
+
+        private List<OptionLogEntry> BuildPersistedOptionLogEntries(PluginConfiguration options)
+        {
+            return BuildOptionLogEntries(options)
+                .Where(entry =>
+                    !string.Equals(entry.Key, "GitHub.CurrentVersion", StringComparison.Ordinal) &&
+                    !string.Equals(entry.Key, "GitHub.LatestReleaseVersion", StringComparison.Ordinal))
+                .ToList();
         }
 
         private void LogOptionEntries(IEnumerable<OptionLogEntry> entries)
