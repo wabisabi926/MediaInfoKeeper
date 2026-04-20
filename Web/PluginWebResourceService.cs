@@ -95,6 +95,12 @@ namespace MediaInfoKeeper.Web
                 throw new ResourceNotFoundException();
             }
 
+            if (Plugin.DanmuService?.IsSupportedItem(item) != true)
+            {
+                logger?.Info($"弹幕API: 非视频条目，跳过 itemId={request.ItemId} item={item.FileName} type={item.GetType().Name}");
+                return _resultFactory.GetResult(Request, ReadOnlyMemory<byte>.Empty, "application/xml");
+            }
+
             var danmuXmlPath = Path.Combine(item.ContainingFolderPath, item.FileNameWithoutExtension + ".xml");
             var localExists = File.Exists(danmuXmlPath);
             var fetchMode = Plugin.Instance?.Options?.MetaData?.DanmuFetchMode;
