@@ -343,6 +343,46 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "StrmVideoDirectRedirect",
+                Initialize = options => StrmVideoDirectRedirect.Initialize(
+                    logger,
+                    options.Enhance.EnableStrmDirectRedirect,
+                    options.Enhance.StrmDirectRedirectFollow302,
+                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
+                    options.Enhance.StrmDirectRedirectReuseLimit,
+                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                Configure = options => StrmVideoDirectRedirect.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
+                    options.Enhance.StrmDirectRedirectFollow302,
+                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
+                    options.Enhance.StrmDirectRedirectReuseLimit,
+                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
+                IsReady = () => StrmVideoDirectRedirect.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
+                Name = "StrmAudioDirectRedirect",
+                Initialize = options => StrmAudioDirectRedirect.Initialize(
+                    logger,
+                    options.Enhance.EnableStrmDirectRedirect,
+                    options.Enhance.StrmDirectRedirectFollow302,
+                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
+                    options.Enhance.StrmDirectRedirectReuseLimit,
+                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                Configure = options => StrmAudioDirectRedirect.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
+                    options.Enhance.StrmDirectRedirectFollow302,
+                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
+                    options.Enhance.StrmDirectRedirectReuseLimit,
+                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
+                IsReady = () => StrmAudioDirectRedirect.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "DeepDelete",
                 Initialize = options => DeepDelete.Initialize(logger, options.Enhance.EnableDeepDelete),
                 Configure = options => DeepDelete.Configure(IsPluginEnabled(options) && options.Enhance.EnableDeepDelete),

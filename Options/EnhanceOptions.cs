@@ -48,6 +48,34 @@ namespace MediaInfoKeeper.Options
         [DisplayName("排除原始标题")]
         [Description("从搜索中排除 OriginalTitle 字段")]
         public bool ExcludeOriginalTitleFromSearch { get; set; } = false;
+
+        [DisplayName("Strm 直连")]
+        [Description("对无需转码且可直放的远端 http .strm 视频和音乐生效，让客户端直接拉取直链而不是经 Emby 中转。")]
+        public bool EnableStrmDirectRedirect { get; set; } = false;
+
+        [DisplayName("跟踪 302 跳转")]
+        [Description("开启后会先跟踪并缓存 302 最终地址，客户端重定向到最终直链；关闭后直接返回 .strm 中的原始 URL。保存设置后会显示参数设置")]
+        [VisibleCondition(nameof(EnableStrmDirectRedirect), SimpleCondition.IsTrue)]
+        public bool StrmDirectRedirectFollow302 { get; set; } = true;
+
+        [Browsable(false)]
+        public bool ShowStrmDirectRedirectAdvancedOptions =>
+            EnableStrmDirectRedirect && StrmDirectRedirectFollow302;
+
+        [DisplayName("直链缓存时间")]
+        [Description("302 直链的缓存时间（秒），0 为不缓存，负数为永不过期。")]
+        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
+        public int StrmDirectRedirectCacheDurationSeconds { get; set; } = 3600;
+
+        [DisplayName("直链复用因子")]
+        [Description("同一个 itemId + UA 命中的 302 最终地址最多复用次数；达到上限后会重新解析并刷新缓存。")]
+        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
+        public int StrmDirectRedirectReuseLimit { get; set; } = 5;
+
+        [DisplayName("预缓存数量")]
+        [Description("最多保留多少个 302 URL 缓存项；超出后会淘汰最旧的缓存项。")]
+        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
+        public int StrmDirectRedirectPrecacheCount { get; set; } = 1;
         
         [DisplayName("启用深度删除")]
         [Description("删除媒体时，尝试级联删除 STRM 或软链接目标文件及相关文件和空目录。")]
@@ -203,6 +231,13 @@ namespace MediaInfoKeeper.Options
                 nameof(EnhanceChineseSearch),
                 nameof(SearchScope),
                 nameof(ExcludeOriginalTitleFromSearch));
+
+            AddGroup("Emby Strm", "",
+                nameof(EnableStrmDirectRedirect),
+                nameof(StrmDirectRedirectFollow302),
+                nameof(StrmDirectRedirectCacheDurationSeconds),
+                nameof(StrmDirectRedirectReuseLimit),
+                nameof(StrmDirectRedirectPrecacheCount));
 
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));
