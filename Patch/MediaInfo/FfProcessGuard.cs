@@ -588,7 +588,11 @@ namespace MediaInfoKeeper.Patch
                 if (item != null && Plugin.MediaInfoService?.HasMediaInfo(item) == true)
                 {
                     logger?.Info($"ffprobe 新提取，覆盖写入Json: {displayName}");
-                    MediaInfoPersist.OverWritePersistedMedia(item);
+                    _ = Task.Run(async () =>
+                    {
+                        await Task.Delay(3000).ConfigureAwait(false);
+                        MediaInfoPersist.OverWritePersistedMedia(item);
+                    });
                     return;
                 }
 

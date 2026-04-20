@@ -100,8 +100,8 @@ namespace MediaInfoKeeper.Store
                 audio.ParentIndexNumber = snapshot.ParentIndexNumber;
                 audio.ProductionYear = snapshot.ProductionYear;
                 audio.SetProviderIds(new ProviderIdDictionary(snapshot.ProviderIds ?? new Dictionary<string, string>()));
-                audio.UpdateToRepository(ItemUpdateType.MetadataImport);
                 RestorePrimaryImage(audio, snapshot);
+                audio.UpdateToRepository(ItemUpdateType.MetadataImport);
 
                 this.logger.Debug($"AudioMetadataStore 恢复音乐元数据完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
@@ -194,7 +194,7 @@ namespace MediaInfoKeeper.Store
                         CancellationToken.None)
                     .GetAwaiter()
                     .GetResult();
-                this.logger.Debug($"AudioMetadataStore 主图恢复成功: {(audio.FileName ?? audio.Path)}");
+                this.logger.Info($"AudioMetadataStore 主图恢复成功: {(audio.FileName ?? audio.Path)}");
             }
             catch (Exception ex)
             {

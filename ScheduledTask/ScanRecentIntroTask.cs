@@ -29,11 +29,7 @@ namespace MediaInfoKeeper.ScheduledTask
 
         public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
         {
-            yield return new TaskTriggerInfo
-            {
-                Type = TaskTriggerInfo.TriggerDaily,
-                TimeOfDayTicks = TimeSpan.FromHours(1).Ticks
-            };
+            return Array.Empty<TaskTriggerInfo>();
         }
 
         public async Task Execute(CancellationToken cancellationToken, IProgress<double> progress)

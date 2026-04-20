@@ -65,15 +65,15 @@ namespace MediaInfoKeeper.Options
         [DisplayName("直链缓存时间")]
         [Description("302 直链的缓存时间（秒），0 为不缓存，负数为永不过期。")]
         [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
-        public int StrmDirectRedirectCacheDurationSeconds { get; set; } = 3600;
+        public int StrmDirectRedirectCacheDurationSeconds { get; set; } = 5400;
 
         [DisplayName("直链复用因子")]
         [Description("同一个 itemId + UA 命中的 302 最终地址最多复用次数；达到上限后会重新解析并刷新缓存。")]
         [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
-        public int StrmDirectRedirectReuseLimit { get; set; } = 5;
+        public int StrmDirectRedirectReuseLimit { get; set; } = 3;
 
-        [DisplayName("预缓存数量")]
-        [Description("最多保留多少个 302 URL 缓存项；超出后会淘汰最旧的缓存项。")]
+        [DisplayName("预缓存集数")]
+        [Description("当前集命中 302 后，后台额外预热后续几集的直链解析结果。")]
         [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
         public int StrmDirectRedirectPrecacheCount { get; set; } = 1;
         

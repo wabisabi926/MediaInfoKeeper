@@ -504,7 +504,7 @@ namespace MediaInfoKeeper
                 new OptionLogEntry("Enhance.StrmDirectRedirectFollow302", "Enhance", "跟踪 302 跳转", options.Enhance.StrmDirectRedirectFollow302.ToString()),
                 new OptionLogEntry("Enhance.StrmDirectRedirectCacheDurationSeconds", "Enhance", "直链缓存时间", options.Enhance.StrmDirectRedirectCacheDurationSeconds.ToString()),
                 new OptionLogEntry("Enhance.StrmDirectRedirectReuseLimit", "Enhance", "直链复用因子", options.Enhance.StrmDirectRedirectReuseLimit.ToString()),
-                new OptionLogEntry("Enhance.StrmDirectRedirectPrecacheCount", "Enhance", "302 预缓存数量", options.Enhance.StrmDirectRedirectPrecacheCount.ToString()),
+                new OptionLogEntry("Enhance.StrmDirectRedirectPrecacheCount", "Enhance", "302 预缓存集数", options.Enhance.StrmDirectRedirectPrecacheCount.ToString()),
                 new OptionLogEntry("Enhance.EnableDeepDelete", "Enhance", "启用深度删除", options.Enhance.EnableDeepDelete.ToString()),
                 new OptionLogEntry("Enhance.EnableNfoMetadataEnhance", "Enhance", "启用 NFO 增强", options.Enhance.EnableNfoMetadataEnhance.ToString()),
                 new OptionLogEntry("Enhance.HidePersonNoImage", "Enhance", "隐藏无图人物", options.Enhance.HidePersonNoImage.ToString()),
