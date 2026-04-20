@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Library;
@@ -100,6 +101,7 @@ namespace MediaInfoKeeper.Store
                 audio.ProductionYear = snapshot.ProductionYear;
                 audio.SetProviderIds(new ProviderIdDictionary(snapshot.ProviderIds ?? new Dictionary<string, string>()));
                 audio.UpdateToRepository(ItemUpdateType.MetadataImport);
+                RestorePrimaryImage(audio, snapshot);
 
                 this.logger.Debug($"AudioMetadataStore 恢复音乐元数据完成: {(item.FileName ?? item.Path)}");
                 return MediaInfoDocument.MediaInfoRestoreResult.Restored;
@@ -113,14 +115,14 @@ namespace MediaInfoKeeper.Store
             }
         }
 
-        private static AudioMetadataSnapshot CreateForPersist(BaseItem item)
+        private AudioMetadataSnapshot CreateForPersist(BaseItem item)
         {
             if (item is not Audio audio)
             {
                 return null;
             }
 
-            return new AudioMetadataSnapshot
+            var snapshot = new AudioMetadataSnapshot
             {
                 Name = audio.Name,
                 Album = audio.Album,
@@ -132,6 +134,98 @@ namespace MediaInfoKeeper.Store
                 ProductionYear = audio.ProductionYear,
                 ProviderIds = new Dictionary<string, string>(audio.ProviderIds ?? new ProviderIdDictionary(), StringComparer.OrdinalIgnoreCase)
             };
+
+            TryFillPrimaryImage(audio, snapshot);
+            return snapshot;
+        }
+
+        private void TryFillPrimaryImage(Audio audio, AudioMetadataSnapshot snapshot)
+        {
+            var primaryImage = audio.GetImageInfo(ImageType.Primary, 0);
+            var imagePath = primaryImage?.Path;
+            if (string.IsNullOrWhiteSpace(imagePath) || !File.Exists(imagePath))
+            {
+                this.logger.Debug($"AudioMetadataStore 主图写入跳过: {(audio.FileName ?? audio.Path)} 无可读取主图");
+                return;
+            }
+
+            try
+            {
+                snapshot.PrimaryImageBase64 = Convert.ToBase64String(File.ReadAllBytes(imagePath));
+                snapshot.PrimaryImageMimeType = GetImageMimeType(imagePath);
+                this.logger.Debug($"AudioMetadataStore 主图写入成功: {(audio.FileName ?? audio.Path)}");
+            }
+            catch (Exception ex)
+            {
+                this.logger.Warn($"AudioMetadataStore 主图写入失败: {(audio.FileName ?? audio.Path)} {ex.Message}");
+            }
+        }
+
+        private void RestorePrimaryImage(Audio audio, AudioMetadataSnapshot snapshot)
+        {
+            if (audio.HasImage(ImageType.Primary))
+            {
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(snapshot?.PrimaryImageBase64))
+            {
+                return;
+            }
+
+            try
+            {
+                var imageBytes = Convert.FromBase64String(snapshot.PrimaryImageBase64);
+                var mimeType = string.IsNullOrWhiteSpace(snapshot.PrimaryImageMimeType)
+                    ? "image/jpeg"
+                    : snapshot.PrimaryImageMimeType;
+                using var imageStream = new MemoryStream(imageBytes, writable: false);
+                var libraryOptions = Plugin.LibraryManager.GetLibraryOptions(audio);
+                Plugin.ProviderManager.SaveImage(
+                        audio,
+                        libraryOptions,
+                        imageStream,
+                        mimeType.AsMemory(),
+                        ImageType.Primary,
+                        null,
+                        Array.Empty<long>(),
+                        Plugin.DirectoryService,
+                        updateImageCache: true,
+                        CancellationToken.None)
+                    .GetAwaiter()
+                    .GetResult();
+                this.logger.Debug($"AudioMetadataStore 主图恢复成功: {(audio.FileName ?? audio.Path)}");
+            }
+            catch (Exception ex)
+            {
+                this.logger.Warn($"AudioMetadataStore 主图恢复失败: {(audio.FileName ?? audio.Path)} {ex.Message}");
+            }
+        }
+
+        private static string GetImageMimeType(string imagePath)
+        {
+            var extension = Path.GetExtension(imagePath);
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                return "image/jpeg";
+            }
+
+            switch (extension.ToLowerInvariant())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".png":
+                    return "image/png";
+                case ".webp":
+                    return "image/webp";
+                case ".gif":
+                    return "image/gif";
+                case ".bmp":
+                    return "image/bmp";
+                default:
+                    return "image/jpeg";
+            }
         }
 
         private void SaveDocuments(List<MediaInfoDocument> documents, MediaInfoDocument document, string mediaInfoJsonPath)

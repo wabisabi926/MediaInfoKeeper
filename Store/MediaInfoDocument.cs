@@ -104,6 +104,10 @@ namespace MediaInfoKeeper.Store
 
         public Dictionary<string, string> ProviderIds { get; set; } =
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        public string PrimaryImageBase64 { get; set; }
+
+        public string PrimaryImageMimeType { get; set; }
     }
 
 }
