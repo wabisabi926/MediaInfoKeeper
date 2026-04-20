@@ -119,14 +119,23 @@ namespace MediaInfoKeeper.Web
                         .GetResult();
                     if (xmlBytes != null && xmlBytes.Length > 0)
                     {
-                        if (networkFirst)
+                        try
                         {
+                            var directory = Path.GetDirectoryName(danmuXmlPath);
+                            if (!string.IsNullOrWhiteSpace(directory))
+                            {
+                                Directory.CreateDirectory(directory);
+                            }
+
                             File.WriteAllBytes(danmuXmlPath, xmlBytes);
-                            logger?.Info($"弹幕API: 网络拉取成功并写入本地 {logContext} path={danmuXmlPath}");
+                            logger?.Info(networkFirst
+                                ? $"弹幕API: 网络拉取成功并写入本地 {logContext} path={danmuXmlPath}"
+                                : $"弹幕API: 本地未命中，临时拉取并写入本地 {logContext} path={danmuXmlPath}");
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            logger?.Info($"弹幕API: 本地未命中，临时拉取返回 {logContext}");
+                            logger?.Info($"弹幕API: 拉取成功但写入本地失败 {logContext} path={danmuXmlPath} error={ex.Message}");
+                            logger?.Debug(ex.StackTrace);
                         }
 
                         return _resultFactory.GetResult(Request, (ReadOnlyMemory<byte>)xmlBytes, "application/xml");

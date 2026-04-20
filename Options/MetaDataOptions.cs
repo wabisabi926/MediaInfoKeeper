@@ -99,7 +99,7 @@ namespace MediaInfoKeeper.Options
         public bool EnableDanmuPrefetch { get; set; } = false;
         
         [DisplayName("弹幕加载策略")]
-        [Description("本地优先：存在本地 xml 直接返回；不存在时临时拉取网络兜底。网络优先：先拉取最新 xml 返回；失败则本地 xml 兜底。")]
+        [Description("本地优先：存在本地 xml 直接返回；不存在时拉取并写入本地。网络优先：先拉取最新 xml 并写入本地；失败则本地 xml 兜底。")]
         [Editor(typeof(EditorSelectSingle), typeof(EditorBase))]
         [SelectItemsSource(nameof(DanmuFetchModeList))]
         [VisibleCondition(nameof(EnableDanmuApi), SimpleCondition.IsTrue)]
