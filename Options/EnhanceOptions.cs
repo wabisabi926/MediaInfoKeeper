@@ -54,27 +54,26 @@ namespace MediaInfoKeeper.Options
         public bool EnableStrmDirectRedirect { get; set; } = false;
 
         [DisplayName("跟踪 302 跳转")]
-        [Description("开启后会先跟踪并缓存 302 最终地址，客户端重定向到最终直链；关闭后直接返回 .strm 中的原始 URL。保存设置后会显示参数设置")]
+        [Description("开启后会跟踪到 302 最终地址，客户端重定向到最终直链；关闭后直接返回 .strm 中的原始 URL。")]
         [VisibleCondition(nameof(EnableStrmDirectRedirect), SimpleCondition.IsTrue)]
         public bool StrmDirectRedirectFollow302 { get; set; } = true;
-
+        
+        [DisplayName("视频直连客户端黑名单")]
+        [VisibleCondition(nameof(EnableStrmDirectRedirect), SimpleCondition.IsTrue)]
+        public string StrmVideoDirectRedirectClientBlacklist { get; set; } = string.Empty;
+        
+        [DisplayName("音乐直连客户端黑名单")]
+        [Description("按客户端名称关键字匹配，命中的客户端不启用 .strm 302 直连。支持逗号、分号或换行分隔。")]
+        [VisibleCondition(nameof(EnableStrmDirectRedirect), SimpleCondition.IsTrue)]
+        public string StrmAudioDirectRedirectClientBlacklist { get; set; } = "Emby Web";
+        
         [Browsable(false)]
-        public bool ShowStrmDirectRedirectAdvancedOptions =>
-            EnableStrmDirectRedirect && StrmDirectRedirectFollow302;
-
-        [DisplayName("直链缓存时间")]
-        [Description("302 直链的缓存时间（秒），0 为不缓存，负数为永不过期。")]
-        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
         public int StrmDirectRedirectCacheDurationSeconds { get; set; } = 5400;
 
-        [DisplayName("直链复用因子")]
-        [Description("同一个 itemId + UA 命中的 302 最终地址最多复用次数；达到上限后会重新解析并刷新缓存。")]
-        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
+        [Browsable(false)]
         public int StrmDirectRedirectReuseLimit { get; set; } = 3;
 
-        [DisplayName("预缓存集数")]
-        [Description("当前集命中 302 后，后台额外预热后续几集的直链解析结果。")]
-        [VisibleCondition(nameof(ShowStrmDirectRedirectAdvancedOptions), SimpleCondition.IsTrue)]
+        [Browsable(false)]
         public int StrmDirectRedirectPrecacheCount { get; set; } = 1;
         
         [DisplayName("启用深度删除")]
@@ -235,9 +234,8 @@ namespace MediaInfoKeeper.Options
             AddGroup("Emby Strm", "",
                 nameof(EnableStrmDirectRedirect),
                 nameof(StrmDirectRedirectFollow302),
-                nameof(StrmDirectRedirectCacheDurationSeconds),
-                nameof(StrmDirectRedirectReuseLimit),
-                nameof(StrmDirectRedirectPrecacheCount));
+                nameof(StrmVideoDirectRedirectClientBlacklist),
+                nameof(StrmAudioDirectRedirectClientBlacklist));
 
             AddGroup("深度删除", "",
                 nameof(EnableDeepDelete));

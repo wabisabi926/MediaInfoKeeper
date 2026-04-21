@@ -48,6 +48,7 @@ namespace MediaInfoKeeper.Patch
         private static int redirectUrlCacheDurationSeconds = 3600;
         private static int redirectUrlCacheReuseLimit = 5;
         private static int redirectUrlPrecacheCount = 1;
+        private static string[] clientBlacklist = Array.Empty<string>();
 
         public static bool IsReady => harmony != null
             && processRequestMethod != null
@@ -61,17 +62,18 @@ namespace MediaInfoKeeper.Patch
             bool follow302,
             int cacheDurationSeconds,
             int reuseLimit,
-            int precacheCount)
+            int precacheCount,
+            string clientBlacklistText)
         {
             if (harmony != null)
             {
-                Configure(enabled, follow302, cacheDurationSeconds, reuseLimit, precacheCount);
+                Configure(enabled, follow302, cacheDurationSeconds, reuseLimit, precacheCount, clientBlacklistText);
                 return;
             }
 
             logger = pluginLogger;
             isEnabled = enabled;
-            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, precacheCount);
+            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, precacheCount, clientBlacklistText);
 
             try
             {
@@ -172,10 +174,10 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        public static void Configure(bool enabled, bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount)
+        public static void Configure(bool enabled, bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount, string clientBlacklistText)
         {
             isEnabled = enabled;
-            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, precacheCount);
+            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, precacheCount, clientBlacklistText);
             if (harmony == null)
             {
                 return;
@@ -259,6 +261,12 @@ namespace MediaInfoKeeper.Patch
                 var requestContext = GetPropertyValue<IRequest>(__instance, "Request");
                 var mediaSource = GetPropertyValue<MediaSourceInfo>(state, "MediaSource");
                 if (resultFactory == null || mediaSource == null)
+                {
+                    DisposeState(state);
+                    return true;
+                }
+
+                if (IsClientBlocked(requestContext))
                 {
                     DisposeState(state);
                     return true;
@@ -432,12 +440,13 @@ namespace MediaInfoKeeper.Patch
         }
 
         /// <summary>应用运行时配置，并在必要时清理缓存与预加载去重状态。</summary>
-        private static void ApplySettings(bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount)
+        private static void ApplySettings(bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount, string clientBlacklistText)
         {
             followRedirect302 = follow302;
             redirectUrlCacheDurationSeconds = cacheDurationSeconds;
             redirectUrlCacheReuseLimit = reuseLimit;
             redirectUrlPrecacheCount = precacheCount;
+            clientBlacklist = ParseClientBlacklist(clientBlacklistText);
 
             if (!followRedirect302 || redirectUrlCacheDurationSeconds == 0)
             {
@@ -639,6 +648,50 @@ namespace MediaInfoKeeper.Patch
             }
 
             return Uri.UnescapeDataString(encodedValue).Trim();
+        }
+
+        private static bool IsClientBlocked(IRequest requestContext)
+        {
+            if (requestContext == null || clientBlacklist.Length == 0)
+            {
+                return false;
+            }
+
+            var client = ResolveClient(requestContext);
+            if (string.IsNullOrWhiteSpace(client))
+            {
+                return false;
+            }
+
+            if (clientBlacklist.Any(pattern =>
+                    client.IndexOf(pattern, StringComparison.OrdinalIgnoreCase) >= 0))
+            {
+                logger?.Info(
+                    "StrmVideoDirectRedirect: 客户端命中黑名单，回退 Emby 中转。client={0}",
+                    client);
+                return true;
+            }
+
+            return false;
+        }
+
+        private static string ResolveClient(IRequest requestContext)
+        {
+            var sessionContext = Plugin.Instance?.AppHost?.Resolve<ISessionContext>();
+            var session = sessionContext?.GetSession(requestContext);
+            return session?.Client?.Trim();
+        }
+
+        private static string[] ParseClientBlacklist(string text)
+        {
+            return string.IsNullOrWhiteSpace(text)
+                ? Array.Empty<string>()
+                : text
+                    .Split(new[] { ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(item => item?.Trim())
+                    .Where(item => !string.IsNullOrWhiteSpace(item))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToArray();
         }
 
         /// <summary>规范化 URL 与查询串编码，减少等价地址造成的缓存碎片。</summary>

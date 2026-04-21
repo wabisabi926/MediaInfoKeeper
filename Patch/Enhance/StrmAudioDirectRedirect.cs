@@ -41,6 +41,7 @@ namespace MediaInfoKeeper.Patch
         private static bool followRedirect302 = true;
         private static int redirectUrlCacheDurationSeconds = 3600;
         private static int redirectUrlCacheReuseLimit = 5;
+        private static string[] clientBlacklist = Array.Empty<string>();
 
         public static bool IsReady => harmony != null
             && processRequestMethod != null
@@ -54,17 +55,18 @@ namespace MediaInfoKeeper.Patch
             bool follow302,
             int cacheDurationSeconds,
             int reuseLimit,
-            int precacheCount)
+            int precacheCount,
+            string clientBlacklistText)
         {
             if (harmony != null)
             {
-                Configure(enabled, follow302, cacheDurationSeconds, reuseLimit, precacheCount);
+                Configure(enabled, follow302, cacheDurationSeconds, reuseLimit, precacheCount, clientBlacklistText);
                 return;
             }
 
             logger = pluginLogger;
             isEnabled = enabled;
-            ApplySettings(follow302, cacheDurationSeconds, reuseLimit);
+            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, clientBlacklistText);
 
             try
             {
@@ -166,10 +168,10 @@ namespace MediaInfoKeeper.Patch
             }
         }
 
-        public static void Configure(bool enabled, bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount)
+        public static void Configure(bool enabled, bool follow302, int cacheDurationSeconds, int reuseLimit, int precacheCount, string clientBlacklistText)
         {
             isEnabled = enabled;
-            ApplySettings(follow302, cacheDurationSeconds, reuseLimit);
+            ApplySettings(follow302, cacheDurationSeconds, reuseLimit, clientBlacklistText);
             if (harmony == null)
             {
                 return;
@@ -253,6 +255,12 @@ namespace MediaInfoKeeper.Patch
                 var requestContext = GetPropertyValue<IRequest>(__instance, "Request");
                 var mediaSource = GetPropertyValue<MediaSourceInfo>(state, "MediaSource");
                 if (resultFactory == null || mediaSource == null)
+                {
+                    DisposeState(state);
+                    return true;
+                }
+
+                if (IsClientBlocked(requestContext))
                 {
                     DisposeState(state);
                     return true;
@@ -384,11 +392,12 @@ namespace MediaInfoKeeper.Patch
             disposeStateMethod?.Invoke(state, new object[] { true, true });
         }
 
-        private static void ApplySettings(bool follow302, int cacheDurationSeconds, int reuseLimit)
+        private static void ApplySettings(bool follow302, int cacheDurationSeconds, int reuseLimit, string clientBlacklistText)
         {
             followRedirect302 = follow302;
             redirectUrlCacheDurationSeconds = cacheDurationSeconds;
             redirectUrlCacheReuseLimit = reuseLimit;
+            clientBlacklist = ParseClientBlacklist(clientBlacklistText);
 
             if (!followRedirect302 || redirectUrlCacheDurationSeconds == 0)
             {
@@ -556,6 +565,50 @@ namespace MediaInfoKeeper.Patch
         private static string NormalizeRedirectUrl(string url)
         {
             return string.IsNullOrWhiteSpace(url) ? url : url.Trim();
+        }
+
+        private static bool IsClientBlocked(IRequest requestContext)
+        {
+            if (requestContext == null || clientBlacklist.Length == 0)
+            {
+                return false;
+            }
+
+            var client = ResolveClient(requestContext);
+            if (string.IsNullOrWhiteSpace(client))
+            {
+                return false;
+            }
+
+            if (clientBlacklist.Any(pattern =>
+                    client.IndexOf(pattern, StringComparison.OrdinalIgnoreCase) >= 0))
+            {
+                logger?.Info(
+                    "StrmAudioDirectRedirect: 客户端命中黑名单，回退 Emby 中转。client={0}",
+                    client);
+                return true;
+            }
+
+            return false;
+        }
+
+        private static string ResolveClient(IRequest requestContext)
+        {
+            var sessionContext = Plugin.Instance?.AppHost?.Resolve<ISessionContext>();
+            var session = sessionContext?.GetSession(requestContext);
+            return session?.Client?.Trim();
+        }
+
+        private static string[] ParseClientBlacklist(string text)
+        {
+            return string.IsNullOrWhiteSpace(text)
+                ? Array.Empty<string>()
+                : text
+                    .Split(new[] { ',', ';', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(item => item?.Trim())
+                    .Where(item => !string.IsNullOrWhiteSpace(item))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToArray();
         }
 
         private static T GetPropertyValue<T>(object instance, string propertyName)

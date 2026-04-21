@@ -11,6 +11,10 @@ namespace MediaInfoKeeper.Patch
     /// </summary>
     public static class PatchManager
     {
+        private const int DefaultStrmDirectRedirectCacheDurationSeconds = 5400;
+        private const int DefaultStrmDirectRedirectReuseLimit = 3;
+        private const int DefaultStrmDirectRedirectPrecacheCount = 1;
+
         private sealed class PatchRegistration
         {
             public string Name { get; set; }
@@ -348,15 +352,17 @@ namespace MediaInfoKeeper.Patch
                     logger,
                     options.Enhance.EnableStrmDirectRedirect,
                     options.Enhance.StrmDirectRedirectFollow302,
-                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
-                    options.Enhance.StrmDirectRedirectReuseLimit,
-                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                    DefaultStrmDirectRedirectCacheDurationSeconds,
+                    DefaultStrmDirectRedirectReuseLimit,
+                    DefaultStrmDirectRedirectPrecacheCount,
+                    options.Enhance.StrmVideoDirectRedirectClientBlacklist),
                 Configure = options => StrmVideoDirectRedirect.Configure(
                     IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
                     options.Enhance.StrmDirectRedirectFollow302,
-                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
-                    options.Enhance.StrmDirectRedirectReuseLimit,
-                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                    DefaultStrmDirectRedirectCacheDurationSeconds,
+                    DefaultStrmDirectRedirectReuseLimit,
+                    DefaultStrmDirectRedirectPrecacheCount,
+                    options.Enhance.StrmVideoDirectRedirectClientBlacklist),
                 IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
                 IsReady = () => StrmVideoDirectRedirect.IsReady
             });
@@ -368,15 +374,17 @@ namespace MediaInfoKeeper.Patch
                     logger,
                     options.Enhance.EnableStrmDirectRedirect,
                     options.Enhance.StrmDirectRedirectFollow302,
-                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
-                    options.Enhance.StrmDirectRedirectReuseLimit,
-                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                    DefaultStrmDirectRedirectCacheDurationSeconds,
+                    DefaultStrmDirectRedirectReuseLimit,
+                    DefaultStrmDirectRedirectPrecacheCount,
+                    options.Enhance.StrmAudioDirectRedirectClientBlacklist),
                 Configure = options => StrmAudioDirectRedirect.Configure(
                     IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
                     options.Enhance.StrmDirectRedirectFollow302,
-                    options.Enhance.StrmDirectRedirectCacheDurationSeconds,
-                    options.Enhance.StrmDirectRedirectReuseLimit,
-                    options.Enhance.StrmDirectRedirectPrecacheCount),
+                    DefaultStrmDirectRedirectCacheDurationSeconds,
+                    DefaultStrmDirectRedirectReuseLimit,
+                    DefaultStrmDirectRedirectPrecacheCount,
+                    options.Enhance.StrmAudioDirectRedirectClientBlacklist),
                 IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableStrmDirectRedirect,
                 IsReady = () => StrmAudioDirectRedirect.IsReady
             });
