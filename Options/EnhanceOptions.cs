@@ -32,7 +32,10 @@ namespace MediaInfoKeeper.Options
             Person,
             LiveTv,
             Playlist,
-            Video
+            MusicAlbum,
+            MusicTrack,
+            MusicArtist,
+            MusicGenre
         }
 
         [Browsable(false)]
@@ -43,7 +46,14 @@ namespace MediaInfoKeeper.Options
         [EditMultilSelect]
         [SelectItemsSource(nameof(SearchItemTypeList))]
         public string SearchScope { get; set; } =
-            string.Join(",", new[] { SearchItemType.Movie, SearchItemType.Collection, SearchItemType.Series });
+            string.Join(",", new[]
+            {
+                SearchItemType.Movie,
+                SearchItemType.Collection,
+                SearchItemType.Series,
+                SearchItemType.MusicAlbum,
+                SearchItemType.MusicTrack
+            });
 
         [DisplayName("排除原始标题")]
         [Description("从搜索中排除 OriginalTitle 字段")]
@@ -295,17 +305,23 @@ namespace MediaInfoKeeper.Options
                 case SearchItemType.Series:
                     return "剧集";
                 case SearchItemType.Season:
-                    return "季";
+                    return "剧集-季";
                 case SearchItemType.Episode:
-                    return "集";
+                    return "剧集-集";
                 case SearchItemType.Person:
                     return "人物";
                 case SearchItemType.LiveTv:
                     return "直播电视";
                 case SearchItemType.Playlist:
                     return "播放列表";
-                case SearchItemType.Video:
-                    return "视频";
+                case SearchItemType.MusicAlbum:
+                    return "音乐-专辑";
+                case SearchItemType.MusicTrack:
+                    return "音乐-单曲";
+                case SearchItemType.MusicArtist:
+                    return "音乐-艺人";
+                case SearchItemType.MusicGenre:
+                    return "音乐-流派";
                 default:
                     return item.ToString();
             }

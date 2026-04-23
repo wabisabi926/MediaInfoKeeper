@@ -1,5 +1,6 @@
 using HarmonyLib;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.Audio;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.LiveTv;
@@ -303,14 +304,23 @@ namespace MediaInfoKeeper.Patch
                         case EnhanceOptions.SearchItemType.Playlist:
                             includeTypes.AddRange(new[] { nameof(Playlist) });
                             break;
+                        case EnhanceOptions.SearchItemType.MusicAlbum:
+                            includeTypes.AddRange(new[] { nameof(MusicAlbum) });
+                            break;
+                        case EnhanceOptions.SearchItemType.MusicTrack:
+                            includeTypes.AddRange(new[] { nameof(Audio) });
+                            break;
+                        case EnhanceOptions.SearchItemType.MusicArtist:
+                            includeTypes.AddRange(new[] { nameof(MusicArtist) });
+                            break;
+                        case EnhanceOptions.SearchItemType.MusicGenre:
+                            includeTypes.AddRange(new[] { nameof(MusicGenre) });
+                            break;
                         case EnhanceOptions.SearchItemType.Series:
                             includeTypes.AddRange(new[] { nameof(Series) });
                             break;
                         case EnhanceOptions.SearchItemType.Season:
                             includeTypes.AddRange(new[] { nameof(Season) });
-                            break;
-                        case EnhanceOptions.SearchItemType.Video:
-                            includeTypes.AddRange(new[] { nameof(Video) });
                             break;
                     }
                 }
