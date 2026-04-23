@@ -435,6 +435,18 @@ namespace MediaInfoKeeper.Patch
 
             registrations.Add(new PatchRegistration
             {
+                Name = "AudioAlbumPrimaryFallback",
+                Initialize = options => AudioAlbumPrimaryFallback.Initialize(
+                    logger,
+                    options.Enhance.EnableAudioAlbumPrimaryFallback),
+                Configure = options => AudioAlbumPrimaryFallback.Configure(
+                    IsPluginEnabled(options) && options.Enhance.EnableAudioAlbumPrimaryFallback),
+                IsEnabled = options => IsPluginEnabled(options) && options.Enhance.EnableAudioAlbumPrimaryFallback,
+                IsReady = () => AudioAlbumPrimaryFallback.IsReady
+            });
+
+            registrations.Add(new PatchRegistration
+            {
                 Name = "PinyinSortName",
                 Initialize = options => PinyinSortName.Initialize(logger, options.Enhance.EnablePinyinSortName),
                 Configure = options => PinyinSortName.Configure(IsPluginEnabled(options) && options.Enhance.EnablePinyinSortName),

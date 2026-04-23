@@ -105,6 +105,10 @@ namespace MediaInfoKeeper.Options
         [DisplayName("缺失封面使用背景图")]
         [Description("当 episode 没有自己的封面图时，优先提供 series 的背景图。")]
         public bool EnableEpisodeBackdropFallback { get; set; } = true;
+
+        [DisplayName("歌曲缺失封面回退专辑封面")]
+        [Description("当歌曲没有 Primary 封面时，优先使用专辑封面。")]
+        public bool EnableAudioAlbumPrimaryFallback { get; set; } = true;
         
         [DisplayName("启用 NFO 增强")]
         [Description("增强 NFO 人物节点解析，导入使用 actor/director 等人物中的 thumb 图片地址。")]
@@ -257,6 +261,7 @@ namespace MediaInfoKeeper.Options
             AddGroup("UI功能", "",
                 nameof(EnableEpisodeImageAspectRatioOptimize),
                 nameof(EnableEpisodeBackdropFallback),
+                nameof(EnableAudioAlbumPrimaryFallback),
                 nameof(HidePersonNoImage),
                 nameof(HidePersonPreference),
                 nameof(EnablePinyinSortName),
